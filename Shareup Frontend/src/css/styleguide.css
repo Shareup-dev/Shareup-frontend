@@ -1,0 +1,32 @@
+:root { 
+  --black: #000000;
+  --gallery: #efefef;
+  --mercury: #e7e7e7;
+  --storm-dust: #636363;
+  --tuatara: #343434;
+  --white: #ffffff;
+ 
+  --font-size-l: 18px;
+  --font-size-m: 16px;
+  --font-size-s: 14px;
+  --font-size-xl: 21px;
+  --font-size-xs: 13px;
+  --font-size-xxl: 24px;
+ 
+  --font-family-roboto: "Roboto", Helvetica;
+}
+.roboto-normal-black-16px {
+  color: var(--black);
+  font-family: var(--font-family-roboto);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.roboto-medium-tuatara-16px {
+  color: var(--tuatara);
+  font-family: var(--font-family-roboto);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}

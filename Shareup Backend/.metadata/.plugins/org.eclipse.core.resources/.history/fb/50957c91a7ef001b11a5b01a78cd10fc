@@ -1,0 +1,5 @@
+package com.shareup.repository;
+
+public interface SwapRepository {
+
+}
