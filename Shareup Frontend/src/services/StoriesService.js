@@ -1,12 +1,13 @@
 import axios from 'axios';
 import AuthService from './auth.services';
-
+import settings from "./Settings"
+const baseURL = `${settings.apiUrl}/api/v1/`;
 let authAxios = null;
 
 const authenticate = () => {
     if(AuthService.getCurrentUser()){
         authAxios = axios.create({
-            baseURL: 'http://192.168.100.2:8080/api/v1/',
+            baseURL: baseURL,
             headers: {
                 
                 Authorization: `Bearer ${AuthService.getCurrentUser().jwt}`
@@ -14,7 +15,7 @@ const authenticate = () => {
         })
     }else{
         authAxios = axios.create({
-            baseURL: 'http://192.168.100.2:8080/api/v1/'
+            baseURL: baseURL,
         })
     }
 }
