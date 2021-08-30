@@ -1,13 +1,13 @@
 
     const settings = {
         dev: {
-          apiUrl: "http://195.110.59.203:8081",
+          apiUrl: "http://localhost:8080",
         },
         staging: {
-          apiUrl: "http://192.168.100.2:8080",
+          apiUrl: "http://195.110.59.203:8081",
         },
         prod: {
-          apiUrl: "http://localhost:8080",
+          apiUrl: "http://195.110.59.203:8081",
         },
       };
       
