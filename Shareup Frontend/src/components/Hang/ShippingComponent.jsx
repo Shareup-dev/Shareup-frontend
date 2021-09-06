@@ -18,6 +18,7 @@ import Layout from '../LayoutComponent';
 import PostComponent from '../post/PostComponent';
 import Popup from 'reactjs-popup';
 import PhoneInput from 'react-phone-number-input'
+import settings from '../../services/Settings';
 
 
 function ShippingComponent(props)  {

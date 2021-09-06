@@ -3,6 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import UserContext from '../../contexts/UserContext';
 import GroupService from '../../services/GroupService';
 import Layout from '../LayoutComponent';
+import settings from '../../services/Settings';
 
 
 function CreateGroupComponentMain() {

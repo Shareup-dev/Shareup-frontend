@@ -8,7 +8,7 @@ import EditPostComponent from './user/EditPostComponent'
 import FollowingWidgetComponent from './widgets/FollowingWidgetComponent';
 import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
-
+import settings from '../services/Settings';
 export default function Layout(props) {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +43,7 @@ export default function Layout(props) {
                     <aside className="sidebar static">
                     <div className="widget">
                         <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>  
-                       <div className="user"><img src={props.user.profilePicturePath}/>
+                       <div className="user"><img src={settings.apiUrl+props.user.profilePicturePath}/>
                         <a href="/profile"><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                         </div>
                       </div>

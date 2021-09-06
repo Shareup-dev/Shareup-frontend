@@ -9,6 +9,7 @@ import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
 import { nodeName } from 'jquery';
+import settings from '../../services/Settings';
 
 function FriendProfWidgtComponent() {
     let history = useHistory();
@@ -38,7 +39,7 @@ function FriendProfWidgtComponent() {
                 {friendsList.slice(0, 8).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img className="imgFrnd" src={friend.profilePicturePath} alt="" />
+                            <img className="imgFrnd" src={settings.apiUrl+friend.profilePicturePath} alt="" />
                             
                         </figure>
                         <div className="friendz-meta">

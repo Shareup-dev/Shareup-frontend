@@ -17,6 +17,7 @@ import Layout from '../LayoutComponent';
 
 import PostComponent from '../post/PostComponent';
 import Popup from 'reactjs-popup';
+import settings from '../../services/Settings';
 
 
 function PostTextBoxComponent() {
@@ -453,7 +454,7 @@ useEffect(() => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -504,7 +505,7 @@ useEffect(() => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -547,7 +548,7 @@ useEffect(() => {
         </div></div>
     
         <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-        <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+        <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
            <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{userF ?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
            <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
       <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -592,7 +593,7 @@ useEffect(() => {
                         </div></div>
                     
                         <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                        <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                        <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                            <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{userF ?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                            <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                       <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -636,7 +637,7 @@ useEffect(() => {
                         </div></div>
                     
                         <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                        <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                        <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                            <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{userF ?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                            <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                       <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -678,7 +679,7 @@ useEffect(() => {
                         </div></div>
                     
                         <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                        <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                        <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                            <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{userF ?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                            <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                       <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -750,7 +751,7 @@ useEffect(() => {
               </div> */}
                  <div className="new-postbox">
                 <figure>
-                  <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" />
+                  <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>

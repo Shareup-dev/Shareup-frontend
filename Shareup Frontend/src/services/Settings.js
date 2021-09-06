@@ -7,7 +7,7 @@
           apiUrl: "http://195.110.59.203:8081",
         },
         prod: {
-          apiUrl: "http://195.110.59.203:8081",
+          apiUrl: "http://backend.shareup.digital",
         },
       };
       

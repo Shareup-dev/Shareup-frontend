@@ -11,6 +11,7 @@ import FriendsComponent from '../user/FriendsComponent';
 import FriendsService from '../../services/FriendService';
 import PostProfileComponent from '../Profile/PostProfileComponent';
 import FriendProfileComponent from '../Profile/FriendProfileComponent';
+import settings from '../../services/Settings';
 
 
 function ProfileComponent() {
@@ -558,7 +559,7 @@ function ProfileComponent() {
                       {
                         showProfilePicture ?
                           <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicturePath ? <img className="border-gradient" src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                          userProfile.profilePicturePath ? <img className="border-gradient" src={settings.apiUrl+userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                       }
 
                         <form className="edit-phto">

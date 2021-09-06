@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import PostComponentBoxComponent from './PostCommentBoxComponent';
+import settings from '../../services/Settings';
 
 export default function CommentPostComponent({post, setRefresh}) {
     const { user } = useContext(UserContext)
@@ -37,7 +38,7 @@ export default function CommentPostComponent({post, setRefresh}) {
           {comments.map(comment =>
           <li key={comment.id}>
                   <div className="comet-avatar">
-                    <img src={comment.user.profilePicturePath} alt="" />
+                    <img src={settings.apiUrl+comment.user.profilePicturePath} alt="" />
                   </div>
                   <div className="we-comment">
                     <div className="coment-head">
@@ -58,7 +59,7 @@ export default function CommentPostComponent({post, setRefresh}) {
                       {comment.replies.map(reply =>
                         <li key={reply.id}>
                           <div className="comet-avatar">
-                            <img src={reply.user.profilePicturePath} style={{ width: 50 }} alt="" />
+                            <img src={settings.apiUrl+reply.user.profilePicturePath} style={{ width: 50 }} alt="" />
                           </div>
                           <div className="we-comment">
                             <div className="coment-head">

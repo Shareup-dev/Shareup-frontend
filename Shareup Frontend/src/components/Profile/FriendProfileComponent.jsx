@@ -8,6 +8,7 @@ import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
+import settings from '../../services/Settings';
 
 function FriendProfileComponent() {
     let history = useHistory();
@@ -42,7 +43,7 @@ function FriendProfileComponent() {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={friend.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={settings.apiUrl+friend.profilePicturePath} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}

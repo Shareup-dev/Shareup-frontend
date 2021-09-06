@@ -8,6 +8,7 @@ import PostService from '../../services/PostService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
+import settings from '../../services/Settings';
 
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';

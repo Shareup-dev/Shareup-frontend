@@ -7,6 +7,7 @@ import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
+import settings from '../../services/Settings';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
 import GroupService from '../../services/GroupService';
@@ -512,7 +513,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -567,7 +568,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -624,7 +625,8 @@ const handleRemoveImageSwap = () => {
     </div></div>
 
     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
+    </div>
        <div class="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -669,7 +671,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -713,7 +715,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -755,7 +757,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -1027,7 +1029,7 @@ useEffect(() => {
             <div className="central-meta newsfeed">
               <div className="new-postbox">
                 <figure>
-                  <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" />
+                  <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>
@@ -1073,7 +1075,7 @@ useEffect(() => {
 							group =>
 		<li class="slideitem"><a href="#">
           <div className="groupsggstion-card">
-            <div className="groupsggstion-img"><a href={`/groups/${group.id}`} title={group.name}> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a></div>
+            <div className="groupsggstion-img"><a href={`/groups/${group.id}`} title={group.name}> <img src={group.groupImagePath ? settings.apiUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a></div>
             
             <div className="groupsggstion-by">
               <div style={{padding:'5px'}}><span className="groupname"><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></span></div>

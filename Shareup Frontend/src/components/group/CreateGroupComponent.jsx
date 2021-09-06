@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import UserContext from '../../contexts/UserContext';
 import GroupService from '../../services/GroupService';
+import settings from '../../services/Settings';
 
 
 function CreateGroupComponent() {

@@ -10,6 +10,7 @@ import Modal from 'react-modal';
 import { GlobalStyle } from '../../styles/modalStyles';
 import styled from 'styled-components';
 import '../../modal.css';
+import settings from '../../services/Settings';
 
 function RegisterSuccessfulComponent({closeModal}) {
   let history = useHistory();

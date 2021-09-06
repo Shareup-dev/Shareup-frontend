@@ -6,6 +6,7 @@ import Layout from '../LayoutComponent';
 import AuthService from '../../services/auth.services';
 import UserService from '../../services/UserService';
 import FriendsService from '../../services/FriendService';
+import settings from '../../services/Settings';
 
 
 function GuideComponent() {
@@ -173,7 +174,7 @@ function GuideComponent() {
                                 <li className="grp" key={userF.id}>
                                    <div className="grid-container">
                                    <div class="item1">
-                                        <img src={userF.profilePicturePath} alt="" />
+                                        <img src={settings.apiUrl+userF.profilePicturePath} alt="" />
                                         {/* <span className="status f-online" /> */}
                                     </div>
                                     <div class="item2">
@@ -231,7 +232,7 @@ function GuideComponent() {
                                    <div class="item1">
                                     
                                       
-                                            <img src={userF.profilePicturePath} alt="" />
+                                            <img src={settings.apiUrl+userF.profilePicturePath} alt="" />
                                             {/* <span className="status f-online" /> */}
                                             </div>
                                         <div className="item2">
@@ -266,7 +267,7 @@ function GuideComponent() {
                                 <li key={group.id} className="grp">
                                    <div className="grid-container">
                                    <div class="item1">
-                                        <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
+                                        <img src={group.groupImagePath ? settings.apiUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
                                         </div>
                                         <div class="item2">
                                         <p className="nameTag"><a href={`/groups/${group.id}`}>{`${group.name}`}</a></p>

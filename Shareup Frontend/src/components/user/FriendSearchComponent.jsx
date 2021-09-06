@@ -5,6 +5,7 @@ import UserContext from '../../contexts/UserContext';
 import AuthService from '../../services/auth.services';
 import { testScript } from '../../js/script';
 import FriendsService from '../../services/FriendService';
+import settings from '../../services/Settings';
 
 
 function FriendSearchComponent() {
@@ -73,7 +74,7 @@ function FriendSearchComponent() {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>

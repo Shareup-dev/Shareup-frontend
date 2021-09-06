@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ShippingComponent from "./ShippingComponent"
+import settings from '../../services/Settings';
 
 const GeoLocator = props => {
     const [location, setLocation] = useState({ 

@@ -8,6 +8,7 @@ import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
+import settings from '../../services/Settings';
 
 function EditPostComponent({ post, set }) {
     let history = useHistory();
@@ -43,7 +44,7 @@ function EditPostComponent({ post, set }) {
     return (
         <div className="friend-info">
             <figure>
-                <img src={post.user.profilePicturePath} width={50} alt="" />
+                <img src={settings.apiUrl+post.user.profilePicturePath} width={50} alt="" />
             </figure>
             <div className="friend-name">
 
@@ -55,7 +56,7 @@ function EditPostComponent({ post, set }) {
             </div>
             <div className="post-meta">
                 {post.postImagePath ?
-                    <img style={{ maxWidth: "100%", height: "auto" }} src={post.postImagePath} /> : null
+                    <img style={{ maxWidth: "100%", height: "auto" }} src={settings.apiUrl+post.postImagePath} /> : null
                 }
 
             <textarea rows={2} placeholder="write something" name="post_content" defaultValue={post.content} onChange={handleEditContent} />

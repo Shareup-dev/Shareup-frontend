@@ -6,6 +6,7 @@ import AuthService from '../../services/auth.services';
 import { testScript } from '../../js/script';
 import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
+import settings from '../../services/Settings';
 
 
 function MessagesComponent() {
@@ -74,7 +75,7 @@ function MessagesComponent() {
         <div className="left-message">
           <div className="msgHead">
             
-          <a href={`/profile/${user.email}`} title={`${user.email}`}><img className="msgprof" style={{objectFit:'cover'}} src={user.profilePicturePath} alt="" /><span style={{paddingLeft:'10px',fontWeight:'bold',fontSize:'15px'}}>{`${user.firstName} ${user.lastName}`}</span>
+          <a href={`/profile/${user.email}`} title={`${user.email}`}><img className="msgprof" style={{objectFit:'cover'}} src={settings.apiUrl+user.profilePicturePath} alt="" /><span style={{paddingLeft:'10px',fontWeight:'bold',fontSize:'15px'}}>{`${user.firstName} ${user.lastName}`}</span>
           <span  style={{paddingLeft:'20px',fontWeight:'900'}}><img src="/assets/images/msgarrw.svg"/></span></a>
           </div>
           <div class="search-container">
@@ -90,7 +91,7 @@ function MessagesComponent() {
                         <a href="#!" onClick={() => handleChat(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -108,7 +109,7 @@ function MessagesComponent() {
         <div className="right-message ">
         <div style={{height:'10%'}}><div className="msgTop">
         {userR ?
-            <a href={`/profile/${userR.email}`} title={`${userR.email}`}><img className="msgprof" style={{objectFit:'cover'}} src={userR.profilePicturePath} alt="" /><span style={{paddingLeft:'10px',fontWeight:'bold',fontSize:'15px'}}>{`${userR.firstName} ${userR.lastName}`}</span>
+            <a href={`/profile/${userR.email}`} title={`${userR.email}`}><img className="msgprof" style={{objectFit:'cover'}} src={settings.apiUrl+userR.profilePicturePath} alt="" /><span style={{paddingLeft:'10px',fontWeight:'bold',fontSize:'15px'}}>{`${userR.firstName} ${userR.lastName}`}</span>
             </a>:<a href="#" title="user"><img className="msgprof" style={{objectFit:'cover'}} src="https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png" alt="" /><span style={{paddingLeft:'10px',fontWeight:'bold',fontSize:'15px'}}>User</span>
             </a>}
             <div className="msgic"><div style={{paddingRight:'10px',display:'inline'}}><img src="/assets/images/callicon.svg"/></div><div style={{paddingRight:'10px',display:'inline'}}><img src="/assets/images/videoicon.svg"/></div></div>

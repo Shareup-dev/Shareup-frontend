@@ -8,6 +8,7 @@ import PostComponentBoxComponent from './PostCommentBoxComponent';
 import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import settings from '../../services/Settings';
 
 export default function SharePostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -128,7 +129,7 @@ export default function SharePostComponent({ post, setRefresh }) {
                        
                             {post.postImagePath ?
                                 <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> </a></div> : null
+                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
                                 }
 
 
@@ -147,7 +148,7 @@ export default function SharePostComponent({ post, setRefresh }) {
 
                                 
 <figure>
-                                <img src={post.user.profilePicturePath} alt="" />
+                                <img src={settings.apiUrl+post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">

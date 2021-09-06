@@ -1,6 +1,7 @@
 import React, {useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
+import settings from '../services/Settings';
 // import FollowingWidgetComponent from './widgets/FollowingWidgetComponent';
 
 function Layout(props){
@@ -16,7 +17,7 @@ function Layout(props){
                         <aside className="sidebar static">
                         <div className="widget">
                             <h4 className="widget-title">User</h4>
-                            <img src={user.profilePicturePath} style={{width: 80, float:"left"}}></img>
+                            <img src={settings.apiUrl+user.profilePicturePath} style={{width: 80, float:"left"}}></img>
                             <a href={`/profile`}><p style={{fontWeight: "bold"}}>{`${user.firstName} ${user.lastName}`}</p></a>
     
                           </div>

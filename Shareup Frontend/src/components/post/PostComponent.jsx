@@ -8,6 +8,7 @@ import PostComponentBoxComponent from './PostCommentBoxComponent';
 import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import settings from '../../services/Settings';
 
 export default function PostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -126,7 +127,7 @@ export default function PostComponent({ post, setRefresh }) {
 <div className="itemS1">
 {post.postImagePath ?
                                 <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> </a></div> : null
+                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
                                 }
 </div>
 <div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
@@ -134,7 +135,7 @@ export default function PostComponent({ post, setRefresh }) {
 <>
                                 
                                     <div className="swapImage">
-                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.swapImagePath} /> </a></div> </>
+                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.swapImagePath} /> </a></div> </>
 </div>
 
                             </div>
@@ -149,7 +150,7 @@ export default function PostComponent({ post, setRefresh }) {
                             </>
                             : <>{post.postImagePath ?
                                 <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> </a></div> : null
+                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
                                 }</>
                         }
 
@@ -169,7 +170,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                                 
 <figure>
-                                <img src={post.user.profilePicturePath} alt="" />
+                                <img src={settings.apiUrl+post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">

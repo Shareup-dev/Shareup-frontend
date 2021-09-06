@@ -8,6 +8,7 @@ import PostService from '../../services/PostService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
+import settings from '../../services/Settings';
 
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
@@ -130,7 +131,7 @@ export default function EditProfileComponent() {
             {
                         showProfilePicture ?
                           <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Upload</a></div> </> :
-                          <> <img src={userProfile.profilePicturePath ? userProfile.profilePicturePath: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
+                          <> <img src={userProfile.profilePicturePath ? settings.apiUrl+userProfile.profilePicturePath: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
                       }
                      
 

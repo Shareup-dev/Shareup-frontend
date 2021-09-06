@@ -17,6 +17,7 @@ import PostComponent from '../post/PostComponent';
 import PostTextBoxComponent from '../post/PostTextBoxComponent';
 import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
+import settings from '../../services/Settings';
 
 
 function ShareItemComponent({post}) {
@@ -415,7 +416,7 @@ const staticpost=()=>{
 
                     
 <figure>
-                    <img src={user.profilePicturePath} alt="" />
+                    <img src={settings.apiUrl+user.profilePicturePath} alt="" />
                 </figure>
                 
                 <div className="friend-name">
@@ -491,7 +492,7 @@ const staticpost=()=>{
         <ul className="we-comet">
         <li className="post-comment">
                 <div className="comet-avatar">
-                  <img src={user.profilePicturePath}  alt="" />
+                  <img src={settings.apiUrl+user.profilePicturePath}  alt="" />
                 </div>
                 <div className="post-comt-box">
                   <Form>

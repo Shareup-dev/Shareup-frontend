@@ -11,6 +11,7 @@ import PostComponent from '../post/PostComponent';
 import PostService from '../../services/PostService';
 import PostProfileComponent from '../Profile/PostProfileComponent';
 import FriendProfileComponent from '../Profile/FriendProfileComponent';
+import settings from '../../services/Settings';
 
 
 function OtherProfileComponent() {
@@ -441,7 +442,7 @@ function OtherProfileComponent() {
                 <li key={userM.id}>
                   <div className="nearly-pepls">
                     <figure>
-                      <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={userM.profilePicturePath} alt="" /></a>
+                      <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
                     </figure>
                     <div className="pepl-info">
                       <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
@@ -513,7 +514,7 @@ function OtherProfileComponent() {
                       {
                         showProfilePicture ?
                           <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicturePath ? <img className="border-gradient" src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                          userProfile.profilePicturePath ? <img className="border-gradient" src={settings.apiUrl+userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                       }
 
                        

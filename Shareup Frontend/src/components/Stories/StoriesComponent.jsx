@@ -10,6 +10,7 @@ import { testScript } from '../../js/script';
 import GroupService from '../../services/GroupService';
 import StoriesService from '../../services/StoriesService';
 import Carousel from 'react-bootstrap/Carousel'
+import settings from '../../services/Settings';
 
 
 
@@ -73,10 +74,10 @@ function StoriesComponent({ story, setRefresh }) {
 return(
   
   <div className="strysggstion-card">
-  <div className="strysggstion-Profimg"><img src={story.user.profilePicturePath} alt="" /></div>
+  <div className="strysggstion-Profimg"><img src={settings.apiUrl+story.user.profilePicturePath} alt="" /></div>
   <a href="#">
    {/* {story.storiesImagePath} data-lightbox={`image-user-${story.user.id}`} */}
-  <div className="strysggstion-imgStry"><a href="#!"><img src={story.storiesImagePath} alt="" /></a></div>
+  <div className="strysggstion-imgStry"><a href="#!"><img src={settings.apiUrl+story.storiesImagePath} alt="" /></a></div>
   </a>
   
 </div>

@@ -6,6 +6,7 @@ import AuthService from '../../services/auth.services';
 import { testScript } from '../../js/script';
 import StoriesService from '../../services/StoriesService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
+import settings from '../../services/Settings';
 
 
 function DisplayComponent() {
@@ -120,8 +121,8 @@ const delay = 2500;
             key={index}
             
           >
-             <div className="strydisplay-Profimg"><img src={background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
-           <img className="stryDsplyImg" src={background.storiesImagePath} /> 
+             <div className="strydisplay-Profimg"><img src={settings.apiUrl+background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
+           <img className="stryDsplyImg" src={settings.apiUrl+background.storiesImagePath} /> 
           </div>:null}</>
         ))}
       </div>

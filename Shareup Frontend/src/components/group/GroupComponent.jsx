@@ -13,6 +13,7 @@ import Layout from '../LayoutComponent';
 import PostComponent from '../post/PostComponent';
 import { testScript } from '../../js/script';
 import MenuWidgetComponent from '../widgets/MenuWidgetComponent';
+import settings from '../../services/Settings';
 
 function GroupComponent({post}) {
 	const { id: stringId } = useParams();
@@ -125,8 +126,8 @@ function GroupComponent({post}) {
 							<li key={group.id}>
 								<div className="nearly-pepls">
 									<figure>
-										{console.log(group.groupImagePath)}
-										<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+										{console.log(settings.apiUrl+group.groupImagePath)}
+										<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ?settings.apiUrl+ group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
 									</figure>
 									<div className="pepl-info">
 										<h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
@@ -170,7 +171,7 @@ function GroupComponent({post}) {
 									<div className="grid-container">
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? settings.apiUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
@@ -213,7 +214,7 @@ function GroupComponent({post}) {
 							<div className="grid-container">
 								{/* <figure> */}
 								<div class="item1">
-									<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+									<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? settings.apiUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
 							
 									{/* </figure> */}
 								</div>
