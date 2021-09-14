@@ -227,7 +227,7 @@ function Index({ set, setUser }) {
     if (showComponent === "register") {
       return (
         <div className="log-reg-area reg">
-          <h2 className="log-title">Register Account</h2>
+          <h2 className="log-title">Register new Account</h2>
 
           <form>
             {allFieldFillError &&
