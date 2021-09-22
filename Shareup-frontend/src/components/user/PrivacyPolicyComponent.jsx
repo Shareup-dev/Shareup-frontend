@@ -1,6 +1,6 @@
 //import { width } from 'dom-helpers';
 import React, { Component } from 'react';
-// import MailTo from 'react-mailto';
+
 
 
 
@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 
 
 function PrivacyPolicyComponent() {
-  var Mailto = require('react-mailto');
+  
         return (
         <div>
             <div className="theme-layout">
@@ -92,7 +92,7 @@ function PrivacyPolicyComponent() {
              <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class="text-justify">
 
              We collect personal information that you voluntarily provide to us when registering at 
-             <a href="https://www.shareup.qa"  style={{color:"#a7dee5", fontSize:"20px", fontWeight:"bold", textDecoration:"none" }}>Shareup </a> 
+             <a href="https://www.shareup.qa"  style={{color:"#a7dee5", fontSize:"20px", fontWeight:"bold", textDecoration:"none" }}> Shareup </a> 
               expressing an
               interest in obtaining information about us or our products and services, when participating in activities on the Services or otherwise 
               contacting us. The personal information that we collect depends on the context of your interactions with us and the Services, the choices
