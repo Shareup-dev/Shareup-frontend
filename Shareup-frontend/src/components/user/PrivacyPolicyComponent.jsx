@@ -1,8 +1,14 @@
 //import { width } from 'dom-helpers';
 import React, { Component } from 'react';
+// import MailTo from 'react-mailto';
+
+
+
+
 
 
 function PrivacyPolicyComponent() {
+  var Mailto = require('react-mailto');
         return (
         <div>
             <div className="theme-layout">
@@ -35,7 +41,7 @@ function PrivacyPolicyComponent() {
             <div className="policy-p">
               
     <div >
-<div  className='scrollbar-privacy-terms' style={{width:'50vw' }}  >
+<div   className='scrollbar-privacy-terms' style={{width:'50vw',borderColor:'aquamarine' }}  >
 
           
 
@@ -44,14 +50,15 @@ function PrivacyPolicyComponent() {
   <br/>
   <br/>
 
-          <p style={{fontFamily: 'Lato, sans-serif', fontSize:'12'}} class="text-justify">  
-          Thank you for choosing to be part of our community at <b  class="font-weight-bold">Shareup</b>. We are committed to protecting your personal information 
+          <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class="text-justify">  
+          Thank you for choosing to be part of our community at <b  class="font-weight-bold"> Shareup</b>. We are committed to protecting your personal information 
           and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your
-           personal information, please send a mail to <a style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }} href=" info@shareup.qa">info@shareup.qa</a>.
+           personal information, please send a mail to <a  href="mailto:info@shareup.qa" style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }}>info@shareup.qa</a>.
+           {/* <MailTo email="info@shareup.qa" obfuscate={true} children={} headers={{subject:'More Information about the platform'}}> info@shareup.qa.</MailTo> */}
             When you visit our  <a  href="https://www.shareup.qa" style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }}>website </a> and use our
              <a style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }} href="https://www.shareup.qa"> services</a>, you trust us with your personal information.
   
-
+                                                                       
   <br/>
   <br/>
   <br/>
@@ -68,7 +75,7 @@ function PrivacyPolicyComponent() {
 <br/>
 <br/>
 
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)', fontSize:'12'}} class="font-weight-bold text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif', letterSpacing:'normal'}} class="font-weight-bold text-justify">
           
           Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us
           </p>
@@ -82,9 +89,10 @@ function PrivacyPolicyComponent() {
 
              <br/>
              <br/>
-             <p style={{fontFamily: 'Trebuchet MS (sans-serif)',fontWeight:'normal', fontSize:'12'}} class="text-justify">
+             <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class="text-justify">
 
-             We collect personal information that you voluntarily provide to us when registering at <a href="https://www.shareup.qa"  style={{color:"#a7dee5", fontSize:"20px", fontWeight:"bold", textDecoration:"none" }}>Shareup </a> 
+             We collect personal information that you voluntarily provide to us when registering at 
+             <a href="https://www.shareup.qa"  style={{color:"#a7dee5", fontSize:"20px", fontWeight:"bold", textDecoration:"none" }}>Shareup </a> 
               expressing an
               interest in obtaining information about us or our products and services, when participating in activities on the Services or otherwise 
               contacting us. The personal information that we collect depends on the context of your interactions with us and the Services, the choices
@@ -108,7 +116,7 @@ function PrivacyPolicyComponent() {
                  <br/>
                  <br/>
                  <br/>
-                 <br/>
+                 
                  <li class="font-weight-bold">Social Media Login Data</li>
                  <br/>
                  
@@ -120,7 +128,7 @@ function PrivacyPolicyComponent() {
 
                <br/>
                  <br/>
-                 <br/>
+                 
 
 
 
@@ -131,7 +139,7 @@ All personal information that you provide to us must be true,
  <br/>
                  <br/>
                  <br/>
-                 <p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+                 <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> HOW DO WE USE YOUR INFORMATION?  </b>
  <br/>
              <br/>
@@ -158,7 +166,8 @@ All personal information that you provide to us must be true,
 
 
 </p>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<br/><br/>
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
 TRACKING AND COOKIES DATA  </b>
 <br/>
@@ -175,7 +184,7 @@ if you do not accept cookies, you may not be able to use some portions of our Se
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
 DATA BREACH</b>
 <br/>
@@ -195,7 +204,7 @@ personal information. <b class="font-weight-bold">“Shareup”</b>will promptly
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  CONTROL FOR-DO-NOT-TRACK FEATURES</b>
 <br/>
@@ -210,7 +219,7 @@ signals or any other mechanism that automatically communicates your choice not t
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  HOW DO WE HANDLE YOUR SOCIAL LOGINS</b>
 <br/>
@@ -233,7 +242,7 @@ We will use the information we receive only for the purposes that are described 
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  CHILDREN’S INFORMATION</b>
 <br/>
@@ -252,7 +261,7 @@ children without verification of parental consent, we take steps to remove that 
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  DO WE MAKE UPDATES TO THIS POLICY</b>
  <br/>
@@ -266,7 +275,7 @@ We may update this privacy policy from time to time. The updated version will be
  <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  HOW CAN YOU CONTACT US ABOUT THIS POLICY</b>
  <br/>
@@ -279,7 +288,7 @@ If you have questions or comments about this policy, you may email us at: info@s
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> 
  GDPR POLICY</b>
  <br/>
@@ -316,7 +325,7 @@ If you are a resident of the European Economic Area (EEA), you have certain data
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> Privacy Bill of Rights</b>
 <br/>
 <br/>
@@ -343,7 +352,7 @@ In certain circumstances, you have the following data protection rights:
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 For more information, please contact your local data protection authority in the ‘European Economic Area’ (EEA).
 <br/>
 <br/>
@@ -422,7 +431,7 @@ Whilst one of these signs on its own might not give cause for concern, two or mo
 <br/>
  <br/>
  <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> Data Protection Rights under the California Privacy Protection Act (CalOPPA)</b>
 <br/>
@@ -453,7 +462,7 @@ visiting the Preferences or Settings page of your web browser.
 <br/>
  <br/>
  <br/>
- <p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+ <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
  <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}> Data Protection Rights under the California Consumer Privacy Act (CCPA)</b>
  <br/>
  <br/>
@@ -461,7 +470,7 @@ visiting the Preferences or Settings page of your web browser.
  you can make certain requests and ask us anytime.
 </p>
 
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <br/>
  <br/>
  <br/>
@@ -484,7 +493,7 @@ The law has a large focus on organizations ensuring that the personal data they 
  <br/>
  <br/>
  <br/>
- <p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+ <p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <br/>
  <br/>
  <br/>
@@ -523,7 +532,7 @@ An Individual may, at any time, access the Personal Data thereof and apply to re
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16'}}>Consequences of non-compliance</b>
 <br/>
 <br/>
@@ -536,7 +545,7 @@ consumer trust.
  <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}>Bahrain Personal Data Protection Law</b>
 <br/>
 <br/>
@@ -558,7 +567,7 @@ The law includes additional requirements for organizations to submit their data 
  <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}>Egypt Personal Data Protection Law</b>
 <br/>
 <br/>
@@ -576,7 +585,7 @@ The Personal Data Protection Law has provisions for administrative fines and cri
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}>DIFC Data Protection Law</b>
 <br/>
 <br/>
@@ -593,7 +602,7 @@ Some of the key features of the new law include the clarification of data subjec
 <br/>
 <br/>
 <br/>
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)'}} class=" text-justify">
+<p style={{fontFamily: 'Helvetica, Arial, sans-serif',  fontWeight:'lighter',letterSpacing:'normal'}} class=" text-justify">
 <b class="font-weight-bold text-justify" style={{fontSize:'16',textDecorationLine:'underline'}}>FREQUENTLY ASKED QUESTIONS (FAQs)</b>
 <br/>
 <br/>
@@ -672,7 +681,7 @@ Some of the key features of the new law include the clarification of data subjec
           <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div style={{textAlign: 'center'}}>
             <div className="privacy-side">
-            {/* <img src="/assets/images/myimg.jpeg" style={{width:600 , height:200,position:'absolute',right:5,top:5}} /> */}
+            {/* { <img src="/assets/images/myimg.jpeg" style={{width:600 , height:200,position:'relative',right:5,top:5}} /> } */}
             </div>
             </div>
 

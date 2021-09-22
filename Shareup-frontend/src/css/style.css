@@ -6892,13 +6892,18 @@ background-size: cover;
     width:400px;
     height:400px;
     border-radius:100%;
-    /* background:  url(../images/myimg.jpeg);  */
+    /* border-image:url(../images/myimg.jpeg) ; */
+    background-image:  url(../images/myimg.jpeg);  
+    /* background-blend-mode: normal; */
     background-position: center center;
     
  background-repeat: no-repeat;
  background-size: cover;  
- background-attachment: scroll;
- position: absolute;
+ /* resize:both; */
+ background-attachment: local;
+ position: relative;
+ left: 400px
+ /* padding: 50px 0 50px 0; */
  
 }
 .policy-p{
@@ -14798,8 +14803,9 @@ color: #1b1b1b;
  .scrollbar-privacy-terms{
     scrollbar-width: none;
     -ms-overflow-style: none;
-     overflow: scroll;
+     overflow: auto;
      height: 700px;
+     width:100%;
      
  }
 
