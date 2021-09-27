@@ -47,6 +47,9 @@ export default function Layout(props) {
                         <a href="/profile"><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                         </div>
                       </div>
+
+
+
                       <div className="widget navmenu">
                       {/* <div className="row"><img src="../assets/images/menu-1899421-1606840.png"/><p className="widget-title">Menu</p></div>  */}
                         <div><ul className="naves">
@@ -101,12 +104,20 @@ export default function Layout(props) {
                     <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a></div>
 											</div>
 
-
+                      <div className="widget friend-list stick-widget">
+                    <div className="row" ><img src="../assets/images/Trends.jpg"/><p className="widget-title">News</p></div>
+                    <div className="news"><a href="#" data-lightbox="image-1" data-title="My caption">
+                      <img src="../assets/images/Trends.jpg" style={{height:"100px"}}></img></a></div>
+											</div>
+                      
+                      <span class="media-date">25 july 2017</span>
+            <h5 class="mt-0 sep">Finibus Bonorum Malor.</h5>
+            <p>Lorem ipsum dolor amet consectetur adip sicing elit sed eiusm tempor incididunt ut labore dolore.</p>
                       <FollowingWidgetComponent />
 
                       <FriendsWidgetComponent />
 <GroupsWidgetComponent/>
-
+                     
 
                     </aside>
                   </div>

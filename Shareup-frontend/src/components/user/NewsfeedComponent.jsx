@@ -7,7 +7,6 @@ import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
-import settings from '../../services/Settings';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
 import GroupService from '../../services/GroupService';
@@ -68,9 +67,10 @@ const[showCompont,setShowCompont]= useState();
   
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
-  const [files, setFiles] = useState({});
-  const [swapfiles, setSwapfiles] = useState({});
-  const [postImage, setPostImage] = useState({});
+  const [files, setFiles] = useState([]);
+  const [swapfiles, setSwapfiles] = useState([]);
+  const [postImage, setPostImage] = useState([]);
+
   const [showPostImage, setShowPostImage] = useState(false);
  
   const [uploadError, setUploadError] = useState("");
@@ -218,6 +218,7 @@ const[showCompont,setShowCompont]= useState();
 	
   const getPost = async () => {
     await PostService.getPost().then(res => {
+      console.log("getpost"+res.data)
       setPosts(res.data)
     })
   }
@@ -227,12 +228,13 @@ const[showCompont,setShowCompont]= useState();
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then(res => {
+      console.log("get saved post"+res.data)
       setSavedPost(res.data)
     })
   }
 
   const handlePostContent = (event) => {
-    console.log(event.target.value)
+    console.log("handlepostcontent"+ event.target.value)
     setPostContent(event.target.value)
   }
 
@@ -271,44 +273,80 @@ const[showCompont,setShowCompont]= useState();
   const handleEditPost = (id) => {
     setEditPostId(id)
   }
-
+  
+//single image
   const handleFile = (event) => {
-    console.log(event.target.files[0])
-    setFiles(event.target.files[0])
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setPostImage(reader.result)
-      }
-    }
-    console.log(event.target.files[0])
-    // if(event.target.files[0].type === blob){
-    reader.readAsDataURL(event.target.files[0])
-    // }
-    setShowPostImage(true)
+    setFiles(event.target.files)
+    console.log(files)
+    let filesAmount = event.target.files.length;
+    if(filesAmount<6){
+       let tempImage=[];
+       for (let i = 0; i < filesAmount; i++) {
+        
+          //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
+          tempImage.push(URL.createObjectURL(event.target.files[i]));
+                 
+        }
+    
+        setPostImage(tempImage);
+        console.log("url "+postImage[1]);
+  
+        setShowPostImage(true)
   }
+  else{
+    alert("5 files are allowed");
+    event.preventDefault();
+  }
+   
+  }
+  
+  
+
   const handleLoc = (event) => {
-    console.log(event.target.files[0])
-    setFiles(event.target.files[0])
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setPostImage(reader.result)
+    //create file array
+    //const handleFile = (event) => {
+      let tempImage=[];
+      console.log(event.target.files)
+      if (event.target.files) {
+        let filesAmount = event.target.files.length;
+        let i;
+        for (i = 0; i < filesAmount; i++) {
+            let reader = new FileReader();
+            reader.onload = ()=> {
+               
+                setPostImage(reader.result)
+                tempImage=[...tempImage,reader.result]
+              
+            }
+            reader.readAsDataURL(event.target.files[i]);
+        }
+    
+         
       }
-    }
-    console.log(event.target.files[0])
-    // if(event.target.files[0].type === blob){
-    reader.readAsDataURL(event.target.files[0])
-    // }
-    setShowPostImage(true)
+      console.log(tempImage)
+      setPostImage(tempImage)
+      setShowPostImage(true)
+    
   }
 
  
   const handleRemoveImage = () => {
-    setFiles({})
+    setFiles([])
     setShowPostImage(false)
   }
 
+  const renderphoto = (imgarray) => {
+    //alert('imge');
+    return (
+            Object.entries(imgarray).map((currentobject)=>(
+              <>
+              <img src={currentobject} style={{maxWidth:'150px',maxHeight:'150px'}} className="img img-responsive" key={currentobject}/>
+              <button onClick={()=>{handleRemoveImage(index)}}>delete</button>
+              </>
+              
+            ))
+    )
+  }
   const handleEditingSave = (value) => {
     setEditPostId(value)
     // console.log(res.status)
@@ -384,15 +422,26 @@ const[showCompont,setShowCompont]= useState();
     }
 
     const formData = new FormData();
+
     formData.append('content', postContent)
-    console.log(" this is the files" + files)
+    for(let i = 0; i < files.length; i++)
+    {
+      formData.append(`files`, files[i])
+    }
+    console.log(formData.getAll(`files`))
+    console.log(" this is the files" + files[0])
     console.log(" this is the swapfiles" + swapfiles)
-    formData.append(`files`, files)
+    for(let i = 0; i <`files`.length ; i++)
+    {
+      console.log(files)
+    }
     formData.append(`swapfiles`, swapfiles)
     formData.append(`privacy`, Privacy)
     if (userF === null) {
       PostService.createPost(user.id, formData, null).then(res => {
         console.log(JSON.stringify(res))
+        console.log(res.data)
+        console.log(user.id)
         setPostContent("")
         handleRemoveImage()
         setRefresh(res.data)
@@ -495,7 +544,8 @@ const handleRemoveImageSwap = () => {
     <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
     <div style={{display:'inline'}}>What's in hang?</div>
  
-     <div className="add-smilespopup"><label className="fileContainer"><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input><i class="lar la-file-image"></i> 
+     <div className="add-smilespopup"><label className="fileContainer">
+       <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input><i class="lar la-file-image"></i> 
     </label></div>
     <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>} modal nested>
                        {close => ( <Form style={{margin:'5px'}} className="popwidth">
@@ -513,7 +563,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -550,7 +600,8 @@ const handleRemoveImageSwap = () => {
       <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
       <div style={{display:'inline'}}>Add More</div>
    
-       <div className="add-smilespopup"><label className="fileContainer"><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input><i class="lar la-file-image"></i> 
+       <div className="add-smilespopup"><label className="fileContainer">
+         <input type="file" name="post_image" accept="image/*" multiple onChange={handleFile}></input><i class="lar la-file-image"></i> 
       </label></div>
       <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>}  modal nested>
                        {close => ( <Form style={{margin:'5px'}} className="popwidth">
@@ -568,7 +619,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -625,8 +676,7 @@ const handleRemoveImageSwap = () => {
     </div></div>
 
     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
-    </div>
+    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
        <div class="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -635,14 +685,24 @@ const handleRemoveImageSwap = () => {
     <option value="Only Me">Only Me</option>
   </select></div> </span></div> </div> </div>
   <div style={{margin:'0 0 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+
+                  
                     {showPostImage ?
+                    
                       <>
-                        <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} />
-                                                        <button onClick={handleRemoveImage} style={{ right: '25px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+                      <div>
+                     {
+                    postImage.map((item,key)=>(<img src={item}  key={key} style={{maxWidth:'150px',maxHeight:'150px',padding:'10px',display:'inline-block',verticalAlign:'middle'}}/>))
+                     }
+                     </div>
+                       
+                     {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                                                        <button onClick={handleRemoveImage} style={{ right: '25px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button> 
                       </>
                       :
                       null
                     }
+                    
 
 </span>
                                     {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}</div> 
@@ -671,7 +731,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -682,7 +742,11 @@ const handleRemoveImageSwap = () => {
                  <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                                     {showPostImage ?
                                       <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
+                                       <div>
+                     {
+                    postImage.map((item,key)=>(<img src={item}  key={key} style={{maxWidth:'150px',maxHeight:'150px',padding:'10px',display:'inline-block',verticalAlign:'middle'}}/>))
+                     }
+                     </div>
                                                         <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
                                       </>
                                       :
@@ -715,7 +779,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -726,7 +790,11 @@ const handleRemoveImageSwap = () => {
                   <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                                     {showPostImage ?
                                       <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
+                                         <div>
+                     {
+                    postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px',padding:'10px',display:'inline-block',verticalAlign:'middle'}}/>))
+                     }
+                     </div>
                                                         <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
                                       </>
                                       :
@@ -757,7 +825,9 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    {/* <img src={user ? settings.apiUrl+user.profilePicturePath:settings.apiUrl+userR.profilePicture} alt=""/> */}
+                     <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /> 
+                    </div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -768,7 +838,11 @@ const handleRemoveImageSwap = () => {
                  <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                                     {showPostImage ?
                                       <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
+                                        <div>
+                     {
+                    postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
+                     }
+                     </div>
                                                         <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
                                       </>
                                       :
@@ -865,7 +939,7 @@ const getAllUser = async () => {
         setAllUser(res.data)
         setSearchedUser(res.data)
     })
-    console.log(user.email + " This is the users")
+    
 }
 const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
@@ -1029,7 +1103,7 @@ useEffect(() => {
             <div className="central-meta newsfeed">
               <div className="new-postbox">
                 <figure>
-                  <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
+                  <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>
@@ -1067,15 +1141,36 @@ useEffect(() => {
                 </div>
               </div>
             </div>
+            {/* <div>
+                     {
+                    postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
+                     }
+                     </div> */}
             <div className="central-meta newsfeed">
               <div style={{fontSize: '18px', marginBottom: '10px'}}>Groups Suggestions</div>
               <div class="slide-wrapper">
 	<ul class="slide heightGrp">
+  <li class="slideitem"><a href="#">
+          <div className="groupsggstion-card">
+            <div className="groupsggstion-img"><a href=""><div style={{paddingTop:'50px',fontSize:'100px'}}> <i class="las la-users"></i></div></a></div>
+            
+            <div className="groupsggstion-by">
+            <a href="/group/create" ><div class="add-group" aria-describedby="popup-2"> +</div></a>
+              
+              
+											
+           <a href="/group/create" ><h5 style={{fontWeight:'bold',fontSize:'16px'}}>Create Group</h5></a>
+			
+														
+            </div>
+          </div>
+         </a></li>
   {searchedGroups.map(
 							group =>
+              
 		<li class="slideitem"><a href="#">
           <div className="groupsggstion-card">
-            <div className="groupsggstion-img"><a href={`/groups/${group.id}`} title={group.name}> <img src={group.groupImagePath ? settings.apiUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a></div>
+            <div className="groupsggstion-img"><a href={`/groups/${group.id}`} title={group.name}> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a></div>
             
             <div className="groupsggstion-by">
               <div style={{padding:'5px'}}><span className="groupname"><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></span></div>

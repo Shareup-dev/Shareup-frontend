@@ -8,7 +8,6 @@ import PostComponentBoxComponent from './PostCommentBoxComponent';
 import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import settings from '../../services/Settings';
 
 export default function PostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -19,6 +18,7 @@ export default function PostComponent({ post, setRefresh }) {
     const [showReactions, setShowReactions] = useState(false)
    
     const [likeReaction, setLikeReaction] = useState(null)
+    const [imgString, setimgString] = useState([]);
 
     const something=(event)=> {
         if (event.key === "Enter") {
@@ -28,6 +28,7 @@ export default function PostComponent({ post, setRefresh }) {
     const handleEditPost = (id) => {
         setEditPostId(id)
         setRefresh(id)
+       
     }
 
     const getCommentCounter = (comments) => {
@@ -37,7 +38,12 @@ export default function PostComponent({ post, setRefresh }) {
         })
         return counter
     }
-
+    const postImg = (str) => {
+       if(str!=null){
+        setimgString(post.postImagePath.split('.jpg'));
+        console.log("img string"+imgString)
+       }
+    }
     const checkIfLiked = (post) => {
         const result = post.reactions.filter(reaction => reaction.user.id == user.id)
         if (result.length > 0) {
@@ -121,37 +127,54 @@ export default function PostComponent({ post, setRefresh }) {
 
                             <div className="post-meta">
                             
-                            {post.swapImagePath ?
-                            <>
-                            <div className="grid-container1">
-<div className="itemS1">
-{post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
-                                }
-</div>
-<div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
-<div className="itemS3">
+                            {
+                                post.swapImagePath ?
+                                <>
+                                    <div className="grid-container1">
+                                    <div className="itemS1">
+                                            {post.postImagePath ?
+
+                                    <div className="postImage">
+                                    {/* setimgString(post.postImagePath.split(','));
+                                    console.log("img are"+imgString[0]) */}
+                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> 
+                                        </a></div> : null
+                                    }
+                                    </div>
+                                    <div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
+                                    <div className="itemS3">
 <>
                                 
                                     <div className="swapImage">
-                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.swapImagePath} /> </a></div> </>
+                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.swapImagePath} /> </a></div> </>
 </div>
 
-                            </div>
+                                    </div>
                             
-                            <div className="buttonS">
-                            <a href="/shipping" className="buttonshare" onClick={() => handleDeletePost(post.id)}>
+                                    <div className="buttonS">
+                                    <a href="/shipping" className="buttonshare" onClick={() => handleDeletePost(post.id)}>
                                                     Accept</a>
                                                     
                                 
-                                </div>
+                                     </div>
                             
-                            </>
-                            : <>{post.postImagePath ?
+                                </>
+                                : <>{post.postImagePath ?
+                                
+            
                                 <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
-                                }</>
+                                    <div class="row1">
+                                   {
+                                   (post.postImagePath.split(',')).map((item,key)=>(<div className="col-xs-4"><a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}><img src={`/user-post/${post.id}/${item}`} key={key} style={{ width: '200px', height: '200px',objectFit:'cover',padding:'2px'}}/></a></div>)) }
+                                    
+                                    {/* <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> </a>
+                                    <a href={imgString[0]} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={imgString[0]} /> </a> */}
+                                  </div> 
+                                   </div> 
+                                : null
+                                    
+                             }</>
                         }
 
 
@@ -170,7 +193,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                                 
 <figure>
-                                <img src={settings.apiUrl+post.user.profilePicturePath} alt="" />
+                                <img src={post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">
@@ -179,7 +202,8 @@ export default function PostComponent({ post, setRefresh }) {
                                     <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}{post.userTag ?<><span style={{padding:'0 5px'}}>with</span> <span className="tagPost">{post.userTag.firstName}</span><span className="tagPost">{post.userTag.lastName}</span></>:null}</a>
 
                                     <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark szbkmrk"></i>}</span>
-                                    {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null}</div> <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
+                                    {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
+                                    </div> <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
                                     
 
 
@@ -278,6 +302,11 @@ export default function PostComponent({ post, setRefresh }) {
                 </div>
                 
             </div>
+            
         </div>
     );
+    
 }
+
+
+// pushing to github

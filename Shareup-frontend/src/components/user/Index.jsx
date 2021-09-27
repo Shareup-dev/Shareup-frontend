@@ -241,7 +241,8 @@ function Index({ set, setUser }) {
 
               <div className="form-group">
 
-                <input type="text" name="firstName" value={firstName} onChange={handleFirstName} required="required" /> <label className="control-label" htmlFor="input">First Name</label>
+                <input type="text" name="firstName" value={firstName} onChange={handleFirstName} required="required" />
+                 <label  htmlFor="input">First Name</label>
               </div>
               <div className="form-group">
                 <input type="text" name="lastName" value={lastName} onChange={handleLastName} required="required" />

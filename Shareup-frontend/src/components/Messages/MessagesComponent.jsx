@@ -117,12 +117,13 @@ function MessagesComponent() {
             
             </div>
             <div className="AreaMsg"></div>
-            <div className="txtAreaMsg"><input className="chat-text"  placeholder="Type message" name="s" >
+            <div className="txtAreaMsg"><input className="chat-text"  placeholder="Type message here" name="s" >
                
                 </input>
                <div className="add-microphicon"> <img width="20" src="/assets/images/picmsg.svg"/></div>
                <div className="add-stckricon"> <img  width="20" src="/assets/images/stckrmsg.svg"/></div>
                <div className="add-picicon"> <img  width="20" src="/assets/images/mic.svg"/></div>
+               <button id="sendBtn">Send</button>
                </div>
         </div>
 
