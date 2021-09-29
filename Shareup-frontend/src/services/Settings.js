@@ -1,7 +1,7 @@
 
     const settings = {
         dev: {
-          apiUrl: "http://localhost:8081",
+          apiUrl: "http://localhost:8080",
         },
         staging: {
           apiUrl: "http://104.43.220.197:8081",
@@ -12,7 +12,7 @@
       };
       
       const getCurrentSettings = () => {
-        return settings.staging;
+        return settings.dev;
       };
       
       export default getCurrentSettings();

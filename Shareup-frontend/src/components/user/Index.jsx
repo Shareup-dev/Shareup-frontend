@@ -11,6 +11,7 @@ import { GlobalStyle } from '../../styles/modalStyles';
 import styled from 'styled-components';
 import '../../modal.css';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
+import MailVerification from './MailVerification';
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +84,8 @@ function Index({ set, setUser }) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordNotMatchError, setPasswordNotMatchError] = useState('');
+  const [checkedTerms, setcheckedTerms] = useState(false);
+  const [checkedAge, setcheckedAge] = useState(false);
 
 
   const [loginError, setLoginError] = useState('');
@@ -90,7 +93,8 @@ function Index({ set, setUser }) {
   const [registerSuccessful, setRegisterSuccessful] = useState('');
   const [registerError, setRegisterError] = useState('');
 
-
+  const updateTerms = () => setcheckedTerms(!checkedTerms);
+  const updateAge = () => setcheckedAge(!checkedAge);
 
   useEffect(() => {
   }, [])
@@ -114,6 +118,7 @@ function Index({ set, setUser }) {
   const handleLastName = (event) => {
     setLastName(event.target.value)
   }
+  
 
   const validateRegister = (event) => {
     event.preventDefault()
@@ -139,6 +144,17 @@ function Index({ set, setUser }) {
       // alert("Make sure your password match")
       validated = false;
     }
+    if(!checkedTerms)
+    {
+      alert("Select term and condition")
+      validated=false;
+    }
+    if(!checkedAge)
+    {
+      alert("Please confirm you are above 18 years of age")
+      validated=false;
+    }
+    
     if (validated) {
       handleRegister();
     }
@@ -149,21 +165,23 @@ function Index({ set, setUser }) {
     console.log("register " + user.email + " " + user.password + " " + user.confirmPassword + " " + user.firstName + " " + user.lastName)
 
     console.log(JSON.stringify(user))
-    await UserService.createUser(user).then(res => {
+    const response  = await UserService.createUser(user).then(res => {
       history.push('/');
-      setRegisterSuccessful("Your Account Is Successfully Registered")
-      setShowComponent("login")
+      // setRegisterSuccessful("Your Account Is Successfully Registered")
+    // setShowComponent("login")
       handleLoginAutomatically()
       openModal()
     }).catch(
         error => {
           setRegisterError("User Already Registered");
         }
-      )    
+      )   
+      
+      console.log("response: ",response);
   }
 
   const getUser = async (email) => {
-    await UserService.getUserByEmail(email).then(res => {
+     await UserService.getUserByEmail(email).then(res => {
       setUser(res.data)
     })
   }
@@ -199,7 +217,8 @@ function Index({ set, setUser }) {
       console.log(res.data + " THIS IS THE DATA")
       set(res.data)
       getUser(res.data.username)
-      history.push("/newsfeed")
+       //history.push("/newsfeed")
+      history.push("/mailverify")
     },
       error => {
         const resMessage = (error.response && error.response.data && error.response.data.message)
@@ -210,7 +229,7 @@ function Index({ set, setUser }) {
 
   const handleLoginAutomatically = async () => {
     console.log("working auto")
-
+console.log("Login functionality ")
     await AuthService.login(email, password).then(res => {
       console.log(res.data + " THIS IS THE DATA")
       set(res.data)
@@ -264,16 +283,16 @@ function Index({ set, setUser }) {
                 <input className="form-input" type="password" name="confirm password" value={confirmPassword} onChange={handleConfirmPassword} required="required" /> <label className="control-label" htmlFor="input">Re-enter Password</label>
               </div>
             </div>
-            
+    
             <div className="checkbox">
-              <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />Accept Terms &amp; Conditions ?
+              <label> <input type="checkbox" defaultChecked={true} checked={checkedTerms} onChange={updateTerms} /><i className="check-box" />Accept Terms &amp; Conditions ?
                     </label>
             </div>
             <div className="checkbox">
-              <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />I am 18 years old or above
+              <label> <input type="checkbox" defaultChecked={true} checked={checkedAge} onChange={updateAge} /><i className="check-box" />I am 18 years old or above
                     </label>
             </div>
-            <a href="#" onClick={() => setShowComponent("login")} className="already-have">Already have an account?</a>
+            <a href="#" onClick={() => setShowComponent("login")} >Already have an account?</a>
             <div className="submit-btns">
               <button className="mtr-btn signup" onClick={validateRegister}>
                 <span>Share In</span>
@@ -338,7 +357,7 @@ function Index({ set, setUser }) {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <RegisterSuccessfulComponent closeModal={closeModal}/>
+          <MailVerification closeModal={closeModal}/>
         </Modal>
       <div className="theme-layout">
         <div className="container-land pdng0">

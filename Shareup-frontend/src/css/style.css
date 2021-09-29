@@ -6899,8 +6899,7 @@ background-size: cover;
     
  background-repeat: no-repeat;
  background-size: cover;  
- /* resize:both; */
- background-attachment: local;
+  background-attachment: local;
  position: relative;
  left: 400px
  /* padding: 50px 0 50px 0; */
@@ -14783,6 +14782,13 @@ color: #1b1b1b;
     
     display: list-item;
     margin-left: 30px;
+ }
+ .orderedlist-prohibited{
+    
+    list-style-type: numbers;
+    
+    display: list-item;
+    margin-left: 40px;
  }
 
  .privacy-body{

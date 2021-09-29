@@ -12,12 +12,12 @@ import './css/notifications.css';
 import './css/globals.css';
 import AuthService from './services/auth.services'
 
+
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 
 import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import HeaderComponent from './components/dashboard/HeaderComponent';
 import FooterComponent from './components/dashboard/FooterComponent';
-import AddFriendsComponent from './components/user/AddFriendsComponent';
 import FriendsComponent from './components/user/FriendsComponent';
 import NewsfeedComponent from './components/user/NewsfeedComponent';
 import ChatComponent from './components/chat/ChatComponent';
@@ -53,6 +53,8 @@ import ChatTestComponent from './components/ChatTest/ChatTestComponent';
 import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
+import TermsAndConditionsComponent from './components/user/TermsAndConditionsComponent';
+import MailVerification from './components/user/MailVerification';
 
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
@@ -103,7 +105,12 @@ function App() {
           <Route path="/privacyPolicy">
             <PrivacyPolicyComponent/>
           </Route>
+          <Route path="/termsAndConditions">
+            <TermsAndConditionsComponent/>
+          </Route>
+          <ProtectedRoute path="/registersuccess" component={RegisterSuccessfulComponent}></ProtectedRoute>
           <ProtectedRoute path="/newsfeed" component={NewsfeedComponent}></ProtectedRoute>
+          <ProtectedRoute path="/mailverify" component={MailVerification}></ProtectedRoute>
           <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
           <ProtectedRoute path="/notifications" component={NotificationChatComponent}></ProtectedRoute>
           <ProtectedRoute path="/new-user" component={GuideComponent}></ProtectedRoute>
@@ -113,7 +120,6 @@ function App() {
           <ProtectedRoute path="/groups/" component={GroupComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile/:email" component={OtherProfileComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
-          <ProtectedRoute path="/Addfriends" component={AddFriendsComponent}></ProtectedRoute>
           <ProtectedRoute path="/friends" component={FriendsComponent}></ProtectedRoute>
           <ProtectedRoute path="/chat" component={ChatComponent}></ProtectedRoute>
           <ProtectedRoute path="/messages" component={MessagesComponent}></ProtectedRoute>
