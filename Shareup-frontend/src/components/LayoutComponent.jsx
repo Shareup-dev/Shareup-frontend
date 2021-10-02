@@ -26,7 +26,13 @@ export default function Layout(props) {
   if (isLoading) {
     return null
   }
-
+ const curdate=()=>{
+  let date = new Date()
+  let dd=date.getDate()
+  let mm=date.getMonth()
+  let yy=date.getFullYear()
+  return `${dd}/ ${mm}/ ${yy}`
+}
   return (
     props.user &&
     <>
@@ -105,14 +111,36 @@ export default function Layout(props) {
 											</div>
 
                       <div className="widget friend-list stick-widget">
-                    <div className="row" ><img src="../assets/images/Trends.jpg"/><p className="widget-title">News</p></div>
+                    <div className="row" ><img src="../assets/images/Trends1.jpg"/><p className="widget-title">News</p></div>
                     <div className="news"><a href="#" data-lightbox="image-1" data-title="My caption">
-                      <img src="../assets/images/Trends.jpg" style={{height:"100px"}}></img></a></div>
+                      <img src="../assets/images/Trends1.jpg" style={{height:"100px"}}></img></a></div>
 											</div>
                       
-                      <span class="media-date">25 july 2017</span>
-            <h5 class="mt-0 sep">Finibus Bonorum Malor.</h5>
-            <p>Lorem ipsum dolor amet consectetur adip sicing elit sed eiusm tempor incididunt ut labore dolore.</p>
+                      <div class="media-date"><marquee direction="right" >What's trending</marquee></div>
+           
+            <ul>
+            <li>
+                <i><a href=" https://www.aljazeera.com/where/qatar/" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Aljazeera Qatar News</a></i><br/>
+                <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify"> Al Jazeera for truth and transparency....
+               </p><br/>
+            </li>
+                
+            <li>
+                <i><a href="https://www.theverge.com/tech" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Technology</a></i><br/>
+                <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">Technology Trends report examines the ever-evolving...</p><br/>
+            
+             </li>
+              <li>
+                <i><a href="https://thepeninsulaqatar.com/category/Qatar-Business" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Business</a></i><br/>
+                <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">Comprehensive Guide to Qatar Business ....</p>
+            <br/>
+             </li>
+            <li> <a href="https://www.dohanews.co/category/sports/" style={{textDecoration:"underline",color:"blue"}}>Sports</a><br/>
+           </li>
+            <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">View the latest in Qatar, SOCCER team news here.Sports..</p>
+            </ul>
+            <br/>
+
                       <FollowingWidgetComponent />
 
                       <FriendsWidgetComponent />

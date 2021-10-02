@@ -8,6 +8,7 @@ import PostComponentBoxComponent from './PostCommentBoxComponent';
 import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
+import ImageGallery from 'react-image-gallery';
 
 export default function PostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -18,7 +19,23 @@ export default function PostComponent({ post, setRefresh }) {
     const [showReactions, setShowReactions] = useState(false)
    
     const [likeReaction, setLikeReaction] = useState(null)
-    const [imgString, setimgString] = useState([]);
+    const [imgString, setimgString] = useState([post.postImagePath.split(',')]);
+    const images = [
+        {
+          original: `/user-post/${post.id}/${post.postImagePath}`,
+          thumbnail:`/user-post/${post.id}/${post.postImagePath}`,
+        },
+        {
+          original: 'https://picsum.photos/id/1015/1000/600/',
+          thumbnail: 'https://picsum.photos/id/1015/250/150/',
+        },
+        {
+          original: 'https://picsum.photos/id/1019/1000/600/',
+          thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        },
+      ];
+      
+      
 
     const something=(event)=> {
         if (event.key === "Enter") {
@@ -38,12 +55,7 @@ export default function PostComponent({ post, setRefresh }) {
         })
         return counter
     }
-    const postImg = (str) => {
-       if(str!=null){
-        setimgString(post.postImagePath.split('.jpg'));
-        console.log("img string"+imgString)
-       }
-    }
+    
     const checkIfLiked = (post) => {
         const result = post.reactions.filter(reaction => reaction.user.id == user.id)
         if (result.length > 0) {
@@ -117,11 +129,20 @@ export default function PostComponent({ post, setRefresh }) {
         }
         return (<img src="/assets/images/Starwhite.svg" alt="" />)
     }
-
+    //array fetch
+    const postImg = (str) => {
+        if(str!=null){
+            let temps=[];
+            for(let i=0; i<str.length; i++)
+            temps=[...temps,`/user-post/${post.id}/${str[i]}`]
+         console.log("img string"+imgString)
+        }
+     }
     return (
         <div className="central-meta item" key={post.id}>
             <div className="user-post">
                 {
+                   
                     editPostId !== post.id ?
                         <div className="friend-info">
 
@@ -160,21 +181,41 @@ export default function PostComponent({ post, setRefresh }) {
                                      </div>
                             
                                 </>
-                                : <>{post.postImagePath ?
+//single
+                                    
+
+                                : <>{(post.postImagePath) && ((post.postImagePath.split(',')).length>1) ? 
                                 
             
                                 <div className="postImage">
-                                    <div class="row1">
-                                   {
-                                   (post.postImagePath.split(',')).map((item,key)=>(<div className="col-xs-4"><a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}><img src={`/user-post/${post.id}/${item}`} key={key} style={{ width: '200px', height: '200px',objectFit:'cover',padding:'2px'}}/></a></div>)) }
+                                    <div className="row">
                                     
-                                    {/* <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> </a>
-                                    <a href={imgString[0]} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={imgString[0]} /> </a> */}
-                                  </div> 
+                                   { 
+                                      // setimgString(post.postImagePath.split(','))
+                                     // <ImageGallery items={post.postImagePath.split(',')}/>
+                                     
+                                    (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
+                                        <a href={`/user-post/${post.id}/${item}`}
+                                    data-lightbox={`image-user-${post.user.id}`}>
+                                       <img src={`/user-post/${post.id}/${item}`} key={key} 
+                                       style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>)) 
+                                       
+                                   }
+                                    </div>
+                                    
+                                 
                                    </div> 
-                                : null
+                                
+                                :<><div className="postImage"><a href={`/user-post/${post.id}/${post.postImagePath}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`}/></a>
+                                     {}</div></>
+                                     
+                               
+                                
+
+                                  
                                     
                              }</>
+                             
                         }
 
 
@@ -310,4 +351,3 @@ export default function PostComponent({ post, setRefresh }) {
 
 
 // pushing to github
-// I'm Remya
