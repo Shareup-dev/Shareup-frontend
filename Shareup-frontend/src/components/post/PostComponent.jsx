@@ -157,8 +157,8 @@ export default function PostComponent({ post, setRefresh }) {
                                     <div className="postImage">
                                     {/* setimgString(post.postImagePath.split(','));
                                     console.log("img are"+imgString[0]) */}
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}>
-                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.postImagePath} /> 
+                                    <a href={`/user-post/${post.id}/${post.postImagePath}`} data-lightbox={`image-user-${post.user.id}`}>
+                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`} /> 
                                         </a></div> : null
                                     }
                                     </div>
@@ -255,18 +255,23 @@ export default function PostComponent({ post, setRefresh }) {
                                 } */}
 
                                 
-    <figure>
+                            <figure>
                             <img src={post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">
                                 <div style={{ float: 'left', display: 'inline' }}>
 
-                                    <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}{post.userTag ?<><span style={{padding:'0 5px'}}>with</span> <span className="tagPost">{post.userTag.firstName}</span><span className="tagPost">{post.userTag.lastName}</span></>:null}</a>
+                                    <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}
+                                    {post.userTag ?
+                                    <><span style={{padding:'0 5px'}}>with</span> <span className="tagPost">{post.userTag.firstName}</span><span className="tagPost">{post.userTag.lastName}</span>
+                                    </>
+                                    :null}</a>
 
                                     <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark szbkmrk"></i>}</span>
                                     {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
-                                    </div> <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
+                                    </div>
+                                     <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
                                     
 
 
