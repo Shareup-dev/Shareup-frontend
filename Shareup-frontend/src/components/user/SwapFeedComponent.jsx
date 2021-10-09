@@ -22,6 +22,7 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
+import SwapComponents from '../SwapPoint/SwapComponents';
 
 
 
@@ -602,6 +603,32 @@ const handleRemoveImageSwap = () => {
   </Popup> 
     )
                   }
+  //Adding new swap
+  const postUp1 = () => 
+                  {
+
+                       return(
+                      <Popup trigger= {
+                                      <div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>
+                                      } 
+                      modal nested>
+                                       {
+                                       close => (<Form className="popwidth">
+                                         <div className="headpop" style={{border:'none'}}>
+                    <div className="row">
+                      <div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
+                    
+                    
+                    </div></div>
+                   
+                                        <SwapComponents/>
+                                       </Form>  )
+                                  }               
+                  </Popup>
+                    )
+                                  }
+
+  //ends swap here
 
   const postUp = () => {
                     return(
@@ -908,7 +935,7 @@ useEffect(() => {
                 </figure>
                 <div className="newpst-input">
                   <Form>
-                   {postUp()}
+                   {postUp1()}
                     {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                     {showPostImage ?
                       <>

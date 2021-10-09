@@ -9,6 +9,11 @@ import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import ImageGallery from 'react-image-gallery';
+import storage from "../../config/fileStorage";
+import Carousel from 'react-bootstrap/Carousel'
+
+
+const my_url = `${storage.baseUrl}`
 
 export default function PostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -19,20 +24,14 @@ export default function PostComponent({ post, setRefresh }) {
     const [showReactions, setShowReactions] = useState(false)
    
     const [likeReaction, setLikeReaction] = useState(null)
-    const [imgString, setimgString] = useState([post.postImagePath.split(',')]);
+    const [imgString, setimgString] = useState("");
     const images = [
         {
-          original: `/user-post/${post.id}/${post.postImagePath}`,
-          thumbnail:`/user-post/${post.id}/${post.postImagePath}`,
-        },
-        {
-          original: 'https://picsum.photos/id/1015/1000/600/',
-          thumbnail: 'https://picsum.photos/id/1015/250/150/',
-        },
-        {
-          original: 'https://picsum.photos/id/1019/1000/600/',
-          thumbnail: 'https://picsum.photos/id/1019/250/150/',
-        },
+          original: `/user-post/${post.id}/${imgString[0]}`,
+          thumbnail:`/user-post/${post.id}/${imgString[0]}`,
+        }
+        
+        
       ];
       
       
@@ -185,26 +184,49 @@ export default function PostComponent({ post, setRefresh }) {
                                     
 
                                 : <>{(post.postImagePath) && ((post.postImagePath.split(',')).length>1) ? 
+                                <div >
+                                    <Carousel height="200px" thumbnails={true} thumbnailWidth="100px" style={{
+                                     textAlign: "center",
+                                     maxWidth: "850px",
+                                     maxHeight: "500px",
+                                    margin: "40px auto",
+                                    }}> 
+                                   {
+                                      // (post.postImagePath.split(',')).map((item,key)=>{imgfun(item,key)})
+                                      
+                                   (post.postImagePath.split(',')).map((item,key)=>
+                                   (<Carousel.Item>
+                                      <a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}> <img className="d-block w-100" src={`/user-post/${post.id}/${item}`} key={key}
+                                        /></a>
+                                        </Carousel.Item>))
+                               
+                               
+                                         
+                                        }
+                                      </Carousel>  
+                      
+                                    </div> 
                                 
             
-                                <div className="postImage">
-                                    <div className="row">
+                                // <div className="postImage">
+                                //     <div className="row">
                                     
-                                   { 
-                                      // setimgString(post.postImagePath.split(','))
-                                     // <ImageGallery items={post.postImagePath.split(',')}/>
+                                //    { 
+                                //       // setimgString(post.postImagePath.split(','))
+                                //      // <ImageGallery items={images}/>
                                      
-                                    (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
-                                        <a href={`/user-post/${post.id}/${item}`}
-                                    data-lightbox={`image-user-${post.user.id}`}>
-                                       <img src={`/user-post/${post.id}/${item}`} key={key} 
-                                       style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>)) 
+                                     
+                                //     (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
+                                //         <a href={`${storage.baseUrl}/user-post/${post.id}/${item}`}
+                                //     data-lightbox={`image-user-${post.user.id}`}>
+                                //        <img src={`${storage.baseUrl}/user-post/${post.id}/${item}`} key={key} 
+                                //        style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>)) 
                                        
-                                   }
-                                    </div>
+                                //    }
+                                //     </div>
                                     
                                  
-                                   </div> 
+                                //    </div> 
                                 
                                 :<><div className="postImage"><a href={`/user-post/${post.id}/${post.postImagePath}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`}/></a>
                                      {}</div></>
@@ -233,8 +255,8 @@ export default function PostComponent({ post, setRefresh }) {
                                 } */}
 
                                 
-<figure>
-                                <img src={post.user.profilePicturePath} alt="" />
+    <figure>
+                            <img src={post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">
@@ -260,6 +282,12 @@ export default function PostComponent({ post, setRefresh }) {
                                    <li><span> <img src="/assets/images/shareicnwhite.svg" alt="" /></span> <span> {`${getCommentCounter(post.comments)}`} </span>
                                   
                                     </li>
+                                    <li style={{backgroundColor:"white",color:"black"}}>
+                                    <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
+                                        <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
+                                    </div>
+                                    </li>
+                                    
                                 </ul>
                                 </div>
                             {
@@ -293,12 +321,18 @@ export default function PostComponent({ post, setRefresh }) {
                                             <div className="reaction" onClick={() => handleLikePost(post.id)}>
                                                 <span className="dislike" data-toggle="tooltip" title=""><img src="/assets/images/Star.svg" alt="" /><span style={{ paddingLeft: '10px' }}></span></span></div>
                                         }
-                                        <div className="commShare"><div className="btncmn" onClick={() => setShowComment(!showComment)}><span className="comment" data-toggle="tooltip" title="Comments"><img src="/assets/images/comment.svg"/><span style={{paddingLeft:'2px'}} >Comment</span>
+                                        <div className="commShare">
+                                        <div className="btncmn" onClick={() => setShowComment(!showComment)}>
+                                            <span className="comment" data-toggle="tooltip" title="Comments"><img src="/assets/images/comment.svg"/><span style={{paddingLeft:'2px'}} >Comment</span>
+                                        </span></div>
+                                        <div className="btncmn" >
+                                            <span className="views" data-toggle="tooltip" ><img src="/assets/images/shareicn.svg"/><span style={{paddingLeft:'12px'}}>Share</span>
 
+                                           </span>
+                                           </div>
 
-                                        </span></div><div className="btncmn" ><span className="views" data-toggle="tooltip" ><img src="/assets/images/shareicn.svg"/><span style={{paddingLeft:'2px'}}>Share</span>
-
-                                           </span></div></div>
+                                           </div>
+                                           
                                         
                                     </div>
                                 </div>
@@ -311,9 +345,7 @@ export default function PostComponent({ post, setRefresh }) {
                         :
                         <EditPostComponent post={post} set={handleEditingSave} />
                 }
-<div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
-                                        <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
-                                    </div>
+
                                     {
                                         showMoreOptions && <div className="drop-options active">
                                             <ul><li className="head-drop"><h6>Post Options</h6></li>

@@ -107,10 +107,11 @@ export default function Layout(props) {
                     <aside className="sidebar static">
                     <div className="widget friend-list stick-widget">
                     <div className="row"><img src="../assets/images/1865023.png"/><p className="widget-title">Ads</p></div>
-                    <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a></div>
+                    <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a>
+                    </div>
 											</div>
 
-                      <div className="widget friend-list stick-widget">
+                    <div className="widget friend-list stick-widget">
                     <div className="row" ><img src="../assets/images/Trends1.jpg"/><p className="widget-title">News</p></div>
                     <div className="news"><a href="#" data-lightbox="image-1" data-title="My caption">
                       <img src="../assets/images/Trends1.jpg" style={{height:"100px"}}></img></a></div>
@@ -120,22 +121,22 @@ export default function Layout(props) {
            
             <ul>
             <li>
-                <i><a href=" https://www.aljazeera.com/where/qatar/" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Aljazeera Qatar News</a></i><br/>
+                <i><a href=" https://www.aljazeera.com/where/qatar/" target="_blank" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Aljazeera Qatar News</a></i><br/>
                 <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify"> Al Jazeera for truth and transparency....
                </p><br/>
             </li>
                 
             <li>
-                <i><a href="https://www.theverge.com/tech" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Technology</a></i><br/>
+                <i><a href="https://www.theverge.com/tech" target="_blank" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Technology</a></i><br/>
                 <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">Technology Trends report examines the ever-evolving...</p><br/>
             
              </li>
               <li>
-                <i><a href="https://thepeninsulaqatar.com/category/Qatar-Business" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Business</a></i><br/>
+                <i><a href="https://thepeninsulaqatar.com/category/Qatar-Business" target="_blank" style={{textDecoration:"underline",color:"blue" ,fontstyle:"italic"}}>Business</a></i><br/>
                 <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">Comprehensive Guide to Qatar Business ....</p>
             <br/>
              </li>
-            <li> <a href="https://www.dohanews.co/category/sports/" style={{textDecoration:"underline",color:"blue"}}>Sports</a><br/>
+            <li> <a href="https://www.dohanews.co/category/sports/" target="_blank" style={{textDecoration:"underline",color:"blue"}}>Sports</a><br/>
            </li>
             <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"18px"}} class="text-justify">View the latest in Qatar, SOCCER team news here.Sports..</p>
             </ul>

@@ -1995,6 +1995,7 @@ min-height: 90vh;
 }
 .newpst-input textarea::placeholder{
     padding-top: 10px;
+    
 }
 .attachments {
     font-size: 20px;
@@ -2021,7 +2022,8 @@ min-height: 90vh;
 }
 textarea::placeholder {
     color: rgb(110, 110, 110);
-    font-size: 0.9em;
+    font-size: 1.3em;
+    font-family:"sans-serif";
   }
 textarea {
     height:45px;
@@ -2051,7 +2053,7 @@ form button {
 }
 .commShare{
     cursor: pointer;
-    float: right;
+    float:none;
 }
 .friend-info {
     display: inline-block;
@@ -11849,10 +11851,11 @@ font-weight: bold;
 .add-dropdown {
     margin-right:11px;
     margin-top:11px;
-float:right;
+    float:right;
     transform: translateY(-50%);
     width: auto;
     line-height: 10px;
+    padding-top: 10px;
 }
 .add-dropdown > span {
     font-size: 20px;
@@ -12669,7 +12672,7 @@ background:rgb(235, 234, 234);
 .views{
     font-weight: bold;
     font-size:14px;
-    padding:0 10px 0 10px;
+    padding:0 40px 0 40px;
 }
 .comment  i{
     padding:2px;
@@ -12678,7 +12681,7 @@ background:rgb(235, 234, 234);
 .comment{
     font-weight: bold;
     font-size:14px;
-    padding:0 10px 0 10px;
+    padding:0 40px 0 40px;
 }
 .views  i{
     padding:2px;
@@ -14030,6 +14033,7 @@ float:right;
 
 .btncmn{
     display:inline;
+    padding: 10px;
 }
 .btncmn:hover{
     padding: 10px;
@@ -14690,6 +14694,7 @@ input.chat-text{
 .chat-text::placeholder{
     padding:0 20px;
     text-align: left;
+    
 }
 .add-chaticon {
 
@@ -14875,4 +14880,15 @@ color: #1b1b1b;
 .control-label 
 {
    font-size:xx-small; 
+}
+.swappic{
+    width:200px;
+    height:300px;
+    background: rgb(206, 206, 206);
+            border-radius:10px;
+            color:#fff;
+            font-weight:bold;
+            font-size:24px;
+            padding-top:100px;
+            object-fit: cover;
 }
