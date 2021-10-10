@@ -23,6 +23,7 @@ import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
 import SwapComponents from '../SwapPoint/SwapComponents';
+import fileStorage from '../../config/fileStorage';
 
 
 
@@ -571,7 +572,7 @@ const handleRemoveImageSwap = () => {
     </div></div>
 
     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -642,7 +643,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -685,7 +686,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -726,7 +727,7 @@ const handleRemoveImageSwap = () => {
                                     <div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
                                     </div></div>
                                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
