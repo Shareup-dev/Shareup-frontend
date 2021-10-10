@@ -10,6 +10,7 @@ import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderCompon
 import PostService from '../../services/PostService';
 import { nodeName } from 'jquery';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 function FriendProfWidgtComponent() {
     let history = useHistory();
@@ -39,7 +40,7 @@ function FriendProfWidgtComponent() {
                 {friendsList.slice(0, 8).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img className="imgFrnd" src={settings.apiUrl+friend.profilePicturePath} alt="" />
+                            <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicturePath} alt="" />
                             
                         </figure>
                         <div className="friendz-meta">

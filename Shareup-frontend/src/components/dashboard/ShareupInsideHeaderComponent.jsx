@@ -6,6 +6,7 @@ import FriendsService from '../../services/FriendService';
 import UserService from '../../services/UserService';
 import { BiUserPlus } from "react-icons/bi";
 import settings from '../../services/Settings';
+import fileStorage from "../../config/fileStorage"; 
 
 
 
@@ -261,7 +262,7 @@ function ShareupInsideHeaderComponent() {
           </li> */}
         </ul>
         <div className="user-img">
-          <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicturePath ? settings.apiUrl+user.profilePicturePath : "../assets/images/resources/admin.jpg"} style={{maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px'}} alt="" />
+          <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicturePath ? fileStorage.baseUrl+user.profilePicturePath : "../assets/images/resources/admin.jpg"} style={{maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px'}} alt="" />
           <span className="status f-online" />
           {
             showUserSettings && (

@@ -266,7 +266,7 @@ const handleCounterReaction = () => {
 				<div className="central-meta">
 					<div className="new-postbox">
 						<figure>
-							<img src={settings.apiUrl+user.profilePicturePath}  alt="" />
+							<img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
 						</figure>
 						<div className="newpst-input">
                   <Form>
@@ -379,7 +379,7 @@ const handleCounterReaction = () => {
 		</div></div>
 	
 		<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-		<img src={user ? fileStorage.baseUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+		<img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
 		   <div class="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}</span>
 		   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 	  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -573,7 +573,7 @@ const handleCounterReaction = () => {
 										<aside className="sidebar static">
 											<div className="widget">
 												<div className="row"><img src="../assets/images/unnamed.png" /><p className="widget-title">User</p></div>
-												<div className="user"><img src={settings.apiUrl+user.profilePicturePath} />
+												<div className="user"><img src={fileStorage.baseUrl+user.profilePicturePath} />
 													<a href="/profile"><p style={{ fontWeight: "bold" }}>{`${user.firstName} ${user.lastName}`}</p></a>
 												</div>
 											</div>
@@ -622,7 +622,7 @@ const handleCounterReaction = () => {
 														members.slice(0, 5).map((member) =>
 															<li>
 																<figure>
-																	<img src={settings.apiUrl+member.profilePicturePath} alt="" />
+																	<img src={fileStorage.baseUrl+member.profilePicturePath} alt="" />
 																</figure>
 																<div className="friend-meta">
 																	<h4>

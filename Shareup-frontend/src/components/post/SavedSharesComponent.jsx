@@ -764,7 +764,7 @@ const handleRemoveImageSwap = () => {
           <div className="central-meta newsfeed">
               <div className="new-postbox">
                 <figure>
-                  <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
+                  <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>

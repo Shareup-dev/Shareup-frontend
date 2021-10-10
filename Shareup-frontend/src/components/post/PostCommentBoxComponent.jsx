@@ -3,6 +3,7 @@ import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import Form from 'react-bootstrap/Form';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 export default function PostComponentBoxComponent({post, setRefresh}) {
     const { user } = useContext(UserContext)
@@ -44,7 +45,7 @@ export default function PostComponentBoxComponent({post, setRefresh}) {
         post &&
         <li className="post-comment">
                 <div className="comet-avatar">
-                  <img src={settings.apiUrl+user.profilePicturePath}  alt="" />
+                  <img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
                 </div>
                 <div className="post-comt-box">
                   <Form>

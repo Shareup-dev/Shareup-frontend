@@ -11,6 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import ImageGallery from 'react-image-gallery';
 import storage from "../../config/fileStorage";
 import Carousel from 'react-bootstrap/Carousel'
+import fileStorage from '../../config/fileStorage';
 
 
 const my_url = `${storage.baseUrl}`
@@ -152,15 +153,15 @@ export default function PostComponent({ post, setRefresh }) {
                                 <>
                                     <div className="grid-container1">
                                     <div className="itemS1">
-                                            {post.postImagePath ?
+                                            {post.imagePath ?
 
                                     <div className="postImage">
                                     {/* setimgString(post.postImagePath.split(','));
                                     console.log("img are"+imgString[0]) */}
-                                    <a href={`/user-post/${post.id}/${post.postImagePath}`} data-lightbox={`image-user-${post.user.id}`}>
-                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`} /> 
+                                    <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}>
+                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`} /> 
                                         </a></div> : null
-                                    }
+                                    }   
                                     </div>
                                     <div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
                                     <div className="itemS3">
@@ -228,7 +229,7 @@ export default function PostComponent({ post, setRefresh }) {
                                  
                                 //    </div> 
                                 
-                                :<><div className="postImage"><a href={`/user-post/${post.id}/${post.postImagePath}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`}/></a>
+                                :<><div className="postImage"><a href={`/user-post/${post.id}/${post.postImagePath}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.postImagePath}`}/></a>
                                      {}</div></>
                                      
                                

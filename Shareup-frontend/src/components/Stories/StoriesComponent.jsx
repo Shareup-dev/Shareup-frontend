@@ -16,6 +16,7 @@ import settings from '../../services/Settings';
 
 import Modal from 'react-modal';
 import Popup from 'reactjs-popup';
+import fileStorage from '../../config/fileStorage';
 function StoriesComponent({ story, setRefresh }) {
     
 
@@ -74,10 +75,10 @@ function StoriesComponent({ story, setRefresh }) {
 return(
   
   <div className="strysggstion-card">
-  <div className="strysggstion-Profimg"><img src={settings.apiUrl+story.user.profilePicturePath} alt="" /></div>
+  <div className="strysggstion-Profimg"><img src={fileStorage.baseUrl+story.user.profilePicturePath} alt="" /></div>
   <a href="#">
    {/* {story.storiesImagePath} data-lightbox={`image-user-${story.user.id}`} */}
-  <div className="strysggstion-imgStry"><a href="#!"><img src={settings.apiUrl+story.storiesImagePath} alt="" /></a></div>
+  <div className="strysggstion-imgStry"><a href="#!"><img src={fileStorage.baseUrl+story.storiesImagePath} alt="" /></a></div>
   </a>
   
 </div>

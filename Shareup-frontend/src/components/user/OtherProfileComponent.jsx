@@ -443,7 +443,7 @@ function OtherProfileComponent() {
                 <li key={userM.id}>
                   <div className="nearly-pepls">
                     <figure>
-                      <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                      <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                     </figure>
                     <div className="pepl-info">
                       <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>

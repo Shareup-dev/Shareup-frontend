@@ -7,6 +7,7 @@ import FriendsService from '../../services/FriendService';
 import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 function FriendsComponent() {
 	let history = useHistory();
@@ -154,7 +155,7 @@ function FriendsComponent() {
                             <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                 </div>
                                 {/* <div className="  "> */}
@@ -252,7 +253,7 @@ const FollowingComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -298,7 +299,7 @@ const FollowersComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title="#"><img src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}

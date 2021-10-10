@@ -477,7 +477,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -529,7 +529,7 @@ const handleRemoveImageSwap = () => {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={settings.apiUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>
@@ -870,7 +870,7 @@ useEffect(() => {
             <div className="central-meta newsfeed">
               <div className="new-postbox">
                 <figure>
-                  <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" />
+                  <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>

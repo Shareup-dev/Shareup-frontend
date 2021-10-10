@@ -11,6 +11,7 @@ import ShortcutWidgetComponent from '../dashboard/ShortcutWidgetComponent';
 import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 function FriendsTestComponent() {
     let history = useHistory();
@@ -155,9 +156,9 @@ function FriendsTestComponent() {
                         userM =>
                             <li key={userM.id}>
                                 <div className="cardprofile">
-                                    <figure className="snip1336"><img src={userM.coverPicturePath ? settings.apiUrl+userM.coverPicturePath : "https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample69.jpg"} style={{height:'218px'}}  alt="sample69" />
+                                    <figure className="snip1336"><img src={userM.coverPicturePath ? fileStorage.baseUrl+userM.coverPicturePath : "https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample69.jpg"} style={{height:'218px'}}  alt="sample69" />
                                         <figcaption>
-                                            <img src={settings.apiUrl+userM.profilePicturePath} alt="profile-sample5" className="profile" />
+                                            <img src={fileStorage.baseUrl+userM.profilePicturePath} alt="profile-sample5" className="profile" />
                                             <h2>{`${userM.firstName} ${userM.lastName}`}<span>{userM.job ? userM.job : `No Job`}</span> <ul className="social-icons">
                                                 <li><a href="#"><i className="fa fa-instagram" /></a></li>
                                                 <li><a href="#"><i className="fa fa-twitter" /></a></li>
