@@ -12,6 +12,7 @@ import PostService from '../../services/PostService';
 import PostProfileComponent from '../Profile/PostProfileComponent';
 import FriendProfileComponent from '../Profile/FriendProfileComponent';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 
 function OtherProfileComponent() {
@@ -514,7 +515,7 @@ function OtherProfileComponent() {
                       {
                         showProfilePicture ?
                           <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicturePath ? <img className="border-gradient" src={settings.apiUrl+userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                          userProfile.profilePicturePath ? <img className="border-gradient" src={fileStorage.baseUrl+userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                       }
 
                        

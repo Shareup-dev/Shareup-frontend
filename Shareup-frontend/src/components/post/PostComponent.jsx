@@ -8,7 +8,12 @@ import PostComponentBoxComponent from './PostCommentBoxComponent';
 import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import settings from '../../services/Settings';
+import ImageGallery from 'react-image-gallery';
+import storage from "../../config/fileStorage";
+import Carousel from 'react-bootstrap/Carousel'
+
+
+const my_url = `${storage.baseUrl}`
 
 export default function PostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
@@ -19,6 +24,17 @@ export default function PostComponent({ post, setRefresh }) {
     const [showReactions, setShowReactions] = useState(false)
    
     const [likeReaction, setLikeReaction] = useState(null)
+    const [imgString, setimgString] = useState("");
+    const images = [
+        {
+          original: `/user-post/${post.id}/${imgString[0]}`,
+          thumbnail:`/user-post/${post.id}/${imgString[0]}`,
+        }
+        
+        
+      ];
+      
+      
 
     const something=(event)=> {
         if (event.key === "Enter") {
@@ -28,6 +44,7 @@ export default function PostComponent({ post, setRefresh }) {
     const handleEditPost = (id) => {
         setEditPostId(id)
         setRefresh(id)
+       
     }
 
     const getCommentCounter = (comments) => {
@@ -37,7 +54,7 @@ export default function PostComponent({ post, setRefresh }) {
         })
         return counter
     }
-
+    
     const checkIfLiked = (post) => {
         const result = post.reactions.filter(reaction => reaction.user.id == user.id)
         if (result.length > 0) {
@@ -111,47 +128,116 @@ export default function PostComponent({ post, setRefresh }) {
         }
         return (<img src="/assets/images/Starwhite.svg" alt="" />)
     }
-
+    //array fetch
+    const postImg = (str) => {
+        if(str!=null){
+            let temps=[];
+            for(let i=0; i<str.length; i++)
+            temps=[...temps,`/user-post/${post.id}/${str[i]}`]
+         console.log("img string"+imgString)
+        }
+     }
     return (
         <div className="central-meta item" key={post.id}>
             <div className="user-post">
                 {
+                   
                     editPostId !== post.id ?
                         <div className="friend-info">
 
                             <div className="post-meta">
                             
-                            {post.swapImagePath ?
-                            <>
-                            <div className="grid-container1">
-<div className="itemS1">
-{post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
-                                }
-</div>
-<div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
-<div className="itemS3">
+                            {
+                                post.swapImagePath ?
+                                <>
+                                    <div className="grid-container1">
+                                    <div className="itemS1">
+                                            {post.postImagePath ?
+
+                                    <div className="postImage">
+                                    {/* setimgString(post.postImagePath.split(','));
+                                    console.log("img are"+imgString[0]) */}
+                                    <a href={`/user-post/${post.id}/${post.postImagePath}`} data-lightbox={`image-user-${post.user.id}`}>
+                                        <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`} /> 
+                                        </a></div> : null
+                                    }
+                                    </div>
+                                    <div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
+                                    <div className="itemS3">
 <>
                                 
                                     <div className="swapImage">
-                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.swapImagePath} /> </a></div> </>
+                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={post.swapImagePath} /> </a></div> </>
 </div>
 
-                            </div>
+                                    </div>
                             
-                            <div className="buttonS">
-                            <a href="/shipping" className="buttonshare" onClick={() => handleDeletePost(post.id)}>
+                                    <div className="buttonS">
+                                    <a href="/shipping" className="buttonshare" onClick={() => handleDeletePost(post.id)}>
                                                     Accept</a>
                                                     
                                 
-                                </div>
+                                     </div>
                             
-                            </>
-                            : <>{post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={settings.apiUrl+post.postImagePath} /> </a></div> : null
-                                }</>
+                                </>
+//single
+                                    
+
+                                : <>{(post.postImagePath) && ((post.postImagePath.split(',')).length>1) ? 
+                                <div >
+                                    <Carousel height="200px" thumbnails={true} thumbnailWidth="100px" style={{
+                                     textAlign: "center",
+                                     maxWidth: "850px",
+                                     maxHeight: "500px",
+                                    margin: "40px auto",
+                                    }}> 
+                                   {
+                                      // (post.postImagePath.split(',')).map((item,key)=>{imgfun(item,key)})
+                                      
+                                   (post.postImagePath.split(',')).map((item,key)=>
+                                   (<Carousel.Item>
+                                      <a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}> <img className="d-block w-100" src={`/user-post/${post.id}/${item}`} key={key}
+                                        /></a>
+                                        </Carousel.Item>))
+                               
+                               
+                                         
+                                        }
+                                      </Carousel>  
+                      
+                                    </div> 
+                                
+            
+                                // <div className="postImage">
+                                //     <div className="row">
+                                    
+                                //    { 
+                                //       // setimgString(post.postImagePath.split(','))
+                                //      // <ImageGallery items={images}/>
+                                     
+                                     
+                                //     (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
+                                //         <a href={`${storage.baseUrl}/user-post/${post.id}/${item}`}
+                                //     data-lightbox={`image-user-${post.user.id}`}>
+                                //        <img src={`${storage.baseUrl}/user-post/${post.id}/${item}`} key={key} 
+                                //        style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>)) 
+                                       
+                                //    }
+                                //     </div>
+                                    
+                                 
+                                //    </div> 
+                                
+                                :<><div className="postImage"><a href={`/user-post/${post.id}/${post.postImagePath}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`/user-post/${post.id}/${post.postImagePath}`}/></a>
+                                     {}</div></>
+                                     
+                               
+                                
+
+                                  
+                                    
+                             }</>
+                             
                         }
 
 
@@ -169,17 +255,23 @@ export default function PostComponent({ post, setRefresh }) {
                                 } */}
 
                                 
-<figure>
-                                <img src={settings.apiUrl+post.user.profilePicturePath} alt="" />
+                            <figure>
+                            <img src={post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">
                                 <div style={{ float: 'left', display: 'inline' }}>
 
-                                    <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}{post.userTag ?<><span style={{padding:'0 5px'}}>with</span> <span className="tagPost">{post.userTag.firstName}</span><span className="tagPost">{post.userTag.lastName}</span></>:null}</a>
+                                    <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}
+                                    {post.userTag ?
+                                    <><span style={{padding:'0 5px'}}>with</span> <span className="tagPost">{post.userTag.firstName}</span><span className="tagPost">{post.userTag.lastName}</span>
+                                    </>
+                                    :null}</a>
 
                                     <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark szbkmrk"></i>}</span>
-                                    {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null}</div> <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
+                                    {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
+                                    </div>
+                                     <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
                                     
 
 
@@ -195,6 +287,12 @@ export default function PostComponent({ post, setRefresh }) {
                                    <li><span> <img src="/assets/images/shareicnwhite.svg" alt="" /></span> <span> {`${getCommentCounter(post.comments)}`} </span>
                                   
                                     </li>
+                                    <li style={{backgroundColor:"white",color:"black"}}>
+                                    <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
+                                        <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
+                                    </div>
+                                    </li>
+                                    
                                 </ul>
                                 </div>
                             {
@@ -228,12 +326,18 @@ export default function PostComponent({ post, setRefresh }) {
                                             <div className="reaction" onClick={() => handleLikePost(post.id)}>
                                                 <span className="dislike" data-toggle="tooltip" title=""><img src="/assets/images/Star.svg" alt="" /><span style={{ paddingLeft: '10px' }}></span></span></div>
                                         }
-                                        <div className="commShare"><div className="btncmn" onClick={() => setShowComment(!showComment)}><span className="comment" data-toggle="tooltip" title="Comments"><img src="/assets/images/comment.svg"/><span style={{paddingLeft:'2px'}} >Comment</span>
+                                        <div className="commShare">
+                                        <div className="btncmn" onClick={() => setShowComment(!showComment)}>
+                                            <span className="comment" data-toggle="tooltip" title="Comments"><img src="/assets/images/comment.svg"/><span style={{paddingLeft:'2px'}} >Comment</span>
+                                        </span></div>
+                                        <div className="btncmn" >
+                                            <span className="views" data-toggle="tooltip" ><img src="/assets/images/shareicn.svg"/><span style={{paddingLeft:'12px'}}>Share</span>
 
+                                           </span>
+                                           </div>
 
-                                        </span></div><div className="btncmn" ><span className="views" data-toggle="tooltip" ><img src="/assets/images/shareicn.svg"/><span style={{paddingLeft:'2px'}}>Share</span>
-
-                                           </span></div></div>
+                                           </div>
+                                           
                                         
                                     </div>
                                 </div>
@@ -246,9 +350,7 @@ export default function PostComponent({ post, setRefresh }) {
                         :
                         <EditPostComponent post={post} set={handleEditingSave} />
                 }
-<div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
-                                        <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
-                                    </div>
+
                                     {
                                         showMoreOptions && <div className="drop-options active">
                                             <ul><li className="head-drop"><h6>Post Options</h6></li>
@@ -278,6 +380,11 @@ export default function PostComponent({ post, setRefresh }) {
                 </div>
                 
             </div>
+            
         </div>
     );
+    
 }
+
+
+// pushing to github

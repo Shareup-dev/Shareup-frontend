@@ -22,7 +22,11 @@ function ChatComponent() {
   const [searchedUser, setSearchedUser] = useState([]);
 
 
+  const sendMessges=()=>{
+    
 
+
+  }
   const addFriendsId = (uid,fid) => {
     console.log("uid: " + uid + " fid: " + fid)
     FriendsService.addFriends(uid,fid).then(res => {
@@ -103,7 +107,7 @@ function ChatComponent() {
         </ul>
       </div> {/* end chat-history */}
       <div className="chat-message clearfix">
-        <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows={3} defaultValue={""} />
+        <textarea id="message-to-send" name="message-to-send" placeholder="Type your message here" onEnter={sendMessges} rows={3} defaultValue={""} />
         <i className="fa fa-file-o" /> &nbsp;&nbsp;&nbsp;
         <i className="fa fa-file-image-o" />
         <button id="sendBtn">Send</button>

@@ -43,7 +43,7 @@ Last change:  4/september/18
 
 
 /*=============== Fonts source Muli, Hobostd ===================*/
-
+@import "~react-image-gallery/styles/css/image-gallery.css";
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400,400i,500,700,800');
 @import url('https://fonts.googleapis.com/css?family=Satisfy');
 @font-face {
@@ -721,7 +721,7 @@ padding-top:10%;
 }
 .form-group label{
     margin-left:10px;
-	line-height: 2;
+	line-height: 1;
 }
  .full{
 	width:94.4%;
@@ -1731,7 +1731,12 @@ img#preview{
     display: inline-block;
     width:100%;
 }
-
+.sidebar .widget .news img{
+    border-radius:20px;
+    display: inline-block;
+    width:100%;
+    height:80%;
+}
 .sidebar .widget .user img{
 
     display: inline;
@@ -1990,6 +1995,7 @@ min-height: 90vh;
 }
 .newpst-input textarea::placeholder{
     padding-top: 10px;
+    
 }
 .attachments {
     font-size: 20px;
@@ -2016,7 +2022,8 @@ min-height: 90vh;
 }
 textarea::placeholder {
     color: rgb(110, 110, 110);
-    font-size: 0.9em;
+    font-size: 1.3em;
+    font-family:"sans-serif";
   }
 textarea {
     height:45px;
@@ -2046,7 +2053,7 @@ form button {
 }
 .commShare{
     cursor: pointer;
-    float: right;
+    float:none;
 }
 .friend-info {
     display: inline-block;
@@ -11844,10 +11851,11 @@ font-weight: bold;
 .add-dropdown {
     margin-right:11px;
     margin-top:11px;
-float:right;
+    float:right;
     transform: translateY(-50%);
     width: auto;
     line-height: 10px;
+    padding-top: 10px;
 }
 .add-dropdown > span {
     font-size: 20px;
@@ -12664,7 +12672,7 @@ background:rgb(235, 234, 234);
 .views{
     font-weight: bold;
     font-size:14px;
-    padding:0 10px 0 10px;
+    padding:0 40px 0 40px;
 }
 .comment  i{
     padding:2px;
@@ -12673,7 +12681,7 @@ background:rgb(235, 234, 234);
 .comment{
     font-weight: bold;
     font-size:14px;
-    padding:0 10px 0 10px;
+    padding:0 40px 0 40px;
 }
 .views  i{
     padding:2px;
@@ -14025,6 +14033,7 @@ float:right;
 
 .btncmn{
     display:inline;
+    padding: 10px;
 }
 .btncmn:hover{
     padding: 10px;
@@ -14685,6 +14694,7 @@ input.chat-text{
 .chat-text::placeholder{
     padding:0 20px;
     text-align: left;
+    
 }
 .add-chaticon {
 
@@ -14824,5 +14834,61 @@ color: #1b1b1b;
     height: 100%;
   }
 
-
+  .media-date {
+    font-family: "Open Sans", sans-serif;
+    color: #030114;
+    font-size:20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.media-body {
+    position: absolute;
+    right: 35px;
+    width: 60%;
+    padding: 20px;
+}
+.column1 {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+  }
+  
+  /* Clear floats after image containers */
+  .row1::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .gallery
+{
+    margin: 10px 50px;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+.gallery img
+{
+    transition:1s;
+    padding:15px;
+    width:22%;
  
+}
+.gallery img:hover
+{
+    filter:grayscale(100%);
+    transform: scale(1.1);
+}
+.control-label 
+{
+   font-size:xx-small; 
+}
+.swappic{
+    width:200px;
+    height:300px;
+    background: rgb(206, 206, 206);
+            border-radius:10px;
+            color:#fff;
+            font-weight:bold;
+            font-size:24px;
+            padding-top:100px;
+            object-fit: cover;
+}

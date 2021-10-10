@@ -240,8 +240,9 @@ function Index({ set, setUser }) {
             <div className="row">
 
               <div className="form-group">
-
-                <input type="text" name="firstName" value={firstName} onChange={handleFirstName} required="required" /> <label className="control-label" htmlFor="input">First Name</label>
+                
+                <input class="form-control"  type="text" name="firstName" value={firstName} onChange={handleFirstName} required="required" />
+                 <label  className="control-label"  htmlFor="input" >First Name</label>
               </div>
               <div className="form-group">
                 <input type="text" name="lastName" value={lastName} onChange={handleLastName} required="required" />

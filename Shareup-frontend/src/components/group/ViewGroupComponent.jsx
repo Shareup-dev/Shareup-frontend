@@ -19,6 +19,7 @@ import MenuWidgetComponent from '../widgets/MenuWidgetComponent';
 import { testScript } from '../../js/script';
 import Popup from 'reactjs-popup';
 import settings from '../../services/Settings';
+import fileStorage from '../../config/fileStorage';
 
 
 
@@ -378,7 +379,7 @@ const handleCounterReaction = () => {
 		</div></div>
 	
 		<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-		<img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+		<img src={user ? fileStorage.baseUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
 		   <div class="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}</span>
 		   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 	  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -423,7 +424,7 @@ const handleCounterReaction = () => {
 						</div></div>
 					
 						<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-						<img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+						<img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
 						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -467,7 +468,7 @@ const handleCounterReaction = () => {
 						</div></div>
 					
 						<div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-						<img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+						<img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
 						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -509,7 +510,7 @@ const handleCounterReaction = () => {
 						</div></div>
 					
 						<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-						<img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+						<img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
 						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >

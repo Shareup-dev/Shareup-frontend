@@ -22,6 +22,8 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
+import SwapComponents from '../SwapPoint/SwapComponents';
+import fileStorage from '../../config/fileStorage';
 
 
 
@@ -570,7 +572,7 @@ const handleRemoveImageSwap = () => {
     </div></div>
 
     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -602,6 +604,32 @@ const handleRemoveImageSwap = () => {
   </Popup> 
     )
                   }
+  //Adding new swap
+  const postUp1 = () => 
+                  {
+
+                       return(
+                      <Popup trigger= {
+                                      <div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>
+                                      } 
+                      modal nested>
+                                       {
+                                       close => (<Form className="popwidth">
+                                         <div className="headpop" style={{border:'none'}}>
+                    <div className="row">
+                      <div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
+                    
+                    
+                    </div></div>
+                   
+                                        <SwapComponents/>
+                                       </Form>  )
+                                  }               
+                  </Popup>
+                    )
+                                  }
+
+  //ends swap here
 
   const postUp = () => {
                     return(
@@ -615,7 +643,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -658,7 +686,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -699,7 +727,7 @@ const handleRemoveImageSwap = () => {
                                     <div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
                                     </div></div>
                                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? settings.apiUrl+user.profilePicturePath : settings.apiUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -908,7 +936,7 @@ useEffect(() => {
                 </figure>
                 <div className="newpst-input">
                   <Form>
-                   {postUp()}
+                   {postUp1()}
                     {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                     {showPostImage ?
                       <>
