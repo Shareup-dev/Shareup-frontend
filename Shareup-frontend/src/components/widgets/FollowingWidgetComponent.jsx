@@ -8,6 +8,7 @@ import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
+import fileStorage from '../../config/fileStorage';
 
 function FollowingWidgetComponent() {
     let history = useHistory();
@@ -36,7 +37,7 @@ function FollowingWidgetComponent() {
                     followers.slice(0, 5).map((follower_user) =>
                         <li key={follower_user.id}>
                             <figure>
-                                <img src={follower_user.profilePicturePath} alt="" />
+                                <img src={ fileStorage.baseUrl+follower_user.profilePicturePath} alt="" />
                             </figure>
                             <div className="friend-meta">
                                 <h4>

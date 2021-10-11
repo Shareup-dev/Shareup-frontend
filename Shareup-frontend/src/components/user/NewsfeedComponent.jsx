@@ -28,6 +28,7 @@ import LocationComponent from '../AccountSettings/LocationComponent';
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
 import FriendSearchComponent from './FriendSearchComponent';
 import FriendsService from '../../services/FriendService';
+import fileStorage from "../../config/fileStorage";
 
 
 
@@ -1103,7 +1104,7 @@ useEffect(() => {
             <div className="central-meta newsfeed">
               <div className="new-postbox">
                 <figure>
-                  <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" />
+                  <img src={user ?  fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>
