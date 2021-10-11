@@ -15,6 +15,7 @@ import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
 import { MiddlewareArray } from '@reduxjs/toolkit';
+import fileStorage from '../../config/fileStorage';
 
 export default function SwapComponents() {
 
@@ -607,7 +608,7 @@ const handleRemoveImageSwap = () => {
                                       {/* adding */}
                                       <div style={{float: 'left',width: '50%',textAlign: 'left'}}>
                                       <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}>
                          <span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
                        <span style={{display: 'block', fontSize: '12px'}}>
