@@ -158,7 +158,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     <div className="postImage">
                                     {/* setimgString(post.postImagePath.split(','));
                                     console.log("img are"+imgString[0]) */}
-                                    <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}>
+                                    <a href={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}>
                                         <img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`} /> 
                                         </a></div> : null
                                     }   
@@ -257,7 +257,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                                 
                             <figure>
-                            <img src={post.user.profilePicturePath} alt="" />
+                            <img src={ fileStorage.baseUrl + post.user.profilePicturePath} alt="" />
                             </figure>
                             
                             <div className="friend-name">

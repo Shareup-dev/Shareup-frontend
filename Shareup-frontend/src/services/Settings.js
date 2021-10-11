@@ -6,7 +6,7 @@ const settings = {
     apiUrl: "http://104.43.220.197:8080",
   },
   prod: {
-    apiUrl: "http://backend.shareup.digital",
+    apiUrl: "https://shareup.digital/backend",
   },
 };
 
