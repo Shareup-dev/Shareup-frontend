@@ -197,7 +197,7 @@ export default function PostComponent({ post, setRefresh }) {
                                       
                                    (post.postImagePath.split(',')).map((item,key)=>
                                    (<Carousel.Item>
-                                      <a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}> <img className="d-block w-100" src={`/user-post/${post.id}/${item}`} key={key}
+                                      <a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}> <img className="d-block w-100" src={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`} key={key}
                                         /></a>
                                         </Carousel.Item>))
                                
