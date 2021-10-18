@@ -1,0 +1,43 @@
+.container_trending {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.container_trending_item {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  padding: 16px !important;
+  box-sizing: border-box;
+  transition: all 300ms ease-in-out;
+}
+
+.container_trending_item:hover {
+  border: 2px solid #888888;
+  transform: translateX(1px);
+
+  box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
+}
+
+.container_trending_item > a {
+  font-size: 18px !important;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #0b2984;
+}
+
+.container_trending_item > p {
+  font-size: 14px !important;
+  letter-spacing: 1px;
+  line-height: 18px;
+}
+
+.ti-announcement {
+  height: fit-content;
+  transform: translateY(8px);
+  color: #0b2984;
+}
