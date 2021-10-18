@@ -11741,6 +11741,7 @@ img.hover-shadow {
   width: 200px;
   display: none;
   min-height: 200px;
+  z-index: 99;
 }
 .drop-options.active {
   display: block;
