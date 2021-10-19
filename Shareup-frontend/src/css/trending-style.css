@@ -15,12 +15,11 @@
 }
 
 .container_trending_item:hover {
-  border: 2px solid #888888;
   transform: translateX(1px);
 
-  box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.05);
+  box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.07);
+  -webkit-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.07);
 }
 
 .container_trending_item > a {
@@ -28,6 +27,12 @@
   font-weight: 700;
   margin-bottom: 8px;
   color: #0b2984;
+}
+
+.container_trending_item > img {
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 .container_trending_item > p {
