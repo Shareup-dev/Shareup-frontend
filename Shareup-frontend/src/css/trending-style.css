@@ -1,15 +1,34 @@
 .container_trending {
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.container_trending_nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container_trending_nav > button {
+  border: 0;
+  color: #0b2984;
+  font-size: 24px;
 }
 
 .container_trending_item {
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 20px;
+  width: 100% !important;
+  min-height: 320px;
+  display: flex !important;
+  flex-flow: column nowrap !important;
+  align-items: center;
+  justify-content: space-between !important;
+  margin-bottom: 20px !important;
   border: 1px solid #e7e7e7;
   border-radius: 8px;
-  padding: 16px !important;
+  padding: 8px !important;
   box-sizing: border-box;
   transition: all 300ms ease-in-out;
 }
@@ -22,27 +41,74 @@
   -moz-box-shadow: -6px 8px 3px -4px rgba(0, 0, 0, 0.07);
 }
 
-.container_trending_item > a {
+.container_trending_item > .trending_item__img,
+.trending_item__title,
+.trending_item__description {
+  border-radius: 8px !important;
+  width: 100% !important;
+  margin-bottom: 8px !important;
+}
+
+.trending_item__img {
+  margin: 0 !important;
+  object-fit: cover;
+  height: auto !important;
+  min-height: 161px;
+}
+.trending_item__title {
   font-size: 18px !important;
   font-weight: 700;
-  margin-bottom: 8px;
+
   color: #0b2984;
+  min-height: 48px;
+
+  display: flex !important;
+  align-items: center;
 }
 
-.container_trending_item > img {
-  margin: 0 !important;
-  width: 100% !important;
-  height: auto !important;
-}
-
-.container_trending_item > p {
+.trending_item__description {
   font-size: 14px !important;
   letter-spacing: 1px;
   line-height: 18px;
+  min-height: 126px;
+  text-overflow: ellipsis;
 }
 
 .ti-announcement {
   height: fit-content;
   transform: translateY(8px);
   color: #0b2984;
+}
+
+.trending_item__loading > .trending_item__img {
+  width: 100%;
+  height: 161px;
+  background: linear-gradient(90deg, #dfdfdf00 0%, #dfdfdf 100%);
+  background-size: 200% 200%;
+  animation: anim_loading 2.5s ease-in-out infinite;
+}
+
+.trending_item__loading > .trending_item__title {
+  background: linear-gradient(90deg, #bdbdbd00 0%, #bdbdbd 100%);
+  background-size: 200% 200%;
+  animation: anim_loading 3s ease-in-out infinite;
+}
+
+.trending_item__loading > .trending_item__description {
+  background-color: #b6b6b6;
+  background: linear-gradient(90deg, #dfdfdf00 0%, #dfdfdf 100%);
+  background-size: 200% 200%;
+  animation: anim_loading 2.5s ease-in-out infinite;
+}
+
+@keyframes anim_loading {
+  0% {
+    background-position: 10% 0%;
+  }
+  50% {
+    background-position: 91% 100%;
+  }
+  100% {
+    background-position: 10% 0%;
+  }
 }

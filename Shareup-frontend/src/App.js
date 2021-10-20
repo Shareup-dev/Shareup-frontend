@@ -10,7 +10,7 @@ import './css/fontawesome/css/all.min.css';
 import './css/styleguide.css';
 import './css/notifications.css';
 import './css/globals.css';
-import AuthService from './services/auth.services'
+import AuthService from './services/auth.services';
 
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 
@@ -53,32 +53,32 @@ import ChatTestComponent from './components/ChatTest/ChatTestComponent';
 import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
-
+import SwapPostComponent from './components/post/SwapPostComponent';
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
 function App() {
-  testScript()
+  testScript();
   let history = useHistory();
 
-  const [jwtUser, setJwtUser] = useState(AuthService.getCurrentUser())
-  const [user, setUser] = useState([])
+  const [jwtUser, setJwtUser] = useState(AuthService.getCurrentUser());
+  const [user, setUser] = useState([]);
 
   const userAuthenticator = async () => {
-    await AuthService.setCurrentUser(jwtUser)
-    let user = null
+    await AuthService.setCurrentUser(jwtUser);
+    let user = null;
     if (jwtUser) {
-      console.log("AHAAAAAAAAAAAAAAAAAAAHAAA")
-      user = await UserService.getUserByEmail(jwtUser.username).then(res => {
+      console.log('AHAAAAAAAAAAAAAAAAAAAHAAA');
+      user = await UserService.getUserByEmail(jwtUser.username).then((res) => {
         // console.log
-      return res.data
-     })
-     console.log(JSON.stringify(user) +  ' ah ahah')
+        return res.data;
+      });
+      console.log(JSON.stringify(user) + ' ah ahah');
     }
-    setUser(user)
-  }
+    setUser(user);
+  };
 
   useEffect(() => {
-    userAuthenticator()
+    userAuthenticator();
   }, [jwtUser]);
 
   // useEffect(() => {
@@ -87,21 +87,22 @@ function App() {
 
   const logout = () => {
     AuthService.logout();
-  }
-
+  };
 
   return (
     <UserContext.Provider value={{ user }}>
-      {console.log("Value of " + JSON.stringify(user))}
+      {console.log('Value of ' + JSON.stringify(user))}
       <Router>
         <HeaderComponent />
-          <Switch>
-          <Route path="/" exact><Index set={setJwtUser} setUser={setUser}/></Route>
+        <Switch>
+          <Route path="/" exact>
+            <Index set={setJwtUser} setUser={setUser} />
+          </Route>
           <Route path="/about">
-            <AboutComponent/>
+            <AboutComponent />
           </Route>
           <Route path="/privacyPolicy">
-            <PrivacyPolicyComponent/>
+            <PrivacyPolicyComponent />
           </Route>
           <ProtectedRoute path="/newsfeed" component={NewsfeedComponent}></ProtectedRoute>
           <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
@@ -118,25 +119,24 @@ function App() {
           <ProtectedRoute path="/chat" component={ChatComponent}></ProtectedRoute>
           <ProtectedRoute path="/messages" component={MessagesComponent}></ProtectedRoute>
           {/* <ProtectedRoute path="/swappoint" component={SwappointComponent}></ProtectedRoute> */}
-		  <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/share" component={ShareItemComponent}></ProtectedRoute>
-      <ProtectedRoute path="/Activity" component={ActivityComponent}></ProtectedRoute>
-      <ProtectedRoute path="/Security" component={SecuritySettingsComponent}></ProtectedRoute>
-      <ProtectedRoute path="/HangGift" component={HangGiftComponent}></ProtectedRoute>
-      <ProtectedRoute path="/shipping" component={ShippingComponent}></ProtectedRoute>
-      <ProtectedRoute path="/checkout" component={CheckoutComponent}></ProtectedRoute>
-      <ProtectedRoute path="/editprofile" component={EditProfileComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swap" component={SwapComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swapFeed" component={SwapFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/savedShares" component={SavedSharesComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swappost" component={SwapFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/PaymentConfirmation" component={PayConfirmComponent}></ProtectedRoute>
-      <ProtectedRoute path="/chatTest" component={ChatTestComponent}></ProtectedRoute>
-      <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
-      <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
-    
-      
-      {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
+          <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
+          <ProtectedRoute path="/share" component={ShareItemComponent}></ProtectedRoute>
+          <ProtectedRoute path="/Activity" component={ActivityComponent}></ProtectedRoute>
+          <ProtectedRoute path="/Security" component={SecuritySettingsComponent}></ProtectedRoute>
+          <ProtectedRoute path="/HangGift" component={HangGiftComponent}></ProtectedRoute>
+          <ProtectedRoute path="/shipping" component={ShippingComponent}></ProtectedRoute>
+          <ProtectedRoute path="/checkout" component={CheckoutComponent}></ProtectedRoute>
+          <ProtectedRoute path="/editprofile" component={EditProfileComponent}></ProtectedRoute>
+          <ProtectedRoute path="/swap" component={SwapComponent}></ProtectedRoute>
+          <ProtectedRoute path="/swapFeed" component={SwapFeedComponent}></ProtectedRoute>
+          <ProtectedRoute path="/savedShares" component={SavedSharesComponent}></ProtectedRoute>
+          <ProtectedRoute path="/swappost" component={SwapPostComponent}></ProtectedRoute>
+          <ProtectedRoute path="/PaymentConfirmation" component={PayConfirmComponent}></ProtectedRoute>
+          <ProtectedRoute path="/chatTest" component={ChatTestComponent}></ProtectedRoute>
+          <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
+          <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
+
+          {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
         </Switch>
       </Router>
     </UserContext.Provider>

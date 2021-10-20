@@ -1,59 +1,52 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../css/trending-style.css'; //From Lawrence for Whats Trending styling
 
-const DUMMY_TRENDING_DATA = [
-  {
-    title: 'Aljazeera Qatar News',
-    url: 'https://www.aljazeera.com/where/qatar/',
-    content: 'Al Jazeera for truth and transparency....',
-  },
-  {
-    title: 'Technology',
-    url: 'https://www.theverge.com/tech',
-    content: 'Technology Trends report examines the ever-evolving...',
-  },
-  {
-    title: 'Business',
-    url: 'https://thepeninsulaqatar.com/category/Qatar-Business',
-    content: 'Comprehensive Guide to Qatar Business ....',
-  },
-  {
-    title: 'Sports',
-    url: 'https://thepeninsulaqatar.com/category/Qatar-Business',
-    content: 'View the latest in Qatar, SOCCER team news here.Sports...',
-  },
-];
-
-const TrendingItem = ({ key, url = '', urlImage = '', title = '', description = '' }) => (
-  <li class="container_trending_item">
-    <img src={urlImage} alt={key} />
-    <a href={url} target="_blank" rel="noreferrer">
+const TrendingItem = ({ id, url = '', urlImage = '', title = '', description = '', loading = false }) => (
+  <li className={`container_trending_item ${loading && 'trending_item__loading'}`}>
+    {loading ? (
+      <div className="trending_item__img"></div>
+    ) : (
+      <img className="trending_item__img" src={urlImage} alt={`trendingitem${id}`} />
+    )}
+    <a className="trending_item__title" href={url} target="_blank" rel="noreferrer">
       {title}
     </a>
-    <p>{description}</p>
+    <p className="trending_item__description">{description}</p>
   </li>
 );
-const newsApiKey = '78d61a4ab2fc4b5c92149f7c22e8acbe';
 
-const TrendingWidgetComponent = () => {
+const newsApiKey = '63dba4402f7e429aa0c9e818baf2e314';
+
+const NEWS_ACTIONS = {
+  PREV: 'PREV',
+  NEXT: 'NEXT',
+};
+
+const TrendingWidgetComponent = ({ pageSize = 3 }) => {
+  const [pageCurrent, setPageCurrent] = useState(1);
+  const [pageMax, setPageMax] = useState(0);
   const [trendingItems, setTrendingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [newsError, setNewsError] = useState(null);
 
   const apiGetNews = async () => {
     try {
-      setError(null);
+      setNewsError(null);
       setIsLoading(true);
-      const newsResult = await axios.get(`https://newsapi.org/v2/everything?q=Qatar&pageSize=3&apiKey=${newsApiKey}`);
-      console.log('trending response', newsResult);
+      const newsResult = await axios.get(
+        `https://newsapi.org/v2/everything?q=Qatar&pageSize=${pageSize}&page=${pageCurrent}&apiKey=${newsApiKey}`
+      );
+
+      setPageMax(newsResult.data.totalResults / pageSize);
       setIsLoading(false);
 
       if (newsResult.data.status === 'ok')
-        return setTrendingItems((prevVal) =>
+        return setTrendingItems(() =>
           newsResult.data.articles.map((article, index) => (
             <TrendingItem
               key={index}
+              id={index}
               url={article.url}
               urlImage={article.urlToImage}
               title={article.title}
@@ -62,25 +55,83 @@ const TrendingWidgetComponent = () => {
           ))
         );
     } catch (error) {
-      console.log(error.message);
-      setError(error.message);
+      console.log(error.response.data.message);
+      setNewsError(error.response.data.message);
+    }
+  };
+
+  const showNewsLoading = async () => {
+    let itemArray = [];
+
+    for (let index = 0; index < pageSize; index++) {
+      itemArray.push(<TrendingItem id={index} key={index} loading={true} url="" urlImage="" title="" description="" />);
+    }
+
+    await setTrendingItems(itemArray);
+  };
+
+  const navigateNews = (e, action = NEWS_ACTIONS.NEXT) => {
+    e.preventDefault();
+
+    if (action === NEWS_ACTIONS.NEXT) {
+      if (pageCurrent <= pageMax) setPageCurrent((val) => val + 1);
+    }
+    if (action === NEWS_ACTIONS.PREV) {
+      if (pageCurrent > 1) setPageCurrent((val) => val - 1);
     }
   };
 
   useEffect(() => {
-    apiGetNews();
+    showNewsLoading();
   }, []);
 
-  const showTrending = isLoading ? <p>Loading</p> : <ul class="container_trending">{trendingItems}</ul>;
-  const showError = error ? <p>error</p> : '';
+  useEffect(() => {
+    if (isLoading) showNewsLoading();
+  }, [isLoading]);
+
+  useEffect(() => {
+    apiGetNews();
+    // showNewsLoading();
+  }, [pageCurrent]);
+
+  const ShowTrendingItems = () => (
+    <ul className="container_trending">
+      {newsError ? (
+        <li className="container_trending_item">
+          <p>{newsError}</p>
+        </li>
+      ) : (
+        trendingItems
+      )}
+    </ul>
+  );
+
+  const NavNewsButtons = () => (
+    <div className="container_trending_nav">
+      <button
+        onClick={(e) => {
+          navigateNews(e, NEWS_ACTIONS.PREV);
+        }}
+      >
+        <i class="ti-arrow-left"></i>
+      </button>
+      <button
+        onClick={(e) => {
+          navigateNews(e, NEWS_ACTIONS.NEXT);
+        }}
+      >
+        <i class="ti-arrow-right"></i>
+      </button>
+    </div>
+  );
 
   return (
     <div class="widget friend-list stick-widget">
       <div class="row">
         <i class="ti-announcement"></i>
         <p class="widget-title">What's trending</p>
-        {showTrending}
-        {showError}
+        <NavNewsButtons />
+        <ShowTrendingItems />
       </div>
     </div>
   );
