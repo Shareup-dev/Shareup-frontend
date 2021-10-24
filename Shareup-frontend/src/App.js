@@ -45,7 +45,6 @@ import HangGiftComponent from './components/Hang/HangGiftComponent';
 import ShippingComponent from './components/Hang/ShippingComponent';
 import CheckoutComponent from './components/Hang/CheckoutComponent';
 import EditProfileComponent from './components/user/EditProfileComponent';
-import SwapComponent from './components/SwapPoint/SwapComponent';
 import PayConfirmComponent from './components/Hang/PayConfirmComponent';
 import SavedSharesComponent from './components/post/SavedSharesComponent';
 import ShareItemComponent from './components/share/ShareItemComponent';
@@ -54,6 +53,7 @@ import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
 import SwapPostComponent from './components/post/SwapPostComponent';
+import SwapComponent from './components/SwapPoint/SwapComponent';
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
 function App() {

@@ -389,13 +389,10 @@ const TrendingWidgetComponent = ({
     try {
       setNewsError(null);
       setIsLoading(true);
-      console.log('From Trending Component Requesting API');
 
       const todayDate = new Date();
       const todayString = `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
       const yesterdayString = `${todayDate.getFullYear()}-${todayDate.getMonth() + 1}-${todayDate.getDate() - 1}`;
-
-      console.log('today', todayString, 'yesterday', yesterdayString);
 
       let newsResult;
 
@@ -408,8 +405,6 @@ const TrendingWidgetComponent = ({
 
         // https://newsapi.org/v2/everything?q=qatar&from=2021-10-21&to=2021-10-22&sortBy=popularity&language=en&apiKey=78d61a4ab2fc4b5c92149f7c22e8acbe
       }
-      console.log('From Trending Component Requesting API Response', newsResult);
-      console.log('From Trending Component Requesting API Response Article length', newsResult.data.articles.length);
 
       setIsLoading(false);
 
@@ -445,16 +440,12 @@ const TrendingWidgetComponent = ({
 
   const navigateNews = (e, action = NEWS_ACTIONS.NEXT) => {
     if (e) e.preventDefault();
-    console.log('@nav news page current', pageCurrent);
-    console.log('@nav news page max', pageMax);
 
     if (action === NEWS_ACTIONS.NEXT) {
-      console.log('@nav news next', action);
       setPageCurrent((val) => val + 1);
     }
 
     if (action === NEWS_ACTIONS.PREV) {
-      console.log('@nav news prev', action);
       setPageCurrent((val) => val - 1);
     }
   };
@@ -501,12 +492,10 @@ const TrendingWidgetComponent = ({
   }, [isLoading]);
 
   useEffect(() => {
-    console.log('pageCurrent', pageCurrent);
     if (pageCurrent < 1 || pageCurrent > pageMax) {
-      console.log('resetting page num to 1');
       setPageCurrent(1);
     }
-    console.log('pageMax', pageMax);
+
     checkNavButtonsDisabled();
   }, [pageCurrent, pageMax]);
 
@@ -517,8 +506,7 @@ const TrendingWidgetComponent = ({
   const ShowTrendingItems = () => {
     const pageStart = (pageCurrent - 1) * pageSize;
     const pageEnd = pageCurrent * pageSize;
-    console.log('pageStart', pageStart);
-    console.log('pageEnd', pageEnd);
+
     return (
       <ul className="container_trending">
         {newsError ? (
