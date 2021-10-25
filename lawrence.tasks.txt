@@ -1,2 +1,3 @@
 24 Oct 2021 07:30PM - Cleaning code SwapComponents.
 24 Oct 2021 10:12PM - Cleaning code SwapComponents.
+25 Oct 2021 09:00PM - Refactoring SwapComponents to be more reusable for Creating Post (Swap or Normal Post)
