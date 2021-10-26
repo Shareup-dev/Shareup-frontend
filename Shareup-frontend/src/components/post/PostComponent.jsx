@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/UserService';
 import PostService from '../../services/PostService';
@@ -17,8 +17,8 @@ import '../../css/dropoptions-style.css';
 
 const my_url = `${storage.baseUrl}`;
 
-export default function PostComponent({post, setRefresh}) {
-  const {user} = useContext(UserContext);
+export default function PostComponent({ post, setRefresh }) {
+  const { user } = useContext(UserContext);
   const [editPostId, setEditPostId] = useState(null);
   const [userR, setUserR] = useState([]);
   const [showComment, setShowComment] = useState(false);
@@ -125,7 +125,7 @@ export default function PostComponent({post, setRefresh}) {
 
   const handleCounterReaction = () => {
     if (likeReaction) {
-      return <img width={20} style={{marginTop: '-5px'}} src={`../assets/images/gif/${likeReaction}.gif`} />;
+      return <img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />;
     }
     return <img src="/assets/images/Starwhite.svg" alt="" />;
   };
@@ -169,12 +169,12 @@ export default function PostComponent({post, setRefresh}) {
                           {/* setimgString(post.postImagePath.split(','));
                                     console.log("img are"+imgString[0]) */}
                           <a
-                            href={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`}
+                            href={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
                             data-lightbox={`image-user-${post.user.id}`}
                           >
                             <img
-                              style={{width: '100%', height: '300px', objectFit: 'cover'}}
-                              src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`}
+                              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                              src={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
                             />
                           </a>
                         </div>
@@ -190,7 +190,7 @@ export default function PostComponent({post, setRefresh}) {
                         <div className="swapImage">
                           <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
                             <img
-                              style={{width: '100%', height: '300px', objectFit: 'cover'}}
+                              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
                               src={post.swapImagePath}
                             />{' '}
                           </a>
@@ -227,7 +227,10 @@ export default function PostComponent({post, setRefresh}) {
 
                           post.postImagePath.split(',').map((item, key) => (
                             <Carousel.Item>
-                              <a href={`/user-post/${post.id}/${item}`} data-lightbox={`image-user-${post.user.id}`}>
+                              <a
+                                href={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
                                 {' '}
                                 <img
                                   className="d-block w-100"
@@ -261,10 +264,10 @@ export default function PostComponent({post, setRefresh}) {
 
                     <>
                       <div className="postImage">
-                        <a href={`/user-post/${post.id}/${post.postImagePath}`}>
+                        <a href={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}>
                           <img
-                            style={{width: '100%', height: '300px', objectFit: 'cover'}}
-                            src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.postImagePath}`}
+                            style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                            src={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
                           />
                         </a>
                         {}
@@ -290,29 +293,29 @@ export default function PostComponent({post, setRefresh}) {
               </figure>
 
               <div className="friend-name">
-                <div style={{float: 'left', display: 'inline'}}>
+                <div style={{ float: 'left', display: 'inline' }}>
                   <a
                     href={`/profile/${post.user.email}`}
                     title="#"
-                    style={{textTransform: 'capitalize', fontWeight: 'bold'}}
+                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
                   >
                     {`${post.user.firstName} ${post.user.lastName}`}
                     {post.userTag ? (
                       <>
-                        <span style={{padding: '0 5px'}}>with</span>{' '}
+                        <span style={{ padding: '0 5px' }}>with</span>{' '}
                         <span className="tagPost">{post.userTag.firstName}</span>
                         <span className="tagPost">{post.userTag.lastName}</span>
                       </>
                     ) : null}
                   </a>
 
-                  <span style={{display: 'block', fontSize: '12px', paddingTop: '5px'}}>
+                  <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
                     on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark szbkmrk"></i>}
                   </span>
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
                 <div
-                  style={{float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer'}}
+                  style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div>
               </div>
               <div className="counter">
@@ -324,7 +327,7 @@ export default function PostComponent({post, setRefresh}) {
                   <li>
                     <span
                       className="commentCounter"
-                      style={{marginRight: '5px'}}
+                      style={{ marginRight: '5px' }}
                       onClick={() => setShowComment(!showComment)}
                     >
                       <img src="/assets/images/commentwhite.svg" alt="" />
@@ -338,7 +341,7 @@ export default function PostComponent({post, setRefresh}) {
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`} </span>
                   </li>
-                  <li style={{backgroundColor: 'white', color: 'black'}}>
+                  <li style={{ backgroundColor: 'white', color: 'black' }}>
                     <div className="add-dropdown" onClick={toggleShowMoreOptions}>
                       <span title="add icon">
                         <i class="las la-ellipsis-h"></i>
@@ -376,14 +379,14 @@ export default function PostComponent({post, setRefresh}) {
                     <div className="reaction" onClick={() => handleLikePost(post.id)}>
                       <span className="like" data-toggle="tooltip" title="">
                         {handleReaction()}
-                        <span style={{paddingLeft: '10px'}}></span>
+                        <span style={{ paddingLeft: '10px' }}></span>
                       </span>
                     </div>
                   ) : (
                     <div className="reaction" onClick={() => handleLikePost(post.id)}>
                       <span className="dislike" data-toggle="tooltip" title="">
                         <img src="/assets/images/Star.svg" alt="" />
-                        <span style={{paddingLeft: '10px'}}></span>
+                        <span style={{ paddingLeft: '10px' }}></span>
                       </span>
                     </div>
                   )}
@@ -391,13 +394,13 @@ export default function PostComponent({post, setRefresh}) {
                     <div className="btncmn" onClick={() => setShowComment(!showComment)}>
                       <span className="comment" data-toggle="tooltip" title="Comments">
                         <img src="/assets/images/comment.svg" />
-                        <span style={{paddingLeft: '2px'}}>Comment</span>
+                        <span style={{ paddingLeft: '2px' }}>Comment</span>
                       </span>
                     </div>
                     <div className="btncmn">
                       <span className="views" data-toggle="tooltip">
                         <img src="/assets/images/shareicn.svg" />
-                        <span style={{paddingLeft: '12px'}}>Share</span>
+                        <span style={{ paddingLeft: '12px' }}>Share</span>
                       </span>
                     </div>
                   </div>
