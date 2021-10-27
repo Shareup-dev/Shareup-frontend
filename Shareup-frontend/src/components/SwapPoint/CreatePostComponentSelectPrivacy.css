@@ -1,0 +1,17 @@
+.container__post-privacy {
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  width: 112px;
+  height: 32px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.container__post-privacy > option {
+  font-size: 16px;
+  height: 32px;
+  padding: 8px;
+  margin: 16px;
+  box-sizing: border-box;
+}

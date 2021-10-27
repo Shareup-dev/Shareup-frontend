@@ -21,7 +21,7 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import SwapComponents from '../SwapPoint/SwapComponent';
+import CreatePostComponents from '../SwapPoint/CreatePostComponent';
 import fileStorage from '../../config/fileStorage';
 
 function SwapFeedComponent() {
@@ -374,7 +374,7 @@ function SwapFeedComponent() {
   function openModal() {
     setIsOpen(true);
   }
-  //swapcomponents
+  //CreatePostComponents
   const handleSwapContent = (event) => {
     console.log(event.target.value);
     setSwapContent(event.target.value);
@@ -759,21 +759,7 @@ function SwapFeedComponent() {
         modal
         nested
       >
-        {(close) => (
-          <Form className="popwidth">
-            <div className="headpop" style={{ border: 'none' }}>
-              <div className="row">
-                <div style={{ width: '5%' }}>
-                  <a href="#!" onClick={close}>
-                    <i class="las la-times"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <SwapComponents />
-          </Form>
-        )}
+        {(close) => <CreatePostComponents />}
       </Popup>
     );
   };

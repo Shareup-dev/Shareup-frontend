@@ -53,7 +53,7 @@ import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
 import SwapPostComponent from './components/post/SwapPostComponent';
-import SwapComponent from './components/SwapPoint/SwapComponent';
+import CreatePostComponent from './components/SwapPoint/CreatePostComponent';
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
 function App() {
@@ -127,7 +127,7 @@ function App() {
           <ProtectedRoute path="/shipping" component={ShippingComponent}></ProtectedRoute>
           <ProtectedRoute path="/checkout" component={CheckoutComponent}></ProtectedRoute>
           <ProtectedRoute path="/editprofile" component={EditProfileComponent}></ProtectedRoute>
-          <ProtectedRoute path="/swap" component={SwapComponent}></ProtectedRoute>
+          <ProtectedRoute path="/swap" component={CreatePostComponent}></ProtectedRoute>
           <ProtectedRoute path="/swapFeed" component={SwapFeedComponent}></ProtectedRoute>
           <ProtectedRoute path="/savedShares" component={SavedSharesComponent}></ProtectedRoute>
           <ProtectedRoute path="/swappost" component={SwapPostComponent}></ProtectedRoute>
