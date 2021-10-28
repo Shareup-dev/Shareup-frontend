@@ -1,6 +1,6 @@
-import './CreatePostComponentFieldText.css';
+import './CreatePostFieldText.css';
 
-const CreatePostComponentFieldText = ({ content, handlePostChange }) => {
+const CreatePostFieldText = ({ content, handlePostChange }) => {
   return (
     <textarea
       className="container__post-content"
@@ -13,4 +13,4 @@ const CreatePostComponentFieldText = ({ content, handlePostChange }) => {
   );
 };
 
-export default CreatePostComponentFieldText;
+export default CreatePostFieldText;

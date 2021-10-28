@@ -457,7 +457,7 @@ function NewsfeedComponent() {
   function openModal() {
     setIsOpen(true);
   }
-  //CreatePostComponents
+  //CreatePosts
   const handleSwapContent = (event) => {
     console.log(event.target.value);
     setSwapContent(event.target.value);

@@ -21,7 +21,7 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import CreatePostComponents from '../SwapPoint/CreatePostComponent';
+import CreatePosts from '../SwapPoint/CreatePost';
 import fileStorage from '../../config/fileStorage';
 
 function SwapFeedComponent() {
@@ -374,7 +374,7 @@ function SwapFeedComponent() {
   function openModal() {
     setIsOpen(true);
   }
-  //CreatePostComponents
+  //CreatePosts
   const handleSwapContent = (event) => {
     console.log(event.target.value);
     setSwapContent(event.target.value);
@@ -759,7 +759,7 @@ function SwapFeedComponent() {
         modal
         nested
       >
-        {(close) => <CreatePostComponents />}
+        {(close) => <CreatePosts />}
       </Popup>
     );
   };

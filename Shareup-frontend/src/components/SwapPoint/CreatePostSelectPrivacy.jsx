@@ -1,8 +1,8 @@
-import './CreatePostComponentSelectPrivacy.css';
+import './CreatePostSelectPrivacy.css';
 
 const DEFAULT_PRIVACY_OPTIONS = ['Friends', 'Only Me', 'Public'];
 
-const CreatePostComponentSelectPrivacy = ({ privacy, handlePostChange, options = DEFAULT_PRIVACY_OPTIONS }) => {
+const CreatePostSelectPrivacy = ({ privacy, handlePostChange, options = DEFAULT_PRIVACY_OPTIONS }) => {
   const privacyOptions = options.map((option) => <option value={option}>{option}</option>);
 
   return (
@@ -12,4 +12,4 @@ const CreatePostComponentSelectPrivacy = ({ privacy, handlePostChange, options =
   );
 };
 
-export default CreatePostComponentSelectPrivacy;
+export default CreatePostSelectPrivacy;
