@@ -1,9 +1,10 @@
 TODOs:
 Update handling response from updated back end. Done for PostedImages.
-Refactor CreatePosts. In Progrress. Need to enhance styling.
-Separate Logic to UI with Components. Done for CreatePosts
+Refactor CreatePosts.                           In Progress. Need to enhance styling.
+Separate Logic to UI with Components.           Done for CreatePosts
 CSS styling update.
 Custom hooks to be moved on a dedicated folder.
+Responsive Design for CreatePost.               
 
 TIMINGS:
 24 Oct 2021 07:30PM - Cleaning code CreatePosts.

@@ -9,6 +9,7 @@ import CreatePostSelectPrivacy from './CreatePostSelectPrivacy.jsx';
 import CreatePostUserAvatar from './CreatePostUserAvatar.jsx';
 import CreatePostUserName from './CreatePostUserName.jsx';
 import CreatePostBodyOptions from './CreatePostBodyOptions.jsx';
+import CreatePostImages from './CreatePostImages';
 
 import './CreatePost.css';
 
@@ -33,29 +34,8 @@ const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
     fileSelected.filesAdd(event.target.files);
   };
 
-  const PostImagesRemove = () => (
-    <button onClick={fileSelected.fileDeleteAll}>
-      <i class="las la-times"></i>
-    </button>
-  );
-
-  const PostImages = () =>
-    fileSelected.files.map((image, index) => {
-      if (image.isReading) return <p>loading</p>;
-
-      return (
-        <img
-          src={image.preview}
-          alt={`preview${index}`}
-          onClick={() => {
-            fileSelected.fileDeleteByIndex(index);
-          }}
-        />
-      );
-    });
-
   const PostButton = () => (
-    <button className="create-post-submit-swap" type="submit" onClick={handleUploadPost}>
+    <button className="post-submit-swap" type="submit" onClick={handleUploadPost}>
       Share Swap
     </button>
   );
@@ -72,12 +52,11 @@ const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
       </div>
       <div className="create-post-body">
         <CreatePostFieldText content={post.content} handlePostChange={handlePostChange} />
+        <CreatePostImages fileSelected={fileSelected} />
         <CreatePostBodyOptions>
           <FileSelect onfileSelect={handleFileSelect} />
         </CreatePostBodyOptions>
 
-        <PostImagesRemove />
-        <PostImages />
         <PostButton />
       </div>
     </div>

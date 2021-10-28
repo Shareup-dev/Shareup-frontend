@@ -8,5 +8,24 @@
   height: fit-content;
   border-radius: 0 !important;
   background-color: transparent;
+
   font-size: 16px;
+  font-family: 'Varela Round', sans-serif !important;
+}
+
+.container__post-content > textarea {
+  font-family: 'Varela Round', sans-serif !important;
+}
+
+::-webkit-input-placeholder {
+  font-family: 'Varela Round', sans-serif !important;
+}
+:-moz-placeholder {
+  font-family: 'Varela Round', sans-serif !important;
+}
+::-moz-placeholder {
+  font-family: 'Varela Round', sans-serif !important;
+}
+:-ms-input-placeholder {
+  font-family: 'Varela Round', sans-serif !important;
 }
