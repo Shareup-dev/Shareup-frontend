@@ -1,3 +1,13 @@
-24 Oct 2021 07:30PM - Cleaning code SwapComponents.
-24 Oct 2021 10:12PM - Cleaning code SwapComponents.
-25 Oct 2021 09:00PM - Refactoring SwapComponents to be more reusable for Creating Post (Swap or Normal Post)
+TODOs:
+Update handling response from updated back end. Done for PostedImages.
+Refactor CreatePosts.
+Separate Logic to UI with Components.
+CSS styling update.
+
+
+TIMINGS:
+24 Oct 2021 07:30PM - Cleaning code CreatePosts.
+24 Oct 2021 10:12PM - Cleaning code CreatePosts.
+25 Oct 2021 09:00PM - Refactoring CreatePosts to be more reusable for Creating Post (Swap or Normal Post)
+27 Oct 2021 09:00PM - Created new component for multiple images selection.
+27 Oct 2021 09:00PM - Updated SwapComponents to CreatePosts.
