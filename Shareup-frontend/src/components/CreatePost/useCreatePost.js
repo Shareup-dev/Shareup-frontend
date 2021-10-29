@@ -6,12 +6,14 @@ import UserContext from '../../contexts/UserContext';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
 
+const postResponseScheme = { ok: false, loading: false, message: '', result: null };
 const useCreatePost = () => {
   let history = useHistory();
 
   const currentUser = useContext(UserContext).user;
   const [user, setUser] = useState([]);
   const [post, setPost] = useState({ privacy: 'Public', content: '' });
+  const [postResponse, setPostResponse] = useState({ ...postResponseScheme });
 
   const postUpdate = ({ name, value }) => {
     const changedProp = { [name]: value };
@@ -20,27 +22,33 @@ const useCreatePost = () => {
     });
   };
 
-  const postUpload = async (files = []) => {
+  const postReset = () => {
+    setPost({ privacy: 'Public', content: '' });
+  };
+
+  const postUpload = async (files = [], isSwap = true) => {
+    setPostResponse({ ok: false, loading: true, message: 'Posting...', result: null });
+
     const hasUpdatedContent = post.content.length > 0;
     const hasImages = files.length > 0;
 
-    if (hasUpdatedContent && hasImages) {
-      return;
-    }
+    if (isSwap) files = files[0];
+    if (!hasImages) return setPostResponse({ ok: false, loading: false, message: 'No images found.', result: null });
+    if (!hasImages && !hasUpdatedContent)
+      return setPostResponse({ ok: false, loading: false, message: 'No images and content found.', result: null });
 
     const formData = new FormData();
     formData.append('content', post.content);
-    formData.append(`files`, files);
-    formData.append(`privacy`, post.privacy);
+    formData.append('files', files);
+    formData.append('privacy', post.privacy);
 
-    const swapResponse = await SwapService.createSwap(user.id, formData);
-    console.log('swap response', swapResponse);
-    postUpdate({ privacy: '', content: '' });
-
-    history.push('/swapFeed');
-    console.log('retrieving swaps');
-    const swapsResponse = await SwapService.getSwapForUser(user.id);
-    console.log('SWAPS response', swapsResponse);
+    try {
+      const swapResponse = await SwapService.createSwap(user.id, formData);
+      history.push('/swapFeed');
+      return setPostResponse({ ok: true, loading: false, message: 'Posting successful', result: { ...swapResponse } });
+    } catch (error) {
+      return setPostResponse({ ok: false, loading: false, message: 'Posting error', result: { ...error } });
+    }
   };
 
   const getUser = async () => {
@@ -62,7 +70,7 @@ const useCreatePost = () => {
     getUser();
   }, []);
 
-  return { post: { ...post, postUpdate, postUpload }, user };
+  return { user, postResponse, post: { ...post, postUpdate, postUpload, postReset } };
 };
 
 export default useCreatePost;

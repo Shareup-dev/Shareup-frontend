@@ -12,21 +12,30 @@ import CreatePostBodyOptions from './CreatePostBodyOptions.jsx';
 import CreatePostImages from './CreatePostImages';
 
 import './CreatePost.css';
+import { useEffect } from 'react';
 
 // UPDATED UI HERE
 const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
-  const { user, post } = useCreatePost();
+  const { user, post, postResponse } = useCreatePost();
   const { fileSelected } = useFileSelect();
+
+  useEffect(() => {
+    console.log('post response update', postResponse);
+
+    if (postResponse.ok && !postResponse.loading) {
+      fileSelected.fileDeleteAll();
+      post.postReset();
+    }
+  }, [postResponse]);
 
   const handlePostChange = (event) => {
     const { name, value } = event.target;
     post.postUpdate({ name, value });
   };
 
-  const handleUploadPost = async (event) => {
+  const handleUploadPost = (event) => {
     event.preventDefault();
-
-    const files = fileSelected.files.map((images) => images.image);
+    const files = fileSelected.files.map((file) => file.file);
     post.postUpload(files);
   };
 
@@ -35,26 +44,26 @@ const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
   };
 
   const PostButton = () => (
-    <button className="post-submit-swap" type="submit" onClick={handleUploadPost}>
+    <button className='post-submit-swap' type='submit' onClick={handleUploadPost}>
       Share Swap
     </button>
   );
 
   return (
-    <div className="container__create-post">
-      <h1 className="create-post_title">{title}</h1>
-      <div className="create-post_header">
+    <div className='container__create-post'>
+      <h1 className='create-post_title'>{title}</h1>
+      <div className='create-post_header'>
         <CreatePostUserAvatar imagePath={fileStorage.baseUrl + user.profilePicturePath} />
-        <div className="header_info">
+        <div className='header_info'>
           <CreatePostUserName user={user} />
           <CreatePostSelectPrivacy privacy={post.privacy} handlePostChange={handlePostChange} />
         </div>
       </div>
-      <div className="create-post-body">
+      <div className='create-post-body'>
         <CreatePostFieldText content={post.content} handlePostChange={handlePostChange} />
         <CreatePostImages fileSelected={fileSelected} />
         <CreatePostBodyOptions>
-          <FileSelect onfileSelect={handleFileSelect} />
+          <FileSelect onfileSelect={handleFileSelect} multipleFiles={false} />
         </CreatePostBodyOptions>
 
         <PostButton />

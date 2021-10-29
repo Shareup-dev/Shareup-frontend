@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, memo } from 'react';
+import { useMemo, useState } from 'react';
 
 const fileSchema = { file: '', preview: '', isReading: false };
 const useFileSelect = () => {

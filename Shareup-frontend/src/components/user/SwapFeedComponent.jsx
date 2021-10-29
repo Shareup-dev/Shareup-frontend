@@ -21,7 +21,7 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import CreatePosts from '../SwapPoint/CreatePost';
+import CreatePosts from '../CreatePost/CreatePost';
 import fileStorage from '../../config/fileStorage';
 
 function SwapFeedComponent() {
