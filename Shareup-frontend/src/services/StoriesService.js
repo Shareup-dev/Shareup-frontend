@@ -1,6 +1,6 @@
-import axios from "axios";
-import AuthService from "./auth.services";
-import settings from "../config/Settings";
+import axios from 'axios';
+import AuthService from './auth.services';
+import settings from '../configs/Settings';
 
 let authAxios = null;
 const baseurl = `${settings.apiUrl}/api/v1/`;
@@ -23,7 +23,7 @@ authenticate();
 class StoriesService {
   getStories = async () => {
     authenticate();
-    const result = await authAxios.get("stories/");
+    const result = await authAxios.get('stories/');
     return result;
   };
   getStoriesForUser = async (email) => {

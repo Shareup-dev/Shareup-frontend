@@ -1,6 +1,6 @@
-import axios from "axios";
-import AuthService from "./auth.services";
-import settings from "../config/Settings";
+import axios from 'axios';
+import AuthService from './auth.services';
+import settings from '../configs/Settings';
 
 const USER_API_BASE_URL = `${settings.apiUrl}/api/v1/`;
 let authAxios = null;
@@ -11,7 +11,7 @@ const authenticate = () => {
       baseURL: USER_API_BASE_URL,
       headers: {
         Authorization: `Bearer ${AuthService.getCurrentUser().jwt}`,
-        "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Origin': '*',
       },
     });
   } else {
@@ -25,7 +25,7 @@ authenticate();
 class FriendService {
   getFriends = async (email) => {
     authenticate();
-    const result = await authAxios.get("friends/" + email);
+    const result = await authAxios.get('friends/' + email);
     return result;
   };
 

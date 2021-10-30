@@ -9,9 +9,9 @@ import Popup from 'reactjs-popup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ImageGallery from 'react-image-gallery';
-import storage from '../../config/fileStorage';
+import storage from '../../configs/fileStorage';
 import Carousel from 'react-bootstrap/Carousel';
-import fileStorage from '../../config/fileStorage';
+import fileStorage from '../../configs/fileStorage';
 
 import '../../css/dropoptions-style.css';
 
@@ -110,10 +110,10 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return <img src="/assets/images/StarLike.svg" alt="" />;
+      return <img src='/assets/images/StarLike.svg' alt='' />;
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return <img src="/assets/images/StarLike.svg" alt="" />;
+    return <img src='/assets/images/StarLike.svg' alt='' />;
   };
 
   const handleSettingReactions = (reaction) => {
@@ -127,7 +127,7 @@ export default function PostComponent({ post, setRefresh }) {
     if (likeReaction) {
       return <img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />;
     }
-    return <img src="/assets/images/Starwhite.svg" alt="" />;
+    return <img src='/assets/images/Starwhite.svg' alt='' />;
   };
   //array fetch
   const postImg = (str) => {
@@ -145,27 +145,27 @@ export default function PostComponent({ post, setRefresh }) {
 
   return (
     <div
-      className="central-meta item"
+      className='central-meta item'
       key={post.id}
       onClick={(e) => {
         if (showMoreOptions) toggleShowMoreOptions(e);
       }}
     >
       <div
-        className="container_drop-options__transparent"
+        className='container_drop-options__transparent'
         hidden={!showMoreOptions}
         onClick={toggleShowMoreOptions}
       ></div>
-      <div className="user-post">
+      <div className='user-post'>
         {editPostId !== post.id ? (
-          <div className="friend-info">
-            <div className="post-meta">
+          <div className='friend-info'>
+            <div className='post-meta'>
               {post.swapImagePath ? (
                 <>
-                  <div className="grid-container1">
-                    <div className="itemS1">
+                  <div className='grid-container1'>
+                    <div className='itemS1'>
                       {post.imagePath ? (
-                        <div className="postImage">
+                        <div className='postImage'>
                           {/* setimgString(post.postImagePath.split(','));
                                     console.log("img are"+imgString[0]) */}
                           <a
@@ -180,14 +180,14 @@ export default function PostComponent({ post, setRefresh }) {
                         </div>
                       ) : null}
                     </div>
-                    <div className="itemS2">
-                      <div className="swapbtnfeed">
-                        <i class="las la-sync"></i>
+                    <div className='itemS2'>
+                      <div className='swapbtnfeed'>
+                        <i class='las la-sync'></i>
                       </div>
                     </div>
-                    <div className="itemS3">
+                    <div className='itemS3'>
                       <>
-                        <div className="swapImage">
+                        <div className='swapImage'>
                           <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
                             <img
                               style={{ width: '100%', height: '300px', objectFit: 'cover' }}
@@ -199,8 +199,8 @@ export default function PostComponent({ post, setRefresh }) {
                     </div>
                   </div>
 
-                  <div className="buttonS">
-                    <a href="/shipping" className="buttonshare" onClick={() => handleDeletePost(post.id)}>
+                  <div className='buttonS'>
+                    <a href='/shipping' className='buttonshare' onClick={() => handleDeletePost(post.id)}>
                       Accept
                     </a>
                   </div>
@@ -212,9 +212,9 @@ export default function PostComponent({ post, setRefresh }) {
                   {post.postImagePath && post.postImagePath.split(',').length > 1 ? (
                     <div>
                       <Carousel
-                        height="200px"
+                        height='200px'
                         thumbnails={true}
-                        thumbnailWidth="100px"
+                        thumbnailWidth='100px'
                         style={{
                           textAlign: 'center',
                           maxWidth: '850px',
@@ -233,7 +233,7 @@ export default function PostComponent({ post, setRefresh }) {
                               >
                                 {' '}
                                 <img
-                                  className="d-block w-100"
+                                  className='d-block w-100'
                                   src={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`}
                                   key={key}
                                 />
@@ -263,7 +263,7 @@ export default function PostComponent({ post, setRefresh }) {
                     //    </div>
 
                     <>
-                      <div className="postImage">
+                      <div className='postImage'>
                         <a href={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}>
                           <img
                             style={{ width: '100%', height: '300px', objectFit: 'cover' }}
@@ -289,28 +289,28 @@ export default function PostComponent({ post, setRefresh }) {
                                 } */}
 
               <figure>
-                <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt="" />
+                <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' />
               </figure>
 
-              <div className="friend-name">
+              <div className='friend-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <a
                     href={`/profile/${post.user.email}`}
-                    title="#"
+                    title='#'
                     style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
                   >
                     {`${post.user.firstName} ${post.user.lastName}`}
                     {post.userTag ? (
                       <>
                         <span style={{ padding: '0 5px' }}>with</span>{' '}
-                        <span className="tagPost">{post.userTag.firstName}</span>
-                        <span className="tagPost">{post.userTag.lastName}</span>
+                        <span className='tagPost'>{post.userTag.firstName}</span>
+                        <span className='tagPost'>{post.userTag.lastName}</span>
                       </>
                     ) : null}
                   </a>
 
                   <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
-                    on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark szbkmrk"></i>}
+                    on {`${post.published}`} {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>}
                   </span>
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
@@ -318,7 +318,7 @@ export default function PostComponent({ post, setRefresh }) {
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div>
               </div>
-              <div className="counter">
+              <div className='counter'>
                 <ul>
                   <li>
                     {handleCounterReaction()}
@@ -326,25 +326,25 @@ export default function PostComponent({ post, setRefresh }) {
                   </li>
                   <li>
                     <span
-                      className="commentCounter"
+                      className='commentCounter'
                       style={{ marginRight: '5px' }}
                       onClick={() => setShowComment(!showComment)}
                     >
-                      <img src="/assets/images/commentwhite.svg" alt="" />
+                      <img src='/assets/images/commentwhite.svg' alt='' />
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`}</span>
                   </li>
                   <li>
                     <span>
                       {' '}
-                      <img src="/assets/images/shareicnwhite.svg" alt="" />
+                      <img src='/assets/images/shareicnwhite.svg' alt='' />
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`} </span>
                   </li>
                   <li style={{ backgroundColor: 'white', color: 'black' }}>
-                    <div className="add-dropdown" onClick={toggleShowMoreOptions}>
-                      <span title="add icon">
-                        <i class="las la-ellipsis-h"></i>
+                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                      <span title='add icon'>
+                        <i class='las la-ellipsis-h'></i>
                       </span>
                     </div>
                   </li>
@@ -361,7 +361,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div
                   onMouseEnter={handleShowingReaction}
                   onMouseLeave={handleUnshowingReaction}
-                  className="reaction-bunch active"
+                  className='reaction-bunch active'
                 >
                   <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')} />
                   <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')} />
@@ -373,33 +373,33 @@ export default function PostComponent({ post, setRefresh }) {
                 </div>
               )}
 
-              <div className="we-video-info">
-                <div className="click">
+              <div className='we-video-info'>
+                <div className='click'>
                   {checkIfLiked(post) ? (
-                    <div className="reaction" onClick={() => handleLikePost(post.id)}>
-                      <span className="like" data-toggle="tooltip" title="">
+                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                      <span className='like' data-toggle='tooltip' title=''>
                         {handleReaction()}
                         <span style={{ paddingLeft: '10px' }}></span>
                       </span>
                     </div>
                   ) : (
-                    <div className="reaction" onClick={() => handleLikePost(post.id)}>
-                      <span className="dislike" data-toggle="tooltip" title="">
-                        <img src="/assets/images/Star.svg" alt="" />
+                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                      <span className='dislike' data-toggle='tooltip' title=''>
+                        <img src='/assets/images/Star.svg' alt='' />
                         <span style={{ paddingLeft: '10px' }}></span>
                       </span>
                     </div>
                   )}
-                  <div className="commShare">
-                    <div className="btncmn" onClick={() => setShowComment(!showComment)}>
-                      <span className="comment" data-toggle="tooltip" title="Comments">
-                        <img src="/assets/images/comment.svg" />
+                  <div className='commShare'>
+                    <div className='btncmn' onClick={() => setShowComment(!showComment)}>
+                      <span className='comment' data-toggle='tooltip' title='Comments'>
+                        <img src='/assets/images/comment.svg' />
                         <span style={{ paddingLeft: '2px' }}>Comment</span>
                       </span>
                     </div>
-                    <div className="btncmn">
-                      <span className="views" data-toggle="tooltip">
-                        <img src="/assets/images/shareicn.svg" />
+                    <div className='btncmn'>
+                      <span className='views' data-toggle='tooltip'>
+                        <img src='/assets/images/shareicn.svg' />
                         <span style={{ paddingLeft: '12px' }}>Share</span>
                       </span>
                     </div>
@@ -413,41 +413,41 @@ export default function PostComponent({ post, setRefresh }) {
         )}
 
         {showMoreOptions && (
-          <div className="drop-options active" onClick={toggleShowMoreOptions}>
+          <div className='drop-options active' onClick={toggleShowMoreOptions}>
             <ul>
-              <li className="head-drop">
+              <li className='head-drop'>
                 <h6>Post Options</h6>
               </li>
               {post.user.id === user.id ? (
                 <li onClick={() => handleEditPost(post.id)}>
-                  <i class="las la-pencil-alt"></i>
+                  <i class='las la-pencil-alt'></i>
                   <span>Edit Post</span>
                 </li>
               ) : (
                 <></>
               )}
               <li onClick={() => handleSavePost(post.id)}>
-                <i class="lar la-bookmark"></i>
+                <i class='lar la-bookmark'></i>
                 <span>Save Post</span>
               </li>
               {post.user.id === user.id ? (
                 <li onClick={() => handleDeletePost(post.id)}>
-                  <i class="las la-trash"></i>
+                  <i class='las la-trash'></i>
                   <span>Delete</span>
                 </li>
               ) : (
                 <></>
               )}
               <li>
-                <i class="las la-link"></i>
+                <i class='las la-link'></i>
                 <span>Copy Link</span>
               </li>
             </ul>
           </div>
         )}
         {/* Till here */}
-        <div className="coment-area">
-          <ul className="we-comet">
+        <div className='coment-area'>
+          <ul className='we-comet'>
             <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
             {showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />}
           </ul>

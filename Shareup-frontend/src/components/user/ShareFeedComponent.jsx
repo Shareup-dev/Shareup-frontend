@@ -8,10 +8,10 @@ import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox';
-import { testScript } from '../../js/script';
+import { testScript } from '../../utils/js/script';
 import GroupService from '../../services/GroupService';
 import StoriesService from '../../services/StoriesService';
-import settings from '../../config/Settings';
+import settings from '../../configs/Settings';
 
 import EditPostComponent from './EditPostComponent';
 import Modal from 'react-modal';
@@ -22,7 +22,7 @@ import SharePostComponent from '../post/SharePostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import fileStorage from '../../config/fileStorage';
+import fileStorage from '../../configs/fileStorage';
 
 function ShareFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -443,39 +443,39 @@ function ShareFeedComponent() {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>What's in hang?</div>
 
-        <div className="add-smilespopup">
-          <label className="fileContainer">
-            <i class="lar la-file-image"></i>{' '}
-            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <i class='lar la-file-image'></i>{' '}
+            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
           </label>
         </div>
-        <div className="gifpopup">
+        <div className='gifpopup'>
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-user-tag"></i>
+              <a href='#!'>
+                <i class='las la-user-tag'></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
                   <input
-                    className="friend-search"
-                    type="text"
-                    id="header-search"
-                    placeholder="Search Friends"
-                    name="s"
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
                   </>
                 ) : null}
                 <div>
@@ -484,23 +484,23 @@ function ShareFeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className="friends-card">
-                              <a href="#!" onClick={() => handleTag(userM)}>
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
                                 {' '}
-                                <div className="grid-container">
+                                <div className='grid-container'>
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
                                       <img
                                         style={{ objectFit: 'cover' }}
                                         src={fileStorage.baseUrl + userM.profilePicturePath}
-                                        alt=""
+                                        alt=''
                                       />
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
-                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div>
@@ -518,10 +518,10 @@ function ShareFeedComponent() {
             )}
           </Popup>
         </div>
-        <div className="campopup">
-          <label className="fileContainer">
-            <i class="las la-map-marker-alt"></i>
-            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className='campopup'>
+          <label className='fileContainer'>
+            <i class='las la-map-marker-alt'></i>
+            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
           </label>
         </div>
 
@@ -537,39 +537,39 @@ function ShareFeedComponent() {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>Add More</div>
 
-        <div className="add-smilespopup">
-          <label className="fileContainer">
-            <i class="lar la-file-image"></i>{' '}
-            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <i class='lar la-file-image'></i>{' '}
+            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
           </label>
         </div>
-        <div className="gifpopup">
+        <div className='gifpopup'>
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-user-tag"></i>
+              <a href='#!'>
+                <i class='las la-user-tag'></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
                   <input
-                    className="friend-search"
-                    type="text"
-                    id="header-search"
-                    placeholder="Search Friends"
-                    name="s"
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
                   </>
                 ) : null}
                 <div>
@@ -578,23 +578,23 @@ function ShareFeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className="friends-card">
-                              <a href="#!" onClick={() => handleTag(userM)}>
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
                                 {' '}
-                                <div className="grid-container">
+                                <div className='grid-container'>
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
                                       <img
                                         style={{ objectFit: 'cover' }}
                                         src={fileStorage.baseUrl + userM.profilePicturePath}
-                                        alt=""
+                                        alt=''
                                       />
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
-                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div>
@@ -612,10 +612,10 @@ function ShareFeedComponent() {
             )}
           </Popup>
         </div>
-        <div className="campopup">
-          <label className="fileContainer">
-            <i class="las la-map-marker-alt"></i>
-            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className='campopup'>
+          <label className='fileContainer'>
+            <i class='las la-map-marker-alt'></i>
+            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
           </label>
         </div>
 
@@ -633,7 +633,7 @@ function ShareFeedComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src="/assets/images/hangshare.svg" alt="img" />
+              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare.svg' alt='img' />
             </span>
             Hang Share
           </span>
@@ -642,12 +642,12 @@ function ShareFeedComponent() {
         nested
       >
         {(close) => (
-          <Form className="popwidth" style={{ margin: '5px' }}>
-            <div className="headpop">
-              <div className="row">
+          <Form className='popwidth' style={{ margin: '5px' }}>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -657,7 +657,7 @@ function ShareFeedComponent() {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: '25%', textAlign: 'right' }}>
-                  <a className="popup-btn" href="/HangGift">
+                  <a className='popup-btn' href='/HangGift'>
                     Keep Hang
                   </a>
                 </div>
@@ -665,28 +665,28 @@ function ShareFeedComponent() {
             </div>
 
             <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdown">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdown'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -694,18 +694,18 @@ function ShareFeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 0 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
                   <>
-                    <img id="preview" src={postImage} style={{ width: '100%', objectFit: 'cover' }} />
+                    <img id='preview' src={postImage} style={{ width: '100%', objectFit: 'cover' }} />
                     <button
                       onClick={handleRemoveImage}
                       style={{
@@ -716,7 +716,7 @@ function ShareFeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -751,7 +751,7 @@ function ShareFeedComponent() {
     return (
       <Popup
         trigger={
-          <div className="textbox">
+          <div className='textbox'>
             <span style={{ cursor: 'pointer', padding: '5px' }}>We share,do you?</span>
           </div>
         }
@@ -759,12 +759,12 @@ function ShareFeedComponent() {
         nested
       >
         {(close) => (
-          <Form className="popwidth">
-            <div className="headpop">
-              <div className="row">
+          <Form className='popwidth'>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -775,7 +775,7 @@ function ShareFeedComponent() {
                 <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
@@ -784,28 +784,28 @@ function ShareFeedComponent() {
             </div>
 
             <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdown">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdown'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -813,18 +813,18 @@ function ShareFeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
                   <>
-                    <img id="preview" src={postImage} style={{ width: '100%' }} />
+                    <img id='preview' src={postImage} style={{ width: '100%' }} />
                     <button
                       onClick={handleRemoveImage}
                       style={{
@@ -835,7 +835,7 @@ function ShareFeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -854,7 +854,7 @@ function ShareFeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src="/assets/images/share-2.svg" alt="img" />
+            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/share-2.svg' alt='img' />
             Share Up
           </span>
         }
@@ -862,12 +862,12 @@ function ShareFeedComponent() {
         nested
       >
         {(close) => (
-          <Form className="popwidth">
-            <div className="headpop">
-              <div className="row">
+          <Form className='popwidth'>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -878,7 +878,7 @@ function ShareFeedComponent() {
                 <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
@@ -888,28 +888,28 @@ function ShareFeedComponent() {
 
             <div style={{ padding: '0 11px 11px 11px' }}>
               {' '}
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdown">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdown'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -917,18 +917,18 @@ function ShareFeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
                   <>
-                    <img id="preview" src={postImage} style={{ width: '100%' }} />
+                    <img id='preview' src={postImage} style={{ width: '100%' }} />
                     <button
                       onClick={handleRemoveImage}
                       style={{
@@ -939,7 +939,7 @@ function ShareFeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -958,7 +958,7 @@ function ShareFeedComponent() {
         <Popup
           trigger={
             <span style={{ cursor: 'pointer' }}>
-              <img style={{ verticalAlign: 'middle', padding: '5px' }} src="assets/images/images.svg" />
+              <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/images.svg' />
               <span>Photos</span>
             </span>
           }
@@ -966,12 +966,12 @@ function ShareFeedComponent() {
           nested
         >
           {(close) => (
-            <Form className="popwidth">
-              <div className="headpop">
-                <div className="row">
+            <Form className='popwidth'>
+              <div className='headpop'>
+                <div className='row'>
                   <div style={{ width: '5%' }}>
-                    <a href="#!" onClick={close}>
-                      <i class="las la-times"></i>
+                    <a href='#!' onClick={close}>
+                      <i class='las la-times'></i>
                     </a>
                   </div>
                   <div
@@ -988,7 +988,7 @@ function ShareFeedComponent() {
                   <div style={{ width: '10%', textAlign: 'center' }}>
                     <span style={{ float: 'right' }}>
                       {' '}
-                      <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                      <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                         Post
                       </button>
                     </span>
@@ -997,28 +997,28 @@ function ShareFeedComponent() {
               </div>
 
               <div style={{ padding: '0 11px 11px 11px' }}>
-                <div className="popupimg">
+                <div className='popupimg'>
                   <img
                     src={
                       user
                         ? fileStorage.baseUrl + user.profilePicturePath
                         : fileStorage.baseUrl + userR.profilePicturePath
                     }
-                    alt=""
+                    alt=''
                   />
                 </div>
-                <div class="popupuser-name">
+                <div class='popupuser-name'>
                   <div style={{ float: 'left', display: 'inline' }}>
                     <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                       {`${user.firstName} ${user.lastName}`}
                       {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                     </span>
                     <span style={{ display: 'block', fontSize: '12px' }}>
-                      <div className="dropdown">
-                        <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                          <option value="Friends">Friends</option>
-                          <option value="Public">Public</option>
-                          <option value="Only Me">Only Me</option>
+                      <div className='dropdown'>
+                        <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                          <option value='Friends'>Friends</option>
+                          <option value='Public'>Public</option>
+                          <option value='Only Me'>Only Me</option>
                         </select>
                       </div>{' '}
                     </span>
@@ -1026,18 +1026,18 @@ function ShareFeedComponent() {
                 </div>{' '}
               </div>
               <div style={{ margin: '0 11px 100px 11px' }}>
-                <span className="textPop">
+                <span className='textPop'>
                   <textarea
-                    className="textpopup"
+                    className='textpopup'
                     rows={2}
                     placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                    name="post_content"
+                    name='post_content'
                     value={postContent}
                     onChange={handlePostContent}
                   />
                   {showPostImage ? (
                     <>
-                      <img id="preview" src={postImage} style={{ width: '100%' }} />
+                      <img id='preview' src={postImage} style={{ width: '100%' }} />
                       <button
                         onClick={handleRemoveImage}
                         style={{
@@ -1048,7 +1048,7 @@ function ShareFeedComponent() {
                           padding: '10px 10px',
                         }}
                       >
-                        <i class="las la-times"></i>
+                        <i class='las la-times'></i>
                       </button>
                     </>
                   ) : null}
@@ -1068,7 +1068,7 @@ function ShareFeedComponent() {
 
   const show = () => {
     return (
-      <div className="loadMore">
+      <div className='loadMore'>
         {postsForUser.map((post) => (
           <div key={post.id}>
             {post.group
@@ -1184,9 +1184,9 @@ function ShareFeedComponent() {
       {user.newUser ? (
         <GuideComponent />
       ) : (
-        <div className="col-lg-6">
-          <div className="central-meta newsfeed">
-            <div className="new-postbox">
+        <div className='col-lg-6'>
+          <div className='central-meta newsfeed'>
+            <div className='new-postbox'>
               <figure>
                 <img
                   src={
@@ -1194,10 +1194,10 @@ function ShareFeedComponent() {
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </figure>
-              <div className="newpst-input">
+              <div className='newpst-input'>
                 <Form>
                   {postUp()}
                   {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
@@ -1210,7 +1210,7 @@ function ShareFeedComponent() {
                       null
                     } */}
 
-                  <div className="attachments">
+                  <div className='attachments'>
                     <ul>
                       <li>{popUp()}</li>
                       {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>

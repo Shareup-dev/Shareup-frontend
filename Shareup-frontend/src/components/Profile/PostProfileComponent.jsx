@@ -3,21 +3,18 @@ import Form from 'react-bootstrap/Form';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/UserService';
 import PostService from '../../services/PostService';
-import EditPostComponent from '../post/EditPostComponent'
+import EditPostComponent from '../post/EditPostComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
 import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import PostComponent from '../post/PostComponent';
 import PostTextBoxComponent from '../post/PostTextBoxComponent';
 import FriendProfWidgtComponent from './FriendProfWidgtComponent';
-import settings from '../../config/Settings';
+import settings from '../../configs/Settings';
 
 export default function PostProfileComponent({ posts, setRefresh }) {
-   
-
-    return (
-        <div className="row">
-                   
-                  {/* <div className="col-lg-4">
+  return (
+    <div className='row'>
+      {/* <div className="col-lg-4">
                   <div className="widget-prof">
                     <div className="head-widgt">Profile Summary</div>
                     <ul><li>Edit Details</li>
@@ -34,15 +31,11 @@ export default function PostProfileComponent({ posts, setRefresh }) {
 				  <FriendProfWidgtComponent/></div>
                   </div>
                   <div className="col-lg-8"> */}
-                  <PostTextBoxComponent/>
-            {
-                posts.map(post =>
-                    <PostComponent post={post} setRefresh={setRefresh}/>
-                    )
-            }
-        </div>
-        // </div>
-                  
-        
-    );
+      <PostTextBoxComponent />
+      {posts.map((post) => (
+        <PostComponent post={post} setRefresh={setRefresh} />
+      ))}
+    </div>
+    // </div>
+  );
 }

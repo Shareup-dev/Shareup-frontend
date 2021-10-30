@@ -1,4 +1,4 @@
-import fileStorage from '../../config/fileStorage';
+import fileStorage from '../../configs/fileStorage';
 
 import useFileSelect from './useFileSelect.js';
 import useCreatePost from './useCreatePost.js';

@@ -8,7 +8,7 @@ import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox';
-import { testScript } from '../../js/script';
+import { testScript } from '../../utils/js/script';
 import GroupService from '../../services/GroupService';
 import StoriesService from '../../services/StoriesService';
 
@@ -28,7 +28,7 @@ import LocationComponent from '../AccountSettings/LocationComponent';
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
 import FriendSearchComponent from './FriendSearchComponent';
 import FriendsService from '../../services/FriendService';
-import fileStorage from '../../config/fileStorage';
+import fileStorage from '../../configs/fileStorage';
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -323,7 +323,7 @@ function NewsfeedComponent() {
         <img
           src={currentobject}
           style={{ maxWidth: '150px', maxHeight: '150px' }}
-          className="img img-responsive"
+          className='img img-responsive'
           key={currentobject}
         />
         <button
@@ -527,39 +527,39 @@ function NewsfeedComponent() {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>What's in hang?</div>
 
-        <div className="add-smilespopup">
-          <label className="fileContainer">
-            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-            <i class="lar la-file-image"></i>
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+            <i class='lar la-file-image'></i>
           </label>
         </div>
-        <div className="gifpopup">
+        <div className='gifpopup'>
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-user-tag"></i>
+              <a href='#!'>
+                <i class='las la-user-tag'></i>
               </a>
             }
             modal
             nested
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
                   <input
-                    className="friend-search"
-                    type="text"
-                    id="header-search"
-                    placeholder="Search Friends"
-                    name="s"
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
                   </>
                 ) : null}
                 <div>
@@ -568,19 +568,19 @@ function NewsfeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className="friends-card">
-                              <a href="#!" onClick={() => handleTag(userM)}>
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
                                 {' '}
-                                <div className="grid-container">
+                                <div className='grid-container'>
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" />
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
-                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div>
@@ -598,18 +598,18 @@ function NewsfeedComponent() {
             )}
           </Popup>
         </div>
-        <div className="campopup">
+        <div className='campopup'>
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className="popwidth">
+              <Form style={{ margin: '5px' }} className='popwidth'>
                 <LocSearchComponent />
               </Form>
             )}
@@ -628,39 +628,39 @@ function NewsfeedComponent() {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>Add More</div>
 
-        <div className="add-smilespopup">
-          <label className="fileContainer">
-            <input type="file" name="post_image" accept="image/*" multiple onChange={handleFile}></input>
-            <i class="lar la-file-image"></i>
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='post_image' accept='image/*' multiple onChange={handleFile}></input>
+            <i class='lar la-file-image'></i>
           </label>
         </div>
-        <div className="gifpopup">
+        <div className='gifpopup'>
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-user-tag"></i>
+              <a href='#!'>
+                <i class='las la-user-tag'></i>
               </a>
             }
             modal
             nested
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
                   <input
-                    className="friend-search"
-                    type="text"
-                    id="header-search"
-                    placeholder="Search Friends"
-                    name="s"
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
                   </>
                 ) : null}
                 <div>
@@ -669,19 +669,19 @@ function NewsfeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className="friends-card">
-                              <a href="#!" onClick={() => handleTag(userM)}>
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
                                 {' '}
-                                <div className="grid-container">
+                                <div className='grid-container'>
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" />
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
-                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div>
@@ -699,19 +699,19 @@ function NewsfeedComponent() {
             )}
           </Popup>
         </div>
-        <div className="campopup">
+        <div className='campopup'>
           {' '}
           <Popup
             trigger={
-              <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px', width: '500px', minHeight: '500px' }} className="popwidth">
+              <Form style={{ margin: '5px', width: '500px', minHeight: '500px' }} className='popwidth'>
                 <LocSearchComponent />
               </Form>
             )}
@@ -729,15 +729,15 @@ function NewsfeedComponent() {
     return (
       <Popup
         trigger={
-          <a href="#!">
-            <i class="las la-map-marker-alt"></i>
+          <a href='#!'>
+            <i class='las la-map-marker-alt'></i>
           </a>
         }
         nested
         modal
       >
         {(close) => (
-          <Form style={{ margin: '5px', width: '500px', height: '500px' }} className="popwidth">
+          <Form style={{ margin: '5px', width: '500px', height: '500px' }} className='popwidth'>
             <LocSearchComponent />
           </Form>
         )}
@@ -751,7 +751,7 @@ function NewsfeedComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src="/assets/images/hangshare.svg" alt="img" />
+              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare.svg' alt='img' />
             </span>
             Hang Share
           </span>
@@ -760,12 +760,12 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form style={{ margin: '5px' }} className="popwidth" onSubmit={close}>
-            <div className="headpop">
-              <div className="row">
+          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -775,7 +775,7 @@ function NewsfeedComponent() {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: '25%', textAlign: 'right' }}>
-                  <a className="popup-btn" href="/HangGift">
+                  <a className='popup-btn' href='/HangGift'>
                     Keep Hang
                   </a>
                 </div>
@@ -783,28 +783,28 @@ function NewsfeedComponent() {
             </div>
 
             <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdownnewsfeed">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -812,12 +812,12 @@ function NewsfeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 0 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
@@ -851,7 +851,7 @@ function NewsfeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -861,8 +861,8 @@ function NewsfeedComponent() {
 
             {imageshow()}
             <div
-              type="submit"
-              value="Submit"
+              type='submit'
+              value='Submit'
               style={{
                 textAlign: 'center',
                 background: '#C4C4C4',
@@ -888,7 +888,7 @@ function NewsfeedComponent() {
     return (
       <Popup
         trigger={
-          <div className="textbox">
+          <div className='textbox'>
             <span style={{ cursor: 'pointer', padding: '5px' }}>We share,do you?</span>
           </div>
         }
@@ -896,12 +896,12 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form className="popform popwidth">
-            <div className="headpop">
-              <div className="row">
+          <Form className='popform popwidth'>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -912,7 +912,7 @@ function NewsfeedComponent() {
                 <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
@@ -921,28 +921,28 @@ function NewsfeedComponent() {
             </div>
 
             <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdownnewsfeed">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -950,12 +950,12 @@ function NewsfeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
@@ -986,7 +986,7 @@ function NewsfeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -1005,7 +1005,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src="/assets/images/share-2.svg" alt="img" />
+            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/share-2.svg' alt='img' />
             Share Up
           </span>
         }
@@ -1013,12 +1013,12 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form className="popform popwidth">
-            <div className="headpop">
-              <div className="row">
+          <Form className='popform popwidth'>
+            <div className='headpop'>
+              <div className='row'>
                 <div style={{ width: '5%' }}>
-                  <a href="#!" style={{ padding: '10px 150px 10px 0' }} onClick={close}>
-                    <i class="las la-times"></i>
+                  <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
@@ -1029,7 +1029,7 @@ function NewsfeedComponent() {
                 <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
@@ -1039,28 +1039,28 @@ function NewsfeedComponent() {
 
             <div style={{ padding: '0 11px 11px 11px' }}>
               {' '}
-              <div className="popupimg">
+              <div className='popupimg'>
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div class="popupuser-name">
+              <div class='popupuser-name'>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className="dropdownnewsfeed">
-                      <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                        <option value="Friends">Friends</option>
-                        <option value="Public">Public</option>
-                        <option value="Only Me">Only Me</option>
+                    <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
                       </select>
                     </div>{' '}
                   </span>
@@ -1068,12 +1068,12 @@ function NewsfeedComponent() {
               </div>{' '}
             </div>
             <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className="textPop">
+              <span className='textPop'>
                 <textarea
-                  className="textpopup"
+                  className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name="post_content"
+                  name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
@@ -1104,7 +1104,7 @@ function NewsfeedComponent() {
                         padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </>
                 ) : null}
@@ -1123,7 +1123,7 @@ function NewsfeedComponent() {
         <Popup
           trigger={
             <span style={{ cursor: 'pointer' }}>
-              <img style={{ verticalAlign: 'middle', padding: '5px' }} src="assets/images/images.svg" />
+              <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/images.svg' />
               <span>Photos</span>
             </span>
           }
@@ -1131,12 +1131,12 @@ function NewsfeedComponent() {
           nested
         >
           {(close) => (
-            <Form className="popform popwidth">
-              <div className="headpop">
-                <div className="row">
+            <Form className='popform popwidth'>
+              <div className='headpop'>
+                <div className='row'>
                   <div style={{ width: '5%' }}>
-                    <a href="#!" onClick={close}>
-                      <i class="las la-times"></i>
+                    <a href='#!' onClick={close}>
+                      <i class='las la-times'></i>
                     </a>
                   </div>
                   <div
@@ -1153,7 +1153,7 @@ function NewsfeedComponent() {
                   <div style={{ width: '10%', textAlign: 'center' }}>
                     <span style={{ float: 'right' }}>
                       {' '}
-                      <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>
+                      <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                         Post
                       </button>
                     </span>
@@ -1162,7 +1162,7 @@ function NewsfeedComponent() {
               </div>
 
               <div style={{ padding: '0 11px 11px 11px' }}>
-                <div className="popupimg">
+                <div className='popupimg'>
                   {/* <img src={user ? settings.apiUrl+user.profilePicturePath:settings.apiUrl+userR.profilePicture} alt=""/> */}
                   <img
                     src={
@@ -1170,21 +1170,21 @@ function NewsfeedComponent() {
                         ? fileStorage.baseUrl + user.profilePicturePath
                         : fileStorage.baseUrl + userR.profilePicturePath
                     }
-                    alt=""
+                    alt=''
                   />
                 </div>
-                <div class="popupuser-name">
+                <div class='popupuser-name'>
                   <div style={{ float: 'left', display: 'inline' }}>
                     <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
                       {`${user.firstName} ${user.lastName}`}
                       {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                     </span>
                     <span style={{ display: 'block', fontSize: '12px' }}>
-                      <div className="dropdownnewsfeed">
-                        <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy}>
-                          <option value="Friends">Friends</option>
-                          <option value="Public">Public</option>
-                          <option value="Only Me">Only Me</option>
+                      <div className='dropdownnewsfeed'>
+                        <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                          <option value='Friends'>Friends</option>
+                          <option value='Public'>Public</option>
+                          <option value='Only Me'>Only Me</option>
                         </select>
                       </div>{' '}
                     </span>
@@ -1192,12 +1192,12 @@ function NewsfeedComponent() {
                 </div>{' '}
               </div>
               <div style={{ margin: '0 11px 100px 11px' }}>
-                <span className="textPop">
+                <span className='textPop'>
                   <textarea
-                    className="textpopup"
+                    className='textpopup'
                     rows={2}
                     placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                    name="post_content"
+                    name='post_content'
                     value={postContent}
                     onChange={handlePostContent}
                   />
@@ -1218,7 +1218,7 @@ function NewsfeedComponent() {
                           padding: '10px 10px',
                         }}
                       >
-                        <i class="las la-times"></i>
+                        <i class='las la-times'></i>
                       </button>
                     </>
                   ) : null}
@@ -1238,7 +1238,7 @@ function NewsfeedComponent() {
 
   const show = () => {
     return (
-      <div className="loadMore">
+      <div className='loadMore'>
         {postsForUser.map((post) => (
           <div key={post.id}>
             {post.group
@@ -1354,27 +1354,27 @@ function NewsfeedComponent() {
       {user.newUser ? (
         <GuideComponent />
       ) : (
-        <div className="col-lg-6">
-          <div class="slide-wrapperstry">
-            <ul class="slidestry">
-              <li class="slideitemstry">
-                <a href="#">
-                  <div className="strysggstion-card">
-                    <div className="strysggstion-img">
-                      <img src="/assets/images/vector-34@2x.png" alt="img" />
+        <div className='col-lg-6'>
+          <div class='slide-wrapperstry'>
+            <ul class='slidestry'>
+              <li class='slideitemstry'>
+                <a href='#'>
+                  <div className='strysggstion-card'>
+                    <div className='strysggstion-img'>
+                      <img src='/assets/images/vector-34@2x.png' alt='img' />
                     </div>
 
-                    <Popup trigger={<div className="add-stry"> +</div>} modal>
+                    <Popup trigger={<div className='add-stry'> +</div>} modal>
                       {(close) => (
-                        <Form className="popwidth">
+                        <Form className='popwidth'>
                           {/* {storiesForUser.map(
   storyauth =>
               <>  */}
-                          <div className="headpop">
+                          <div className='headpop'>
                             <div style={{ padding: '10px' }}>
                               <span>
-                                <a href="#!" style={{ padding: '10px 150px 10px 0' }} onClick={close}>
-                                  <i class="las la-times"></i>
+                                <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                                  <i class='las la-times'></i>
                                 </a>
                               </span>
                               <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
@@ -1386,7 +1386,7 @@ function NewsfeedComponent() {
                                 {' '}
                                 <button
                                   style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
-                                  type="submit"
+                                  type='submit'
                                   onClick={uploadStories}
                                 >
                                   Upload
@@ -1397,10 +1397,10 @@ function NewsfeedComponent() {
                           </div>
 
                           <div style={{ margin: '0 11px 10px 11px' }}>
-                            <span className="textPop">
+                            <span className='textPop'>
                               {showstoriesImage ? (
                                 <>
-                                  <img id="preview" src={storiesImage} style={{ width: '100%' }} />
+                                  <img id='preview' src={storiesImage} style={{ width: '100%' }} />
                                   <button
                                     onClick={handleRemoveImageStry}
                                     style={{
@@ -1411,17 +1411,17 @@ function NewsfeedComponent() {
                                       padding: '10px 10px',
                                     }}
                                   >
-                                    <i class="las la-times"></i>
+                                    <i class='las la-times'></i>
                                   </button>
                                 </>
                               ) : (
                                 <div style={{ textAlign: 'center' }}>
-                                  <label className="fileContainer">
-                                    <div className="storypic" type="submit">
+                                  <label className='fileContainer'>
+                                    <div className='storypic' type='submit'>
                                       <input
-                                        type="file"
-                                        name="swap_image"
-                                        accept="image/*"
+                                        type='file'
+                                        name='swap_image'
+                                        accept='image/*'
                                         onChange={handleFileStry}
                                       ></input>
                                       Add Story
@@ -1430,7 +1430,7 @@ function NewsfeedComponent() {
                                 </div>
                               )}
                             </span>
-                            <div className="storyErr">{uploadErrorStory ? `${uploadErrorStory}` : null}</div>
+                            <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div>
                           </div>
                           {/* </> 
                                                    
@@ -1438,16 +1438,16 @@ function NewsfeedComponent() {
                         </Form>
                       )}
                     </Popup>
-                    <label className="fileContainer">
+                    <label className='fileContainer'>
                       <input
-                        id="file-input"
-                        type="file"
-                        name="stories_image"
-                        accept="image/*"
+                        id='file-input'
+                        type='file'
+                        name='stories_image'
+                        accept='image/*'
                         onChange={handleFileStry}
                       ></input>
                     </label>
-                    <div className="strysggstion-by">
+                    <div className='strysggstion-by'>
                       <h5>Create Story</h5>
                     </div>
                     {/* <button  onClick={uploadStories}>Post</button> */}
@@ -1462,21 +1462,21 @@ function NewsfeedComponent() {
                       <Popup
                         style={{ padding: '0px' }}
                         trigger={
-                          <li class="slideitemstry" key={story.id}>
+                          <li class='slideitemstry' key={story.id}>
                             <StoriesComponent story={story} setRefresh={setRefresh} />
                           </li>
                         }
                         modal
                       >
                         {(close) => (
-                          <Form className="stryp">
+                          <Form className='stryp'>
                             <div>
-                              <div className="row">
+                              <div className='row'>
                                 <div style={{ width: '5%' }}>
-                                  <a href="#!" onClick={close}>
+                                  <a href='#!' onClick={close}>
                                     <i
                                       style={{ color: '#fff', padding: '10px', fontSize: '30px' }}
-                                      class="las la-times"
+                                      class='las la-times'
                                     ></i>
                                   </a>
                                 </div>
@@ -1492,18 +1492,18 @@ function NewsfeedComponent() {
               ))}
             </ul>
 
-            <div class="paddles">
-              <button class="left-paddlestry paddle  hidden">
-                <i class="las la-chevron-circle-left"></i>
+            <div class='paddles'>
+              <button class='left-paddlestry paddle  hidden'>
+                <i class='las la-chevron-circle-left'></i>
               </button>
-              <button class="right-paddlestry paddle">
-                <i class="las la-chevron-circle-right"></i>
+              <button class='right-paddlestry paddle'>
+                <i class='las la-chevron-circle-right'></i>
               </button>
             </div>
           </div>
 
-          <div className="central-meta newsfeed">
-            <div className="new-postbox">
+          <div className='central-meta newsfeed'>
+            <div className='new-postbox'>
               <figure>
                 <img
                   src={
@@ -1511,10 +1511,10 @@ function NewsfeedComponent() {
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=""
+                  alt=''
                 />
               </figure>
-              <div className="newpst-input">
+              <div className='newpst-input'>
                 <Form>
                   {postUp()}
                   {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
@@ -1527,7 +1527,7 @@ function NewsfeedComponent() {
                       null
                     } */}
 
-                  <div className="attachments">
+                  <div className='attachments'>
                     <ul>
                       <li>{popUp()}</li>
                       {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
@@ -1547,31 +1547,31 @@ function NewsfeedComponent() {
                     postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
                      }
                      </div> */}
-          <div className="central-meta newsfeed">
+          <div className='central-meta newsfeed'>
             <div style={{ fontSize: '18px', marginBottom: '10px' }}>Groups Suggestions</div>
-            <div class="slide-wrapper">
-              <ul class="slide heightGrp">
-                <li class="slideitem">
-                  <a href="#">
-                    <div className="groupsggstion-card">
-                      <div className="groupsggstion-img">
-                        <a href="">
+            <div class='slide-wrapper'>
+              <ul class='slide heightGrp'>
+                <li class='slideitem'>
+                  <a href='#'>
+                    <div className='groupsggstion-card'>
+                      <div className='groupsggstion-img'>
+                        <a href=''>
                           <div style={{ paddingTop: '50px', fontSize: '100px' }}>
                             {' '}
-                            <i class="las la-users"></i>
+                            <i class='las la-users'></i>
                           </div>
                         </a>
                       </div>
 
-                      <div className="groupsggstion-by">
-                        <a href="/group/create">
-                          <div class="add-group" aria-describedby="popup-2">
+                      <div className='groupsggstion-by'>
+                        <a href='/group/create'>
+                          <div class='add-group' aria-describedby='popup-2'>
                             {' '}
                             +
                           </div>
                         </a>
 
-                        <a href="/group/create">
+                        <a href='/group/create'>
                           <h5 style={{ fontWeight: 'bold', fontSize: '16px' }}>Create Group</h5>
                         </a>
                       </div>
@@ -1579,10 +1579,10 @@ function NewsfeedComponent() {
                   </a>
                 </li>
                 {searchedGroups.map((group) => (
-                  <li class="slideitem">
-                    <a href="#">
-                      <div className="groupsggstion-card">
-                        <div className="groupsggstion-img">
+                  <li class='slideitem'>
+                    <a href='#'>
+                      <div className='groupsggstion-card'>
+                        <div className='groupsggstion-img'>
                           <a href={`/groups/${group.id}`} title={group.name}>
                             {' '}
                             <img
@@ -1591,15 +1591,15 @@ function NewsfeedComponent() {
                                   ? group.groupImagePath
                                   : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
                               }
-                              alt=""
+                              alt=''
                             />
                           </a>
                         </div>
 
-                        <div className="groupsggstion-by">
+                        <div className='groupsggstion-by'>
                           <div style={{ padding: '5px' }}>
-                            <span className="groupname">
-                              <a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a>
+                            <span className='groupname'>
+                              <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}</a>
                             </span>
                           </div>
                           <div style={{ textAlign: 'right', padding: '5px' }}>
@@ -1612,7 +1612,7 @@ function NewsfeedComponent() {
                           {checkIfInGroup(group.members) ? (
                             <a
                               href
-                              class="buttonGrpFd mrgngrp"
+                              class='buttonGrpFd mrgngrp'
                               style={{ color: '#fff', background: '#033347', fontSize: '12px' }}
                               onClick={() => handleLeaveGroup(group.id)}
                             >
@@ -1621,7 +1621,7 @@ function NewsfeedComponent() {
                           ) : (
                             <a
                               href
-                              class="buttonGrpFd mrgngrp"
+                              class='buttonGrpFd mrgngrp'
                               style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
                               onClick={() => handleJoinGroup(group.id)}
                             >
@@ -1635,12 +1635,12 @@ function NewsfeedComponent() {
                 ))}
               </ul>
 
-              <div class="paddles">
-                <button class="left-paddle paddle hidden">
-                  <i class="las la-chevron-circle-left"></i>
+              <div class='paddles'>
+                <button class='left-paddle paddle hidden'>
+                  <i class='las la-chevron-circle-left'></i>
                 </button>
-                <button class="right-paddle paddle">
-                  <i class="las la-chevron-circle-right"></i>
+                <button class='right-paddle paddle'>
+                  <i class='las la-chevron-circle-right'></i>
                 </button>
               </div>
             </div>
