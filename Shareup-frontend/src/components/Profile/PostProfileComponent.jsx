@@ -9,7 +9,7 @@ import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import PostComponent from '../post/PostComponent';
 import PostTextBoxComponent from '../post/PostTextBoxComponent';
 import FriendProfWidgtComponent from './FriendProfWidgtComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 export default function PostProfileComponent({ posts, setRefresh }) {
    

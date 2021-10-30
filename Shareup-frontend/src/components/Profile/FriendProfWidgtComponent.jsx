@@ -9,7 +9,7 @@ import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
 import { nodeName } from 'jquery';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 function FriendProfWidgtComponent() {

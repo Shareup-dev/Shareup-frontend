@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import FriendsService from '../../services/FriendService';
 import UserService from '../../services/UserService';
 import { BiUserPlus } from "react-icons/bi";
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from "../../config/fileStorage"; 
 
 

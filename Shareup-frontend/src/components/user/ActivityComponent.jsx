@@ -8,7 +8,7 @@ import PostService from '../../services/PostService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
@@ -19,53 +19,53 @@ export default function ActivityComponent() {
   const [refresh, setRefresh] = useState([]);
   const { user } = useContext(UserContext)
 
- const handleSearchedFollowers = (event) => {
-		if (event.target.value === "") {
-			setSearchedFollowers(followers)
-		} else {
-			let temp = []
-			following.map(u => {
-				if (u.email.includes(event.target.value)) {
-					temp.push(u)
-				}
-			})
-			setSearchedFollowers(temp)
-			console.log(temp)
-		}
-	}
+  const handleSearchedFollowers = (event) => {
+    if (event.target.value === "") {
+      setSearchedFollowers(followers)
+    } else {
+      let temp = []
+      following.map(u => {
+        if (u.email.includes(event.target.value)) {
+          temp.push(u)
+        }
+      })
+      setSearchedFollowers(temp)
+      console.log(temp)
+    }
+  }
   const handleSearchedFollowing = (event) => {
-		if (event.target.value === "") {
-			setSearchedFollowing(following)
-		} else {
-			let temp = []
-			following.map(u => {
-				if (u.email.includes(event.target.value)) {
-					temp.push(u)
-				}
-			})
-			setSearchedFollowing(temp)
-			console.log(temp)
-		}
+    if (event.target.value === "") {
+      setSearchedFollowing(following)
+    } else {
+      let temp = []
+      following.map(u => {
+        if (u.email.includes(event.target.value)) {
+          temp.push(u)
+        }
+      })
+      setSearchedFollowing(temp)
+      console.log(temp)
+    }
 
-	}
+  }
 
   const [following, setFollowing] = useState([]);
-	const [searchedFollowing, setSearchedFollowing] = useState([]);
+  const [searchedFollowing, setSearchedFollowing] = useState([]);
   const [followers, setFollowers] = useState([]);
-	const [searchedFollowers, setSearchedFollowers] = useState([]);
+  const [searchedFollowers, setSearchedFollowers] = useState([]);
   // const [show, setShow] = useState('overview')
 
   // const changeView = () => {
   //   if (show === 'overview') {
   return (
     <>
-    <ShareupInsideHeaderComponent />
-      
-  
-    
-    <div>
-    
-    <div className="notifications screen">
+      <ShareupInsideHeaderComponent />
+
+
+
+      <div>
+
+        <div className="notifications screen">
           <img className="bibell-VdoMpK" src="../assets/images/img/bi-bell@2x.png" />
           <h1 className="title-VdoMpK">Select a notification to open.</h1>
           <div className="frame-33-VdoMpK" />
@@ -114,8 +114,8 @@ export default function ActivityComponent() {
                   <div className="search-FJ4wsW">
                     <img className="search-bar-4aie67" src="../assets/images/img/search-bar@2x.png" /><img className="search-4aie67" src="../assets/images/img/search@2x.png" />
                   </div> */}
-                  <input type="text" id="header-search" placeholder="Search Activities" name="s" onChange={handleSearchedFollowers} />
-                  {/* <div className="search-groups-FJ4wsW">Search Groups</div> */}
+                <input type="text" id="header-search" placeholder="Search Activities" name="s" onChange={handleSearchedFollowers} />
+                {/* <div className="search-groups-FJ4wsW">Search Groups</div> */}
                 {/* </div> */}
                 {/* <div className="group-458-aFfxmK">
                   <div className="group-456-Y01lOQ">
@@ -150,14 +150,14 @@ export default function ActivityComponent() {
               </div>
             </div>
           </div>
-         
+
         </div>
-        
+
       </div>
-     
-  
 
 
-  </>
+
+
+    </>
   )
 }

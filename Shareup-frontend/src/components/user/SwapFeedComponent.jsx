@@ -11,7 +11,7 @@ import SimpleReactLightbox from 'simple-react-lightbox';
 import { testScript } from '../../js/script';
 import GroupService from '../../services/GroupService';
 import StoriesService from '../../services/StoriesService';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import EditPostComponent from './EditPostComponent';
 import Modal from 'react-modal';
 

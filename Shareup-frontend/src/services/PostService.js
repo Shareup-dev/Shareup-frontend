@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AuthService from './auth.services';
-import settings from "./Settings";
+import settings from "../config/Settings";
 
 let authAxios = null;
 const baseurl=`${settings.apiUrl}/api/v1/`

@@ -9,7 +9,7 @@ import FollowingWidgetComponent from './widgets/FollowingWidgetComponent';
 import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
 import TrendingWidgetComponent from './widgets/TrendingWidgetComponent';
-import settings from '../services/Settings';
+import settings from '../config/Settings';
 import fileStorage from '../config/fileStorage';
 
 export default function Layout(props) {

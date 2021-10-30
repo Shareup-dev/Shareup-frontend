@@ -1,5 +1,5 @@
 import axios from "axios";
-import settings from "./Settings";
+import settings from "../config/Settings";
 
 const my_api = `${settings.apiUrl}/api/v1/users`;
 const cookieKey = "user";

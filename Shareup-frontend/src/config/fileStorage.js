@@ -1,3 +1,3 @@
 export default {
-  baseUrl: 'https://shareupdigitalspace.fra1.digitaloceanspaces.com',
+  baseUrl: process.env.REACT_APP_URL_FILE_STORAGE,
 };

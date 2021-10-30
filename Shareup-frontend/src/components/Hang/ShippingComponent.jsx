@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,  useCallback, useRef} from 'react';
+import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -18,11 +18,11 @@ import Layout from '../LayoutComponent';
 import PostComponent from '../post/PostComponent';
 import Popup from 'reactjs-popup';
 import PhoneInput from 'react-phone-number-input'
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 
-function ShippingComponent(props)  {
-  
+function ShippingComponent(props) {
+
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,7 +60,7 @@ function ShippingComponent(props)  {
 
   const [img, setImage] = useState("");
   const [value, setValue] = useState();
-  
+
   const defaultProps = {
     center: {
       lat: 10.99835602,
@@ -69,7 +69,7 @@ function ShippingComponent(props)  {
     zoom: 11
   };
 
-  
+
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
   //   const ref = inputRef.current;
@@ -185,7 +185,7 @@ function ShippingComponent(props)  {
     }
     return false
   }
- 
+
   const checkIfSaved = (post) => {
     console.log(post.savedByUsers)
     // maybe this is more effecient
@@ -270,26 +270,26 @@ function ShippingComponent(props)  {
   }
 
   const testFanc = (post) => {
-    return ( <PostComponent post={post} setRefresh={setRefresh}/>)
+    return (<PostComponent post={post} setRefresh={setRefresh} />)
   }
   const showMap = () => {
-    if (showLoc === "yes"){
-    return (
-      <div style={{ height: '50vh', width: '100%' }}>
-<GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCUqRf-EB8vo-P_BYx0dRES5A3h78u1Xzc" }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
-          text="My Marker"
-        />
-      </GoogleMapReact>
-</div>
-    )
-  }
+    if (showLoc === "yes") {
+      return (
+        <div style={{ height: '50vh', width: '100%' }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: "AIzaSyCUqRf-EB8vo-P_BYx0dRES5A3h78u1Xzc" }}
+            defaultCenter={defaultProps.center}
+            defaultZoom={defaultProps.zoom}
+          >
+            <AnyReactComponent
+              lat={59.955413}
+              lng={30.337844}
+              text="My Marker"
+            />
+          </GoogleMapReact>
+        </div>
+      )
+    }
   }
   const show = () => {
     if (showComp === "newsfeed") {
@@ -335,9 +335,9 @@ function ShippingComponent(props)  {
     }
   }
 
-//   useEffect(()=>{
-//     refMap.current.map.panTo(props.location)
-// },[props.location])
+  //   useEffect(()=>{
+  //     refMap.current.map.panTo(props.location)
+  // },[props.location])
 
   useEffect(() => {
     getUser()
@@ -354,8 +354,8 @@ function ShippingComponent(props)  {
     getSavedPost()
     testScript()
   }, [user])
-  useEffect(() =>{
-    navigator.geolocation.getCurrentPosition(function(position) {
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
     });
@@ -374,57 +374,57 @@ function ShippingComponent(props)  {
   //       setListing({...listing, latLng: mapCenter})
   //   }
   // };
-  
+
 
   return (
     <Layout user={user}>
-    <div className="col-lg-6">
-            <div className="central-meta newsfeed metaSip">
-              
-                 <div className="new-postbox shipping">
-                <h1>Location</h1>
-                <div className="newpst-input">
-                  <Form>
-<p>Please provide your location</p>
-<p style={{fontSize:'12px'}}>So that we can deliver this item to your doorstep</p>
+      <div className="col-lg-6">
+        <div className="central-meta newsfeed metaSip">
+
+          <div className="new-postbox shipping">
+            <h1>Location</h1>
+            <div className="newpst-input">
+              <Form>
+                <p>Please provide your location</p>
+                <p style={{ fontSize: '12px' }}>So that we can deliver this item to your doorstep</p>
 
 
 
-<p>Share your location via google maps</p>
-{/* <a href="#" className="openmap" onClick={() => setShowLoc("yes")}>Open map</a> */}
-{
-              showMap()
-            }
+                <p>Share your location via google maps</p>
+                {/* <a href="#" className="openmap" onClick={() => setShowLoc("yes")}>Open map</a> */}
+                {
+                  showMap()
+                }
 
-    
-<div className="phno">
-<PhoneInput
-      placeholder="Enter phone number"
-      value={value}
-      onChange={setValue}/></div>
-      <div style={{textAlign:'center'}}>
-      
- <Popup  trigger={<a href="#" className="buttonShip">Let's Care it</a>} modal>
-                       {close => ( 
-               <div>  
-   <div><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
-    <div style={{ color:'#000000',textAlign:'center',fontSize:'14px',fontWeight:'bold',marginTop:'30px'}}><div style={{fontSize:'42px',fontWeight:'bold'}}><i class="las la-shipping-fast"></i></div>Your have successfully done
-    <p style={{ color:'#9AAAAE',padding:'20px 0 30px 0'}}>Your item is successfully booked</p>
-    
-    
-    <div style={{padding:'0 40% 10% 40%'}}><a href="/newsfeed" className="buttonCnfirmShip">Ok,Thanks</a></div></div>
-    
-    
 
-   
- </div>  
-                  )}                 
-  </Popup> 
-    
+                <div className="phno">
+                  <PhoneInput
+                    placeholder="Enter phone number"
+                    value={value}
+                    onChange={setValue} /></div>
+                <div style={{ textAlign: 'center' }}>
 
-      </div>
+                  <Popup trigger={<a href="#" className="buttonShip">Let's Care it</a>} modal>
+                    {close => (
+                      <div>
+                        <div><a href="#!" style={{ padding: '10px 80px 10px 0' }} onClick={close}><i class="las la-times"></i></a></div>
+                        <div style={{ color: '#000000', textAlign: 'center', fontSize: '14px', fontWeight: 'bold', marginTop: '30px' }}><div style={{ fontSize: '42px', fontWeight: 'bold' }}><i class="las la-shipping-fast"></i></div>Your have successfully done
+                          <p style={{ color: '#9AAAAE', padding: '20px 0 30px 0' }}>Your item is successfully booked</p>
 
-                    {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+
+                          <div style={{ padding: '0 40% 10% 40%' }}><a href="/newsfeed" className="buttonCnfirmShip">Ok,Thanks</a></div></div>
+
+
+
+
+                      </div>
+                    )}
+                  </Popup>
+
+
+                </div>
+
+                {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                     {showPostImage ?
                       <>
                         <img id="preview" src={postImage} style={{ width: "80%", border: "3px solid" }} />
@@ -461,13 +461,13 @@ function ShippingComponent(props)  {
                       
                     </div>
                     <button style={{float: 'right',borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button> */}
-                  </Form>
-                </div>
-              </div>
+              </Form>
             </div>
-            </div>
-            </Layout>
-           
+          </div>
+        </div>
+      </div>
+    </Layout>
+
   );
 }
 export default ShippingComponent;

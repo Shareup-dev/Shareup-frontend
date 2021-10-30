@@ -6,7 +6,7 @@ import AuthService from '../../services/auth.services';
 import { testScript } from '../../js/script';
 import StoriesService from '../../services/StoriesService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AuthService from './auth.services';
-import settings from "./Settings";
+import settings from "../config/Settings";
 
 const USER_API_BASE_URL =  `${settings.apiUrl}/api/v1/groups`
 let authAxios = null;

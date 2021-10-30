@@ -8,7 +8,7 @@ import PostService from '../../services/PostService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
@@ -66,7 +66,7 @@ export default function EditProfileComponent() {
       setRelationshipStatus(res.data.relationshipstatus)
       setInterests(res.data.interests)
       //
-      
+
 
     })
   }
@@ -77,9 +77,9 @@ export default function EditProfileComponent() {
       email: user.email,
       aboutme: aboutme,
       job: job,
-      gender:gender,
+      gender: gender,
       hometown: homeTown,
-      currenttown:currentTown,
+      currenttown: currentTown,
       relationshipstatus: relationshipStatus,
       interests: interests,
 
@@ -108,7 +108,7 @@ export default function EditProfileComponent() {
   }
   useEffect(() => {
     currentUserGet()
-    
+
 
   }, [refresh])
 
@@ -120,27 +120,27 @@ export default function EditProfileComponent() {
         <div className="right-edit-profile">
           <div className="right-edit-profile-content">
             <div className="right-edit-profile-image">
-            <label className="fileContainer ">
-                     
-                     <div className="add-prof mrgnFileCntnrEdtProf" >
-                     +
-       </div>
-                       <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleProfileImage}></input>
+              <label className="fileContainer ">
 
-                     </label>
-                     
-            {
-                        showProfilePicture ?
-                          <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Upload</a></div> </> :
-                          <> <img src={userProfile.profilePicturePath ? fileStorage.baseUrl+userProfile.profilePicturePath: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
-                      }
-                     
+                <div className="add-prof mrgnFileCntnrEdtProf" >
+                  +
+                </div>
+                <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleProfileImage}></input>
 
-                        {/* <form className="edit-phto"> */}
-                        
-                          {/* <i className="fa fa-camera-retro"></i> */}
-                          
-                        {/* </form> */}
+              </label>
+
+              {
+                showProfilePicture ?
+                  <><img id="preview profprvw" src={profileRender} /><div><a style={{ fontWeight: 'bold' }} href="#!" id="submit" name="submit" onClick={uploadProfilePicture}>Upload</a></div> </> :
+                  <> <img src={userProfile.profilePicturePath ? fileStorage.baseUrl + userProfile.profilePicturePath : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
+              }
+
+
+              {/* <form className="edit-phto"> */}
+
+              {/* <i className="fa fa-camera-retro"></i> */}
+
+              {/* </form> */}
             </div>
             <div className="right-edit-profile-bio">
               <div className="right-edit-profile-bio-top">
@@ -148,9 +148,9 @@ export default function EditProfileComponent() {
                 <p><a href="#" className="text-color" onClick={updateProfile}>Save</a></p>
               </div>
               <div className="right-edit-profile-bio-after">
-            
+
                 <input type="text" className="inpt" id="DescribeYourself" placeholder="DescribeYourself" value={aboutme} onChange={handleAboutme}
-                    />
+                />
               </div>
             </div>
             <div className="right-edit-profile-bio">
@@ -160,7 +160,7 @@ export default function EditProfileComponent() {
               </div>
               <div className="right-edit-profile-details">
                 <ul>
-                {/* <span className="text-color-2">Current town / city</span> */}
+                  {/* <span className="text-color-2">Current town / city</span> */}
                   <li><p><i className="las la-home" aria-hidden="true" /> <input type="text" className="inpt" id="DescribeYourself" placeholder="Current town/City" value={currentTown} onChange={handleCurrentTown}></input></p></li>
                   {/* <input type="text" className="inpt" id="Current town/city" placeholder="Current town/city" */}
                   {/* <span className="text-color-2">Home town</span> */}
@@ -177,7 +177,7 @@ export default function EditProfileComponent() {
               </div>
               <div className="right-edit-profile-details">
                 <div className="right-edit-profile-bio-after">
-                <input type="text" className="inpt" id="DescribeYourself" placeholder="Add Your Hobbies" value={interests} onChange={handleInterests}></input>
+                  <input type="text" className="inpt" id="DescribeYourself" placeholder="Add Your Hobbies" value={interests} onChange={handleInterests}></input>
                   {/* <p><span className="text-color-2">Add your hobbies...</span></p> */}
                 </div>
               </div>
@@ -202,28 +202,28 @@ export default function EditProfileComponent() {
             <div className="right-edit-personal-information">
               <p>Provide your Personal information, even if the account is used for a bussiness ,
                 a pet or something else. This wont be part of your public profile</p>
-                <div className="right-edit-profile-details padding">
-              <ul>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
-                  <div className="right-edit-details-input">{userProfile.email}</div>
-                </li>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
-                  <div className="right-edit-details-input"><input type="text" /></div>
-                </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Gender</p></div>
-                <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div>
-                </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
-                <div className="right-edit-details-input"><input type="text" /></div>
-                </li>
-              </ul>
-              
-            </div>
-           <div style={{textAlign:'center',padding:'5px'}}> <a href="#" className="text-color" onClick={updateProfile}>Save</a></div>
+              <div className="right-edit-profile-details padding">
+                <ul>
+                  <li>
+                    <div style={{ flex: 1, textAlign: 'left' }}><p>Email Address</p></div>
+                    <div className="right-edit-details-input">{userProfile.email}</div>
+                  </li>
+                  <li>
+                    <div style={{ flex: 1, textAlign: 'left' }}><p>Phone Number</p></div>
+                    <div className="right-edit-details-input"><input type="text" /></div>
+                  </li>
+                  <li>
+                    <div style={{ flex: 1, textAlign: 'left' }}><p>Gender</p></div>
+                    <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div>
+                  </li>
+                  <li>
+                    <div style={{ flex: 1, textAlign: 'left' }}><p>Date of Birth</p></div>
+                    <div className="right-edit-details-input"><input type="text" /></div>
+                  </li>
+                </ul>
+
+              </div>
+              <div style={{ textAlign: 'center', padding: '5px' }}> <a href="#" className="text-color" onClick={updateProfile}>Save</a></div>
             </div>
           </div>
         </div>
@@ -239,16 +239,16 @@ export default function EditProfileComponent() {
             <div className="right-edit-profile-details padding">
               <ul>
                 <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p><i className="las la-home" aria-hidden="true" /><span className="text-color-2">Current town / city</span></p></div>
-                  <div className="right-edit-details-input"><input type="text" value={currentTown} onChange={handleCurrentTown}/></div>
+                  <div style={{ flex: 1, textAlign: 'left' }}><p><i className="las la-home" aria-hidden="true" /><span className="text-color-2">Current town / city</span></p></div>
+                  <div className="right-edit-details-input"><input type="text" value={currentTown} onChange={handleCurrentTown} /></div>
                 </li>
                 <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p><i class="las la-map-marker"></i><span className="text-color-2">Home town</span></p></div>
-                  <div className="right-edit-details-input"><input type="text"  value={homeTown} onChange={handleHomeTown}/></div>
+                  <div style={{ flex: 1, textAlign: 'left' }}><p><i class="las la-map-marker"></i><span className="text-color-2">Home town</span></p></div>
+                  <div className="right-edit-details-input"><input type="text" value={homeTown} onChange={handleHomeTown} /></div>
                 </li>
                 <li>
-                <div style={{flex:1, textAlign: 'left'}}><p><i class="lab la-gratipay"></i><span className="text-color-2">Relationship status</span></p></div>
-                <div className="right-edit-details-input"><input type="text" value={relationshipStatus} onChange={handleRelationshipStatus}/></div>
+                  <div style={{ flex: 1, textAlign: 'left' }}><p><i class="lab la-gratipay"></i><span className="text-color-2">Relationship status</span></p></div>
+                  <div className="right-edit-details-input"><input type="text" value={relationshipStatus} onChange={handleRelationshipStatus} /></div>
                 </li>
               </ul>
             </div>
@@ -265,12 +265,12 @@ export default function EditProfileComponent() {
             </div>
             <div className="right-edit-profile-details padding">
               <ul>
-              <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
+                <li>
+                  <div style={{ flex: 1, textAlign: 'left' }}><p>Email Address</p></div>
                   <div className="right-edit-details-input">{userProfile.email}</div>
                 </li>
                 <li>
-                  <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Phone Number</p></div>
+                  <div style={{ flex: 1, textAlign: 'left', lineHeight: '2' }}><p>Phone Number</p></div>
                   <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
               </ul>

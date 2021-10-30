@@ -6,7 +6,7 @@ import Layout from '../LayoutComponent';
 import AuthService from '../../services/auth.services';
 import UserService from '../../services/UserService';
 import FriendsService from '../../services/FriendService';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 

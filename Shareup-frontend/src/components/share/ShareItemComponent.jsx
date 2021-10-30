@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -17,11 +17,11 @@ import PostComponent from '../post/PostComponent';
 import PostTextBoxComponent from '../post/PostTextBoxComponent';
 import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 
-function ShareItemComponent({post}) {
+function ShareItemComponent({ post }) {
   const [isLoading, setIsLoading] = useState(true);
 
   let history = useHistory();
@@ -37,7 +37,7 @@ function ShareItemComponent({post}) {
   const [showEmojis, setShowEmojis] = useState(false)
 
   const [showComp, setShowComp] = useState("newsfeed");
-  
+
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
@@ -63,41 +63,41 @@ function ShareItemComponent({post}) {
 
 
 
-  
-    
-    
-    const [showComment, setShowComment] = useState(false)
-    const [showMoreOptions, setShowMoreOptions] = useState(false)
-    const [showReactions, setShowReactions] = useState(false)
-   
-    const [likeReaction, setLikeReaction] = useState(null)
 
-    const something=(event)=> {
-        if (event.key === "Enter") {
-            console.log('enter')
-        }
+
+
+  const [showComment, setShowComment] = useState(false)
+  const [showMoreOptions, setShowMoreOptions] = useState(false)
+  const [showReactions, setShowReactions] = useState(false)
+
+  const [likeReaction, setLikeReaction] = useState(null)
+
+  const something = (event) => {
+    if (event.key === "Enter") {
+      console.log('enter')
     }
-    
-    
+  }
 
-    const handleShowingReaction = () => {
-        setTimeout(function () { setShowReactions(true) }, 200);
+
+
+  const handleShowingReaction = () => {
+    setTimeout(function () { setShowReactions(true) }, 200);
+  }
+
+  const handleUnshowingReaction = () => {
+    setTimeout(function () { setShowReactions(false) }, 200);
+  }
+
+  const handleReaction = () => {
+    if (likeReaction) {
+      return (<img src="/assets/images/starred.png" alt="" />)
+      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
+    return (<img src="/assets/images/starred.png" alt="" />)
+  }
 
-    const handleUnshowingReaction = () => {
-        setTimeout(function () { setShowReactions(false) }, 200);
-    }
 
-    const handleReaction = () => {
-        if(likeReaction) {
-            return (<img src="/assets/images/starred.png" alt="" />)
-            // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
-        }
-        return (<img src="/assets/images/starred.png" alt="" />)
-    }
 
-    
-    
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -196,7 +196,7 @@ function ShareItemComponent({post}) {
     // console.log(res.status)
     // window.location.reload();
   }
-  
+
   const checkIfLiked = (post) => {
     // maybe this is more effecient
     // post.reactions.map(r => {
@@ -275,15 +275,15 @@ function ShareItemComponent({post}) {
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction)
     if (!checkIfLiked(post)) {
-        handleLikePost(post.id)  
+      handleLikePost(post.id)
     }
-}
-const handleCounterReaction = () => {
-  if(likeReaction) {
-      return (<img width={20} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
   }
-  return (<img src="/assets/images/likeic.png" alt="" />)
-}
+  const handleCounterReaction = () => {
+    if (likeReaction) {
+      return (<img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />)
+    }
+    return (<img src="/assets/images/likeic.png" alt="" />)
+  }
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
       setRefresh(res.data)
@@ -307,25 +307,25 @@ const handleCounterReaction = () => {
       setUserR(user)
     }
   }
-const staticpost=()=>{
+  const staticpost = () => {
 
-}
+  }
   const testFanc = (post) => {
-    return ( <div><PostComponent post={post} setRefresh={setRefresh}/>
-      
-        
-</div>
-      
-      
-      )
+    return (<div><PostComponent post={post} setRefresh={setRefresh} />
+
+
+    </div>
+
+
+    )
   }
 
   const show = () => {
     if (showComp === "newsfeed") {
       return (
-      
+
         <div className="loadMore">
-         
+
           {
             postsForUser.map(
               post =>
@@ -337,8 +337,8 @@ const staticpost=()=>{
                       :
                       testFanc(post)
                   }
-                  
-     
+
+
                 </div>
             )
           }
@@ -399,164 +399,164 @@ const staticpost=()=>{
 
   return (
     <Layout user={user ? user : userR}>
-      
-          <div className="col-lg-6">
-            <PostTextBoxComponent/>
-          
-            {/* add post new box */}
-            <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>SharePosts</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span></p>
-            <div className="central-meta item">
-<div className="user-post">
-   
+
+      <div className="col-lg-6">
+        <PostTextBoxComponent />
+
+        {/* add post new box */}
+        <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>SharePosts</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span></p>
+        <div className="central-meta item">
+          <div className="user-post">
+
             <div className="friend-info">
 
-                <div className="post-meta">
-                    
-                        <a href="#" data-lightbox="image"><img style={{ width: "100%", height: "auto",borderRadius:'10px' }} src="assets/images/virtual-baby-showers-722x406.jpg" /> </a> 
-                    
+              <div className="post-meta">
 
-                    
-<figure>
-                    <img src={fileStorage.baseUrl+user.profilePicturePath} alt="" />
+                <a href="#" data-lightbox="image"><img style={{ width: "100%", height: "auto", borderRadius: '10px' }} src="assets/images/virtual-baby-showers-722x406.jpg" /> </a>
+
+
+
+                <figure>
+                  <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
                 </figure>
-                
+
                 <div className="friend-name">
-                    <div style={{ float: 'left', display: 'inline' }}>
+                  <div style={{ float: 'left', display: 'inline' }}>
 
-                        <a href="#" title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{user.firstName} {user.lastName}</a>
+                    <a href="#" title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{user.firstName} {user.lastName}</a>
 
-                        <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on 2/3/2021 </span>
-                       
-                        
+                    <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>on 2/3/2021 </span>
 
 
-                    </div>
-                   
+
+
+                  </div>
+
 
                 </div>
                 <div className="counter">
-                    <ul>
+                  <ul>
                     <li>{handleCounterReaction()}<span> 0</span></li>
-                    <li><span className='commentCounter' style={{ marginRight: '5px' }} onClick={() => setShowComment(!showComment)}><img src="/assets/images/commentwhite.svg" alt="" /></span> <span> 0</span> 
-                       </li>
-                       <li><span> <img src="/assets/images/shareicnwhite.svg" alt="" /></span> <span> 0 </span>
-                      
-                        </li>
-                    </ul>
-                    </div>
+                    <li><span className='commentCounter' style={{ marginRight: '5px' }} onClick={() => setShowComment(!showComment)}><img src="/assets/images/commentwhite.svg" alt="" /></span> <span> 0</span>
+                    </li>
+                    <li><span> <img src="/assets/images/shareicnwhite.svg" alt="" /></span> <span> 0 </span>
+
+                    </li>
+                  </ul>
+                </div>
                 <p>
-                            I would like to share the surprise gift to you. anyone can take it
-                            <br></br>
-                        </p>
-                        <div className="buttonS"><a href="/shipping" className="buttonshare">Accept</a></div>
-                   
-
-                    
-                    {
-                        showReactions && <div onMouseEnter={handleShowingReaction} onMouseLeave={handleUnshowingReaction} className="reaction-bunch active">
-                            <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')}/>
-                            <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')}/>
-                            <img src={'../assets/images/gif/laughing.gif'} onClick={() => handleSettingReactions('laughing')}/>
-                            <img src={'../assets/images/gif/tongue.gif'} onClick={() => handleSettingReactions('tongue')}/>
-                            <img src={'../assets/images/gif/angel.gif'} onClick={() => handleSettingReactions('angel')}/>
-                            <img src={'../assets/images/gif/devil.gif'} onClick={() => handleSettingReactions('devil')}/>
-                            <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')}/>
-
-                        </div>
-                    }
-                    
-                    <div className="we-video-info">
-                        <div className='click'>
-
-                          
-                       
-                                         
-                        <div className="commShare"><div className="btncmn" onClick={() => setShowComment(!showComment)}><span className="comment" data-toggle="tooltip" title="Comments"><img src="assets/images/comment.svg"/><span style={{paddingLeft:'2px'}} >Comment</span>
+                  I would like to share the surprise gift to you. anyone can take it
+                  <br></br>
+                </p>
+                <div className="buttonS"><a href="/shipping" className="buttonshare">Accept</a></div>
 
 
-</span></div><div className="btncmn" ><span className="views" data-toggle="tooltip" ><img src="assets/images/shareicn.svg"/><span style={{paddingLeft:'2px'}}>Share</span>
 
-   </span></div></div>
-                            
-                        </div>
-                    </div>
+                {
+                  showReactions && <div onMouseEnter={handleShowingReaction} onMouseLeave={handleUnshowingReaction} className="reaction-bunch active">
+                    <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')} />
+                    <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')} />
+                    <img src={'../assets/images/gif/laughing.gif'} onClick={() => handleSettingReactions('laughing')} />
+                    <img src={'../assets/images/gif/tongue.gif'} onClick={() => handleSettingReactions('tongue')} />
+                    <img src={'../assets/images/gif/angel.gif'} onClick={() => handleSettingReactions('angel')} />
+                    <img src={'../assets/images/gif/devil.gif'} onClick={() => handleSettingReactions('devil')} />
+                    <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')} />
+
+                  </div>
+                }
+
+                <div className="we-video-info">
+                  <div className='click'>
+
+
+
+
+                    <div className="commShare"><div className="btncmn" onClick={() => setShowComment(!showComment)}><span className="comment" data-toggle="tooltip" title="Comments"><img src="assets/images/comment.svg" /><span style={{ paddingLeft: '2px' }} >Comment</span>
+
+
+                    </span></div><div className="btncmn" ><span className="views" data-toggle="tooltip" ><img src="assets/images/shareicn.svg" /><span style={{ paddingLeft: '2px' }}>Share</span>
+
+                    </span></div></div>
+
+                  </div>
                 </div>
-                
-               
-                
-                
+              </div>
+
+
+
+
             </div>
-            
 
-    {/* Till here */}
-    <div className="coment-area">
-        <ul className="we-comet">
-        <li className="post-comment">
-                <div className="comet-avatar">
-                  <img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
-                </div>
-                <div className="post-comt-box">
-                  <Form>
 
-                    <textarea rows={2} placeholder="write something" name="comment" value={commentContent} ref={ref} onChange={handleCommentContent} />
+            {/* Till here */}
+            <div className="coment-area">
+              <ul className="we-comet">
+                <li className="post-comment">
+                  <div className="comet-avatar">
+                    <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
+                  </div>
+                  <div className="post-comt-box">
+                    <Form>
 
-                    
-                    <div className="add-smiles">
+                      <textarea rows={2} placeholder="write something" name="comment" value={commentContent} ref={ref} onChange={handleCommentContent} />
 
-                      <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i class="lar la-laugh"></i></span>
-                    </div>
-                    {
-                      showEmojis && <div className="smiles-bunch active">
-                         <i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
-                      {/* <Picker onEmojiClick={onEmojiClick} /> */}
-                      {/* <h1>hi</h1> */}
+
+                      <div className="add-smiles">
+
+                        <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i class="lar la-laugh"></i></span>
                       </div>
-                    }
-                      <div className="gif"><img style={{objectFit:'cover'}} src="/assets/images/sticker.png" alt="" /></div>
-                      <div className="cam"><img  src="/assets/images/Group.png" alt="" /></div>
+                      {
+                        showEmojis && <div className="smiles-bunch active">
+                          <i class="em em---1"></i>
+                          <i class="em em-smiley"></i>
+                          <i class="em em-anguished"></i>
+                          <i class="em em-laughing"></i>
+                          <i class="em em-angry"></i>
+                          <i class="em em-astonished"></i>
+                          <i class="em em-blush"></i>
+                          <i class="em em-disappointed"></i>
+                          <i class="em em-worried"></i>
+                          <i class="em em-kissing_heart"></i>
+                          <i class="em em-rage"></i>
+                          <i class="em em-stuck_out_tongue"></i>
+                          {/* <Picker onEmojiClick={onEmojiClick} /> */}
+                          {/* <h1>hi</h1> */}
+                        </div>
+                      }
+                      <div className="gif"><img style={{ objectFit: 'cover' }} src="/assets/images/sticker.png" alt="" /></div>
+                      <div className="cam"><img src="/assets/images/Group.png" alt="" /></div>
                       {/* <div className="sticker"><i class="lar la-sticky-note"></i></div> */}
 
-                   
-                  </Form></div>
-              </li>
-            {
-                showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />
-            }
-        </ul>
-    </div>
-    <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
-                            <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
-                        </div>
-                        {
-                            showMoreOptions && <div className="drop-options active">
-                                <ul><li className="head-drop"><h6>Post Options</h6></li>
-                                   
-                                    <li><i class="las la-link"></i><span>Copy Link</span></li>
-                                </ul>
-                            </div>
-                        }
-</div>
-</div>
 
-
+                    </Form></div>
+                </li>
+                {
+                  showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />
+                }
+              </ul>
+            </div>
+            <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
+              <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
+            </div>
             {
-              
-              show()
+              showMoreOptions && <div className="drop-options active">
+                <ul><li className="head-drop"><h6>Post Options</h6></li>
+
+                  <li><i class="las la-link"></i><span>Copy Link</span></li>
+                </ul>
+              </div>
             }
-            
           </div>
-      
+        </div>
+
+
+        {
+
+          show()
+        }
+
+      </div>
+
     </Layout>
 
   );

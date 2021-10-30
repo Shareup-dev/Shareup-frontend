@@ -13,7 +13,7 @@ import Layout from '../LayoutComponent';
 import PostComponent from '../post/PostComponent';
 import { testScript } from '../../js/script';
 import MenuWidgetComponent from '../widgets/MenuWidgetComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 function GroupComponent({post}) {

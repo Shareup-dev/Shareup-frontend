@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef  } from 'react';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import Form from 'react-bootstrap/Form';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 export default function PostComponentBoxComponent({post, setRefresh}) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import PostComponentBoxComponent from './PostCommentBoxComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 export default function CommentPostComponent({post, setRefresh}) {

@@ -20,7 +20,7 @@ import GuideComponent from '../user/GuideComponent';
 import PostComponent from '../post/PostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 function SavedSharesComponent() {

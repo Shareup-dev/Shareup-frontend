@@ -6,7 +6,7 @@ import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 function AddFriendsComponent() {

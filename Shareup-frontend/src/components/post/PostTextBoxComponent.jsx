@@ -17,7 +17,7 @@ import Layout from '../LayoutComponent';
 
 import PostComponent from '../post/PostComponent';
 import Popup from 'reactjs-popup';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 

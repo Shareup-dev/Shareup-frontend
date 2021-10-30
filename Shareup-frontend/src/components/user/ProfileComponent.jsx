@@ -11,7 +11,7 @@ import FriendsComponent from '../user/FriendsComponent';
 import FriendsService from '../../services/FriendService';
 import PostProfileComponent from '../Profile/PostProfileComponent';
 import FriendProfileComponent from '../Profile/FriendProfileComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 import fileStorage from '../../config/fileStorage';
 
 

@@ -10,7 +10,7 @@ import { testScript } from '../../js/script';
 import GroupService from '../../services/GroupService';
 import StoriesService from '../../services/StoriesService';
 import Carousel from 'react-bootstrap/Carousel'
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 
 

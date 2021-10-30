@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 const mapStyles = {
   map: {

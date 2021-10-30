@@ -3,7 +3,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import UserContext from '../../contexts/UserContext';
 import GroupService from '../../services/GroupService';
 import Layout from '../LayoutComponent';
-import settings from '../../services/Settings';
+import settings from '../../config/Settings';
 
 
 function CreateGroupComponentMain() {
@@ -277,27 +277,27 @@ function CreateGroupComponentMain() {
         <Layout user={user}>
             <div className="col-lg-6">
                 <div className="central-meta create-group">
-                                <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
-                                    <div style={{contentAlign: 'center', textAlign: 'center'}}>
-                                    <h2><strong>Create Your Group</strong></h2>
-                                    <p>Fill all form field to go to next step</p>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 mx-0">
-                                            <form id="msform">
-                                                {/* progressbar */}
-                                                <ul id="progressbar">
-                                                    <li id="account" className={activeOrNot(0)}><strong>{`Details`}</strong></li>
-                                                    <li id="personal" className={activeOrNot(1)}><strong>Settings</strong></li>
-                                                    <li id="payment" className={activeOrNot(2)}><strong>Photo</strong></li>
-                                                    <li id="confirm" className={activeOrNot(3)}><strong>Media</strong></li>
-                                                </ul> {/* fieldsets */}
-                                                {
-                                                    show()
-                                                }
-                                            </form>
-                                        </div>
-                                    </div>
+                    <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
+                        <div style={{ contentAlign: 'center', textAlign: 'center' }}>
+                            <h2><strong>Create Your Group</strong></h2>
+                            <p>Fill all form field to go to next step</p>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12 mx-0">
+                                <form id="msform">
+                                    {/* progressbar */}
+                                    <ul id="progressbar">
+                                        <li id="account" className={activeOrNot(0)}><strong>{`Details`}</strong></li>
+                                        <li id="personal" className={activeOrNot(1)}><strong>Settings</strong></li>
+                                        <li id="payment" className={activeOrNot(2)}><strong>Photo</strong></li>
+                                        <li id="confirm" className={activeOrNot(3)}><strong>Media</strong></li>
+                                    </ul> {/* fieldsets */}
+                                    {
+                                        show()
+                                    }
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
