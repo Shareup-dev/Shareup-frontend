@@ -164,19 +164,22 @@ export default function PostComponent({ post, setRefresh }) {
                 <>
                   <div className='grid-container1'>
                     <div className='itemS1'>
-                      {post.imagePath ? (
+                      {post.postedimages.length > 0 ? (
                         <div className='postImage'>
-                          {/* setimgString(post.postImagePath.split(','));
-                                    console.log("img are"+imgString[0]) */}
-                          <a
-                            href={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
-                            data-lightbox={`image-user-${post.user.id}`}
-                          >
-                            <img
-                              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-                              src={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
-                            />
-                          </a>
+                          {post.postedimages.map((postImage) => (
+                            <React.Fragment>
+                              <a
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                <img
+                                  style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                />
+                              </a>
+                            </React.Fragment>
+                          ))}
                         </div>
                       ) : null}
                     </div>
@@ -262,17 +265,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                     //    </div>
 
-                    <>
-                      <div className='postImage'>
-                        <a href={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}>
-                          <img
-                            style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-                            src={`${fileStorage.baseUrl}${post.postedimages[0].imagePath}`}
-                          />
-                        </a>
-                        {}
-                      </div>
-                    </>
+                    <></>
                   )}
                 </>
               )}
@@ -318,6 +311,31 @@ export default function PostComponent({ post, setRefresh }) {
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div>
               </div>
+
+              {post.content && (
+                <p id={`post-content-${post.id}`}>
+                  {`${post.content}`}
+                  <br></br>
+                </p>
+              )}
+
+              <div className='postImage'>
+                {post.postedimages.map((postImage) => (
+                  <React.Fragment>
+                    <a
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      data-lightbox={`image-user-${post.user.id}`}
+                    >
+                      <img
+                        style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      />
+                    </a>
+                  </React.Fragment>
+                ))}
+              </div>
+
               <div className='counter'>
                 <ul>
                   <li>
@@ -350,12 +368,6 @@ export default function PostComponent({ post, setRefresh }) {
                   </li>
                 </ul>
               </div>
-              {post.content && (
-                <p id={`post-content-${post.id}`}>
-                  {`${post.content}`}
-                  <br></br>
-                </p>
-              )}
 
               {showReactions && (
                 <div

@@ -2095,6 +2095,7 @@ form button {
 }
 .post-meta > p {
   padding: 20px 0 0 20px;
+  margin-bottom: 8px;
 }
 
 .description {
