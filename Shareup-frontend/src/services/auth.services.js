@@ -1,50 +1,41 @@
-import axios from "axios";
-import settings from "./Settings";
+import axios from 'axios';
+import settings from '../configs/Settings';
 
 const my_api = `${settings.apiUrl}/api/v1/users`;
-let authAxios = null;
+const cookieKey = 'user';
 
 class AuthService {
-  login = async (username, password) => {
-    return await axios
-      .post(my_api + "/authenticate", {
-        username,
-        password,
-      })
-      .then((response) => {
-        console.log(JSON.stringify(response.data) + "This response");
-        if (response.data.jwt) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(
-            localStorage.getItem("user") + " THIS IS THE LOCAL STORAGE"
-          );
-        }
-        console.log(
-          JSON.stringify(response.data) + " THIS BE RESPONSE DATA AUTHSERVICE"
-        );
-        return response;
-      });
-  };
-
-  logout() {
-    localStorage.removeItem("user");
+  setCurrentUser(data) {
+    localStorage.setItem(cookieKey, JSON.stringify(data));
   }
 
-  // register(username, email, password){
-  //     return axios.post()
-  // }
+  getCurrentUser = () => {
+    const hasUser = localStorage.getItem(cookieKey)?.length > 0;
 
-  // const getCurrentUser = () => sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("jwtUser")) : null
-
-  getCurrentUser = () =>
-    localStorage.getItem("user") != "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : "";
+    if (!hasUser) return null;
+    return JSON.parse(localStorage.getItem(cookieKey));
+  };
 
   isLoggedIn = () => (this.getCurrentUser() ? true : false);
 
-  setCurrentUser(data) {
-    localStorage.setItem("user", JSON.stringify(data));
+  login = async (username, password) => {
+    let loginResponse = await axios.post(my_api + '/authenticate', {
+      username,
+      password,
+    });
+
+    console.log('login response', loginResponse);
+
+    if (loginResponse.data.jwt) {
+      this.setCurrentUser(loginResponse.data);
+      console.log('localStorage.getItem(cookieKey)', localStorage.getItem(cookieKey));
+    }
+
+    return loginResponse;
+  };
+
+  logout() {
+    localStorage.removeItem(cookieKey);
   }
 }
 

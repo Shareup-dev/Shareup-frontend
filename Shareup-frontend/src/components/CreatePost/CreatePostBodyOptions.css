@@ -1,0 +1,13 @@
+.container__body-options {
+  width: 98%;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid #b89f9f;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-flow: row nowrap;
+  box-sizing: border-box;
+  padding: 8px 16px;
+}

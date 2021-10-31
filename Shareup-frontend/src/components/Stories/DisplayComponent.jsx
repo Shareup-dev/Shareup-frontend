@@ -1,101 +1,86 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
-import { Redirect, useHistory } from "react-router-dom";
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import UserContext from '../../contexts/UserContext';
 import AuthService from '../../services/auth.services';
-import { testScript } from '../../js/script';
+import { testScript } from '../../utils/js/script';
 import StoriesService from '../../services/StoriesService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
-import settings from '../../services/Settings';
-import fileStorage from '../../config/fileStorage';
-
+import settings from '../../configs/Settings';
+import fileStorage from '../../configs/fileStorage';
 
 function DisplayComponent() {
-    let history = useHistory();
-  
-    const { user } = useContext(UserContext)
-  
-    // const []
-  
-    // const inputRef = createRef();
-  
-    
-   
-   
-    const [storiesForUser, setStoriesForUser] = useState([]);
-    const [stories, setStories] = useState([]);
-    const [storiesS, setStoriesS] = useState([]);
-    const [userR, setUserR] = useState([]);
-    
-const delay = 2500;
+  let history = useHistory();
 
+  const { user } = useContext(UserContext);
+
+  // const []
+
+  // const inputRef = createRef();
+
+  const [storiesForUser, setStoriesForUser] = useState([]);
+  const [stories, setStories] = useState([]);
+  const [storiesS, setStoriesS] = useState([]);
+  const [userR, setUserR] = useState([]);
+
+  const delay = 2500;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
- 
+
   const resetTimeout = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-  }
+  };
 
-  
-
-    
-    const getStoriesForUser = async () => {
-      await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then(res => {
-        const sorting = res.data.sort(function(a, b) {
-          let dateA = new Date(a.date), dateB = new Date(b.date);
-          return dateB - dateA;
+  const getStoriesForUser = async () => {
+    await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then((res) => {
+      const sorting = res.data.sort(function (a, b) {
+        let dateA = new Date(a.date),
+          dateB = new Date(b.date);
+        return dateB - dateA;
       });
-        const uniqueStories = Array.from(new Set(sorting.map(a => a.id)))
-          .map(id => {
-            return res.data.find(a => a.id === id)
-          })
-          
-        setStoriesForUser(uniqueStories)
-      })
-    }
-    const getUser = async () => {
-      if (user === null) {
-        console.log("RUNNING")
-        await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
-          setUserR(res.data);
-        })
-      } else {
-        console.log("WALKING" + JSON.stringify(user))
-        setUserR(user)
-      }
-    }
-    useEffect(() => {
-        testScript()
-    },[])
-    useEffect(() => {
-      getUser()
-      getStoriesForUser()
-      testScript()
-    }, [stories])
-    useEffect(() => {
-      resetTimeout();
-      timeoutRef.current = setTimeout(
-        () =>
-          setIndex((prevIndex) =>
-            prevIndex === 5 ? 0 : prevIndex + 1
-          ),
-        delay
-      );
-  
-      return () => {
-        resetTimeout();
-      };
-    }, [index]);  
-    
-  
-    return (<>
+      const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
+        return res.data.find((a) => a.id === id);
+      });
 
-        {/* <div className="strydivcontnr">
+      setStoriesForUser(uniqueStories);
+    });
+  };
+  const getUser = async () => {
+    if (user === null) {
+      console.log('RUNNING');
+      await UserService.getUserByEmail(AuthService.getCurrentUser().username).then((res) => {
+        setUserR(res.data);
+      });
+    } else {
+      console.log('WALKING' + JSON.stringify(user));
+      setUserR(user);
+    }
+  };
+  useEffect(() => {
+    testScript();
+  }, []);
+  useEffect(() => {
+    getUser();
+    getStoriesForUser();
+    testScript();
+  }, [stories]);
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(() => setIndex((prevIndex) => (prevIndex === 5 ? 0 : prevIndex + 1)), delay);
+
+    return () => {
+      resetTimeout();
+    };
+  }, [index]);
+
+  return (
+    <>
+      {/* <div className="strydivcontnr">
                 <div className="strydiv"> */}
-        {/* <ul className="slider">
+      {/* <ul className="slider">
         {storiesForUser.map(
   story =><>
  <li key={story.id}>
@@ -103,49 +88,45 @@ const delay = 2500;
  </li>
  </>)}
 </ul> */}
-<div className="stryDsply">
-<div className="container">
-     
-        
-<div className="strydivcontnr">
-                <div className="strydiv">
-                <div className="slideshow">
-      <div
-        className="slideshowSlider"
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-      >
- {storiesForUser.map((background, index) => (
-   <>
-   {background.storiesImagePath ?
-          <div
-            className="slide"
-            key={index}
-            
-          >
-             <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
-           <img className="stryDsplyImg" src={fileStorage.baseUrl+background.storiesImagePath} /> 
-          </div>:null}</>
-        ))}
+      <div className='stryDsply'>
+        <div className='container'>
+          <div className='strydivcontnr'>
+            <div className='strydiv'>
+              <div className='slideshow'>
+                <div className='slideshowSlider' style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+                  {storiesForUser.map((background, index) => (
+                    <>
+                      {background.storiesImagePath ? (
+                        <div className='slide' key={index}>
+                          <div className='strydisplay-Profimg'>
+                            <img src={fileStorage.baseUrl + background.user.profilePicturePath} alt='' />
+                            <span>{background.user.firstName}</span>
+                          </div>
+                          <img className='stryDsplyImg' src={fileStorage.baseUrl + background.storiesImagePath} />
+                        </div>
+                      ) : null}
+                    </>
+                  ))}
+                </div>
+
+                <div className='slideshowDots'>
+                  {storiesForUser.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`slideshowDot${index === idx ? ' active' : ''}`}
+                      onClick={() => {
+                        setIndex(idx);
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="slideshowDots">
-        {storiesForUser.map((_, idx) => (
-          <div
-            key={idx}
-            className={`slideshowDot${index === idx ? " active" : ""}`}
-            onClick={() => {
-              setIndex(idx);
-            }}
-          ></div>
-        ))}
-
-</div>
-    </div>
-    </div>
-</div>
-</div></div>
-
-        {/* {storiesForUser.map(
+      {/* {storiesForUser.map(
   storys =><>
           <div
             className="slide blckSlide"
@@ -169,8 +150,8 @@ const delay = 2500;
             }}
           ></div>
       ))} */}
-      
-{/* <OwlCarousel className='owl-theme' loop margin={1} items={1}  nav active>
+
+      {/* <OwlCarousel className='owl-theme' loop margin={1} items={1}  nav active>
 {storiesForUser.map(
   story =><>
     <div class='item' key={story.id}>
@@ -178,10 +159,9 @@ const delay = 2500;
     </div>
     </>)}
 </OwlCarousel> */}
+    </>
 
-  </>
-
-        /* <Carousel>
+    /* <Carousel>
         {storiesForUser.map(
   story =><>
   <Carousel.Item key={story.id}>
@@ -221,11 +201,7 @@ const delay = 2500;
     </Carousel.Caption>
   </Carousel.Item> 
 </Carousel> */
-
-      
-     
-     
-        );
-    }
+  );
+}
 
 export default DisplayComponent;
