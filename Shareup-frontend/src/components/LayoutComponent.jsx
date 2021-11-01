@@ -8,7 +8,7 @@ import EditPostComponent from './user/EditPostComponent';
 import FollowingWidgetComponent from './widgets/FollowingWidgetComponent';
 import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
-import TrendingWidgetComponent from './widgets/TrendingWidgetComponent';
+import TrendingWidget from './widgets/TrendingWidget';
 
 import fileStorage from '../configs/fileStorage';
 
@@ -180,7 +180,7 @@ export default function Layout(props) {
                             </div>
                           </div>
                           {/* Added component for trending. -Lawrence */}
-                          <TrendingWidgetComponent />
+                          <TrendingWidget />
                           <FollowingWidgetComponent />
                           <FriendsWidgetComponent />
                           <GroupsWidgetComponent />
