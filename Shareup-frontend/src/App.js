@@ -21,7 +21,7 @@ import AddFriendsComponent from './components/user/AddFriendsComponent';
 import FriendsComponent from './components/user/FriendsComponent';
 import NewsfeedComponent from './components/user/NewsfeedComponent';
 import ChatComponent from './components/chat/ChatComponent';
-import Index from './pages/Index.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 import UserService from './services/UserService';
 import UserContext from './contexts/UserContext';
 import GroupComponent from './components/group/GroupComponent';
@@ -57,15 +57,12 @@ import CreatePost from './components/CreatePost/CreatePost.jsx';
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
 function App() {
-  testScript();
-  let history = useHistory();
-
   const [jwtUser, setJwtUser] = useState(AuthService.getCurrentUser());
   const [user, setUser] = useState([]);
 
   const userAuthenticator = async () => {
     await AuthService.setCurrentUser(jwtUser);
-    let user = null;
+    let user = [];
     if (jwtUser) {
       console.log('AHAAAAAAAAAAAAAAAAAAAHAAA');
       user = await UserService.getUserByEmail(jwtUser.username).then((res) => {
@@ -83,16 +80,17 @@ function App() {
 
   useEffect(() => {
     console.log('App environment running on', process.env.NODE_ENV);
+    console.log('User state',user)
   }, []);
 
   return (
     <UserContext.Provider value={{ user }}>
       {console.log('Value of ' + JSON.stringify(user))}
       <Router>
-        <HeaderComponent />
+        {user.length > 0 && <HeaderComponent />}
         <Switch>
           <Route path="/" exact>
-            <Index set={setJwtUser} setUser={setUser} />
+            <LandingPage set={setJwtUser} setUser={setUser} />
           </Route>
           <Route path="/about">
             <AboutComponent />
