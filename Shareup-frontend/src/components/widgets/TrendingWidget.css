@@ -1,0 +1,30 @@
+.container_trending {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ti-announcement {
+  height: fit-content;
+  transform: translateY(8px);
+  color: #0b2984;
+}
+
+.container_trending_nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container_trending_nav > button {
+  border: 0;
+  color: #0b2984;
+  font-size: 24px;
+}
+
+.container_trending_nav > button:disabled {
+  color: #0b29843a;
+}

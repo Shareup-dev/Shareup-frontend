@@ -9,31 +9,31 @@ import { useJwt } from 'react-jwt';
 import Modal from 'react-modal';
 import { GlobalStyle } from '../../css/modalStyles';
 import styled from 'styled-components';
-import '../../modal.css';
+import '../../css/modal.css';
 import settings from '../../configs/Settings';
 
 function RegisterSuccessfulComponent({ closeModal }) {
   let history = useHistory();
 
   return (
-    <div class='modal-dialog modal-confirm'>
-      <div class='modal-content'>
-        <div class='modal-header'>
-          <div class='icon-box'>
-            <i class='fa fa-check' aria-hidden='true'></i>
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box">
+            <i class="fa fa-check" aria-hidden="true"></i>
           </div>
-          <h4 class='modal-title'>Awesome!</h4>
+          <h4 class="modal-title">Awesome!</h4>
         </div>
-        <div class='modal-body'>
-          <p class='text-center'>Your registration was successful.</p>
+        <div class="modal-body">
+          <p class="text-center">Your registration was successful.</p>
         </div>
-        <div class='modal-footer'>
-          <button class='btn btn-success btn-block' data-dismiss='modal' onClick={() => history.push('/newsfeed')}>
+        <div class="modal-footer">
+          <button class="btn btn-success btn-block" data-dismiss="modal" onClick={() => history.push('/newsfeed')}>
             Go To Newsfeed
           </button>
           <button
-            class='btn '
-            data-dismiss='modal'
+            class="btn "
+            data-dismiss="modal"
             onClick={closeModal}
             style={{ marginRight: '35%', backgroundColor: '#e25b5b' }}
           >
