@@ -3,3 +3,7 @@
   border: 0;
   background-color: transparent;
 }
+
+#test {
+  outline: 0;
+}
