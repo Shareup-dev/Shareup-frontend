@@ -353,10 +353,10 @@ const TrendingItem = ({
       ) : (
         <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
       )}
-      <figcaption class="transition opacity">
+      <figcaption className="transition opacity">
         <a href={url}>
           <strong className="text transition title">{title}</strong>
-          <span class="text transition desc">{description}</span></a>
+          <span className="text transition desc">{description}</span></a>
       </figcaption>
     </figure>
   </li>
@@ -523,7 +523,7 @@ const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInte
         }}
         disabled={isButtonPrevDisabled}
       >
-        <i class='ti-arrow-left'></i>
+        <i className='ti-arrow-left'></i>
       </button>
       <button
         onClick={(e) => {
@@ -531,22 +531,22 @@ const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInte
         }}
         disabled={isButtonNextDisabled}
       >
-        <i class='ti-arrow-right'></i>
+        <i className='ti-arrow-right'></i>
       </button>
     </div>
   );
 
   return (
     <div
-      class='widget friend-list stick-widget'
+      className='widget friend-list stick-widget'
       onMouseEnter={() => autoPlayStop()}
       onMouseLeave={() => autoPlayStart()}
       onTouchStart={() => autoPlayStop()}
-      onTouchStop={() => autoPlayStart()}
+    //onTouchStop={() => autoPlayStart()}
     >
-      <div class='row'>
-        <i class='ti-announcement'></i>
-        <p class='widget-title'>What's trending</p>
+      <div className='row'>
+        <i className='ti-announcement'></i>
+        <p className='widget-title'>What's trending</p>
         <NavNewsButtons />
         <ShowTrendingItems />
       </div>
