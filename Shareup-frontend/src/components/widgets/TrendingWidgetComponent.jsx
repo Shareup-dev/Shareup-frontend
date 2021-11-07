@@ -347,18 +347,18 @@ const TrendingItem = ({
   loading = false,
 }) => (
   <li className={`container_trending_item ${loading ? 'trending_item__loading' : ''}`}>
-    {loading ? (
-      <div className='trending_item__img'></div>
-    ) : (
-      <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
-    )}
-    <a className='trending_item__title' href={url} target='_blank' rel='noreferrer'>
-      {title}
-    </a>
-    <p className='trending_item__description'>{description}</p>
-    <p className='trending_item__source' style={{ fontWeight: 'bold' }}>
-      {sourceName}
-    </p>
+    <figure class="small">
+      {loading ? (
+        <div className='trending_item__img'></div>
+      ) : (
+        <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
+      )}
+      <figcaption class="transition opacity">
+        <a href={url}>
+          <strong className="text transition title">{title}</strong>
+          <span class="text transition desc">{description}</span></a>
+      </figcaption>
+    </figure>
   </li>
 );
 
@@ -370,7 +370,7 @@ const NEWS_ACTIONS = {
   NEXT: 'NEXT',
 };
 
-const TrendingWidgetComponent = ({ pageSize = 3, isAutoPlay = true, autoPlayInterval = 10000, isDummyData = true }) => {
+const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInterval = 10000, isDummyData = true }) => {
   const [pageCurrent, setPageCurrent] = useState(1);
   const [pageMax, setPageMax] = useState(0);
   const [trendingItems, setTrendingItems] = useState([]);
