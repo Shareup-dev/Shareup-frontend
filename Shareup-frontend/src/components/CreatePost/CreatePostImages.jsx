@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
-import './CreatePostImages.css';
-
 const CreatePostImages = ({ fileSelected = [] }) => {
   const showFilesSelected = fileSelected.files.map((image, index) => {
     if (image.isReading)

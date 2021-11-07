@@ -2,13 +2,11 @@ import { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileImage } from '@fortawesome/free-solid-svg-icons';
 
-import './FileSelect.css';
-
 const FileSelect = ({
   buttonSelectText = <FontAwesomeIcon icon={faFileImage} />,
   multipleFiles = true,
   acceptFiles = 'image/*',
-  onfileSelect = (event) => {},
+  onfileSelect = (event) => { },
 }) => {
   const fileInputRef = useRef();
 
@@ -18,7 +16,7 @@ const FileSelect = ({
   };
 
   return (
-    <div className="container__file-select">
+    <span>
       <button onClick={onFileClick}>{buttonSelectText}</button>
 
       <input
@@ -29,7 +27,7 @@ const FileSelect = ({
         accept={acceptFiles}
         onChange={onfileSelect}
       ></input>
-    </div>
+    </span>
   );
 };
 

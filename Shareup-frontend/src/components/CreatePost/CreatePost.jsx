@@ -51,13 +51,13 @@ const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
 
   return (
     <div className='container__create-post'>
-      <h1 className='create-post_title'>{title}</h1>
+      <h1>{title}</h1>
       <div className='create-post_header'>
         <CreatePostUserAvatar imagePath={fileStorage.baseUrl + user.profilePicturePath} />
-        <div className='header_info'>
+        <span>
           <CreatePostUserName user={user} />
           <CreatePostSelectPrivacy privacy={post.privacy} handlePostChange={handlePostChange} />
-        </div>
+        </span>
       </div>
       <div className='create-post-body'>
         <CreatePostFieldText content={post.content} handlePostChange={handlePostChange} />
@@ -66,8 +66,9 @@ const CreatePost = ({ title = 'Create Swap Post', type = 'Swap' }) => {
           <FileSelect onfileSelect={handleFileSelect} multipleFiles={false} />
         </CreatePostBodyOptions>
 
-        <PostButton />
+
       </div>
+      <PostButton />
     </div>
   );
 };

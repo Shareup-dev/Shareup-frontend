@@ -1,3 +1,5 @@
+/* ------ Main Body ------- */
+
 .popup-content {
   display: flex !important;
   align-items: center !important;
@@ -17,10 +19,24 @@
   width: 100% !important;
 }
 
-.create-post_title {
+.create-post-body {
+  width: 90%;
+  height: fit-content;
+  padding: 16px 0px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------ Header Parent Div ------- */
+
+.container__create-post h1 {
   font-size: 16px;
   font-weight: bold;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
   box-sizing: border-box;
   padding: 16px;
   width: 100%;
@@ -40,7 +56,17 @@
   padding: 16px;
 }
 
-.header_info {
+.create-post_header img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+/* ------ Header Info ------- */
+
+.create-post_header span {
   width: 100%;
   height: 100%;
   display: flex;
@@ -51,17 +77,154 @@
   box-sizing: border-box;
 }
 
-.create-post-body {
-  width: 90%;
-  height: fit-content;
-  padding: 16px 0px;
+.create-post_header p {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: "Varela Round", sans-serif;
+}
+
+/* ------ Header Info Option Select Public, Privacy...etc. ------- */
+
+.create-post_header select {
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  width: 112px;
+  height: 32px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.create-post_header > option {
+  font-size: 16px;
+  height: 32px;
+  padding: 8px;
+  margin: 16px;
   box-sizing: border-box;
+}
+
+/* ------ Post Body Option ------- */
+
+.create-post-body textarea {
+  outline: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  height: fit-content;
+  border-radius: 0 !important;
+  background-color: transparent;
+
+  font-size: 16px;
+  font-family: "Varela Round", sans-serif !important;
+}
+
+::-webkit-input-placeholder {
+  font-family: "Varela Round", sans-serif !important;
+}
+:-moz-placeholder {
+  font-family: "Varela Round", sans-serif !important;
+}
+::-moz-placeholder {
+  font-family: "Varela Round", sans-serif !important;
+}
+:-ms-input-placeholder {
+  font-family: "Varela Round", sans-serif !important;
+}
+
+/* ------ Body options and Image files ------- */
+
+.container__body-options {
+  width: 98%;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid #b89f9f;
 
   display: flex;
-  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  flex-flow: row nowrap;
+  box-sizing: border-box;
+  padding: 8px 16px;
+}
+
+.container__body-options span {
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+/* ------ Displays Image List ------*/
+
+.post-container__images,
+.container__images_img,
+.container__images_loading {
+  display: flex;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
 }
+
+.post-container__images {
+  width: 100%;
+  height: fit-content;
+  overflow-x: auto;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  padding: 8px 8px;
+  box-sizing: border-box;
+}
+
+.post-container__images_button-close {
+  position: sticky;
+  top: 0;
+  left: 0;
+  outline: 0;
+  border: 0;
+  border-radius: 8px;
+  min-width: 120px;
+  min-height: 32px;
+  font-size: 16px;
+  text-align: center;
+
+  color: #fff;
+  background-color: #00000034;
+}
+
+.container__images_loading {
+  width: 160px;
+  height: 160px;
+}
+
+.container__images_loading > span {
+  font-size: 16px;
+  animation: anim-loading 1s infinite ease-in-out;
+}
+
+.container__images_img {
+  min-width: 140px;
+  height: 90px;
+  margin: 0 4px;
+}
+
+.container__images_img > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover !important;
+}
+
+@keyframes anim-loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------ Submit Button ------- */
 
 .post-submit-swap {
   margin: 0;
@@ -70,11 +233,11 @@
   outline: 0;
   margin-top: 16px;
   border-radius: 8px;
-  width: 100%;
+  width: 80%;
   height: 48px;
   background-color: #bc7dc5;
   color: #fff;
   font-size: 16px;
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
   letter-spacing: 3px;
 }
