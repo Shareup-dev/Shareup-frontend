@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../css/trending-style.css'; //From Lawrence for Whats Trending styling
-
+import './TrendingWidget.css'; //From Lawrence for Whats Trending styling
+import TrendingWidgetItem from './TrendingWidgetItem';
 const DUMMY_NEWS_API_RESPONSE = {
   status: 'ok',
   totalResults: 112,
@@ -328,39 +328,19 @@ const DUMMY_NEWS_API_RESPONSE = {
   ],
 };
 
-const delay = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
+const delay = (ms) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, ms)
+  );
 
-const getDummyNewsApiResponse = async (msDelay = 1500) => {
+const getDummyNewsApiResponse = async (msDelay = 5000) => {
   const { status, totalResults, articles } = DUMMY_NEWS_API_RESPONSE;
   await delay(msDelay);
 
   return { data: { status, totalResults, articles } };
 };
-
-const TrendingItem = ({
-  id,
-  url = '',
-  urlImage = '',
-  title = '',
-  description = '',
-  sourceName = '',
-  loading = false,
-}) => (
-  <li className={`container_trending_item ${loading ? 'trending_item__loading' : ''}`}>
-    {loading ? (
-      <div className='trending_item__img'></div>
-    ) : (
-      <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
-    )}
-    <a className='trending_item__title' href={url} target='_blank' rel='noreferrer'>
-      {title}
-    </a>
-    <p className='trending_item__description'>{description}</p>
-    <p className='trending_item__source' style={{ fontWeight: 'bold' }}>
-      {sourceName}
-    </p>
-  </li>
-);
 
 const newsApiKey1 = '63dba4402f7e429aa0c9e818baf2e314';
 const newsApiKey2 = '78d61a4ab2fc4b5c92149f7c22e8acbe';
@@ -370,7 +350,7 @@ const NEWS_ACTIONS = {
   NEXT: 'NEXT',
 };
 
-const TrendingWidgetComponent = ({ pageSize = 3, isAutoPlay = true, autoPlayInterval = 10000, isDummyData = true }) => {
+const TrendingWidget = ({ pageSize = 3, isAutoPlay = true, autoPlayInterval = 10000, isDummyData = true }) => {
   const [pageCurrent, setPageCurrent] = useState(1);
   const [pageMax, setPageMax] = useState(0);
   const [trendingItems, setTrendingItems] = useState([]);
@@ -406,7 +386,7 @@ const TrendingWidgetComponent = ({ pageSize = 3, isAutoPlay = true, autoPlayInte
       if (newsResult.data.status === 'ok')
         return setTrendingItems(() =>
           newsResult.data.articles.map((article, index) => (
-            <TrendingItem
+            <TrendingWidgetItem
               key={index}
               id={index}
               url={article.url}
@@ -427,7 +407,9 @@ const TrendingWidgetComponent = ({ pageSize = 3, isAutoPlay = true, autoPlayInte
     let itemArray = [];
     autoPlayStop();
     for (let index = 0; index < pageSize; index++) {
-      itemArray.push(<TrendingItem id={index} key={index} loading={true} url='' urlImage='' title='' description='' />);
+      itemArray.push(
+        <TrendingWidgetItem id={index} key={index} loading={true} url='' urlImage='' title='' description='' />
+      );
     }
     autoPlayStart();
     await setTrendingItems(itemArray);
@@ -554,4 +536,4 @@ const TrendingWidgetComponent = ({ pageSize = 3, isAutoPlay = true, autoPlayInte
   );
 };
 
-export default TrendingWidgetComponent;
+export default TrendingWidget;
