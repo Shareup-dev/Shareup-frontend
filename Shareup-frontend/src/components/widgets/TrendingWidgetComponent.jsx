@@ -337,30 +337,6 @@ const getDummyNewsApiResponse = async (msDelay = 1500) => {
   return { data: { status, totalResults, articles } };
 };
 
-const TrendingItem = ({
-  id,
-  url = '',
-  urlImage = '',
-  title = '',
-  description = '',
-  sourceName = '',
-  loading = false,
-}) => (
-  <li className={`container_trending_item ${loading ? 'trending_item__loading' : ''}`}>
-    <figure class="small">
-      {loading ? (
-        <div className='trending_item__img'></div>
-      ) : (
-        <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
-      )}
-      <figcaption className="transition opacity">
-        <a href={url}>
-          <strong className="text transition title">{title}</strong>
-          <span className="text transition desc">{description}</span></a>
-      </figcaption>
-    </figure>
-  </li>
-);
 
 const newsApiKey1 = '63dba4402f7e429aa0c9e818baf2e314';
 const newsApiKey2 = '78d61a4ab2fc4b5c92149f7c22e8acbe';
@@ -371,8 +347,8 @@ const NEWS_ACTIONS = {
 };
 
 const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInterval = 10000, isDummyData = true }) => {
-  const [pageCurrent, setPageCurrent] = useState(1);
-  const [pageMax, setPageMax] = useState(0);
+  const [pageCurrent, setPageCurrent] = useState(0);
+  const [pageMax, setPageMax] = useState(1);
   const [trendingItems, setTrendingItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [newsError, setNewsError] = useState(null);
@@ -515,25 +491,39 @@ const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInte
     );
   };
 
-  const NavNewsButtons = () => (
-    <div className='container_trending_nav'>
-      <button
-        onClick={(e) => {
-          navigateNews(e, NEWS_ACTIONS.PREV);
-        }}
-        disabled={isButtonPrevDisabled}
-      >
-        <i className='ti-arrow-left'></i>
-      </button>
-      <button
-        onClick={(e) => {
-          navigateNews(e, NEWS_ACTIONS.NEXT);
-        }}
-        disabled={isButtonNextDisabled}
-      >
-        <i className='ti-arrow-right'></i>
-      </button>
-    </div>
+  const TrendingItem = ({
+    id,
+    url = '',
+    urlImage = '',
+    title = '',
+    description = '',
+    sourceName = '',
+    loading = false,
+  }) => (
+    <li className={`container_trending_item ${loading ? 'trending_item__loading' : ''}`}>
+      <figure class="small">
+        {loading ? (
+          <div className='trending_item__img'></div>
+        ) : (
+          <img className='trending_item__img' src={urlImage} alt={`trendingitem${id}`} />
+        )}
+        <figcaption className="transition opacity">
+          <a href={url}>
+            <strong className="text transition title">{title}</strong>
+            <span className="text transition desc">{description}</span></a>
+        </figcaption>
+      </figure>
+      <div class="nav">
+        <label for={title} class="prev"
+          onClick={(e) => {
+            navigateNews(e, NEWS_ACTIONS.PREV);
+          }} disabled={isButtonPrevDisabled}>&#x2039;</label>
+        <label for={title} class="next"
+          onClick={(e) => {
+            navigateNews(e, NEWS_ACTIONS.NEXT);
+          }} disabled={isButtonNextDisabled}>&#x203a;</label>
+      </div>
+    </li>
   );
 
   return (
@@ -547,7 +537,6 @@ const TrendingWidgetComponent = ({ pageSize = 1, isAutoPlay = true, autoPlayInte
       <div className='row'>
         <i className='ti-announcement'></i>
         <p className='widget-title'>What's trending</p>
-        <NavNewsButtons />
         <ShowTrendingItems />
       </div>
     </div>
