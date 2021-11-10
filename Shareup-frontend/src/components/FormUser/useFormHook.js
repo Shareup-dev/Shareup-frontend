@@ -5,6 +5,8 @@ import { faUser, faEnvelope, faKey, faCheck } from "@fortawesome/free-solid-svg-
 import UserService from "../../services/UserService";
 import AuthService from "../../services/auth.services";
 
+
+
 const formSchema = {
   firstName: {
     type: "text",
@@ -31,7 +33,7 @@ const formSchema = {
     icon: <FontAwesomeIcon icon={faEnvelope} />,
   },
   password: {
-    form: "password",
+    type: "password",
     name: "password",
     value: "",
     errors: "",
@@ -75,6 +77,7 @@ const useFormHook = ({ formType }) => {
 
   const [isHandleChanged, setIsHandleChange] = useState(false);
 
+  
   const handleChangeContent = (event) => {
     setIsHandleChange(true);
     const { name, value, checked } = event.target;

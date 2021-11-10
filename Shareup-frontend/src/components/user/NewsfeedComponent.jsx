@@ -107,6 +107,8 @@ function NewsfeedComponent() {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+
+  
   const uploadStories = (event) => {
     event.preventDefault();
     setUploadErrorStory('');
@@ -745,13 +747,155 @@ function NewsfeedComponent() {
     );
   };
 
-  const popUp = () => {
+ 
+  const popSwap = () => {
     return (
+      
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare.svg' alt='img' />
+              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/swap-icon3.png' alt='img' />
+            </span>
+            Swap
+          </span>
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+            <div className='headpop'>
+              <div className='row'>
+                <div style={{ width: '5%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
+                  </a>
+                </div>
+                <div
+                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
+                >
+                  {' '}
+                  <span>Today to me, Tomorrow to you</span>
+                </div>
+                <div style={{ width: '25%', textAlign: 'right' }}>
+                  <a className='popup-btn' href='/HangGift'>
+                    Keep Hang
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ padding: '0 11px 11px 11px' }}>
+              <div className='popupimg'>
+                <img
+                  src={
+                    user
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
+                  }
+                  alt=''
+                />
+              </div>
+              <div class='popupuser-name'>
+                <div style={{ display: 'inline' }}>
+                  <span>
+                    {`${user.firstName} ${user.lastName}`}
+                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                  </span>
+                  <span style={{ display: 'block', fontSize: '12px' }}>
+                    <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
+                      </select>
+                    </div>{' '}
+                  </span>
+                </div>{' '}
+              </div>{' '}
+            </div>
+            <div style={{ margin: '0 0 100px 11px' }}>
+              <span className='textPop'>
+                <textarea
+                  className='textpopup'
+                  rows={2}
+                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
+                  name='post_content'
+                  value={postContent}
+                  onChange={handlePostContent}
+                />
+
+                {showPostImage ? (
+                  <>
+                    <div>
+                      {postImage.map((item, key) => (
+                        <img
+                          src={item}
+                          key={key}
+                          style={{
+                            maxWidth: '150px',
+                            maxHeight: '150px',
+                            padding: '10px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                    <button
+                      onClick={handleRemoveImage}
+                      style={{
+                        right: '25px',
+                        position: 'absolute',
+                        borderRadius: '100%',
+                        background: '#b7b7b738',
+                        padding: '10px 10px',
+                      }}
+                    >
+                      <i class='las la-times'></i>
+                    </button>
+                  </>
+                ) : null}
+              </span>
+              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+            </div>
+
+            {imageshow()}
+            <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#C4C4C4',
+                fontWeight: 'bold',
+                color: 'rgb(68 68 68)',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+              onClick={uploadPost}
+            >
+              Post
+            </div>
+          </Form>
+        )}
+      </Popup>
+    );
+  };
+
+  const popUp = () => {
+    return (
+      
+      <Popup
+        trigger={
+          <span style={{ cursor: 'pointer' }}>
+            <span style={{ marginRight: '5px', padding: '5px' }}>
+              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare3.png' alt='img' />
             </span>
             Hang Share
           </span>
@@ -1005,7 +1149,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/share-2.svg' alt='img' />
+            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/shareicon.svg' alt='img' />
             Share Up
           </span>
         }
@@ -1123,7 +1267,7 @@ function NewsfeedComponent() {
         <Popup
           trigger={
             <span style={{ cursor: 'pointer' }}>
-              <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/images.svg' />
+              <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/photo-icon3.png' />
               <span>Photos</span>
             </span>
           }
@@ -1514,6 +1658,7 @@ function NewsfeedComponent() {
                   alt=''
                 />
               </figure>
+              
               <div className='newpst-input'>
                 <Form>
                   {postUp()}
@@ -1527,19 +1672,23 @@ function NewsfeedComponent() {
                       null
                     } */}
 
-                  <div className='attachments'>
+                
+                </Form>
+                
+              </div>
+              <div className='attachments'>
                     <ul>
-                      <li>{popUp()}</li>
+                    <li>{popUp()}</li>
+
                       {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                         </label> */}
                       <li>{shareUp()}</li>
                       <li>{photos()}</li>
+                      <li>{popSwap()}</li>
                       {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
                         </label></li> */}
                     </ul>
                   </div>
-                </Form>
-              </div>
             </div>
           </div>
           {/* <div>

@@ -4279,7 +4279,8 @@ nav.breadcrumb {
   grid-template-areas:
     "image name "
     "image email "
-    "image follow ";
+    "image follow "
+    ;
   grid-gap: 0px 10px;
   /* background-color: #2196F3; */
   padding: 10px;
