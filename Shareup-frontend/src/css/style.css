@@ -13866,39 +13866,54 @@ a.Hangin-btn:hover {
 .central-settings {
   display: flex;
   flex-direction: row;
-  width: 55%;
+  width: 100%;
   margin: auto;
   margin-bottom: 11px;
   border-radius: 10px;
-  background: #fff;
+  background: #FAFAFF;
   -webkit-box-shadow: 0px 1px 1px #747474;
   -moz-box-shadow: 0px 1px 1px #747474;
   box-shadow: 0px 2px 2px #747474;
-  min-height: 80vh;
+  min-height: 91.3vh;
   font-family: "Roboto";
-  margin-top: 4rem;
+  margin-top:  3.45rem;
 }
 
 .left-settings {
-  flex: 1;
+  flex: 0.5;
   border-right: 1px solid #d8d2d2;
   border-radius: 10px 0 0 10px;
   box-shadow: 0px 2px 2px #c7c7c7;
   -webkit-box-shadow: 0px 1px 1px #c7c7c7;
   -moz-box-shadow: 0px 1px 1px #c7c7c7;
-  background: #f6f6f6;
+  background: #ffffff;
 }
 
 .left-settings h1 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: black;
+  
+width: 90px;
+height: 28px;
+left: 25px;
+top: 75px;
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 28px;
+
+color: #000000;
+
+
+
 }
 
 .left-settings p {
+
+
+  
   padding: 9px;
   padding-left: 0px;
+ 
 }
 
 .left-settings p:hover {
@@ -14003,6 +14018,12 @@ a.Hangin-btn:hover {
 }
 
 .settings-list {
+  
+/* width: 250px; */
+height: 44px;
+left: 12px;
+top: 113px;
+font-size: 17px;
   display: flex;
   align-items: center;
   padding: 11px;
@@ -14017,11 +14038,14 @@ a.Hangin-btn:hover {
   width: 30px;
 }
 .settings-list p {
-  color: #575757;
+  color: #000000;
 }
 
 .settings-list.active {
   font-weight: bold;
+  background-color: #efefef;
+  border-radius: 30px;
+
 }
 
 .right-settings-details .las.la-home {

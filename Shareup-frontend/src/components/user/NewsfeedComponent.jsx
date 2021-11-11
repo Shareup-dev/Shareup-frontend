@@ -1271,6 +1271,7 @@ function NewsfeedComponent() {
               <span>Photos</span>
             </span>
           }
+          
           modal
           nested
         >

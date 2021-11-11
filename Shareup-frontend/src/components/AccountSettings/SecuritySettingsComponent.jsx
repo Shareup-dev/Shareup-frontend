@@ -503,6 +503,31 @@ export default function SecuritySettingsComponent() {
         </div>
       );
     }
+    if (show === 'notification') {
+      return (
+        <div className='right-settings settngPadding'>
+          <div className='right-settings-content'>
+            <div className='right-settings-bio-top'>
+              <p className='clrHead'>Notification Settings</p>
+            </div>
+
+            <div className='right-settings-bio firstElement'>
+              <div className='right-settings-bio-top'>
+                <p className='clr'>Notification</p>
+                <div className='right-settings-details'>
+                  <ul>
+                    <li>
+                      <p className='secrtySec'>Turn on notification</p>
+                      <DropdownOnComponent />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     if (show === 'language') {
       return (
         <div className='right-settings settngPadding'>
@@ -669,6 +694,31 @@ export default function SecuritySettingsComponent() {
         </div>
       );
     }
+    if (show === 'story') {
+      return (
+        <div className='right-settings settngPadding'>
+          <div className='right-settings-content'>
+            <div className='right-settings-bio-top'>
+              <p className='clrHead'>Story Settings</p>
+            </div>
+
+            <div className='right-settings-bio firstElement'>
+              <div className='right-settings-bio-top'>
+                <p className='clr'>Stories</p>
+                <div className='right-settings-details'>
+                  <ul>
+                    <li>
+                      <p className='secrtySec'>manage story settings</p>
+                      <DropdownOnComponent />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     if (show === 'publicpost') {
       return (
         <div className='right-settings settngPadding'>
@@ -797,7 +847,7 @@ export default function SecuritySettingsComponent() {
               </div>
             )}
             {show === 'location' ? (
-              <div className='settings-list brdrbtmEdtprf active' onClick={() => setShow('location')}>
+              <div className='settings-list active' onClick={() => setShow('location')}>
                 <img src='assets/images/locstng.svg' />
                 <p>Location</p>
               </div>
@@ -807,6 +857,19 @@ export default function SecuritySettingsComponent() {
                 <p>Location</p>
               </div>
             )}
+
+              {show === 'notification' ? (
+              <div className='settings-list active' onClick={() => setShow('notification')}>
+                <img src='assets/images/carbon_notification.svg' />
+                <p>Notifications</p>
+              </div>
+            ) : (
+              <div className='settings-list' onClick={() => setShow('notification')}>
+                <img src='assets/images/carbon_notification.svg' />
+                <p>Notifications</p>
+              </div>
+            )}      
+
 
             {show === 'language' ? (
               <div className='settings-list active' onClick={() => setShow('language')}>
@@ -819,6 +882,20 @@ export default function SecuritySettingsComponent() {
                 <p>Language and region</p>
               </div>
             )}
+
+
+            {show === 'story' ? (
+              <div className='settings-list active' onClick={() => setShow('story')}>
+                <img src='assets/images/gridicons_story.svg' />
+                <p>Stories</p>
+              </div>
+            ) : (
+              <div className='settings-list' onClick={() => setShow('story')}>
+                <img src='assets/images/gridicons_story.svg' />
+                <p>Stories</p>
+              </div>
+            )} 
+
 
             {show === 'profile' ? (
               <div className='settings-list active' onClick={() => setShow('profile')}>
