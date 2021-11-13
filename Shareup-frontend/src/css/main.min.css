@@ -2347,6 +2347,7 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  padding:3px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -5499,7 +5500,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    max-width: 1400px;
+    max-width: 100%;
   }
 }
 .container-fluid {

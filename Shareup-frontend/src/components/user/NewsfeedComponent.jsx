@@ -755,7 +755,7 @@ function NewsfeedComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/swap-icon3.png' alt='img' />
+              <img style={{ verticalAlign: 'middle', width: '30px' }} src='/assets/images/swap-icon3.png' alt='img' />
             </span>
             Swap
           </span>
@@ -895,7 +895,7 @@ function NewsfeedComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare3.png' alt='img' />
+              <img style={{ verticalAlign: 'middle', width: '20 px' }} src='/assets/images/hangshare3.png' alt='img' />
             </span>
             Hang Share
           </span>
@@ -1149,7 +1149,9 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/shareicon.svg' alt='img' />
+            <span style={{ marginRight: '5px', padding: '5px' }}>
+            <img style={{ verticalAlign: 'middle', width: '30px'}} src='/assets/images/shareicon.svg' alt='img' />
+            </span>
             Share Up
           </span>
         }
@@ -1267,7 +1269,9 @@ function NewsfeedComponent() {
         <Popup
           trigger={
             <span style={{ cursor: 'pointer' }}>
-              <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/photo-icon3.png' />
+            <span style={{ marginRight: '5px', padding: '5px' }}>
+              <img style={{ verticalAlign: 'middle', width: '30px' }} src='assets/images/photo-icon3.png' />
+              </span>
               <span>Photos</span>
             </span>
           }

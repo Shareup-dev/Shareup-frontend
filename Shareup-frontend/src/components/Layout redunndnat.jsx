@@ -23,7 +23,7 @@ function Layout(props) {
                         style={{ width: 80, float: 'left' }}
                       ></img>
                       <a href={`/profile`}>
-                        <p style={{ fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}</p>
+                        <p style={{ fontWeight: 'bold' ,display: 'inline'}}>{`${user.firstName} ${user.lastName}`}</p> 
                       </a>
                     </div>
                     <div className='widget'>
