@@ -1567,12 +1567,12 @@ function NewsfeedComponent() {
                         <a href='/group/create'>
                           <div class='add-group' aria-describedby='popup-2'>
                             {' '}
-                            +
+                            
                           </div>
                         </a>
 
                         <a href='/group/create'>
-                          <h5 style={{ fontWeight: 'bold', fontSize: '16px' }}>Create Group</h5>
+                          <h5 style={{ fontWeight: 'bold', fontSize: '16px',backgroundColor:'rgb(3 51 71)' ,color:'#ffff',borderRadius:'5px' }}>Create Group</h5>
                         </a>
                       </div>
                     </div>
@@ -1597,13 +1597,26 @@ function NewsfeedComponent() {
                         </div>
 
                         <div className='groupsggstion-by'>
+                        <img
+                        src={
+                          group.groupImagePath
+                            ? fileStorage.baseUrl + group.groupImagePath
+                            : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
+                        }
+                        alt=''
+                      />
                           <div style={{ padding: '5px' }}>
+                            
                             <span className='groupname'>
-                              <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}</a>
+                              
+                              <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
+                              
+                              </a>
                             </span>
                           </div>
-                          <div style={{ textAlign: 'right', padding: '5px' }}>
+                          <div style={{ textAlign: 'left', padding: '5px',fontSize:'15px' }}>
                             {group.members.length > 1 ? (
+                              
                               <span> {group.members.length}Members</span>
                             ) : (
                               <span>{group.members.length}Member</span>
@@ -1611,6 +1624,7 @@ function NewsfeedComponent() {
                           </div>
                           {checkIfInGroup(group.members) ? (
                             <a
+                            
                               href
                               class='buttonGrpFd mrgngrp'
                               style={{ color: '#fff', background: '#033347', fontSize: '12px' }}
@@ -1627,7 +1641,16 @@ function NewsfeedComponent() {
                             >
                               Join Group
                             </a>
+                            
                           )}
+                          <a
+                              href
+                              class='buttonGrpFd mrgngrp'
+                              style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
+                              onClick={() => handleJoinGroup(group.id)}
+                            >
+                             Preview
+                            </a>
                         </div>
                       </div>
                     </a>

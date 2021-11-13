@@ -143,7 +143,7 @@ function GuideComponent() {
 
   const validateStep = (num) => {
     let validated = true;
-    // if (!groupName) {
+    // if (!groupsggstion-img) {
     //     setGroupNameError("Please Ensure You Write The Group Name")
     //     validated = false
     // }

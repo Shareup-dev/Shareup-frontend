@@ -12623,10 +12623,12 @@ breadcrumb-item + .breadcrumb-item::before {
   border-radius: 7px;
 }
 .mrgngrp {
-  margin: 10px 10px;
+  margin: 4px 4px;
 }
 .buttonGrpFd {
-  display: block;
+  width: 85px;
+  height: 25px;
+  display: inline-block;
   font-size: 12px;
   text-align: center;
   border-radius: 5px;
@@ -12634,6 +12636,7 @@ breadcrumb-item + .breadcrumb-item::before {
   font-weight: 300;
   line-height: 25px;
 }
+
 
 .join {
   color: #fff;
@@ -12683,8 +12686,8 @@ breadcrumb-item + .breadcrumb-item::before {
   margin: 0 5.5px 0 5.5px;
   box-sizing: border-box;
 }
-.paddles {
-}
+
+
 .paddle {
   position: absolute;
   top: 0;

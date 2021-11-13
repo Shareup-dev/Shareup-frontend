@@ -161,7 +161,7 @@ function CreateGroupComponentMain() {
                 defaultChecked='checked'
                 onChange={handlePrivacySetting}
               />
-              <label htmlFor='public'>This is a public group</label>
+              <label htmlFor='public'> public group</label>
               <ul id='public-group-description'>
                 <li>Any site member can join this group.</li>
                 <li>This group will be listed in the groups directory and in search results.</li>
@@ -169,7 +169,7 @@ function CreateGroupComponentMain() {
               </ul>
               <br></br>
               <input type='radio' id='private' name='privacy' value='private' onChange={handlePrivacySetting} />
-              <label htmlFor='female'>This is a private group</label>
+              <label htmlFor='female'> private group</label>
               <ul id='private-group-description'>
                 <li>Only people who request membership and are accepted can join the group.</li>
                 <li>This group will be listed in the groups directory and in search results.</li>
@@ -177,7 +177,7 @@ function CreateGroupComponentMain() {
               </ul>
               <br></br>
               <input type='radio' id='hidden' name='privacy' value='hidden' onChange={handlePrivacySetting} />
-              <label htmlFor='other'>This is a hidden group</label>
+              <label htmlFor='other'> hidden group</label>
               <ul id='hidden-group-description'>
                 <li>Only people who are invited can join the group.</li>
                 <li>This group will not be listed in the groups directory or search results.</li>
