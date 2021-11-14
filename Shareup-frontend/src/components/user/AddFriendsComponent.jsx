@@ -622,14 +622,14 @@ function AddFriendsComponent() {
                     {' '}
                     <i class='las la-user'></i> Users <a className='numberCircle'>{`${allUser.length}`}</a>
                   </a>
-                  {/* <span>{`${allUser.length}`}</span> */}
+                  { <span>{`${allUser.length}`}</span> }
                 </li>
                 <li class='nav-item'>
                   <a class='nav-link active' data-toggle='pill' onClick={() => setShowComp('following')}>
                     {' '}
                     <i class='las la-user-cog'></i> Following <a className='numberCircle'>{`${following.length}`}</a>
                   </a>
-                  {/* <span>{`${following.length}`}</span> */}
+                  { <span>{`${following.length}`}</span> }
                 </li>
                 <li class='nav-item'>
                   <a class='nav-link active' data-toggle='pill' onClick={() => setShowComp('followers')}>

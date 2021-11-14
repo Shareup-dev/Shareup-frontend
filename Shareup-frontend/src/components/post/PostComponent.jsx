@@ -29,8 +29,8 @@ export default function PostComponent({ post, setRefresh }) {
   const [imgString, setimgString] = useState('');
   const images = [
     {
-      original: `/user-post/${post.id}/${imgString[0]}`,
-      thumbnail: `/user-post/${post.id}/${imgString[0]}`,
+      original: `/user-post/${post.id}/${imgString[1]}`,
+      thumbnail: `/user-post/${post.id}/${imgString[1]}`,
     },
   ];
 

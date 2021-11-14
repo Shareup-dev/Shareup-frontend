@@ -181,7 +181,9 @@ function MessagesComponent() {
               {' '}
               <img width='20' src='/assets/images/mic.svg' />
             </div>
-            <button id='sendBtn'>Send</button>
+            <button id='sendBtn'>
+            <img width='20' src='https://icon-library.com/images/send-icon-png/send-icon-png-2.jpg' />
+            </button>
           </div>
         </div>
       </div>

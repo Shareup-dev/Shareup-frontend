@@ -11433,8 +11433,9 @@ aside.sidebar.full-style {
 .prev,
 .next {
   cursor: pointer;
-  position: absolute;
-  top: 50%;
+  position: relative;
+  left: 0%;
+  bottom: -3% ;
   width: auto;
   padding: 16px;
   margin-top: -50px;
@@ -14324,7 +14325,7 @@ a.Hangin-btn:hover {
 
 .slideshowSlider {
   white-space: nowrap;
-  transition: ease 1000ms;
+  transition: ease 500ms;
 }
 .blckSlide {
   background: #000;
@@ -14525,14 +14526,14 @@ a.Hangin-btn:hover {
   margin: 0 20px;
 }
 .AreaMsg {
-  height: 82%;
+  height: 75%;
 }
 input.chat-text {
   border-radius: 20px;
   text-align: -webkit-center;
   background-color: #e5e5e5;
   border-width: 0px;
-  /* margin-bottom: 20px; */
+  margin-bottom: 60px; 
   height: 40px;
   width: 100%;
   margin: 0px;
@@ -14554,7 +14555,7 @@ input.chat-text {
   font-size: 20px;
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 100%;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
@@ -14564,7 +14565,7 @@ input.chat-text {
   font-size: 20px;
   position: absolute;
   right: 50px;
-  top: 50%;
+  top: 100%;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
@@ -14574,7 +14575,7 @@ input.chat-text {
   font-size: 20px;
   position: absolute;
   right: 85px;
-  top: 50%;
+  top: 100%;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
@@ -14727,4 +14728,9 @@ input.chat-text {
   font-size: 24px;
   padding-top: 100px;
   object-fit: cover;
+}
+#sendBtn img
+{
+  position:relative;
+top: -20;
 }

@@ -21,7 +21,7 @@ function ShareupInsideHeaderComponent() {
       setUser(res.data);
     });
   };
-
+  
   const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then((res) => {
       setFriendsList(res.data);

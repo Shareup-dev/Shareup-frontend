@@ -152,7 +152,7 @@ function CreateGroupComponentMain() {
         <fieldset>
           <div className='form-card'>
             <div className=''>
-              <h2 className='fs-title'>Select Group Settings</h2>
+              <h2 className='fs-title'> Group  Privacy Settings</h2>
               <input
                 type='radio'
                 id='public'
@@ -161,18 +161,23 @@ function CreateGroupComponentMain() {
                 defaultChecked='checked'
                 onChange={handlePrivacySetting}
               />
-              <label htmlFor='public'> public group</label>
+              <label htmlFor='private-group-description'> public group</label>
               <ul id='public-group-description'>
+                
                 <li>Any site member can join this group.</li>
-                <li>This group will be listed in the groups directory and in search results.</li>
-                <li>Group content and activity will be visible to any site member.</li>
+                <br></br>
+                <li>This group will be listed in search results.</li>
+                <br></br>
+                <li>Group content and activity will be visible to the public</li>
               </ul>
               <br></br>
               <input type='radio' id='private' name='privacy' value='private' onChange={handlePrivacySetting} />
               <label htmlFor='female'> private group</label>
               <ul id='private-group-description'>
                 <li>Only people who request membership and are accepted can join the group.</li>
+                <br></br>
                 <li>This group will be listed in the groups directory and in search results.</li>
+                <br></br>
                 <li>Group content and activity will only be visible to members of the group.</li>
               </ul>
               <br></br>
@@ -180,14 +185,17 @@ function CreateGroupComponentMain() {
               <label htmlFor='other'> hidden group</label>
               <ul id='hidden-group-description'>
                 <li>Only people who are invited can join the group.</li>
+                <br></br>
                 <li>This group will not be listed in the groups directory or search results.</li>
+                <br></br>
                 <li>Group content and activity will only be visible to members of the group.</li>
               </ul>
               <br></br>
             </div>
-            <div className=''>
+            <div className='form-card'>
               <legend>Group Invitations</legend>
-              <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
+              <br></br>
+              <p tabIndex={1}>Which members of this group are allowed to invite others?</p>
               <input
                 type='radio'
                 name='group-invite-status'
