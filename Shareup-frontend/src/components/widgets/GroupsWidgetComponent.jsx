@@ -4,6 +4,7 @@ import UserContext from '../../contexts/UserContext';
 import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import GroupService from '../../services/GroupService';
+import fileStorage from '../../configs/fileStorage';
 
 function GroupsWidgetComponent() {
     let history = useHistory();
@@ -52,7 +53,17 @@ function GroupsWidgetComponent() {
                     <div className="nearly-pepls">
                         <figure>
                             {console.log(group.groupImagePath)}
-                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+                            <a href={`/groups/${group.id}`} title="#"> 
+                            <img
+                        src={
+                          group.groupImagePath
+                            ? fileStorage.baseUrl + group.groupImagePath
+                            : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
+                        }
+                        alt=''
+                      />
+                            
+                            </a>
                         </figure>
                         <div className="pepl-info">
                             <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>

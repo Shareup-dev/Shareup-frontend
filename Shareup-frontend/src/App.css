@@ -57,6 +57,7 @@ html {
     background: white;
     border: 0 none;
     border-radius: 0px;
+
     /* box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2); */
    
     box-sizing: border-box;
@@ -82,7 +83,7 @@ html {
 
 #msform fieldset .form-card {
     text-align: left;
-    color: #9E9E9E
+    color: #000000
 }
 
 
@@ -127,6 +128,7 @@ html {
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px
+    
 }
 
 #msform .action-button:hover,

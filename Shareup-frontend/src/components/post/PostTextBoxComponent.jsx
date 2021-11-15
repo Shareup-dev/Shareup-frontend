@@ -606,7 +606,7 @@ function PostTextBoxComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare.svg' alt='img' />
+              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare2.svg' alt='img' />
             </span>
             Hang Share
           </span>

@@ -602,7 +602,7 @@ function FriendsComponent() {
       <div className='col-lg-6'>
         <div className='central-meta'>
           <div className='frnds'>
-            {/* <ul className="nav nav-tabs"> */}
+            { <ul className="nav nav-tabs"> </ul>}
             <div>
               <p className='Friends-Title'>Friends</p>
               <i style={{ float: 'right', fontSize: 25 }} class='las la-ellipsis-v'></i>
