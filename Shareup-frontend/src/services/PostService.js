@@ -1,6 +1,6 @@
-import axios from 'axios';
-import AuthService from './auth.services';
-import settings from '../configs/Settings';
+import axios from "axios";
+import AuthService from "./auth.services";
+import settings from "../configs/Settings";
 
 let authAxios = null;
 const baseurl = `${settings.apiUrl}/api/v1/`;
@@ -23,7 +23,7 @@ authenticate();
 class PostService {
   getPost = async () => {
     authenticate();
-    const result = await authAxios.get('posts/');
+    const result = await authAxios.get("posts/");
     return result;
   };
 
@@ -46,7 +46,9 @@ class PostService {
   };
 
   createPost = async (userId, formdata, userTagId) => {
-    const result = await authAxios.post(`posts/${userId}`, formdata, { params: { userTagId } });
+    const result = await authAxios.post(`posts/${userId}`, formdata, {
+      params: { userTagId },
+    });
     return result;
   };
 

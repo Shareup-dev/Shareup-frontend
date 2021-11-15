@@ -164,18 +164,18 @@ export default function PostComponent({ post, setRefresh }) {
                 <>
                   <div className='grid-container1'>
                     <div className='itemS1'>
-                      {post.postMedia.length > 0 ? (
+                      {post.postedimages.length > 0 ? (
                         <div className='postImage'>
-                          {post.postMedia.map((postImage) => (
+                          {post.postedimages.map((postImage) => (
                             <React.Fragment>
                               <a
-                                href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 data-lightbox={`image-user-${post.user.id}`}
                               >
                                 <img
                                   style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-                                  src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                                  alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 />
                               </a>
                             </React.Fragment>
@@ -320,16 +320,16 @@ export default function PostComponent({ post, setRefresh }) {
               )}
 
               <div className='postImage'>
-                {post.postMedia.map((postImage) => (
+                {post.postedimages.map((postImage) => (
                   <React.Fragment>
                     <a
-                      href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                       data-lightbox={`image-user-${post.user.id}`}
                     >
                       <img
                         style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                       />
                     </a>
                   </React.Fragment>
