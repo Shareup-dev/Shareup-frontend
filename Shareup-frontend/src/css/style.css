@@ -102,12 +102,16 @@ img {
 }
 
 .container-land {
-  background: url(../assets/images/dark-blue-studio-room-background.jpg) no-repeat center;
+  background: url(../assets/images/dark-blue-studio-room-background.jpg)
+    no-repeat center;
   background-size: cover;
   background-position: bottom center;
 }
 .container-privacy {
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.7) 70%),
+  background: -webkit-linear-gradient(
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.7) 70%
+    ),
     url(../assets/images/wallpaperfl.jpg) no-repeat center;
   background-size: cover;
   position: relative;
@@ -2205,7 +2209,14 @@ form button {
   transition: all 0.2s linear 0s;
 }
 
-.we-video-info > .click .reaction span.like:hover .we-video-info > .click .reaction span.dislike:hover {
+.we-video-info
+  > .click
+  .reaction
+  span.like:hover
+  .we-video-info
+  > .click
+  .reaction
+  span.dislike:hover {
   transform: scale(1.1);
 }
 
@@ -3012,12 +3023,9 @@ footer .logo {
   width: 50%;
 }
 .logo-inside > a > img {
-
-  
   display: inline-block;
   vertical-align: middle;
   max-width: fit-content;
-
 }
 
 .logo > a > img {
@@ -4285,8 +4293,7 @@ nav.breadcrumb {
   grid-template-areas:
     "image name "
     "image email "
-    "image follow "
-    ;
+    "image follow ";
   grid-gap: 0px 10px;
   /* background-color: #2196F3; */
   padding: 10px;
@@ -5723,7 +5730,7 @@ canvas {
   display: inline;
   vertical-align: middle;
   width: 70%;
-} 
+}
 
 .main-area > ul {
   display: inline-block;
@@ -5808,7 +5815,11 @@ canvas {
 .top-area > ul.setting-area a {
   /* font-size: 19px; */
   background: rgb(228, 86, 149);
-  background: radial-gradient(circle, rgba(228, 86, 149, 1) 0%, rgba(77, 149, 232, 1) 100%);
+  background: radial-gradient(
+    circle,
+    rgba(228, 86, 149, 1) 0%,
+    rgba(77, 149, 232, 1) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 23px;
@@ -5820,7 +5831,11 @@ canvas {
 .top-area > ul.setting-area a:hover {
   /* font-size: 19px; */
   background: rgb(214, 42, 119);
-  background: radial-gradient(circle, rgb(207, 10, 99) 0%, rgb(14, 108, 216) 100%);
+  background: radial-gradient(
+    circle,
+    rgb(207, 10, 99) 0%,
+    rgb(14, 108, 216) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 19px;
@@ -6863,7 +6878,8 @@ canvas {
 .policy h2 {
   /* padding:0 20% 0 20%; */
   text-align: center;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   margin-bottom: 2%;
 }
 .shareIn-btn {
@@ -6877,9 +6893,11 @@ canvas {
   /* margin-right: 5%; */
   padding: 5px 10px 5px 10px;
   cursor: pointer;
-  transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+  transition: background-color 0.28s ease, color 0.28s ease,
+    box-shadow 0.28s ease;
   overflow: hidden;
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 1px 5px 0 rgb(0 0 0 / 12%);
   border-radius: 50px;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
@@ -8386,11 +8404,16 @@ ul.offcanvas-menu ul {
   -ms-transform: translateY(0px) scale(0);
   -o-transform: translateY(0px) scale(0);
   transform: translateY(0px) scale(0);
-  -webkit-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
-  -moz-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
-  -ms-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
-  -o-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
-  transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+  -webkit-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s,
+    opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+  -moz-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s,
+    opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+  -ms-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s,
+    opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+  -o-transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s,
+    opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
+  transition: transform 0.4s cubic-bezier(0.6, 0.2, 0.1, 1) 0s,
+    opacity 0.7s cubic-bezier(0.6, 0.2, 0.1, 1) 0s;
   width: 100%;
 }
 
@@ -8426,7 +8449,12 @@ ul.offcanvas-menu ul {
 }
 
 .bv-video-wrap::before {
-  background: rgba(0, 0, 0, 0) linear-gradient(90deg, rgba(41, 112, 255, 0.75) 0%, rgba(164, 248, 113, 0.75) 100%)
+  background: rgba(0, 0, 0, 0)
+    linear-gradient(
+      90deg,
+      rgba(41, 112, 255, 0.75) 0%,
+      rgba(164, 248, 113, 0.75) 100%
+    )
     repeat scroll 0 0;
   content: "";
   position: absolute;
@@ -8527,11 +8555,26 @@ ul.offcanvas-menu ul {
 }
 
 .videobg-meta > h3 i {
-  background: -webkit-linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
-  background: -moz-linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
-  background: -ms-linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
-  background: -o-linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
-  background: linear-gradient(rgba(41, 112, 255, 0.75) 0%, rgba(248, 222, 96, 0.75) 100%);
+  background: -webkit-linear-gradient(
+    rgba(41, 112, 255, 0.75) 0%,
+    rgba(248, 222, 96, 0.75) 100%
+  );
+  background: -moz-linear-gradient(
+    rgba(41, 112, 255, 0.75) 0%,
+    rgba(248, 222, 96, 0.75) 100%
+  );
+  background: -ms-linear-gradient(
+    rgba(41, 112, 255, 0.75) 0%,
+    rgba(248, 222, 96, 0.75) 100%
+  );
+  background: -o-linear-gradient(
+    rgba(41, 112, 255, 0.75) 0%,
+    rgba(248, 222, 96, 0.75) 100%
+  );
+  background: linear-gradient(
+    rgba(41, 112, 255, 0.75) 0%,
+    rgba(248, 222, 96, 0.75) 100%
+  );
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -ms-background-clip: text;
@@ -11332,7 +11375,10 @@ aside.sidebar.full-style {
 .shareup {
   min-height: 60vh;
   background-color: #05c1d7;
-  background: -webkit-linear-gradient(rgba(29, 140, 165, 0.5) 50%, rgba(29, 140, 165, 0.5) 70%),
+  background: -webkit-linear-gradient(
+      rgba(29, 140, 165, 0.5) 50%,
+      rgba(29, 140, 165, 0.5) 70%
+    ),
     url(../assets/images/Blue-Nightmare-Grunge-Background.jpg);
   background-position: center center;
   background-repeat: no-repeat;
@@ -11442,7 +11488,7 @@ aside.sidebar.full-style {
   cursor: pointer;
   position: relative;
   left: 0%;
-  bottom: -3% ;
+  bottom: -3%;
   width: auto;
   padding: 16px;
   margin-top: -50px;
@@ -11589,9 +11635,11 @@ img.hover-shadow {
   padding: 0 10px 0 10px;
   margin: 10px 10px;
   cursor: pointer;
-  transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+  transition: background-color 0.28s ease, color 0.28s ease,
+    box-shadow 0.28s ease;
   overflow: hidden;
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 1px 5px 0 rgb(0 0 0 / 12%);
   border-radius: 50px;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
@@ -12645,7 +12693,6 @@ breadcrumb-item + .breadcrumb-item::before {
   line-height: 25px;
 }
 
-
 .join {
   color: #fff;
   background: #033347;
@@ -12663,7 +12710,7 @@ breadcrumb-item + .breadcrumb-item::before {
 }
 .slide-wrapper {
   position: relative;
-  max-width: 625px;
+  /* max-width: 625px; */
   height: 300px;
   margin: 1em 0 1em 0;
 
@@ -12694,7 +12741,6 @@ breadcrumb-item + .breadcrumb-item::before {
   margin: 0 5.5px 0 5.5px;
   box-sizing: border-box;
 }
-
 
 .paddle {
   position: absolute;
@@ -13642,7 +13688,11 @@ a.Hangin-btn:hover {
 .storypic {
   width: 200px;
   height: 300px;
-  background: linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%),
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
     linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
   border-radius: 10px;
@@ -13880,13 +13930,13 @@ a.Hangin-btn:hover {
   margin: auto;
   margin-bottom: 11px;
   border-radius: 10px;
-  background: #FAFAFF;
+  background: #fafaff;
   -webkit-box-shadow: 0px 1px 1px #747474;
   -moz-box-shadow: 0px 1px 1px #747474;
   box-shadow: 0px 2px 2px #747474;
   min-height: 91.3vh;
   font-family: "Roboto";
-  margin-top:  3.45rem;
+  margin-top: 3.45rem;
 }
 
 .left-settings {
@@ -13900,30 +13950,23 @@ a.Hangin-btn:hover {
 }
 
 .left-settings h1 {
-  
-width: 90px;
-height: 28px;
-left: 25px;
-top: 75px;
-font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 24px;
-line-height: 28px;
+  width: 90px;
+  height: 28px;
+  left: 25px;
+  top: 75px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
 
-color: #000000;
-
-
-
+  color: #000000;
 }
 
 .left-settings p {
-
-
   font-size: 17px;
   padding: 9px;
   padding-left: 0px;
- 
 }
 
 .left-settings p:hover {
@@ -13943,7 +13986,7 @@ color: #000000;
   margin-bottom: 1rem;
   padding-top: 14px;
   padding-right: 114px;
-  padding-left: 0px ;
+  padding-left: 0px;
 }
 
 .right-settings-image {
@@ -14030,12 +14073,11 @@ color: #000000;
 }
 
 .settings-list {
-  
-/* width: 250px; */
-height: 44px;
-left: 12px;
-top: 113px;
-font-size: 17px;
+  /* width: 250px; */
+  height: 44px;
+  left: 12px;
+  top: 113px;
+  font-size: 17px;
   display: flex;
   align-items: center;
   padding: 11px;
@@ -14057,7 +14099,6 @@ font-size: 17px;
   font-weight: bold;
   background-color: #efefef;
   border-radius: 30px;
-
 }
 
 .right-settings-details .las.la-home {
@@ -14168,7 +14209,7 @@ font-size: 17px;
   width: 20%;
   font-size: 15px;
   font-style: normal;
-  color: #044F66;
+  color: #044f66;
   font-weight: 500;
 }
 .firstElement {
@@ -14567,7 +14608,7 @@ input.chat-text {
   text-align: -webkit-center;
   background-color: #e5e5e5;
   border-width: 0px;
-  margin-bottom: 60px; 
+  margin-bottom: 60px;
   height: 40px;
   width: 100%;
   margin: 0px;
@@ -14763,8 +14804,7 @@ input.chat-text {
   padding-top: 100px;
   object-fit: cover;
 }
-#sendBtn img
-{
-  position:relative;
-top: -20;
+#sendBtn img {
+  position: relative;
+  top: -20;
 }
