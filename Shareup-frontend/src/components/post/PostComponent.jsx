@@ -15,6 +15,7 @@ import fileStorage from '../../configs/fileStorage';
 
 import '../../css/dropoptions-style.css';
 
+
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh }) {
@@ -108,13 +109,17 @@ export default function PostComponent({ post, setRefresh }) {
     }, 200);
   };
 
+  
+
   const handleReaction = () => {
-    if (likeReaction) {
-      return <img src='/assets/images/StarLike.svg' alt='' />;
-      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
+
+   if (likeReaction) {
+      
+       return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return <img src='/assets/images/StarLike.svg' alt='' />;
+    return <img src='/assets/images/icons/star-like.svg' alt='' />;
   };
+
 
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction);
@@ -123,15 +128,39 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
 
+  
   const handleCounterReaction = () => {
-    if (likeReaction) {
-      return <img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />;
+
+     if(checkIfLiked(post) ){
+       return( 
+       <div className='reaction' onClick={() => handleLikePost(post.id)}>
+          <span className='like' data-toggle='tooltip' title=''>
+              {handleReaction()}  
+            <span style={{ paddingLeft: '10px' }}></span>
+          </span>
+        </div>
+  );  
+  }
+       else{ 
+       return(<div className='reaction' onClick={() => handleLikePost(post.id)}>
+          <span className='dislike' data-toggle='tooltip' title=''>
+            <img src='/assets/images/icons/star-icon.svg' alt='' />
+            <span style={{ paddingLeft: '10px' }}></span>
+          </span>
+        </div>
+       );
     }
-    return <img src='/assets/images/Starwhite.svg' alt='' />;
+
+    //  if (likeReaction) {
+    //  return <img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/icons/star-like.svg`} />;
+    //   return <img src='/assets/images/icons/star-like.svg' alt='' />;
+    //  }
+    // return <img src='/assets/images/icons/star-icon.svg' alt='' />;
   };
+
   //array fetch
   const postImg = (str) => {
-    if (str != null) {
+    if (str != null) {   
       let temps = [];
       for (let i = 0; i < str.length; i++) temps = [...temps, `/user-post/${post.id}/${str[i]}`];
       console.log('img string' + imgString);
@@ -307,10 +336,24 @@ export default function PostComponent({ post, setRefresh }) {
                   </span>
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
+
+                
                 <div
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
-                ></div>
+                >
+                  
+                  
+                  
+                </div>
               </div>
+
+              <div style={{float:'right', backgroundColor: 'white', color: 'black' }}>
+                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                      <span title='add icon'>
+                        <i class='las la-ellipsis-h'></i>
+                      </span>
+                    </div>
+                  </div>
 
               {post.content && (
                 <p id={`post-content-${post.id}`}>
@@ -337,36 +380,42 @@ export default function PostComponent({ post, setRefresh }) {
               </div>
 
               <div className='counter'>
-                <ul>
-                  <li>
+                
+                              
+                  <ul>
+                  <li class="rate-count"> 
                     {handleCounterReaction()}
                     <span> {`${post.reactions.length}`} </span>
                   </li>
                   <li>
+                  
                     <span
                       className='commentCounter'
                       style={{ marginRight: '5px' }}
                       onClick={() => setShowComment(!showComment)}
                     >
-                      <img src='/assets/images/commentwhite.svg' alt='' />
+                      {/*<img src='/assets/images/icons/comment-icon.svg' alt='' />*/}
+                     
                     </span>{' '}
-                    <span> {`${getCommentCounter(post.comments)}`}</span>
+                    <span> {`${getCommentCounter(post.comments)}`}</span> Comments
                   </li>
                   <li>
                     <span>
                       {' '}
-                      <img src='/assets/images/shareicnwhite.svg' alt='' />
+                      {/*<img src='/assets/images/shareicnwhite.svg' alt='' />*/}
+                     
                     </span>{' '}
-                    <span> {`${getCommentCounter(post.comments)}`} </span>
+                    <span> {`${getCommentCounter(post.comments)}`} </span> Share
                   </li>
-                  <li style={{ backgroundColor: 'white', color: 'black' }}>
+                  {/*<li style={{ backgroundColor: 'white', color: 'black' }}>
                     <div className='add-dropdown' onClick={toggleShowMoreOptions}>
                       <span title='add icon'>
-                        <i class='las la-ellipsis-h'></i>
+                        <i class='las la-ellipsis-h'>test</i>
                       </span>
                     </div>
-                  </li>
+                  </li>*/}
                 </ul>
+                
               </div>
 
               {showReactions && (
@@ -384,34 +433,35 @@ export default function PostComponent({ post, setRefresh }) {
                   <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')} />
                 </div>
               )}
+              <hr style={{marginTop: '3rem'}}></hr>
 
               <div className='we-video-info'>
                 <div className='click'>
-                  {checkIfLiked(post) ? (
+                  {/* {checkIfLiked(post) ? (
                     <div className='reaction' onClick={() => handleLikePost(post.id)}>
                       <span className='like' data-toggle='tooltip' title=''>
-                        {handleReaction()}
-                        <span style={{ paddingLeft: '10px' }}></span>
+                          {handleReaction()}  
+                        <span style={{ paddingLeft: '10px' }}>Star</span>
                       </span>
                     </div>
-                  ) : (
+                  ) : ( */}
                     <div className='reaction' onClick={() => handleLikePost(post.id)}>
                       <span className='dislike' data-toggle='tooltip' title=''>
-                        <img src='/assets/images/Star.svg' alt='' />
-                        <span style={{ paddingLeft: '10px' }}></span>
+                        <img src='/assets/images/icons/star-icon.svg' alt='' />
+                        <span style={{ paddingLeft: '10px' }}>Star</span>
                       </span>
                     </div>
-                  )}
+                  {/* )} */}
                   <div className='commShare'>
                     <div className='btncmn' onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments'>
-                        <img src='/assets/images/comment.svg' />
-                        <span style={{ paddingLeft: '2px' }}>Comment</span>
+                        <img src='/assets/images/icons/comment-icon.svg' />
+                        <span style={{ paddingLeft: '12px' }}>Comment</span>
                       </span>
                     </div>
-                    <div className='btncmn'>
+                    <div className='btncmn' style={{float:'right', width:'auto'}}>
                       <span className='views' data-toggle='tooltip'>
-                        <img src='/assets/images/shareicn.svg' />
+                        <img src='/assets/images/icons/share-icon.svg' />
                         <span style={{ paddingLeft: '12px' }}>Share</span>
                       </span>
                     </div>
@@ -427,7 +477,7 @@ export default function PostComponent({ post, setRefresh }) {
         {showMoreOptions && (
           <div className='drop-options active' onClick={toggleShowMoreOptions}>
             <ul>
-              <li className='head-drop'>
+              <li className='head-up'>
                 <h6>Post Options</h6>
               </li>
               {post.user.id === user.id ? (

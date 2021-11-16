@@ -2032,15 +2032,15 @@ form button {
 }
 
 .friend-info > .post-meta > figure {
-  margin-top: 11px;
+  margin-top: 5px;
   display: inline-block;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   vertical-align: middle;
   width: 8%;
 }
 
 .friend-name {
-  margin-top: 11px;
+  margin-top: 0px;
   display: inline-block;
   padding-left: 10px;
   vertical-align: middle;
@@ -2610,8 +2610,9 @@ li.post-comment .comet-avatar {
   color: #000000;
   font-size: 13.5px;
   font-weight: 500;
-  height: 40px;
+  height: 35px;
   line-height: 24px;
+  padding-left: 25px;
 }
 
 .gif {
@@ -4196,11 +4197,11 @@ nav.breadcrumb {
 
 .nearby-contct > li {
   margin: 11px;
-  text-align: center;
+  text-align: left;
   display: inline-block;
   margin-bottom: 10px;
   padding: 11px;
-  /* width: 100%; */
+  width: 100%; 
   transition: all 0.15s linear 0s;
   border-radius: 10px;
 }
@@ -4292,10 +4293,10 @@ nav.breadcrumb {
   padding: 10px;
 }
 .item1 img {
-  max-width: 50px;
-  min-width: 50px;
+  /* max-width: 50px;
+  min-width: 50px; */
   border-radius: 50%;
-  width: 50px;
+  width: auto;
   height: 50px;
 }
 .item1 {
@@ -11676,25 +11677,35 @@ img.hover-shadow {
 }
 
 .counter {
-  display: inline;
-  float: right;
+  width:100%;
+  display: block;
+  float: left;
   font-size: 12px;
   padding: 2px;
-  position: relative;
-  z-index: 0;
+  /* position: relative; */
+  /* z-index: 0; */
 }
 .counter ul li i {
   font-size: 18px;
 }
 .counter ul li {
+  
   margin: 10px;
-  color: #fff;
-  background: #b5b4b4;
-  float: left;
+  color: #212529;
+  background: #fff;
+  float: right;
   list-style-type: none;
   padding: 5px 10px;
   border-radius: 20px;
+  display:inline-block;
 }
+
+.counter ul li.rate-count {
+  float:left;
+  }
+  .rate-count span{
+  line-height:25px}
+  
 
 /* .counter ul li:hover{
     color:#fff;
@@ -11713,7 +11724,7 @@ img.hover-shadow {
 } */
 .add-dropdown {
   margin-right: 11px;
-  margin-top: 11px;
+  margin-top: 15px;
   float: right;
   transform: translateY(-50%);
   width: auto;

@@ -17,6 +17,8 @@ function GuideComponent() {
   const [refresh, setRefresh] = useState([]);
 
   const [allUser, setAllUser] = useState([]);
+  
+
   const getAllUser = async () => {
     await UserService.getUsers().then((res) => {
       setAllUser(res.data);
@@ -159,6 +161,7 @@ function GuideComponent() {
     setStep(num);
   };
 
+
   const show = () => {
     if (step === 0) {
       return (
@@ -166,6 +169,7 @@ function GuideComponent() {
           <div className='form-card'>
             <ul className='nearby-contct'>
               {allUser.slice(0, 8).map((userF) => (
+                
                 <li className='grp' key={userF.id}>
                   <div className='grid-container'>
                     <div class='item1'>
@@ -239,6 +243,7 @@ function GuideComponent() {
                     </div>
 
                     {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
+                    
                   </div>
                 </li>
               ))}
@@ -419,13 +424,19 @@ function GuideComponent() {
     <Layout user={user}>
       <div className='col-lg-6'>
         <div className='central-meta create-group'>
-          <div className='card px-0 pt-4 pb-0 mt-3 mb-3'>
-            <div style={{ contentAlign: 'center', textAlign: 'center' }}>
+          <div className='card px-0 pt-4 pb-0 mt-3 mb-3 '>
+            <div style={{ contentAlign: 'left', textAlign: 'left' }}>
+              <div className='col-lg-1'>
+                <img src="assets/images/user-profile.png" alt=""/>
+              </div>
+              <span>
               <h4>
                 <strong>Are you new?</strong>
               </h4>
               <p>Here are some suggestions</p>
+              </span>
             </div>
+            <hr style={{marginTop: '3rem'}}></hr>
             <div className='row'>
               <div className='col-md-12 mx-0'>
                 <form id='msform'>
