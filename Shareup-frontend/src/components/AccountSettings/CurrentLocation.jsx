@@ -10,6 +10,7 @@ const mapStyles = {
   },
 };
 
+
 export class CurrentLocation extends React.Component {
   constructor(props) {
     super(props);

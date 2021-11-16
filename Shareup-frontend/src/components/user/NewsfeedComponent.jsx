@@ -18,6 +18,8 @@ import Modal from 'react-modal';
 import Layout from '../LayoutComponent';
 import GuideComponent from './GuideComponent';
 import PostComponent from '../post/PostComponent';
+import SwapComponent from '../swap/SwapComponent';
+
 
 import DisplayComponent from '../Stories/DisplayComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
@@ -50,6 +52,7 @@ function NewsfeedComponent() {
   const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
+  const [swapsForUser, setSwapsForUser] = useState([]);
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
   const [userR, setUserR] = useState([]);
@@ -160,6 +163,22 @@ function NewsfeedComponent() {
       setPostsForUser(uniquePost);
     });
   };
+  //swap list - aseel
+  const getSwapsForUser = async () => {
+    await SwapService.getSwap().then((res) => {
+      const sorting = res.data.sort(function (a, b) {
+        let dateA = new Date(a.published),
+          dateB = new Date(b.published);
+        return dateB - dateA;
+      });
+      const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
+        return res.data.find((a) => a.id === id);
+      });
+      setSwapsForUser(uniquePost);
+    });
+    // console.log(swapsForUser,'helooooooooooooo')
+  };
+  //swap list ends- aseel
   const handleFileStry = (event) => {
     console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
@@ -441,7 +460,47 @@ function NewsfeedComponent() {
         setRefresh(res.data);
       });
   };
+  const uploadSwap = (event) => {
+    event.preventDefault();
+    setUploadError('');
+    console.log('uploading post working');
+    if (postContent === '' && Object.keys(files).length === 0 && files.constructor === Object) {
+      console.log('cant be null');
+      setUploadError('Please Insert A Text or an Image');
+      return;
+    }
 
+    const formData = new FormData();
+
+    formData.append('content', postContent);
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files`, files[i]);
+    }
+    console.log(formData.getAll(`files`));
+    console.log(' this is the files' + files[0]);
+    console.log(' this is the swapfiles' + swapfiles);
+    for (let i = 0; i < `files`.length; i++) {
+      console.log(files);
+    }
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
+    if (userF === null) {
+      SwapService.createSwap(user.id, formData, null).then((res) => {
+        console.log(JSON.stringify(res));
+        console.log(res.data);
+        console.log(user.id);
+        setSwapContent('');
+        handleRemoveImage();
+        setRefresh(res.data);
+      });
+    } else
+      SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+        console.log(JSON.stringify(res));
+        setSwapContent('');
+        handleRemoveImage();
+        setRefresh(res.data);
+      });
+  };
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
       setRefresh(res.data);
@@ -624,6 +683,131 @@ function NewsfeedComponent() {
     );
   };
   const imageshowPost = () => {
+    return (
+      <div
+        style={{
+          margin: "0 11px",
+          padding: "15px",
+          boxShadow: "0 0 3px rgb(0 0 0 / 16%)",
+          borderRadius: "5px",
+        }}
+      >
+        <div style={{ display: "inline", fontSize: "12px" }}>
+          Select image to swap
+        </div>
+
+        <div className="add-smilespopup">
+          <label className="fileContainer">
+            <i class="lar la-file-image"></i>{" "}
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
+          </label>
+        </div>
+        <div className="morepopup">
+          <i class="fas fa-ellipsis-h"></i>
+        </div>
+        {/*
+        <div className="gifpopup">
+          <Popup
+            trigger={
+              <a href="#!">
+                <i class="las la-user-tag"></i>
+              </a>
+            }
+            nested
+            modal
+          >
+            {(close) => (
+              <Form style={{ margin: "5px" }} className="popwidth">
+                <div class="search-container">
+                  <i class="las la-search"></i>
+                  <input
+                    className="friend-search"
+                    type="text"
+                    id="header-search"
+                    placeholder="Search Friends"
+                    name="s"
+                    onChange={handleSearchedUser}
+                  />
+                  <span onClick={close}>Done</span>
+                </div>
+                {userF ? (
+                  <>
+                    <div className="Tag">
+                      Tagged:{`${userF.firstName} ${userF.lastName}`}
+                    </div>
+                  </>
+                ) : null}
+                <div>
+                  <ul>
+                    {friendsList.length > 0 ? (
+                      <>
+                        {friendsList.map((userM) =>
+                          user.id !== userM.id ? (
+                            <li key={userM.id} className="friends-card">
+                              <a href="#!" onClick={() => handleTag(userM)}>
+                                {" "}
+                                <div className="grid-container">
+                                  {/* <figure> commented*/}
+                                  {/*<div class="item1">
+                                    <a
+                                      href={`/profile/${userM.email}`}
+                                      title={`${userM.email}`}
+                                    >
+                                      <img
+                                        style={{ objectFit: "cover" }}
+                                        src={
+                                          fileStorage.baseUrl +
+                                          userM.profilePicturePath
+                                        }
+                                        alt=""
+                                      />
+                                    </a>
+                                    {/* </figure> commented*/}
+                                  {/*</div>
+                                  <div class="item2">
+                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                          ) : null
+                        )}
+                      </>
+                    ) : (
+                      <div style={{ padding: "10% 0", textAlign: "center" }}>
+                        You have no friends to tag
+                      </div>
+                    )}
+                  </ul>
+                </div>
+              </Form>
+            )}
+          </Popup>
+        </div>/*}
+        {/*<div className="campopup">
+          <label className="fileContainer">
+            <i class="las la-map-marker-alt"></i>
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
+          </label>
+        </div>*/}
+        {/* <ul style={{marginLeft:'10px'}}>
+        <li style={{fontSize:'12px'}}>What's in hang?</li>
+        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      </label></li></ul>*/}
+      </div>
+    );
+  };
+  const imageshowPost1 = () => {
     return (
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>Add More</div>
@@ -1000,12 +1184,17 @@ function NewsfeedComponent() {
     );
   };
 
+  
   const shareUp = () => {
     return (
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='/assets/images/share-2.svg' alt='img' />
+          <span style={{ cursor: "pointer" }}>
+            <img
+              style={{ verticalAlign: "middle" }}
+              src="/assets/images/share-2.svg"
+              alt="img"
+            />
             Share Up
           </span>
         }
@@ -1013,105 +1202,142 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form className='popform popwidth'>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
-                    <i class='las la-times'></i>
-                  </a>
-                </div>
+          <Form className="popwidth" style={{ width: "100%" }}>
+            <div className="headpop">
+              <div className="row">
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}
+                  style={{
+                    color: "#000000",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    width: "95%",
+                    textAlign: "center",
+                  }}
                 >
-                  Share up
+                  <span>Create Swap Post</span>
                 </div>
-                <div style={{ width: '10%', textAlign: 'center' }}>
+                <div style={{ width: "5%" }}>
+                  <span style={{}}>
+                    <a href="#!" onClick={close}>
+                    <i class="far fa-times-circle"></i>
+                    </a>
+                  </span>
+                </div>
+                {/* <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
                     <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
 
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              {' '}
-              <div className='popupimg'>
+            <div style={{ padding: "0 11px 11px 11px" }}>
+              {" "}
+              <div className="popupimg">
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </div>
-              <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+              <div class="popupuser-name">
+                <div style={{ float: "left", display: "inline" }}>
+                  <span
+                    style={{ textTransform: "capitalize", fontWeight: "bold" }}
+                  >
                     {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                    {userF ? (
+                      <> with {`${userF.firstName} ${userF.lastName}`}</>
+                    ) : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdownnewsfeed'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "12px",
+                      fontWeight: "100",
+                    }}
+                  >
+                    <div className="dropdown" style={{display: 'flex' , alignItems: 'center' }}>
+                      <i className="fas fa-users"></i>
+                      <select
+                        name="privacy"
+                        id="privacy"
+                        value={Privacy}
+                        onChange={handlePrivacy}
+                        style={{ border: "0", marginLeft: "-1px" }}
+                      >
+                        <option value="Friends">Friends</option>
+                        <option value="Public">Public</option>
+                        <option value="Only Me">Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{" "}
                   </span>
-                </div>{' '}
-              </div>{' '}
+                </div>{" "}
+              </div>{" "}
             </div>
-            <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className='textPop'>
+            <div style={{ margin: "0 11px 100px 11px" }}>
+              <span className="textPop">
                 <textarea
-                  className='textpopup'
+                  className="textpopup"
                   rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='post_content'
+                  style={{ fontSize: "12px", width: "100%" , borderRadius:'0' }}
+                  placeholder={
+                    uploadError
+                      ? `${uploadError}`
+                      : "Whats on your mind? ,  " + user.firstName
+                  }
+                  name="post_content"
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
-                  <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
-                    </div>
+                  <div className="" >
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i class="las la-times"></i>
                     </button>
-                  </>
+                  </div>
                 ) : null}
               </span>
             </div>
 
             {imageshowPost()}
+            <div style={{ textAlign: "center" }}>
+              <div
+                type='submit'
+                value='Submit'
+                  style={{
+                    
+                    padding: "10px",
+                    backgroundColor: "#c95ed7",
+                    borderRadius: "5px",
+                    color: "white",
+                    margin: "15px 10px ",
+                  }}
+                onClick={uploadSwap}
+                >
+                Share Swap
+              </div>
+            </div>
           </Form>
         )}
       </Popup>
@@ -1235,10 +1461,25 @@ function NewsfeedComponent() {
   const testFanc = (post) => {
     return <PostComponent post={post} setRefresh={setRefresh} />;
   };
+  const showSwap = (swap) => {
+    return <SwapComponent post={swap} setRefresh={setRefresh} />;
+  }
 
   const show = () => {
+    console.log('swapp',postsForUser)
+    console.log('swapp',swapsForUser)
     return (
       <div className='loadMore'>
+        {swapsForUser.map((post) => (
+          <div key={post.id}>
+            {showSwap(post)}
+            {/* {post.group
+              ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
+                ? testFanc(post)
+                : null
+              : testFanc(post)} */}
+          </div>
+        ))}
         {postsForUser.map((post) => (
           <div key={post.id}>
             {post.group
@@ -1248,6 +1489,7 @@ function NewsfeedComponent() {
               : testFanc(post)}
           </div>
         ))}
+        
       </div>
     );
   };
@@ -1328,6 +1570,7 @@ function NewsfeedComponent() {
       setIsLoading(false);
     });
     getPostForUser();
+    getSwapsForUser();
     getSavedPost();
     testScript();
   }, [editPostId, refresh]);
@@ -1506,7 +1749,7 @@ function NewsfeedComponent() {
             <div className='new-postbox'>
               <figure>
                 <img
-                  src={
+                  src={ 
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath

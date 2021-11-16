@@ -4,6 +4,8 @@
   justify-content: center !important;
   flex-flow: column nowrap !important;
   padding: 0 !important;
+  width: 506px !important;
+  /* height: 428px !important ; */
 }
 
 .container__create-post {

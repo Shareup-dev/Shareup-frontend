@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import UserService from '../../services/UserService';
-import UserContext from '../../contexts/UserContext';
-import PostService from '../../services/PostService';
-import SwapService from '../../services/SwapService';
-import AuthService from '../../services/auth.services';
-import SimpleReactLightbox from 'simple-react-lightbox';
-import { testScript } from '../../utils/js/script';
-import GroupService from '../../services/GroupService';
-import StoriesService from '../../services/StoriesService';
-import settings from '../../configs/Settings';
-import EditPostComponent from './EditPostComponent';
-import Modal from 'react-modal';
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import UserService from "../../services/UserService";
+import UserContext from "../../contexts/UserContext";
+import PostService from "../../services/PostService";
+import SwapService from "../../services/SwapService";
+import AuthService from "../../services/auth.services";
+import SimpleReactLightbox from "simple-react-lightbox";
+import { testScript } from "../../utils/js/script";
+import GroupService from "../../services/GroupService";
+import StoriesService from "../../services/StoriesService";
+import settings from "../../configs/Settings";
+import EditPostComponent from "./EditPostComponent";
+import Modal from "react-modal";
 
-import Layout from '../LayoutComponent';
-import GuideComponent from './GuideComponent';
-import SwapPostComponent from '../post/SwapPostComponent';
-import StoriesComponent from '../Stories/StoriesComponent';
-import Popup from 'reactjs-popup';
-import FriendsService from '../../services/FriendService';
-import CreatePosts from '../CreatePost/CreatePost';
-import fileStorage from '../../configs/fileStorage';
+import Layout from "../LayoutComponent";
+import GuideComponent from "./GuideComponent";
+import SwapPostComponent from "../post/SwapPostComponent";
+import StoriesComponent from "../Stories/StoriesComponent";
+import Popup from "reactjs-popup";
+import FriendsService from "../../services/FriendService";
+import CreatePosts from "../CreatePost/CreatePost";
+import fileStorage from "../../configs/fileStorage";
 
 function SwapFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +40,7 @@ function SwapFeedComponent() {
   const [storiesImage, setStoriesImage] = useState([]);
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
-  const [showComp, setShowComp] = useState('newsfeed');
+  const [showComp, setShowComp] = useState("newsfeed");
   const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
@@ -53,23 +53,23 @@ function SwapFeedComponent() {
 
   const [count, setCount] = useState(1);
 
-  const [swapContent, setSwapContent] = useState('');
+  const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
 
-  const [postContent, setPostContent] = useState('');
-  const [commentContent, setCommentContent] = useState('');
+  const [postContent, setPostContent] = useState("");
+  const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState({});
   const [swapfiles, setSwapfiles] = useState({});
   const [postImage, setPostImage] = useState({});
   const [showPostImage, setShowPostImage] = useState(false);
 
-  const [uploadError, setUploadError] = useState('');
+  const [uploadError, setUploadError] = useState("");
 
   const [editPostId, setEditPostId] = useState(null);
 
-  const [img, setImage] = useState('');
-  const [Privacy, setPrivacy] = useState('');
+  const [img, setImage] = useState("");
+  const [Privacy, setPrivacy] = useState("");
 
   const [friendsList, setFriendsList] = useState([]);
   const [allUser, setAllUser] = useState([]);
@@ -98,11 +98,11 @@ function SwapFeedComponent() {
 
   const uploadStories = (event) => {
     event.preventDefault();
-    setUploadError('');
-    console.log('uploading stories working');
+    setUploadError("");
+    console.log("uploading stories working");
 
     const formData = new FormData();
-    console.log(' this is the files' + filesStry);
+    console.log(" this is the files" + filesStry);
     formData.append(`stryfiles`, filesStry);
     StoriesService.createStories(user.id, formData).then((res) => {
       console.log(JSON.stringify(res));
@@ -118,28 +118,36 @@ function SwapFeedComponent() {
   // }
 
   const getStoriesForUser = async () => {
-    await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then((res) => {
+    await StoriesService.getStoriesForUser(
+      AuthService.getCurrentUser().username
+    ).then((res) => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.date),
           dateB = new Date(b.date);
         return dateB - dateA;
       });
-      const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
-        return res.data.find((a) => a.id === id);
-      });
+      const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map(
+        (id) => {
+          return res.data.find((a) => a.id === id);
+        }
+      );
       setStoriesForUser(uniqueStories);
     });
   };
   const getPostForUser = async () => {
-    await PostService.getPostForUser(AuthService.getCurrentUser().username).then((res) => {
+    await PostService.getPostForUser(
+      AuthService.getCurrentUser().username
+    ).then((res) => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published),
           dateB = new Date(b.published);
         return dateB - dateA;
       });
-      const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
-        return res.data.find((a) => a.id === id);
-      });
+      const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
+        (id) => {
+          return res.data.find((a) => a.id === id);
+        }
+      );
       setPostsForUser(uniquePost);
     });
   };
@@ -196,7 +204,9 @@ function SwapFeedComponent() {
   };
 
   const getSavedPost = async () => {
-    await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then((res) => {
+    await PostService.getSavedPostForUser(
+      AuthService.getCurrentUser().username
+    ).then((res) => {
       setSavedPost(res.data);
     });
   };
@@ -220,20 +230,20 @@ function SwapFeedComponent() {
   };
 
   const handlePostingComment = (postid) => {
-    if (commentContent === '') {
+    if (commentContent === "") {
       return null;
     }
     const comment = { content: commentContent };
     PostService.addComment(user.id, postid, comment).then((res) => {
       console.log(res.status);
       setRefresh(res.data);
-      setCommentContent('');
+      setCommentContent("");
     });
   };
   const handleCount = (opertator) => {
-    if (opertator === '+') {
+    if (opertator === "+") {
       let counting = count + 1;
-      console.log(counting + 'hi count');
+      console.log(counting + "hi count");
       setCount(counting);
     }
   };
@@ -279,7 +289,9 @@ function SwapFeedComponent() {
     //   }
     // })
 
-    const result = post.reactions.filter((reaction) => reaction.user.id == userR.id);
+    const result = post.reactions.filter(
+      (reaction) => reaction.user.id == userR.id
+    );
     if (result.length > 0) {
       return true;
     }
@@ -298,13 +310,13 @@ function SwapFeedComponent() {
     //   return false
     // }
     // })
-    console.log(post.savedByUsers.length + ' yaa');
+    console.log(post.savedByUsers.length + " yaa");
     const result = post.savedByUsers.filter((userz) => userz.id == user.id);
     if (result.length > 0) {
-      console.log(' FOUND');
+      console.log(" FOUND");
       return true;
     }
-    console.log(' Not found');
+    console.log(" Not found");
     return false;
   };
 
@@ -326,10 +338,10 @@ function SwapFeedComponent() {
     console.log(event.target.value);
     setPrivacy(event.target.value);
   };
-  const uploadPost = (event) => {
+  const uploadSwap = (event) => {
     event.preventDefault();
     setUploadError('');
-    console.log('uploading post working');
+    console.log('uploading swap working');
     if (postContent === '' && Object.keys(files).length === 0 && files.constructor === Object) {
       console.log('cant be null');
       setUploadError('Please Insert A Text or an Image');
@@ -337,23 +349,68 @@ function SwapFeedComponent() {
     }
 
     const formData = new FormData();
+
     formData.append('content', postContent);
-    console.log(' this is the files' + files);
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`files`, files[i]);
+    }
+    console.log(formData.getAll(`files`));
+    console.log(' this is the files' + files[0]);
     console.log(' this is the swapfiles' + swapfiles);
+    for (let i = 0; i < `files`.length; i++) {
+      console.log(files);
+    }
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
+    if (userF === null) {
+      SwapService.createSwap(user.id, formData, null).then((res) => {
+        console.log(JSON.stringify(res));
+        console.log(res.data);
+        console.log(user.id);
+        setSwapContent('');
+        handleRemoveImage();
+        setRefresh(res.data);
+      });
+    } else
+      SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+        console.log(JSON.stringify(res));
+        setSwapContent('');
+        handleRemoveImage();
+        setRefresh(res.data);
+      });
+  };
+  const uploadPost = (event) => {
+    event.preventDefault();
+    setUploadError("");
+    console.log("uploading post working");
+    if (
+      postContent === "" &&
+      Object.keys(files).length === 0 &&
+      files.constructor === Object
+    ) {
+      console.log("cant be null");
+      setUploadError("Please Insert A Text or an Image");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("content", postContent);
+    console.log(" this is the files" + files);
+    console.log(" this is the swapfiles" + swapfiles);
     formData.append(`files`, files);
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
       PostService.createPost(user.id, formData, null).then((res) => {
         console.log(JSON.stringify(res));
-        setPostContent('');
+        setPostContent("");
         handleRemoveImage();
         setRefresh(res.data);
       });
     } else
       PostService.createPost(user.id, formData, userF.id).then((res) => {
         console.log(JSON.stringify(res));
-        setPostContent('');
+        setPostContent("");
         handleRemoveImage();
         setRefresh(res.data);
       });
@@ -430,53 +487,69 @@ function SwapFeedComponent() {
   }
   const getUser = async () => {
     if (user === null) {
-      console.log('RUNNING');
-      await UserService.getUserByEmail(AuthService.getCurrentUser().username).then((res) => {
+      console.log("RUNNING");
+      await UserService.getUserByEmail(
+        AuthService.getCurrentUser().username
+      ).then((res) => {
         setUserR(res.data);
       });
     } else {
-      console.log('WALKING' + JSON.stringify(user));
+      console.log("WALKING" + JSON.stringify(user));
       setUserR(user);
     }
   };
   const imageshow = () => {
     return (
-      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
-        <div style={{ display: 'inline' }}>What's in hang?</div>
+      <div
+        style={{
+          margin: "0 11px",
+          padding: "15px",
+          boxShadow: "0 0 3px rgb(0 0 0 / 16%)",
+          borderRadius: "5px",
+        }}
+      >
+        <div style={{ display: "inline" }}>What's in hang?</div>
 
-        <div className='add-smilespopup'>
-          <label className='fileContainer'>
-            <i class='lar la-file-image'></i>{' '}
-            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+        <div className="add-smilespopup">
+          <label className="fileContainer">
+            <i class="lar la-file-image"></i>{" "}
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
           </label>
         </div>
-        <div className='gifpopup'>
+        <div className="gifpopup">
           <Popup
             trigger={
-              <a href='#!'>
-                <i class='las la-user-tag'></i>
+              <a href="#!">
+                <i class="las la-user-tag"></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className='popwidth'>
-                <div class='search-container'>
-                  <i class='las la-search'></i>
+              <Form style={{ margin: "5px" }} className="popwidth">
+                <div class="search-container">
+                  <i class="las la-search"></i>
                   <input
-                    className='friend-search'
-                    type='text'
-                    id='header-search'
-                    placeholder='Search Friends'
-                    name='s'
+                    className="friend-search"
+                    type="text"
+                    id="header-search"
+                    placeholder="Search Friends"
+                    name="s"
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className="Tag">
+                      Tagged:{`${userF.firstName} ${userF.lastName}`}
+                    </div>
                   </>
                 ) : null}
                 <div>
@@ -485,23 +558,29 @@ function SwapFeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className='friends-card'>
-                              <a href='#!' onClick={() => handleTag(userM)}>
-                                {' '}
-                                <div className='grid-container'>
+                            <li key={userM.id} className="friends-card">
+                              <a href="#!" onClick={() => handleTag(userM)}>
+                                {" "}
+                                <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class='item1'>
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                                  <div class="item1">
+                                    <a
+                                      href={`/profile/${userM.email}`}
+                                      title={`${userM.email}`}
+                                    >
                                       <img
-                                        style={{ objectFit: 'cover' }}
-                                        src={fileStorage.baseUrl + userM.profilePicturePath}
-                                        alt=''
+                                        style={{ objectFit: "cover" }}
+                                        src={
+                                          fileStorage.baseUrl +
+                                          userM.profilePicturePath
+                                        }
+                                        alt=""
                                       />
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class='item2'>
-                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div class="item2">
+                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div>
@@ -511,7 +590,9 @@ function SwapFeedComponent() {
                         )}
                       </>
                     ) : (
-                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                      <div style={{ padding: "10% 0", textAlign: "center" }}>
+                        You have no friends to tag
+                      </div>
                     )}
                   </ul>
                 </div>
@@ -519,10 +600,15 @@ function SwapFeedComponent() {
             )}
           </Popup>
         </div>
-        <div className='campopup'>
-          <label className='fileContainer'>
-            <i class='las la-map-marker-alt'></i>
-            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+        <div className="campopup">
+          <label className="fileContainer">
+            <i class="las la-map-marker-alt"></i>
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
           </label>
         </div>
 
@@ -535,42 +621,62 @@ function SwapFeedComponent() {
   };
   const imageshowPost = () => {
     return (
-      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
-        <div style={{ display: 'inline' }}>Add More</div>
+      <div
+        style={{
+          margin: "0 11px",
+          padding: "15px",
+          boxShadow: "0 0 3px rgb(0 0 0 / 16%)",
+          borderRadius: "5px",
+        }}
+      >
+        <div style={{ display: "inline", fontSize: "12px" }}>
+          Select image to swap
+        </div>
 
-        <div className='add-smilespopup'>
-          <label className='fileContainer'>
-            <i class='lar la-file-image'></i>{' '}
-            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+        <div className="add-smilespopup">
+          <label className="fileContainer">
+            <i class="lar la-file-image"></i>{" "}
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
           </label>
         </div>
-        <div className='gifpopup'>
+        <div className="morepopup">
+          <i class="fas fa-ellipsis-h"></i>
+        </div>
+        {/*
+        <div className="gifpopup">
           <Popup
             trigger={
-              <a href='#!'>
-                <i class='las la-user-tag'></i>
+              <a href="#!">
+                <i class="las la-user-tag"></i>
               </a>
             }
             nested
             modal
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className='popwidth'>
-                <div class='search-container'>
-                  <i class='las la-search'></i>
+              <Form style={{ margin: "5px" }} className="popwidth">
+                <div class="search-container">
+                  <i class="las la-search"></i>
                   <input
-                    className='friend-search'
-                    type='text'
-                    id='header-search'
-                    placeholder='Search Friends'
-                    name='s'
+                    className="friend-search"
+                    type="text"
+                    id="header-search"
+                    placeholder="Search Friends"
+                    name="s"
                     onChange={handleSearchedUser}
                   />
                   <span onClick={close}>Done</span>
                 </div>
                 {userF ? (
                   <>
-                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                    <div className="Tag">
+                      Tagged:{`${userF.firstName} ${userF.lastName}`}
+                    </div>
                   </>
                 ) : null}
                 <div>
@@ -579,25 +685,30 @@ function SwapFeedComponent() {
                       <>
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className='friends-card'>
-                              <a href='#!' onClick={() => handleTag(userM)}>
-                                {' '}
-                                <div className='grid-container'>
-                                  {/* <figure> */}
-                                  <div class='item1'>
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                            <li key={userM.id} className="friends-card">
+                              <a href="#!" onClick={() => handleTag(userM)}>
+                                {" "}
+                                <div className="grid-container">
+                                  {/* <figure> commented*/}
+                                  {/*<div class="item1">
+                                    <a
+                                      href={`/profile/${userM.email}`}
+                                      title={`${userM.email}`}
+                                    >
                                       <img
-                                        style={{ objectFit: 'cover' }}
-                                        src={fileStorage.baseUrl + userM.profilePicturePath}
-                                        alt=''
+                                        style={{ objectFit: "cover" }}
+                                        src={
+                                          fileStorage.baseUrl +
+                                          userM.profilePicturePath
+                                        }
+                                        alt=""
                                       />
                                     </a>
-                                    {/* </figure> */}
+                                    {/* </figure> commented*/}
+                                  {/*</div>
+                                  <div class="item2">
+                                    <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
-                                  <div class='item2'>
-                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
-                                  </div>
-                                  {/* <div className="  "> */}
                                 </div>
                               </a>
                             </li>
@@ -605,21 +716,27 @@ function SwapFeedComponent() {
                         )}
                       </>
                     ) : (
-                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                      <div style={{ padding: "10% 0", textAlign: "center" }}>
+                        You have no friends to tag
+                      </div>
                     )}
                   </ul>
                 </div>
               </Form>
             )}
           </Popup>
-        </div>
-        <div className='campopup'>
-          <label className='fileContainer'>
-            <i class='las la-map-marker-alt'></i>
-            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+        </div>/*}
+        {/*<div className="campopup">
+          <label className="fileContainer">
+            <i class="las la-map-marker-alt"></i>
+            <input
+              type="file"
+              name="post_image"
+              accept="image/*"
+              onChange={handleFile}
+            ></input>
           </label>
-        </div>
-
+        </div>*/}
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
         <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
@@ -632,9 +749,13 @@ function SwapFeedComponent() {
     return (
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer' }}>
-            <span style={{ marginRight: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '15px' }} src='/assets/images/hangshare.svg' alt='img' />
+          <span style={{ cursor: "pointer" }}>
+            <span style={{ marginRight: "5px" }}>
+              <img
+                style={{ verticalAlign: "middle", width: "15px" }}
+                src="/assets/images/hangshare.svg"
+                alt="img"
+              />
             </span>
             Hang Share
           </span>
@@ -643,81 +764,104 @@ function SwapFeedComponent() {
         nested
       >
         {(close) => (
-          <Form className='popwidth' style={{ margin: '5px' }}>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                    <i class='las la-times'></i>
+          <Form className="popwidth" style={{ margin: "5px" }}>
+            <div className="headpop">
+              <div className="row">
+                <div style={{ width: "5%" }}>
+                  <a
+                    href="#!"
+                    style={{ padding: "10px 80px 10px 0" }}
+                    onClick={close}
+                  >
+                    <i class="las la-times"></i>
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
+                  style={{
+                    color: "#000000",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    width: "70%",
+                    textAlign: "center",
+                  }}
                 >
-                  {' '}
+                  {" "}
                   <span>Today to me, Tomorrow to you</span>
                 </div>
-                <div style={{ width: '25%', textAlign: 'right' }}>
-                  <a className='popup-btn' href='/HangGift'>
+                <div style={{ width: "25%", textAlign: "right" }}>
+                  <a className="popup-btn" href="/HangGift">
                     Keep Hang
                   </a>
                 </div>
               </div>
             </div>
 
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className='popupimg'>
+            <div style={{ padding: "0 11px 11px 11px" }}>
+              <div className="popupimg">
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </div>
-              <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
+              <div class="popupuser-name">
+                <div style={{ float: "left", display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                    {userF ? (
+                      <> with {`${userF.firstName} ${userF.lastName}`}</>
+                    ) : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdown'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
+                  <span style={{ display: "block", fontSize: "12px" }}>
+                    <div className="dropdown">
+                      <select
+                        name="privacy"
+                        id="privacy"
+                        value={Privacy}
+                        onChange={handlePrivacy}
+                      >
+                        <option value="Friends">Friends</option>
+                        <option value="Public">Public</option>
+                        <option value="Only Me">Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{" "}
                   </span>
-                </div>{' '}
-              </div>{' '}
+                </div>{" "}
+              </div>{" "}
             </div>
-            <div style={{ margin: '0 0 100px 11px' }}>
-              <span className='textPop'>
+            <div style={{ margin: "0 0 100px 11px" }}>
+              <span className="textPop">
                 <textarea
-                  className='textpopup'
+                  className="textpopup"
                   rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='post_content'
+                  placeholder={
+                    uploadError ? `${uploadError}` : "We share,do you?"
+                  }
+                  name="post_content"
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
                   <>
-                    <img id='preview' src={postImage} style={{ width: '100%', objectFit: 'cover' }} />
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%", objectFit: "cover" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '25px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "25px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i class="las la-times"></i>
                     </button>
                   </>
                 ) : null}
@@ -728,15 +872,15 @@ function SwapFeedComponent() {
             {imageshow()}
             <div
               style={{
-                textAlign: 'center',
-                background: '#C4C4C4',
-                fontWeight: 'bold',
-                color: 'rgb(68 68 68)',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
+                textAlign: "center",
+                background: "#C4C4C4",
+                fontWeight: "bold",
+                color: "rgb(68 68 68)",
+                margin: "11px 11px",
+                padding: "15px",
+                borderRadius: "5px",
+                fontSize: "14px",
+                cursor: "pointer",
               }}
               onClick={uploadPost}
             >
@@ -752,8 +896,8 @@ function SwapFeedComponent() {
     return (
       <Popup
         trigger={
-          <div className='textbox'>
-            <span style={{ cursor: 'pointer' }}>We share,do you?</span>
+          <div className="textbox">
+            <span style={{ cursor: "pointer" }}>We share,do you?</span>
           </div>
         }
         modal
@@ -770,83 +914,104 @@ function SwapFeedComponent() {
     return (
       <Popup
         trigger={
-          <div className='textbox'>
-            <span style={{ cursor: 'pointer' }}>We share,do you?</span>
+          <div className="textbox">
+            <span style={{ cursor: "pointer" }}>We share,do you?</span>
           </div>
         }
         modal
         nested
       >
         {(close) => (
-          <Form className='popwidth'>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' onClick={close}>
-                    <i class='las la-times'></i>
+          <Form className="popwidth">
+            <div className="headpop">
+              <div className="row">
+                <div style={{ width: "5%" }}>
+                  <a href="#!" onClick={close}>
+                    <i class="las la-times"></i>
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '95%', textAlign: 'center' }}
+                  style={{
+                    color: "#000000",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    width: "95%",
+                    textAlign: "center",
+                  }}
                 >
                   <span>We share, do you?</span>
                 </div>
               </div>
             </div>
 
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className='popupimg'>
+            <div style={{ padding: "0 11px 11px 11px" }}>
+              <div className="popupimg">
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </div>
-              <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+              <div class="popupuser-name">
+                <div style={{ float: "left", display: "inline" }}>
+                  <span
+                    style={{ textTransform: "capitalize", fontWeight: "bold" }}
+                  >
                     {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                    {userF ? (
+                      <> with {`${userF.firstName} ${userF.lastName}`}</>
+                    ) : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdown'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
+                  <span style={{ display: "block", fontSize: "12px" }}>
+                    <div className="dropdown">
+                      <select
+                        name="privacy"
+                        id="privacy"
+                        value={Privacy}
+                        onChange={handlePrivacy}
+                      >
+                        <option value="Friends">Friends</option>
+                        <option value="Public">Public</option>
+                        <option value="Only Me">Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{" "}
                   </span>
-                </div>{' '}
-              </div>{' '}
+                </div>{" "}
+              </div>{" "}
             </div>
-            <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className='textPop'>
+            <div style={{ margin: "0 11px 100px 11px" }}>
+              <span className="textPop">
                 <textarea
-                  className='textpopup'
+                  className="textpopup"
                   rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='post_content'
+                  placeholder={
+                    uploadError ? `${uploadError}` : "We share,do you?"
+                  }
+                  name="post_content"
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
                   <>
-                    <img id='preview' src={postImage} style={{ width: '100%' }} />
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i class="ltimesas la-"></i>
                     </button>
                   </>
                 ) : null}
@@ -856,15 +1021,15 @@ function SwapFeedComponent() {
             {imageshowPost()}
             <div
               style={{
-                textAlign: 'center',
-                background: '#C4C4C4',
-                fontWeight: 'bold',
-                color: 'rgb(68 68 68)',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
+                textAlign: "center",
+                background: "#C4C4C4",
+                fontWeight: "bold",
+                color: "rgb(68 68 68)",
+                margin: "11px 11px",
+                padding: "15px",
+                borderRadius: "5px",
+                fontSize: "14px",
+                cursor: "pointer",
               }}
               onClick={uploadPost}
             >
@@ -880,8 +1045,12 @@ function SwapFeedComponent() {
     return (
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle' }} src='/assets/images/share-2.svg' alt='img' />
+          <span style={{ cursor: "pointer" }}>
+            <img
+              style={{ verticalAlign: "middle" }}
+              src="/assets/images/share-2.svg"
+              alt="img"
+            />
             Share Up
           </span>
         }
@@ -889,93 +1058,141 @@ function SwapFeedComponent() {
         nested
       >
         {(close) => (
-          <Form className='popwidth'>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <span>
-                    <a href='#!' onClick={close}>
-                      <i class='las la-times'></i>
+          <Form className="popwidth" style={{ width: "100%" }}>
+            <div className="headpop">
+              <div className="row">
+                <div
+                  style={{
+                    color: "#000000",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    width: "95%",
+                    textAlign: "center",
+                  }}
+                >
+                  <span>Create Swap Post</span>
+                </div>
+                <div style={{ width: "5%" }}>
+                  <span style={{}}>
+                    <a href="#!" onClick={close}>
+                    <i class="far fa-times-circle"></i>
                     </a>
                   </span>
                 </div>
-                <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}
-                >
-                  <span>Share up</span>
-                </div>
-                <div style={{ width: '10%', textAlign: 'center' }}>
+                {/* <div style={{ width: '10%', textAlign: 'center' }}>
                   <span style={{ float: 'right' }}>
                     {' '}
                     <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
                       Post
                     </button>
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
 
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              {' '}
-              <div className='popupimg'>
+            <div style={{ padding: "0 11px 11px 11px" }}>
+              {" "}
+              <div className="popupimg">
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </div>
-              <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+              <div class="popupuser-name">
+                <div style={{ float: "left", display: "inline" }}>
+                  <span
+                    style={{ textTransform: "capitalize", fontWeight: "bold" }}
+                  >
                     {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                    {userF ? (
+                      <> with {`${userF.firstName} ${userF.lastName}`}</>
+                    ) : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdown'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "12px",
+                      fontWeight: "100",
+                    }}
+                  >
+                    <div className="dropdown" style={{display: 'flex' , alignItems: 'center' }}>
+                      <i className="fas fa-users"></i>
+                      <select
+                        name="privacy"
+                        id="privacy"
+                        value={Privacy}
+                        onChange={handlePrivacy}
+                        style={{ border: "0", marginLeft: "-1px" }}
+                      >
+                        <option value="Friends">Friends</option>
+                        <option value="Public">Public</option>
+                        <option value="Only Me">Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{" "}
                   </span>
-                </div>{' '}
-              </div>{' '}
+                </div>{" "}
+              </div>{" "}
             </div>
-            <div style={{ margin: '0 11px 100px 11px' }}>
-              <span className='textPop'>
+            <div style={{ margin: "0 11px 100px 11px" }}>
+              <span className="textPop">
                 <textarea
-                  className='textpopup'
+                  className="textpopup"
                   rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='post_content'
+                  style={{ fontSize: "12px", width: "100%" , borderRadius:'0' }}
+                  placeholder={
+                    uploadError
+                      ? `${uploadError}`
+                      : "Whats on your mind? ,  " + user.firstName
+                  }
+                  name="post_content"
                   value={postContent}
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
-                  <>
-                    <img id='preview' src={postImage} style={{ width: '100%' }} />
+                  <div className="" >
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i class="las la-times"></i>
                     </button>
-                  </>
+                  </div>
                 ) : null}
               </span>
             </div>
 
             {imageshowPost()}
+            <div style={{ textAlign: "center" }}>
+              <div
+                type='submit'
+                value='Submit'
+                  style={{
+                    
+                    padding: "10px",
+                    backgroundColor: "#bc7dc4",
+                    borderRadius: "5px",
+                    margin: "15px 10px ",
+                  }}
+                onClick={uploadSwap}
+                >
+                Share Swap
+              </div>
+            </div>
           </Form>
         )}
       </Popup>
@@ -985,75 +1202,95 @@ function SwapFeedComponent() {
     return (
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer' }}>
-            <img style={{ verticalAlign: 'middle', padding: '5px' }} src='assets/images/images.svg' />
+          <span style={{ cursor: "pointer" }}>
+            <img
+              style={{ verticalAlign: "middle", padding: "5px" }}
+              src="assets/images/images.svg"
+            />
             <span>Photos</span>
           </span>
         }
         modal
       >
         {(close) => (
-          <Form className='popwidth'>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
+          <Form className="popwidth">
+            <div className="headpop">
+              <div className="row">
+                <div style={{ width: "5%" }}>
                   <span>
-                    <a href='#!' onClick={close}>
-                      <i class='las la-times'></i>
+                    <a href="#!" onClick={close}>
+                      <i class="las la-times"></i>
                     </a>
                   </span>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}
+                  style={{
+                    color: "#000000",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    width: "85%",
+                    textAlign: "center",
+                  }}
                 >
                   <span>Let's swap</span>
                 </div>
-                <div style={{ width: '10%', textAlign: 'center' }}>
-                  <span style={{ float: 'right' }}>
-                    {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
+                <div style={{ width: "10%", textAlign: "center" }}>
+                  <span style={{ float: "right" }}>
+                    {" "}
+                    <button
+                      style={{ float: "right", borderRadius: "20px" }}
+                      type="submit"
+                      onClick={uploadPost}
+                    >
                       Post
                     </button>
                   </span>
                 </div>
               </div>
             </div>
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              {' '}
-              <div className='popupimg'>
+            <div style={{ padding: "0 11px 11px 11px" }}>
+              {" "}
+              <div className="popupimg">
                 <img
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </div>
-              <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
+              <div class="popupuser-name">
+                <div style={{ float: "left", display: "inline" }}>
                   <span
-                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+                    style={{ textTransform: "capitalize", fontWeight: "bold" }}
                   >{`${user.firstName} ${user.lastName}`}</span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdown'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
+                  <span style={{ display: "block", fontSize: "12px" }}>
+                    <div className="dropdown">
+                      <select
+                        name="privacy"
+                        id="privacy"
+                        value={Privacy}
+                        onChange={handlePrivacy}
+                      >
+                        <option value="Friends">Friends</option>
+                        <option value="Public">Public</option>
+                        <option value="Only Me">Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{" "}
                   </span>
-                </div>{' '}
-              </div>{' '}
+                </div>{" "}
+              </div>{" "}
             </div>
-            <div style={{ margin: '0 11px 0x 11px' }}>
-              <span className='textPop'>
+            <div style={{ margin: "0 11px 0x 11px" }}>
+              <span className="textPop">
                 <textarea
-                  className='textpopup'
+                  className="textpopup"
                   rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='swap_content'
+                  placeholder={
+                    uploadError ? `${uploadError}` : "We share,do you?"
+                  }
+                  name="swap_content"
                   value={postContent}
                   onChange={handlePostContent}
                 />
@@ -1068,45 +1305,71 @@ function SwapFeedComponent() {
                                     <option value="Public">Public</option>
                                     <option value="Only Me">Only Me</option>
                                   </select></div> </span></div> </div>  */}
-            <div className='row mrginbtm'>
-              <div style={{ width: '50%', display: 'inline', textAlign: 'center' }}>
-                <div style={{ height: '230px' }}>
+            <div className="row mrginbtm">
+              <div
+                style={{ width: "50%", display: "inline", textAlign: "center" }}
+              >
+                <div style={{ height: "230px" }}>
                   {showPostImage ? (
                     <>
-                      <img id='preview' src={postImage} />
-                      <button onClick={handleRemoveImage} className='buttonClosePrvw lftbtn'>
-                        <i class='las la-times'></i>
+                      <img id="preview" src={postImage} />
+                      <button
+                        onClick={handleRemoveImage}
+                        className="buttonClosePrvw lftbtn"
+                      >
+                        <i class="las la-times"></i>
                       </button>
                     </>
                   ) : null}
                 </div>
-                <div className='swaptext'>Provide clear image of object to swap</div>
-                <div style={{ textAlign: 'center' }}>
-                  <label className='fileContainer'>
-                    <button className='swapPopupBtn' type='submit'>
-                      <input type='file' name='swap_image' accept='image/*' onChange={handleFile}></input>Add photo
+                <div className="swaptext">
+                  Provide clear image of object to swap
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <label className="fileContainer">
+                    <button className="swapPopupBtn" type="submit">
+                      <input
+                        type="file"
+                        name="swap_image"
+                        accept="image/*"
+                        onChange={handleFile}
+                      ></input>
+                      Add photo
                     </button>
                   </label>
                 </div>
               </div>
 
               {/* <label className="fileContainer"><div style={{textAlign:'center',background:'#C4C4C4',fontWeight:'bold',color:'rgb(68 68 68)', margin:'11px 11px', padding:'15px',borderRadius:'5px'}} > Let's take picture<input type="file" name="post_image" accept="image/*" onChange={handleFile}></input></div></label> */}
-              <div style={{ width: '50%', display: 'inline', textAlign: 'center' }}>
-                <div style={{ height: '230px' }}>
+              <div
+                style={{ width: "50%", display: "inline", textAlign: "center" }}
+              >
+                <div style={{ height: "230px" }}>
                   {showSwapImage ? (
                     <>
-                      <img id='preview' src={swapImage} />
-                      <button onClick={handleRemoveImageSwap} className='buttonClosePrvw rtbtn'>
-                        <i class='las la-times'></i>
+                      <img id="preview" src={swapImage} />
+                      <button
+                        onClick={handleRemoveImageSwap}
+                        className="buttonClosePrvw rtbtn"
+                      >
+                        <i class="las la-times"></i>
                       </button>
                     </>
                   ) : null}
                 </div>
-                <div className='swaptext'>Provide image of object in return</div>
-                <div style={{ textAlign: 'center' }}>
-                  <label className='fileContainer'>
-                    <button className='swapPopupBtn' type='submit'>
-                      <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>Add photo
+                <div className="swaptext">
+                  Provide image of object in return
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <label className="fileContainer">
+                    <button className="swapPopupBtn" type="submit">
+                      <input
+                        type="file"
+                        name="swap_image"
+                        accept="image/*"
+                        onChange={handleFileSwap}
+                      ></input>
+                      Add photo
                     </button>
                   </label>
                 </div>
@@ -1123,11 +1386,14 @@ function SwapFeedComponent() {
 
   const show = () => {
     return (
-      <div className='loadMore'>
+      <div className="loadMore">
         {postsForUser.map((post) => (
           <div key={post.id}>
             {post.group
-              ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
+              ? post.group.members.some(
+                  (member) =>
+                    member.email === AuthService.getCurrentUser().username
+                )
                 ? testFanc(post)
                 : null
               : testFanc(post)}
@@ -1164,7 +1430,7 @@ function SwapFeedComponent() {
     console.log(userM);
   };
   const handleSearchedUser = (event) => {
-    if (event.target.value === '') {
+    if (event.target.value === "") {
       setSearchedUser(allUser);
     } else {
       let temp = [];
@@ -1173,7 +1439,11 @@ function SwapFeedComponent() {
         const firstname = u.firstName.toLowerCase();
         const lastname = u.lastName.toLowerCase();
         const searchedvalue = event.target.value.toLowerCase();
-        if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
+        if (
+          email.includes(searchedvalue) ||
+          firstname.includes(searchedvalue) ||
+          lastname.includes(searchedvalue)
+        ) {
           temp.push(u);
         }
       });
@@ -1186,12 +1456,14 @@ function SwapFeedComponent() {
       setAllUser(res.data);
       setSearchedUser(res.data);
     });
-    console.log(user.email + ' This is the users');
+    console.log(user.email + " This is the users");
   };
   const getFriendsList = async () => {
-    await FriendsService.getFriends(AuthService.getCurrentUser().username).then((res) => {
-      setFriendsList(res.data);
-    });
+    await FriendsService.getFriends(AuthService.getCurrentUser().username).then(
+      (res) => {
+        setFriendsList(res.data);
+      }
+    );
   };
 
   useEffect(() => {
@@ -1240,9 +1512,9 @@ function SwapFeedComponent() {
       {user.newUser ? (
         <GuideComponent />
       ) : (
-        <div className='col-lg-6'>
-          <div className='central-meta newsfeed'>
-            <div className='new-postbox'>
+        <div className="col-lg-6">
+          <div className="central-meta newsfeed">
+            <div className="new-postbox">
               <figure>
                 <img
                   src={
@@ -1250,10 +1522,10 @@ function SwapFeedComponent() {
                       ? fileStorage.baseUrl + user.profilePicturePath
                       : fileStorage.baseUrl + userR.profilePicturePath
                   }
-                  alt=''
+                  alt=""
                 />
               </figure>
-              <div className='newpst-input'>
+              <div className="newpst-input">
                 <Form>
                   {postUp1()}
                   {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
@@ -1266,7 +1538,7 @@ function SwapFeedComponent() {
                       null
                     } */}
 
-                  <div className='attachments'>
+                  <div className="attachments">
                     <ul>
                       <li>{popUp()}</li>
                       {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>

@@ -12959,10 +12959,15 @@ a.popup-btn:hover {
 }
 .add-smilespopup {
   position: absolute;
-  right: 100px;
+  right: 80px;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
+}
+.morepopup{
+  position: absolute;
+  right: 50px;
+  bottom: 85px;
 }
 select {
   border-radius: 5px;
