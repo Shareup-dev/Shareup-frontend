@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/UserService';
 import PostService from '../../services/PostService';
-import EditPostComponent from './EditSwapComponent';
+import EditSwapComponent from './EditSwapComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
 import SwapComponentBoxComponent from './SwapCommentBoxComponent';
 import Popup from 'reactjs-popup';
@@ -402,6 +402,12 @@ export default function SwapComponent({ post, setRefresh }) {
                       </span>
                     </div>
                   )} */}
+                  <div className='reaction' >
+                      <span className='dislike' data-toggle='tooltip' title=''>
+                        <img src='/assets/images/Star.svg' alt='' />
+                        <span style={{ paddingLeft: '10px' }}></span>
+                      </span>
+                    </div>
                   <div className='commShare'>
                     <div className='btncmn' onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments'>
@@ -421,7 +427,7 @@ export default function SwapComponent({ post, setRefresh }) {
             </div>
           </div>
         ) : (
-          <EditPostComponent post={post} set={handleEditingSave} />
+          <EditSwapComponent post={post} set={handleEditingSave} />
         )}
 
         {showMoreOptions && (

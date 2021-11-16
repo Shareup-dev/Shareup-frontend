@@ -704,6 +704,7 @@ function NewsfeedComponent() {
               name="post_image"
               accept="image/*"
               onChange={handleFile}
+              multiple
             ></input>
           </label>
         </div>
@@ -1208,7 +1209,7 @@ function NewsfeedComponent() {
                 <div
                   style={{
                     color: "#000000",
-                    fontSize: "15px",
+                    fontSize: "17px",
                     fontWeight: "bold",
                     width: "95%",
                     textAlign: "center",
@@ -1249,7 +1250,7 @@ function NewsfeedComponent() {
               <div class="popupuser-name">
                 <div style={{ float: "left", display: "inline" }}>
                   <span
-                    style={{ textTransform: "capitalize", fontWeight: "bold" }}
+                    style={{ textTransform: "capitalize", fontWeight: "bold" , fontSize: '14px' }}
                   >
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? (
@@ -1281,7 +1282,7 @@ function NewsfeedComponent() {
                 </div>{" "}
               </div>{" "}
             </div>
-            <div style={{ margin: "0 11px 100px 11px" }}>
+            <div style={{ margin: "0 11px 80px 11px" }}>
               <span className="textPop">
                 <textarea
                   className="textpopup"
@@ -1297,23 +1298,49 @@ function NewsfeedComponent() {
                   onChange={handlePostContent}
                 />
                 {showPostImage ? (
-                  <div className="" >
-                    <img
-                      id="preview"
-                      src={postImage}
-                      style={{ width: "100%" }}
-                    />
+                  <div style={{ position: "relative" }}> 
+                    <div style={postImage.length>1?{border: '1px solid #e5e5e5',borderRadius: '5px' , display: 'flex'}:{}}>
+                      {
+                        postImage.length > 0 && postImage.length < 2
+                        ?
+                        <img
+                          src={postImage[0]}
+                          style={{
+                            border: '1px solid #e5e5e5' , 
+                            borderRadius: '5px' ,
+                            padding: '10px',
+                            maxHeight: '400px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+
+                        : postImage.map((item, key) => (
+                        <img
+                          src={item}
+                          key={key}
+                          style={{
+                            maxWidth: '150px',
+                            maxHeight: '150px',
+                            padding: '10px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+                      ))}
+                    </div>
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: "20px",
-                        position: "absolute",
-                        borderRadius: "100%",
-                        background: "#b7b7b738",
-                        padding: "10px 10px",
+                        right: '20px',
+                        top: '10px',
+                        position: 'absolute',
+                        borderRadius: '100%',
+                        background: '#b7b7b738',
+                        padding: '10px 10px',
                       }}
                     >
-                      <i class="las la-times"></i>
+                      <i class='las la-times'></i>
                     </button>
                   </div>
                 ) : null}
