@@ -35,7 +35,7 @@ export default function SwapComponents() {
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [showComp, setShowComp] = useState("newsfeed");
-const[showCompont,setShowCompont]= useState();
+  const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
   const [storiesForUser, setStoriesForUser] = useState([]);
@@ -44,20 +44,20 @@ const[showCompont,setShowCompont]= useState();
   const [group, setGroup] = useState([]);
   const [allGroups, setAllGroups] = useState([]);
   const [searchedGroups, setSearchedGroups] = useState([]);
-  
+
   const [count, setCount] = useState(1);
 
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
-  
+
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState({});
   const [swapfiles, setSwapfiles] = useState({});
   const [postImage, setPostImage] = useState({});
   const [showPostImage, setShowPostImage] = useState(false);
- 
+
   const [uploadError, setUploadError] = useState("");
 
   const [editPostId, setEditPostId] = useState(null)
@@ -66,9 +66,9 @@ const[showCompont,setShowCompont]= useState();
   const [Privacy, setPrivacy] = useState("");
 
   const [friendsList, setFriendsList] = useState([]);
-    const [allUser, setAllUser] = useState([]);
-    const [userF, setUserF] = useState(null);
-    const [searchedUser, setSearchedUser] = useState([]);
+  const [allUser, setAllUser] = useState([]);
+  const [userF, setUserF] = useState(null);
+  const [searchedUser, setSearchedUser] = useState([]);
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -90,21 +90,21 @@ const[showCompont,setShowCompont]= useState();
   //   })
   // }
 
- 
-  
-  
-    // const checkIfUserAlreadyPostStory = (story) => {
-    //   const found = story.some(el => el.id === user.id);
-    //   return found
-    // }
-  
-  
+
+
+
+  // const checkIfUserAlreadyPostStory = (story) => {
+  //   const found = story.some(el => el.id === user.id);
+  //   return found
+  // }
+
+
   const getPostForUser = async () => {
     await PostService.getPostForUser(AuthService.getCurrentUser().username).then(res => {
-      const sorting = res.data.sort(function(a, b) {
+      const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
-    });
+      });
       const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
@@ -132,41 +132,41 @@ const[showCompont,setShowCompont]= useState();
     setShowstoriesImage(false)
   }
   const handleLeaveGroup = (group_id) => {
-		console.log(group_id)
-		GroupService.leaveGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-			setGroup(res.data)
-		})
-	}
+    console.log(group_id)
+    GroupService.leaveGroup(user.id, group_id).then(res => {
+      setRefresh(res.data)
+      setGroup(res.data)
+    })
+  }
 
-	const handleJoinGroup = (group_id) => {
-		console.log(group_id)
-		GroupService.joinGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-			setGroup(res.data)
-		})
-	}
+  const handleJoinGroup = (group_id) => {
+    console.log(group_id)
+    GroupService.joinGroup(user.id, group_id).then(res => {
+      setRefresh(res.data)
+      setGroup(res.data)
+    })
+  }
 
-	const checkIfInGroup = (members) => {
-		const found = members.some(el => el.id === user.id);
-		return found
-	}
+  const checkIfInGroup = (members) => {
+    const found = members.some(el => el.id === user.id);
+    return found
+  }
   const getAllGroups = async () => {
-		await GroupService.getAllGroups().then(res => {
-			setAllGroups(res.data)
-			setSearchedGroups(res.data)
-		})
-	}
+    await GroupService.getAllGroups().then(res => {
+      setAllGroups(res.data)
+      setSearchedGroups(res.data)
+    })
+  }
 
-	
+
   const getPost = async () => {
     await PostService.getPost().then(res => {
       setPosts(res.data)
     })
   }
-  
 
- 
+
+
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then(res => {
@@ -203,12 +203,12 @@ const[showCompont,setShowCompont]= useState();
       setCommentContent("")
     })
   }
-  const handleCount=(opertator) => {
-    if(opertator === "+"){
+  const handleCount = (opertator) => {
+    if (opertator === "+") {
       let counting = count + 1
-      console.log(counting+"hi count")
+      console.log(counting + "hi count")
       setCount(counting)
-    
+
     }
   }
   const handleEditPost = (id) => {
@@ -231,7 +231,7 @@ const[showCompont,setShowCompont]= useState();
     setShowPostImage(true)
   }
 
- 
+
   const handleRemoveImage = () => {
     setFiles({})
     setShowPostImage(false)
@@ -253,7 +253,7 @@ const[showCompont,setShowCompont]= useState();
     //     return false
     //   }
     // })
-    
+
     const result = post.reactions.filter(reaction => reaction.user.id == userR.id)
     if (result.length > 0) {
       return true
@@ -297,9 +297,9 @@ const[showCompont,setShowCompont]= useState();
     })
     return counter
   }
-  const handlePrivacy=(event)=>{
+  const handlePrivacy = (event) => {
     console.log(event.target.value)
-      setPrivacy(event.target.value)
+    setPrivacy(event.target.value)
   }
   const uploadPost = (event) => {
     event.preventDefault();
@@ -327,14 +327,14 @@ const[showCompont,setShowCompont]= useState();
         setRefresh(res.data)
         history.push("/swapFeed")
       })
-    }else
-    PostService.createPost(user.id, formData, userF.id).then(res => {
-      console.log(JSON.stringify(res))
-      setPostContent("")
-      handleRemoveImage()
-      handleRemoveImageSwap()
-      setRefresh(res.data)
-    })
+    } else
+      PostService.createPost(user.id, formData, userF.id).then(res => {
+        console.log(JSON.stringify(res))
+        setPostContent("")
+        handleRemoveImage()
+        handleRemoveImageSwap()
+        setRefresh(res.data)
+      })
   }
 
   const handleLikePost = async (post_id) => {
@@ -348,55 +348,55 @@ const[showCompont,setShowCompont]= useState();
       setRefresh(res.data)
     })
   }
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);
   }
-//swapcomponents
-const handleSwapContent = (event) => {
-  console.log(event.target.value)
-  setSwapContent(event.target.value)
-}
-const handleFileSwap = (event) => {
-  console.log(event.target.files[0])
-  setSwapfiles(event.target.files[0])
-  const reader = new FileReader();
-  reader.onload = () => {
-    if (reader.readyState === 2) {
-      setSwapImage(reader.result)
-    }
+  //swapcomponents
+  const handleSwapContent = (event) => {
+    console.log(event.target.value)
+    setSwapContent(event.target.value)
   }
-  console.log(event.target.files[0])
-  // if(event.target.files[0].type === blob){
-  reader.readAsDataURL(event.target.files[0])
-  // }
-  setShowSwapImage(true)
-}
-const handleRemoveImageSwap = () => {
-  setSwapfiles({})
-  setShowSwapImage(false)
-}
-// const uploadSwap = (event) => {
-//   event.preventDefault();
-//   setUploadError("")
-//   console.log("uploading post working")
-//   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-//     console.log("cant be null")
-//     setUploadError("Please Insert A Text or an Image")
-//     return
-//   }
+  const handleFileSwap = (event) => {
+    console.log(event.target.files[0])
+    setSwapfiles(event.target.files[0])
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setSwapImage(reader.result)
+      }
+    }
+    console.log(event.target.files[0])
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0])
+    // }
+    setShowSwapImage(true)
+  }
+  const handleRemoveImageSwap = () => {
+    setSwapfiles({})
+    setShowSwapImage(false)
+  }
+  // const uploadSwap = (event) => {
+  //   event.preventDefault();
+  //   setUploadError("")
+  //   console.log("uploading post working")
+  //   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
+  //     console.log("cant be null")
+  //     setUploadError("Please Insert A Text or an Image")
+  //     return
+  //   }
 
-//   const formData = new FormData();
-//   formData.append('content', swapContent)
-//   console.log(" this is the files" + files)
-//   formData.append(`files`, files)
-//   SwapService.createSwap(user.id, formData).then(res => {
-//     console.log(JSON.stringify(res))
-//     setSwapContent("")
-//     handleRemoveImage()
-//     setRefresh(res.data)
-//   })
-// }
+  //   const formData = new FormData();
+  //   formData.append('content', swapContent)
+  //   console.log(" this is the files" + files)
+  //   formData.append(`files`, files)
+  //   SwapService.createSwap(user.id, formData).then(res => {
+  //     console.log(JSON.stringify(res))
+  //     setSwapContent("")
+  //     handleRemoveImage()
+  //     setRefresh(res.data)
+  //   })
+  // }
 
 
 
@@ -406,7 +406,7 @@ const handleRemoveImageSwap = () => {
     // subtitle.style.color = '#f00';
   }
 
-  function closeModal(){
+  function closeModal() {
     setIsOpen(false);
   }
   const getUser = async () => {
@@ -420,265 +420,289 @@ const handleRemoveImageSwap = () => {
       setUserR(user)
     }
   }
-  const imageshow =() =>{
-  
-  return( 
-    <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
-    <div style={{display:'inline'}}>What's in hang?</div>
- 
-     <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></div>
-    <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
-                       {close => ( <Form style={{margin:'5px'}} className="popwidth">
-                       <div class="search-container">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
-        </div>
-        {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></>:null}
-        <div>
-        <ul>
-        {(friendsList.length > 0) ? <>
-                {friendsList.map(
-                    userM =>
-                    (user.id !== userM.id) ?
-                        <li key={userM.id} className="friends-card">
-                        <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
-                                {/* <figure> */}
-                                <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
-                                    {/* </figure> */}
-                                    
-                                </div>
-                                <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
-                                </div>
-                                {/* <div className="  "> */}
-                              </div></a>
-                        </li>
-                         :null
-                )}</>:<div style={{padding:'10% 0',textAlign:'center'}}>You have no friends to tag</div>}
-            </ul></div>   
-                       </Form>
-                  )}                 
-  </Popup></div>
-    <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></div>
-      
-   
-    {/* <ul style={{marginLeft:'10px'}}>
-      <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></li></ul>*/}</div> 
-  )
-    
-  
-  }
-  const imageshowPost =() =>{
-  
-    return( 
-      <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
-      <div style={{display:'inline'}}>Add More</div>
-   
-       <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-      </label></div>
-      <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
-                       {close => ( <Form style={{margin:'5px'}} className="popwidth">
-                       <div class="search-container">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
-        </div>
-        {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></>:null}
-        <div>
-        <ul>
-        {(friendsList.length > 0) ? <>
-                {friendsList.map(
-                    userM =>
-                    (user.id !== userM.id) ?
-                        <li key={userM.id} className="friends-card">
-                        <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
-                                {/* <figure> */}
-                                <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={userM.profilePicturePath} alt="" /></a>
-                                    {/* </figure> */}
-                                    
-                                </div>
-                                <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
-                                </div>
-                                {/* <div className="  "> */}
-                              </div></a>
-                        </li>
-                         :null
-                )}</>:<div style={{padding:'10% 0',textAlign:'center'}}>You have no friends to tag</div>}
-            </ul></div>   
-                       </Form>
-                  )}                 
-  </Popup></div>
-      <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-      </label></div>
-        
-     
-      </div> 
-    )
-      
-    
-    }
-    const handleTag = (userM)=>{
-      setUserF(userM)
-      console.log(userM) 
-     }
-  const handleSearchedUser = (event) => {
-      if (event.target.value === "") {
-          setSearchedUser(allUser)
-      } else {
-          let temp = []
-          allUser.map(u => {
-              const email = u.email.toLowerCase()
-              const firstname = u.firstName.toLowerCase()
-              const lastname = u.lastName.toLowerCase()
-              const searchedvalue = event.target.value.toLowerCase()
-              if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
-                  temp.push(u)
-              }
-          })
-          setSearchedUser(temp)
-          console.log(temp)
-      }
-  }
-  const getAllUser = async () => {
-      await UserService.getUsers().then(res => {
-          setAllUser(res.data)
-          setSearchedUser(res.data)
-      })
-      console.log(user.email + " This is the users")
-  }
-  const getFriendsList = async () => {
-      await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
-          setFriendsList(res.data)
-      })
-  }
-  
-  useEffect(() => {
-      getAllUser()
-      getFriendsList()
-      testScript()
-  },[])
-  
-  
-    useEffect(() => {
-      getAllGroups()
-      
-    }, [showComp, group])
-  
-    useEffect(() => {
-      testScript()
-    }, [])
-  
-  
-    useEffect(() => {
-      getUser()
-      getPost().then(() => {
-        setIsLoading(false)
-      })
-      getPostForUser()
-      getSavedPost()
-      testScript()
-    }, [editPostId, refresh])
-  
-    useEffect(() => {
-      getPostForUser()
-      getSavedPost()
-      testScript()
-    }, [user])
-     
-    if (isLoading) {
-      return <div>Loading... Please Wait</div>
-    }
-  
+  const imageshow = () => {
 
     return (
-      <>
-    
-      <div >
-     <div className="central-meta hanggift"> 
-     
-     
-                                
-                                  <div style={{textAlign: 'center'}}>
-                                    <Form>
-                                                    
-                                    <div className="headpop">
-                                      
-                                      {/* adding */}
-                                      <div style={{float: 'left',width: '50%',textAlign: 'left'}}>
-                                      <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-                       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}>
-                         <span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-                       <span style={{display: 'block', fontSize: '12px'}}>
-                         <div className="dropdown">
-                  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-                    <option value="Friends">Friends</option>
-                    <option value="Public">Public</option>
-                    <option value="Only Me">Only Me</option>
-                  </select></div> </span></div> </div> </div></div>
-                                    <div className="row" style={{width:'50%',float: 'left'}}>
-                                    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'25%',textAlign: 'center'}}><span></span></div>
-                                    <span style={{float:'right',width:'80%'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Swap</button></span>
-                                    </div>
-                                    <div style={{padding:'0 14px 14px 14px'}}>  
-                                     </div>
-                                    </div>
-                                    {/* <div style={{padding:'0 14px 14px 14px'}}>  
-                                     </div> */}
-                                    <div style={{margin:'0 11px 0x 11px'}}>
-                                      <span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="swap_content" value={postContent} onChange={handlePostContent} />
-                                      </span>
-                                
-                                    </div>
-                                    
-                                  <div className="row mrginbtm">
-                                    <div style={{width:'40%', display: 'inline',textAlign: 'center'}}>
-                                    <div style={{height:'230px'}}>
-                                  {showPostImage ?
-                                                      <>
-                                                        <img id="preview" src={postImage} style={{maxWidth:"200px"}}  />
-                                                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i class="las la-times"></i></button>
-                                                      </>
-                                                      :
-                                                      <div style={{textAlign: 'center'}}><label className="fileContainer" ><div className="swappic" type="submit"><input type="file" name="swap_image" accept="image/*" onChange={handleFile}></input><i class="lar la-file-image"></i><div style={{fontSize:'12px'}}>Add Swap Image</div> </div> 
-    </label></div>
-                                                    }
-                                                    </div>
-                                                     
-                                 </div>
-                                  
-                                 <div style={{width:'20%',display:'inline',textAlign: 'center',padding:'75px 0'}}><img style={{verticalAlign:'middle'}} src="/assets/images/swapicon.png" alt="img" /></div> 
-                                  <div style={{width:'40%', display: 'inline',textAlign: 'center'}}> 
-                                  <div style={{height:'230px'}}>
-                                  {showSwapImage ?
-                                                      <>
-                                                        <img id="preview" src={swapImage} style={{maxWidth:"150px"}} />
-                                                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i class="las la-times"></i></button>
-                                                      </>
-                                                      :
-                                                      <div style={{textAlign: 'center'}}><label className="fileContainer" ><div className="swappic" type="submit"><input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i class="lar la-file-image"></i><div style={{fontSize:'12px'}}>Add Image to be swapped</div> </div>
-                                                      </label></div>
-                                                    }</div>
-                                                   </div></div>
-                                   
-                                                
-                                                                  
-                                
-                                                  </Form> 
-                                                 
-                                    
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>What's in hang?</div>
+
+        <div className="add-smilespopup">
+          <label className="fileContainer">
+            <i class="lar la-file-image"></i>
+            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+          </label></div>
+
+        <div className="gifpopup">
+
+
+          <Popup trigger={
+            <a href="#!">
+              <i class="las la-user-tag"></i></a>}
+            nested modal>
+            {
+              close => (
+                <Form style={{ margin: '5px' }}
+                  className="popwidth">
+                  <div class="search-container">
+                    <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+                  </div>
+                  {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
+                  <div>
+                    <ul>
+                      {(friendsList.length > 0) ? <>
+                        {friendsList.map(
+                          userM =>
+                            (user.id !== userM.id) ?
+                              <li key={userM.id} className="friends-card">
+                                <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
+                                  {/* <figure> */}
+                                  <div class="item1">
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
+                                    {/* </figure> */}
+
                                   </div>
-</div>
- 
+                                  <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                  {/* <div className="  "> */}
+                                </div></a>
+                              </li>
+                              : null
+                        )}</> : <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>}
+                    </ul></div>
+                </Form>
+              )}
+          </Popup></div>
+        <div className="campopup">
+          <label className="fileContainer">
+            <i class="las la-map-marker-alt"></i>
+            <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+          </label></div>
 
 
-    
-   </div>
-          
-         
-      
-      </>     
+        {/* <ul style={{marginLeft:'10px'}}>
+      <li style={{fontSize:'12px'}}>What's in hang?</li>
+      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+    </label></li></ul>*/}</div>
     )
+
+
+  }
+  const imageshowPost = () => {
+
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>Add More</div>
+
+        <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+        <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+          {close => (<Form style={{ margin: '5px' }} className="popwidth">
+            <div class="search-container">
+              <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            </div>
+            {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
+            <div>
+              <ul>
+                {(friendsList.length > 0) ? <>
+                  {friendsList.map(
+                    userM =>
+                      (user.id !== userM.id) ?
+                        <li key={userM.id} className="friends-card">
+                          <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
+                            {/* <figure> */}
+                            <div class="item1">
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
+                              {/* </figure> */}
+
+                            </div>
+                            <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                            </div>
+                            {/* <div className="  "> */}
+                          </div></a>
+                        </li>
+                        : null
+                  )}</> : <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>}
+              </ul></div>
+          </Form>
+          )}
+        </Popup></div>
+        <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+
+
+      </div>
+    )
+
+
+  }
+  const handleTag = (userM) => {
+    setUserF(userM)
+    console.log(userM)
+  }
+  const handleSearchedUser = (event) => {
+    if (event.target.value === "") {
+      setSearchedUser(allUser)
+    } else {
+      let temp = []
+      allUser.map(u => {
+        const email = u.email.toLowerCase()
+        const firstname = u.firstName.toLowerCase()
+        const lastname = u.lastName.toLowerCase()
+        const searchedvalue = event.target.value.toLowerCase()
+        if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
+          temp.push(u)
+        }
+      })
+      setSearchedUser(temp)
+      console.log(temp)
+    }
+  }
+  const getAllUser = async () => {
+    await UserService.getUsers().then(res => {
+      setAllUser(res.data)
+      setSearchedUser(res.data)
+    })
+    console.log(user.email + " This is the users")
+  }
+  const getFriendsList = async () => {
+    await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
+      setFriendsList(res.data)
+    })
+  }
+
+  useEffect(() => {
+    getAllUser()
+    getFriendsList()
+    testScript()
+  }, [])
+
+
+  useEffect(() => {
+    getAllGroups()
+
+  }, [showComp, group])
+
+  useEffect(() => {
+    testScript()
+  }, [])
+
+
+  useEffect(() => {
+    getUser()
+    getPost().then(() => {
+      setIsLoading(false)
+    })
+    getPostForUser()
+    getSavedPost()
+    testScript()
+  }, [editPostId, refresh])
+
+  useEffect(() => {
+    getPostForUser()
+    getSavedPost()
+    testScript()
+  }, [user])
+
+  if (isLoading) {
+    return <div>Loading... Please Wait</div>
+  }
+
+
+  return (
+    <>
+
+      <div >
+        <div className="central-meta hanggift">
+
+
+
+          <div style={{ textAlign: 'center' }}>
+            <Form>
+
+              <div className="headpop">
+
+                {/* adding */}
+                <div style={{ float: 'left', width: '50%', textAlign: 'left' }}>
+                  <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
+                    <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+                    <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
+                      <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+                      <span style={{ display: 'block', fontSize: '12px' }}>
+                        <div className="dropdown">
+                          <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                            <option value="Friends">Friends</option>
+                            <option value="Public">Public</option>
+                            <option value="Only Me">Only Me</option>
+                          </select></div> </span></div> </div> </div></div>
+                <div className="row" style={{ width: '50%', float: 'left' }}>
+                  <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '25%', textAlign: 'center' }}><span></span></div>
+                  <span style={{ float: 'right', width: '80%' }}>  <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Swap</button></span>
+                </div>
+                <div style={{ padding: '0 14px 14px 14px' }}>
+                </div>
+              </div>
+              {/* <div style={{padding:'0 14px 14px 14px'}}>  
+                                                     </div> */}
+              <div style={{ margin: '0 11px 0x 11px' }}>
+                <span className="textPop">
+                  <textarea className="textpopup"
+                    rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="swap_content" value={postContent} onChange={handlePostContent} />
+                </span>
+
+              </div>
+
+              <div className="row mrginbtm">
+                <div style={{ width: '40%', display: 'inline', textAlign: 'center' }}>
+                  <div style={{ height: '230px' }}>
+                    {showPostImage ?
+                      <>
+                        <img id="preview" src={postImage} style={{ maxWidth: "200px" }} />
+                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i class="las la-times"></i></button>
+                      </>
+                      :
+                      <div style={{ textAlign: 'center' }}><label className="fileContainer" >
+                        <div className="swappic" type="submit">
+                          <input type="file" name="swap_image" accept="image/*" onChange={handleFile}>
+                          </input>
+                          <i class="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div> </div>
+                      </label></div>
+                    }
+                  </div>
+
+                </div>
+
+                <div style={{ width: '20%', display: 'inline', textAlign: 'center', padding: '75px 0' }}><img style={{ verticalAlign: 'middle' }} src="/assets/images/swapicon.png" alt="img" /></div>
+                <div style={{ width: '40%', display: 'inline', textAlign: 'center' }}>
+                  <div style={{ height: '230px' }}>
+                    {showSwapImage ?
+                      <>
+                        <img id="preview" src={swapImage} style={{ maxWidth: "150px" }} />
+                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i class="las la-times"></i></button>
+                      </>
+                      :
+                      <div style={{ textAlign: 'center' }}><label className="fileContainer" >
+                        <div className="swappic" type="submit">
+                          <input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i class="lar la-file-image"></i>
+                          <div style={{ fontSize: '12px' }}>Add Image to be swapped</div> </div>
+                      </label></div>
+                    }</div>
+                </div></div>
+
+
+
+
+            </Form>
+
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+
+
+    </>
+  )
 }

@@ -11,7 +11,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.prod;
+  return settings.dev;
 };
 
 export default getCurrentSettings();

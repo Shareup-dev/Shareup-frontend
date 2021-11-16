@@ -1999,7 +1999,7 @@ img#preview {
 
 .attachments li {
   display: inline-block;
-  margin: 0 25px;
+  margin: 0 20px;
 }
 .attachments li span {
   font-weight: bold;
@@ -2084,7 +2084,8 @@ form button {
 
 .postImage {
   border-radius: 10px 10px 10px 10px;
-  display: table;
+  display: inline-block;
+
   width: 100%;
   text-align: center;
 }
