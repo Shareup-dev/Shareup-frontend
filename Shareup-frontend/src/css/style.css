@@ -4202,7 +4202,7 @@ nav.breadcrumb {
 .nearby-contct > li {
   /* flex-grow: 1; */
   /* width: 40%; */
-  width: 45%;
+  width: 100%;
 }
 
 .friends-card {
@@ -4217,7 +4217,9 @@ nav.breadcrumb {
   text-align: center;
   display: inline-block;
   margin-bottom: 10px;
-  padding: 11px;
+  margin-left: 0px;
+  margin-right:0px;
+  /* padding: 11px; */
   /* width: 100%; */
   transition: all 0.15s linear 0s;
   border-radius: 10px;
@@ -4294,9 +4296,10 @@ nav.breadcrumb {
     "image name "
     "image email "
     "image follow ";
-  grid-gap: 0px 10px;
+  grid-gap: 0px 1px;
+  height: 82px;
   /* background-color: #2196F3; */
-  padding: 10px;
+  /* padding: 10px; */
 }
 .grid-containerChat {
   display: grid;
@@ -4309,24 +4312,33 @@ nav.breadcrumb {
   padding: 10px;
 }
 .item1 img {
-  max-width: 50px;
-  min-width: 50px;
+  /* max-width: 100%;
+  min-width: 100%; */
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 }
 .item1 {
   /* height: 100%; */
   vertical-align: center;
   align-self: auto;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 13px;
+  padding-right: 13px;
+  height: 82px;
 }
 .item2 {
-  height: 100%;
+  height: 70px;
+  text-align: left;
+  padding-top: 10px;
   width: 100%;
   align-self: auto;
 }
 .item2 p {
-  margin: 10px 0px 10px 0px;
+  line-height:14px;
+  font-size:9px;
+  /* margin: 10px 0px 10px 0px; */
 }
 
 .item4 {
@@ -4377,6 +4389,9 @@ nav.breadcrumb {
   height: 50px;
 }
 .item2 a {
+  line-height:16px;
+
+  font-size: 16px;
   color: rgb(107 107 107);
 }
 .item4 a {
@@ -4403,7 +4418,9 @@ nav.breadcrumb {
   font-size: 12px;
 }
 .nameTag {
-  font-size: 14px;
+padding-top: 10px;
+  font-weight: bold;
+  /* font-size: 16px; */
 }
 .navContent {
   width: 100%;
