@@ -180,6 +180,10 @@ function GuideComponent() {
                       <p className='nameTag'>
                         <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a>
                       </p>
+                      <p style={{fontSize: '12px'}}>Recommended</p>
+                      </div>
+                      <div style={{marginTop: '15px'}}
+    >
                       {user.id !== userF.id ? (
                         !friendsList.some((el) => el.id === userF.id) ? (
                           friendRequestRecieved.some((el) => el.id === userF.id) ? (
@@ -215,8 +219,8 @@ function GuideComponent() {
                           ) : (
                             <a
                               href='#'
-                              className='button'
-                              style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
+                              className='button' 
+                              style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px', MarginTop:'15px' }}
                               onClick={() => sendFriendRequest(user.id, userF.id)}
                             >
                               Send Request
@@ -240,8 +244,11 @@ function GuideComponent() {
                           <p style={{ float: 'right' }}>Your own profile</p>
                         </div>
                       )}
+                      <div style={{ float: 'right', display: 'inline-block', width:'10%',  }} >
+                          <img src='assets/images/icons/x-mark.svg'/>   
+                      </div>
                     </div>
-
+                   
                     {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
                     
                   </div>
@@ -425,21 +432,21 @@ function GuideComponent() {
       <div className='col-lg-6'>
         <div className='central-meta create-group'>
           <div className='card px-0 pt-4 pb-0 mt-3 mb-3 '>
-            <div style={{ contentAlign: 'left', textAlign: 'left' }}>
+            <div style={{ contentAlign: 'left', textAlign: 'left', paddingLeft:'10%' }}>
               <div className='col-lg-1'>
                 <img src="assets/images/user-profile.png" alt=""/>
               </div>
               <span>
-              <h4>
+              <h2>
                 <strong>Are you new?</strong>
-              </h4>
+              </h2>
               <p>Here are some suggestions</p>
               </span>
             </div>
-            <hr style={{marginTop: '3rem'}}></hr>
+            <hr/>
             <div className='row'>
               <div className='col-md-12 mx-0'>
-                <form id='msform'>
+                <form id='msform'> 
                   {/* progressbar */}
                   <ul id='progressbar'>
                     <li id='account' className={activeOrNot(0)}>
@@ -449,6 +456,7 @@ function GuideComponent() {
                       <strong>Follower</strong>
                     </li>
                     <li id='payment' className={activeOrNot(2)}>
+                    <span class="account-icon"></span>
                       <strong>Groups</strong>
                     </li>
                     <li id='confirm' className={activeOrNot(3)}>

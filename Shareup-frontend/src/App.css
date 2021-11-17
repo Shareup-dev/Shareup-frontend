@@ -24,14 +24,15 @@
   .button {
     display: block;
     width: 115px;
-  
-  font-size: 12px;
+    font-size: 12px;
     text-align: center;
     border-radius: 5px;
     color: white;
     font-weight: 300;
     line-height: 25px;
 }
+
+
 
 * {
     margin: 0;
@@ -119,7 +120,7 @@ html {
 }
 
 #msform .action-button {
-    width: 100px;
+    width: 15%;
     background: #033347;
     font-weight: bold;
     color: white;
@@ -209,7 +210,9 @@ select.list-dt:focus {
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
-    color: lightgrey
+    color: lightgrey;
+    width: 90%;
+    padding-left: 10%;
 }
 
 #progressbar .active {
@@ -234,15 +237,25 @@ select.list-dt:focus {
     content: "\f007"
 }
 
-#progressbar #payment:before {
+ #progressbar #payment:before {
     font-family: FontAwesome;
-    content: "\f09d"
-}
+    
+    content:"\f0c0" 
+   
+} 
 
 #progressbar #confirm:before {
     font-family: FontAwesome;
     content: "\f00c"
 }
+/* .account-icon{background-image: url('public/assets/images/icons/groups.svg') no-repeat center #D3D3D3;
+   width: 30px;
+    height:30px; 
+    border-radius:50%;
+     line-height:30px; 
+     text-align:center;
+    display:block;
+  float:left;} */
 
 #progressbar li:before {
     width: 50px;
@@ -677,7 +690,7 @@ body{
 
 .grid-container {
   display: grid;
-  grid-template-columns: 0.5fr 1fr 0.5fr;
+  grid-template-columns: 0.25fr 1fr 0.75fr;
   grid-gap: 20px;
   font-size: 1.2em;
 } 

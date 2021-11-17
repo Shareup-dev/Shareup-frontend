@@ -58,7 +58,7 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
               onChange={handleCommentContent}
             />
 
-            {/* <div className='add-smiles'>
+            <div className='add-smiles'>
               <span title='add icon' onClick={() => setShowEmojis(!showEmojis)}>
                 <i class='lar la-laugh'></i>
               </span>
@@ -77,10 +77,10 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                 <i class='em em-kissing_heart'></i>
                 <i class='em em-rage'></i>
                 <i class='em em-stuck_out_tongue'></i>
-                {/* <Picker onEmojiClick={onEmojiClick} /> */}
+                {/* <Picker onEmojiClick={onEmojiClick} /> 
                 {/* <h1>hi</h1> */}
-              {/* </div>
-            )} */}
+               </div>
+            )} 
             {/* <div className="gif"><img style={{objectFit:'cover'}} src="/assets/images/pic.svg" alt="" /></div> */}
             <div className='add-smiles'>
               <img src='/assets/images/icons/image-icon-green.svg' alt='' />
