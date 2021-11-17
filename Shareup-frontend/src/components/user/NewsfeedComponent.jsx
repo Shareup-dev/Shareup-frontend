@@ -1299,15 +1299,13 @@ function NewsfeedComponent() {
                 />
                 {showPostImage ? (
                   <div style={{ position: "relative" }}> 
-                    <div style={postImage.length>1?{border: '1px solid #e5e5e5',borderRadius: '5px' , display: 'flex'}:{}}>
+                    <div style={{border: '1px solid #e5e5e5',borderRadius: '5px' , display: 'flex'}}>
                       {
                         postImage.length > 0 && postImage.length < 2
                         ?
                         <img
                           src={postImage[0]}
                           style={{
-                            border: '1px solid #e5e5e5' , 
-                            borderRadius: '5px' ,
                             padding: '10px',
                             maxHeight: '400px',
                             display: 'inline-block',
@@ -1332,11 +1330,11 @@ function NewsfeedComponent() {
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '20px',
-                        top: '10px',
+                        right: '10px',
+                        top: '8px',
                         position: 'absolute',
                         borderRadius: '100%',
-                        background: '#b7b7b738',
+                        background: '#b7b7b7',
                         padding: '10px 10px',
                       }}
                     >
