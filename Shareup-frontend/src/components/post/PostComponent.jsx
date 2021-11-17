@@ -164,9 +164,9 @@ export default function PostComponent({ post, setRefresh }) {
                 <>
                   <div className='grid-container1'>
                     <div className='itemS1'>
-                      {post.postMedia.length > 0 ? (
+                      {post.postedimages.length > 0 ? (
                         <div className='postImage'>
-                          {post.postMedia.map((postImage) => (
+                          {post.postimages.map((postImage) => (
                             <React.Fragment>
                               <a
                                 href={`${fileStorage.baseUrl}${postImage.imagePath}`}
@@ -320,7 +320,7 @@ export default function PostComponent({ post, setRefresh }) {
               )}
 
               <div className='postImage'>
-                {post.postMedia.map((postImage) => (
+                {post.postedimages.map((postImage) => (
                   <React.Fragment>
                     <a
                       href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
@@ -328,8 +328,8 @@ export default function PostComponent({ post, setRefresh }) {
                     >
                       <img
                         style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                       />
                     </a>
                   </React.Fragment>

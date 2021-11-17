@@ -14328,8 +14328,8 @@ a.Hangin-btn:hover {
 }
 .stryp {
   background: #000;
-  width: 214vh;
-  min-height: 100vh;
+  width: 100vh;
+  display: flex;
 }
 .strydiv {
   border-radius: 20px;
@@ -14363,7 +14363,7 @@ a.Hangin-btn:hover {
         width: 100%; 
         height: 100%;
       } */
-      
+
 .owl-item {
   width: 400px;
 }
