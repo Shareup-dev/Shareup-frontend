@@ -102,12 +102,14 @@
         left: 75%;
         
       } 
+    
 }
 
 
 /*--- tablet landscape ---*/
 
 @media screen and (max-width: 1024px) {
+    
     .topbar-land, .topbar,.topbarLand {
         padding: 0 18px;
     }
@@ -320,8 +322,12 @@
         font-size: 14px;
     }
    
-    
-   
+    /* .swap-post-image{
+        flex-direction: column;
+    } */
+    .popup-content{
+        width: 80%!important;
+    }
   
     .timeline-info .admin-name > h5 {
         font-size: 17px;
@@ -1830,5 +1836,10 @@
         left: -150px;
         position: absolute;
         top: -80px;
+    }
+}
+@media screen and (min-width: 990px) {
+    .popup-content{
+        width: 27% !important;
     }
 }

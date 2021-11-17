@@ -1299,7 +1299,8 @@ function NewsfeedComponent() {
                 />
                 {showPostImage ? (
                   <div style={{ position: "relative" }}> 
-                    <div style={{border: '1px solid #e5e5e5',borderRadius: '5px' , display: 'flex'}}>
+                    <div style={{border: '1px solid #e5e5e5',borderRadius: '5px' , display: 'flex' , display: 'flex',
+                    flexDirection: 'column',overflowY: 'scroll',height: '300px'}} className="swap-post-image">
                       {
                         postImage.length > 0 && postImage.length < 2
                         ?
@@ -1318,8 +1319,8 @@ function NewsfeedComponent() {
                           src={item}
                           key={key}
                           style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
+                            // maxWidth: '150px',
+                            // maxHeight: '150px',
                             padding: '10px',
                             display: 'inline-block',
                             verticalAlign: 'middle',
