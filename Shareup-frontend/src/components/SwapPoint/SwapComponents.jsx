@@ -626,10 +626,11 @@ export default function SwapComponents() {
                   <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
                     <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
                     <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
-                      <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+                      <span style={{ textTransform: 'capitalize', fontWeight: 'bold' , fontSize: '1rem'}}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
                       <span style={{ display: 'block', fontSize: '12px' }}>
-                        <div className="dropdown">
-                          <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                        <div className="dropdown" style={{display: 'flex' , alignItems: 'center'}}>
+                        <i className="fas fa-users"></i>
+                          <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} style={{ border: "0", marginLeft: "-1px" }}>
                             <option value="Friends">Friends</option>
                             <option value="Public">Public</option>
                             <option value="Only Me">Only Me</option>
@@ -646,7 +647,7 @@ export default function SwapComponents() {
               <div style={{ margin: '0 11px 0x 11px' }}>
                 <span className="textPop">
                   <textarea className="textpopup"
-                    rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="swap_content" value={postContent} onChange={handlePostContent} />
+                    rows={2} placeholder={uploadError ? `${uploadError}` :  "Whats on your mind? ,  " + user.firstName} name="swap_content" value={postContent} onChange={handlePostContent} />
                 </span>
 
               </div>
