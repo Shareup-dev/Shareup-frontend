@@ -16,6 +16,7 @@ import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderCompon
 import Layout from '../LayoutComponent';
 import { MiddlewareArray } from '@reduxjs/toolkit';
 import fileStorage from '../../config/fileStorage';
+import SwapService from '../../services/SwapService';
 
 export default function SwapComponents() {
 
@@ -319,7 +320,7 @@ export default function SwapComponents() {
     formData.append(`swapfiles`, swapfiles)
     formData.append(`privacy`, Privacy)
     if (userF === null) {
-      PostService.createPost(user.id, formData, null).then(res => {
+      SwapService.createSwap(user.id, formData, null).then(res => {
         console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
@@ -328,7 +329,7 @@ export default function SwapComponents() {
         history.push("/swapFeed")
       })
     } else
-      PostService.createPost(user.id, formData, userF.id).then(res => {
+      SwapService.createSwap(user.id, formData, userF.id).then(res => {
         console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
@@ -610,76 +611,82 @@ export default function SwapComponents() {
 
   return (
     <>
-
       <div >
         <div className="central-meta hanggift">
-
-
-
           <div style={{ textAlign: 'center' }}>
             <Form>
-
-              <div className="headpop">
-
+              <div className="headpop" style={{display: 'flex'}}>
                 {/* adding */}
                 <div style={{ float: 'left', width: '50%', textAlign: 'left' }}>
-                  <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-                    <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
-                    <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
-                      <span style={{ textTransform: 'capitalize', fontWeight: 'bold' , fontSize: '1rem'}}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
-                      <span style={{ display: 'block', fontSize: '12px' }}>
-                        <div className="dropdown" style={{display: 'flex' , alignItems: 'center'}}>
-                        <i className="fas fa-users"></i>
-                          <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} style={{ border: "0", marginLeft: "-1px" }}>
-                            <option value="Friends">Friends</option>
-                            <option value="Public">Public</option>
-                            <option value="Only Me">Only Me</option>
-                          </select></div> </span></div> </div> </div></div>
-                <div className="row" style={{ width: '50%', float: 'left' }}>
-                  <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '25%', textAlign: 'center' }}><span></span></div>
-                  <span style={{ float: 'right', width: '80%' }}>  <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Swap</button></span>
-                </div>
-                <div style={{ padding: '0 14px 14px 14px' }}>
-                </div>
+                  <div style={{display: 'flex'}}>
+                    <div className="popupimg">
+                      <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" />
+                    </div>
+                      <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
+                        <span style={{ textTransform: 'capitalize', fontWeight: 'bold' , fontSize: '1rem'}}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+                        <span style={{ display: 'block', fontSize: '12px' }}>
+                          <div className="dropdown" style={{display: 'flex' , alignItems: 'center'}}>
+                            <i className="fas fa-users"></i>
+                            <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} style={{ border: "0", marginLeft: "-1px" }}>
+                              <option value="Friends">Friends</option>
+                              <option value="Public">Public</option>
+                              <option value="Only Me">Only Me</option>
+                            </select>
+                          </div> 
+                        </span>
+                      </div> 
+                      </div> 
+                      </div>
+                      </div>
+                      {/* <div className="row" style={{ width: '50%', float: 'left' }}>
+                        <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '25%', textAlign: 'center' }}><span></span></div>
+                      </div> */}
               </div>
               {/* <div style={{padding:'0 14px 14px 14px'}}>  
                                                      </div> */}
               <div style={{ margin: '0 11px 0x 11px' }}>
                 <span className="textPop">
-                  <textarea className="textpopup"
-                    rows={2} placeholder={uploadError ? `${uploadError}` :  "Whats on your mind? ,  " + user.firstName} name="swap_content" value={postContent} onChange={handlePostContent} />
+                  <textarea 
+                    className="textpopup"
+                    rows={2} 
+                    placeholder={uploadError ? `${uploadError}` :  "Whats on your mind? ,  " + user.firstName}
+                    name="swap_content" 
+                    value={postContent} 
+                    style={{fontSize: '13px'}}
+                    onChange={handlePostContent} 
+                  />
                 </span>
-
               </div>
-
-              <div className="row mrginbtm">
+              <div className="row mrginbtm swap-file-img-container">
                 <div style={{ width: '40%', display: 'inline', textAlign: 'center' }}>
-                  <div style={{ height: '230px' }}>
+                  <div>
                     {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ maxWidth: "200px" }} />
+                      <div className="swap-img-container">
+                        <img id="preview" src={postImage}  />
                         <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i class="las la-times"></i></button>
-                      </>
+                      </div>
                       :
-                      <div style={{ textAlign: 'center' }}><label className="fileContainer" >
-                        <div className="swappic" type="submit">
-                          <input type="file" name="swap_image" accept="image/*" onChange={handleFile}>
-                          </input>
-                          <i class="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div> </div>
-                      </label></div>
+                      <div style={{ textAlign: 'center' }}>
+                        <label className="fileContainer" >
+                          <div className="swappic" type="submit">
+                            <input type="file" name="swap_image" accept="image/*" onChange={handleFile}></input>
+                            <div style={{display: 'flex' , flexDirection:'column'}}><i class="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div></div>
+                          </div>
+                        </label>
+                      </div>
                     }
                   </div>
 
                 </div>
 
-                <div style={{ width: '20%', display: 'inline', textAlign: 'center', padding: '75px 0' }}><img style={{ verticalAlign: 'middle' }} src="/assets/images/swapicon.png" alt="img" /></div>
+                <div style={{ width: '20%' }} className="swapicon"><img style={{ verticalAlign: 'middle' }} src="/assets/images/swapicon.png" alt="img" /></div>
                 <div style={{ width: '40%', display: 'inline', textAlign: 'center' }}>
-                  <div style={{ height: '230px' }}>
+                  <div>
                     {showSwapImage ?
-                      <>
-                        <img id="preview" src={swapImage} style={{ maxWidth: "150px" }} />
+                      <div className="swap-img-container">
+                        <img id="preview" src={swapImage}  />
                         <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i class="las la-times"></i></button>
-                      </>
+                      </div>
                       :
                       <div style={{ textAlign: 'center' }}><label className="fileContainer" >
                         <div className="swappic" type="submit">
@@ -689,7 +696,8 @@ export default function SwapComponents() {
                     }</div>
                 </div></div>
 
-
+                <div style={{ width: '100%' , textAlign:'center' }}>  <button style={{ width: '98%' , borderRadius: '10px' , padding: '10px' }} type="submit" onClick={uploadPost}>POST</button></div>
+                
 
 
             </Form>

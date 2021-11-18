@@ -607,9 +607,7 @@ const handleRemoveImageSwap = () => {
   //Adding new swap
   const postUp1 = () => {
     return(
-      <Popup trigger= {
-                        <div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>
-                        } 
+      <Popup trigger= {<div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>} 
         modal nested>
         { close => (
           <Form className="popwidth">

@@ -12773,7 +12773,7 @@ breadcrumb-item + .breadcrumb-item::before {
 
 .headpop {
   border-bottom: 1px solid #eaeaea;
-  padding: 20px 0;
+  padding: 15px 5px;
   vertical-align: middle;
   margin: 0 0 11px 0;
 }
@@ -13078,7 +13078,7 @@ a.openmap {
   background-color: WHITE;
 }
 .hanggift {
-  height: 70vh;
+  /* height: 70vh; */
 }
 .padg {
   padding: 0 5px 0 5px;
@@ -13624,10 +13624,10 @@ a.Hangin-btn:hover {
   padding: 10px 10px;
 }
 .lftbtn {
-  left: 42%;
+  left: 32%;
 }
 .rtbtn {
-  right: 20px;
+  right: 32px;
 }
 .swapbtnfeed {
   text-align: center;
@@ -14725,13 +14725,33 @@ input.chat-text {
   font-size: xx-small;
 }
 .swappic {
-  width: 200px;
-  height: 300px;
+  width: 170px;
+  height: 230px;
   background: rgb(206, 206, 206);
   border-radius: 10px;
   color: #fff;
   font-weight: bold;
   font-size: 24px;
-  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 100px; */
   object-fit: cover;
+}
+.swap-img-container{
+  height: 230px;
+  /* text-align: center;
+  vertical-align: middle;
+  display: table-cell; */
+}
+.swap-img-container img{
+  width: 170px; 
+  height:230px ;
+  object-fit: cover;
+}
+.swapicon{
+  display: inline;
+  text-align: center; 
+  padding: 75px 10px;
 }

@@ -30,7 +30,7 @@ import FriendSearchComponent from './FriendSearchComponent';
 import FriendsService from '../../services/FriendService';
 import fileStorage from "../../config/fileStorage";
 
-
+import SwapComponents from '../SwapPoint/SwapComponents';
 
 
 function NewsfeedComponent() {
@@ -768,123 +768,37 @@ function NewsfeedComponent() {
       >
         {(close) => (
           <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
-            <div className='headpop'>
-              <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                    <i class='las la-times'></i>
-                  </a>
-                </div>
+            <div className="headpop">
+              <div className="row">
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
+                  style={{
+                    color: "#000000",
+                    fontSize: "17px",
+                    fontWeight: "bold",
+                    width: "95%",
+                    textAlign: "center",
+                  }}
                 >
-                  {' '}
-                  <span>Today to me, Tomorrow to you</span>
+                  <span>Create Swap Post</span>
                 </div>
-                <div style={{ width: '25%', textAlign: 'right' }}>
-                  <a className='popup-btn' href='/HangGift'>
-                    Keep Hang
-                  </a>
+                <div style={{ width: "5%" }}>
+                  <span style={{}}>
+                    <a href="#!" onClick={close}>
+                    <i class="far fa-times-circle"></i>
+                    </a>
+                  </span>
                 </div>
-              </div>
-            </div>
-
-            <div style={{ padding: '0 11px 11px 11px' }}>
-              <div className='popupimg'>
-                <img
-                  src={
-                    user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
-                  }
-                  alt=''
-                />
-              </div>
-              <div class='popupuser-name'>
-                <div style={{ display: 'inline' }}>
-                  <span>
-                    {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
-                  </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdownnewsfeed'>
-                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                        <option value='Friends'>Friends</option>
-                        <option value='Public'>Public</option>
-                        <option value='Only Me'>Only Me</option>
-                      </select>
-                    </div>{' '}
-                  </span>
-                </div>{' '}
-              </div>{' '}
-            </div>
-            <div style={{ margin: '0 0 100px 11px' }}>
-              <span className='textPop'>
-                <textarea
-                  className='textpopup'
-                  rows={2}
-                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                  name='post_content'
-                  value={postContent}
-                  onChange={handlePostContent}
-                />
-
-                {showPostImage ? (
-                  <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
-                    </div>
-
-                    {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
-                    <button
-                      onClick={handleRemoveImage}
-                      style={{
-                        right: '25px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
-                      }}
-                    >
-                      <i class='las la-times'></i>
+                {/* <div style={{ width: '10%', textAlign: 'center' }}>
+                  <span style={{ float: 'right' }}>
+                    {' '}
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
+                      Post
                     </button>
-                  </>
-                ) : null}
-              </span>
-              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+                  </span>
+                </div> */}
+              </div>
             </div>
-
-            {imageshow()}
-            <div
-              type='submit'
-              value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#C4C4C4',
-                fontWeight: 'bold',
-                color: 'rgb(68 68 68)',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-              onClick={uploadPost}
-            >
-              Post
-            </div>
+            <SwapComponents/>
           </Form>
         )}
       </Popup>
