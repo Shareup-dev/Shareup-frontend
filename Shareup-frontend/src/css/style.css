@@ -2047,7 +2047,7 @@ form button {
 }
 
 .friend-info > .post-meta > figure {
-  margin-top: 11px;
+  margin-top: -11px;
   display: inline-block;
   margin-bottom: 0;
   vertical-align: middle;
@@ -4315,7 +4315,6 @@ nav.breadcrumb {
   /* max-width: 100%;
   min-width: 100%; */
   border-radius: 50%;
-  width: 100%;
   height: 100%;
 }
 .item1 {
@@ -11787,10 +11786,10 @@ img.hover-shadow {
     color:#da0913;
 } */
 .add-dropdown {
-  margin-right: 11px;
+  /* margin-right: 11px; */
   margin-top: 11px;
   float: right;
-  transform: translateY(-50%);
+  transform: translateY(-73%);
   width: auto;
   line-height: 10px;
   padding-top: 10px;
@@ -11800,7 +11799,7 @@ img.hover-shadow {
   cursor: pointer;
 }
 .drop-options {
-  margin-top: -200px;
+  margin-top: -547px;
   border-radius: calc(6px - 1px);
   box-shadow: 0 10px 20px rgb(0 0 0 / 20%), 0 1px 6px rgb(0 0 0 / 20%);
   background-color: #fcfcfc;
@@ -11824,13 +11823,14 @@ img.hover-shadow {
 }
 
 .drop-options::after {
-  border-top: 7px solid #eaeaea;
+  border-top: 7px solid #314c89;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   content: "";
   position: absolute;
   right: 11px;
-  bottom: -6px;
+  top: -13px;
+  /* bottom: -6px; */
   width: auto;
 }
 
@@ -14345,7 +14345,7 @@ a.Hangin-btn:hover {
 }
 .stryp {
   background: #000;
-  width: 214vh;
+  /* width: 214vh; */
   min-height: 100vh;
 }
 .strydiv {

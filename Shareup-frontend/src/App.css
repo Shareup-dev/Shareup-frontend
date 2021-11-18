@@ -22,6 +22,7 @@
 }
 
   .button {
+    margin-right: 5px;
     margin-bottom: 30px;
     display: block;
     width: 115px;
@@ -217,6 +218,7 @@ select.list-dt:focus {
 
 #progressbar li {
     list-style-type: none;
+    padding-left: 57px;
     font-size: 12px;
     width: 25%;
     float: left;

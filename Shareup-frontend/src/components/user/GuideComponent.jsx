@@ -179,7 +179,8 @@ function GuideComponent() {
                                             {/* <span className="status f-online" /> */}
                                         </div>
                                         <div class="item2">
-                                            <p className="nameTag"><a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
+                                            <p className="nameTag">
+                                                <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
                                             <p2>
                                                 <p>Recommended</p>
                                             </p2>
@@ -208,7 +209,6 @@ function GuideComponent() {
 
                                                             <p>Already a friend</p>
 
-
                                                         </>
                                                     :
                                                     <div class="item5">
@@ -219,22 +219,9 @@ function GuideComponent() {
 
                                             }
 
-
-                                            <i class="las la-times" >
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
 
                                             </i>
-
-
-
-
-
-
-
-
-
-
-
-
 
                                         </div>
 
@@ -266,7 +253,16 @@ function GuideComponent() {
                                                 {/* <span className="status f-online" /> */}
                                             </div>
                                             <div className="item2">
-                                                <p className="nameTag"><a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
+                                                <p className="nameTag"><a href={`/profile/${userF.email}`}>
+                                                    {`${userF.firstName} ${userF.lastName}`}</a>
+                                                </p>
+                                                <p2>
+                                                    <p>3 mutual</p>
+                                                </p2>
+
+
+                                            </div>
+                                            <div style={{ display: 'inline-flex', paddingTop: '25px', paddingRight: '10px' }}>
                                                 {
                                                     (user.id !== userF.id) ?
                                                         (!following.some(el => el.id === userF.id)) ?
@@ -276,6 +272,11 @@ function GuideComponent() {
                                                         :
                                                         null
                                                 }
+
+
+                                                <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+
+                                                </i>
                                             </div>
 
                                         </div>
@@ -295,18 +296,28 @@ function GuideComponent() {
                         <ul className="nearby-contct">
                             {allGroups.slice(0, 8).map(group =>
                                 <li key={group.id} className="grp">
-                                    <div className="grid-container">
+                                    <div className="grid-container" >
                                         <div class="item1">
                                             <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
                                         </div>
+
                                         <div class="item2">
                                             <p className="nameTag"><a href={`/groups/${group.id}`}>{`${group.name}`}</a></p>
+
+                                        </div>
+                                        <div style={{ display: 'inline-flex', paddingTop: '25px', paddingRight: '10px' }}>
+
+
                                             {
                                                 (group.members.some(el => el.id === user.id)) ?
                                                     <a href="#!" class="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
                                                     :
                                                     < a href="#!" class="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => handleJoinGroup(group.id)}>Join Group</a>
                                             }
+
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+
+                                            </i>
                                         </div>
 
                                     </div>
@@ -364,9 +375,23 @@ function GuideComponent() {
 
 
 
-                        <div style={{ textAlign: 'left', fontWeight: 'bold', paddingLeft: '12%', paddingLeft: '12%', fontColor: '#000000' }}>
-                            <h4><strong>Are you new?</strong></h4>
-                            <p>Here are some suggestions</p>
+                        <div className="grid-container"
+                            style={{ gridTemplateColumns: 'max-content', textAlign: 'left', fontWeight: 'bold', paddingLeft: '13%', paddingRight: '13%', fontColor: '#000000' }}>
+
+                            <div class="item1">
+                                <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
+                                {/* <span className="status f-online" /> */}
+                            </div>
+                            <div class="item2" style={{ fontSize: '16px', fontWeight: 'bold', color: 'black', paddingTop: '22px' }}>
+
+                                <h4> <strong>Are you new?</strong></h4>
+
+                                <h4>Here are some suggestions</h4>
+
+                            </div>
+
+
+
                         </div>
                         <div className="row">
                             <div className="col-md-12 mx-0">
