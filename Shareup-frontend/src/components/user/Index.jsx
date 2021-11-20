@@ -12,7 +12,8 @@ import styled from 'styled-components';
 import '../../modal.css';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
 import { useForm } from "react-hook-form";
-import './signup.css';
+// import './signup.css';
+import '../../signup.css';
 
 const Container = styled.div`
   display: flex;
@@ -135,7 +136,7 @@ function Index({ set, setUser }) {
     if (!email.includes('@')) {
       console.log("Please ensure your email contains @")
       setEmailError("Please ensure your email contains @")
-      // alert("Please ensure your email contains @")
+
       validated = false;
     }
     if (password != confirmPassword) {
@@ -210,17 +211,18 @@ const onSubmit = (data) => {
     let validated = true
 
     if (email == '') {
-      // setAllFieldFillError("Please Fill Out Every Field")
     document.getElementById('email-empty').innerHTML="Please enter email";
     document.getElementById('loginemail').style.border="2px solid red";
+    document.querySelector('.input-error-icon').style.visibility="visible";
 
       validated = false;
     }
     if (password == '') {
       console.log("Please Fill Out Every Field")
-      // setAllFieldFillError("Please Fill Out Every Field")
     document.getElementById('password-empty').innerHTML="Please enter password";
     document.getElementById('loginpassword').style.border="2px solid red";
+    document.querySelector('.input-error-icon2').style.visibility="visible";
+
 
 
       validated = false;
@@ -229,7 +231,6 @@ const onSubmit = (data) => {
     if(email){
       if (!email.includes('@')) {
         console.log("Please ensure your email contains @")
-        // setEmailError("Please ensure your email contains @")
       document.getElementById('email-empty').innerHTML="Please include @";
   
         validated = false;
@@ -279,9 +280,9 @@ const onSubmit = (data) => {
       return (
         <div className="log-reg-area reg">
           <h2 className="log-title">Register new Account</h2>
-     <form onSubmit={handleSubmit(onSubmit)} style={{background:'rgba(255,255,255, 0.1)', color:'white', padding:'1rem 0'}}> 
+     <form onSubmit={handleSubmit(onSubmit)} style={{color:'white', padding:'1rem 0'}}> 
      <div className='row' >
-            <div className="col-md-6 py-3">
+            <div className="col-md-6 py-3 form-icon">
               <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label>
               <input
                 type="text" id="validationCustom01"  placeholder='Enter first name'
@@ -292,12 +293,15 @@ const onSubmit = (data) => {
                   setFirstName(e.target.value)
                 }}/>
               {errors.firstName && (
+                
                 <small className="text-danger">
                 {errors.firstName.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+
               </small>
               )}
             </div>
-            <div className="col-md-6 py-3">
+            <div className="col-md-6 py-3 form-icon">
               <label className="form-label pb-1">Last Name:</label>
               <input
                 type="text" placeholder='Enter last name'
@@ -310,11 +314,13 @@ const onSubmit = (data) => {
                 }}
               />
               {errors.lastName && (
-                <small className="text-danger">{errors.lastName.message}</small>
+                <small className="text-danger">{errors.lastName.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                </small>
               )}
             </div>
            
-            <div className="col-md-6 pb-3">
+            <div className="col-md-6 py-3 form-icon">
               <label className="form-label pb-1">Email:</label>
               <input
                 type="text" placeholder='Enter email'
@@ -331,11 +337,14 @@ const onSubmit = (data) => {
                 }}
               />
               {errors.email && (
-                <small className="text-danger">{errors.email.message}</small>
+                <small className="text-danger">{errors.email.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                
+                </small>
               )}
             </div>
 
-            <div className="col-md-6 pb-3">
+            <div className="col-md-6 py-3 form-icon">
               <label className="form-label pb-1">Password:</label>
               <input
                 type="password"  id='password'
@@ -349,10 +358,13 @@ const onSubmit = (data) => {
                 }}
               />
               {errors.password && (
-                <small className="text-danger">{errors.password.message}</small>
+                <small className="text-danger">{errors.password.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+
+                </small>
               )}
             </div>
-            <div className="col-md-12 pb-3">
+            <div className="col-md-12 py-3 form-icon">
               <label className="form-label pb-1">Confirm Password:</label>
               <input
                 type="password" 
@@ -367,9 +379,14 @@ const onSubmit = (data) => {
                  }}
               />
               {errors.confirmPassword && (
-                <small className="text-danger">{errors.confirmPassword.message}</small>
+                <small className="text-danger">{errors.confirmPassword.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                
+                </small>
               )} 
-                <small className="text-danger" id='message'></small>
+                <small className="text-danger" id='message'>
+
+                </small>
 
              
             </div>      
@@ -382,7 +399,8 @@ const onSubmit = (data) => {
             <div className="checkbox">
               <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />I am 18 years old or above</label>
             </div>
-            <button type='button' onClick={() => setShowComponent("login")} className="already-have">Already have an account?</button>
+            <a href="#" onClick={() => setShowComponent("login")} className="already-have">Already an account?</a>
+
             <div className="submit-btns">
               <button className="mtr-btn signup" type='submit'>
                 <span>Share In</span>
@@ -406,27 +424,28 @@ const onSubmit = (data) => {
                 {loginError}
               </div>
             }
-            {/* {allFieldFillError &&
-              <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{allFieldFillError}</p>
-            } */}
+          
           </p>
           {emailError &&
               <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{emailError}</p>
             }
 
-          <form  style={{background:'rgba(255,255,255, 0.1)', color:'white', padding:'2rem 0'}}>
+          <form  style={{color:'white', padding:'2rem 0'}}>
             <div className="row">
-            <div className="col-md-12 pb-3">
+            <div className="col-md-12 py-3 login-form-icon">
               <label className="form-label pb-1">Email:</label>
               <input
                  placeholder='Enter email' id='loginemail' type="text" name="email" value={email} onChange={handleEmail} required="required" className='form-control m-0'/>
+                 <i class="fas fa-exclamation-circle input-error-icon"></i>
                   <small className="text-danger" id='email-empty'></small>
             </div>
 
-            <div className="col-md-12 pb-3">
+            <div className="col-md-12 py-3 login-form-icon">
               <label className="form-label pb-1">Password:</label>
               <input
                 id='loginpassword'  type="password" name="password" value={password} onChange={handlePassword} required="required" placeholder='Enter password' className='form-control m-0'/>
+                 <i class="fas fa-exclamation-circle  input-error-icon2"></i>
+                  
                   <small className="text-danger" id='password-empty'></small>
             
             </div>

@@ -1,0 +1,26 @@
+.invalid {
+    border:2px solid rgb(247, 20, 20) !important;
+   }
+   input, textarea {
+    /* outline: none !important; */
+    box-shadow: none !important; 
+  }
+  .form-icon i{
+  /* visibility: hidden; */
+	position: absolute;
+  top: 47px;
+  right: 22px;
+  color: red;
+}
+  .login-form-icon i{
+  visibility: hidden; 
+	position: absolute;
+  top: 47px;
+  right: 22px;
+  color: red;
+}
+  
+  /* .form-icon i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+  } */
