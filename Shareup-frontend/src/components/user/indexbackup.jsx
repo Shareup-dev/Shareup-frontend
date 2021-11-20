@@ -10,6 +10,7 @@ import Modal from 'react-modal';
 import { GlobalStyle } from '../../styles/modalStyles';
 import styled from 'styled-components';
 import '../../modal.css';
+// import SignupComponent from './SignupComponent.jsx';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
 import { useForm } from "react-hook-form";
 import './signup.css';
@@ -161,6 +162,7 @@ const {
 const onSubmit = (data) => {
   console.log('legth is' + data.length)
 
+if(data.confirmPassword){
 
   if(data.password == data.confirmPassword)
   {
@@ -170,8 +172,11 @@ const onSubmit = (data) => {
   else{
     document.getElementById('message').innerHTML="password didnt match";
   }
+}
 
-
+else{
+  handleLogin();
+}
 
 };
 
@@ -209,34 +214,16 @@ const onSubmit = (data) => {
     setLoginError("")
     let validated = true
 
-    if (email == '') {
-      // setAllFieldFillError("Please Fill Out Every Field")
-    document.getElementById('email-empty').innerHTML="Please enter email";
-    document.getElementById('loginemail').style.border="2px solid red";
-
-      validated = false;
-    }
-    if (password == '') {
+    if (email == '' || password == '') {
       console.log("Please Fill Out Every Field")
-      // setAllFieldFillError("Please Fill Out Every Field")
-    document.getElementById('password-empty').innerHTML="Please enter password";
-    document.getElementById('loginpassword').style.border="2px solid red";
-
-
+      setAllFieldFillError("Please Fill Out Every Field")
       validated = false;
     }
-
-    if(email){
-      if (!email.includes('@')) {
-        console.log("Please ensure your email contains @")
-        // setEmailError("Please ensure your email contains @")
-      document.getElementById('email-empty').innerHTML="Please include @";
-  
-        validated = false;
-      }
-
+    if (!email.includes('@')) {
+      console.log("Please ensure your email contains @")
+      setEmailError("Please ensure your email contains @")
+      validated = false;
     }
-    
     if (validated) {
       handleLogin();
     }
@@ -284,7 +271,7 @@ const onSubmit = (data) => {
             <div className="col-md-6 py-3">
               <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label>
               <input
-                type="text" id="validationCustom01"  placeholder='Enter first name'
+                type="text" id="validationCustom01" 
                 className={`form-control m-0 ${errors.firstName && "invalid"}`}
                 {...register("firstName", { required: "First Name is Required" })}
                 onKeyUp={(e) => {
@@ -300,7 +287,7 @@ const onSubmit = (data) => {
             <div className="col-md-6 py-3">
               <label className="form-label pb-1">Last Name:</label>
               <input
-                type="text" placeholder='Enter last name'
+                type="text"
                 className={`form-control m-0 ${errors.lastName && "invalid"}`}
                 {...register("lastName", { required: "Last name is Required" })}
                 onKeyUp={(e) => {
@@ -317,7 +304,7 @@ const onSubmit = (data) => {
             <div className="col-md-6 pb-3">
               <label className="form-label pb-1">Email:</label>
               <input
-                type="text" placeholder='Enter email'
+                type="text"
                 className={`form-control m-0 ${errors.email && "invalid"}`}
                 {...register("email", { required: "Email is Required" ,
                 pattern: {
@@ -356,7 +343,7 @@ const onSubmit = (data) => {
               <label className="form-label pb-1">Confirm Password:</label>
               <input
                 type="password" 
-                placeholder='Confirm password' id='confirm_password'
+                placeholder='Enter password' id='confirm_password'
                 className={`form-control m-0 ${errors.confirmPassword && "invalid"}`}
                  {...register("confirmPassword", { required: " Confirm password is Required" })}
                  onKeyUp={(e) => {
@@ -406,29 +393,53 @@ const onSubmit = (data) => {
                 {loginError}
               </div>
             }
-            {/* {allFieldFillError &&
+            {allFieldFillError &&
               <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{allFieldFillError}</p>
-            } */}
+            }
           </p>
           {emailError &&
               <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{emailError}</p>
             }
 
-          <form  style={{background:'rgba(255,255,255, 0.1)', color:'white', padding:'2rem 0'}}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{background:'rgba(255,255,255, 0.1)', color:'white', padding:'2rem 0'}}>
             <div className="row">
             <div className="col-md-12 pb-3">
               <label className="form-label pb-1">Email:</label>
               <input
-                 placeholder='Enter email' id='loginemail' type="text" name="email" value={email} onChange={handleEmail} required="required" className='form-control m-0'/>
-                  <small className="text-danger" id='email-empty'></small>
+                type="text" placeholder='Enter email' id='loginemail' 
+                className={`form-control m-0 ${errors.email && "invalid"}`}
+                {...register("email", { required: "Email is Required" ,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                }})}
+                 onKeyUp={(e) => {
+                 trigger("email");
+                setEmail(e.target.value)
+
+                 }}
+              />
+              {errors.email && (
+                <small className="text-danger">{errors.email.message}</small>
+              )}
             </div>
 
             <div className="col-md-12 pb-3">
               <label className="form-label pb-1">Password:</label>
               <input
-                id='loginpassword'  type="password" name="password" value={password} onChange={handlePassword} required="required" placeholder='Enter password' className='form-control m-0'/>
-                  <small className="text-danger" id='password-empty'></small>
-            
+                type="password"  id='password' 
+                placeholder='Enter password'
+                className={`form-control m-0 ${errors.password && "invalid"}`}
+                {...register("password", { required: "Password is Required" })}
+                 onKeyUp={(e) => {
+                   trigger("password");
+                //   setPassword(e.target.value)
+
+                 }}
+              />
+              {errors.password && (
+                <small className="text-danger">{errors.password.message}</small>
+              )}
             </div>
              
             </div>
@@ -437,7 +448,7 @@ const onSubmit = (data) => {
               <a href="#" onClick={() => setShowComponent("register")} className="already-have">Dont have an account?</a>
             </div>
             <div className="submit-btns-log">
-            <button className="mtr-btn signup" onClick={validateLogin} >
+              <button className="mtr-btn signup" type='submit'>
                 <span>Share In</span>
               </button>
             </div>
