@@ -238,15 +238,15 @@ export default function EditProfileComponent() {
             </div>
             <div className="right-edit-profile-details padding">
               <ul>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p><i className="las la-home" aria-hidden="true" /><span className="text-color-2">Current town / city</span></p></div>
                   <div className="right-edit-details-input"><input type="text" value={currentTown} onChange={handleCurrentTown}/></div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p><i class="las la-map-marker"></i><span className="text-color-2">Home town</span></p></div>
                   <div className="right-edit-details-input"><input type="text"  value={homeTown} onChange={handleHomeTown}/></div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                 <div style={{flex:1, textAlign: 'left'}}><p><i class="lab la-gratipay"></i><span className="text-color-2">Relationship status</span></p></div>
                 <div className="right-edit-details-input"><input type="text" value={relationshipStatus} onChange={handleRelationshipStatus}/></div>
                 </li>
@@ -265,11 +265,11 @@ export default function EditProfileComponent() {
             </div>
             <div className="right-edit-profile-details padding">
               <ul>
-              <li>
+              <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
                   <div className="right-edit-details-input">{userProfile.email}</div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Phone Number</p></div>
                   <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
