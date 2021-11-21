@@ -92,6 +92,10 @@ button:focus {
   outline: none;
 }
 
+button:hover  , a:hover{
+  cursor: pointer;
+}
+
 img {
   vertical-align: middle;
   height: auto;
@@ -2099,7 +2103,7 @@ form button {
   border-radius: 10px 10px 10px 10px;
 }
 .post-meta > p {
-  padding: 20px 0 0 20px;
+  padding: 20px 0 10px 20px;
 }
 
 .description {
@@ -4190,7 +4194,7 @@ nav.breadcrumb {
   display: inline-block;
   list-style: outside none none;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 11px;
   padding-left: 0;
   width: 100%;
   display: flex;
@@ -4203,6 +4207,11 @@ nav.breadcrumb {
   /* flex-grow: 1; */
   /* width: 40%; */
   width: 100%;
+
+
+
+
+  /* width: 29%; */
 }
 
 
@@ -4230,6 +4239,7 @@ nav.breadcrumb {
   margin-bottom: 10px;
   margin-left: 0px;
   margin-right:0px;
+  border: 1px solid #eaeaea;
   /* padding: 11px; */
   /* width: 100%; */
   transition: all 0.15s linear 0s;
@@ -4363,21 +4373,44 @@ nav.breadcrumb {
   /* background-color: #2196F3; */
   padding: 10px;
 }
-.item1 img {
-  /* max-width: 100%;
-  min-width: 100%; */
-  border-radius: 50%;
-  height: 100%;
+.item1 .img {
+  /* max-width: 150px; */
+  height: 150px;
+  /* border-radius: 50%; */
+  width: 100%;
+  /* height: 50px; */
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+.item1 .no-img {
+  /* max-width: 150px; */
+  height: 150px;
+  /* border-radius: 50%; */
+  /* width: 100%; */
+  /* height: 50px; */
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
 }
 .item1 {
   /* height: 100%; */
+  background: #f7f7f7;
   vertical-align: center;
   align-self: auto;
+/* <<<<<<< HEAD */
   padding-top: 13px;
   padding-bottom: 13px;
   padding-left: 13px;
   padding-right: 13px;
   height: 82px;
+/* ======= */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* border-bottom: 1px solid #eaeaea; */
+/* >>>>>>> ae14d18526766c81b931069b7ed23865ec8ebd1e */
 }
 
 .item2 {
@@ -4385,6 +4418,7 @@ nav.breadcrumb {
   text-align: left;
   padding-top: 10px;
   width: 100%;
+  padding: 0 10px 10px;
   align-self: auto;
 }
 .item2 p {
@@ -4463,10 +4497,13 @@ width: 135%;
   height: 50px;
 }
 .item2 a {
+
   line-height:16px;
 
   font-size: 16px;
   color: rgb(107 107 107);
+
+  color: black;
 }
 .item4 a {
   color: rgb(107 107 107);
@@ -4492,9 +4529,12 @@ width: 135%;
   font-size: 12px;
 }
 .nameTag {
+
 padding-top: 10px;
   font-weight: bold;
   /* font-size: 16px; */
+
+  font-size: 15px;
 }
 .navContent {
   width: 100%;
@@ -12865,7 +12905,7 @@ breadcrumb-item + .breadcrumb-item::before {
 
 .headpop {
   border-bottom: 1px solid #eaeaea;
-  padding: 20px 0;
+  padding: 15px 5px;
   vertical-align: middle;
   margin: 0 0 11px 0;
 }
@@ -13185,7 +13225,7 @@ a.openmap {
   background-color: WHITE;
 }
 .hanggift {
-  height: 70vh;
+  /* height: 70vh; */
 }
 .padg {
   padding: 0 5px 0 5px;
@@ -13732,10 +13772,10 @@ a.Hangin-btn:hover {
   padding: 10px 10px;
 }
 .lftbtn {
-  left: 42%;
+  left: 32%;
 }
 .rtbtn {
-  right: 20px;
+  right: 32px;
 }
 .swapbtnfeed {
   text-align: center;
@@ -14833,14 +14873,33 @@ input.chat-text {
   font-size: xx-small;
 }
 .swappic {
-  width: 200px;
-  height: 300px;
+  width: 170px;
+  height: 230px;
   background: rgb(206, 206, 206);
   border-radius: 10px;
   color: #fff;
   font-weight: bold;
   font-size: 24px;
-  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 100px; */
   object-fit: cover;
 }
-
+.swap-img-container{
+  height: 230px;
+  /* text-align: center;
+  vertical-align: middle;
+  display: table-cell; */
+}
+.swap-img-container img{
+  width: 170px; 
+  height:230px ;
+  object-fit: cover;
+}
+.swapicon{
+  display: inline;
+  text-align: center; 
+  padding: 75px 10px;
+}

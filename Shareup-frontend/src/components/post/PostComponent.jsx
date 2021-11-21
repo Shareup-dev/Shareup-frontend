@@ -17,134 +17,139 @@ import fileStorage from '../../config/fileStorage';
 const my_url = `${storage.baseUrl}`
 
 export default function PostComponent({ post, setRefresh }) {
-    const { user } = useContext(UserContext)
-    const [editPostId, setEditPostId] = useState(null)
-    const [userR, setUserR] = useState([]);
-    const [showComment, setShowComment] = useState(false)
-    const [showMoreOptions, setShowMoreOptions] = useState(false)
-    const [showReactions, setShowReactions] = useState(false)
-   
-    const [likeReaction, setLikeReaction] = useState(null)
-    const [imgString, setimgString] = useState("");
-    const images = [
-        {
-          original: `/user-post/${post.id}/${imgString[0]}`,
-          thumbnail:`/user-post/${post.id}/${imgString[0]}`,
-        }
-        
-        
-      ];
-      
-      
+  const { user } = useContext(UserContext)
+  const [editPostId, setEditPostId] = useState(null)
+  const [userR, setUserR] = useState([]);
+  const [showComment, setShowComment] = useState(false)
+  const [showMoreOptions, setShowMoreOptions] = useState(false)
+  const [showReactions, setShowReactions] = useState(false)
 
-    const something=(event)=> {
-        if (event.key === "Enter") {
-            console.log('enter')
-        }
-    }
-    const handleEditPost = (id) => {
-        setEditPostId(id)
-        setRefresh(id)
-       
+  const [likeReaction, setLikeReaction] = useState(null)
+  const [imgString, setimgString] = useState("");
+  const images = [
+    {
+      original: `/user-post/${post.id}/${imgString[0]}`,
+      thumbnail: `/user-post/${post.id}/${imgString[0]}`,
     }
 
-    const getCommentCounter = (comments) => {
-        let counter = 0
-        comments.map(comment => {
-            counter += comment.replies.length + 1
-        })
-        return counter
+
+  ];
+
+
+
+  const something = (event) => {
+    if (event.key === "Enter") {
+      console.log('enter')
     }
-    
-    const checkIfLiked = (post) => {
-        const result = post.reactions.filter(reaction => reaction.user.id == user.id)
-        if (result.length > 0) {
-            return true
-        }
-        return false
+  }
+  const handleEditPost = (id) => {
+    setEditPostId(id)
+    setRefresh(id)
+
+  }
+
+  const getCommentCounter = (comments) => {
+    let counter = 0
+    comments.map(comment => {
+      counter += comment.replies.length + 1
+    })
+    return counter
+  }
+
+  const checkIfLiked = (post) => {
+    if(post.reactions){
+      const result = post.reactions.filter(reaction => reaction.user.id == user.id)
+      if (result.length > 0) {
+        return true
+      }
+      return false
+    }
+  }
+
+  const checkIfSaved = (post) => {
+    if(post.savedByUsers){
+      const result = post.savedByUsers.filter(userz => userz.id == user.id)
+      if (result.length > 0) {
+        console.log(" FOUND")
+        return true
+      }
+      console.log(" Not found")
+      return false
     }
 
-    const checkIfSaved = (post) => {
-        const result = post.savedByUsers.filter(userz => userz.id == user.id)
-        if (result.length > 0) {
-            console.log(" FOUND")
-            return true
-        }
-        console.log(" Not found")
-        return false
-    }
+  }
 
-    const handleLikePost = async (post_id) => {
-        await UserService.likePost(user.id, post_id).then(res => {
-            setRefresh(res.data)
-        })
-    }
+  const handleLikePost = async (post_id) => {
+    await UserService.likePost(user.id, post_id).then(res => {
+      setRefresh(res.data)
+    })
+  }
 
-    const handleSavePost = async (post_id) => {
-        UserService.savePost(user.id, post_id).then(res => {
-            setRefresh(res.data)
-        })
-        setShowMoreOptions(false);
-    }
+  const handleSavePost = async (post_id) => {
+    UserService.savePost(user.id, post_id).then(res => {
+      setRefresh(res.data)
+    })
+    setShowMoreOptions(false);
+  }
 
-    const handleDeletePost = (postid) => {
-        PostService.deletePost(postid).then(res => {
-            console.log(res.status)
-            setRefresh(res.data)
-        })
-    }
+  const handleDeletePost = (postid) => {
+    PostService.deletePost(postid).then(res => {
+      console.log(res.status)
+      setRefresh(res.data)
+    })
+  }
 
-    const handleEditingSave = (value) => {
-        setEditPostId(value)
-        setRefresh(value)
-        setShowMoreOptions(false)
-    }
+  const handleEditingSave = (value) => {
+    setEditPostId(value)
+    setRefresh(value)
+    setShowMoreOptions(false)
+  }
 
-    const handleShowingReaction = () => {
-        setTimeout(function () { setShowReactions(true) }, 200);
-    }
+  const handleShowingReaction = () => {
+    setTimeout(function () { setShowReactions(true) }, 200);
+  }
 
-    const handleUnshowingReaction = () => {
-        setTimeout(function () { setShowReactions(false) }, 200);
-    }
+  const handleUnshowingReaction = () => {
+    setTimeout(function () { setShowReactions(false) }, 200);
+  }
 
-    const handleReaction = () => {
-        if(likeReaction) {
-            return (<img src="/assets/images/StarLike.svg" alt="" />)
-            // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
-        }
-        return (<img src="/assets/images/StarLike.svg" alt="" />)
+  const handleReaction = () => {
+    if (likeReaction) {
+      return (<img src="/assets/images/StarLike.svg" alt="" />)
+      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
+    return (<img src="/assets/images/StarLike.svg" alt="" />)
+  }
 
-    const handleSettingReactions = (reaction) => {
-        setLikeReaction(reaction)
-        if (!checkIfLiked(post)) {
-            handleLikePost(post.id)  
-        }
+  const handleSettingReactions = (reaction) => {
+    setLikeReaction(reaction)
+    if (!checkIfLiked(post)) {
+      handleLikePost(post.id)
     }
-   
-    const handleCounterReaction = () => {
-        if(likeReaction) {
-            return (<img width={20} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
-        }
-        return (<img src="/assets/images/Starwhite.svg" alt="" />)
+  }
+
+  const handleCounterReaction = () => {
+    if (likeReaction) {
+      return (<img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />)
     }
-    //array fetch
-    const postImg = (str) => {
-        if(str!=null){
-            let temps=[];
-            for(let i=0; i<str.length; i++)
-            temps=[...temps,`/user-post/${post.id}/${str[i]}`]
-         console.log("img string"+imgString)
-        }
-     };
-     const toggleShowMoreOptions = (e) => {
-        e.preventDefault();
-        setShowMoreOptions(!showMoreOptions);
-      };
-      
-    return (
-        <div
+    return (<img src="/assets/images/Starwhite.svg" alt="" />)
+  }
+  //array fetch
+  const postImg = (str) => {
+    if (str != null) {
+      let temps = [];
+      for (let i = 0; i < str.length; i++)
+        temps = [...temps, `/user-post/${post.id}/${str[i]}`]
+      console.log("img string" + imgString)
+    }
+  };
+  const toggleShowMoreOptions = (e) => {
+    e.preventDefault();
+    setShowMoreOptions(!showMoreOptions);
+  };
+
+  return (
+    <div
       className='central-meta item'
       key={post.id}
       onClick={(e) => {
@@ -164,9 +169,9 @@ export default function PostComponent({ post, setRefresh }) {
                 <>
                   <div className='grid-container1'>
                     <div className='itemS1'>
-                      {post.postMedia.length > 0 ? (
+                      {post.postedimages.length > 0 ? (
                         <div className='postImage'>
-                          {post.postMedia.map((postImage) => (
+                          {post.postedimages.map((postImage) => (
                             <React.Fragment>
                               <a
                                 href={`${fileStorage.baseUrl}${postImage.imagePath}`}
@@ -181,7 +186,27 @@ export default function PostComponent({ post, setRefresh }) {
                             </React.Fragment>
                           ))}
                         </div>
-                      ) : null}
+                      ) : 
+                      post.swapimages.length > 0 ? (
+                        <div className='postImage'>
+                          {post.swapimages.map((postImage) => {
+                            console.log(postImage, 'swp')
+                            return(
+                            <React.Fragment>
+                              <a
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                <img
+                                  style={{ width: '100%', objectFit: 'cover' }}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                />
+                              </a>
+                            </React.Fragment>
+                          )})}
+                        </div>
+                      ) :null}
                     </div>
                     <div className='itemS2'>
                       <div className='swapbtnfeed'>
@@ -326,27 +351,42 @@ export default function PostComponent({ post, setRefresh }) {
               )}
 
               <div className='postImage'>
-                {post.postMedia.map((postImage) => (
+                {post.postedimages?
+                post.postedimages.map((postImage) => (
                   <React.Fragment>
                     <a
-                      href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                       data-lightbox={`image-user-${post.user.id}`}
                     >
                       <img
                         style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                       />
                     </a>
                   </React.Fragment>
-                ))}
+                )):
+                post.swapimages?post.swapimages.map((postImage) => (
+                  <React.Fragment>
+                    <a
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      data-lightbox={`image-user-${post.user.id}`}
+                    >
+                      <img
+                        style={{ width: '100%', objectFit: 'cover' }}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      />
+                    </a>
+                  </React.Fragment>
+                )):null}
               </div>
 
               <div className='counter'>
                 <ul>
                   <li>
                     {handleCounterReaction()}
-                    <span> {`${post.reactions.length}`} </span>
+                    <span> {post.reactions&&`${post.reactions.length}`} </span>
                   </li>
                   <li>
                     <span
@@ -466,8 +506,8 @@ export default function PostComponent({ post, setRefresh }) {
         </div>
       </div>
     </div>
-    );
-    
+  );
+
 }
 
 

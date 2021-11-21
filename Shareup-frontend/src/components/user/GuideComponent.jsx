@@ -173,7 +173,7 @@ function GuideComponent() {
                         <ul className="nearby-contct">
                             {allUser.slice(0, 8).map(userF =>
                                 <li className="grp" key={userF.id}>
-                                    <div className="grid-container">
+                                    <div className="grid-container" >
                                         <div class="item1">
                                             <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
                                             {/* <span className="status f-online" /> */}

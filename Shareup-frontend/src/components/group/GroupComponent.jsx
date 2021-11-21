@@ -15,6 +15,7 @@ import { testScript } from '../../js/script';
 import MenuWidgetComponent from '../widgets/MenuWidgetComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
+import Grpicon from '../../images/grpicon.png'
 
 function GroupComponent({post}) {
 	const { id: stringId } = useParams();
@@ -168,28 +169,28 @@ function GroupComponent({post}) {
 					<ul className="nearby-contct">
 						{searchedGroups.map(
 							group =>
-								<li key={group.id} className="friends-card grp">
-									<div className="grid-container">
+								<li key={group.id} className="friends-card">
+									<div className="">
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
 										<div class="item2">
-											<p className="nameTag"><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+											<p className="nameTag" style={{textAlign: 'center' , height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
 											{
 													checkIfInGroup(group.members) ?
-														<a href class="button" style={{ color: "#fff",background:'#033347', fontSize:'12px' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
+														<a href class="button" style={{ color: "#fff",background:'#033347', fontSize:'12px' , width: '100%' , padding: '5px' , fontWeight: '600' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
 														:
-														<a href class="button"style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }}  onClick={() => handleJoinGroup(group.id)}>Join Group</a>
+														<a href class="button"style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '100%' , padding: '5px' , fontWeight: '600'}}  onClick={() => handleJoinGroup(group.id)}>Join Group</a>
 												}
 										</div>
 										
-										<div class="item6">
+										{/* <div class="item6">
 											{/* <span>Engr</span> */}
-											<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
-										</div>
+											{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
+										{/* </div> */}
 										
 
 

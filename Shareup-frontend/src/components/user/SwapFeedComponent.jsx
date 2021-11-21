@@ -605,29 +605,48 @@ const handleRemoveImageSwap = () => {
     )
                   }
   //Adding new swap
-  const postUp1 = () => 
-                  {
-
-                       return(
-                      <Popup trigger= {
-                                      <div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>
-                                      } 
-                      modal nested>
-                                       {
-                                       close => (<Form className="popwidth">
-                                         <div className="headpop" style={{border:'none'}}>
-                    <div className="row">
-                      <div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
-                    
-                    
-                    </div></div>
-                   
-                                        <SwapComponents/>
-                                       </Form>  )
-                                  }               
-                  </Popup>
-                    )
-                                  }
+  const postUp1 = () => {
+    return(
+      <Popup trigger= {<div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>} 
+        modal nested>
+        { close => (
+          <Form className="popwidth">
+            <div className="headpop">
+              <div className="row">
+                <div
+                  style={{
+                    color: "#000000",
+                    fontSize: "17px",
+                    fontWeight: "bold",
+                    width: "95%",
+                    textAlign: "center",
+                  }}
+                >
+                  <span>Create Swap Post</span>
+                </div>
+                <div style={{ width: "5%" }}>
+                  <span style={{}}>
+                    <a href="#!" onClick={close}>
+                    <i class="far fa-times-circle"></i>
+                    </a>
+                  </span>
+                </div>
+                {/* <div style={{ width: '10%', textAlign: 'center' }}>
+                  <span style={{ float: 'right' }}>
+                    {' '}
+                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
+                      Post
+                    </button>
+                  </span>
+                </div> */}
+              </div>
+            </div>
+            <SwapComponents/>
+          </Form>  )
+        }               
+      </Popup>
+    )
+  }
 
   //ends swap here
 
