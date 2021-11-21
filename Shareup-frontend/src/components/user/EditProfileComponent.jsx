@@ -204,20 +204,20 @@ export default function EditProfileComponent() {
                 a pet or something else. This wont be part of your public profile</p>
                 <div className="right-edit-profile-details padding">
               <ul>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
+                <li className='border-bottom'>
+                  <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Email Address</p></div>
                   <div className="right-edit-details-input">{userProfile.email}</div>
                 </li>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
+                <li className='border-bottom'>
+                  <div style={{display:'flex', alignItems:'center', flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
                   <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Gender</p></div>
+                <li className='border-bottom'>
+                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Gender</p></div>
                 <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div>
                 </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
+                <li className='border-bottom'>
+                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
                 <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
               </ul>
