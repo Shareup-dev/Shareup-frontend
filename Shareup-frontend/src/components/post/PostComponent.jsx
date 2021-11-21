@@ -57,21 +57,26 @@ export default function PostComponent({ post, setRefresh }) {
   }
 
   const checkIfLiked = (post) => {
-    const result = post.reactions.filter(reaction => reaction.user.id == user.id)
-    if (result.length > 0) {
-      return true
+    if(post.reactions){
+      const result = post.reactions.filter(reaction => reaction.user.id == user.id)
+      if (result.length > 0) {
+        return true
+      }
+      return false
     }
-    return false
   }
 
   const checkIfSaved = (post) => {
-    const result = post.savedByUsers.filter(userz => userz.id == user.id)
-    if (result.length > 0) {
-      console.log(" FOUND")
-      return true
+    if(post.savedByUsers){
+      const result = post.savedByUsers.filter(userz => userz.id == user.id)
+      if (result.length > 0) {
+        console.log(" FOUND")
+        return true
+      }
+      console.log(" Not found")
+      return false
     }
-    console.log(" Not found")
-    return false
+
   }
 
   const handleLikePost = async (post_id) => {
@@ -181,7 +186,27 @@ export default function PostComponent({ post, setRefresh }) {
                             </React.Fragment>
                           ))}
                         </div>
-                      ) : null}
+                      ) : 
+                      post.swapimages.length > 0 ? (
+                        <div className='postImage'>
+                          {post.swapimages.map((postImage) => {
+                            console.log(postImage, 'swp')
+                            return(
+                            <React.Fragment>
+                              <a
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                <img
+                                  style={{ width: '100%', objectFit: 'cover' }}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                />
+                              </a>
+                            </React.Fragment>
+                          )})}
+                        </div>
+                      ) :null}
                     </div>
                     <div className='itemS2'>
                       <div className='swapbtnfeed'>
@@ -320,7 +345,8 @@ export default function PostComponent({ post, setRefresh }) {
               )}
 
               <div className='postImage'>
-                {post.postedimages.map((postImage) => (
+                {post.postedimages?
+                post.postedimages.map((postImage) => (
                   <React.Fragment>
                     <a
                       href={`${fileStorage.baseUrl}${postImage.imagePath}`}
@@ -333,14 +359,28 @@ export default function PostComponent({ post, setRefresh }) {
                       />
                     </a>
                   </React.Fragment>
-                ))}
+                )):
+                post.swapimages?post.swapimages.map((postImage) => (
+                  <React.Fragment>
+                    <a
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      data-lightbox={`image-user-${post.user.id}`}
+                    >
+                      <img
+                        style={{ width: '100%', objectFit: 'cover' }}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      />
+                    </a>
+                  </React.Fragment>
+                )):null}
               </div>
 
               <div className='counter'>
                 <ul>
                   <li>
                     {handleCounterReaction()}
-                    <span> {`${post.reactions.length}`} </span>
+                    <span> {post.reactions&&`${post.reactions.length}`} </span>
                   </li>
                   <li>
                     <span

@@ -696,7 +696,7 @@ export default function SwapComponents() {
                     }</div>
                 </div></div>
 
-                <div style={{ width: '100%' , textAlign:'center' }}>  <button style={{ width: '98%' , borderRadius: '10px' , padding: '10px' }} type="submit" onClick={uploadPost}>POST</button></div>
+                <div style={{ width: '100%' , textAlign:'center' }}>  <button style={{ width: '98%' , borderRadius: '10px' , padding: '10px' }} type="submit" onClick={uploadPost}>SWAP</button></div>
                 
 
 

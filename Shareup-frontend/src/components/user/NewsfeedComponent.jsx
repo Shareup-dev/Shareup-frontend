@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
+import NewsFeedService from '../../services/NewsfeedService';
 import SwapService from '../../services/SwapService';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
@@ -153,7 +154,7 @@ function NewsfeedComponent() {
     });
   };
   const getPostForUser = async () => {
-    await PostService.getPostForUser(AuthService.getCurrentUser().username).then((res) => {
+    await NewsFeedService.getSwaps(AuthService.getCurrentUser().username).then((res) => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published),
           dateB = new Date(b.published);

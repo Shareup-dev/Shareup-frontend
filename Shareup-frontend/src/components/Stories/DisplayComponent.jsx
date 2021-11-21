@@ -95,134 +95,134 @@ const delay = 2500;
 
         {/* <div className="strydivcontnr">
                 <div className="strydiv"> */}
-        {/* <ul className="slider">
-        {storiesForUser.map(
-  story =><>
- <li key={story.id}>
-   <img src={story.storiesImagePath} />
- </li>
- </>)}
-</ul> */}
-<div className="stryDsply">
-<div className="container">
-     
-        
-<div className="strydivcontnr">
-                <div className="strydiv">
-                <div className="slideshow">
-      <div
-        className="slideshowSlider"
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-      >
- {storiesForUser.map((background, index) => (
-   <>
-   {background.storiesImagePath ?
-          <div
-            className="slide"
-            key={index}
-            
-          >
-             <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
-           <img className="stryDsplyImg" src={fileStorage.baseUrl+background.storiesImagePath} /> 
-          </div>:null}</>
-        ))}
-      </div>
+                    {/* <ul className="slider">
+                    {storiesForUser.map(
+              story =><>
+            <li key={story.id}>
+              <img src={story.storiesImagePath} />
+            </li>
+            </>)}
+            </ul> */}
+      <div className="stryDsply">
+        <div className="container">
+          <div className="strydivcontnr">
+            <div className="strydiv">
+              <div className="slideshow">
+                <div
+                  className="slideshowSlider"
+                  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+                >
+                {storiesForUser.map((background, index) => (
+                  <>
+                    {background.storiesImagePath ?
+                      <div
+                        className="slide"
+                        key={index}
+                        
+                      >
+                        <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" />
+                          <span>{background.user.firstName}</span>
+                        </div>
+                      <img className="stryDsplyImg" src={fileStorage.baseUrl + background.storiesImagePath} /> 
+                      </div>:null}</>
+                    ))}
+                  </div>
 
-      <div className="slideshowDots">
-        {storiesForUser.map((_, idx) => (
-          <div
-            key={idx}
-            className={`slideshowDot${index === idx ? " active" : ""}`}
-            onClick={() => {
-              setIndex(idx);
-            }}
-          ></div>
-        ))}
-
-</div>
-    </div>
-    </div>
-</div>
-</div></div>
-
-        {/* {storiesForUser.map(
-  storys =><>
-          <div
-            className="slide blckSlide"
-            key={storys.id}
-            
-          >
-            <div className="strydisplay-Profimg"><img src={storys.user.profilePicturePath} alt="" /></div>
-            <img className="stryDsplyImg" src={storys.storiesImagePath} />
-           
+                  <div className="slideshowDots">
+                    {storiesForUser.map((_, idx) => (
+                      <div
+                        key={idx}
+                        className={`slideshowDot${index === idx ? " active" : ""}`}
+                        onClick={() => {
+                          setIndex(idx);
+                        }}
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </>)}
-      </div>
+        </div>
 
-      <div className="slideshowDots">
-      {storiesForUser.map((_, idx)(
-          <div
-            key={idx}
-            className={`slideshowDot${index === idx? " active" : ""}`}
-            onClick={() => {
-              setIndex(idx);
-            }}
-          ></div>
-      ))} */}
-      
-{/* <OwlCarousel className='owl-theme' loop margin={1} items={1}  nav active>
-{storiesForUser.map(
-  story =><>
-    <div class='item' key={story.id}>
-    <img className="stryDsplyImg" src={story.storiesImagePath} />
-    </div>
-    </>)}
-</OwlCarousel> */}
+                    {/* {storiesForUser.map(
+              storys =><>
+                      <div
+                        className="slide blckSlide"
+                        key={storys.id}
+                        
+                      >
+                        <div className="strydisplay-Profimg"><img src={storys.user.profilePicturePath} alt="" /></div>
+                        <img className="stryDsplyImg" src={storys.storiesImagePath} />
+                      
+                      </div>
+                    </>)}
+                  </div>
 
-  </>
+                  <div className="slideshowDots">
+                  {storiesForUser.map((_, idx)(
+                      <div
+                        key={idx}
+                        className={`slideshowDot${index === idx? " active" : ""}`}
+                        onClick={() => {
+                          setIndex(idx);
+                        }}
+                      ></div>
+                  ))} */}
+                  
+            {/* <OwlCarousel className='owl-theme' loop margin={1} items={1}  nav active>
+            {storiesForUser.map(
+              story =><>
+                <div class='item' key={story.id}>
+                <img className="stryDsplyImg" src={story.storiesImagePath} />
+                </div>
+                </>)}
+            </OwlCarousel> */}
 
-        /* <Carousel>
-        {storiesForUser.map(
-  story =><>
-  <Carousel.Item key={story.id}>
-    <img
-      className="d-block w-100"
-      src={story.storiesImagePath}
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-  </Carousel.Item> </>)}
-  
-  {/* <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="assets/img/wall-two-colors-decorative-facade-plaster-texture-plastered-facade-two-colors-blue-yellow-113891371.jpg"
-      alt="Second slide"
-    />
+              </>
 
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Third slide&bg=20232a"
-      alt="Third slide"
-    />
+                    /* <Carousel>
+                    {storiesForUser.map(
+              story =><>
+              <Carousel.Item key={story.id}>
+                <img
+                  className="d-block w-100"
+                  src={story.storiesImagePath}
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item> </>)}
+              
+              {/* <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="assets/img/wall-two-colors-decorative-facade-plaster-texture-plastered-facade-two-colors-blue-yellow-113891371.jpg"
+                  alt="Second slide"
+                />
 
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item> 
-</Carousel> */
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src="holder.js/800x400?text=Third slide&bg=20232a"
+                  alt="Third slide"
+                />
 
-      
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item> 
+            </Carousel> */
+
+                  
      
      
         );

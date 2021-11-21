@@ -92,6 +92,10 @@ button:focus {
   outline: none;
 }
 
+button:hover  , a:hover{
+  cursor: pointer;
+}
+
 img {
   vertical-align: middle;
   height: auto;
@@ -2099,7 +2103,7 @@ form button {
   border-radius: 10px 10px 10px 10px;
 }
 .post-meta > p {
-  padding: 20px 0 0 20px;
+  padding: 20px 0 10px 20px;
 }
 
 .description {
@@ -4190,7 +4194,7 @@ nav.breadcrumb {
   display: inline-block;
   list-style: outside none none;
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 11px;
   padding-left: 0;
   width: 100%;
   display: flex;
@@ -4202,7 +4206,7 @@ nav.breadcrumb {
 .nearby-contct > li {
   /* flex-grow: 1; */
   /* width: 40%; */
-  width: 45%;
+  width: 29%;
 }
 
 .friends-card {
@@ -4217,7 +4221,8 @@ nav.breadcrumb {
   text-align: center;
   display: inline-block;
   margin-bottom: 10px;
-  padding: 11px;
+  border: 1px solid #eaeaea;
+  /* padding: 11px; */
   /* width: 100%; */
   transition: all 0.15s linear 0s;
   border-radius: 10px;
@@ -4308,21 +4313,41 @@ nav.breadcrumb {
   /* background-color: #2196F3; */
   padding: 10px;
 }
-.item1 img {
-  max-width: 50px;
-  min-width: 50px;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+.item1 .img {
+  /* max-width: 150px; */
+  height: 150px;
+  /* border-radius: 50%; */
+  width: 100%;
+  /* height: 50px; */
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+.item1 .no-img {
+  /* max-width: 150px; */
+  height: 150px;
+  /* border-radius: 50%; */
+  /* width: 100%; */
+  /* height: 50px; */
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
 }
 .item1 {
   /* height: 100%; */
+  background: #f7f7f7;
   vertical-align: center;
   align-self: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* border-bottom: 1px solid #eaeaea; */
 }
 .item2 {
   height: 100%;
   width: 100%;
+  padding: 0 10px 10px;
   align-self: auto;
 }
 .item2 p {
@@ -4377,7 +4402,7 @@ nav.breadcrumb {
   height: 50px;
 }
 .item2 a {
-  color: rgb(107 107 107);
+  color: black;
 }
 .item4 a {
   color: rgb(107 107 107);
@@ -4403,7 +4428,7 @@ nav.breadcrumb {
   font-size: 12px;
 }
 .nameTag {
-  font-size: 14px;
+  font-size: 15px;
 }
 .navContent {
   width: 100%;
@@ -14328,7 +14353,7 @@ a.Hangin-btn:hover {
 }
 .stryp {
   background: #000;
-  width: 214vh;
+  /* width: 214vh; */
   min-height: 100vh;
 }
 .strydiv {
