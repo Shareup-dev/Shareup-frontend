@@ -9,14 +9,16 @@ const [isOpen, setOpen] = useState(false);
   const toggleDropdown = () => setOpen(!isOpen);
   const handleItemClick = (id) => {
     selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
+    
   }
+ 
 
 return(               <div className='dropdown'>
-<div className='dropdown-head' onClick={toggleDropdown}>
+<div className='dropdown-head' onClick={toggleDropdown} >
   {selectedItem ? items.find(item => item.id == selectedItem).label : "Friends"}
   <i className={`fa fa-chevron-right icon ${isOpen && "open"}`}></i>
 </div>
-<div className={`dropdown-body ${isOpen && 'open'}`}>
+<div className={`dropdown-body ${isOpen && 'open'}`} onMouseLeave={toggleDropdown}>
   {items.map(item => (
     <div className="dropdown-item" onClick={e => handleItemClick(e.target.id)} id={item.id}>
       

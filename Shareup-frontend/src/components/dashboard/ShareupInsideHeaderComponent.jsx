@@ -266,7 +266,7 @@ function ShareupInsideHeaderComponent() {
           <span className="status f-online" />
           {
             showUserSettings && (
-              <div className="user-setting active">
+              <div className="user-setting active"  onMouseLeave={() => setShowUserSettings(!showUserSettings)}>
               <a href="#!" title="notif"><span className="status f-online" />online</a>
               <a href="#" title="notif"><span className="status f-away" />away</a>
               <a href="#" title="notif"><span className="status f-off" />offline</a>

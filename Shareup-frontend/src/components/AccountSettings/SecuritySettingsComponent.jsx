@@ -51,12 +51,13 @@ export default function SecuritySettingsComponent() {
     const addfield = () => {
       if (showField === 'editname') {
         return (<>
-          <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Name</p></div>
+        <ul className="compoundPadding">
+          <li className="bckgrnd"> <div style={{flex:1,fontSize:'14px'}}><p >Name</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" className="btn-primary">Save</a></div>
                   </li>
-                  
+               </ul>   
             </>
         )
       }
@@ -64,12 +65,13 @@ export default function SecuritySettingsComponent() {
       const adduname = () => {
       if (showField === 'username'){
         return (<>
-<li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >User Name</p></div>
+        <ul className="compoundPadding">
+<li className="bckgrnd"> <div style={{flex:1, fontSize:'14px'}}><p >User Name</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" className="btn-primary">Save</a></div>
                   </li>
-
+                  </ul>
         </>
         )
       }
@@ -77,12 +79,13 @@ export default function SecuritySettingsComponent() {
     const addph = () => {
       if (showField === 'phno'){
         return (<>
-<li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Mobile</p></div>
+        <ul className="compoundPadding">
+<li className="bckgrnd"> <div style={{flex:1,fontSize:'14px'}}><p >Mobile</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" className="btn-primary"> Save</a></div>
                   </li>
-
+                  </ul>
         </>
         )
       }
@@ -90,18 +93,19 @@ export default function SecuritySettingsComponent() {
     const forgotpwd = () => {
       if (showField === 'frgtpswd'){
         return (<>
-<li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Current Password</p></div>
+<ul className="compoundPadding">
+<li className="bckgrnd"> <div style={{flex:1,fontSize:'14px'}}><p >Current Password</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >New Password</p></div>
+                  <li className="bckgrnd"> <div style={{flex:1,fontSize:'14px'}}><p >New Password</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Repeat Password</p></div>
+                  <li className="bckgrnd"> <div style={{flex:1, fontSize:'14px'}}><p >Repeat Password</p></div>
                   <div className="right-settings-details-input"><input type="text" /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" className="btn-primary">Save</a></div>
                   </li>
-
+                  </ul>
         </>
         )
       }
@@ -109,12 +113,13 @@ export default function SecuritySettingsComponent() {
     const loginInfo = () => {
       if (showField === 'logininfo'){
         return (<>
-<li className="bckgrnd"> <div className="buttnScrty"><button className="buttonLoginInfo active" >Save Your Login Info</button></div>
+       < ul className="compoundPadding">
+<li className="bckgrnd"> <div className="buttnScrty"><button className="buttonLoginInfo btn-primary " >Save Your Login Info</button></div>
                   </li>
-                  <li className="bckgrnd"><div className="buttnScrty"> <button className="buttonLoginInfo" >Remove Account</button></div>
+                  <li className="bckgrnd"><div className="buttnScrty"> <button className="buttonLoginInfo btn-primary negative" >Remove Account</button></div>
                   </li>
                   
-
+</ul>
         </>
         )
       }
@@ -122,10 +127,12 @@ export default function SecuritySettingsComponent() {
     const notif = () => {
       if (showField === 'notif'){
         return (<>
-                  
-                  <li className="bckgrnd pdngLft"> <input type="radio" value="Male" name="gender" /> Male</li>
-                  <li className="bckgrnd pdngLft">  <input type="radio" value="Female" name="gender" /> Female</li>
-                  <li className="bckgrnd pdngLft"> <input type="radio" value="Other" name="gender" /> Other</li>
+      <  ul className="compoundPadding">
+                  <h3 className="bckgrnd  ">Notifications</h3>
+                  <li className="bckgrnd "> <input type="radio" value="Male" name="gender" /> Get Notification</li>
+                  <li className="bckgrnd ">  <input type="radio" value="Female" name="gender" /> Not Get Notification</li> </ul>
+                 
+                  <span className="scnd">We'll let you know if anyone logs in from a device or browser you don't usually use</span>
 
         </>
         )
@@ -134,12 +141,12 @@ export default function SecuritySettingsComponent() {
     const frndSrch = () => {
       if (showField === 'frndSrch'){
         return (<>
-                  
+                 < ul className="compoundPadding">
                   <li className="bckgrnd"> <div className="buttnScrty">Choose the friend you trust to help you when you have trouble in logging</div></li>
                   <li className="bckgrnd">  <div className="buttnScrty"><div class="friends-search-container-Scrty">
             <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
         </div></div></li>
-                 
+              </ul>   
 
         </>
         )
@@ -217,13 +224,13 @@ export default function SecuritySettingsComponent() {
                   <ul>
                   <li className="firstElement"><p className="secrtySec">Change Password<br/><span className="scnd">Use Strong Password</span></p> {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('frgtpswd')}>Edit</p>:
-              <p className="secrtyEdt" onClick={() => setshowField('frgtpswd')}>Edit</p>}</li>
-                  {forgotpwd()}
+              <p className="secrtyEdt" onClick={() => setshowField('frgtpswd')}>Edit</p>}
+                  {forgotpwd()}</li>
                   
                   <li><p className="secrtySec">Save your login info<br/><span className="scnd">It will only be saved on the browsers and devices you choose</span></p> {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('logininfo')}>Edit</p>:
-              <p className="secrtyEdt" onClick={() => setshowField('logininfo')}>Edit</p>}</li>
-                  {loginInfo()}
+              <p className="secrtyEdt" onClick={() => setshowField('logininfo')}>Edit</p>}
+                  {loginInfo()}</li>
                   
                   </ul></div>
                  
@@ -234,16 +241,16 @@ export default function SecuritySettingsComponent() {
                   <p className="clr">Setting Up Extra Security</p>
                   <div className="right-settings-details">
                   <ul>
-                  <li className="firstElement"><p className="secrtySec">Get alerts about unrecognized logins<br/><span className="scnd">We'll let you know if anyone logs in from a device or browser you don't usually use</span></p>
+                  <li className="firstElement"><p className="secrtySec">Get alerts about unrecognized logins<br/></p>
                   {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('notif')}>Edit</p>:
-              <p className="secrtyEdt" onClick={() => setshowField('notif')}>Edit</p>}</li>
-                  {notif()}
+              <p className="secrtyEdt" onClick={() => setshowField('notif')}>Edit</p>}
+                  {notif()}</li>
                   <li><p className="secrtySec">Choose 3 to 5 friends to contact if you get locked out<br/><span className="scnd">Your trusted contacts can send a code and URL from ShareUp to help you log back in</span></p>
                   {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('frndSrch')}>Edit</p>:
-              <p className="secrtyEdt" onClick={() => setshowField('frndSrch')}>Edit</p>}</li>
-                  {frndSrch()}
+              <p className="secrtyEdt" onClick={() => setshowField('frndSrch')}>Edit</p>}
+                  {frndSrch()}</li>
                   </ul></div>
                  
                 </div>

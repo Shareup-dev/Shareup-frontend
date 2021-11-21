@@ -154,9 +154,9 @@ export default function ChatTestComponent() {
     const loginInfo = () => {
       if (showField === 'logininfo'){
         return (<>
-<li className="bckgrnd"> <div className="buttnScrty"><button className="buttonLoginInfo active" >Save Your Login Info</button></div>
+<li className="bckgrnd"> <div className="buttnScrty"><button className="buttonLoginInfo active btn-primary" >Save Your Login Info</button></div>
                   </li>
-                  <li className="bckgrnd"><div className="buttnScrty"> <button className="buttonLoginInfo" >Remove Account</button></div>
+                  <li className="bckgrnd"><div className="buttnScrty"> <button className="buttonLoginInfo btn-primary negative" >Remove Account</button></div>
                   </li>
                   
 
