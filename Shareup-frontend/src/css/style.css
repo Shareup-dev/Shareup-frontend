@@ -4205,6 +4205,17 @@ nav.breadcrumb {
   width: 100%;
 }
 
+
+.nearby-contct > yi {
+  margin: 6px;
+  /* flex-grow: 1; */
+  /* width: 40%; */
+  width: 100%;
+}
+
+
+
+
 .friends-card {
   margin: 10px;
 }
@@ -4225,6 +4236,24 @@ nav.breadcrumb {
   border-radius: 10px;
 }
 .nearby-contct > li:hover {
+  box-shadow: 0 8px 8px #e1e8ec;
+  border-color: transparent;
+}
+
+
+.nearby-contct > yi {
+  
+  /* text-align: center; */
+  display: inline-block;
+  margin-bottom: 6px;
+  margin-left: 0px;
+  margin-right:0px;
+  /* padding: 11px; */
+  /* width: 100%; */
+  transition: all 0.15s linear 0s;
+  border-radius: 10px;
+}
+.nearby-contct > yi:hover {
   box-shadow: 0 8px 8px #e1e8ec;
   border-color: transparent;
 }
@@ -4301,6 +4330,29 @@ nav.breadcrumb {
   /* background-color: #2196F3; */
   /* padding: 10px; */
 }
+
+
+.grid-containeraudience {
+  display: grid;
+  grid-template-areas:
+    "image name "
+    "image email "
+    "image follow ";
+  grid-gap: 0px 1px;
+  height: 50px;
+
+  /* background-color: #2196F3; */
+   padding-top: 10px;
+   padding-bottom: 8px;
+   padding-left: 3px;
+   padding-right: 3px;
+
+
+
+}
+
+
+
 .grid-containerChat {
   display: grid;
   grid-template-areas:
@@ -4327,6 +4379,7 @@ nav.breadcrumb {
   padding-right: 13px;
   height: 82px;
 }
+
 .item2 {
   height: 70px;
   text-align: left;
@@ -4339,6 +4392,28 @@ nav.breadcrumb {
   font-size:9px;
   /* margin: 10px 0px 10px 0px; */
 }
+
+
+
+.item11 {
+  /* height: 100%; */
+  vertical-align: center;
+  padding-left: 4px;
+  /* padding-top: 2px; */
+  align-self: auto;
+width: 135%;
+  height: 33px;
+}
+.item22 {
+  text-align: left;
+  padding-top: 2px;
+  padding-left: 10px;
+  width: 100%;
+  /* font-weight: bold; */
+  align-self: center;
+  height: 33px;
+}
+
 
 .item4 {
   height: 100%;
@@ -12795,6 +12870,21 @@ breadcrumb-item + .breadcrumb-item::before {
   margin: 0 0 11px 0;
 }
 
+
+.headaudience{
+  border-top: solid rgba(208, 208, 208 ,0.4);
+  padding-top: 10px;
+  padding-bottom: 15px;
+
+   color: #000000;
+   font-size: 20px;
+   width: 100%;
+    text-align: left;
+
+}
+
+
+
 a.popup-btn {
   background: #033347;
   padding: 5px;
@@ -13357,6 +13447,7 @@ a.openmap {
 }
 
 .right-edit-profile-image {
+  line-height: normal;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14752,3 +14843,4 @@ input.chat-text {
   padding-top: 100px;
   object-fit: cover;
 }
+

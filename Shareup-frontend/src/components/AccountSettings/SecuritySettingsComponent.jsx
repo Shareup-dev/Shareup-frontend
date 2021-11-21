@@ -504,7 +504,14 @@ and other profile info? Friends<br/></p><DropdownComponent/></li>
           <div>
             <h1>Settings</h1>
             {
-              show === "general" ? <div className="settings-list active" onClick={() => setShow('general')}><img src="assets/images/gnrlstng.svg"/><p>General</p></div> : <div className="settings-list" onClick={() => setShow('general')}><img src="assets/images/gnrlstng.svg"/><p>General</p></div>
+              show === "general" ? 
+              <div className="settings-list active" 
+              onClick={() => setShow('general')}><img src="assets/images/gnrlstng.svg"/>
+              <p>General</p>
+              </div> :
+               <div className="settings-list" onClick={() => setShow('general')}>
+                <img src="assets/images/gnrlstng.svg"/>
+                <p>General</p></div>
             }
             {
               show === "security" ? <div className="settings-list active" onClick={() => setShow('security')}><img src="assets/images/scrtyStng.svg"/><p>Security and Privacy</p></div> : <div className="settings-list" onClick={() => setShow('security')}><img src="assets/images/scrtyStng.svg"/><p>Security and Privacy</p></div>

@@ -111,7 +111,7 @@ function NewsfeedComponent() {
     setIndex(selectedIndex);
   };
 
-  
+
   const uploadStories = (event) => {
     event.preventDefault();
     setUploadErrorStory('');
@@ -750,10 +750,10 @@ function NewsfeedComponent() {
     );
   };
 
- 
+
   const popSwap = () => {
     return (
-      
+
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
@@ -893,7 +893,7 @@ function NewsfeedComponent() {
 
   const popUp = () => {
     return (
-      
+
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
@@ -946,14 +946,17 @@ function NewsfeedComponent() {
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdownnewsfeed'>
+                  <span style={{ display: 'block', fontSize: '10px' }}>
+                    <li style={{paddingLeft: '10%' , paddingTop: '1%',listStyleType: 'none'}}>
+                      {popAudience()}
+                    </li>
+                    {/* <div className='dropdownnewsfeed'>
                       <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
                         <option value='Friends'>Friends</option>
                         <option value='Public'>Public</option>
                         <option value='Only Me'>Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{' '} */}
                   </span>
                 </div>{' '}
               </div>{' '}
@@ -1153,7 +1156,7 @@ function NewsfeedComponent() {
         trigger={
           <span style={{ cursor: 'pointer' }}>
             <span style={{ marginRight: '5px', padding: '5px' }}>
-            <img style={{ verticalAlign: 'middle', width: '30px'}} src='/assets/images/shareicon.svg' alt='img' />
+              <img style={{ verticalAlign: 'middle', width: '30px' }} src='/assets/images/shareicon.svg' alt='img' />
             </span>
             Share Up
           </span>
@@ -1272,13 +1275,13 @@ function NewsfeedComponent() {
         <Popup
           trigger={
             <span style={{ cursor: 'pointer' }}>
-            <span style={{ marginRight: '5px', padding: '5px' }}>
-              <img style={{ verticalAlign: 'middle', width: '30px' }} src='assets/images/photo-icon3.png' />
+              <span style={{ marginRight: '5px', padding: '5px' }}>
+                <img style={{ verticalAlign: 'middle', width: '30px' }} src='assets/images/photo-icon3.png' />
               </span>
               <span>Photos</span>
             </span>
           }
-          
+
           modal
           nested
         >
@@ -1387,6 +1390,212 @@ function NewsfeedComponent() {
   const testFanc = (post) => {
     return <PostComponent post={post} setRefresh={setRefresh} />;
   };
+
+
+
+  const popAudience = () => {
+    return (
+
+      <Popup
+        trigger={
+          <span style={{ cursor: 'pointer',  backgroundColor: '#033347', color: 'white'}}>
+            friends
+
+            <img src="assets/images/dashicons_arrow-down.svg"  
+            style={{ verticalAlign: 'middle'}}  />
+          </span>
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <Form style={{ paddingRight: '11px', paddinLeft: '11px', paddingBottom: '0px' }}
+            className='popwidth' onSubmit={close}>
+            <div className='headpop' style={{ padding: '0px' }}>
+              <div className='row' style={{ paddingBottom: '10px', paddingtop: '10px' }}>
+                <div style={{ width: '5%', paddingBottom: '10px' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times' style={{ fontSize: '20px', background: '#C4C4C4', borderRadius: '50%' }}></i>
+                  </a>
+                </div>
+
+                <div
+                  style={{ color: '#000000', fontSize: '21px', fontWeight: 'bold', width: '95%', textAlign: 'center' }}
+
+                >
+                  {' '}
+                  <span>Select Audience</span>
+                </div>
+
+              </div>
+
+              <div className="headaudience"
+
+              >
+                {' '}
+                <span style={{ fontWeight: 'bold' }}
+>Who can see your post?</span>
+                <p style={{ fontSize: '13px', paddingTop: '2px' }}>
+                  <p style={{ color: '#525050' , fontweight: '400 !important' }}>
+                    your post will apear in newsfeed, on your profile and search results</p>
+                </p>
+              </div>
+              <div>
+
+                <fieldset>
+                  <div className="form-card">
+                    <ul className="nearby-contct">
+
+                      <yi >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/publicicon.svg"  style={{ width: '70%'}} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                                Public
+                            </p>
+                            <p style={{ fontSize: '11px', paddingTop: '1px' }}>
+                              <p style={{ color: '#525050' }}>
+                                anyone on or off facebook</p>
+                            </p>
+
+
+                          </div>
+
+                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi>
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/friendsicon.svg"  style={{ width: '55%'}} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                                Friends
+                                </p>
+                            
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px',  color: '#525050' }}>
+                                your shareup friends
+                            </p>
+
+
+                          </div>
+
+                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/friendexcepticon.svg"   style={{ width: '55%'}}/>
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold',  color: 'black' }}>
+                                Friends except
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px' , color: '#525050' }}>
+                                don't show some friends
+                            </p>
+
+                          </div>
+
+                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi  >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/groupicon.svg"  style={{ width: '55%'}}/>
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                               Group
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                                select to show for group
+                            </p>
+                          </div>
+
+                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi  >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/onlymeicon.svg"  style={{ width: '55%'}}/>
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+                            <p style={{ fontSize: '17px', fontWeight: 'bold' ,color: 'black' }}>
+                               Only Me 
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px' , color: '#525050' }}>
+                                private to all shareup users
+                            </p>
+                          </div>
+
+                          <input type="radio" name="any"  style={{ height: '60%' ,width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+
+                    </ul>
+                  </div>
+                </fieldset>
+
+
+
+              </div>
+            </div>
+
+          </Form>
+        )}
+      </Popup>
+    );
+  };
+
+
+
+
 
   const show = () => {
     return (
@@ -1666,7 +1875,7 @@ function NewsfeedComponent() {
                   alt=''
                 />
               </figure>
-              
+
               <div className='newpst-input'>
                 <Form>
                   {postUp()}
@@ -1680,23 +1889,23 @@ function NewsfeedComponent() {
                       null
                     } */}
 
-                
+
                 </Form>
-                
+
               </div>
               <div className='attachments'>
-                    <ul>
-                    <li>{popUp()}</li>
+                <ul>
+                  <li>{popUp()}</li>
 
-                      {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+                  {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                         </label> */}
-                      <li>{shareUp()}</li>
-                      <li>{photos()}</li>
-                      <li>{popSwap()}</li>
-                      {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
+                  <li>{shareUp()}</li>
+                  <li>{photos()}</li>
+                  <li>{popSwap()}</li>
+                  {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
                         </label></li> */}
-                    </ul>
-                  </div>
+                </ul>
+              </div>
             </div>
           </div>
           {/* <div>
@@ -1724,12 +1933,12 @@ function NewsfeedComponent() {
                         <a href='/group/create'>
                           <div class='add-group' aria-describedby='popup-2'>
                             {' '}
-                            
+
                           </div>
                         </a>
 
                         <a href='/group/create'>
-                          <h5 style={{ fontWeight: 'bold', fontSize: '16px',backgroundColor:'rgb(3 51 71)' ,color:'#ffff',borderRadius:'5px' }}>Create Group</h5>
+                          <h5 style={{ fontWeight: 'bold', fontSize: '16px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' }}>Create Group</h5>
                         </a>
                       </div>
                     </div>
@@ -1754,26 +1963,26 @@ function NewsfeedComponent() {
                         </div>
 
                         <div className='groupsggstion-by'>
-                        <img
-                        src={
-                          group.groupImagePath
-                            ? fileStorage.baseUrl + group.groupImagePath
-                            : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
-                        }
-                        alt=''
-                      />
+                          <img
+                            src={
+                              group.groupImagePath
+                                ? fileStorage.baseUrl + group.groupImagePath
+                                : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
+                            }
+                            alt=''
+                          />
                           <div style={{ padding: '5px' }}>
-                            
+
                             <span className='groupname'>
-                              
+
                               <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
-                              
+
                               </a>
                             </span>
                           </div>
-                          <div style={{ textAlign: 'left', padding: '5px',fontSize:'15px' }}>
+                          <div style={{ textAlign: 'left', padding: '5px', fontSize: '15px' }}>
                             {group.members.length > 1 ? (
-                              
+
                               <span> {group.members.length}Members</span>
                             ) : (
                               <span>{group.members.length}Member</span>
@@ -1781,7 +1990,7 @@ function NewsfeedComponent() {
                           </div>
                           {checkIfInGroup(group.members) ? (
                             <a
-                            
+
                               href
                               class='buttonGrpFd mrgngrp'
                               style={{ color: '#fff', background: '#033347', fontSize: '12px' }}
@@ -1798,16 +2007,16 @@ function NewsfeedComponent() {
                             >
                               Join Group
                             </a>
-                            
+
                           )}
                           <a
-                              href
-                              class='buttonGrpFd mrgngrp'
-                              style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
-                              onClick={() => handleJoinGroup(group.id)}
-                            >
-                             Preview
-                            </a>
+                            href
+                            class='buttonGrpFd mrgngrp'
+                            style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
+                            onClick={() => handleJoinGroup(group.id)}
+                          >
+                            Preview
+                          </a>
                         </div>
                       </div>
                     </a>

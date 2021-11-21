@@ -228,4 +228,6 @@ const delay = 2500;
         );
     }
 
+    
+
 export default DisplayComponent;
