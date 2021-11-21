@@ -326,7 +326,7 @@ export default function SwapComponents() {
         handleRemoveImage()
         handleRemoveImageSwap()
         setRefresh(res.data)
-        history.push("/swapFeed")
+        window.location.reload();
       })
     } else
       SwapService.createSwap(user.id, formData, userF.id).then(res => {
