@@ -438,6 +438,8 @@ function NewsfeedComponent() {
         setPostContent('');
         handleRemoveImage();
         setRefresh(res.data);
+        console.log('ssssssssssrefersh',refresh)
+        
       });
     } else
       PostService.createPost(user.id, formData, userF.id).then((res) => {
