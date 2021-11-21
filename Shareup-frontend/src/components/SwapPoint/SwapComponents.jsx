@@ -18,7 +18,7 @@ import { MiddlewareArray } from '@reduxjs/toolkit';
 import fileStorage from '../../config/fileStorage';
 import SwapService from '../../services/SwapService';
 
-export default function SwapComponents() {
+export default function SwapComponents(props) {
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -325,8 +325,8 @@ export default function SwapComponents() {
         setPostContent("")
         handleRemoveImage()
         handleRemoveImageSwap()
-        setRefresh(res.data)
-        window.location.reload();
+        props.setRefresh(res.data)
+        // window.location.reload();
       })
     } else
       SwapService.createSwap(user.id, formData, userF.id).then(res => {
@@ -334,7 +334,9 @@ export default function SwapComponents() {
         setPostContent("")
         handleRemoveImage()
         handleRemoveImageSwap()
-        setRefresh(res.data)
+        // setRefresh(res.data)
+        props.setRefresh(res.data)
+
       })
   }
 

@@ -801,7 +801,7 @@ function NewsfeedComponent() {
                 </div> */}
               </div>
             </div>
-            <SwapComponents/>
+            <SwapComponents setRefresh={setRefresh}/>
           </Form>
         )}
       </Popup>
