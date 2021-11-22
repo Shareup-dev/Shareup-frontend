@@ -1367,7 +1367,7 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/publicicon.svg"  style={{ width: '70%'}} />
+                            <img src="assets/images/publicicon.svg"  style={{ width: '49%'}} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
@@ -1395,7 +1395,7 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/friendsicon.svg"  style={{ width: '55%'}} />
+                            <img src="assets/images/friendsicon.svg"  style={{ width: '46%'}} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
@@ -1423,7 +1423,7 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/friendexcepticon.svg"   style={{ width: '55%'}}/>
+                            <img src="assets/images/friendexcepticon.svg"   style={{ width: '46%'}}/>
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
@@ -1449,7 +1449,7 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/groupicon.svg"  style={{ width: '55%'}}/>
+                            <img src="assets/images/groupicon.svg"  style={{ width: '46%'}}/>
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
@@ -1474,7 +1474,7 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/onlymeicon.svg"  style={{ width: '55%'}}/>
+                            <img src="assets/images/onlymeicon.svg"  style={{ width: '39%'}}/>
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>

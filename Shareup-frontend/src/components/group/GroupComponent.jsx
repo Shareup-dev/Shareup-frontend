@@ -169,22 +169,27 @@ function GroupComponent({post}) {
 					<ul className="nearby-contct">
 						{searchedGroups.map(
 							group =>
-								<li key={group.id} className="friends-card">
+								<li key={group.id} className="friends-card groupalign">
 									<div className="">
 										{/* <figure> */}
-										<div class="item1">
+										<div class="item12">
 											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
-										<div class="item2">
-											<p className="nameTag" style={{textAlign: 'center' , height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
-											{
-													checkIfInGroup(group.members) ?
-														<a href class="button" style={{ color: "#fff",background:'#033347', fontSize:'12px' , width: '100%' , padding: '5px' , fontWeight: '600' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
-														:
-														<a href class="button"style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '100%' , padding: '5px' , fontWeight: '600'}}  onClick={() => handleJoinGroup(group.id)}>Join Group</a>
-												}
+										<div className="item23">
+											
+											<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+											<p className="grp-mem-text">2.7K Members</p>
+											<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'space-between'}}>
+												{
+														checkIfInGroup(group.members) ?
+															<a href className="button" style={{ color: "#fff",background:'#033347', fontSize:'12px' , width: '45%' , padding: '5px' , fontWeight: '600' }} onClick={() => handleLeaveGroup(group.id)}>Leave</a>
+															:
+															<a href className="button"style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}  onClick={() => handleJoinGroup(group.id)}>Join</a>
+													}
+												<div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	
+											</div>
 										</div>
 										
 										{/* <div class="item6">
@@ -215,7 +220,7 @@ function GroupComponent({post}) {
 						<li key={group.id} className="friends-card grp">
 							<div className="grid-container">
 								{/* <figure> */}
-								<div class="item1">
+								<div class="item12">
 									<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
 							
 									{/* </figure> */}

@@ -684,7 +684,7 @@ body{
 } 
 .grid-containeraudience {
   display: grid;
-  grid-template-columns: 0.1fr 1fr 0.1fr;
+  grid-template-columns: 0.15fr 1fr 0.1fr;
   grid-gap: 20px;
   font-size: 1.2em;
 }

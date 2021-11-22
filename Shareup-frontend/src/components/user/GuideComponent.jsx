@@ -174,11 +174,11 @@ function GuideComponent() {
                             {allUser.slice(0, 8).map(userF =>
                                 <li className="grp" key={userF.id}>
                                     <div className="grid-container" >
-                                        <div class="item1">
+                                        <div class="item1" >
                                             <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
                                             {/* <span className="status f-online" /> */}
                                         </div>
-                                        <div class="item2">
+                                        <div class="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
                                             <p className="nameTag">
                                                 <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
                                             <p2>
@@ -219,7 +219,7 @@ function GuideComponent() {
 
                                             }
 
-                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
 
                                             </i>
 
