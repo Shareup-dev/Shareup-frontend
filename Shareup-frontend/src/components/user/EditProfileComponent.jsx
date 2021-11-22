@@ -204,20 +204,20 @@ export default function EditProfileComponent() {
                 a pet or something else. This wont be part of your public profile</p>
                 <div className="right-edit-profile-details padding">
               <ul>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
+                <li className='border-bottom'>
+                  <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Email Address</p></div>
                   <div className="right-edit-details-input">{userProfile.email}</div>
                 </li>
-                <li>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
+                <li className='border-bottom'>
+                  <div style={{display:'flex', alignItems:'center', flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
                   <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Gender</p></div>
+                <li className='border-bottom'>
+                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Gender</p></div>
                 <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div>
                 </li>
-                <li>
-                <div style={{flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
+                <li className='border-bottom'>
+                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
                 <div className="right-edit-details-input"><input type="text" /></div>
                 </li>
               </ul>
@@ -238,15 +238,15 @@ export default function EditProfileComponent() {
             </div>
             <div className="right-edit-profile-details padding">
               <ul>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p><i className="las la-home" aria-hidden="true" /><span className="text-color-2">Current town / city</span></p></div>
                   <div className="right-edit-details-input"><input type="text" value={currentTown} onChange={handleCurrentTown}/></div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p><i class="las la-map-marker"></i><span className="text-color-2">Home town</span></p></div>
                   <div className="right-edit-details-input"><input type="text"  value={homeTown} onChange={handleHomeTown}/></div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                 <div style={{flex:1, textAlign: 'left'}}><p><i class="lab la-gratipay"></i><span className="text-color-2">Relationship status</span></p></div>
                 <div className="right-edit-details-input"><input type="text" value={relationshipStatus} onChange={handleRelationshipStatus}/></div>
                 </li>
@@ -265,11 +265,11 @@ export default function EditProfileComponent() {
             </div>
             <div className="right-edit-profile-details padding">
               <ul>
-              <li>
+              <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
                   <div className="right-edit-details-input">{userProfile.email}</div>
                 </li>
-                <li>
+                <li className='d-flex align-items-center border-bottom'>
                   <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Phone Number</p></div>
                   <div className="right-edit-details-input"><input type="text" /></div>
                 </li>

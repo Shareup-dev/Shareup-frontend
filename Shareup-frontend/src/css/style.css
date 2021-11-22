@@ -13612,6 +13612,8 @@ a.openmap {
   display: flex;
   flex-direction: row;
   align-items: left;
+  /* justify-items: center; */
+  /* justify-content: center; */
 }
 
 .right-edit-profile-details li {
@@ -13677,7 +13679,7 @@ a.openmap {
 }
 
 .right-edit-personal-information-top {
-  border-bottom: 1px solid #e1dede;
+  border-bottom: 2px solid #e1dede;
   padding: 5px;
 }
 
@@ -13693,7 +13695,7 @@ a.openmap {
 
 .right-edit-personal-information p {
   color: #6a6a6a;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .right-edit-personal-information-form {

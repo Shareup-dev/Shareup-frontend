@@ -11,6 +11,9 @@ import { GlobalStyle } from '../../styles/modalStyles';
 import styled from 'styled-components';
 import '../../modal.css';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
+import { useForm } from "react-hook-form";
+// import './signup.css';
+import '../../signup.css';
 
 const Container = styled.div`
   display: flex;
@@ -45,6 +48,9 @@ const customStyles = {
 };
 
 function Index({ set, setUser }) {
+
+
+
   let history = useHistory();
 
   const [showComponent, setShowComponent] = useState('register');
@@ -95,25 +101,25 @@ function Index({ set, setUser }) {
   useEffect(() => {
   }, [])
 
-  const handleEmail = (event) => {
-    setEmail(event.target.value)
-  }
+   const handleEmail = (event) => {
+     setEmail(event.target.value)
+   }
 
-  const handlePassword = (event) => {
-    setPassword(event.target.value)
-  }
+   const handlePassword = (event) => {
+     setPassword(event.target.value)
+   }
 
-  const handleConfirmPassword = (event) => {
-    setConfirmPassword(event.target.value)
-  }
+  // const handleConfirmPassword = (event) => {
+  //   setConfirmPassword(event.target.value)
+  // }
 
-  const handleFirstName = (event) => {
-    setFirstName(event.target.value)
-  }
+  // const handleFirstName = (event) => {
+  //   setFirstName(event.target.value)
+  // }
 
-  const handleLastName = (event) => {
-    setLastName(event.target.value)
-  }
+  // const handleLastName = (event) => {
+  //   setLastName(event.target.value)
+  // }
 
   const validateRegister = (event) => {
     event.preventDefault()
@@ -130,7 +136,7 @@ function Index({ set, setUser }) {
     if (!email.includes('@')) {
       console.log("Please ensure your email contains @")
       setEmailError("Please ensure your email contains @")
-      // alert("Please ensure your email contains @")
+
       validated = false;
     }
     if (password != confirmPassword) {
@@ -144,8 +150,36 @@ function Index({ set, setUser }) {
     }
   }
 
+  //najam form register / login start
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+  reset,
+  trigger,
+} = useForm();
+
+const onSubmit = (data) => {
+  console.log('legth is' + data.length)
+
+
+  if(data.password == data.confirmPassword)
+  {
+    handleRegister();
+    reset();
+  }
+  else{
+    document.getElementById('message').innerHTML="password didnt match";
+  }
+
+
+
+};
+
+//najam form register / login end
+
   const handleRegister = async() => {
-    let user = { email, password, firstName, lastName }
+    let user = { email, password,confirmPassword, firstName, lastName }
     console.log("register " + user.email + " " + user.password + " " + user.confirmPassword + " " + user.firstName + " " + user.lastName)
 
     console.log(JSON.stringify(user))
@@ -176,16 +210,34 @@ function Index({ set, setUser }) {
     setLoginError("")
     let validated = true
 
-    if (email == '' || password == '') {
+    if (email == '') {
+    document.getElementById('email-empty').innerHTML="Please enter email";
+    document.getElementById('loginemail').style.border="2px solid red";
+    document.querySelector('.input-error-icon').style.visibility="visible";
+
+      validated = false;
+    }
+    if (password == '') {
       console.log("Please Fill Out Every Field")
-      setAllFieldFillError("Please Fill Out Every Field")
+    document.getElementById('password-empty').innerHTML="Please enter password";
+    document.getElementById('loginpassword').style.border="2px solid red";
+    document.querySelector('.input-error-icon2').style.visibility="visible";
+
+
+
       validated = false;
     }
-    if (!email.includes('@')) {
-      console.log("Please ensure your email contains @")
-      setEmailError("Please ensure your email contains @")
-      validated = false;
+
+    if(email){
+      if (!email.includes('@')) {
+        console.log("Please ensure your email contains @")
+      document.getElementById('email-empty').innerHTML="Please include @";
+  
+        validated = false;
+      }
+
     }
+    
     if (validated) {
       handleLogin();
     }
@@ -228,61 +280,137 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area reg">
           <h2 className="log-title">Register new Account</h2>
-
-          <form>
-            {allFieldFillError &&
-              <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{allFieldFillError}</p>
-            }
-            {console.log(registerError + " ha")}
-            {registerError &&
-              <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{registerError}</p>
-            }
-            <div className="row">
-
-              <div className="form-group">
+     <form onSubmit={handleSubmit(onSubmit)} style={{color:'white', padding:'1rem 0'}}> 
+     <div className='row' >
+            <div className="col-md-6 py-3 form-icon">
+              <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label>
+              <input
+                type="text" id="validationCustom01"  placeholder='Enter first name'
+                className={`form-control m-0 ${errors.firstName && "invalid"}`}
+                {...register("firstName", { required: "First Name is Required" })}
+                onKeyUp={(e) => {
+                  trigger("firstName");
+                  setFirstName(e.target.value)
+                }}/>
+              {errors.firstName && (
                 
-                <input class="form-control"  type="text" name="firstName" value={firstName} onChange={handleFirstName} required="required" />
-                 <label  className="control-label"  htmlFor="input" >First Name</label>
-              </div>
-              <div className="form-group">
-                <input type="text" name="lastName" value={lastName} onChange={handleLastName} required="required" />
-                <label className="control-label" htmlFor="input">Last Name</label>
-              </div>
+                <small className="text-danger">
+                {errors.firstName.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+
+              </small>
+              )}
             </div>
-            {emailError &&
-              <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{emailError}</p>
-            }
-            <div className="row">
-              <div className="form-group">
-                <input className="form-input" type="text" name="email" value={email} onChange={handleEmail} id="input" required="required" /> <label className="control-label" htmlFor="input"><a style={{ color: 'rgb(136, 127, 127)' }} href="https://wpkixx.com/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="6c29010d05002c">Email</a></label>
-              </div>
-              <div className="form-group">
-                <input className="form-input" type="password" name="password" value={password} onChange={handlePassword} required="required" /> <label className="control-label" htmlFor="input">Password</label>
-              </div>
+            <div className="col-md-6 py-3 form-icon">
+              <label className="form-label pb-1">Last Name:</label>
+              <input
+                type="text" placeholder='Enter last name'
+                className={`form-control m-0 ${errors.lastName && "invalid"}`}
+                {...register("lastName", { required: "Last name is Required" })}
+                onKeyUp={(e) => {
+                  trigger("lastName");
+                  setLastName(e.target.value)
+
+                }}
+              />
+              {errors.lastName && (
+                <small className="text-danger">{errors.lastName.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                </small>
+              )}
             </div>
-            <div className="row">
-              <div className="form-group full">
-                <input className="form-input" type="password" name="confirm password" value={confirmPassword} onChange={handleConfirmPassword} required="required" /> <label className="control-label" htmlFor="input">Re-enter Password</label>
-              </div>
+           
+            <div className="col-md-6 py-3 form-icon">
+              <label className="form-label pb-1">Email:</label>
+              <input
+                type="text" placeholder='Enter email'
+                className={`form-control m-0 ${errors.email && "invalid"}`}
+                {...register("email", { required: "Email is Required" ,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                }})}
+                onKeyUp={(e) => {
+                  trigger("email");
+                  setEmail(e.target.value)
+
+                }}
+              />
+              {errors.email && (
+                <small className="text-danger">{errors.email.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                
+                </small>
+              )}
             </div>
-            
+
+            <div className="col-md-6 py-3 form-icon">
+              <label className="form-label pb-1">Password:</label>
+              <input
+                type="password"  id='password'
+                placeholder='Enter password'
+                className={`form-control m-0 ${errors.password && "invalid"}`}
+                {...register("password", { required: "Password is Required" })}
+                onKeyUp={(e) => {
+                  trigger("password");
+                  setPassword(e.target.value)
+
+                }}
+              />
+              {errors.password && (
+                <small className="text-danger">{errors.password.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+
+                </small>
+              )}
+            </div>
+            <div className="col-md-12 py-3 form-icon">
+              <label className="form-label pb-1">Confirm Password:</label>
+              <input
+                type="password" 
+                placeholder='Confirm password' id='confirm_password'
+                className={`form-control m-0 ${errors.confirmPassword && "invalid"}`}
+                 {...register("confirmPassword", { required: " Confirm password is Required" })}
+                 onKeyUp={(e) => {
+                    trigger("confirmPassword");
+                  setConfirmPassword(e.target.value)
+
+                
+                 }}
+              />
+              {errors.confirmPassword && (
+                <small className="text-danger">{errors.confirmPassword.message}
+                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                
+                </small>
+              )} 
+                <small className="text-danger" id='message'>
+
+                </small>
+
+             
+            </div>      
+           
+          </div>
+
+        <div className="checkbox">
+            <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />Accept Terms &amp; Conditions ?</label>
+        </div>
             <div className="checkbox">
-              <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />Accept Terms &amp; Conditions ?
-                    </label>
+              <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />I am 18 years old or above</label>
             </div>
-            <div className="checkbox">
-              <label> <input type="checkbox" defaultChecked="checked" /><i className="check-box" />I am 18 years old or above
-                    </label>
-            </div>
-            <a href="#" onClick={() => setShowComponent("login")} className="already-have">Already have an account?</a>
+            <a href="#" onClick={() => setShowComponent("login")} className="already-have">Already an account?</a>
+
             <div className="submit-btns">
-              <button className="mtr-btn signup" onClick={validateRegister}>
+              <button className="mtr-btn signup" type='submit'>
                 <span>Share In</span>
               </button>
-             
-             
             </div>
-          </form> </div>
+
+     </form>
+        
+        
+          </div>
       )
     } 
     if (showComponent === "login"){
@@ -296,31 +424,39 @@ function Index({ set, setUser }) {
                 {loginError}
               </div>
             }
-            {allFieldFillError &&
-              <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{allFieldFillError}</p>
-            }
+          
           </p>
           {emailError &&
               <p style={{ fontSize: 15, color: 'red', textAlign: 'center' }}>{emailError}</p>
             }
 
-          <form>
+          <form  style={{color:'white', padding:'2rem 0'}}>
             <div className="row">
-              <div className="form-group">
+            <div className="col-md-12 py-3 login-form-icon">
+              <label className="form-label pb-1">Email:</label>
+              <input
+                 placeholder='Enter email' id='loginemail' type="text" name="email" value={email} onChange={handleEmail} required="required" className='form-control m-0'/>
+                 <i class="fas fa-exclamation-circle input-error-icon"></i>
+                  <small className="text-danger" id='email-empty'></small>
+            </div>
 
-                <input className="form-input" type="text" name="email" value={email} onChange={handleEmail} required="required" />
-                <label className="control-label" htmlFor="input">Email</label>
-              </div>
-              <div className="form-group">
-                <input className="form-input" type="password" name="password" value={password} onChange={handlePassword} required="required" /> <label className="control-label" htmlFor="input">Password</label>
-              </div>
+            <div className="col-md-12 py-3 login-form-icon">
+              <label className="form-label pb-1">Password:</label>
+              <input
+                id='loginpassword'  type="password" name="password" value={password} onChange={handlePassword} required="required" placeholder='Enter password' className='form-control m-0'/>
+                 <i class="fas fa-exclamation-circle  input-error-icon2"></i>
+                  
+                  <small className="text-danger" id='password-empty'></small>
+            
+            </div>
+             
             </div>
             <div style={{ textAlign: 'center' }}>
               <a href="#" className="forgot-pwd">Forgot Password?</a>
               <a href="#" onClick={() => setShowComponent("register")} className="already-have">Dont have an account?</a>
             </div>
             <div className="submit-btns-log">
-              <button className="mtr-btn signup" onClick={validateLogin} >
+            <button className="mtr-btn signup" onClick={validateLogin} >
                 <span>Share In</span>
               </button>
             </div>
