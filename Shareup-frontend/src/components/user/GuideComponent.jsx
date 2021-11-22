@@ -47,7 +47,7 @@ function GuideComponent() {
             setFriendRequestRecieved(res.data)
         })
     }
-    
+
 
     const acceptFriendRequest = (uid, fid) => {
         FriendsService.acceptRequest(uid, fid).then(res => {
@@ -123,19 +123,19 @@ function GuideComponent() {
     }
 
     const handleLeaveGroup = (group_id) => {
-		GroupService.leaveGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-		})
-	}
+        GroupService.leaveGroup(user.id, group_id).then(res => {
+            setRefresh(res.data)
+        })
+    }
 
-	const handleJoinGroup = (group_id) => {
-		GroupService.joinGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-		})
-	}
+    const handleJoinGroup = (group_id) => {
+        GroupService.joinGroup(user.id, group_id).then(res => {
+            setRefresh(res.data)
+        })
+    }
 
     const handleRedirect = () => {
-         //setTimeout(() => history.push('/newsfeed'), 2000)
+        //setTimeout(() => history.push('/newsfeed'), 2000)
         setTimeout(() => window.location.reload(), 2000)
     }
 
@@ -170,46 +170,62 @@ function GuideComponent() {
             return (
                 <fieldset>
                     <div className="form-card">
-                    <ul className="nearby-contct">
+                        <ul className="nearby-contct">
                             {allUser.slice(0, 8).map(userF =>
                                 <li className="grp" key={userF.id}>
-                                   <div className="grid-container">
-                                   <div class="item1">
-                                        <img src={fileStorage.baseUrl+userF.profilePicturePath} alt="" />
-                                        {/* <span className="status f-online" /> */}
-                                    </div>
-                                    <div class="item2">
-                                    <p className="nameTag"><a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
-                                        {
-                                        (user.id !== userF.id) ?
-                                            (!friendsList.some(el => el.id === userF.id)) ?
-                                                friendRequestRecieved.some(el => el.id === userF.id)
-                                                    ?
-                                                    <>
-                                                        <a href="#" className="button" style={{background:'#033347',fontSize:'12px'}} onClick={() => acceptFriendRequest(user.id, userF.id)}>Accept Request</a>
-                                                        <a href="#" className="button" style={{color: "#000000",background:'#EAEAEA', fontSize:'12px'}} onClick={() => declineFriendRequest(user.id, userF.id)}>Decline Friend Request</a>
-                                                        {/* <br></br>
+                                    <div className="grid-container" >
+                                        <div class="item1" >
+                                            <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                            {/* <span className="status f-online" /> */}
+                                        </div>
+                                        <div class="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
+                                            <p className="nameTag">
+                                                <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
+                                            <p2>
+                                                <p>Recommended</p>
+                                            </p2>
+                                        </div>
+                                        <div style={{ display: 'inline-flex', paddingTop: '25px', paddingRight: '10px' }}>
+                                            {
+                                                (user.id !== userF.id) ?
+                                                    (!friendsList.some(el => el.id === userF.id)) ?
+                                                        friendRequestRecieved.some(el => el.id === userF.id)
+                                                            ?
+                                                            <>
+                                                                <a href="#" className="button" style={{ background: '#033347', fontSize: '12px' }} onClick={() => acceptFriendRequest(user.id, userF.id)}>Accept Request</a>
+                                                                <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => declineFriendRequest(user.id, userF.id)}>Decline Friend Request</a>
+                                                                {/* <br></br>
                                                         <br></br> */}
-                                                    </>
-                                                    :
-                                                    friendRequestSent.some(el => el.id === userF.id)
-                                                        ?
-                                                        <a href="#" className="button" style={{color: "#fff",background:'#033347',fontSize:'12px'}} onClick={() => unsendFriendRequest(user.id, userF.id)}>Unsend  Request</a>
+                                                            </>
+                                                            :
+                                                            friendRequestSent.some(el => el.id === userF.id)
+                                                                ?
+                                                                <a href="#" className="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} onClick={() => unsendFriendRequest(user.id, userF.id)}>Unsend  Request</a>
+                                                                :
+                                                                <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => sendFriendRequest(user.id, userF.id)}>Send  Request</a>
                                                         :
-                                                        <a href="#" className="button" style={{color: "#000000",background:'#EAEAEA', fontSize:'12px'}} onClick={() => sendFriendRequest(user.id, userF.id)}>Send  Request</a>
-                                                :
-                                                <>
-                                                    <a href="#" className="button" style={{background:'#033347',fontSize:'12px'}} onClick={() => removeFriend(user.id, userF.id)}>Unfriend</a>
-                                                    <p>Already a friend</p>
-                                                </>
-                                            :
-                                            <div class="item5">
-                                            <p style={{ float: "right" }}>Your own profile</p>
-                                            </div>
-                                    }
-                                    </div>
-                                    
-                                    {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
+                                                        <>
+                                                            <a href="#" className="button" style={{ background: '#033347', fontSize: '12px' }} onClick={() => removeFriend(user.id, userF.id)}>Unfriend</a>
+
+                                                            <p>Already a friend</p>
+
+                                                        </>
+                                                    :
+                                                    <div class="item5">
+                                                        <p style={{ float: "right" }}>Your own profile</p>
+
+                                                    </div>
+
+
+                                            }
+
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
+
+                                            </i>
+
+                                        </div>
+
+                                        {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
                                     </div>
                                 </li>
                             )}
@@ -223,32 +239,46 @@ function GuideComponent() {
         if (step === 1) {
             return (
                 <fieldset>
-                   <div className="form-card">
-                    <ul className="nearby-contct">
-                       
+                    <div className="form-card">
+                        <ul className="nearby-contct">
+
                             {
                                 allUser.slice(0, 8).map(userF =>
                                     <li className="grp" key={userF.id}>
-                                   <div className="grid-container">
-                                   <div class="item1">
-                                    
-                                      
-                                            <img src={fileStorage.baseUrl+userF.profilePicturePath} alt="" />
-                                            {/* <span className="status f-online" /> */}
+                                        <div className="grid-container">
+                                            <div class="item1">
+
+
+                                                <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                                {/* <span className="status f-online" /> */}
                                             </div>
-                                        <div className="item2">
-                                        <p className="nameTag"><a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
-                                            {
-                                            (user.id !== userF.id) ?
-                                                (!following.some(el => el.id === userF.id)) ?
-                                                    <a href="#!" className="button" style={{ color: "#000000",background:'#EAEAEA',fontSize:'12px' }} href="#!" onClick={() => handleFollow(userF.id)} >Follow</a>
-                                                    :
-                                                    <a href="#!" className="button" style={{ color: "#fff",background:'#033347',fontSize:'12px' }} href="#!" onClick={() => handleUnfollow(userF.id)}>Unfollow</a>
-                                                :
-                                                null
-                                        }
-                                        </div>
-                                        
+                                            <div className="item2">
+                                                <p className="nameTag"><a href={`/profile/${userF.email}`}>
+                                                    {`${userF.firstName} ${userF.lastName}`}</a>
+                                                </p>
+                                                <p2>
+                                                    <p>3 mutual</p>
+                                                </p2>
+
+
+                                            </div>
+                                            <div style={{ display: 'inline-flex', paddingTop: '25px', paddingRight: '10px' }}>
+                                                {
+                                                    (user.id !== userF.id) ?
+                                                        (!following.some(el => el.id === userF.id)) ?
+                                                            <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={() => handleFollow(userF.id)} >Follow</a>
+                                                            :
+                                                            <a href="#!" className="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} href="#!" onClick={() => handleUnfollow(userF.id)}>Unfollow</a>
+                                                        :
+                                                        null
+                                                }
+
+
+                                                <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+
+                                                </i>
+                                            </div>
+
                                         </div>
                                     </li>
                                 )}
@@ -263,23 +293,33 @@ function GuideComponent() {
             return (
                 <fieldset>
                     <div className="form-card">
-                    <ul className="nearby-contct">
+                        <ul className="nearby-contct">
                             {allGroups.slice(0, 8).map(group =>
                                 <li key={group.id} className="grp">
-                                   <div className="grid-container">
-                                   <div class="item1">
-                                        <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
+                                    <div className="grid-container" >
+                                        <div class="item1">
+                                            <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
                                         </div>
+
                                         <div class="item2">
-                                        <p className="nameTag"><a href={`/groups/${group.id}`}>{`${group.name}`}</a></p>
-                                        {
-                                        (group.members.some(el => el.id === user.id)) ?
-                                            <a href="#!" class="button" style={{ color: "#fff",background:'#033347',fontSize:'12px' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
-                                            :
-                                            < a href="#!" class="button" style={{ color: "#000000",background:'#EAEAEA',fontSize:'12px' }} onClick={() => handleJoinGroup(group.id)}>Join Group</a>
-                                    }
-                                    </div>
-                                    
+                                            <p className="nameTag"><a href={`/groups/${group.id}`}>{`${group.name}`}</a></p>
+
+                                        </div>
+                                        <div style={{ display: 'inline-flex', paddingTop: '25px', paddingRight: '10px' }}>
+
+
+                                            {
+                                                (group.members.some(el => el.id === user.id)) ?
+                                                    <a href="#!" class="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
+                                                    :
+                                                    < a href="#!" class="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => handleJoinGroup(group.id)}>Join Group</a>
+                                            }
+
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+
+                                            </i>
+                                        </div>
+
                                     </div>
                                 </li>
                             )}
@@ -331,24 +371,45 @@ function GuideComponent() {
             <div className="col-lg-6">
                 <div className="central-meta create-group">
                     <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
-                        <div style={{ contentAlign: 'center', textAlign: 'center' }}>
-                            <h4><strong>Are you new?</strong></h4>
-                            <p>Here are some suggestions</p>
+
+
+
+
+                        <div className="grid-container"
+                            style={{ gridTemplateColumns: 'max-content', textAlign: 'left', fontWeight: 'bold', paddingLeft: '13%', paddingRight: '13%', fontColor: '#000000' }}>
+
+                            <div class="item1">
+                                <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
+                                {/* <span className="status f-online" /> */}
+                            </div>
+                            <div class="item2" style={{ fontSize: '16px', fontWeight: 'bold', color: 'black', paddingTop: '22px' }}>
+
+                                <h4> <strong>Are you new?</strong></h4>
+
+                                <h4>Here are some suggestions</h4>
+
+                            </div>
+
+
+
                         </div>
                         <div className="row">
                             <div className="col-md-12 mx-0">
-                                <form id="msform">
-                                    {/* progressbar */}
-                                    <ul id="progressbar">
-                                        <li id="account" className={activeOrNot(0)}><strong>{`Friends`}</strong></li>
-                                        <li id="personal" className={activeOrNot(1)}><strong>Follower</strong></li>
-                                        <li id="payment" className={activeOrNot(2)}><strong>Groups</strong></li>
-                                        <li id="confirm" className={activeOrNot(3)}><strong>Success</strong></li>
-                                    </ul> {/* fieldsets */}
-                                    {
-                                        show()
-                                    }
-                                </form>
+                                <div style={{ paddingLeft: '12%', paddingRight: '12%' }}>
+
+                                    <form id="msform">
+                                        {/* progressbar */}
+                                        <ul id="progressbar">
+                                            <li id="account" className={activeOrNot(0)}><strong>{`Friends`}</strong></li>
+                                            <li id="personal" className={activeOrNot(1)}><strong>Follower</strong></li>
+                                            <li id="payment" className={activeOrNot(2)}><strong>Groups</strong></li>
+                                            <li id="confirm" className={activeOrNot(3)}><strong>Success</strong></li>
+                                        </ul> {/* fieldsets */}
+                                        {
+                                            show()
+                                        }
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -310,7 +310,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' />
               </figure>
 
-              <div className='friend-name'>
+              <div className='friend-name' style={{ width: "92%",}}>
                 <div style={{ float: 'left', display: 'inline' }}>
                   <a
                     href={`/profile/${post.user.email}`}
@@ -335,6 +335,12 @@ export default function PostComponent({ post, setRefresh }) {
                 <div
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div>
+                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                      <span title='add icon'>
+                        <i class='las la-ellipsis-h' style={{  fontSize: '36px' }}></i>
+                      </span>
+                    </div>
+               
               </div>
 
               {post.content && (
@@ -399,13 +405,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`} </span>
                   </li>
-                  <li style={{ backgroundColor: 'white', color: 'black' }}>
-                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
-                      <span title='add icon'>
-                        <i class='las la-ellipsis-h'></i>
-                      </span>
-                    </div>
-                  </li>
+                 
                 </ul>
               </div>
 
