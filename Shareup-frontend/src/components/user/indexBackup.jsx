@@ -212,7 +212,7 @@ const onSubmit = (data) => {
 
     if (email == '') {
     document.getElementById('email-empty').innerHTML="Please enter email";
-    // document.getElementById('loginemail').style.border="2px solid red";
+    document.getElementById('loginemail').style.border="2px solid red";
     document.querySelector('.input-error-icon').style.visibility="visible";
 
       validated = false;
@@ -220,7 +220,7 @@ const onSubmit = (data) => {
     if (password == '') {
       console.log("Please Fill Out Every Field")
     document.getElementById('password-empty').innerHTML="Please enter password";
-    // document.getElementById('loginpassword').style.border="2px solid red";
+    document.getElementById('loginpassword').style.border="2px solid red";
     document.querySelector('.input-error-icon2').style.visibility="visible";
 
 
@@ -282,7 +282,7 @@ const onSubmit = (data) => {
           <h2 className="log-title">Register new Account</h2>
      <form onSubmit={handleSubmit(onSubmit)} style={{color:'white', padding:'1rem 0'}}> 
      <div className='row' >
-     <div className="col-md-6 py-3 pl-1 form-icon txt_field">
+            <div className="col-md-6 py-3 pl-1 form-icon txt_field">
               {/* <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label> */}
               <input
                 type="text" id="validationCustom01"  placeholder='Enter first name'
@@ -437,7 +437,7 @@ const onSubmit = (data) => {
               <input
                  placeholder='Enter email' id='loginemail' type="text" name="email" value={email} onChange={handleEmail} required="required" className='form-control m-0 border-radius'/>
                  <i class="fas fa-exclamation-circle input-error-icon"></i>
-                  <small id='email-empty'></small>
+                  <small className="text-danger" id='email-empty'></small>
             </div>
 
             <div className="col-md-6 py-3 pl-1 login-form-icon">
@@ -446,7 +446,7 @@ const onSubmit = (data) => {
                 id='loginpassword'  type="password" name="password" value={password} onChange={handlePassword} required="required" placeholder='Enter password' className='form-control m-0 border-radius'/>
                  <i class="fas fa-exclamation-circle  input-error-icon2"></i>
                   
-                  <small  id='password-empty'></small>
+                  <small className="text-danger" id='password-empty'></small>
             
             </div>
              
