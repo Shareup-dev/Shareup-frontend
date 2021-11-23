@@ -2042,7 +2042,7 @@ function NewsfeedComponent() {
                                 </a>
 
                                 <a href='/group/create'>
-                                  <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'25px' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
+                                  <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
                                 </a>
                               </div>
                             </div>
@@ -2088,20 +2088,20 @@ function NewsfeedComponent() {
                                       </a>
                                     </span>
                                   </div>
-                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' ,height:'20px' }}>
+                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
                                     {group.members.length > 1 ? (
 
-                                      <p> {group.members.length}Members</p>
+                                      <p className="grp-mem-text"> {group.members.length}Members</p>
                                     ) : (
-                                      <p>{group.members.length}Member</p>
+                                      <p className="grp-mem-text">{group.members.length}Member</p>
                                     )}
                                   </div>
                                   {checkIfInGroup(group.members) ? (
                                     <a
 
                                       href
-                                      class='buttonGrpFd mrgngrp'
-                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight:'25px'}}
+                                      class='buttonGrpFd mrgngrp mt-0'  
+                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
                                       onClick={() => handleLeaveGroup(group.id)}
                                     >
                                       Leave Group
@@ -2109,8 +2109,8 @@ function NewsfeedComponent() {
                                   ) : (
                                     <a
                                       href
-                                      class='buttonGrpFd mrgngrp'
-                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight:'25px' }}
+                                      class='buttonGrpFd mrgngrp mt-0'
+                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
                                       onClick={() => handleJoinGroup(group.id)}
                                     >
                                       Join Group

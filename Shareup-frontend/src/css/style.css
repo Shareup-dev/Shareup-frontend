@@ -350,6 +350,9 @@ section {
   background-size: cover;
 }
 
+.mt-0{
+  margin-top: 0;
+}
 [type="submit"],
 button,
 html [type="button"] {
@@ -12829,7 +12832,7 @@ breadcrumb-item + .breadcrumb-item::before {
   object-fit: cover;
 }
 .groupsggstion-img .img{
-  height: 190px;
+  height: 180px;
 }
 .groupsggstion-img .no-img{
   width: 80px !important;
@@ -12841,7 +12844,7 @@ breadcrumb-item + .breadcrumb-item::before {
   text-align: center;
   width: 100%;
   background: #f7f7f7;
-  height: 190px;
+  height: 180px;
 }
 .groupsggstion ul li {
   float: left;
@@ -12871,11 +12874,11 @@ breadcrumb-item + .breadcrumb-item::before {
   background: #fff;
   padding: 0;
   font-size: 11px;
-  line-height: 25px;
+  /* line-height: 25px; */
 }
 .slide .groupsggstion-card .groupsggstion-by h5 {
   color: black;
-  margin: 8px;
+  margin: 10px;
   font-size: 11px;
   font-weight: 200;
   text-align: center;
@@ -15068,7 +15071,7 @@ input.chat-text {
 }
 .item12 .img {
 
-  height: 190px;
+  height: 180px;
   width: 100%;
   object-fit: cover;
   border-top-left-radius: 10px;
