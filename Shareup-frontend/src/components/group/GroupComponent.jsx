@@ -162,45 +162,50 @@ function GroupComponent({post}) {
 	}
 
 	const showAllGroupsComponent = () => {
+		console.log(searchedGroups)
 		return (
 			<div className="tab-content">
 				<div class="friends-search-container"><i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
 				<div className="tab-pane active fade show " id="frends">
 					<ul className="nearby-contct">
-						{searchedGroups.map(
-							group =>
-								<li key={group.id} className="friends-card groupalign">
-									<div className="">
-										{/* <figure> */}
-										<div class="item12">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
-											{/* </figure> */}
-										</div>
-										{/* <div className="  "> */}
-										<div className="item23">
-											
-											<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
-											<p className="grp-mem-text">2.7K Members</p>
-											<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'space-between'}}>
-												{
-														checkIfInGroup(group.members) ?
-															<a href className="button" style={{ color: "#fff",background:'#033347', fontSize:'12px' , width: '45%' , padding: '5px' , fontWeight: '600' }} onClick={() => handleLeaveGroup(group.id)}>Leave</a>
-															:
-															<a href className="button"style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}  onClick={() => handleJoinGroup(group.id)}>Join</a>
-													}
-												<div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	
+						{searchedGroups.map((group,index) =>
+								<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
+		                            <a href='#'>
+
+										<div className="group-li-item">
+											{/* <figure> */}
+											<div class="item12">
+												<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
+												{/* </figure> */}
+												{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
 											</div>
+											{/* <div className="  "> */}
+											<div className="item23">
+												
+												<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+												<p className="grp-mem-text">2.7K Members</p>
+												<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
+													{
+															checkIfInGroup(group.members) ?
+																<a href className="button grp-btn leave-grp-btn" onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
+																:
+																<a href className="button grp-btn join-grp-btn"  onClick={() => handleJoinGroup(group.id)}>Join Group</a>
+														}
+													{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
+												</div>
+											</div>
+											
+											{/* <div class="item6">
+												{/* <span>Engr</span> */}
+												{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
+											{/* </div> */}
+											
+
+
+											{/* </div> */}
+
 										</div>
-										
-										{/* <div class="item6">
-											{/* <span>Engr</span> */}
-											{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
-										{/* </div> */}
-										
-
-
-										{/* </div> */}
-									</div>
+									</a>
 								</li>
 						)}
 					</ul>
