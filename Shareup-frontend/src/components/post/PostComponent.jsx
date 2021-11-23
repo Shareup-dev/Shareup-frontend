@@ -1,234 +1,511 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
-import { Redirect, useHistory } from "react-router-dom";
-import UserService from '../../services/UserService';
+import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
-import AuthService from '../../services/auth.services';
-import { testScript } from '../../js/script';
-import StoriesService from '../../services/StoriesService';
-import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
-import settings from '../../services/Settings';
+import UserService from '../../services/UserService';
+import PostService from '../../services/PostService';
+import EditPostComponent from './EditPostComponent'
+import CommentPostComponent from './CommentPostComponent';
+import PostComponentBoxComponent from './PostCommentBoxComponent';
+import Popup from 'reactjs-popup';
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import ImageGallery from 'react-image-gallery';
+import storage from "../../config/fileStorage";
+import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
 
 
-function DisplayComponent() {
-    let history = useHistory();
-  
-    const { user } = useContext(UserContext)
-  
-    // const []
-  
-    // const inputRef = createRef();
-  
-    
-   
-   
-    const [storiesForUser, setStoriesForUser] = useState([]);
-    const [stories, setStories] = useState([]);
-    const [storiesS, setStoriesS] = useState([]);
-    const [userR, setUserR] = useState([]);
-    
-const delay = 2500;
+const my_url = `${storage.baseUrl}`
+
+export default function PostComponent({ post, setRefresh }) {
+  const { user } = useContext(UserContext)
+  const [editPostId, setEditPostId] = useState(null)
+  const [userR, setUserR] = useState([]);
+  const [showComment, setShowComment] = useState(false)
+  const [showMoreOptions, setShowMoreOptions] = useState(false)
+  const [showReactions, setShowReactions] = useState(false)
+
+  const [likeReaction, setLikeReaction] = useState(null)
+  const [imgString, setimgString] = useState("");
+  const images = [
+    {
+      original: `/user-post/${post.id}/${imgString[0]}`,
+      thumbnail: `/user-post/${post.id}/${imgString[0]}`,
+    }
 
 
-  const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
- 
-  const resetTimeout = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+  ];
+
+
+
+  const something = (event) => {
+    if (event.key === "Enter") {
+      console.log('enter')
+    }
+  }
+  const handleEditPost = (id) => {
+    setEditPostId(id)
+    setRefresh(id)
+
+  }
+
+  const getCommentCounter = (comments) => {
+    let counter = 0
+    comments.map(comment => {
+      counter += comment.replies.length + 1
+    })
+    return counter
+  }
+
+  const checkIfLiked = (post) => {
+    if(post.reactions){
+      const result = post.reactions.filter(reaction => reaction.user.id == user.id)
+      if (result.length > 0) {
+        return true
+      }
+      return false
     }
   }
 
-  
-
-    
-    const getStoriesForUser = async () => {
-      await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then(res => {
-        const sorting = res.data.sort(function(a, b) {
-          let dateA = new Date(a.date), dateB = new Date(b.date);
-          return dateB - dateA;
-      });
-        const uniqueStories = Array.from(new Set(sorting.map(a => a.id)))
-          .map(id => {
-            return res.data.find(a => a.id === id)
-          })
-          
-        setStoriesForUser(uniqueStories)
-      })
-    }
-    const getUser = async () => {
-      if (user === null) {
-        console.log("RUNNING")
-        await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
-          setUserR(res.data);
-        })
-      } else {
-        console.log("WALKING" + JSON.stringify(user))
-        setUserR(user)
+  const checkIfSaved = (post) => {
+    if(post.savedByUsers){
+      const result = post.savedByUsers.filter(userz => userz.id == user.id)
+      if (result.length > 0) {
+        console.log(" FOUND")
+        return true
       }
+      console.log(" Not found")
+      return false
     }
-    useEffect(() => {
-        testScript()
-    },[])
-    useEffect(() => {
-      getUser()
-      getStoriesForUser()
-      testScript()
-    }, [stories])
-    useEffect(() => {
-      resetTimeout();
-      timeoutRef.current = setTimeout(
-        () =>
-          setIndex((prevIndex) =>
-            prevIndex === 5 ? 0 : prevIndex + 1
-          ),
-        delay
-      );
-  
-      return () => {
-        resetTimeout();
-      };
-    }, [index]);  
-    
-  
-    return (<>
 
-        {/* <div className="strydivcontnr">
-                <div className="strydiv"> */}
-                    {/* <ul className="slider">
-                    {storiesForUser.map(
-              story =><>
-            <li key={story.id}>
-              <img src={story.storiesImagePath} />
-            </li>
-            </>)}
-            </ul> */}
-      <div className="stryDsply">
-        <div className="container">
-          <div className="strydivcontnr">
-            <div className="strydiv">
-              <div className="slideshow">
-                <div
-                  className="slideshowSlider"
-                  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-                >
-                {storiesForUser.map((background, index) => (
-                  <>
-                    {background.storiesImagePath ?
-                      <div
-                        className="slide"
-                      
-                        
-                      >
-                        <div className="strydisplay-Profimg">
-                          <img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" />
-                          <span>{background.user.firstName}</span>
+  }
+
+  const handleLikePost = async (post_id) => {
+    await UserService.likePost(user.id, post_id).then(res => {
+      setRefresh(res.data)
+    })
+  }
+
+  const handleSavePost = async (post_id) => {
+    UserService.savePost(user.id, post_id).then(res => {
+      setRefresh(res.data)
+    })
+    setShowMoreOptions(false);
+  }
+
+  const handleDeletePost = (postid) => {
+    PostService.deletePost(postid).then(res => {
+      console.log(res.status)
+      setRefresh(res.data)
+    })
+  }
+
+  const handleEditingSave = (value) => {
+    setEditPostId(value)
+    setRefresh(value)
+    setShowMoreOptions(false)
+  }
+
+  const handleShowingReaction = () => {
+    setTimeout(function () { setShowReactions(true) }, 200);
+  }
+
+  const handleUnshowingReaction = () => {
+    setTimeout(function () { setShowReactions(false) }, 200);
+  }
+
+  const handleReaction = () => {
+    if (likeReaction) {
+      return (<img src="/assets/images/StarLike.svg" alt="" />)
+      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
+    }
+    return (<img src="/assets/images/StarLike.svg" alt="" />)
+  }
+
+  const handleSettingReactions = (reaction) => {
+    setLikeReaction(reaction)
+    if (!checkIfLiked(post)) {
+      handleLikePost(post.id)
+    }
+  }
+
+  const handleCounterReaction = () => {
+    if (likeReaction) {
+      return (<img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />)
+    }
+    return (<img src="/assets/images/Starwhite.svg" alt="" />)
+  }
+  //array fetch
+  const postImg = (str) => {
+    if (str != null) {
+      let temps = [];
+      for (let i = 0; i < str.length; i++)
+        temps = [...temps, `/user-post/${post.id}/${str[i]}`]
+      console.log("img string" + imgString)
+    }
+  };
+  const toggleShowMoreOptions = (e) => {
+    e.preventDefault();
+    setShowMoreOptions(!showMoreOptions);
+  };
+
+  return (
+    <div
+      className='central-meta item'
+      key={post.id}
+      onClick={(e) => {
+        if (showMoreOptions) toggleShowMoreOptions(e);
+      }}
+    >
+      <div
+        className='container_drop-options__transparent'
+        hidden={!showMoreOptions}
+        onClick={toggleShowMoreOptions}
+      ></div>
+      <div className='user-post'>
+        {editPostId !== post.id ? (
+          <div className='friend-info'>
+            <div className='post-meta'>
+              {post.swapImagePath ? (
+                <>
+                  <div className='grid-container1'>
+                    <div className='itemS1'>
+                      {post.postedimages.length > 0 ? (
+                        <div className='postImage'>
+                          {post.postedimages.map((postImage) => (
+                            <React.Fragment>
+                              <a
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                <img
+                                  style={{ width: '100%', objectFit: 'cover' }}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                />
+                              </a>
+                            </React.Fragment>
+                          ))}
                         </div>
-                      <img className="stryDsplyImg" src={fileStorage.baseUrl + background.storiesImagePath} /> 
-                      </div>:null}</>
-                    ))}
+                      ) : 
+                      post.swapimages.length > 0 ? (
+                        <div className='postImage'>
+                          {post.swapimages.map((postImage) => {
+                            console.log(postImage, 'swp')
+                            return(
+                            <React.Fragment>
+                              <a
+                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                <img
+                                  style={{ width: '100%', objectFit: 'cover' }}
+                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                />
+                              </a>
+                            </React.Fragment>
+                          )})}
+                        </div>
+                      ) :null}
+                    </div>
+                    <div className='itemS2'>
+                      <div className='swapbtnfeed'>
+                        <i class='las la-sync'></i>
+                      </div>
+                    </div>
+                    <div className='itemS3'>
+                      <>
+                        <div className='swapImage'>
+                          <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                            <img
+                              style={{ width: '100%', objectFit: 'cover' }}
+                              src={post.swapImagePath}
+                            />{' '}
+                          </a>
+                        </div>{' '}
+                      </>
+                    </div>
                   </div>
 
-                  <div className="slideshowDots">
-                    {storiesForUser.map((_, idx) => (
-                      <div
-                        key={idx}
-                        className={`slideshowDot${index === idx ? " active" : ""}`}
-                        onClick={() => {
-                          setIndex(idx);
+                  <div className='buttonS'>
+                    <a href='/shipping' className='buttonshare' onClick={() => handleDeletePost(post.id)}>
+                      Accept
+                    </a>
+                  </div>
+                </>
+              ) : (
+                //single
+
+                <>
+                  {post.postImagePath && post.postImagePath.split(',').length > 1 ? (
+                    <div>
+                      <Carousel
+                        height='200px'
+                        thumbnails={true}
+                        thumbnailWidth='100px'
+                        style={{
+                          textAlign: 'center',
+                          maxWidth: '850px',
+                          maxHeight: '500px',
+                          margin: '40px auto',
                         }}
-                      ></div>
-                    ))}
+                      >
+                        {
+                          // (post.postImagePath.split(',')).map((item,key)=>{imgfun(item,key)})
+
+                          post.postImagePath.split(',').map((item, key) => (
+                            <Carousel.Item>
+                              <a
+                                href={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`}
+                                data-lightbox={`image-user-${post.user.id}`}
+                              >
+                                {' '}
+                                <img
+                                  className='d-block w-100'
+                                  src={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`}
+                                  key={key}
+                                />
+                              </a>
+                            </Carousel.Item>
+                          ))
+                        }
+                      </Carousel>
+                    </div>
+                  ) : (
+                    // <div className="postImage">
+                    //     <div className="row">
+
+                    //    {
+                    //       // setimgString(post.postImagePath.split(','))
+                    //      // <ImageGallery items={images}/>
+
+                    //     (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
+                    //         <a href={`${storage.baseUrl}/user-post/${post.id}/${item}`}
+                    //     data-lightbox={`image-user-${post.user.id}`}>
+                    //        <img src={`${storage.baseUrl}/user-post/${post.id}/${item}`} key={key}
+                    //        style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>))
+
+                    //    }
+                    //     </div>
+
+                    //    </div>
+
+                    <></>
+                  )}
+                </>
+              )}
+
+              {/* {post.postImagePath ?
+                                <div className="postImage">
+                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.postImagePath} /> </a></div> : null
+                                }
+                                {post.swapImagePath ?
+                                <>
+                                <div style={{textAlign: "center"}}><img  width="30" src="assets/images/swapicon.png"/></div>
+                                    <div className="swapImage">
+                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.swapImagePath} /> </a></div> </>: null
+                                } */}
+
+              <figure>
+                <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' />
+              </figure>
+
+              <div className='friend-name' style={{ width: "92%",}}>
+                <div style={{ float: 'left', display: 'inline' }}>
+                  <a
+                    href={`/profile/${post.user.email}`}
+                    title='#'
+                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+                  >
+                    {`${post.user.firstName} ${post.user.lastName}`}
+                    {post.userTag ? (
+                      <>
+                        <span style={{ padding: '0 5px' }}>with</span>{' '}
+                        <span className='tagPost'>{post.userTag.firstName}</span>
+                        <span className='tagPost'>{post.userTag.lastName}</span>
+                      </>
+                    ) : null}
+                  </a>
+
+                  <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
+                    on {`${post.published}`} {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>}
+                  </span>
+                  {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
+                </div>
+                <div
+                  style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
+                ></div>
+                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                      <span title='add icon'>
+                        <i class='las la-ellipsis-h' style={{  fontSize: '36px' }}></i>
+                      </span>
+                    </div>
+               
+              </div>
+
+              {post.content && (
+                <p id={`post-content-${post.id}`}>
+                  {`${post.content}`}
+                  <br></br>
+                </p>
+              )}
+
+              <div className='postImage'>
+                {post.postedimages?
+                post.postedimages.map((postImage) => (
+                  <React.Fragment>
+                    <a
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      data-lightbox={`image-user-${post.user.id}`}
+                    >
+                      <img
+                        style={{ width: '100%', objectFit: 'cover' }}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      />
+                    </a>
+                  </React.Fragment>
+                )):
+                post.swapimages?post.swapimages.map((postImage) => (
+                  <React.Fragment>
+                    <a
+                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      data-lightbox={`image-user-${post.user.id}`}
+                    >
+                      <img
+                        style={{ width: '100%', objectFit: 'cover' }}
+                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                      />
+                    </a>
+                  </React.Fragment>
+                )):null}
+              </div>
+
+              <div className='counter'>
+                <ul>
+                  <li>
+                    {handleCounterReaction()}
+                    <span> {post.reactions&&`${post.reactions.length}`} </span>
+                  </li>
+                  <li>
+                    <span
+                      className='commentCounter'
+                      style={{ marginRight: '5px' }}
+                      onClick={() => setShowComment(!showComment)}
+                    >
+                      <img src='/assets/images/commentwhite.svg' alt='' />
+                    </span>{' '}
+                    <span> {`${getCommentCounter(post.comments)}`}</span>
+                  </li>
+                  <li>
+                    <span>
+                      {' '}
+                      <img src='/assets/images/shareicnwhite.svg' alt='' />
+                    </span>{' '}
+                    <span> {`${getCommentCounter(post.comments)}`} </span>
+                  </li>
+                 
+                </ul>
+              </div>
+
+              {showReactions && (
+                <div
+                  onMouseEnter={handleShowingReaction}
+                  onMouseLeave={handleUnshowingReaction}
+                  className='reaction-bunch active'
+                >
+                  <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')} />
+                  <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')} />
+                  <img src={'../assets/images/gif/laughing.gif'} onClick={() => handleSettingReactions('laughing')} />
+                  <img src={'../assets/images/gif/tongue.gif'} onClick={() => handleSettingReactions('tongue')} />
+                  <img src={'../assets/images/gif/angel.gif'} onClick={() => handleSettingReactions('angel')} />
+                  <img src={'../assets/images/gif/devil.gif'} onClick={() => handleSettingReactions('devil')} />
+                  <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')} />
+                </div>
+              )}
+
+              <div className='we-video-info'>
+                <div className='click'>
+                  {checkIfLiked(post) ? (
+                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                      <span className='like' data-toggle='tooltip' title=''>
+                        {handleReaction()}
+                        <span style={{ paddingLeft: '10px' }}></span>
+                      </span>
+                    </div>
+                  ) : (
+                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                      <span className='dislike' data-toggle='tooltip' title=''>
+                        <img src='/assets/images/Star.svg' alt='' />
+                        <span style={{ paddingLeft: '10px' }}></span>
+                      </span>
+                    </div>
+                  )}
+                  <div className='commShare'>
+                    <div className='btncmn' onClick={() => setShowComment(!showComment)}>
+                      <span className='comment' data-toggle='tooltip' title='Comments'>
+                        <img src='/assets/images/comment.svg' />
+                        <span style={{ paddingLeft: '2px' }}>Comment</span>
+                      </span>
+                    </div>
+                    <div className='btncmn'>
+                      <span className='views' data-toggle='tooltip'>
+                        <img src='/assets/images/shareicn.svg' />
+                        <span style={{ paddingLeft: '12px' }}>Share</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        ) : (
+          <EditPostComponent post={post} set={handleEditingSave} />
+        )}
+
+        {showMoreOptions && (
+          <div className='drop-options active' onClick={toggleShowMoreOptions}>
+            <ul>
+              <li className='head-drop'>
+                <h6>Post Options</h6>
+              </li>
+              {post.user.id === user.id ? (
+                <li onClick={() => handleEditPost(post.id)}>
+                  <i class='las la-pencil-alt'></i>
+                  <span>Edit Post</span>
+                </li>
+              ) : (
+                <></>
+              )}
+              <li onClick={() => handleSavePost(post.id)}>
+                <i class='lar la-bookmark'></i>
+                <span>Save Post</span>
+              </li>
+              {post.user.id === user.id ? (
+                <li onClick={() => handleDeletePost(post.id)}>
+                  <i class='las la-trash'></i>
+                  <span>Delete</span>
+                </li>
+              ) : (
+                <></>
+              )}
+              <li>
+                <i class='las la-link'></i>
+                <span>Copy Link</span>
+              </li>
+            </ul>
+          </div>
+        )}
+        {/* Till here */}
+        <div className='coment-area'>
+          <ul className='we-comet'>
+            <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
+            {showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />}
+          </ul>
         </div>
+      </div>
+    </div>
+  );
 
-                    {/* {storiesForUser.map(
-              storys =><>
-                      <div
-                        className="slide blckSlide"
-                        key={storys.id}
-                        
-                      >
-                        <div className="strydisplay-Profimg"><img src={storys.user.profilePicturePath} alt="" /></div>
-                        <img className="stryDsplyImg" src={storys.storiesImagePath} />
-                      
-                      </div>
-                    </>)}
-                  </div>
-
-                  <div className="slideshowDots">
-                  {storiesForUser.map((_, idx)(
-                      <div
-                        key={idx}
-                        className={`slideshowDot${index === idx? " active" : ""}`}
-                        onClick={() => {
-                          setIndex(idx);
-                        }}
-                      ></div>
-                  ))} */}
-                  
-            {/* <OwlCarousel className='owl-theme' loop margin={1} items={1}  nav active>
-            {storiesForUser.map(
-              story =><>
-                <div class='item' key={story.id}>
-                <img className="stryDsplyImg" src={story.storiesImagePath} />
-                </div>
-                </>)}
-            </OwlCarousel> */}
-
-              </>
-
-                    /* <Carousel>
-                    {storiesForUser.map(
-              story =><>
-              <Carousel.Item key={story.id}>
-                <img
-                  className="d-block w-100"
-                  src={story.storiesImagePath}
-                  alt="First slide"
-                />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>
-              </Carousel.Item> </>)}
-              
-              {/* <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="assets/img/wall-two-colors-decorative-facade-plaster-texture-plastered-facade-two-colors-blue-yellow-113891371.jpg"
-                  alt="Second slide"
-                />
-
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src="holder.js/800x400?text=Third slide&bg=20232a"
-                  alt="Third slide"
-                />
-
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </Carousel.Caption>
-              </Carousel.Item> 
-            </Carousel> */
-
-                  
-     
-     
-        );
-    }
-
-    
-
-export default DisplayComponent;
+}
