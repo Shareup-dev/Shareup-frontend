@@ -25,6 +25,8 @@ import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import Carousel from 'react-bootstrap/Carousel'
 import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';  
+import 'owl.carousel/dist/assets/owl.theme.default.css';  
 import LocationComponent from '../AccountSettings/LocationComponent';
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
 import FriendSearchComponent from './FriendSearchComponent';
@@ -33,6 +35,7 @@ import fileStorage from "../../config/fileStorage";
 
 import SwapComponents from '../SwapPoint/SwapComponents';
 
+import Grpicon from '../../images/grpicon.png'
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -530,6 +533,43 @@ function NewsfeedComponent() {
       setUserR(user);
     }
   };
+  const uploadSwap = (event) => {
+    event.preventDefault();
+    setUploadError("")
+    console.log("uploading post working")
+    if (postContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
+      console.log("cant be null")
+      setUploadError("Please Insert A Text or an Image")
+      return
+    }
+
+    const formData = new FormData();
+    formData.append('content', postContent)
+    console.log(" this is the files" + files)
+    console.log(" this is the swapfiles" + swapfiles)
+    formData.append(`files`, files)
+    formData.append(`swapfiles`, swapfiles)
+    formData.append(`privacy`, Privacy)
+    if (userF === null) {
+      SwapService.createSwap(user.id, formData, null).then(res => {
+        console.log(JSON.stringify(res))
+        setPostContent("")
+        handleRemoveImage()
+        handleRemoveImageSwap()
+        setRefresh(res.data)
+        // window.location.reload();
+      })
+    } else
+      SwapService.createSwap(user.id, formData, userF.id).then(res => {
+        console.log(JSON.stringify(res))
+        setPostContent("")
+        handleRemoveImage()
+        handleRemoveImageSwap()
+        // setRefresh(res.data)
+        setRefresh(res.data)
+
+      })
+  }
   const imageshow = () => {
     return (
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
@@ -756,11 +796,8 @@ function NewsfeedComponent() {
       </Popup>
     );
   };
-
-
   const popSwap = () => {
     return (
-
       <Popup
         trigger={
           <span style={{ cursor: 'pointer' }}>
@@ -775,42 +812,187 @@ function NewsfeedComponent() {
       >
         {(close) => (
           <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
-            <div className="headpop">
-              <div className="row">
-                <div
-                  style={{
-                    color: "#000000",
-                    fontSize: "17px",
-                    fontWeight: "bold",
-                    width: "95%",
-                    textAlign: "center",
-                  }}
-                >
-                  <span>Create Swap Post</span>
-                </div>
-                <div style={{ width: "5%" }}>
-                  <span style={{}}>
-                    <a href="#!" onClick={close}>
-                      <i class="far fa-times-circle"></i>
-                    </a>
-                  </span>
-                </div>
-                {/* <div style={{ width: '10%', textAlign: 'center' }}>
-                  <span style={{ float: 'right' }}>
-                    {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-                      Post
-                    </button>
-                  </span>
-                </div> */}
+
+          <div className='headpop'>
+            <div className='row'>
+              <div style={{ width: '5%' }}>
+                <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                  <i class='las la-times'></i>
+                </a>
+              </div>
+              <div
+                style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
+              >
+                {' '}
+                <span>Create Swap Post</span>
+              </div>
+              <div style={{ width: '25%', textAlign: 'right' }}>
+                <a className='popup-btn' href='/HangGift'>
+                  Keep swap
+                </a>
               </div>
             </div>
-            <SwapComponents />
-          </Form>
+          </div>
+
+          <div style={{ padding: '0 11px 11px 11px' }}>
+            <div className='popupimg'>
+              <img
+                src={
+                  user
+                    ? fileStorage.baseUrl + user.profilePicturePath
+                    : fileStorage.baseUrl + userR.profilePicturePath
+                }
+                alt=''
+              />
+            </div>
+            <div class='popupuser-name'>
+              <div style={{ display: 'inline' }}>
+                <span>
+                  {`${user.firstName} ${user.lastName}`}
+                  {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                </span>
+                <span style={{ display: 'block', fontSize: '10px' }}>
+                  <li style={{paddingLeft: '10%' , paddingTop: '1%',listStyleType: 'none'}}>
+                    {popAudience()}
+                  </li>
+                  {/* <div className='dropdownnewsfeed'>
+                    <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                      <option value='Friends'>Friends</option>
+                      <option value='Public'>Public</option>
+                      <option value='Only Me'>Only Me</option>
+                    </select>
+                  </div>{' '} */}
+                </span>
+              </div>{' '}
+            </div>{' '}
+          </div>
+          <div style={{ margin: '0 0 100px 11px' }}>
+            <span className='textPop'>
+              <textarea
+                className='textpopup'
+                rows={2}
+                placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
+                name='post_content'
+                value={postContent}
+                onChange={handlePostContent}
+              />
+
+              {showPostImage ? (
+                <>
+                  <div>
+                    {postImage.map((item, key) => (
+                      <img
+                        src={item}
+                        key={key}
+                        style={{
+                          maxWidth: '150px',
+                          maxHeight: '150px',
+                          padding: '10px',
+                          display: 'inline-block',
+                          verticalAlign: 'middle',
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                  <button
+                    onClick={handleRemoveImage}
+                    style={{
+                      right: '25px',
+                      position: 'absolute',
+                      borderRadius: '100%',
+                      background: '#b7b7b738',
+                      padding: '10px 10px',
+                    }}
+                  >
+                    <i class='las la-times'></i>
+                  </button>
+                </>
+              ) : null}
+            </span>
+            {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+          </div>
+
+          {imageshow()}
+          <div
+            type='submit'
+            value='Submit'
+            style={{
+              textAlign: 'center',
+              background: '#C4C4C4',
+              fontWeight: 'bold',
+              color: 'rgb(68 68 68)',
+              margin: '11px 11px',
+              padding: '15px',
+              borderRadius: '5px',
+              fontSize: '14px',
+              cursor: 'pointer',
+            }}
+            onClick={uploadSwap}
+          >
+            SWAP
+          </div>
+        </Form>
         )}
       </Popup>
     );
   };
+
+
+  // const popSwap = () => {
+  //   return (
+
+  //     <Popup
+  //       trigger={
+  //         <span style={{ cursor: 'pointer' }}>
+  //           <span style={{ marginRight: '5px', padding: '5px' }}>
+  //             <img style={{ verticalAlign: 'middle', width: '30px' }} src='/assets/images/swap-icon3.png' alt='img' />
+  //           </span>
+  //           Swap
+  //         </span>
+  //       }
+  //       modal
+  //       nested
+  //     >
+  //       {(close) => (
+  //         <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+  //           <div className="headpop">
+  //             <div className="row">
+  //               <div
+  //                 style={{
+  //                   color: "#000000",
+  //                   fontSize: "17px",
+  //                   fontWeight: "bold",
+  //                   width: "95%",
+  //                   textAlign: "center",
+  //                 }}
+  //               >
+  //                 <span>Create Swap Post</span>
+  //               </div>
+  //               <div style={{ width: "5%" }}>
+  //                 <span style={{}}>
+  //                   <a href="#!" onClick={close}>
+  //                   <i class="far fa-times-circle"></i>
+  //                   </a>
+  //                 </span>
+  //               </div>
+  //               {/* <div style={{ width: '10%', textAlign: 'center' }}>
+  //                 <span style={{ float: 'right' }}>
+  //                   {' '}
+  //                   <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
+  //                     Post
+  //                   </button>
+  //                 </span>
+  //               </div> */}
+  //             </div>
+  //           </div>
+  //           <SwapComponents setRefresh={setRefresh}/>
+  //         </Form>
+  //       )}
+  //     </Popup>
+  //   );
+  // };
 
   const popUp = () => {
     return (
@@ -1835,125 +2017,136 @@ function NewsfeedComponent() {
                     postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
                      }
                      </div> */}
-          <div className='central-meta newsfeed'>
-            <div style={{ fontSize: '18px', marginBottom: '10px' }}>Groups Suggestions</div>
-            <div class='slide-wrapper'>
-              <ul class='slide heightGrp'>
-                <li class='slideitem'>
-                  <a href='#'>
-                    <div className='groupsggstion-card'>
-                      <div className='groupsggstion-img'>
-                        <a href=''>
-                          <div style={{ paddingTop: '50px', fontSize: '100px' }}>
-                            {' '}
-                            <i class='las la-users'></i>
-                          </div>
-                        </a>
-                      </div>
+          <div className='central-meta newsfeed grp-sugg-cont'>
+            <div style={{ fontSize: '18px', padding:'1rem 20px' , fontWeight: 'bold', marginTop: '10px' }}>Groups Suggestions</div>
+              <div class='slide-wrapper' style={{margin:'0'}}>            
+                <ul class='slide container-fluid'>
+                  <OwlCarousel items={3}  
+                    className="owl-theme grp-carousel"  
+                    nav  
+                    margin ={0}
+                    dots = {false}
+                    >  
+                        <li class='slideitem' style={{margin: 0}}>
+                          <a href='#'>
+                            <div className='groupsggstion-card'>
+                              <div className='groupsggstion-img'>
+                                <a href=''>
+                                  <div>
+                                    {' '}
+                                    <img src={Grpicon} className="no-img"/>
+                                  </div>
+                                </a>
+                              </div>
 
-                      <div className='groupsggstion-by'>
-                        <a href='/group/create'>
-                          <div class='add-group' aria-describedby='popup-2'>
-                            {' '}
+                              <div className='groupsggstion-by'>
+                                <a href='/group/create'>
+                                  <div class='add-group' aria-describedby='popup-2'>
+                                    {' '}
 
-                          </div>
-                        </a>
+                                  </div>
+                                </a>
 
-                        <a href='/group/create'>
-                          <h5 style={{ fontWeight: 'bold', fontSize: '16px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' }}>Create Group</h5>
-                        </a>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                {searchedGroups.map((group) => (
-                  <li class='slideitem'>
-                    <a href='#'>
-                      <div className='groupsggstion-card'>
-                        <div className='groupsggstion-img'>
-                          <a href={`/groups/${group.id}`} title={group.name}>
-                            {' '}
-                            <img
-                              src={
-                                group.groupImagePath
-                                  ? group.groupImagePath
-                                  : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
-                              }
-                              alt=''
-                            />
+                                <a href='/group/create'>
+                                  <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
+                                </a>
+                              </div>
+                            </div>
                           </a>
-                        </div>
+                        </li>
+                        {searchedGroups.map((group) => (
+                          <li class='slideitem'>
+                            <a href='#'>
+                              <div className='groupsggstion-card'>
+                                <div className='groupsggstion-img'>
+                                  <a href={`/groups/${group.id}`} title={group.name}>
+                                    {' '}
+                                    <img
+                                      src={
+                                        group.groupImagePath
+                                          ? fileStorage.baseUrl+group.groupImagePath
+                                          : Grpicon
+                                      }
+                                      className={group.groupImagePath
+                                        ? "img"
+                                        : "no-img"}
+                                      alt=''
+                                    />
+                                  </a>
+            											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
+                                </div>
 
-                        <div className='groupsggstion-by'>
-                          <img
-                            src={
-                              group.groupImagePath
-                                ? fileStorage.baseUrl + group.groupImagePath
-                                : 'https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png'
-                            }
-                            alt=''
-                          />
-                          <div style={{ padding: '5px' }}>
+                                <div className='groupsggstion-by'>
+                                  {/* <img
+                                    src={
+                                      group.groupImagePath
+                                        ? fileStorage.baseUrl + group.groupImagePath
+                                        : Grpicon
+                                    }
+                                    alt=''
+                                  /> */}
+                                <div style={{ paddingLeft: '10px' , height:'20px' }}>
 
-                            <span className='groupname'>
+                                    <span className='groupname'>
 
-                              <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
+                                      <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
 
-                              </a>
-                            </span>
-                          </div>
-                          <div style={{ textAlign: 'left', padding: '5px', fontSize: '15px' }}>
-                            {group.members.length > 1 ? (
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
+                                    {group.members.length > 1 ? (
 
-                              <span> {group.members.length}Members</span>
-                            ) : (
-                              <span>{group.members.length}Member</span>
-                            )}
-                          </div>
-                          {checkIfInGroup(group.members) ? (
-                            <a
+                                      <p className="grp-mem-text"> {group.members.length}Members</p>
+                                    ) : (
+                                      <p className="grp-mem-text">{group.members.length}Member</p>
+                                    )}
+                                  </div>
+                                  {checkIfInGroup(group.members) ? (
+                                    <a
 
-                              href
-                              class='buttonGrpFd mrgngrp'
-                              style={{ color: '#fff', background: '#033347', fontSize: '12px' }}
-                              onClick={() => handleLeaveGroup(group.id)}
-                            >
-                              Leave Group
+                                      href
+                                      class='buttonGrpFd mrgngrp mt-0'  
+                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
+                                      onClick={() => handleLeaveGroup(group.id)}
+                                    >
+                                      Leave Group
+                                    </a>
+                                  ) : (
+                                    <a
+                                      href
+                                      class='buttonGrpFd mrgngrp mt-0'
+                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
+                                      onClick={() => handleJoinGroup(group.id)}
+                                    >
+                                      Join Group
+                                    </a>
+
+                                  )}
+                                  {/* <a
+                                    href
+                                    class='buttonGrpFd mrgngrp'
+                                    style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
+                                    onClick={() => handleJoinGroup(group.id)}
+                                  >
+                                    Preview
+                                  </a> */}
+                                </div>
+                              </div>
                             </a>
-                          ) : (
-                            <a
-                              href
-                              class='buttonGrpFd mrgngrp'
-                              style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
-                              onClick={() => handleJoinGroup(group.id)}
-                            >
-                              Join Group
-                            </a>
+                          </li>
+                        ))}
+                  </OwlCarousel>
+                </ul>
 
-                          )}
-                          <a
-                            href
-                            class='buttonGrpFd mrgngrp'
-                            style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
-                            onClick={() => handleJoinGroup(group.id)}
-                          >
-                            Preview
-                          </a>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-
-              <div class='paddles'>
+              {/* <div class='paddles'>
                 <button class='left-paddle paddle hidden'>
                   <i class='las la-chevron-circle-left'></i>
                 </button>
                 <button class='right-paddle paddle'>
                   <i class='las la-chevron-circle-right'></i>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* add post new box */}
