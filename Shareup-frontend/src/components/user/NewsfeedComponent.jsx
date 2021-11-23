@@ -438,8 +438,8 @@ function NewsfeedComponent() {
         setPostContent('');
         handleRemoveImage();
         setRefresh(res.data);
-        console.log('ssssssssssrefersh',refresh)
-        
+        console.log('ssssssssssrefersh', refresh)
+
       });
     } else
       PostService.createPost(user.id, formData, userF.id).then((res) => {
@@ -541,11 +541,12 @@ function NewsfeedComponent() {
             <i class='lar la-file-image'></i>
           </label>
         </div>
-        <div className='gifpopup'>
+        <div className='gifpopup' style={{ fontSize: '28px',
+    paddingBottom: '14px'}}>
           <Popup
             trigger={
               <a href='#!'>
-                <i class='las la-user-tag'></i>
+                <i class='las la-user-tag' ></i>
               </a>
             }
             modal
@@ -642,11 +643,14 @@ function NewsfeedComponent() {
             <i class='lar la-file-image'></i>
           </label>
         </div>
-        <div className='gifpopup'>
+        <div className='gifpopup' >
           <Popup
             trigger={
               <a href='#!'>
-                <i class='las la-user-tag'></i>
+                <i class='las la-user-tag' style={{ fontSize: '28px',
+    paddingBottom: '14px'}}>
+
+    </i>
               </a>
             }
             modal
@@ -787,7 +791,7 @@ function NewsfeedComponent() {
                 <div style={{ width: "5%" }}>
                   <span style={{}}>
                     <a href="#!" onClick={close}>
-                    <i class="far fa-times-circle"></i>
+                      <i class="far fa-times-circle"></i>
                     </a>
                   </span>
                 </div>
@@ -801,7 +805,7 @@ function NewsfeedComponent() {
                 </div> */}
               </div>
             </div>
-            <SwapComponents/>
+            <SwapComponents />
           </Form>
         )}
       </Popup>
@@ -833,7 +837,7 @@ function NewsfeedComponent() {
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '70%', textAlign: 'right' }}
                 >
                   {' '}
                   <span>Today to me, Tomorrow to you</span>
@@ -863,10 +867,11 @@ function NewsfeedComponent() {
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '10px' }}>
-                    <li style={{paddingLeft: '10%' , paddingTop: '1%',listStyleType: 'none'}}>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
                       {popAudience()}
                     </li>
+                    
                     {/* <div className='dropdownnewsfeed'>
                       <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
                         <option value='Friends'>Friends</option>
@@ -932,9 +937,9 @@ function NewsfeedComponent() {
               value='Submit'
               style={{
                 textAlign: 'center',
-                background: '#C4C4C4',
+                background: '#033347',
                 fontWeight: 'bold',
-                color: 'rgb(68 68 68)',
+                color: 'white',
                 margin: '11px 11px',
                 padding: '15px',
                 borderRadius: '5px',
@@ -943,7 +948,7 @@ function NewsfeedComponent() {
               }}
               onClick={uploadPost}
             >
-              Post
+              POST
             </div>
           </Form>
         )}
@@ -1315,11 +1320,11 @@ function NewsfeedComponent() {
 
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer',  backgroundColor: '#033347', color: 'white'}}>
+          <span style={{fontSize: '11px', padding: '4px', cursor: 'pointer', backgroundColor: '#0333471a', borderRadius: '5px' }}>
             friends
 
-            <img src="assets/images/dashicons_arrow-down.svg"  
-            style={{ verticalAlign: 'middle'}}  />
+            <img src="assets/images/Vector.svg"
+              style={{ paddingLeft: '4px', verticalAlign: 'middle' }} />
           </span>
         }
         modal
@@ -1351,9 +1356,9 @@ function NewsfeedComponent() {
               >
                 {' '}
                 <span style={{ fontWeight: 'bold' }}
->Who can see your post?</span>
+                >Who can see your post?</span>
                 <p style={{ fontSize: '13px', paddingTop: '2px' }}>
-                  <p style={{ color: '#525050' , fontweight: '400 !important' }}>
+                  <p style={{ color: '#525050', fontweight: '400 !important' }}>
                     your post will apear in newsfeed, on your profile and search results</p>
                 </p>
               </div>
@@ -1367,14 +1372,14 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/publicicon.svg"  style={{ width: '49%'}} />
+                            <img src="assets/images/publicicon.svg" style={{ width: '49%' }} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
 
                             <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
-                                Public
+                              Public
                             </p>
                             <p style={{ fontSize: '11px', paddingTop: '1px' }}>
                               <p style={{ color: '#525050' }}>
@@ -1384,7 +1389,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
+                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1395,24 +1400,24 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/friendsicon.svg"  style={{ width: '46%'}} />
+                            <img src="assets/images/friendsicon.svg" style={{ width: '46%' }} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
 
                             <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
-                                Friends
-                                </p>
-                            
-                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px',  color: '#525050' }}>
-                                your shareup friends
+                              Friends
+                            </p>
+
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              your shareup friends
                             </p>
 
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }} />
+                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1423,47 +1428,22 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/friendexcepticon.svg"   style={{ width: '46%'}}/>
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
-                            {/* <span className="status f-online" /> */}
-                          </div>
-                          <div class="item22">
-
-                            <p style={{ fontSize: '17px', fontWeight: 'bold',  color: 'black' }}>
-                                Friends except
-                            </p>
-                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px' , color: '#525050' }}>
-                                don't show some friends
-                            </p>
-
-                          </div>
-
-                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
-
-                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
-
-                        </div>
-                      </yi>
-
-                      <yi  >
-                        <div className="grid-containeraudience">
-                          <div class="item11">
-
-                            <img src="assets/images/groupicon.svg"  style={{ width: '46%'}}/>
+                            <img src="assets/images/friendexcepticon.svg" style={{ width: '46%' }} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
 
                             <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
-                               Group
+                              Friends except
                             </p>
                             <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
-                                select to show for group
+                              don't show some friends
                             </p>
+
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%' ,width: '100%' }}/>
+                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1474,20 +1454,45 @@ function NewsfeedComponent() {
                         <div className="grid-containeraudience">
                           <div class="item11">
 
-                            <img src="assets/images/onlymeicon.svg"  style={{ width: '39%'}}/>
+                            <img src="assets/images/groupicon.svg" style={{ width: '46%' }} />
                             {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
-                            <p style={{ fontSize: '17px', fontWeight: 'bold' ,color: 'black' }}>
-                               Only Me 
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Group
                             </p>
-                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px' , color: '#525050' }}>
-                                private to all shareup users
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              select to show for group
                             </p>
                           </div>
 
-                          <input type="radio" name="any"  style={{ height: '60%' ,width: '100%' }} />
+                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi  >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/onlymeicon.svg" style={{ width: '39%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Only Me
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              private to all shareup users
+                            </p>
+                          </div>
+
+                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 

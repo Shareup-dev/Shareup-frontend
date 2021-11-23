@@ -117,10 +117,11 @@ const delay = 2500;
                     {background.storiesImagePath ?
                       <div
                         className="slide"
-                        key={index}
+                      
                         
                       >
-                        <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" />
+                        <div className="strydisplay-Profimg">
+                          <img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" />
                           <span>{background.user.firstName}</span>
                         </div>
                       <img className="stryDsplyImg" src={fileStorage.baseUrl + background.storiesImagePath} /> 

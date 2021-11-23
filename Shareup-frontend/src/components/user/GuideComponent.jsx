@@ -252,7 +252,7 @@ function GuideComponent() {
                                                 <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
                                                 {/* <span className="status f-online" /> */}
                                             </div>
-                                            <div className="item2">
+                                            <div className="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
                                                 <p className="nameTag"><a href={`/profile/${userF.email}`}>
                                                     {`${userF.firstName} ${userF.lastName}`}</a>
                                                 </p>
@@ -274,7 +274,7 @@ function GuideComponent() {
                                                 }
 
 
-                                                <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+                                                <i class="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
 
                                                 </i>
                                             </div>
@@ -301,7 +301,7 @@ function GuideComponent() {
                                             <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
                                         </div>
 
-                                        <div class="item2">
+                                        <div class="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
                                             <p className="nameTag"><a href={`/groups/${group.id}`}>{`${group.name}`}</a></p>
 
                                         </div>
@@ -315,7 +315,7 @@ function GuideComponent() {
                                                     < a href="#!" class="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => handleJoinGroup(group.id)}>Join Group</a>
                                             }
 
-                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' }}>
+                                            <i class="las la-times" style={{ fontSize: '13px', padding: '6px' , color: 'black'}}>
 
                                             </i>
                                         </div>

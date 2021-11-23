@@ -1430,12 +1430,25 @@ img#preview {
 }
 
 .fileContainer i {
-  color: #1b1b1b;
+
+    
+  /* color: #1b1b1b; */
+
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(242, 75, 76, 1) 15%, 
+                                      rgba(140, 67, 179, 1) 75%, 
+                                      rgba(83, 82, 214, 1) 0% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   padding-bottom: 15px;
   vertical-align: middle;
   font-size: 28px;
   font-weight: 900;
 }
+
+
+
 .fileContainer img {
   vertical-align: middle;
   padding: 5px;
@@ -2092,7 +2105,28 @@ form button {
 
   width: 100%;
   text-align: center;
+/* --gap: 16px;
+--num-cols: 2;
+--row-height: 300px;
+
+box-sizing: border-box;
+padding:var(--gap);
+display: grid;
+grid-template-columns: repeat(var(--num-cols),1fr);
+grid-auto-rows: var(--row-height);
+
 }
+
+.postImage-grid > img {
+
+width: 100%;
+height: 100%; */
+
+}
+
+
+
+
 .swapImage {
   text-align: center;
 }
@@ -12692,15 +12726,39 @@ breadcrumb-item + .breadcrumb-item::before {
   text-transform: capitalize;
   letter-spacing: 0.3px;
 }
+
+
+.la-user-tag{
+  /* color: #1b1b1b; */
+
+
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    
+      rgba(255, 58, 217, 1) 0%,
+      rgba(154, 46, 163, 1) 32%,
+      rgba(140, 67, 179, 1) 45%,
+      rgba(83, 82, 214, 1) 73%
+    
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
 .nav-link.active .la-user-tag:before {
   background: #000000;
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 700;
   text-transform: capitalize;
   letter-spacing: 0.3px;
+
+
+
 }
 .nav-link.active .la-users:before {
   background: #000000;
@@ -12974,6 +13032,7 @@ breadcrumb-item + .breadcrumb-item::before {
 .headpop {
   border-bottom: 1px solid #eaeaea;
   padding: 15px 5px;
+  padding-bottom: 31px;
   vertical-align: middle;
   margin: 0 0 11px 0;
 }
@@ -13031,10 +13090,10 @@ a.popup-btn:hover {
 .popupuser-name > div > span {
   text-transform: capitalize;
   font-weight: bold;
-  color: rgb(29, 28, 28);
+  color: rgb(29 28 28 / 92%);
   float: left;
-  font-size: 12px;
-
+  font-size: 17px;
+  padding-bottom: 4px;
   width: 100%;
 }
 
@@ -14836,7 +14895,19 @@ input.chat-text {
   padding: 20px;
 }
 .campopup a i {
-  color: #1b1b1b;
+  /* color: #1b1b1b; */
+
+
+  color: transparent;
+  background: linear-gradient(
+    146deg,
+    rgba(255, 58, 58, 1) 5%,
+    rgba(236, 196, 32, 1) 32%,
+    rgba(140, 67, 179, 1) 45%,
+    rgba(83, 82, 214, 1) 73%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   padding-bottom: 15px;
   vertical-align: middle;
   font-size: 28px;
