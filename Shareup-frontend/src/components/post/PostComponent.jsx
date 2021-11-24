@@ -12,7 +12,9 @@ import ImageGallery from 'react-image-gallery';
 import storage from "../../config/fileStorage";
 import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
-
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';  
+import 'owl.carousel/dist/assets/owl.theme.default.css';  
 
 const my_url = `${storage.baseUrl}`
 
@@ -350,7 +352,19 @@ export default function PostComponent({ post, setRefresh }) {
                 </p>
               )}
 
+
+
+
+
+
               <div className='postImage'>
+                <OwlCarousel items={1}
+                
+                className="owl-theme grp-carousel post-carousel"
+      
+                dots
+                nav
+                margin={10}>
                 {post.postedimages?
                 post.postedimages.map((postImage) => (
                   <React.Fragment>
@@ -380,7 +394,13 @@ export default function PostComponent({ post, setRefresh }) {
                     </a>
                   </React.Fragment>
                 )):null}
+                </OwlCarousel>
               </div>
+
+
+
+
+
 
               <div className='counter'>
                 <ul>

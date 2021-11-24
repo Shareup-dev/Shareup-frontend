@@ -110,7 +110,6 @@ const delay = 2500;
               <div className="slideshow">
                 <div
                   className="slideshowSlider"
-                  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
                 >
                 {storiesForUser.map((background, index) => (
                   <>

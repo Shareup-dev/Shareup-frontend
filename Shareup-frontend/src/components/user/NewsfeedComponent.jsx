@@ -1708,9 +1708,9 @@ function NewsfeedComponent() {
           <div key={post.id}>
             {post.group
               ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? testFanc(post)
+                ? <PostComponent post={post} setRefresh={setRefresh} />
                 : null
-              : testFanc(post)}
+              : <PostComponent post={post} setRefresh={setRefresh} />}
           </div>
         ))}
       </div>

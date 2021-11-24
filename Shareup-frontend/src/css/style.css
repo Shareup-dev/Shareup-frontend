@@ -437,6 +437,22 @@ a:hover.vk {
   right: 0;
 }
 
+.post-carousel .owl-stage{
+height: 420px;
+display: flex;
+justify-content: center;
+align-items: center;
+  
+}
+
+.post-carousel .owl-stage-outer{
+
+height:420px;
+
+}
+
+
+
 .grp-carousel .owl-prev,
 .grp-carousel .owl-next {
   color: transparent;

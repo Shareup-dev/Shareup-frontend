@@ -11,12 +11,15 @@
     margin-top: 0.25rem !important;
     margin-left: 0.5rem;
     color: red;
+    font-size: 14px;
   }
   .login-form-icon small{
     display: inline-block !important;
     margin-top: 0.25rem !important;
     margin-left: 0.5rem;
     color: red;
+    font-size: 14px;
+
   }
   .form-icon i{
   /* visibility: hidden; */
