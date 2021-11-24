@@ -92,6 +92,13 @@ function NewsfeedComponent() {
   const [userF, setUserF] = useState(null);
   const [searchedUser, setSearchedUser] = useState([]);
 
+  const [photosContent, setPhotosContent] = useState('');
+
+  const [shareupContent, setShareupContent] = useState('');
+
+  const [hangshareContent, setHangshareContent] = useState('');
+
+
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
   //   const ref = inputRef.current;
@@ -188,7 +195,8 @@ function NewsfeedComponent() {
     setFilesStry({});
     setShowstoriesImage(false);
   };
-  const handleLeaveGroup = (group_id) => {
+  const handleLeaveGroup = (e,group_id) => {
+    e.preventDefault();
     console.log(group_id);
     GroupService.leaveGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
@@ -196,7 +204,8 @@ function NewsfeedComponent() {
     });
   };
 
-  const handleJoinGroup = (group_id) => {
+  const handleJoinGroup = (e,group_id) => {
+    e.preventDefault();
     console.log(group_id);
     GroupService.joinGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
@@ -240,7 +249,10 @@ function NewsfeedComponent() {
     console.log('handlepostcontent' + event.target.value);
     setPostContent(event.target.value);
   };
-
+  const handleHangshareContent = (event) => {
+    // console.log('handlepostcontent' + event.target.value);
+    setHangshareContent(event.target.value);
+  };
   const handleDeletePost = (postid) => {
     PostService.deletePost(postid).then((res) => {
       console.log(res.status);
@@ -468,56 +480,196 @@ function NewsfeedComponent() {
   function openModal() {
     setIsOpen(true);
   }
-  //CreatePosts
+  //handle photos content function
+  const handlePhotosContent = (event) => {
+    console.log('handlephotoscontent' + event.target.value);
+    setPhotosContent(event.target.value);
+  };
+  // show images in photos popup
+  const imageshowPhotos = () => {
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>Add More</div>
+
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='photos_image' accept='image/*' multiple ></input>
+            <i class='lar la-file-image'></i>
+          </label>
+        </div>
+        <div className='gifpopup' >
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-user-tag' style={{ fontSize: '28px', paddingBottom: '14px'}}></i>
+              </a>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
+                  <input
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
+                    onChange={handleSearchedUser}
+                  />
+                  <span onClick={close}>Done</span>
+                </div>
+                {userF ? (
+                  <>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                  </>
+                ) : null}
+                <div>
+                  <ul>
+                    {friendsList.length > 0 ? (
+                      <>
+                        {friendsList.map((userM) =>
+                          user.id !== userM.id ? (
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
+                                {' '}
+                                <div className='grid-container'>
+                                  {/* <figure> */}
+                                  <div class='item1'>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                    </a>
+                                    {/* </figure> */}
+                                  </div>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                  {/* <div className="  "> */}
+                                </div>
+                              </a>
+                            </li>
+                          ) : null
+                        )}
+                      </>
+                    ) : (
+                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                    )}
+                  </ul>
+                </div>
+              </Form>
+            )}
+          </Popup>
+        </div>
+        <div className='campopup'>
+          {' '}
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
+              </a>
+            }
+            nested
+            modal
+          >
+            {(close) => (
+              <Form style={{ margin: '5px', width: '500px', minHeight: '500px' }} className='popwidth'>
+                <LocSearchComponent />
+              </Form>
+            )}
+          </Popup>{' '}
+        </div>
+
+        {/* <ul style={{marginLeft:'10px'}}>
+        <li style={{fontSize:'12px'}}>What's in hang?</li>
+        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      </label></li></ul>*/}
+      </div>
+    );
+  };
+  //swap content function
   const handleSwapContent = (event) => {
     console.log(event.target.value);
     setSwapContent(event.target.value);
   };
+  // swap files function
   const handleFileSwap = (event) => {
-    console.log(event.target.files[0]);
-    setSwapfiles(event.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setSwapImage(reader.result);
+    setSwapfiles(event.target.files);
+    console.log(swapfiles);
+    let filesAmount = event.target.files.length;
+    if (filesAmount < 6) {
+      let tempImage = [];
+      for (let i = 0; i < filesAmount; i++) {
+        //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
+        tempImage.push(URL.createObjectURL(event.target.files[i]));
       }
-    };
-    console.log(event.target.files[0]);
-    // if(event.target.files[0].type === blob){
-    reader.readAsDataURL(event.target.files[0]);
-    // }
-    setShowSwapImage(true);
+
+      setSwapImage(tempImage);
+      console.log('url ' + swapImage[1]);
+
+      setShowSwapImage(true);
+    } else {
+      alert('5 files are allowed');
+      event.preventDefault();
+    }
   };
+
+  //swap popup image view remove function
   const handleRemoveImageSwap = () => {
     setSwapfiles({});
     setShowSwapImage(false);
   };
-  // const uploadSwap = (event) => {
-  //   event.preventDefault();
-  //   setUploadError("")
-  //   console.log("uploading post working")
-  //   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-  //     console.log("cant be null")
-  //     setUploadError("Please Insert A Text or an Image")
-  //     return
-  //   }
 
-  //   const formData = new FormData();
-  //   formData.append('content', swapContent)
-  //   console.log(" this is the files" + files)
-  //   formData.append(`files`, files)
-  //   SwapService.createSwap(user.id, formData).then(res => {
-  //     console.log(JSON.stringify(res))
-  //     setSwapContent("")
-  //     handleRemoveImage()
-  //     setRefresh(res.data)
-  //   })
-  // }
+  //swap upload function
+  const uploadSwap = (event) => {
+    event.preventDefault();
+    setUploadError('');
+    console.log('uploading swap working');
+    if (swapContent === '' && Object.keys(swapfiles).length === 0 && swapfiles.constructor === Object) {
+      console.log('cant be null');
+      setUploadError('Please Insert A Text or an Image');
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append('content', swapContent);
+    for (let i = 0; i < swapfiles.length; i++) {
+      formData.append(`files`, swapfiles[i]);
+    }
+    console.log(formData.getAll(`files`));
+    console.log(' this is the files' + files[0]);
+    console.log(' this is the swapfiles' + swapfiles);
+    for (let i = 0; i < `swapfiles`.length; i++) {
+      console.log(swapfiles);
+    }
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
+    if (userF === null) {
+      SwapService.createSwap(user.id, formData, null).then((res) => {
+        console.log(JSON.stringify(res));
+        console.log(res.data);
+        console.log(user.id);
+        setSwapContent('');
+        handleRemoveImageSwap();
+        setRefresh(res.data);
+        console.log('ssssssssssrefersh', refresh)
+
+      });
+    } else
+      SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+        console.log(JSON.stringify(res));
+        setSwapContent('');
+        handleRemoveImageSwap();
+        setRefresh(res.data);
+      });
+  };
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     // subtitle.style.color = '#f00';
-  }
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -533,43 +685,7 @@ function NewsfeedComponent() {
       setUserR(user);
     }
   };
-  const uploadSwap = (event) => {
-    event.preventDefault();
-    setUploadError("")
-    console.log("uploading post working")
-    if (postContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-      console.log("cant be null")
-      setUploadError("Please Insert A Text or an Image")
-      return
-    }
-
-    const formData = new FormData();
-    formData.append('content', postContent)
-    console.log(" this is the files" + files)
-    console.log(" this is the swapfiles" + swapfiles)
-    formData.append(`files`, files)
-    formData.append(`swapfiles`, swapfiles)
-    formData.append(`privacy`, Privacy)
-    if (userF === null) {
-      SwapService.createSwap(user.id, formData, null).then(res => {
-        console.log(JSON.stringify(res))
-        setPostContent("")
-        handleRemoveImage()
-        handleRemoveImageSwap()
-        setRefresh(res.data)
-        // window.location.reload();
-      })
-    } else
-      SwapService.createSwap(user.id, formData, userF.id).then(res => {
-        console.log(JSON.stringify(res))
-        setPostContent("")
-        handleRemoveImage()
-        handleRemoveImageSwap()
-        // setRefresh(res.data)
-        setRefresh(res.data)
-
-      })
-  }
+ 
   const imageshow = () => {
     return (
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
@@ -577,12 +693,112 @@ function NewsfeedComponent() {
 
         <div className='add-smilespopup'>
           <label className='fileContainer'>
-            <input type='file' name='post_image' accept='image/*' onChange={handleFile}></input>
+            <input type='file' name='swap_image' accept='image/*' ></input>
             <i class='lar la-file-image'></i>
           </label>
         </div>
-        <div className='gifpopup' style={{ fontSize: '28px',
-    paddingBottom: '14px'}}>
+        <div className='gifpopup' style={{ fontSize: '28px', paddingBottom: '14px'}}>
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-user-tag' ></i>
+              </a>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
+                  <input
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
+                    onChange={handleSearchedUser}
+                  />
+                  <span onClick={close}>Done</span>
+                </div>
+                {userF ? (
+                  <>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                  </>
+                ) : null}
+                <div>
+                  <ul>
+                    {friendsList.length > 0 ? (
+                      <>
+                        {friendsList.map((userM) =>
+                          user.id !== userM.id ? (
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
+                                {' '}
+                                <div className='grid-container'>
+                                  {/* <figure> */}
+                                  <div class='item1'>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                    </a>
+                                    {/* </figure> */}
+                                  </div>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                  {/* <div className="  "> */}
+                                </div>
+                              </a>
+                            </li>
+                          ) : null
+                        )}
+                      </>
+                    ) : (
+                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                    )}
+                  </ul>
+                </div>
+              </Form>
+            )}
+          </Popup>
+        </div>
+        <div className='campopup'>
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
+              </a>
+            }
+            nested
+            modal
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <LocSearchComponent />
+              </Form>
+            )}
+          </Popup>{' '}
+        </div>
+
+        {/* <ul style={{marginLeft:'10px'}}>
+      <li style={{fontSize:'12px'}}>What's in hang?</li>
+      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+    </label></li></ul>*/}
+      </div>
+    );
+  };
+  const imageshowSwap = () => {
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>What has to be swapped?</div>
+
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
+            <i class='lar la-file-image'></i>
+          </label>
+        </div>
+        <div className='gifpopup' style={{ fontSize: '28px', paddingBottom: '14px'}}>
           <Popup
             trigger={
               <a href='#!'>
@@ -687,10 +903,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href='#!'>
-                <i class='las la-user-tag' style={{ fontSize: '28px',
-    paddingBottom: '14px'}}>
-
-    </i>
+                <i class='las la-user-tag' style={{ fontSize: '28px', paddingBottom: '14px'}}></i>
               </a>
             }
             modal
@@ -777,6 +990,7 @@ function NewsfeedComponent() {
       </div>
     );
   };
+
   const Loc = () => {
     return (
       <Popup
@@ -796,6 +1010,115 @@ function NewsfeedComponent() {
       </Popup>
     );
   };
+  //handle shareup content function
+  const handleShareupContent = (event) => {
+    setShareupContent(event.target.value);
+  };
+
+  // shareup popup file input button
+  const imageshowShareup = () => {
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>Add More</div>
+
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='post_image' accept='image/*' multiple ></input>
+            <i class='lar la-file-image'></i>
+          </label>
+        </div>
+        <div className='gifpopup' >
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-user-tag' style={{ fontSize: '28px', paddingBottom: '14px'}}></i>
+              </a>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
+                  <input
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
+                    onChange={handleSearchedUser}
+                  />
+                  <span onClick={close}>Done</span>
+                </div>
+                {userF ? (
+                  <>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                  </>
+                ) : null}
+                <div>
+                  <ul>
+                    {friendsList.length > 0 ? (
+                      <>
+                        {friendsList.map((userM) =>
+                          user.id !== userM.id ? (
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
+                                {' '}
+                                <div className='grid-container'>
+                                  {/* <figure> */}
+                                  <div class='item1'>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                    </a>
+                                    {/* </figure> */}
+                                  </div>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                  {/* <div className="  "> */}
+                                </div>
+                              </a>
+                            </li>
+                          ) : null
+                        )}
+                      </>
+                    ) : (
+                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                    )}
+                  </ul>
+                </div>
+              </Form>
+            )}
+          </Popup>
+        </div>
+        <div className='campopup'>
+          {' '}
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
+              </a>
+            }
+            nested
+            modal
+          >
+            {(close) => (
+              <Form style={{ margin: '5px', width: '500px', minHeight: '500px' }} className='popwidth'>
+                <LocSearchComponent />
+              </Form>
+            )}
+          </Popup>{' '}
+        </div>
+
+        {/* <ul style={{marginLeft:'10px'}}>
+        <li style={{fontSize:'12px'}}>What's in hang?</li>
+        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      </label></li></ul>*/}
+      </div>
+    );
+  };
+
   const popSwap = () => {
     return (
       <Popup
@@ -813,127 +1136,127 @@ function NewsfeedComponent() {
         {(close) => (
           <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
 
-          <div className='headpop'>
-            <div className='row'>
-              <div style={{ width: '5%' }}>
-                <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                  <i class='las la-times'></i>
-                </a>
-              </div>
-              <div
-                style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}
-              >
-                {' '}
-                <span>Create Swap Post</span>
-              </div>
-              <div style={{ width: '25%', textAlign: 'right' }}>
-                <a className='popup-btn' href='/HangGift'>
-                  Keep swap
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ padding: '0 11px 11px 11px' }}>
-            <div className='popupimg'>
-              <img
-                src={
-                  user
-                    ? fileStorage.baseUrl + user.profilePicturePath
-                    : fileStorage.baseUrl + userR.profilePicturePath
-                }
-                alt=''
-              />
-            </div>
-            <div class='popupuser-name'>
-              <div style={{ display: 'inline' }}>
-                <span>
-                  {`${user.firstName} ${user.lastName}`}
-                  {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
-                </span>
-                <span style={{ display: 'block', fontSize: '10px' }}>
-                  <li style={{paddingLeft: '10%' , paddingTop: '1%',listStyleType: 'none'}}>
-                    {popAudience()}
-                  </li>
-                  {/* <div className='dropdownnewsfeed'>
-                    <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                      <option value='Friends'>Friends</option>
-                      <option value='Public'>Public</option>
-                      <option value='Only Me'>Only Me</option>
-                    </select>
-                  </div>{' '} */}
-                </span>
-              </div>{' '}
-            </div>{' '}
-          </div>
-          <div style={{ margin: '0 0 100px 11px' }}>
-            <span className='textPop'>
-              <textarea
-                className='textpopup'
-                rows={2}
-                placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                name='post_content'
-                value={postContent}
-                onChange={handlePostContent}
-              />
-
-              {showPostImage ? (
-                <>
-                  <div>
-                    {postImage.map((item, key) => (
-                      <img
-                        src={item}
-                        key={key}
-                        style={{
-                          maxWidth: '150px',
-                          maxHeight: '150px',
-                          padding: '10px',
-                          display: 'inline-block',
-                          verticalAlign: 'middle',
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
-                  <button
-                    onClick={handleRemoveImage}
-                    style={{
-                      right: '25px',
-                      position: 'absolute',
-                      borderRadius: '100%',
-                      background: '#b7b7b738',
-                      padding: '10px 10px',
-                    }}
-                  >
+            <div className='headpop'>
+              <div className='row'>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
                     <i class='las la-times'></i>
-                  </button>
-                </>
-              ) : null}
-            </span>
-            {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
-          </div>
+                  </a>
+                </div>
+                <div
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
+                >
+                  {' '}
+                  <span>Create Swap</span>
+                </div>
+                <div style={{ width: '20%', textAlign: 'right' }}>
+                  <a className='popup-btn' href='/HangGift'>
+                    Keep Swap
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: '0 11px 11px 11px' }}>
+              <div className='popupimg'>
+                <img
+                  src={
+                    user
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
+                  }
+                  alt=''
+                />
+              </div>
+              <div class='popupuser-name'>
+                <div style={{ display: 'inline' }}>
+                  <span>
+                    {`${user.firstName} ${user.lastName}`}
+                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                  </span>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                      {popAudience()}
+                    </li>
+                    
+                    {/* <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
+                      </select>
+                    </div>{' '} */}
+                  </span>
+                </div>{' '}
+              </div>{' '}
+            </div>
+            <div style={{ minHeight:'150px' }}>
+              <span className='textPop'>
+                <textarea
+                  className='textpopup'
+                  rows={2}
+                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
+                  name='swap_content'
+                  value={swapContent}
+                  onChange={handleSwapContent}
+                />
 
-          {imageshow()}
-          <div
-            type='submit'
-            value='Submit'
-            style={{
-              textAlign: 'center',
-              background: '#C4C4C4',
-              fontWeight: 'bold',
-              color: 'rgb(68 68 68)',
-              margin: '11px 11px',
-              padding: '15px',
-              borderRadius: '5px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}
-            onClick={uploadSwap}
-          >
-            SWAP
-          </div>
-        </Form>
+                {showSwapImage ? (
+                  <>
+                    <div style={{position:'relative'}}>
+                      {swapImage.map((item, key) => (
+                        <img
+                          src={item}
+                          key={key}
+                          style={{
+                            padding: '10px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+                      ))}
+
+                      {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                      <button
+                        onClick={handleRemoveImageSwap}
+                        style={{
+                          right: '10px',
+                          top: '10px',
+                          position: 'absolute',
+                          borderRadius: '100%',
+                          background: '#b7b7b738',
+                          padding: '10px 10px',
+                        }}
+                      >
+                        <i class='las la-times'></i>
+                      </button>
+                    </div>
+
+                  </>
+                ) : null}
+              </span>
+              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+            </div>
+
+            {imageshowSwap()}
+            <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#033347',
+                fontWeight: 'bold',
+                color: 'white',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+              onClick={uploadSwap}
+            >
+              SWAP
+            </div>
+          </Form>
         )}
       </Popup>
     );
@@ -994,7 +1317,7 @@ function NewsfeedComponent() {
   //   );
   // };
 
-  const popUp = () => {
+  const hangsharePopUp = () => {
     return (
 
       <Popup
@@ -1065,18 +1388,18 @@ function NewsfeedComponent() {
                 </div>{' '}
               </div>{' '}
             </div>
-            <div style={{ margin: '0 0 100px 11px' }}>
+            <div style={{ minHeight:'150px' }}>
               <span className='textPop'>
                 <textarea
                   className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
-                  value={postContent}
-                  onChange={handlePostContent}
+                  value={hangshareContent}
+                  onChange={handleHangshareContent}
                 />
 
-                {showPostImage ? (
+                {/*showPostImage ? (
                   <>
                     <div>
                       {postImage.map((item, key) => (
@@ -1094,7 +1417,6 @@ function NewsfeedComponent() {
                       ))}
                     </div>
 
-                    {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
                     <button
                       onClick={handleRemoveImage}
                       style={{
@@ -1108,7 +1430,7 @@ function NewsfeedComponent() {
                       <i class='las la-times'></i>
                     </button>
                   </>
-                ) : null}
+                    ) : null*/}
               </span>
               {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
             </div>
@@ -1128,7 +1450,7 @@ function NewsfeedComponent() {
                 fontSize: '14px',
                 cursor: 'pointer',
               }}
-              onClick={uploadPost}
+              
             >
               POST
             </div>
@@ -1153,23 +1475,21 @@ function NewsfeedComponent() {
           <Form className='popform popwidth'>
             <div className='headpop'>
               <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' onClick={close}>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
                     <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
                 >
-                  <span>We share, do you?</span>
+                  {' '}
+                  <span>We share, do you</span>
                 </div>
-                <div style={{ width: '10%', textAlign: 'center' }}>
-                  <span style={{ float: 'right' }}>
-                    {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-                      Post
-                    </button>
-                  </span>
+                <div style={{ width: '20%', textAlign: 'right' }}>
+                  <a className='popup-btn' >
+                    Keep Post
+                  </a>
                 </div>
               </div>
             </div>
@@ -1186,68 +1506,99 @@ function NewsfeedComponent() {
                 />
               </div>
               <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+                <div style={{ display: 'inline' }}>
+                  <span>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdownnewsfeed'>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                      {popAudience()}
+                    </li>
+                    
+                    {/* <div className='dropdownnewsfeed'>
                       <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
                         <option value='Friends'>Friends</option>
                         <option value='Public'>Public</option>
                         <option value='Only Me'>Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{' '} */}
                   </span>
                 </div>{' '}
               </div>{' '}
             </div>
-            <div style={{ margin: '0 11px 100px 11px' }}>
+            <div style={{ minHeight:'150px' }}>
               <span className='textPop'>
                 <textarea
                   className='textpopup'
                   rows={2}
+                  style={{borderRadius: '0' , height: '80px' }}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
                   value={postContent}
                   onChange={handlePostContent}
                 />
+                <div>
                 {showPostImage ? (
                   <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
+                    <div style={{position:'relative', padding:'5px'}}>
+                      <OwlCarousel 
+                        items={1}
+                        nav
+                        center={true}
+                        dots={false}
+                        margin={10}>
+                        {postImage.map((item, key) => (
+                          <img
+                            src={item}
+                            key={key}
+                            style={{
+                              display: 'inline-block',
+                              verticalAlign: 'middle',
+                              borderRadius:'10px'
+                            }}
+                          />
+                        ))}
+                      </OwlCarousel>
+                      <button
+                        onClick={handleRemoveImage}
+                        style={{
+                          right: '20px',
+                          top:'10px',
+                          position: 'absolute',
+                          borderRadius: '100%',
+                          background: 'rgb(183 183 183 / 82%)',
+                          padding: '10px 10px',
+                        }}
+                      >
+                        <i class='las la-times'></i>
+                      </button>
                     </div>
-                    <button
-                      onClick={handleRemoveImage}
-                      style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
-                      }}
-                    >
-                      <i class='las la-times'></i>
-                    </button>
+
                   </>
                 ) : null}
+                </div>
               </span>
             </div>
 
             {imageshowPost()}
+            <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#033347',
+                fontWeight: 'bold',
+                color: 'white',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+            >
+              POST
+            </div>
           </Form>
         )}
       </Popup>
@@ -1272,29 +1623,26 @@ function NewsfeedComponent() {
           <Form className='popform popwidth'>
             <div className='headpop'>
               <div className='row'>
-                <div style={{ width: '5%' }}>
-                  <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
                     <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
                 >
-                  Share up
+                  {' '}
+                  <span>What's on your mind</span>
                 </div>
-                <div style={{ width: '10%', textAlign: 'center' }}>
-                  <span style={{ float: 'right' }}>
-                    {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-                      Post
-                    </button>
-                  </span>
+                <div style={{ width: '20%', textAlign: 'right' }}>
+                  <a className='popup-btn' href=''>
+                    Keep share
+                  </a>
                 </div>
               </div>
             </div>
 
             <div style={{ padding: '0 11px 11px 11px' }}>
-              {' '}
               <div className='popupimg'>
                 <img
                   src={
@@ -1306,68 +1654,58 @@ function NewsfeedComponent() {
                 />
               </div>
               <div class='popupuser-name'>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+                <div style={{ display: 'inline' }}>
+                  <span>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
-                  <span style={{ display: 'block', fontSize: '12px' }}>
-                    <div className='dropdownnewsfeed'>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                      {popAudience()}
+                    </li>
+                    
+                    {/* <div className='dropdownnewsfeed'>
                       <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
                         <option value='Friends'>Friends</option>
                         <option value='Public'>Public</option>
                         <option value='Only Me'>Only Me</option>
                       </select>
-                    </div>{' '}
+                    </div>{' '} */}
                   </span>
                 </div>{' '}
               </div>{' '}
             </div>
-            <div style={{ margin: '0 11px 100px 11px' }}>
+            <div style={{ minHeight:'150px' }}>
               <span className='textPop'>
                 <textarea
                   className='textpopup'
                   rows={2}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
-                  value={postContent}
-                  onChange={handlePostContent}
+                  value={shareupContent}
+                  onChange={handleShareupContent}
                 />
-                {showPostImage ? (
-                  <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <button
-                      onClick={handleRemoveImage}
-                      style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
-                      }}
-                    >
-                      <i class='las la-times'></i>
-                    </button>
-                  </>
-                ) : null}
               </span>
             </div>
 
-            {imageshowPost()}
+            {imageshowShareup()}
+            <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#033347',
+                fontWeight: 'bold',
+                color: 'white',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+            >
+              POST
+            </div>
           </Form>
         )}
       </Popup>
@@ -1392,99 +1730,90 @@ function NewsfeedComponent() {
           {(close) => (
             <Form className='popform popwidth'>
               <div className='headpop'>
-                <div className='row'>
-                  <div style={{ width: '5%' }}>
-                    <a href='#!' onClick={close}>
-                      <i class='las la-times'></i>
-                    </a>
-                  </div>
-                  <div
-                    style={{
-                      color: '#000000',
-                      fontSize: '14px',
-                      fontWeight: 'bold',
-                      width: '85%',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <span>We share, do you?</span>
-                  </div>
-                  <div style={{ width: '10%', textAlign: 'center' }}>
-                    <span style={{ float: 'right' }}>
-                      {' '}
-                      <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-                        Post
-                      </button>
-                    </span>
-                  </div>
+              <div className='row'>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
+                  </a>
+                </div>
+                <div
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
+                >
+                  {' '}
+                  <span>Share Photos</span>
+                </div>
+                <div style={{ width: '20%', textAlign: 'right' }}>
+                  <a className='popup-btn' href=''>
+                    Keep Hang
+                  </a>
                 </div>
               </div>
+            </div>
 
-              <div style={{ padding: '0 11px 11px 11px' }}>
-                <div className='popupimg'>
-                  {/* <img src={user ? settings.apiUrl+user.profilePicturePath:settings.apiUrl+userR.profilePicture} alt=""/> */}
-                  <img
-                    src={
-                      user
-                        ? fileStorage.baseUrl + user.profilePicturePath
-                        : fileStorage.baseUrl + userR.profilePicturePath
-                    }
-                    alt=''
-                  />
-                </div>
-                <div class='popupuser-name'>
-                  <div style={{ float: 'left', display: 'inline' }}>
-                    <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
-                      {`${user.firstName} ${user.lastName}`}
-                      {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
-                    </span>
-                    <span style={{ display: 'block', fontSize: '12px' }}>
-                      <div className='dropdownnewsfeed'>
-                        <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                          <option value='Friends'>Friends</option>
-                          <option value='Public'>Public</option>
-                          <option value='Only Me'>Only Me</option>
-                        </select>
-                      </div>{' '}
-                    </span>
-                  </div>{' '}
-                </div>{' '}
+            <div style={{ padding: '0 11px 11px 11px' }}>
+              <div className='popupimg'>
+                <img
+                  src={
+                    user
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
+                  }
+                  alt=''
+                />
               </div>
-              <div style={{ margin: '0 11px 100px 11px' }}>
+              <div class='popupuser-name'>
+                <div style={{ display: 'inline' }}>
+                  <span>
+                    {`${user.firstName} ${user.lastName}`}
+                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                  </span>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                      {popAudience()}
+                    </li>
+                    
+                    {/* <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
+                      </select>
+                    </div>{' '} */}
+                  </span>
+                </div>
+              </div>
+            </div>
+              <div style={{ minHeight:'150px' }}>
                 <span className='textPop'>
                   <textarea
                     className='textpopup'
                     rows={2}
                     placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                     name='post_content'
-                    value={postContent}
-                    onChange={handlePostContent}
+                    value={photosContent}
+                    onChange={handlePhotosContent}
                   />
-                  {showPostImage ? (
-                    <>
-                      <div>
-                        {postImage.map((item, key) => (
-                          <img src={item} key={key} style={{ maxWidth: '150px', maxHeight: '150px' }} />
-                        ))}
-                      </div>
-                      <button
-                        onClick={handleRemoveImage}
-                        style={{
-                          right: '20px',
-                          position: 'absolute',
-                          borderRadius: '100%',
-                          background: '#b7b7b738',
-                          padding: '10px 10px',
-                        }}
-                      >
-                        <i class='las la-times'></i>
-                      </button>
-                    </>
-                  ) : null}
                 </span>
               </div>
 
-              {imageshowPost()}
+              {imageshowPhotos()}
+              <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#033347',
+                fontWeight: 'bold',
+                color: 'white',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+            >
+              POST
+            </div>
             </Form>
           )}
         </Popup>
@@ -1999,7 +2328,7 @@ function NewsfeedComponent() {
               </div>
               <div className='attachments'>
                 <ul>
-                  <li>{popUp()}</li>
+                  <li>{hangsharePopUp()}</li>
 
                   {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                         </label> */}
@@ -2027,115 +2356,115 @@ function NewsfeedComponent() {
                     margin ={0}
                     dots = {false}
                     >  
-                        <li class='slideitem' style={{margin: 0}}>
-                          <a href='#'>
+                      <li class='slideitem' style={{margin: 0}}>
+                        <a href='#'>
+                          <div className='groupsggstion-card'>
+                            <div className='groupsggstion-img'>
+                              <a href=''>
+                                <div>
+                                  {' '}
+                                  <img src={Grpicon} className="no-img"/>
+                                </div>
+                              </a>
+                            </div>
+
+                            <div className='groupsggstion-by'>
+                              <a href='/group/create'>
+                                <div class='add-group' aria-describedby='popup-2'>
+                                  {' '}
+
+                                </div>
+                              </a>
+
+                              <a href='/group/create'>
+                                <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
+                              </a>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      {searchedGroups.map((group) => (
+                        <li class='slideitem'>
+                          <a href={`/groups/${group.id}`} title={group.name}>
                             <div className='groupsggstion-card'>
                               <div className='groupsggstion-img'>
-                                <a href=''>
-                                  <div>
-                                    {' '}
-                                    <img src={Grpicon} className="no-img"/>
-                                  </div>
+                                <a href={`/groups/${group.id}`} title={group.name}>
+                                  {' '}
+                                  <img
+                                    src={
+                                      group.groupImagePath
+                                        ? fileStorage.baseUrl+group.groupImagePath
+                                        : Grpicon
+                                    }
+                                    className={group.groupImagePath
+                                      ? "img"
+                                      : "no-img"}
+                                    alt=''
+                                  />
                                 </a>
+                                {/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
                               </div>
 
                               <div className='groupsggstion-by'>
-                                <a href='/group/create'>
-                                  <div class='add-group' aria-describedby='popup-2'>
-                                    {' '}
+                                {/* <img
+                                  src={
+                                    group.groupImagePath
+                                      ? fileStorage.baseUrl + group.groupImagePath
+                                      : Grpicon
+                                  }
+                                  alt=''
+                                /> */}
+                              <div style={{ paddingLeft: '10px' , height:'20px' }}>
 
-                                  </div>
-                                </a>
+                                  <span className='groupname'>
 
-                                <a href='/group/create'>
-                                  <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
-                                </a>
+                                    <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
+
+                                    </a>
+                                  </span>
+                                </div>
+                                <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
+                                  {group.members.length > 1 ? (
+
+                                    <p className="grp-mem-text"> {group.members.length} Members</p>
+                                  ) : (
+                                    <p className="grp-mem-text">{group.members.length} Member</p>
+                                  )}
+                                </div>
+                                {checkIfInGroup(group.members) ? (
+                                  <a
+
+                                    href
+                                    class='buttonGrpFd mrgngrp mt-0'  
+                                    style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
+                                    onClick={(e) => handleLeaveGroup(e,group.id)}
+                                  >
+                                    Leave Group
+                                  </a>
+                                ) : (
+                                  <a
+                                    href
+                                    class='buttonGrpFd mrgngrp mt-0'
+                                    style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
+                                    onClick={(e) => handleJoinGroup(e,group.id)}
+                                  >
+                                    Join Group
+                                  </a>
+
+                                )}
+                                {/* <a
+                                  href
+                                  class='buttonGrpFd mrgngrp'
+                                  style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
+                                  onClick={() => handleJoinGroup(group.id)}
+                                >
+                                  Preview
+                                </a> */}
                               </div>
                             </div>
                           </a>
                         </li>
-                        {searchedGroups.map((group) => (
-                          <li class='slideitem'>
-                            <a href='#'>
-                              <div className='groupsggstion-card'>
-                                <div className='groupsggstion-img'>
-                                  <a href={`/groups/${group.id}`} title={group.name}>
-                                    {' '}
-                                    <img
-                                      src={
-                                        group.groupImagePath
-                                          ? fileStorage.baseUrl+group.groupImagePath
-                                          : Grpicon
-                                      }
-                                      className={group.groupImagePath
-                                        ? "img"
-                                        : "no-img"}
-                                      alt=''
-                                    />
-                                  </a>
-            											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
-                                </div>
-
-                                <div className='groupsggstion-by'>
-                                  {/* <img
-                                    src={
-                                      group.groupImagePath
-                                        ? fileStorage.baseUrl + group.groupImagePath
-                                        : Grpicon
-                                    }
-                                    alt=''
-                                  /> */}
-                                <div style={{ paddingLeft: '10px' , height:'20px' }}>
-
-                                    <span className='groupname'>
-
-                                      <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
-
-                                      </a>
-                                    </span>
-                                  </div>
-                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
-                                    {group.members.length > 1 ? (
-
-                                      <p className="grp-mem-text"> {group.members.length}Members</p>
-                                    ) : (
-                                      <p className="grp-mem-text">{group.members.length}Member</p>
-                                    )}
-                                  </div>
-                                  {checkIfInGroup(group.members) ? (
-                                    <a
-
-                                      href
-                                      class='buttonGrpFd mrgngrp mt-0'  
-                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
-                                      onClick={() => handleLeaveGroup(group.id)}
-                                    >
-                                      Leave Group
-                                    </a>
-                                  ) : (
-                                    <a
-                                      href
-                                      class='buttonGrpFd mrgngrp mt-0'
-                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
-                                      onClick={() => handleJoinGroup(group.id)}
-                                    >
-                                      Join Group
-                                    </a>
-
-                                  )}
-                                  {/* <a
-                                    href
-                                    class='buttonGrpFd mrgngrp'
-                                    style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
-                                    onClick={() => handleJoinGroup(group.id)}
-                                  >
-                                    Preview
-                                  </a> */}
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                        ))}
+                      ))}
                   </OwlCarousel>
                 </ul>
 
