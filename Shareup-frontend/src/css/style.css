@@ -444,6 +444,11 @@ a:hover.vk {
 .slide .grp-carousel button {
   width: auto;
 }
+.popup-img-carousel .owl-carousel .owl-stage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .owl-prev,
 .owl-next {
   left: 0;

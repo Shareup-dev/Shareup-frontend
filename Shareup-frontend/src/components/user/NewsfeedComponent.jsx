@@ -1545,6 +1545,7 @@ function NewsfeedComponent() {
                       <OwlCarousel 
                         items={1}
                         nav
+                        className="popup-img-carousel"
                         center={true}
                         dots={false}
                         margin={10}>
