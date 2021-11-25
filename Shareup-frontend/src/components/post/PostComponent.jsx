@@ -394,7 +394,20 @@ export default function PostComponent({ post, setRefresh }) {
                       </a>
                     </React.Fragment>
                   ))
-                  :null}
+                  :post.swapimages?post.swapimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  )):null}
               </div>
 
 
