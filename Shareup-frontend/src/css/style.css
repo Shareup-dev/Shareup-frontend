@@ -14077,7 +14077,7 @@ a.Hangin-btn:hover {
   object-fit: cover;
 }
 .strysggstion-img {
-  padding: 25px 30px 0 30px;
+  /* padding: 25px 30px 0 30px; */
   text-align: center;
   width: 100%;
   background: #c4c4c4;
@@ -14131,6 +14131,30 @@ a.Hangin-btn:hover {
   object-fit: cover;
   border-radius: 100%;
 }
+
+/*by najam*/
+.strysggstion-Profimg1 {
+  width: 32px;
+  height: 26px;
+  position: absolute;
+  left: 0px;
+  margin: 5px;
+  /* border-radius: 100%; */
+  /* border: 3px solid #fff; */
+}
+
+
+/*by najam*/
+
+
+
+
+
+
+
+
+
+
 .strysggstion ul li {
   float: left;
   margin-right: 10px;
