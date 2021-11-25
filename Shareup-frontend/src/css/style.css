@@ -444,7 +444,7 @@ a:hover.vk {
 .slide .grp-carousel button {
   width: auto;
 }
-.popup-img-carousel .owl-carousel .owl-stage{
+.popup-img-carousel .owl-stage{
   display: flex;
   justify-content: center;
   align-items: center;
