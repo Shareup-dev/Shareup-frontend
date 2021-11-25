@@ -103,47 +103,43 @@ const delay = 2500;
  </li>
  </>)}
 </ul> */}
-<div className="stryDsply">
-<div className="container">
-     
-        
-<div className="strydivcontnr">
-                <div className="strydiv">
-                <div className="slideshow">
-      <div
-        className="slideshowSlider"
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-      >
- {storiesForUser.map((background, index) => (
-   <>
-   {background.storiesImagePath ?
-          <div
-            className="slide"
-            key={index}
-            
-          >
-             <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
-           <img className="stryDsplyImg" src={fileStorage.baseUrl+background.storiesImagePath} /> 
-          </div>:null}</>
-        ))}
-      </div>
 
-      <div className="slideshowDots">
-        {storiesForUser.map((_, idx) => (
-          <div
-            key={idx}
-            className={`slideshowDot${index === idx ? " active" : ""}`}
-            onClick={() => {
-              setIndex(idx);
-            }}
-          ></div>
-        ))}
 
-</div>
-    </div>
-    </div>
-</div>
-</div></div>
+        <div className="stryDsply">
+            <div className="container">
+          
+            <div className="strydivcontnr">
+                  <div className="strydiv"> 
+                    <div className="slideshow">
+                    <div className="slideshowSlider"  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+                        {storiesForUser.map((background, index) => (
+                         
+                      <>
+                         {background.storiesImagePath ?
+                      <div className="slide" key={index}>
+                    <div className="strydisplay-Profimg"><img src={fileStorage.baseUrl+background.user.profilePicturePath} alt="" /><span>{background.user.firstName}</span></div>
+                  <img className="stryDsplyImg" src={fileStorage.baseUrl+background.storiesImagePath} /> 
+                  </div>:null}</>
+                ))}
+                    </div>
+
+              <div className="slideshowDots">
+                {storiesForUser.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`slideshowDot${index === idx ? " active" : ""}`}
+                    onClick={() => {
+                      setIndex(idx);
+                    }}
+                  ></div>
+                ))}
+
+            </div>
+            </div>
+            </div>
+            </div>
+         </div>
+        </div>
 
         {/* {storiesForUser.map(
   storys =><>

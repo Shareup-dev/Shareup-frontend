@@ -87,6 +87,7 @@ const[showCompont,setShowCompont]= useState();
     
     const [userF, setUserF] = useState(null);
     const [searchedUser, setSearchedUser] = useState([]);
+    const [stryNo, setstryNo] = useState();
     
 
 
@@ -1007,7 +1008,8 @@ useEffect(() => {
   <li class="slideitemstry">
         <a href="#">
           <div className="strysggstion-card">
-            <div className="strysggstion-img"><img src="/assets/images/vector-34@2x.png" alt="img" /></div>
+            {/* <div className="strysggstion-img"><img src="/assets/images/vector-34@2x.png" alt="img" /></div> */}
+            <div className="strysggstion-img"><img src={user.profilePicturePath ? fileStorage.baseUrl+user.profilePicturePath : "../assets/images/resources/admin.jpg"} alt="img" /></div>
             
             <Popup  trigger={ <div className="add-stry"> +</div> }modal>
             {close =>( <Form className="popwidth">
@@ -1060,15 +1062,20 @@ useEffect(() => {
      
      
   {storiesForUser.map(
-  story =><>
+  (story,index) =><>
+  {/* {setstryNo(index+1)} */}
+  {console.log("checking index" + storiesForUser.length)}
+
   
-  {story.storiesImagePath ?<>
+  
+  {story.storiesImagePath && index===0 ?
+  <>
     <Popup style={{padding:'0px'}} trigger={
-<li class="slideitemstry" key={story.id}>
+<li class="slideitemstry" key={story.id} >
     
-    <StoriesComponent story={story} setRefresh={setRefresh}/>
+    <StoriesComponent story={story} totalstory={storiesForUser.length}  setRefresh={setRefresh}/>
     
-         </li>
+  </li>
          } modal> 
          {close =>(     <Form className="stryp">
    <div>
