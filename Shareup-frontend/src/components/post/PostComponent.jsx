@@ -358,43 +358,43 @@ export default function PostComponent({ post, setRefresh }) {
 
 
               <div className='postImage'>
-                <OwlCarousel items={1}
-                
-                className="owl-theme grp-carousel post-carousel"
-      
-                dots
-                nav
-                margin={10}>
-                {post.postedimages?
-                post.postedimages.map((postImage) => (
-                  <React.Fragment>
-                    <a
-                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      data-lightbox={`image-user-${post.user.id}`}
-                    >
-                      <img
-                        style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      />
-                    </a>
-                  </React.Fragment>
-                )):
-                post.swapimages?post.swapimages.map((postImage) => (
-                  <React.Fragment>
-                    <a
-                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      data-lightbox={`image-user-${post.user.id}`}
-                    >
-                      <img
-                        style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      />
-                    </a>
-                  </React.Fragment>
-                )):null}
-                </OwlCarousel>
+              {post.postedimages&&post.postedimages.length>1
+              ?<OwlCarousel items={1}
+                  className="owl-theme grp-carousel post-carousel"
+                  dots
+                  nav
+                  margin={10}>
+                  {post.postedimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  ))}
+                  </OwlCarousel>
+                :post.postedimages&&post.postedimages.length==1
+                  ? post.postedimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  ))
+                  :null}
               </div>
 
 
@@ -406,7 +406,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <ul>
                   <li>
                     {handleCounterReaction()}
-                    <span> {post.reactions&&`${post.reactions.length}`} </span>
+                    <span> {post.reactions&&post.reactions.length} </span>
                   </li>
                   <li>
                     <span

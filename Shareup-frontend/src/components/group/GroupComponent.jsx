@@ -95,7 +95,8 @@ function GroupComponent({post}) {
 			return showMyGroupsComponent()
 		}
 	}
-	const handleLeaveGroup = (group_id) => {
+	const handleLeaveGroup = (e,group_id) => {
+		e.preventDefault();
 		console.log(group_id)
 		GroupService.leaveGroup(user.id, group_id).then(res => {
 			setRefresh(res.data)
@@ -103,7 +104,8 @@ function GroupComponent({post}) {
 		})
 	}
 
-	const handleJoinGroup = (group_id) => {
+	const handleJoinGroup = (e,group_id) => {
+		e.preventDefault();
 		console.log(group_id)
 		GroupService.joinGroup(user.id, group_id).then(res => {
 			setRefresh(res.data)
@@ -170,7 +172,7 @@ function GroupComponent({post}) {
 					<ul className="nearby-contct">
 						{searchedGroups.map((group,index) =>
 								<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
-		                            <a href='#'>
+		                            <a href={`/groups/${group.id}`}>
 
 										<div className="group-li-item">
 											{/* <figure> */}
@@ -181,15 +183,14 @@ function GroupComponent({post}) {
 											</div>
 											{/* <div className="  "> */}
 											<div className="item23">
-												
 												<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
 												<p className="grp-mem-text">2.7K Members</p>
 												<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
 													{
 															checkIfInGroup(group.members) ?
-																<a href className="button grp-btn leave-grp-btn" onClick={() => handleLeaveGroup(group.id)}>Leave Group</a>
+																<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e,group.id)}>Leave Group</a>
 																:
-																<a href className="button grp-btn join-grp-btn"  onClick={() => handleJoinGroup(group.id)}>Join Group</a>
+																<a href className="button grp-btn join-grp-btn"  onClick={(e) => handleJoinGroup(e,group.id)}>Join Group</a>
 														}
 													{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
 												</div>

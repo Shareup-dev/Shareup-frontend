@@ -10,7 +10,7 @@
     display: inline-block !important;
     margin-top: 0.25rem !important;
     margin-left: 0.5rem;
-    color: red;
+    color: #f91e1e;
     font-size: 14px;
   }
   .login-form-icon small{
@@ -26,7 +26,7 @@
 	position: absolute;
   top: 29px;
   right: 24px;
-  color: red;
+  color: #e53333;
 }
   .login-form-icon i{
   visibility: hidden; 
