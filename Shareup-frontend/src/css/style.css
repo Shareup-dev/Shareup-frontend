@@ -463,8 +463,24 @@ a:hover.vk {
   right: 0;
 }
 
-.owl-prev,
-.owl-next {
+.post-carousel .owl-stage{
+max-height: 420px;
+display: flex;
+justify-content: center;
+align-items: center;
+  
+}
+
+.post-carousel .owl-stage-outer{
+
+height:420px;
+
+}
+
+
+
+.grp-carousel .owl-prev,
+.grp-carousel .owl-next {
   color: transparent;
 }
 .owl-prev::before{
@@ -4355,6 +4371,16 @@ nav.breadcrumb {
 .grp {
   box-shadow: 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
+
+.sendrqstli{
+ border: 1px solid rgba(0, 0, 0, 0.2);
+
+}
+.sendrqstli:hover{
+  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3) !important;
+ 
+ }
+
 
 .nearby-contct > li {
   margin: 11px;
@@ -13161,7 +13187,7 @@ a.popup-btn:hover {
 .textpopup {
   border: none;
   background: transparent;
-  height: 80px;
+  height: 50px;
   border-radius:0;
 }
 .textbox {

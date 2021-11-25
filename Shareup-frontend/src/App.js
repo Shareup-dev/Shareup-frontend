@@ -4,6 +4,8 @@ import { Counter } from './features/counter/Counter';
 import './App.css';
 import './css/main.min.css';
 import './css/style.css';
+import './css/slider.css';
+
 import './css/color.css';
 import './css/responsive.css';
 import './css/fontawesome/css/all.min.css';

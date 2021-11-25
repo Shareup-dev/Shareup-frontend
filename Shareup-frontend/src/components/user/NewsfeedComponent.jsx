@@ -424,14 +424,13 @@ function NewsfeedComponent() {
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError('');
-    console.log('uploading post working');
-    if (postContent === '' && Object.keys(files).length === 0 && files.constructor === Object) {
+    console.log(postContent ,Object.keys(files).length ,files.constructor);
+    if (postContent === '' && (Object.keys(files).length === 0 && files.constructor === Object)) {
       console.log('cant be null');
       setUploadError('Please Insert A Text or an Image');
       return;
-    }
-
-    const formData = new FormData();
+    }else{
+      const formData = new FormData();
 
     formData.append('content', postContent);
     for (let i = 0; i < files.length; i++) {
@@ -463,6 +462,9 @@ function NewsfeedComponent() {
         handleRemoveImage();
         setRefresh(res.data);
       });
+    }
+
+    
   };
 
   const handleLikePost = async (post_id) => {
@@ -1532,7 +1534,7 @@ function NewsfeedComponent() {
                 <textarea
                   className='textpopup'
                   rows={2}
-                  style={{borderRadius: '0' , height: '80px' }}
+                  style={{borderRadius: '0'  }}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
                   value={postContent}
@@ -1542,25 +1544,36 @@ function NewsfeedComponent() {
                 {showPostImage ? (
                   <>
                     <div style={{position:'relative', padding:'5px'}}>
-                      <OwlCarousel 
-                        items={1}
-                        nav
-                        className="popup-img-carousel"
-                        center={true}
-                        dots={false}
-                        margin={10}>
-                        {postImage.map((item, key) => (
-                          <img
-                            src={item}
-                            key={key}
-                            style={{
-                              display: 'inline-block',
-                              verticalAlign: 'middle',
-                              borderRadius:'10px'
-                            }}
-                          />
-                        ))}
-                      </OwlCarousel>
+                      { postImage.length>1
+                        ? <OwlCarousel 
+                            items={1}
+                            nav
+                            center={true}
+                            dots={false}
+                            margin={10}>
+                            {postImage.map((item, key) => (
+                              <img
+                                src={item}
+                                key={key}
+                                style={{
+                                  display: 'inline-block',
+                                  verticalAlign: 'middle',
+                                  borderRadius:'10px',
+                                  paddingBottom:'10px !important'
+                                }}
+                              />
+                            ))}
+                          </OwlCarousel>
+                        :postImage.length==1&&
+                        <img
+                          src={postImage[0]}
+                          style={{
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                            borderRadius:'10px',
+                            paddingBottom:'10px !important'
+                          }}
+                        />}
                       <button
                         onClick={handleRemoveImage}
                         style={{
@@ -1570,6 +1583,7 @@ function NewsfeedComponent() {
                           borderRadius: '100%',
                           background: 'rgb(183 183 183 / 82%)',
                           padding: '10px 10px',
+                          zIndex: '99',
                         }}
                       >
                         <i class='las la-times'></i>
@@ -1597,6 +1611,7 @@ function NewsfeedComponent() {
                 fontSize: '14px',
                 cursor: 'pointer',
               }}
+              onClick={uploadPost}
             >
               POST
             </div>
@@ -2038,9 +2053,9 @@ function NewsfeedComponent() {
           <div key={post.id}>
             {post.group
               ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? testFanc(post)
+                ? <PostComponent post={post} setRefresh={setRefresh} />
                 : null
-              : testFanc(post)}
+              : <PostComponent post={post} setRefresh={setRefresh} />}
           </div>
         ))}
       </div>

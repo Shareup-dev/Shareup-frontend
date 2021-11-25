@@ -12,7 +12,9 @@ import ImageGallery from 'react-image-gallery';
 import storage from "../../config/fileStorage";
 import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
-
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';  
+import 'owl.carousel/dist/assets/owl.theme.default.css';  
 
 const my_url = `${storage.baseUrl}`
 
@@ -350,43 +352,74 @@ export default function PostComponent({ post, setRefresh }) {
                 </p>
               )}
 
+
+
+
+
+
               <div className='postImage'>
-                {post.postedimages?
-                post.postedimages.map((postImage) => (
-                  <React.Fragment>
-                    <a
-                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      data-lightbox={`image-user-${post.user.id}`}
-                    >
-                      <img
-                        style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      />
-                    </a>
-                  </React.Fragment>
-                )):
-                post.swapimages?post.swapimages.map((postImage) => (
-                  <React.Fragment>
-                    <a
-                      href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      data-lightbox={`image-user-${post.user.id}`}
-                    >
-                      <img
-                        style={{ width: '100%', objectFit: 'cover' }}
-                        src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                      />
-                    </a>
-                  </React.Fragment>
-                )):null}
+              {post.postedimages&&post.postedimages.length>1
+              ?<OwlCarousel items={1}
+                  className="owl-theme grp-carousel post-carousel"
+                  dots
+                  nav
+                  margin={10}>
+                  {post.postedimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  ))}
+                  </OwlCarousel>
+                :post.postedimages&&post.postedimages.length==1
+                  ? post.postedimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  ))
+                  :post.swapimages?post.swapimages.map((postImage) => (
+                    <React.Fragment>
+                      <a
+                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        data-lightbox={`image-user-${post.user.id}`}
+                      >
+                        <img
+                          style={{ width: '100%', objectFit: 'cover' }}
+                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                        />
+                      </a>
+                    </React.Fragment>
+                  )):null}
               </div>
+
+
+
+
+
 
               <div className='counter'>
                 <ul>
                   <li>
                     {handleCounterReaction()}
-                    <span> {post.reactions&&`${post.reactions.length}`} </span>
+                    <span> {post.reactions&&post.reactions.length} </span>
                   </li>
                   <li>
                     <span

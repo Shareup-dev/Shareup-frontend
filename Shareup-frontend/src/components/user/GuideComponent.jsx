@@ -172,7 +172,7 @@ function GuideComponent() {
                     <div className="form-card">
                         <ul className="nearby-contct">
                             {allUser.slice(0, 8).map(userF =>
-                                <li className="grp" key={userF.id}>
+                                <li className="sendrqstli" key={userF.id}>
                                     <div className="grid-container" >
                                         <div class="item1" >
                                             <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
@@ -244,7 +244,7 @@ function GuideComponent() {
 
                             {
                                 allUser.slice(0, 8).map(userF =>
-                                    <li className="grp" key={userF.id}>
+                                    <li className="sendrqstli" key={userF.id}>
                                         <div className="grid-container">
                                             <div class="item1">
 
@@ -295,7 +295,7 @@ function GuideComponent() {
                     <div className="form-card">
                         <ul className="nearby-contct">
                             {allGroups.slice(0, 8).map(group =>
-                                <li key={group.id} className="grp">
+                                <li key={group.id} className="sendrqstli">
                                     <div className="grid-container" >
                                         <div class="item1">
                                             <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" />
