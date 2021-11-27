@@ -188,12 +188,10 @@ export default function PostComponent({ post, setRefresh }) {
   const imageshowSwap = () => {
     return (
       <div className="swap-rqst">
-        <div>Upload swap images</div>
-
-        <div className=''>
-          <label className='fileContainer'>
+        <div className='' style={{width:'100%'}}>
+          <label className='fileContainer' style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
             <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
-            <i class='lar la-file-image'></i>
+            Upload swap images<i class='lar la-file-image'></i>
           </label>
         </div>
       </div>
@@ -523,7 +521,7 @@ export default function PostComponent({ post, setRefresh }) {
                                   <textarea
                                     className='textpopup'
                                     rows={2}
-                                    style={{fontSize:'14px'}}
+                                    // style={{fontSize:'14px'}}
                                     placeholder={'Share about swap with ' + post.user.firstName +'?' }
                                     name='swap_content'
                                     value={swapContent}

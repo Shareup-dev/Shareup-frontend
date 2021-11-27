@@ -2247,7 +2247,7 @@ height: 100%; */
   background-blend-mode: overlay;
   color: #000000ab;
   border:1px solid #e0e0e0;
-  border-top: 0;
+  /* border-top: 0; */
   /* position: absolute; */
   display: flex;
   text-align: left !important;
@@ -2265,8 +2265,11 @@ height: 100%; */
   justify-content: space-between;
   margin: 0 11px;
   padding: 10px;
-  box-shadow: 0 0 3px rgb(0 0 0 / 16%);
+  box-shadow: 0 0 3px rgb(0 0 0 / 68%);
   border-radius: 5px;
+}
+.swap-rqst .fileContainer{
+  font-size:16px;
 }
 .swap-rqst .fileContainer i{
   padding-bottom: 0!important;
@@ -2276,6 +2279,7 @@ height: 100%; */
   
 }
 .swappost-cont button{
+  width: 70px;
   padding: 5px;
   margin:10px !important;
 }
