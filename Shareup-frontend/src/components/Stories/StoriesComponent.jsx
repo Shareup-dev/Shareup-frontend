@@ -76,6 +76,11 @@ return(
   
   <div className="strysggstion-card">
   <div className="strysggstion-Profimg"><img src={fileStorage.baseUrl+story.user.profilePicturePath} alt="" /></div>
+  <div className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center" style={{marginLeft:'4rem', marginTop:'0.7rem', borderRadius:'none !important', background:'#03b2cb', borderRadius:'0.1rem',boxShadow:' 0 3px 6px rgb(84 84 84 / 41%)'}}>
+
+<span>{storiesForUser.length}</span>
+  </div>
+  {/* <span style={{display:'inline-block', width:'25px', height:'15px' position:'absolute', left:'10px'}}>{storiesForUser.length}</span> */}
   <a href="#">
    {/* {story.storiesImagePath} data-lightbox={`image-user-${story.user.id}`} */}
   <div className="strysggstion-imgStry"><a href="#!"><img src={fileStorage.baseUrl+story.storiesImagePath} alt="" /></a></div>
