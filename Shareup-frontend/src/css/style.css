@@ -13478,7 +13478,7 @@ a.openmap {
 
 .right-edit-personal-information p {
   color: #6a6a6a;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .right-edit-personal-information-form {
@@ -14422,9 +14422,12 @@ a.Hangin-btn:hover {
 }
 .slide {
   display: inline-block;
-
-  height: 800px;
+/* by najam changed 800px to 80vh height*/
+  height: 80vh;
   width: 100%;
+  /* display:flex;
+  align-items: center;
+  justify-content: center; */
   border-radius: 20px;
 }
 
