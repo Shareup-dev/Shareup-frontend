@@ -22,9 +22,9 @@ const authenticate = () => {
 authenticate();
 
 class NewsFeedService {
-    getSwaps = async () => {
+    getFeed = async (email) => {
             authenticate();
-            const result = await authAxios.get('newsFeed/')
+            const result = await authAxios.get(`newsFeed/${email}`)
             return result;
         }
     // getPost = async () => {
