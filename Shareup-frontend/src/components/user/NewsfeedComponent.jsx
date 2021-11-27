@@ -2056,7 +2056,7 @@ function NewsfeedComponent() {
           <div key={post.id}>
             {post.group
               ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? <PostComponent post={post} setRefresh={setRefresh} userF={userF}/>
+                ? <PostComponent post={post} setRefresh={setRefresh} user={user}/>
                 : null
               : <PostComponent post={post} setRefresh={setRefresh} />}
           </div>

@@ -447,11 +447,12 @@ export default function PostComponent({ post, setRefresh }) {
                         data-lightbox={`image-user-${post.user.id}`}
                       >
                         <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={post.user.id===user.id?{borderRadius:'10px !important', width: '100%', objectFit: 'cover' } :{ width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                         />
                       </a>
+                      { post.user.id!=user.id&&
                       <div className='swappost-cont'>
                         <div className=''>
                           <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Get swapped'}</div>
@@ -602,6 +603,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </> */}
                         {/* </div> */}
                       </div>
+                      }
                     </div>
                   )):null}
               </div>
