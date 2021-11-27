@@ -432,7 +432,8 @@ export default function PostComponent({ post, setRefresh }) {
                         data-lightbox={`image-user-${post.user.id}`}
                       >
                         <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={{ width: '100%', objectFit: 'cover', maxHeight: '450px',
+                        }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                         />
@@ -446,7 +447,7 @@ export default function PostComponent({ post, setRefresh }) {
                         data-lightbox={`image-user-${post.user.id}`}
                       >
                         <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={{ width: '100%', objectFit: 'cover',maxHeight: '450px' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                         />
