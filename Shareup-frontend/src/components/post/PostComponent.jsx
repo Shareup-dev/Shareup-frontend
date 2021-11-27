@@ -12,9 +12,13 @@ import ImageGallery from 'react-image-gallery';
 import storage from "../../config/fileStorage";
 import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
+
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';  
 import 'owl.carousel/dist/assets/owl.theme.default.css';  
+
+import Form from 'react-bootstrap/Form';
+
 
 const my_url = `${storage.baseUrl}`
 
@@ -25,6 +29,11 @@ export default function PostComponent({ post, setRefresh }) {
   const [showComment, setShowComment] = useState(false)
   const [showMoreOptions, setShowMoreOptions] = useState(false)
   const [showReactions, setShowReactions] = useState(false)
+  const [swapContent, setSwapContent] = useState('');
+  const [showSwapImage, setShowSwapImage] = useState(false);
+  const [swapImage, setSwapImage] = useState({});
+  const [swapfiles, setSwapfiles] = useState([]);
+
 
   const [likeReaction, setLikeReaction] = useState(null)
   const [imgString, setimgString] = useState("");
@@ -37,6 +46,10 @@ export default function PostComponent({ post, setRefresh }) {
 
   ];
 
+  const handleRemoveImageSwap = () => {
+    // setSwapfiles({});
+    setShowSwapImage(false);
+  };
 
 
   const something = (event) => {
@@ -57,7 +70,10 @@ export default function PostComponent({ post, setRefresh }) {
     })
     return counter
   }
-
+  const handleSwapContent = (event) => {
+    console.log(event.target.value);
+    setSwapContent(event.target.value);
+  };
   const checkIfLiked = (post) => {
     if(post.reactions){
       const result = post.reactions.filter(reaction => reaction.user.id == user.id)
@@ -67,7 +83,26 @@ export default function PostComponent({ post, setRefresh }) {
       return false
     }
   }
+  const handleFileSwap = (event) => {
+    setSwapfiles(event.target.files);
+    console.log(swapfiles);
+    let filesAmount = event.target.files.length;
+    if (filesAmount < 6) {
+      let tempImage = [];
+      for (let i = 0; i < filesAmount; i++) {
+        //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
+        tempImage.push(URL.createObjectURL(event.target.files[i]));
+      }
 
+      setSwapImage(tempImage);
+      console.log('url ' + swapImage[1]);
+
+      setShowSwapImage(true);
+    } else {
+      alert('5 files are allowed');
+      event.preventDefault();
+    }
+  };
   const checkIfSaved = (post) => {
     if(post.savedByUsers){
       const result = post.savedByUsers.filter(userz => userz.id == user.id)
@@ -149,6 +184,23 @@ export default function PostComponent({ post, setRefresh }) {
     e.preventDefault();
     setShowMoreOptions(!showMoreOptions);
   };
+  
+  const imageshowSwap = () => {
+    return (
+      <div className="swap-rqst">
+        <div>Upload swap images</div>
+
+        <div className=''>
+          <label className='fileContainer'>
+            <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
+            <i class='lar la-file-image'></i>
+          </label>
+        </div>
+      </div>
+
+    )}
+
+
 
   return (
     <div
@@ -190,7 +242,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </div>
                       ) : 
                       post.swapimages.length > 0 ? (
-                        <div className='postImage'>
+                        <div className='postImage swap-image'>
                           {post.swapimages.map((postImage) => {
                             console.log(postImage, 'swp')
                             return(
@@ -351,12 +403,6 @@ export default function PostComponent({ post, setRefresh }) {
                   <br></br>
                 </p>
               )}
-
-
-
-
-
-
               <div className='postImage'>
               {post.postedimages&&post.postedimages.length>1
               ?<OwlCarousel items={1}
@@ -395,7 +441,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </React.Fragment>
                   ))
                   :post.swapimages?post.swapimages.map((postImage) => (
-                    <React.Fragment>
+                    <div className="swappost-main-div">
                       <a
                         href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                         data-lightbox={`image-user-${post.user.id}`}
@@ -406,10 +452,165 @@ export default function PostComponent({ post, setRefresh }) {
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                         />
                       </a>
-                    </React.Fragment>
+                      <div className='swappost-cont'>
+                        <div className=''>
+                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Get swapped'}</div>
+                          <div style={{ fontSize:'14px'}}>{post.content?post.content:'Get swapped with your favourite things'}</div>
+                          {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
+                        </div>
+                        <Popup
+                          trigger={
+                              <button className="button" >SWAP</button>
+                          }
+                          modal
+                          nested
+                        >
+                          {(close) => (
+                            <Form style={{ margin: '5px' }} className='popwidth rqst-swap-form' onSubmit={close}>
+
+                              <div className='headpop'>
+                                <div className='row'>
+                                  <div style={{ width: '20%' }}>
+                                    <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                                      <i class='las la-times'></i>
+                                    </a>
+                                  </div>
+                                  <div
+                                    style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
+                                  >
+                                    {' '}
+                                    <span>Request for Swap</span>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                              <div style={{ padding: '0 11px 11px 11px' }}>
+                                <div className='popupimg'>
+                                  <img
+                                    src={
+                                      user
+                                        ? fileStorage.baseUrl + user.profilePicturePath
+                                        : fileStorage.baseUrl + userR.profilePicturePath
+                                    }
+                                    alt=''
+                                  />
+                                </div>
+                                <div class='popupuser-name'>
+                                  <div style={{ display: 'inline' }}>
+                                    <span>
+                                      {`${user.firstName} ${user.lastName}`}
+                                      {post.user ? <> <span style={{color: 'rgb(100 166 194)' , fontWeight:'500'}}>swap with</span> {`${post.user.firstName} ${post.user.lastName}`}</> : null}
+                                    </span>
+                                    <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                                      <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                                        {/* {popAudience()} */}
+                                      </li>
+                                      
+                                      {/* <div className='dropdownnewsfeed'>
+                                        <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                                          <option value='Friends'>Friends</option>
+                                          <option value='Public'>Public</option>
+                                          <option value='Only Me'>Only Me</option>
+                                        </select>
+                                      </div>{' '} */}
+                                    </span>
+                                  </div>{' '}
+                                </div>{' '}
+                              </div>
+                              <div style={{ minHeight:'150px' }}>
+                                <span className='textPop'>
+                                  <textarea
+                                    className='textpopup'
+                                    rows={2}
+                                    style={{fontSize:'14px'}}
+                                    placeholder={'Share about swap with ' + post.user.firstName +'?' }
+                                    name='swap_content'
+                                    value={swapContent}
+                                    onChange={handleSwapContent}
+                                  />
+
+                                  {showSwapImage ? (
+                                    <>
+                                      <div style={{position:'relative'}}>
+                                        {swapImage.map((item, key) => (
+                                          <img
+                                            src={item}
+                                            key={key}
+                                            style={{
+                                              padding: '10px',
+                                              display: 'inline-block',
+                                              verticalAlign: 'middle',
+                                            }}
+                                          />
+                                        ))}
+
+                                        {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                                        <button
+                                          onClick={handleRemoveImageSwap}
+                                          style={{
+                                            right: '10px',
+                                            top: '10px',
+                                            position: 'absolute',
+                                            borderRadius: '100%',
+                                            background: '#b7b7b738',
+                                            padding: '10px 10px',
+                                          }}
+                                        >
+                                          <i class='las la-times'></i>
+                                        </button>
+                                      </div>
+
+                                    </>
+                                  ) : null}
+                                </span>
+                                {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+                              </div>
+
+                              {imageshowSwap()}
+                              <div
+                                type='submit'
+                                value='Submit'
+                                style={{
+                                  textAlign: 'center',
+                                  background: '#033347',
+                                  fontWeight: 'bold',
+                                  color: 'white',
+                                  margin: '11px 11px',
+                                  padding: '15px',
+                                  borderRadius: '5px',
+                                  fontSize: '14px',
+                                  cursor: 'pointer',
+                                }}
+                                onClick={close}
+                              >
+                                Request for Swap
+                              </div>
+                            </Form>
+                          )}
+                        </Popup>
+
+                        {/* <div className='itemS3'> */}
+                        {/* <>
+                          <div className='swapImage'>
+                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                              <img
+                                style={{ width: '100%', objectFit: 'cover' }}
+                                src={post.swapImagePath}
+                              />{' '}
+                            </a>
+                          </div>{' '}
+                        </> */}
+                        {/* </div> */}
+                      </div>
+                    </div>
                   )):null}
               </div>
-
+              {/* {
+                post.swapimages&&post.swapimages.length>0&&
+                <>
+                  
+                </>
+              } */}
 
 
 

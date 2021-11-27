@@ -421,11 +421,12 @@ function NewsfeedComponent() {
     console.log(event.target.value);
     setPrivacy(event.target.value);
   };
+  //post upload function
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError('');
     console.log(postContent ,Object.keys(files).length ,files.constructor);
-    if (postContent === '' && (Object.keys(files).length === 0 && files.constructor === Object)) {
+    if (postContent === '' || Object.keys(files).length === 0 || files.constructor === Object) {
       console.log('cant be null');
       setUploadError('Please Insert A Text or an Image');
       return;
@@ -1533,7 +1534,7 @@ function NewsfeedComponent() {
               <span className='textPop'>
                 <textarea
                   className='textpopup'
-                  rows={2}
+                  rows={3}
                   style={{borderRadius: '0'  }}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
@@ -1550,7 +1551,9 @@ function NewsfeedComponent() {
                             nav
                             center={true}
                             dots={false}
-                            margin={10}>
+                            margin={10}
+                            className="postpopup-carousel"
+                            >
                             {postImage.map((item, key) => (
                               <img
                                 src={item}
@@ -1837,7 +1840,7 @@ function NewsfeedComponent() {
     );
   };
   const testFanc = (post) => {
-    return <PostComponent post={post} setRefresh={setRefresh} />;
+    return <PostComponent post={post} setRefresh={setRefresh} userF={userF}/>;
   };
 
 
@@ -2053,7 +2056,7 @@ function NewsfeedComponent() {
           <div key={post.id}>
             {post.group
               ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? <PostComponent post={post} setRefresh={setRefresh} />
+                ? <PostComponent post={post} setRefresh={setRefresh} userF={userF}/>
                 : null
               : <PostComponent post={post} setRefresh={setRefresh} />}
           </div>

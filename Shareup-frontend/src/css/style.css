@@ -104,7 +104,13 @@ img {
 .groupName {
   font-size: 14px;
 }
+.button {
+  background-color: rgb(3, 51, 71);
+  color: white;
+  border:0;
+}
 /*popup textarea scrollbar*/
+
 
 .textpopup::-webkit-scrollbar {
   width: 5px;
@@ -597,7 +603,7 @@ iframe {
 #echart_world_map {
   height: 370px;
 }
-
+.bold{ font-weight: bold;}
 /*======================/
 ***** Home page 1 
 ======================*/
@@ -2228,10 +2234,51 @@ width: 100%;
 height: 100%; */
 
 }
+.postImage .swap-image a{
+  vertical-align: middle !important;
+}
+.swappost-main-div img{
+  border-radius:10px 10px 0 0!important;
+  vertical-align: middle !important;
 
-
-
-
+}
+.swappost-cont{
+  background-color: #f0f2f5;
+  background-blend-mode: overlay;
+  color: #000000ab;
+  border:1px solid #e0e0e0;
+  border-top: 0;
+  /* position: absolute; */
+  display: flex;
+  text-align: left !important;
+  border-radius:0 0 10px 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  justify-content: space-between;
+  bottom: 0;
+  margin:0px;
+}
+.swap-rqst{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 11px;
+  padding: 10px;
+  box-shadow: 0 0 3px rgb(0 0 0 / 16%);
+  border-radius: 5px;
+}
+.swap-rqst .fileContainer i{
+  padding-bottom: 0!important;
+}
+.rqst-swap-form .popupuser-name{
+  vertical-align: text-top!important;
+  
+}
+.swappost-cont button{
+  padding: 5px;
+  margin:10px !important;
+}
 .swapImage {
   text-align: center;
 }
@@ -13189,6 +13236,11 @@ a.popup-btn:hover {
   background: transparent;
   height: 50px;
   border-radius:0;
+}
+.postpopup-carousel .owl-stage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .textbox {
   background: #e7e7e7;
