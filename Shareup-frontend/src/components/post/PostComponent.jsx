@@ -153,6 +153,7 @@ export default function PostComponent({ post, setRefresh }) {
   return (
     <div
       className='central-meta item'
+      style={{ paddingBottom: '0px'}}
       key={post.id}
       onClick={(e) => {
         if (showMoreOptions) toggleShowMoreOptions(e);
@@ -421,6 +422,9 @@ export default function PostComponent({ post, setRefresh }) {
                     {handleCounterReaction()}
                     <span> {post.reactions&&post.reactions.length} </span>
                   </li>
+
+
+                  
                   <li>
                     <span
                       className='commentCounter'
@@ -431,6 +435,10 @@ export default function PostComponent({ post, setRefresh }) {
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`}</span>
                   </li>
+
+
+
+
                   <li>
                     <span>
                       {' '}
@@ -460,22 +468,23 @@ export default function PostComponent({ post, setRefresh }) {
 
               <div className='we-video-info'>
                 <div className='click'>
-                  {checkIfLiked(post) ? (
-                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                  
+                  <div className='commShare'>
+                    {checkIfLiked(post) ? (
+                    <div className='btncmn' onClick={() => handleLikePost(post.id)}>
                       <span className='like' data-toggle='tooltip' title=''>
                         {handleReaction()}
-                        <span style={{ paddingLeft: '10px' }}></span>
+                        <span style={{ paddingLeft: '10px' }}>Star</span>
                       </span>
                     </div>
                   ) : (
-                    <div className='reaction' onClick={() => handleLikePost(post.id)}>
+                    <div className='btncmn' onClick={() => handleLikePost(post.id)}>
                       <span className='dislike' data-toggle='tooltip' title=''>
                         <img src='/assets/images/Star.svg' alt='' />
-                        <span style={{ paddingLeft: '10px' }}></span>
+                        <span style={{ paddingLeft: '10px' }}>Star</span>
                       </span>
                     </div>
                   )}
-                  <div className='commShare'>
                     <div className='btncmn' onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments'>
                         <img src='/assets/images/comment.svg' />
@@ -533,7 +542,8 @@ export default function PostComponent({ post, setRefresh }) {
         {/* Till here */}
         <div className='coment-area'>
           <ul className='we-comet'>
-            <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
+            
+            {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />}
             {showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />}
           </ul>
         </div>

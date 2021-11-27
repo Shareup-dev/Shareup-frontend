@@ -2266,10 +2266,12 @@ height: 100%; */
 /*-- sharing post area ----*/
 
 .we-video-info {
-  margin-top: 11px;
+  /* margin-top: 11px; */
+ padding-top:13px;
+border-top: 1px solid #0000001f;
   text-align: center;
   float: left;
-  padding: 2px 0 2px 0;
+  /* padding: 2px 0 2px 0; */
   width: 100%;
   position: relative;
   z-index: 0;
@@ -2356,6 +2358,20 @@ height: 100%; */
   color: rgb(16, 16, 22);
   cursor: pointer;
   transition: all 0.2s linear 0s;
+}
+
+.like{
+
+  font-weight: bold;
+  font-size:14px;
+  padding: 0 40px 0 40px;
+}
+
+.dislike{
+
+  font-weight: bold;
+  font-size:14px;
+  padding: 0 40px 0 40px;
 }
 
 .we-video-info
@@ -12851,7 +12867,7 @@ breadcrumb-item + .breadcrumb-item::before {
 }
 .Friends-Title {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  color: #646464;
+  color: #424242;
   display: inline;
   font-size: 25px;
   font-weight: bold;
@@ -12884,8 +12900,8 @@ breadcrumb-item + .breadcrumb-item::before {
 .friends-search-container {
   width: 100%;
   margin: auto;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-top: 1px solid #c4c4c4;
   border-bottom: 1px solid #c4c4c4;
   text-align: center;

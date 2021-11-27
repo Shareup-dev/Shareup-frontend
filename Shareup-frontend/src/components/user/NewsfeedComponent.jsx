@@ -98,6 +98,8 @@ function NewsfeedComponent() {
 
   const [hangshareContent, setHangshareContent] = useState('');
 
+  const [privacy, setprivacy] = useState('privacy');
+
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -118,10 +120,19 @@ function NewsfeedComponent() {
   //     setStories(res.data)
   //   })
   // }
+
+  const handleChange = e => {
+    const target = e.target;
+    if (target.checked) {
+      setprivacy(target.value);
+    }
+ };
+
+
+
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
 
   const uploadStories = (event) => {
     event.preventDefault();
@@ -1848,7 +1859,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{fontSize: '11px', padding: '4px', cursor: 'pointer', backgroundColor: '#0333471a', borderRadius: '5px' }}>
-            friends
+          {privacy}
 
             <img src="assets/images/Vector.svg"
               style={{ paddingLeft: '4px', verticalAlign: 'middle' }} />
@@ -1916,7 +1927,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Public" name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1944,7 +1955,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Friends"  name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1970,7 +1981,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Friends except" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1995,7 +2006,7 @@ function NewsfeedComponent() {
                             </p>
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Group" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -2019,7 +2030,7 @@ function NewsfeedComponent() {
                             </p>
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Only Me" name="privacy" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
