@@ -358,24 +358,10 @@ export default function PostComponent({ post, setRefresh }) {
                   )}
                 </>
               )}
-
-              {/* {post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.postImagePath} /> </a></div> : null
-                                }
-                                {post.swapImagePath ?
-                                <>
-                                <div style={{textAlign: "center"}}><img  width="30" src="assets/images/swapicon.png"/></div>
-                                    <div className="swapImage">
-                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.swapImagePath} /> </a></div> </>: null
-                                } */}
-
-              
-
               <div className='friend-name' style={{ width: "100%", display: 'flex' , justifyContent:'space-between' , alignItems:'center',paddingBottom:'10px'}}>
                 <div style={{display: 'flex'}}>
                   <figure>
-                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' width="45px" height="40px"/>
+                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img"/>
                   </figure>
                   <div style={{display:'flex' , flexDirection:'column' , justifyContent: 'center' , paddingLeft:'10px'}}>
                     <a
@@ -467,54 +453,6 @@ export default function PostComponent({ post, setRefresh }) {
                           className="lightbox-popup"
                           onClick={() => openLightbox(index)}
                         />
-                      {/* <Popup
-                        trigger={
-                          <img
-                          style={{ width: '100%', objectFit: 'cover' }}
-                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          className="lightbox-popup"
-                        />
-                        }
-                        className="lightbox-popup"
-                        width = "100%"
-                        modal
-                        nested
-                      >
-                        {(close) => (
-                          <div style={{position: 'relative'}}>
-                            <OwlCarousel items={1}
-                              className="owl-theme lightbox-carousel"
-                              dots={false}
-                              nav
-                              margin={10}>
-                              {post.postedimages.map((postImage) => (
-                                <img
-                                  style={{ width: '100%', objectFit: 'cover' }}
-                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                />
-                              ))}
-                              </OwlCarousel>
-                            <div style={{  position: 'absolute' , top:'20px' ,right:'20px' ,zIndex: '100'}}>
-                              <a href='#!'  onClick={close}>
-                                <i class='las la-times' style={{color:'white' , fontSize: '30px' }}></i>
-                              </a>
-                            </div>
-                            {/* <div style={{  position: 'absolute' , top:'50%' ,right:'10px'}}>
-                              <a href='#!'  onClick={close}>
-                                <i class="fas fa-greater-than"></i>
-                              </a>
-                            </div>
-                            <div style={{  position: 'absolute' , top:'50px' ,left:'10px'}}>
-                              <a href='#!'  onClick={close}>
-                                <i class="fas fa-less-than"></i>
-                              </a>
-                            </div> */}
-                          {/* </div> */}
-                        {/* )} */}
-                        {/* </Popup> */}
-                       
                     </React.Fragment>
                   ))}
                   </OwlCarousel>
@@ -536,8 +474,6 @@ export default function PostComponent({ post, setRefresh }) {
                 :post.postedimages&&post.postedimages.length==1
                   ? post.postedimages.map((postImage) => (
                     <React.Fragment>
-                      {/* <Popup */}
-                        {/* trigger={ */}
                           <img
                           style={{ width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
@@ -545,39 +481,10 @@ export default function PostComponent({ post, setRefresh }) {
                           className="lightbox-popup"
                           onClick={()=>setIsopen(true)}
                         />
-                        {/* } */}
-                        {/* className="lightbox-popup" */}
-                        {/* width = "100%" */}
-                        {/* modal */}
-                        {/* nested */}
-                      {/* > */}
-                        {/* {(close) => ( */}
-                          {/* <div style={{position: 'relative' }}> */}
-                            {/* <img */}
-                              {/* style={{ width: '100%', objectFit: 'cover' }} */}
-                              {/* src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                              alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                            />
-                            <div style={{  position: 'absolute' , top:'20px' ,right:'20px'}}>
-                              <a href='#!'  onClick={close}>
-                                <i class='las la-times' style={{color:'white' , fontSize: '30px'}}></i>
-                              </a>
-                            </div>
-                          </div>
-                        )}
-                        </Popup> */}
                         {isOpen && (
                           <Lightbox
                             mainSrc={fileStorage.baseUrl + postImage.imagePath}
-                            // nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
-                            // prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
                             onCloseRequest={() => setIsopen(false)}
-                            // onMovePrevRequest={() =>
-                              // setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
-                            // }
-                            // onMoveNextRequest={() =>
-                              // setPhotoindex((photoIndex + 1) % post.postedimages.length)
-                            // }
                           />
                         )}
                     </React.Fragment>
@@ -596,15 +503,7 @@ export default function PostComponent({ post, setRefresh }) {
                         {isOpen && (
                           <Lightbox
                             mainSrc={fileStorage.baseUrl + postImage.imagePath}
-                            // nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
-                            // prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
                             onCloseRequest={() => setIsopen(false)}
-                            // onMovePrevRequest={() =>
-                              // setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
-                            // }
-                            // onMoveNextRequest={() =>
-                              // setPhotoindex((photoIndex + 1) % post.postedimages.length)
-                            // }
                           />
                         )}
                       { post.user.id!==user.id&&

@@ -2306,6 +2306,12 @@ height: 100%; */
   cursor: pointer;
 
 }
+.post-user-img{
+  object-fit: cover;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+}
 .post-meta > p {
   padding: 15px 0 10px 20px;
 }
