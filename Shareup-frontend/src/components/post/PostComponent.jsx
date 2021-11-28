@@ -494,7 +494,7 @@ export default function PostComponent({ post, setRefresh }) {
                       {/* <Popup */}
                         {/* trigger={ */}
                           <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={post.user.id==user.id?{ width: '100%', objectFit: 'cover' }:{borderRadius:'10px 10px 0 0'}}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           onClick={()=>setIsopen(true)}
@@ -509,7 +509,7 @@ export default function PostComponent({ post, setRefresh }) {
                       { post.user.id!==user.id&&
                       <div className='swappost-cont'>
                         <div className=''>
-                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Get swapped'}</div>
+                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Category'}</div>
                           <div style={{ fontSize:'14px'}}>{post.content?post.content:'Get swapped with your favourite things'}</div>
                           {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
                         </div>

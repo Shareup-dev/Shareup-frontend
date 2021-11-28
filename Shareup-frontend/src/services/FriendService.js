@@ -2,7 +2,7 @@ import axios from 'axios';
 import AuthService from './auth.services';
 import settings from "./Settings";
 
-const USER_API_BASE_URL = `${settings.apiUrl}/api/v1/friends`
+const USER_API_BASE_URL = `${settings.apiUrl}/api/v1/`
 let authAxios = null;
 
 const authenticate = () => {
