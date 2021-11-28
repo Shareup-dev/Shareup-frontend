@@ -98,6 +98,8 @@ function NewsfeedComponent() {
 
   const [hangshareContent, setHangshareContent] = useState('');
 
+  const [privacy, setprivacy] = useState('privacy');
+
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -118,10 +120,19 @@ function NewsfeedComponent() {
   //     setStories(res.data)
   //   })
   // }
+
+  const handleChange = e => {
+    const target = e.target;
+    if (target.checked) {
+      setprivacy(target.value);
+    }
+ };
+
+
+
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
 
   const uploadStories = (event) => {
     event.preventDefault();
@@ -164,7 +175,7 @@ function NewsfeedComponent() {
     });
   };
   const getPostForUser = async () => {
-    await NewsFeedService.getSwaps(AuthService.getCurrentUser().username).then((res) => {
+    await NewsFeedService.getFeed(AuthService.getCurrentUser().username).then((res) => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published),
           dateB = new Date(b.published);
@@ -421,12 +432,11 @@ function NewsfeedComponent() {
     console.log(event.target.value);
     setPrivacy(event.target.value);
   };
-  //post upload function
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError('');
     console.log(postContent ,Object.keys(files).length ,files.constructor);
-    if (postContent === '' || Object.keys(files).length === 0 || files.constructor === Object) {
+    if (postContent === '' && (Object.keys(files).length === 0 && files.constructor === Object)) {
       console.log('cant be null');
       setUploadError('Please Insert A Text or an Image');
       return;
@@ -1534,7 +1544,7 @@ function NewsfeedComponent() {
               <span className='textPop'>
                 <textarea
                   className='textpopup'
-                  rows={3}
+                  rows={2}
                   style={{borderRadius: '0'  }}
                   placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
                   name='post_content'
@@ -1551,9 +1561,7 @@ function NewsfeedComponent() {
                             nav
                             center={true}
                             dots={false}
-                            margin={10}
-                            className="postpopup-carousel"
-                            >
+                            margin={10}>
                             {postImage.map((item, key) => (
                               <img
                                 src={item}
@@ -1574,9 +1582,10 @@ function NewsfeedComponent() {
                             display: 'inline-block',
                             verticalAlign: 'middle',
                             borderRadius:'10px',
-                            paddingBottom:'10px !important'
+                            marginBottom:'10px!important'
                           }}
-                        />}
+                        />
+                        }
                       <button
                         onClick={handleRemoveImage}
                         style={{
@@ -1840,7 +1849,7 @@ function NewsfeedComponent() {
     );
   };
   const testFanc = (post) => {
-    return <PostComponent post={post} setRefresh={setRefresh} userF={userF}/>;
+    return <PostComponent post={post} setRefresh={setRefresh} />;
   };
 
 
@@ -1851,7 +1860,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{fontSize: '11px', padding: '4px', cursor: 'pointer', backgroundColor: '#0333471a', borderRadius: '5px' }}>
-            friends
+          {privacy}
 
             <img src="assets/images/Vector.svg"
               style={{ paddingLeft: '4px', verticalAlign: 'middle' }} />
@@ -1919,7 +1928,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Public" name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1947,7 +1956,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Friends"  name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1973,7 +1982,7 @@ function NewsfeedComponent() {
 
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Friends except" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -1998,7 +2007,7 @@ function NewsfeedComponent() {
                             </p>
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Group" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
@@ -2022,7 +2031,7 @@ function NewsfeedComponent() {
                             </p>
                           </div>
 
-                          <input type="radio" name="any" style={{ height: '60%', width: '100%' }} />
+                          <input type="radio" Value="Only Me" name="privacy" style={{ height: '60%', width: '100%' }} />
 
                           {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
 
