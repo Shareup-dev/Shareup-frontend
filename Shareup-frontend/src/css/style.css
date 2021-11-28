@@ -2302,6 +2302,10 @@ height: 100%; */
 .postImage img {
   border-radius: 10px 10px 10px 10px;
 }
+.postImage img:hover {
+  cursor: pointer;
+
+}
 .post-meta > p {
   padding: 15px 0 10px 20px;
 }
