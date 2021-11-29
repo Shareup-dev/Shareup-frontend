@@ -113,9 +113,9 @@ function testScript(){
 		$('.add-smiles > span').on("click", function() {
 			$(this).parent().siblings(".smiles-bunch").toggleClass("active");
 		  });
-	 $('.add-dropdown > span').on("click", function() {
-			$(this).parent().siblings(".drop-options").toggleClass("active");
-		  });
+	//  $('.add-dropdown > span').on("click", function() {
+	// 		$(this).parent().siblings(".drop-options").toggleClass("active");
+	// 	  });
 	// delete notifications
 	$('.notification-box > ul li > i.del').on("click", function(){
 		$(this).parent().slideUp();

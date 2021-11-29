@@ -17,6 +17,9 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';  
 import 'owl.carousel/dist/assets/owl.theme.default.css';  
 
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
+
 import Form from 'react-bootstrap/Form';
 
 
@@ -33,6 +36,9 @@ export default function PostComponent({ post, setRefresh }) {
   const [showSwapImage, setShowSwapImage] = useState(false);
   const [swapImage, setSwapImage] = useState({});
   const [swapfiles, setSwapfiles] = useState([]);
+
+  const [photoIndex, setPhotoindex] = useState(0);
+  const [isOpen, setIsopen] = useState(false);
 
 
   const [likeReaction, setLikeReaction] = useState(null)
@@ -197,7 +203,11 @@ export default function PostComponent({ post, setRefresh }) {
       </div>
 
     )}
-
+  const openLightbox =(index)=>{
+    setIsopen(true);
+    setPhotoindex(index)
+    console.log(index, 'indexxxxxxxxx')
+  }
 
 
   return (
@@ -246,7 +256,7 @@ export default function PostComponent({ post, setRefresh }) {
                             console.log(postImage, 'swp')
                             return(
                             <React.Fragment>
-                              <a
+                              {/* <a
                                 href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 data-lightbox={`image-user-${post.user.id}`}
                               >
@@ -255,7 +265,8 @@ export default function PostComponent({ post, setRefresh }) {
                                   src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                   alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 />
-                              </a>
+                              </a> */}
+                             
                             </React.Fragment>
                           )})}
                         </div>
@@ -347,51 +358,73 @@ export default function PostComponent({ post, setRefresh }) {
                   )}
                 </>
               )}
-
-              {/* {post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={post.postImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.postImagePath} /> </a></div> : null
-                                }
-                                {post.swapImagePath ?
-                                <>
-                                <div style={{textAlign: "center"}}><img  width="30" src="assets/images/swapicon.png"/></div>
-                                    <div className="swapImage">
-                                    <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ maxWidth: "100%", height: "auto" }} src={post.swapImagePath} /> </a></div> </>: null
-                                } */}
-
-              <figure>
-                <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' />
-              </figure>
-
-              <div className='friend-name' style={{ width: "92%",}}>
-                <div style={{ float: 'left', display: 'inline' }}>
-                  <a
-                    href={`/profile/${post.user.email}`}
-                    title='#'
-                    style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
-                  >
-                    {`${post.user.firstName} ${post.user.lastName}`}
-                    {post.userTag ? (
-                      <>
-                        <span style={{ padding: '0 5px' }}>with</span>{' '}
-                        <span className='tagPost'>{post.userTag.firstName}</span>
-                        <span className='tagPost'>{post.userTag.lastName}</span>
-                      </>
-                    ) : null}
-                  </a>
-
-                  <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
-                    on {`${post.published}`} {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>}
-                  </span>
+              <div className='friend-name' style={{ width: "100%", display: 'flex' , justifyContent:'space-between' , alignItems:'center',paddingBottom:'10px'}}>
+                <div style={{display: 'flex'}}>
+                  <figure>
+                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img"/>
+                  </figure>
+                  <div style={{display:'flex' , flexDirection:'column' , justifyContent: 'center' , paddingLeft:'10px'}}>
+                    <a
+                      href={`/profile/${post.user.email}`}
+                      title='#'
+                      style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+                    >
+                      {`${post.user.firstName} ${post.user.lastName}`}
+                      {post.userTag ? (
+                        <>
+                          <span style={{ padding: '0 5px' }}>with</span>{' '}
+                          <span className='tagPost'>{post.userTag.firstName}</span>
+                          <span className='tagPost'>{post.userTag.lastName}</span>
+                        </>
+                      ) : null}
+                    </a>
+                    <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
+                      on {`${post.published}`} {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>}
+                    </span>
+                  </div>    
+                
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
-                <div
+                {/* <div
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
-                ></div>
-                    <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                ></div> */}
+                    {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
                       <span title='add icon'>
-                        <i class='las la-ellipsis-h' style={{  fontSize: '36px' }}></i>
+                        <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
+                    </div> */}
+                    <div class="dropdown add-dropdown">
+                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='las la-ellipsis-h' style={{  fontSize: '26px' }}></i>
+                      </button>
+                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                        <ul>
+                            {post.user.id === user.id ? (
+                              <li onClick={() => handleEditPost(post.id)}>
+                                <i class='las la-pencil-alt'></i>
+                                <span>Edit Post</span>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            <li onClick={() => handleSavePost(post.id)}>
+                              <i class='lar la-bookmark'></i>
+                              <span>Save Post</span>
+                            </li>
+                            {post.user.id === user.id ? (
+                              <li onClick={() => handleDeletePost(post.id)}>
+                                <i class='las la-trash'></i>
+                                <span>Delete</span>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            <li>
+                              <i class='las la-link'></i>
+                              <span>Copy Link</span>
+                            </li>
+                          </ul>
+                      </div>
                     </div>
                
               </div>
@@ -404,57 +437,79 @@ export default function PostComponent({ post, setRefresh }) {
               )}
               <div className='postImage'>
               {post.postedimages&&post.postedimages.length>1
-              ?<OwlCarousel items={1}
+              ?<>
+                <OwlCarousel items={1}
                   className="owl-theme grp-carousel post-carousel"
                   dots
                   nav
+                  navText = {"<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"}
                   margin={10}>
-                  {post.postedimages.map((postImage) => (
+                  {post.postedimages.map((postImage,index) => (
                     <React.Fragment>
-                      <a
-                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        data-lightbox={`image-user-${post.user.id}`}
-                      >
-                        <img
+                      <img
                           style={{ width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          className="lightbox-popup"
+                          onClick={() => openLightbox(index)}
                         />
-                      </a>
                     </React.Fragment>
                   ))}
                   </OwlCarousel>
+                   {isOpen && (
+                    <Lightbox
+                      mainSrc={fileStorage.baseUrl + post.postedimages[photoIndex].imagePath}
+                      nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
+                      prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
+                      onCloseRequest={() => setIsopen(false)}
+                      onMovePrevRequest={() =>
+                        setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
+                      }
+                      onMoveNextRequest={() =>
+                        setPhotoindex((photoIndex + 1) % post.postedimages.length)
+                      }
+                    />
+                  )}
+                  </>
                 :post.postedimages&&post.postedimages.length==1
                   ? post.postedimages.map((postImage) => (
                     <React.Fragment>
-                      <a
-                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        data-lightbox={`image-user-${post.user.id}`}
-                      >
-                        <img
-                          style={{ width: '100%', objectFit: 'cover', maxHeight: '450px',
-                        }}
+                          <img
+                          style={{ width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          className="lightbox-popup"
+                          onClick={()=>setIsopen(true)}
                         />
-                      </a>
+                        {isOpen && (
+                          <Lightbox
+                            mainSrc={fileStorage.baseUrl + postImage.imagePath}
+                            onCloseRequest={() => setIsopen(false)}
+                          />
+                        )}
                     </React.Fragment>
                   ))
                   :post.swapimages?post.swapimages.map((postImage) => (
                     <div className="swappost-main-div">
-                      <a
-                        href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                        data-lightbox={`image-user-${post.user.id}`}
-                      >
-                        <img
-                          style={{ width: '100%', objectFit: 'cover',maxHeight: '450px' }}
+                      {/* <Popup */}
+                        {/* trigger={ */}
+                          <img
+                          style={post.user.id==user.id?{ width: '100%', objectFit: 'cover' }:{borderRadius:'10px 10px 0 0'}}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          onClick={()=>setIsopen(true)}
+                         
                         />
-                      </a>
+                        {isOpen && (
+                          <Lightbox
+                            mainSrc={fileStorage.baseUrl + postImage.imagePath}
+                            onCloseRequest={() => setIsopen(false)}
+                          />
+                        )}
+                      { post.user.id!==user.id&&
                       <div className='swappost-cont'>
                         <div className=''>
-                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Get swapped'}</div>
+                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Category'}</div>
                           <div style={{ fontSize:'14px'}}>{post.content?post.content:'Get swapped with your favourite things'}</div>
                           {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
                         </div>
@@ -602,6 +657,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </> */}
                         {/* </div> */}
                       </div>
+                      }
                     </div>
                   )):null}
               </div>
@@ -705,7 +761,7 @@ export default function PostComponent({ post, setRefresh }) {
         ) : (
           <EditPostComponent post={post} set={handleEditingSave} />
         )}
-
+        {/* 
         {showMoreOptions && (
           <div className='drop-options active' onClick={toggleShowMoreOptions}>
             <ul>
@@ -738,7 +794,7 @@ export default function PostComponent({ post, setRefresh }) {
               </li>
             </ul>
           </div>
-        )}
+        )} */}
         {/* Till here */}
         <div className='coment-area'>
           <ul className='we-comet'>

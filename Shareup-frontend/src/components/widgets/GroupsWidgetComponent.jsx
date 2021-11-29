@@ -4,6 +4,9 @@ import UserContext from '../../contexts/UserContext';
 import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import GroupService from '../../services/GroupService';
+import Grpicon from '../../images/grpicon.png'
+import fileStorage from '../../config/fileStorage';
+
 
 function GroupsWidgetComponent() {
     let history = useHistory();
@@ -42,23 +45,24 @@ function GroupsWidgetComponent() {
 
     return (
 
-        <div className="widget friend-list stick-widget">
+        <div className="widget friend-list stick-widget" >
             <div className="row"><img src="../assets/images/b76706b9814f347e841ff15b89a5d170-instagram-discover-people-icon-by-vexels.png"/><p className="widget-title">Groups</p></div>
             {/* <div id="searchDir" /> */}
-            <ul className="nearby-contct">
-                {searchedGroups.map(
+            <ul className="nearby-contct sidebar-grp">
+                {searchedGroups.slice(0,4).map(
                     group =>
                     <li key={group.id}>
-                    <div className="nearly-pepls">
+                    <div className="nearly-pepls" style={{display:'flex' ,background:'white' ,padding:'10px'}}>
                         <figure>
                             {console.log(group.groupImagePath)}
-                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
+                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" /></a>
                         </figure>
                         <div className="pepl-info">
                             <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
                             <span>{`${group.description}`}</span>
 
                         </div>
+                        <button className="button" style={{width:'60px',margin:'10px'}}>Join</button>
                     </div>
                 </li>
                 )}

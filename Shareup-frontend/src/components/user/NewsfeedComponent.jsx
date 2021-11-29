@@ -1582,9 +1582,10 @@ function NewsfeedComponent() {
                             display: 'inline-block',
                             verticalAlign: 'middle',
                             borderRadius:'10px',
-                            paddingBottom:'10px !important'
+                            marginBottom:'10px!important'
                           }}
-                        />}
+                        />
+                        }
                       <button
                         onClick={handleRemoveImage}
                         style={{
@@ -2064,7 +2065,7 @@ function NewsfeedComponent() {
           <div key={post.id}>
             {post.group
               ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? <PostComponent post={post} setRefresh={setRefresh} />
+                ? <PostComponent post={post} setRefresh={setRefresh} user={user}/>
                 : null
               : <PostComponent post={post} setRefresh={setRefresh} />}
           </div>

@@ -12,6 +12,7 @@ import './css/fontawesome/css/all.min.css';
 import './css/styleguide.css';
 import './css/notifications.css';
 import './css/globals.css';
+import './css/emojionearea.min.css';
 import AuthService from './services/auth.services'
 
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
