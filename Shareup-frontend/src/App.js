@@ -56,6 +56,7 @@ import ChatTestComponent from './components/ChatTest/ChatTestComponent';
 import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
+import Giphy from './components/Giphy';
 
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
@@ -91,6 +92,8 @@ function App() {
   const logout = () => {
     AuthService.logout();
   }
+
+Giphy();
 
 
   return (

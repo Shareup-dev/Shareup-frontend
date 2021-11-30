@@ -2870,7 +2870,19 @@ li.post-comment .comet-avatar {
   line-height: 24px;
 }
 
+
+
+
+
+
 .gif {
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(255 , 255, 255, 1) 0%, 
+                                      rgba(206, 182, 219, 1) 80%, 
+                                      rgba(255 , 255, 255, 1) 0% );
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
   cursor: pointer;
   font-size: 20px;
   position: absolute;
@@ -2881,6 +2893,8 @@ li.post-comment .comet-avatar {
   line-height: 10px;
 }
 .sticker {
+
+
   cursor: pointer;
   font-size: 20px;
   position: absolute;
@@ -2890,6 +2904,14 @@ li.post-comment .comet-avatar {
   width: auto;
   line-height: 10px;
 }
+
+
+
+
+
+
+
+
 .cam {
   cursor: pointer;
   font-size: 20px;
@@ -2900,18 +2922,34 @@ li.post-comment .comet-avatar {
   width: auto;
   line-height: 10px;
 }
-.add-smiles {
+.add-smiles { 
+
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(242, 75, 76, 1) 15%, 
+                                      rgba(140, 67, 179, 1) 75%, 
+                                      rgba(83, 82, 214, 1) 0% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   position: absolute;
-  right: 65px;
+  right: 85px;
   top: 46%;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
 }
 .btncmnt {
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(255 , 255, 255, 1) 0%, 
+                                      rgba(206, 182, 219, 1) 80%, 
+                                      rgba(255 , 255, 255, 1) 0% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
   display: inline;
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 40%;
   transform: translateY(-50%);
   width: auto;
@@ -2930,7 +2968,7 @@ li.post-comment .comet-avatar {
   box-shadow: 0px 0px 9px 0px;
   /* padding: 5px; */
   position: absolute;
-  right: 59px;
+  right: 78px;
   text-align: center;
   width: 280px;
   display: none;
@@ -2962,11 +3000,11 @@ li.post-comment .comet-avatar {
 }
 
 
-.cam {
+.gifs {
   cursor: pointer;
   font-size: 20px;
   position: absolute;
-  right: 40px;
+  right: 60px;
   top: 46%;
   transform: translateY(-50%);
   width: auto;
@@ -2975,19 +3013,20 @@ li.post-comment .comet-avatar {
 
 
 
-
-
-
 .gifs-bunch {
-  background: #eaeaea none repeat scroll 0 0;
+
+
+
+  background: #dbdbdf none repeat scroll 0 0;
   border-radius: 5px;
-  top: -63px;
-  font-size: 13px;
-  padding: 5px;
+  top: -319px;
+  font-size: 17px;
+  box-shadow: 0px 0px 9px 0px;
+  /* padding: 5px; */
   position: absolute;
-  right: 90px;
+  right: 52px;
   text-align: center;
-  width: 150px;
+  width: 280px;
   display: none;
 }
 .gifs-bunch.active {
@@ -3001,14 +3040,18 @@ li.post-comment .comet-avatar {
 }
 
 .gifs-bunch::before {
-  border-top: 7px solid #eaeaea;
+  border-top: 7px solid #919191;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   content: "";
   position: absolute;
   right: 11px;
+  z-index: 999;
   bottom: -7px;
   width: auto;
+
+
+  
 }
 
 .gifs-bunch > i:hover {
@@ -3016,6 +3059,68 @@ li.post-comment .comet-avatar {
 }
 
 
+
+
+
+.stickers{
+
+  cursor: pointer;
+  font-size: 23px;
+  position: absolute;
+  right: 34px;
+  top: 46%;
+  transform: translateY(-50%);
+  width: auto;
+  line-height: 10px;
+
+
+}
+
+
+.stickers-bunch {
+
+
+
+  background: #dbdbdf none repeat scroll 0 0;
+  border-radius: 5px;
+  top: -319px;
+  font-size: 17px;
+  box-shadow: 0px 0px 9px 0px;
+  /* padding: 5px; */
+  position: absolute;
+  right: 29px;
+  text-align: center;
+  width: 280px;
+  display: none;
+}
+.stickers-bunch.active {
+  display: block;
+}
+
+.stickers-bunch > i {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.stickers-bunch::before {
+  border-top: 7px solid #919191;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  position: absolute;
+  right: 11px;
+  z-index: 999;
+  bottom: -7px;
+  width: auto;
+
+
+  
+}
+
+.stickers-bunch > i:hover {
+  transform: scale(1.1);
+}
 
 
 

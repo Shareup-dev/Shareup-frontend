@@ -5,9 +5,22 @@ import Form from 'react-bootstrap/Form';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
 import Picker from 'emoji-picker-react';
+import PickerGif from 'react-giphy-picker';
+import Giphy from "../Giphy";
+import Stickers from "../Stickers";
+
+
+
+
+
+
 
 
 export default function PostComponentBoxComponent({ post, setRefresh }) {
+
+
+
+  
   const { user } = useContext(UserContext)
   const ref = useRef(null);
 
@@ -15,6 +28,12 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
   const [showEmojis, setShowEmojis] = useState(false)
   const [showGifs, setShowGifs] = useState(false)
 
+  
+                  
+
+
+
+  const [showSticker, setShowSticker] = useState(false)
 
   const [chosenEmoji, setChosenEmoji] = useState(null);
 
@@ -29,6 +48,14 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
     setCommentContent(text);
     ref.current.focus();
   };
+
+  const [chosenGif, setChosenGif] = useState(null);
+
+
+  const [chosenSticker, setSticker] = useState(null);
+
+
+
 
   const handleCommentContent = (event) => {
     console.log(event.target.value)
@@ -73,59 +100,81 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                 ) : (
                   <span>No emoji Chosen</span>
                 )}
-                <Picker onEmojiClick={onEmojiClick} pickerStyle={{ height: "310px"}}  />
+
+                <Picker onEmojiClick={onEmojiClick} disableSearchBar={'true'} pickerStyle={{ height: "310px" }} />
               </div>
             </div>
           }
 
 
 
-          {
-            // showEmojis && <div className="smiles-bunch active">
-            //   <i class="em em---1"></i>
-            //   <i class="em em-smiley" ></i>
-            //   <i class="em em-anguished"></i>
-            //   <i class="em em-laughing"></i>
-            //   <i class="em em-angry"></i>
-            //   <i class="em em-astonished"></i>
-            //   <i class="em em-blush"></i>
-            //   <i class="em em-disappointed"></i>
-            //   <i class="em em-worried"></i>
-            //   <i class="em em-kissing_heart"></i>
-            //   <i class="em em-rage"></i>
-            //   <i class="em em-stuck_out_tongue"></i>
-            //   {/* <Picker onEmojiClick={onEmojiClick} /> */}
-            //   {/* <h1>hi</h1> */}
-            // </div>
+
+
+<div className="stickers">
+            <img src="/assets/images/sticker-svgrepo-com.svg"  style={{height:'19px'}} alt="" onClick={() => setShowSticker(!showSticker)} /></div>
+          {showSticker &&
+            <div className="stickers-bunch active">
+              <div style={{ height: '326px', overflowX: 'hidden', overflowY: 'scroll' }} >
+                {chosenSticker ? (
+                  <span>You chose: {chosenSticker.sticker}</span>
+                ) : (
+                  <span>No Gif Chosen</span>
+                )}
+                <Stickers />
+                {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
+
+
+
+
+
+
+
+
+              </div>
+            </div>
           }
 
+       
 
-          {/* <div className="gif"><img style={{objectFit:'cover'}} src="/assets/images/pic.svg" alt="" /></div> */}
 
 
-          <div className="cam">
+
+                  
+
+
+
+
+          <div className="gifs">
             <img src="/assets/images/gif.svg" alt="" onClick={() => setShowGifs(!showGifs)} /></div>
           {showGifs &&
             <div className="gifs-bunch active">
-              <div >
-                {chosenEmoji ? (
-                  <span>You chose: {chosenEmoji.emoji}</span>
+              <div style={{ height: '326px', overflowX: 'hidden', overflowY: 'scroll' }} >
+                {chosenGif ? (
+                  <span>You chose: {chosenGif.gif}</span>
                 ) : (
-                  <span>No emoji Chosen</span>
+                  <span>No Gif Chosen</span>
                 )}
-                <Picker onEmojiClick={onEmojiClick} />
+                <Giphy />
+                {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
+
+
+    
+
+
               </div>
             </div>
           }
 
 
-          {/* <div className="sticker"><i class="lar la-sticky-note"></i></div> */}
+
+
+        
 
           <div className="btncmnt">
 
             <button type="button" onClick={() => handlePostingComment(post.id)} style={{ color: 'blue', padding: '1px', }}>
 
-              <img src="/assets/images/sendbtn.png" alt="" style={{ width: "80%", height: "80%", padding: "3px", marginTop: "5px", borderStyle: "2px solid black" }} />
+              <img src="/assets/images/photoscomment.svg" alt="" style={{  padding: "3px", marginTop: "8px", borderStyle: "2px solid black" }} />
               {/* </div> */}
               {/* <svg class="svg-icon" viewBox="0 0 20 20">
                           <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
