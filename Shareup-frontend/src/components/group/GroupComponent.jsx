@@ -168,8 +168,25 @@ function GroupComponent({post}) {
 		return (
 			<div className="tab-content">
 				<div class="friends-search-container"><i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
-				<div className="tab-pane active fade show " id="frends">
+				<div className="tab-pane active fade show " id="">
 					<ul className="nearby-contct">
+						<li class="friends-card groupalign" style={{marginRight: '10px'}}>
+							<a href='/group/create'>
+								<div className='groupsggstion-card'>
+									<div className='groupsggstion-img'>
+										<div>
+											<img src={Grpicon} className="no-img"/>
+										</div>
+										<i class="fas fa-plus-circle"></i>
+									</div>
+									<div className='groupsggstion-by'>
+										<a href='/group/create'>
+											<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
+										</a>
+									</div>
+								</div>
+							</a>
+						</li>
 						{searchedGroups.map((group,index) =>
 								<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
 		                            <a href={`/groups/${group.id}`}>

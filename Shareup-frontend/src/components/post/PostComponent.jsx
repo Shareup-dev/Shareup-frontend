@@ -74,6 +74,7 @@ export default function PostComponent({ post, setRefresh }) {
     comments.map(comment => {
       counter += comment.replies.length + 1
     })
+    if(counter>0)
     return counter
   }
   const handleSwapContent = (event) => {
@@ -158,10 +159,10 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return (<img src="/assets/images/StarLike.svg" alt="" />)
+      return (<i class="fas fa-star" ></i>)
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return (<img src="/assets/images/StarLike.svg" alt="" />)
+    return (<i class="fas fa-star" style={{color:'#d83535'}}></i>)
   }
 
   const handleSettingReactions = (reaction) => {
@@ -667,20 +668,12 @@ export default function PostComponent({ post, setRefresh }) {
                   
                 </>
               } */}
-
-
-
-
-
-              <div className='counter'>
+              {/* <div className='counter'>
                 <ul>
                   <li>
                     {handleCounterReaction()}
                     <span> {post.reactions&&post.reactions.length} </span>
                   </li>
-
-
-                  
                   <li>
                     <span
                       className='commentCounter'
@@ -691,10 +684,6 @@ export default function PostComponent({ post, setRefresh }) {
                     </span>{' '}
                     <span> {`${getCommentCounter(post.comments)}`}</span>
                   </li>
-
-
-
-
                   <li>
                     <span>
                       {' '}
@@ -704,7 +693,7 @@ export default function PostComponent({ post, setRefresh }) {
                   </li>
                  
                 </ul>
-              </div>
+              </div> */}
 
               {showReactions && (
                 <div
@@ -722,7 +711,7 @@ export default function PostComponent({ post, setRefresh }) {
                 </div>
               )}
 
-              <div className='we-video-info'>
+              <div className='we-video-info post-action'>
                 <div className='click'>
                   
                   <div className='commShare'>
@@ -730,27 +719,40 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className='btncmn' onClick={() => handleLikePost(post.id)}>
                       <span className='like' data-toggle='tooltip' title=''>
                         {handleReaction()}
-                        <span style={{ paddingLeft: '10px' }}>Star</span>
+                        <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span>
                       </span>
                     </div>
                   ) : (
                     <div className='btncmn' onClick={() => handleLikePost(post.id)}>
                       <span className='dislike' data-toggle='tooltip' title=''>
-                        <img src='/assets/images/Star.svg' alt='' />
-                        <span style={{ paddingLeft: '10px' }}>Star</span>
+                        {/* <img src='/assets/images/Star.svg' alt='' /> */}
+                        {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
+                        <i class="far fa-star"></i>
+                        <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span>
+
                       </span>
                     </div>
                   )}
                     <div className='btncmn' onClick={() => setShowComment(!showComment)}>
-                      <span className='comment' data-toggle='tooltip' title='Comments'>
-                        <img src='/assets/images/comment.svg' />
-                        <span style={{ paddingLeft: '2px' }}>Comment</span>
+                      <span className='comment' data-toggle='tooltip' title='Comments' >
+                        {/* <img src='/assets/images/comment.svg' /> */}
+                        {/* <span style={{ paddingLeft: '2px' }}>Comment</span> */}
+                        <i class="far fa-comment"></i>
+                        <span style={{paddingLeft:'5px'}}>{getCommentCounter(post.comments)}</span>
                       </span>
                     </div>
                     <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
-                        <img src='/assets/images/shareicn.svg' />
-                        <span style={{ paddingLeft: '12px' }}>Share</span>
+                        {/* <img src='/assets/images/shareicn.svg' /> */}
+                        <i class="fas fa-share"></i>
+                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
+                      </span>
+                    </div>
+                    <div className='btncmn'>
+                      <span className='views' data-toggle='tooltip'>
+                        
+                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)}></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}></i>}
+                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
                       </span>
                     </div>
                   </div>

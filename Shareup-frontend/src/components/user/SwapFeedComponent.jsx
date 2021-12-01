@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, cloneElement } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -22,10 +22,10 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import SwapComponents from '../SwapPoint/SwapComponents';
+import PostComponent from '../post/PostComponent';
 import fileStorage from '../../config/fileStorage';
 
-
+import LocSearchComponent from '../AccountSettings/LocSearchComponent';
 
 function SwapFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,9 +44,9 @@ function SwapFeedComponent() {
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [showComp, setShowComp] = useState("newsfeed");
-const[showCompont,setShowCompont]= useState();
+  const[showCompont,setShowCompont]= useState();
   const [posts, setPosts] = useState([]);
-  const [postsForUser, setPostsForUser] = useState([]);
+  const [swapsForUser, setSwapsForUser] = useState([]);
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
   const [userR, setUserR] = useState([]);
@@ -75,9 +75,12 @@ const[showCompont,setShowCompont]= useState();
   const [Privacy, setPrivacy] = useState("");
 
   const [friendsList, setFriendsList] = useState([]);
-    const [allUser, setAllUser] = useState([]);
-    const [userF, setUserF] = useState(null);
-    const [searchedUser, setSearchedUser] = useState([]);
+  const [allUser, setAllUser] = useState([]);
+  const [userF, setUserF] = useState(null);
+  const [searchedUser, setSearchedUser] = useState([]);
+
+  const [privacy, setprivacy] = useState('privacy');
+
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -98,6 +101,42 @@ const[showCompont,setShowCompont]= useState();
   //     setStories(res.data)
   //   })
   // }
+  useEffect(() => {
+    getAllUser()
+    getFriendsList()
+    testScript()
+  },[])
+
+
+  useEffect(() => {
+		getAllGroups()
+		
+	}, [showComp, group])
+
+	useEffect(() => {
+		testScript()
+	}, [])
+
+
+  useEffect(() => {
+    getUser()
+    getPost().then(() => {
+      setIsLoading(false)
+    })
+    getSwapsForUser()
+    getSavedPost()
+    testScript()
+  }, [editPostId, refresh])
+
+  useEffect(() => {
+    getSwapsForUser()
+    getSavedPost()
+    testScript()
+  }, [user])
+   useEffect(() => {
+    getStoriesForUser()
+    testScript()
+  }, [stories])
 
   const uploadStories = (event) => {
     event.preventDefault();
@@ -136,8 +175,10 @@ const[showCompont,setShowCompont]= useState();
       setStoriesForUser(uniqueStories)
     })
   }
-  const getPostForUser = async () => {
-    await PostService.getPostForUser(AuthService.getCurrentUser().username).then(res => {
+  const getSwapsForUser = async () => {
+
+    await SwapService.getSwapForUser(AuthService.getCurrentUser().username).then(res => {
+      // console.log(res, 'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
       const sorting = res.data.sort(function(a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
@@ -146,8 +187,23 @@ const[showCompont,setShowCompont]= useState();
         .map(id => {
           return res.data.find(a => a.id === id)
         })
-      setPostsForUser(uniquePost)
+        setSwapsForUser(uniquePost)
     })
+  }
+  const mySwaps = async () => {
+    // console.log(swapsForUser, 'swapsssssssssssssss')
+    let mySwaps = []
+    swapsForUser.map((swap)=>{
+      if(swap.user.id==user.id){
+        mySwaps.push(swap)
+      }
+      setSwapsForUser(mySwaps)
+      console.log(mySwaps, 'userrrrrrrrrrrr')
+    })
+  }
+  const allSwaps = async () => {
+    // setSwapsForUser(swapsForUser)
+    getSwapsForUser()
   }
   const handleFileStry = (event) => {
     console.log(event.target.files[0])
@@ -175,6 +231,13 @@ const[showCompont,setShowCompont]= useState();
 			setGroup(res.data)
 		})
 	}
+  const handleChange = e => {
+    const target = e.target;
+    if (target.checked) {
+      setprivacy(target.value);
+    }
+  };
+
 
 	const handleJoinGroup = (group_id) => {
 		console.log(group_id)
@@ -392,20 +455,25 @@ const handleSwapContent = (event) => {
   setSwapContent(event.target.value)
 }
 const handleFileSwap = (event) => {
-  console.log(event.target.files[0])
-  setSwapfiles(event.target.files[0])
-  const reader = new FileReader();
-  reader.onload = () => {
-    if (reader.readyState === 2) {
-      setSwapImage(reader.result)
+  setSwapfiles(event.target.files);
+  console.log(swapfiles);
+  let filesAmount = event.target.files.length;
+  if (filesAmount < 6) {
+    let tempImage = [];
+    for (let i = 0; i < filesAmount; i++) {
+      //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
+      tempImage.push(URL.createObjectURL(event.target.files[i]));
     }
+
+    setSwapImage(tempImage);
+    console.log('url ' + swapImage[1]);
+
+    setShowSwapImage(true);
+  } else {
+    alert('5 files are allowed');
+    event.preventDefault();
   }
-  console.log(event.target.files[0])
-  // if(event.target.files[0].type === blob){
-  reader.readAsDataURL(event.target.files[0])
-  // }
-  setShowSwapImage(true)
-}
+};
 const handleRemoveImageSwap = () => {
   setSwapfiles({})
   setShowSwapImage(false)
@@ -432,8 +500,150 @@ const handleRemoveImageSwap = () => {
 //   })
 // }
 
+  const imageshowSwap = () => {
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>What has to be swapped?</div>
 
+        <div className='add-smilespopup'>
+          <label className='fileContainer'>
+            <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
+            <i class='lar la-file-image'></i>
+          </label>
+        </div>
+        <div className='gifpopup' style={{ fontSize: '28px', paddingBottom: '14px'}}>
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-user-tag' ></i>
+              </a>
+            }
+            modal
+            nested
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <div class='search-container'>
+                  <i class='las la-search'></i>
+                  <input
+                    className='friend-search'
+                    type='text'
+                    id='header-search'
+                    placeholder='Search Friends'
+                    name='s'
+                    onChange={handleSearchedUser}
+                  />
+                  <span onClick={close}>Done</span>
+                </div>
+                {userF ? (
+                  <>
+                    <div className='Tag'>Tagged:{`${userF.firstName} ${userF.lastName}`}</div>
+                  </>
+                ) : null}
+                <div>
+                  <ul>
+                    {friendsList.length > 0 ? (
+                      <>
+                        {friendsList.map((userM) =>
+                          user.id !== userM.id ? (
+                            <li key={userM.id} className='friends-card'>
+                              <a href='#!' onClick={() => handleTag(userM)}>
+                                {' '}
+                                <div className='grid-container'>
+                                  {/* <figure> */}
+                                  <div class='item1'>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                    </a>
+                                    {/* </figure> */}
+                                  </div>
+                                  <div class='item2'>
+                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                  </div>
+                                  {/* <div className="  "> */}
+                                </div>
+                              </a>
+                            </li>
+                          ) : null
+                        )}
+                      </>
+                    ) : (
+                      <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>
+                    )}
+                  </ul>
+                </div>
+              </Form>
+            )}
+          </Popup>
+        </div>
+        <div className='campopup'>
+          <Popup
+            trigger={
+              <a href='#!'>
+                <i class='las la-map-marker-alt'></i>
+              </a>
+            }
+            nested
+            modal
+          >
+            {(close) => (
+              <Form style={{ margin: '5px' }} className='popwidth'>
+                <LocSearchComponent />
+              </Form>
+            )}
+          </Popup>{' '}
+        </div>
 
+        {/* <ul style={{marginLeft:'10px'}}>
+      <li style={{fontSize:'12px'}}>What's in hang?</li>
+      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+    </label></li></ul>*/}
+      </div>
+    );
+  };
+  const uploadSwap = (event) => {
+    event.preventDefault();
+    setUploadError('');
+    console.log('uploading swap working');
+    if (swapContent === '' && Object.keys(swapfiles).length === 0 && swapfiles.constructor === Object) {
+      console.log('cant be null');
+      setUploadError('Please Insert A Text or an Image');
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append('content', swapContent);
+    for (let i = 0; i < swapfiles.length; i++) {
+      formData.append(`files`, swapfiles[i]);
+    }
+    console.log(formData.getAll(`files`));
+    console.log(' this is the files' + files[0]);
+    console.log(' this is the swapfiles' + swapfiles);
+    for (let i = 0; i < `swapfiles`.length; i++) {
+      console.log(swapfiles);
+    }
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
+    if (userF === null) {
+      SwapService.createSwap(user.id, formData, null).then((res) => {
+        console.log(JSON.stringify(res));
+        console.log(res.data);
+        console.log(user.id);
+        setSwapContent('');
+        handleRemoveImageSwap();
+        setRefresh(res.data);
+        console.log('ssssssssssrefersh', refresh)
+
+      });
+    } else
+      SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+        console.log(JSON.stringify(res));
+        setSwapContent('');
+        handleRemoveImageSwap();
+        setRefresh(res.data);
+      });
+  };
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -492,7 +702,7 @@ const handleRemoveImageSwap = () => {
             </ul></div>   
                        </Form>
                   )}                 
-  </Popup></div>
+      </Popup></div>
     <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></div>
       
@@ -561,26 +771,25 @@ const handleRemoveImageSwap = () => {
 
   const popUp = () => {
     return(
- <Popup  trigger={<span style={{cursor: "pointer"}} ><span style={{marginRight:'5px'}}><img style={{verticalAlign:'middle',width:'15px'}} src="/assets/images/hangshare.svg" alt="img" /></span>Hang Share</span>} modal nested>
-                       {close => ( <Form className="popwidth" style={{margin:'5px'}}>
+      <Popup  trigger={<span style={{cursor: "pointer"}} ><span style={{marginRight:'5px'}}><img style={{verticalAlign:'middle',width:'15px'}} src="/assets/images/hangshare.svg" alt="img" /></span>Hang Share</span>} modal nested>
+        {close => ( <Form className="popwidth" style={{margin:'5px'}}>
                     
-    <div className="headpop">
-      
-    <div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
-    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'70%',textAlign: 'center'}}> <span>Today to me, Tomorrow to you</span></div>
-    <div style={{width:'25%',textAlign:'right'}}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
-    </div></div>
+          <div className="headpop">
+            <div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
+            <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'70%',textAlign: 'center'}}> <span>Today to me, Tomorrow to you</span></div>
+            <div style={{width:'25%',textAlign:'right'}}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
+            </div></div>
 
-    <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-       <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
-  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-    <option value="Friends">Friends</option>
-    <option value="Public">Public</option>
-    <option value="Only Me">Only Me</option>
-  </select></div> </span></div> </div> </div>
-  <div style={{margin:'0 0 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+            <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
+            <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+              <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
+              <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
+                <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                  <option value="Friends">Friends</option>
+                  <option value="Public">Public</option>
+                  <option value="Only Me">Only Me</option>
+                </select></div> </span></div> </div> </div>
+                <div style={{margin:'0 0 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
                     {showPostImage ?
                       <>
                         <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} />
@@ -589,61 +798,358 @@ const handleRemoveImageSwap = () => {
                       :
                       null
                     }
-
-</span>
+              </span>
                                     {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}</div> 
         
-                                  {
-                                     imageshow()
-                                   }
-                                   <div style={{textAlign:'center',background:'#C4C4C4',fontWeight:'bold',color:'rgb(68 68 68)', margin:'11px 11px', padding:'15px',borderRadius:'5px', fontSize:'14px',cursor:"pointer"}} onClick={uploadPost}>Post</div>
-                                   
-
-                  </Form>
-                  )}                 
-  </Popup> 
+              {
+                  imageshow()
+                }
+                <div style={{textAlign:'center',background:'#C4C4C4',fontWeight:'bold',color:'rgb(68 68 68)', margin:'11px 11px', padding:'15px',borderRadius:'5px', fontSize:'14px',cursor:"pointer"}} onClick={uploadPost}>Post</div>
+            </Form>
+          )}                 
+        </Popup> 
     )
-                  }
-  //Adding new swap
-  const postUp1 = () => {
-    return(
-      <Popup trigger= {<div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>} 
-        modal nested>
-        { close => (
-          <Form className="popwidth">
-            <div className="headpop">
-              <div className="row">
+  }
+  const popAudience = () => {
+    return (
+
+      <Popup
+        trigger={
+          <span style={{fontSize: '11px', padding: '4px', cursor: 'pointer', backgroundColor: '#0333471a', borderRadius: '5px' }}>
+          {privacy}
+
+            <img src="assets/images/Vector.svg"
+              style={{ paddingLeft: '4px', verticalAlign: 'middle' }} />
+          </span>
+        }
+        modal
+        nested
+      >
+        {(close) => (
+          <Form style={{ paddingRight: '11px', paddinLeft: '11px', paddingBottom: '0px' }}
+            className='popwidth' onSubmit={close}>
+            <div className='headpop' style={{ padding: '0px' }}>
+              <div className='row' style={{ paddingBottom: '10px', paddingtop: '10px' }}>
+                <div style={{ width: '5%', paddingBottom: '10px' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times' style={{ fontSize: '20px', background: '#C4C4C4', borderRadius: '50%' }}></i>
+                  </a>
+                </div>
+
                 <div
-                  style={{
-                    color: "#000000",
-                    fontSize: "17px",
-                    fontWeight: "bold",
-                    width: "95%",
-                    textAlign: "center",
-                  }}
+                  style={{ color: '#000000', fontSize: '21px', fontWeight: 'bold', width: '95%', textAlign: 'center' }}
+
                 >
-                  <span>Create Swap Post</span>
+                  {' '}
+                  <span>Select Audience</span>
                 </div>
-                <div style={{ width: "5%" }}>
-                  <span style={{}}>
-                    <a href="#!" onClick={close}>
-                    <i class="far fa-times-circle"></i>
-                    </a>
-                  </span>
-                </div>
-                {/* <div style={{ width: '10%', textAlign: 'center' }}>
-                  <span style={{ float: 'right' }}>
-                    {' '}
-                    <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-                      Post
-                    </button>
-                  </span>
-                </div> */}
+
+              </div>
+
+              <div className="headaudience"
+
+              >
+                {' '}
+                <span style={{ fontWeight: 'bold' }}
+                >Who can see your post?</span>
+                <p style={{ fontSize: '13px', paddingTop: '2px' }}>
+                  <p style={{ color: '#525050', fontweight: '400 !important' }}>
+                    your post will apear in newsfeed, on your profile and search results</p>
+                </p>
+              </div>
+              <div>
+
+                <fieldset>
+                  <div className="form-card">
+                    <ul className="nearby-contct">
+
+                      <yi >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/publicicon.svg" style={{ width: '49%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Public
+                            </p>
+                            <p style={{ fontSize: '11px', paddingTop: '1px' }}>
+                              <p style={{ color: '#525050' }}>
+                                anyone on or off facebook</p>
+                            </p>
+
+
+                          </div>
+
+                          <input type="radio" Value="Public" name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi>
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/friendsicon.svg" style={{ width: '46%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Friends
+                            </p>
+
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              your shareup friends
+                            </p>
+
+
+                          </div>
+
+                          <input type="radio" Value="Friends"  name="privacy" onChange={handleChange}  style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/friendexcepticon.svg" style={{ width: '46%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Friends except
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              don't show some friends
+                            </p>
+
+                          </div>
+
+                          <input type="radio" Value="Friends except" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi  >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/groupicon.svg" style={{ width: '46%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Group
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              select to show for group
+                            </p>
+                          </div>
+
+                          <input type="radio" Value="Group" name="privacy" onChange={handleChange} style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+                      <yi  >
+                        <div className="grid-containeraudience">
+                          <div class="item11">
+
+                            <img src="assets/images/onlymeicon.svg" style={{ width: '39%' }} />
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <span className="status f-online" /> */}
+                          </div>
+                          <div class="item22">
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'black' }}>
+                              Only Me
+                            </p>
+                            <p style={{ fontSize: '11px', fontweight: '300', paddingTop: '1px', color: '#525050' }}>
+                              private to all shareup users
+                            </p>
+                          </div>
+
+                          <input type="radio" Value="Only Me" name="privacy" style={{ height: '60%', width: '100%' }} />
+
+                          {/* <a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} href="#!" onClick={("")} ></a> */}
+
+                        </div>
+                      </yi>
+
+
+                    </ul>
+                  </div>
+                </fieldset>
+
+
+
               </div>
             </div>
-            <SwapComponents/>
-          </Form>  )
-        }               
+
+          </Form>
+        )}
+      </Popup>
+    );
+  };
+
+
+
+  //Adding new swap
+  const postSwap = () => {
+    return(
+      <Popup trigger= {
+        <span style={{ cursor: 'pointer' }}>
+          <span style={{ marginRight: '5px', padding: '5px' }}>
+            <i class="las la-sync-alt" aria-hidden="true" style={{fontSize:'20px'}}></i>
+          </span>
+          Swap
+        </span>
+        // <div className="textbox"><span style={{cursor: "pointer"}}>Do you want to swap anything?</span></div>
+        }
+        modal nested>
+        { close => (
+          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+
+            <div className='headpop'>
+              <div className='row'>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
+                  </a>
+                </div>
+                <div
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
+                >
+                  {' '}
+                  <span>Create Swap</span>
+                </div>
+                <div style={{ width: '20%', textAlign: 'right' }}>
+                  <a className='popup-btn' href='/HangGift'>
+                    Keep Swap
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: '0 11px 11px 11px' }}>
+              <div className='popupimg'>
+                <img
+                  src={
+                    user
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
+                  }
+                  alt=''
+                />
+              </div>
+              <div class='popupuser-name'>
+                <div style={{ display: 'inline' }}>
+                  <span>
+                    {`${user.firstName} ${user.lastName}`}
+                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                  </span>
+                  <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                      {popAudience()}
+                    </li>
+                    
+                    {/* <div className='dropdownnewsfeed'>
+                      <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
+                        <option value='Friends'>Friends</option>
+                        <option value='Public'>Public</option>
+                        <option value='Only Me'>Only Me</option>
+                      </select>
+                    </div>{' '} */}
+                  </span>
+                </div>{' '}
+              </div>{' '}
+            </div>
+            <div style={{ minHeight:'150px' }}>
+              <span className='textPop'>
+                <textarea
+                  className='textpopup'
+                  rows={2}
+                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
+                  name='swap_content'
+                  value={swapContent}
+                  onChange={handleSwapContent}
+                />
+
+                {showSwapImage ? (
+                  <>
+                    <div style={{position:'relative'}}>
+                      {swapImage.map((item, key) => (
+                        <img
+                          src={item}
+                          key={key}
+                          style={{
+                            padding: '10px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+                      ))}
+
+                      {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                      <button
+                        onClick={handleRemoveImageSwap}
+                        style={{
+                          right: '10px',
+                          top: '10px',
+                          position: 'absolute',
+                          borderRadius: '100%',
+                          background: '#b7b7b738',
+                          padding: '10px 10px',
+                        }}
+                      >
+                        <i class='las la-times'></i>
+                      </button>
+                    </div>
+
+                  </>
+                ) : null}
+              </span>
+              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+            </div>
+
+            {imageshowSwap()}
+            <div
+              type='submit'
+              value='Submit'
+              style={{
+                textAlign: 'center',
+                background: '#033347',
+                fontWeight: 'bold',
+                color: 'white',
+                margin: '11px 11px',
+                padding: '15px',
+                borderRadius: '5px',
+                fontSize: '14px',
+                cursor: 'pointer',
+              }}
+              onClick={uploadSwap}
+            >
+              SWAP
+            </div>
+          </Form>  
+        )}               
       </Popup>
     )
   }
@@ -651,7 +1157,7 @@ const handleRemoveImageSwap = () => {
   //ends swap here
 
   const postUp = () => {
-                    return(
+        return(
                 <Popup trigger={<div className="textbox"><span style={{cursor: "pointer"}}>We share,do you?</span></div>} modal nested>
                                        {close => (<Form className="popwidth">
                                     
@@ -810,15 +1316,14 @@ const handleRemoveImageSwap = () => {
                                     )
                                                   }
   const testFanc = (post) => {
-    return ( <SwapPostComponent post={post} setRefresh={setRefresh}/>)
+    return ( <PostComponent post={post} setRefresh={setRefresh}/>)
   }
 
   const show = () => {
-    
       return (
         <div className="loadMore">
           {
-            postsForUser.map(
+            swapsForUser.map(
               post =>
                 <div key={post.id}>
                   {
@@ -862,7 +1367,7 @@ const handleRemoveImageSwap = () => {
     setUserF(userM)
     console.log(userM) 
    }
-const handleSearchedUser = (event) => {
+  const handleSearchedUser = (event) => {
     if (event.target.value === "") {
         setSearchedUser(allUser)
     } else {
@@ -879,56 +1384,21 @@ const handleSearchedUser = (event) => {
         setSearchedUser(temp)
         console.log(temp)
     }
-}
-const getAllUser = async () => {
+  }
+  const getAllUser = async () => {
     await UserService.getUsers().then(res => {
         setAllUser(res.data)
         setSearchedUser(res.data)
     })
     console.log(user.email + " This is the users")
-}
-const getFriendsList = async () => {
+  }
+  const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
         setFriendsList(res.data)
     })
-}
-
-useEffect(() => {
-    getAllUser()
-    getFriendsList()
-    testScript()
-},[])
+  }
 
 
-  useEffect(() => {
-		getAllGroups()
-		
-	}, [showComp, group])
-
-	useEffect(() => {
-		testScript()
-	}, [])
-
-
-  useEffect(() => {
-    getUser()
-    getPost().then(() => {
-      setIsLoading(false)
-    })
-    getPostForUser()
-    getSavedPost()
-    testScript()
-  }, [editPostId, refresh])
-
-  useEffect(() => {
-    getPostForUser()
-    getSavedPost()
-    testScript()
-  }, [user])
-   useEffect(() => {
-    getStoriesForUser()
-    testScript()
-  }, [stories])
   if (isLoading) {
     return <div>Loading... Please Wait</div>
   }
@@ -938,66 +1408,61 @@ useEffect(() => {
   }
 
   return (
-    <Layout user={user ? user : userR}>
-      {
-        user.newUser ? <GuideComponent /> :
+    <Layout user={user}>
+			<div className="col-lg-6">
+				<div className="central-meta swap-pg-cont">
+					<div className="frnds">
+					<div>
+						<p className="Friends-Title">Swaps</p>
+						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
+					</div>
+						<div class="navContent">
 
-          <div className="col-lg-6">
-            
-            
-   
- 
-
-            <div className="central-meta newsfeed">
-              <div className="new-postbox">
-                <figure>
-                  <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
-                </figure>
-                <div className="newpst-input">
-                  <Form>
-                   {postUp1()}
-                    {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                    {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ width: "80%", border: "3px solid" }} />
-                        <button onClick={handleRemoveImage}>x</button>
-                      </>
-                      :
-                      null
-                    } */}
-
-                    <div className="attachments">
-                      <ul>
-                        <li>
-                        {popUp()}
-                          
-                          </li>
-{/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-                        </label> */}
-                        <li>{shareUp()}</li>
-                        <li>{swapUp()}</li>
-                        {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
-                        </label></li> */}
-                        
-                          
-                       
-                      </ul>
-                      
-                    </div>
-                    
-                  </Form>
-                </div>
-              </div>
+							<ul class="nav nav-pills swap-page-nav attachments" role="tablist">
+								<li class="nav-item">
+                  <span style={{ cursor: 'pointer' }} onClick={()=> allSwaps()}>
+                    <span style={{ marginRight: '5px', padding: '5px' }}> 
+                    <i class="fas fa-retweet" style={{fontSize:'20px'}}></i>
+                    {/* <span>{`${following.length}`}</span> */}
+                    </span>
+                    All Swaps
+                  </span>
+								</li> 
+								<li class="nav-item">
+                  <span style={{ cursor: 'pointer' }} onClick={()=> mySwaps()}>
+                    <span style={{ marginRight: '10px', padding: '5px' }}> 
+                    <i class="ti-control-shuffle" style={{fontSize:'20px'}}></i>
+                    {/* <span>{`${following.length}`}</span> */}
+                    </span>
+                    My Swaps 
+                  </span>
+								</li>
+								<li class="nav-item">
+                  {postSwap()}
+								</li>
+                {/* <li class="nav-item">
+                  <span style={{ cursor: 'pointer' }}>
+                    <span style={{ marginRight: '5px', padding: '5px' }}>
+                      <i class="fas fa-bell" style={{fontSize:'25px'}}></i>
+                    </span>
+                    Notifications
+                  </span>
+								</li> */}
+								
+							</ul>
+							
+						</div>
+    				<div class="friends-search-container" style={{display:'flex' ,alignItems:'center' ,justifyContent:'center'}}>
+              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{width:"80%"}}/>
             </div>
-        
-            {/* add post new box */}
-            {/* <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>Newsfeed</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span>|<span onClick={() => setShowComp("saved")}>SharePosts</span>|<span onClick={() => setShowComp("saved")}>Swap Posts</span></p> */}
-            {
-              show()
-            }
-          </div>
-      }
-    </Layout>
+
+					</div>
+
+				</div>
+						{show()}
+
+			</div>
+		</Layout>
 
   );
 }

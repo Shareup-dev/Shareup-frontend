@@ -10,6 +10,8 @@ import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
 import settings from '../services/Settings';
 import fileStorage from '../config/fileStorage';
+import img1 from '../images/news1.jpg'
+
 export default function Layout(props) {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +52,7 @@ console.log("User: ", user);
                   <div className="col-lg-3">
                     <aside className="sidebar static">
                     <div className="widget">
-                        <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>  
+                        {/* <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>   */}
                        <div className="user"><img src={fileStorage.baseUrl+user.profilePicturePath}/>
                         <a href="/profile"><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                         </div>
@@ -78,12 +80,12 @@ console.log("User: ", user);
                             <a href="/friends" title="#">ShareFriends</a>
                           </li>
                           <li>
-                          <div style={{marginRight:"10px", display:"inline"}}><i className="ti-user" /><p  style={{fontSize:"18px",color:"blue", marginLeft:"-8px", display:"inline"}}>+</p></div>
+                          <div style={{marginRight:"12px", display:"inline"}}><i className="ti-user" /><p  style={{fontSize:"18px",color:"blue", marginLeft:"-8px", display:"inline"}}>+</p></div>
                             
                           <a href="/Addfriends" title="#">Add Friends</a>
                           </li>
                           <li>
-                          <div style={{marginRight:"2px", display:"inline"}}><i className="ti-user" /><i className="ti-user" style={{marginLeft:"-19px"}} /></div>
+                          <div style={{marginRight:"5px", display:"inline"}}><i className="ti-user" /><i className="ti-user" style={{marginLeft:"-19px"}} /></div>
                           <a href="/groups" title="#">ShareGroups</a>
                           </li>
                           <li>  
@@ -107,46 +109,74 @@ console.log("User: ", user);
                   {/* centerl meta */}
                   <div className="col-lg-3">
                     <aside className="sidebar static">
-                    <div className="widget friend-list stick-widget">
-                      <div className="row"><img src="../assets/images/1865023.png"/><p className="widget-title">Ads</p></div>
-                      <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a>
-                      </div>
+                      {/* <div className="widget friend-list stick-widget">
+                        <div className="row"><img src="../assets/images/1865023.png"/><p className="widget-title">Ads</p></div>
+                          <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a>
                         </div>
+                      </div> */}
 
-                      <div className="widget friend-list stick-widget">
-                      <div className="row" ><img src="../assets/images/Trends1.jpg"/><p className="widget-title">News</p></div>
-                      <div className="news"><a href="#" data-lightbox="image-1" data-title="My caption">
-                        <img src="../assets/images/Trends1.jpg"></img></a></div>
-                      </div>
-                        <div class="media-date">
-                          <marquee direction="right" >What's trending</marquee></div>
-                          <div style={{background:'white' , padding: '15px',borderRadius:'10px',marginBottom:'30px'}}>
+                      {/* <div className="widget friend-list stick-widget">
+                        <div className="row" ><img src="../assets/images/Trends1.jpg"/><p className="widget-title">News</p></div>
+                          <div className="news">
+                            <a href="#" data-lightbox="image-1" data-title="My caption">
+                              <img src="../assets/images/Trends1.jpg"></img>
+                            </a>
+                          </div>
+                        </div> */}
+                        
+                          <div style={{}} className="sidebar-news">
+                            <div class="media-date">What's trending</div>
+                            <div style={{}}>
+                              <ul>
+                                  <li>
+                                    <div className="headline-cont">
+                                      <p  className="headline"> 
+                                      Omicron variant of COVID-19: New travel guidelines to come into force from December 1
+                                      </p>
+                                      <img src={img1} />
+                                    </div>
+                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                      <a href=" https://www.aljazeera.com/where/qatar/" target="_blank" className="source">Aljazeera Qatar News</a>
+                                      <p className="date">12/1/2021</p>
+                                    </div>
 
-                          <ul>
-                              <li>
-                                  <i><a href=" https://www.aljazeera.com/where/qatar/" target="_blank" style={{textDecoration:"underline",color:"#258eae" ,fontstyle:"italic"}}>Aljazeera Qatar News</a></i><br/>
-                                  <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"16px",paddingTop:'10px'}} class="text-justify"> Al Jazeera for truth and transparency ....
-                                </p><br/>
-                              </li>
-                                  
-                              <li>
-                                  <i><a href="https://www.theverge.com/tech" target="_blank" style={{textDecoration:"underline",color:"#258eae" ,fontstyle:"italic"}}>Technology</a></i><br/>
-                                  <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"16px",paddingTop:'10px'}} class="text-justify">Technology Trends report examines the ever-evolving </p><br/>
-                              
-                              </li>
-                                <li>
-                                  <i><a href="https://thepeninsulaqatar.com/category/Qatar-Business" target="_blank" style={{textDecoration:"underline",color:"#258eae" ,fontstyle:"italic"}}>Business</a></i><br/>
-                                  <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"16px",paddingTop:'10px'}} class="text-justify">Comprehensive Guide to Qatar Business ....</p>
-                              <br/>
-                              </li>
-                              <li> <a href="https://www.dohanews.co/category/sports/" target="_blank" style={{textDecoration:"underline",color:"#258eae"}}>Sports</a><br/></li>
-                              <p style={{fontFamily:"Times New Roman",fontWeight:"normal",fontSize:"16px",paddingTop:'10px'}} class="text-justify">View the latest in Qatar, SOCCER team news here.Sports..</p>
-                          </ul>
-                          <br/>
+                                  </li>
+                                      
+                                  <li>
+                                      <div className="headline-cont">
+                                        <p className="headline" >Prime Minister Scott Morrison says big tech firms have responsibility to ensure their platforms are safe.</p>
+                                      </div>
+                                      <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                        <a href="https://www.theverge.com/tech" target="_blank" className="source">Technology</a>
+                                        <p className="date">12/1/2021</p>
+                                      </div>
+                                  </li>
+                                  <li>
+                                    <div className="headline-cont">
+                                      <p className="headline">Comprehensive Guide to Qatar Business ....</p>
+                                    </div>
+                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                        <a href="https://thepeninsulaqatar.com/category/Qatar-Business" target="_blank" className="source">Business</a>
+                                        <p className="date">12/1/2021</p>
+                                    </div>
+                                  </li>
+                                  <li> 
+                                    <div className="headline-cont">
+                                      <p className="headline">The #FIFArabCup Qatar 2021 kicks off today, coinciding with the inauguration of Al Bayt Stadium and Stadium 974, the latest stadiums to be ready for the FIFA World Cup 2022</p>
+                                    </div>
+                                    
+                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                      <a href="https://www.dohanews.co/category/sports/" target="_blank" className="source">Sports</a>
+                                      <p className="date">12/1/2021</p>
+                                    </div>
+                                  </li>
+                                  <li style={{textAlign:"center" ,paddingTop:'10px' }}><a href="https://www.aljazeera.com/" style={{fontSize: '12px' ,color:"#258eae"}} target="_blank">Show More</a></li>
+                              </ul>
+                            </div>  
                         </div>
-                          <FriendsWidgetComponent />
-                          <FollowingWidgetComponent /> 
-                          <GroupsWidgetComponent/>
+                        <FriendsWidgetComponent />
+                        <FollowingWidgetComponent /> 
+                        <GroupsWidgetComponent/>
                       </aside>
                     </div>
                     {/* sidebar */}

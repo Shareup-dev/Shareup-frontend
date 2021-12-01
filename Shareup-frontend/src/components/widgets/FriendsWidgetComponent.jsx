@@ -8,6 +8,8 @@ import AuthService from '../../services/auth.services';
 import FriendsService from '../../services/FriendService';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import PostService from '../../services/PostService';
+import fileStorage from '../../config/fileStorage';
+
 
 function FriendsWidgetComponent() {
     let history = useHistory();
@@ -37,17 +39,18 @@ function FriendsWidgetComponent() {
                 <div className="row"><img src="../assets/images/Graphicloads-Colorful-Long-Shadow-User-group.ico"/><p className="widget-title">Friends</p></div>
                 {/* <div id="searchDir" /> */}
                 <ul id="people-list" className="nearby-contct">
-                    {friendsList.slice(0, 8).map(friend =>
+                    {friendsList.slice(0, 4).map(friend =>
                         <li key={friend.id}  >
-                            <div className="nearly-pepls">
-                            <figure>
-                                <img className="imgFrnd" src={friend.profilePicturePath} alt="" />
+                            <div className="nearly-pepls" style={{display:'flex', width:'100%' ,padding:'10px',alignItems:'center'}}>
+                            <figure style={{width:'20%'}}>
+                                <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicturePath} alt="" />
                                 <span className="status f-online" />
                             </figure>
-                            <div className="friendz-meta">
+                            <div className="" style={{width:'55%',textAlign: 'left' ,paddingLeft:'10px',display:'flex',flexDirection:'column'}}>
                                 <a href={`/profile/${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a>
-                                
+                                <p style={{fontSize:'12px',paddingTop:'5px'}}>{friend.numberOfFriends} Friends</p>
                             </div>
+                            <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}>Unfriend</button>
                             </div>
                         </li>
                     )}
