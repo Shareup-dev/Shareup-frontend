@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import UserService from '../../services/UserService';
 import PostService from '../../services/PostService';
+import SwapService from '../../services/SwapService';
 import EditPostComponent from './EditPostComponent'
 import CommentPostComponent from './CommentPostComponent';
 import PostComponentBoxComponent from './PostCommentBoxComponent';
@@ -136,8 +137,15 @@ export default function PostComponent({ post, setRefresh }) {
     setShowMoreOptions(false);
   }
 
-  const handleDeletePost = (postid) => {
-    PostService.deletePost(postid).then(res => {
+  const handleDeletePost = (post) => {
+    console.log(post.swapimages?'hi':'no')
+    if(post.swapimages){
+      SwapService.deleteSwap(post.id).then(res => {
+        console.log(res.status)
+        setRefresh(res.data)
+      })
+    }else
+    PostService.deletePost(post.id).then(res => {
       console.log(res.status)
       setRefresh(res.data)
     })
@@ -413,7 +421,7 @@ export default function PostComponent({ post, setRefresh }) {
                               <span>Save Post</span>
                             </li>
                             {post.user.id === user.id ? (
-                              <li onClick={() => handleDeletePost(post.id)}>
+                              <li onClick={() => handleDeletePost(post)}>
                                 <i class='las la-trash'></i>
                                 <span>Delete</span>
                               </li>
