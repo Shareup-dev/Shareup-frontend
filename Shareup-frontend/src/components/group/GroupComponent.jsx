@@ -41,7 +41,7 @@ function GroupComponent({post}) {
 	const getAllGroups = async () => {
 		await GroupService.getAllGroups().then(res => {
 			setAllGroups(res.data)
-			setSearchedGroups(res.data)
+			// setSearchedGroups(res.data)
 		})
 	}
 
@@ -52,7 +52,7 @@ function GroupComponent({post}) {
           return res.data.find(a => a.id === id)
         })
 			setMyGroups(uniqueGroups)
-			setSearchedMyGroups(uniqueGroups)
+			// setSearchedMyGroups(uniqueGroups)
 		})
 	}
 
@@ -120,51 +120,9 @@ function GroupComponent({post}) {
 
 
 
-	const showAllGroupsComponentR = () => {
-		return (<div className="tab-content">
-			<input type="text" id="header-search" placeholder="Search users" name="s" onChange={handleSearchGroup} />
-			<div className="tab-pane active fade show " id="frends">
-				<ul className="nearby-contct">
-					{searchedGroups.map(
-						group =>
-							<li key={group.id}>
-								<div className="nearly-pepls">
-									<figure>
-										{console.log(fileStorage.baseUrl+group.groupImagePath)}
-										<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ?fileStorage.baseUrl+ group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
-									</figure>
-									<div className="pepl-info">
-										<h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
-										<span>{`${group.description}`}</span>
-										{/* {
-											(!friendsList.some(el => el.id === userM.id)) ?
-												<a href="#" title="#" className="add-butn" style={{ color: "#fff" }} data-ripple onClick={() => addFriendsId(user.id, userM.id)}>add friend</a>
-												:
-												<>
-													<a href="#" title="#" className="add-butn more-action" data-ripple onClick={() => removeFriend(user.id, userM.id)}>unfriend</a>
-													<p>Already a friend</p>
-												</>
-										}
-										{
-											(!following.some(el => el.id === userM.id)) ?
-											<p><a style={{display: "block",float: "right"}} href="#" onClick={() => handleFollow(userM.id)} >Follow</a></p>
-												:
-												<p><a style={{display: "block",float: "right", color:"red"}} href="#" onClick={() => handleUnfollow(userM.id)}>Unfollow</a></p>
-										} */}
-
-
-									</div>
-								</div>
-							</li>
-					)}
-				</ul>
-				<div className="lodmore"><button className="btn-view btn-load-more" /></div>
-			</div>
-		</div>)
-	}
 
 	const showAllGroupsComponent = () => {
-		console.log(searchedGroups)
+		// console.log(searchedGroups)
 		return (
 			<div className="tab-content">
 				<div class="friends-search-container">
@@ -174,7 +132,7 @@ function GroupComponent({post}) {
 					<ul className="nearby-contct">
 						<li class="friends-card groupalign" style={{marginRight: '10px'}}>
 							<a href='/group/create'>
-								<div className='groupsggstion-card'>
+								<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'270px'}}>
 									<div className='groupsggstion-img'>
 										<div>
 											<img src={Grpicon} className="no-img"/>
@@ -189,7 +147,7 @@ function GroupComponent({post}) {
 								</div>
 							</a>
 						</li>
-						{searchedGroups.map((group,index) =>
+						{allGroups.map((group,index) =>
 								<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
 		                            <a href={`/groups/${group.id}`}>
 
@@ -236,46 +194,80 @@ function GroupComponent({post}) {
 	}
 
 	const showMyGroupsComponent = () => {
-		return (<div className="tab-content">
-		<div class="friends-search-container"><i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
-		<div className="tab-pane active fade show " id="frends">
-			<ul className="nearby-contct">
-				{searchedMyGroups.map(
-					group =>
-						<li key={group.id} className="friends-card grp">
-							<div className="grid-container">
-								{/* <figure> */}
-								<div class="item12">
-									<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"} alt="" /></a>
-							
-									{/* </figure> */}
+		return (
+			<div className="tab-content">
+			<div class="friends-search-container">
+				{/* <i class="las la-search"></i> */}
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
+			<div className="tab-pane active fade show " id="">
+				<ul className="nearby-contct">
+					<li class="friends-card groupalign" style={{marginRight: '10px'}}>
+						<a href='/group/create'>
+							<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'270px'}}>
+								<div className='groupsggstion-img'>
+									<div>
+										<img src={Grpicon} className="no-img"/>
+									</div>
+									<i class="fas fa-plus-circle"></i>
 								</div>
-								{/* <div className="  "> */}
-								<div class="item2">
-									<p className="nameTag"><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+								<div className='groupsggstion-by'>
+									<a href='/group/create'>
+										<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
+									</a>
 								</div>
-								
-								<div class="item6">
-									{/* <span>Engr</span> */}
-									<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
-								</div>
-								
-
-
-								{/* </div> */}
 							</div>
-						</li>
-				)}
-			</ul>
-			<div className="lodmore"><button className="btn-view btn-load-more" /></div>
+						</a>
+					</li>
+					{myGroups.map((group,index) =>
+							<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
+								<a href={`/groups/${group.id}`}>
+
+									<div className="group-li-item">
+										{/* <figure> */}
+										<div class="item12">
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
+											{/* </figure> */}
+											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
+										</div>
+										{/* <div className="  "> */}
+										<div className="item23">
+											<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+											<p className="grp-mem-text">2.7K Members</p>
+											<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
+												{
+														checkIfInGroup(group.members) ?
+															<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e,group.id)}>Leave Group</a>
+															:
+															<a href className="button grp-btn join-grp-btn"  onClick={(e) => handleJoinGroup(e,group.id)}>Join Group</a>
+													}
+												{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
+											</div>
+										</div>
+										
+										{/* <div class="item6">
+											{/* <span>Engr</span> */}
+											{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
+										{/* </div> */}
+										
+
+
+										{/* </div> */}
+
+									</div>
+								</a>
+							</li>
+					)}
+				</ul>
+				<div className="lodmore"><button className="btn-view btn-load-more" /></div>
+			</div>
 		</div>
-	</div>)
+		)
 	}
 
 	useEffect(() => {
 		getAllGroups()
 		getMyGroups()
-	}, [showComp, group])
+	}, [showComp, refresh])
 
 	useEffect(() => {
 		testScript()
@@ -294,7 +286,7 @@ function GroupComponent({post}) {
 
 							<ul class="nav nav-pills" role="tablist">
 								<li class="nav-item">
-									<a class="nav-link active" data-toggle="pill" href="#!" onClick={() => setShowComp("allgroups")}> <i class="las la-users"></i> All Groups <a className='numberCircle'></a></a>
+									<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("allgroups")}> <i class="las la-users"></i> All Groups <a className='numberCircle'></a></a>
 									{/* <span>{`${allUser.length}`}</span> */}
 								</li>
 								<li class="nav-item">
@@ -302,7 +294,7 @@ function GroupComponent({post}) {
 									{/* <span>{`${following.length}`}</span> */}
 								</li>
 								<li class="nav-item">
-									<a class="nav-link active" data-toggle="pill" href="/group/create"> <i class="las la-plus-circle"></i> Create Group <a className='numberCircle'></a></a>
+									<a class="nav-link active" data-toggle="pill" onClick={()=>history.push('/group/create')}> <i class="las la-plus-circle"></i> Create Group <a className='numberCircle'></a></a>
 									{/* <span>{`${followers.length}`}</span> */}
 								</li>
 								
