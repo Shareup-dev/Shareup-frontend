@@ -83,14 +83,7 @@
       });
   </script>
   
-  <script type="text/javascript">
-    $(document).mouseup(function (e) {
-        if ($(e.target).closest(".stickers-bunch").length
-                    === 0) {
-            $(".stickers-bunch").hide();
-        }
-    });
-</script>
+
 
 <script type="text/javascript">
   $(document).mouseup(function (e) {
@@ -98,8 +91,21 @@
                   === 0) {
           $(".smiles-bunch").hide();
           
+          
       }
   });
+</script>
+
+<script type="text/javascript">
+
+    $(document).mouseup(function (e) {
+        if ($(e.target).closest(".stickers-bunch").length
+                    === 0) {
+           
+            setShowSticker(!showSticker);
+         }
+ });
+
 </script>
 
 

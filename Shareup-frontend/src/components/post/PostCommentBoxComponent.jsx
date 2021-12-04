@@ -8,7 +8,7 @@ import Picker from 'emoji-picker-react';
 import PickerGif from 'react-giphy-picker';
 import Giphy from "../Giphy";
 import Stickers from "../Stickers";
-
+import $ from 'jquery'
 
 
 
@@ -75,6 +75,11 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
   }
 
 
+
+ 
+
+    
+
   return (
     post &&
     <li className="post-comment">
@@ -120,7 +125,7 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                 ) : (
                   <span>No Gif Chosen</span>
                 )}
-                <Stickers />
+                <Stickers/>
                 {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
 
 
