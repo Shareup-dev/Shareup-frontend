@@ -62,7 +62,7 @@ function GroupsWidgetComponent() {
                             <span>{`${group.description}`}</span>
 
                         </div>
-                        <button className="button" style={{width:'60px',margin:'10px'}}>Join</button>
+                        <button className="button" style={{width:'60px',margin:'10px',padding:'0 5px'}}>Join</button>
                     </div>
                 </li>
                 )}

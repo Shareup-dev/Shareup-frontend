@@ -25,7 +25,7 @@ authenticate()
 class FriendService {
     getFriends = async (email) => {
         authenticate()
-        const result = await authAxios.get('/friends/' + email)
+        const result = await authAxios.get('/friends/email/' + email)
         return result
     }
 

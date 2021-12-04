@@ -2374,7 +2374,7 @@ function NewsfeedComponent() {
                     postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
                      }
                      </div> */}
-          <div className='central-meta newsfeed grp-sugg-cont'>
+          {/* <div className='central-meta newsfeed grp-sugg-cont'>
             <div style={{ fontSize: '18px', padding:'1rem 20px' , fontWeight: 'bold', marginTop: '10px' }}>Groups Suggestions</div>
               <div class='slide-wrapper' style={{margin:'0'}}>            
                 <ul class='slide container-fluid'>
@@ -2430,64 +2430,47 @@ function NewsfeedComponent() {
                                     alt=''
                                   />
                                 </a>
-                                {/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
                               </div>
 
                               <div className='groupsggstion-by'>
-                                {/* <img
-                                  src={
-                                    group.groupImagePath
-                                      ? fileStorage.baseUrl + group.groupImagePath
-                                      : Grpicon
-                                  }
-                                  alt=''
-                                /> */}
-                              <div style={{ paddingLeft: '10px' , height:'20px' }}>
+                                <div style={{ paddingLeft: '10px' , height:'20px' }}>
 
-                                  <span className='groupname'>
+                                    <span className='groupname'>
 
-                                    <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
+                                      <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
 
+                                      </a>
+                                    </span>
+                                  </div>
+                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
+                                    {group.members.length > 1 ? (
+
+                                      <p className="grp-mem-text"> {group.members.length} Members</p>
+                                    ) : (
+                                      <p className="grp-mem-text">{group.members.length} Member</p>
+                                    )}
+                                  </div>
+                                  {checkIfInGroup(group.members) ? (
+                                    <a
+
+                                      href
+                                      class='buttonGrpFd mrgngrp mt-0'  
+                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
+                                      onClick={(e) => handleLeaveGroup(e,group.id)}
+                                    >
+                                      Leave Group
                                     </a>
-                                  </span>
-                                </div>
-                                <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
-                                  {group.members.length > 1 ? (
-
-                                    <p className="grp-mem-text"> {group.members.length} Members</p>
                                   ) : (
-                                    <p className="grp-mem-text">{group.members.length} Member</p>
+                                    <a
+                                      href
+                                      class='buttonGrpFd mrgngrp mt-0'
+                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
+                                      onClick={(e) => handleJoinGroup(e,group.id)}
+                                    >
+                                      Join Group
+                                    </a>
+
                                   )}
-                                </div>
-                                {checkIfInGroup(group.members) ? (
-                                  <a
-
-                                    href
-                                    class='buttonGrpFd mrgngrp mt-0'  
-                                    style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
-                                    onClick={(e) => handleLeaveGroup(e,group.id)}
-                                  >
-                                    Leave Group
-                                  </a>
-                                ) : (
-                                  <a
-                                    href
-                                    class='buttonGrpFd mrgngrp mt-0'
-                                    style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
-                                    onClick={(e) => handleJoinGroup(e,group.id)}
-                                  >
-                                    Join Group
-                                  </a>
-
-                                )}
-                                {/* <a
-                                  href
-                                  class='buttonGrpFd mrgngrp'
-                                  style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' }}
-                                  onClick={() => handleJoinGroup(group.id)}
-                                >
-                                  Preview
-                                </a> */}
                               </div>
                             </div>
                           </a>
@@ -2495,17 +2478,8 @@ function NewsfeedComponent() {
                       ))}
                   </OwlCarousel>
                 </ul>
-
-              {/* <div class='paddles'>
-                <button class='left-paddle paddle hidden'>
-                  <i class='las la-chevron-circle-left'></i>
-                </button>
-                <button class='right-paddle paddle'>
-                  <i class='las la-chevron-circle-right'></i>
-                </button>
-              </div> */}
             </div>
-          </div>
+          </div> */}
           {/* add post new box */}
           {/* <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>Newsfeed</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span>|<span onClick={() => setShowComp("saved")}>SharePosts</span>|<span onClick={() => setShowComp("saved")}>Swap Posts</span></p> */}
           {show()}

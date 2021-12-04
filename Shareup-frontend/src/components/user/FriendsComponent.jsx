@@ -21,14 +21,17 @@ function FriendsComponent() {
 
 	const [allUser, setAllUser] = useState([]);
 	const [friendsList, setFriendsList] = useState([]);
+	const [friendsCount, setFriendsCount] = useState();
 	const [searchedUser, setSearchedUser] = useState([]);
 
 	const [showComp, setShowComp] = useState("members");
 
 	const [following, setFollowing] = useState([]);
+	const [followingCount, setFollowingCount] = useState([]);
 	const [searchedFollowing, setSearchedFollowing] = useState([]);
 
 	const [followers, setFollowers] = useState([]);
+	const [followersCount, setFollowersCount] = useState([]);
 	const [searchedFollowers, setSearchedFollowers] = useState([]);
 
 	const [friendRequestSent, setFriendRequestSent] = useState([]);
@@ -141,13 +144,14 @@ function FriendsComponent() {
 	const FcomponentFunction = () => {
     return (<div className="tab-content">
         <div class="friends-search-container">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
+            {/* <i class="las la-search"></i> */}
+			<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
         </div>
         <div className="tab-pane active fade show " id="frends">
-            <div style={{ contentAlign: 'center', textAlign: 'center', paddingTop: '15px' }}>
+            {/* <div style={{ contentAlign: 'center', textAlign: 'center', paddingTop: '15px' }}>
                 {(friendsList.length > 0) ? <p style={{ marginBottom: '5px', fontWeight: 'medium', fontSize: '24px', color: '#646464' }}>Your Friends!</p>:
                 <p style={{ fontWeight: 'medium', fontSize: '18px', color: '#646464' }}>There are no Friends!</p>}
-            </div>
+            </div> */}
             <ul className="nearby-contct">
                 {friendsList.map(
                     userM =>
@@ -162,13 +166,16 @@ function FriendsComponent() {
                                 <div class="item2">
                                     <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 									{/* <button className="friends-button" onClick={() => unsendFriendRequest(user.id, userM.id)}>Request Sent</button> */}
-									{
+									
+								</div>
+                                <div class="item4">
+								{
                                     (user.id !== userM.id) ?
                                         (!friendsList.some(el => el.id === userM.id)) ?
                                             friendRequestRecieved.some(el => el.id === userM.id)
                                                 ?
                                                 <>
-                                                     <div class="item5">
+                                                     <div class="">
                                                             <a href="#!" title="#" className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept Request</a>
 														
                                                         </div>
@@ -195,20 +202,19 @@ function FriendsComponent() {
 													 
 													 className="button more-action" data-ripple onClick={() => removeFriend(user.id, userM.id)}>Unfriend</a> 
                                                 
-                                                {/* <div class="item5">
-                                                     <p style={{ float: "right" }}>Already a friend</p> 
-                                                </div> */}
+                                                
                                             </>
                                         :
-                                        <div class="item5">
+                                        <div >
                                             {/* <p style={{ float: "right" }}>Your own profile</p> */}
                                         </div>
                                 }
-								</div>
-                                <div class="item4">
-                                    
+								
                                 </div>
-                                {/* <div class="item6">
+                                <div class="item5">
+									<p ><i class="fas fa-ellipsis-h"></i></p> 
+								</div>
+								{/* <div class="item6">
                                      <span>Engr</span> 
                                     <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
                                 </div> */}
@@ -242,7 +248,8 @@ const FollowingComponentFunction = () => {
     return (
         <div className="tab-content">
             <div class="friends-search-container">
-                <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowing} />
+                {/* <i class="las la-search"></i> */}
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowing} />
             </div>
             <div className="tab-pane active fade show " id="following">
                 <ul className="nearby-contct">
@@ -259,9 +266,13 @@ const FollowingComponentFunction = () => {
                                     {/* <div className="  "> */}
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
-										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
                                     </div>
-                                    
+                                    <div className="item4">
+										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+									</div>
+									<div class="item5">
+										<p ><i class="fas fa-ellipsis-h"></i></p> 
+									</div>
                                     {/* <div class="item6">
                                         {/* <span>Engr</span> 
                                         <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
@@ -287,7 +298,8 @@ const FollowersComponentFunction = () => {
     return (
         <div className="tab-content">
             <div class="friends-search-container">
-                <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowers} />
+                {/* <i class="las la-search"></i> */}
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowers} />
             </div>
             {/* <input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} /> */}
             <div className="tab-pane active fade show " id="following">
@@ -306,13 +318,15 @@ const FollowersComponentFunction = () => {
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 										{/* <button className="friends-button">Request Sent</button> */}
-										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+										
 										
                                     </div>
-                                    
-                                    <div class="item6">
+                                    <div className="item4">
+										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+									</div>
+                                    <div class="item5">
                                         {/* <span>Engr</span> */}
-                                        <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
+                                        <i style={{ fontSize: '20px' }} class="fas fa-ellipsis-h"></i>
                                     </div>
                                      {/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
@@ -414,6 +428,15 @@ const FriendRequestRecievedComponentFunction = () => {
 const getAllUser = async () => {
 	await UserService.getUsers().then(res => {
 		setAllUser(res.data)
+		allUser.map((Auser)=>{
+			if(Auser.id==user.id){
+				setFriendsCount(Auser.numberOfFriends);
+				setFollowingCount(Auser.numberOfFollowing);
+				setFollowersCount(Auser.numberOfFollowers);
+
+			}
+			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
+		})
 		setSearchedUser(res.data)
 	})
 	console.log(user.email + " This is the users")
@@ -492,7 +515,7 @@ return (
 			<div className="central-meta">
 				<div className="frnds">
 					{/* <ul className="nav nav-tabs"> */}
-					<div>
+					<div style={{paddingLeft: '10px' , paddingBottom:'10px'}}>
 						<p className="Friends-Title">Friends</p>
 						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
 					</div>
@@ -500,15 +523,15 @@ return (
 
 						<ul class="nav nav-pills" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" href="#!" onClick={() => setShowComp("members")}> <i class="las la-user"></i>Friends <a className='numberCircle'>{`${allUser.length}`}</a></a>
+								<a class="nav-link active" data-toggle="pill" href="#!" onClick={() => setShowComp("members")}> <i class="las la-user"></i>Friends <a className='numberCircle'>{`${friendsList&&friendsList.length!=='undefined'?friendsList.length:''}`}</a></a>
 								{/* <span>{`${allUser.length}`}</span> */}
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("following")}> <i class="las la-user-cog"></i> Following <a className='numberCircle'>{`${following.length}`}</a></a>
+								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("following")}> <i class="las la-user-cog"></i> Following <a className='numberCircle'>{`${following&&following.length?following.length:'0'}`}</a></a>
 								{/* <span>{`${following.length}`}</span> */}
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("followers")}> <i class="las la-user-tag"></i> Followers <a className='numberCircle'>{`${followers.length}`}</a></a>
+								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("followers")}> <i class="las la-user-tag"></i> Followers <a className='numberCircle'>{`${followers&&followers.length?followers.length:'0'}`}</a></a>
 								{/* <span>{`${followers.length}`}</span> */}
 							</li>
 						</ul>

@@ -35,18 +35,18 @@ function FollowingWidgetComponent() {
                 <div className="row"><img src="../assets/images/Public-Account-300x300.png"/><p className="widget-title">Who's following</p></div>
                 <ul className="followers">
                     {
-                        followers.slice(0, 5).map((follower_user) =>
+                        followers.slice(0, 4).map((follower_user) =>
                             <li key={follower_user.id} style={{display:'flex', width:'100%' ,padding:'10px',alignItems:'center'}}>
                                 <figure style={{width:'20%'}}>
                                     <img src={ fileStorage.baseUrl+follower_user.profilePicturePath} alt="" />
                                 </figure>
-                                <div className="" style={{width:'60%',textAlign: 'left' ,paddingLeft:'10px',display:'flex',flexDirection:'column'}}>
+                                <div className="" style={{width:'55%',textAlign: 'left' ,paddingLeft:'10px',display:'flex',flexDirection:'column'}}>
                                     <h4>
                                         <a href={`/profile/${follower_user.email}`} title="">{`${follower_user.firstName} ${follower_user.lastName}`}</a>
                                     </h4>
                                     <p style={{fontSize:'12px',paddingTop:'5px'}}>{follower_user.numberOfFollowers} Followers</p>
                                 </div>
-                                <button title="" className="button" style={{width:'60px',margin:'10px'}}>Add</button>
+                                <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}>Unfollow</button>
 
                             </li>
                         )
