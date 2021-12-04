@@ -115,7 +115,7 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
 
 
 
-<div className="stickers">
+<div className="stickers" style={{zIndex:'999'}}>
             <img src="/assets/images/sticker-svgrepo-com.svg"  style={{height:'19px'}} alt="" onClick={() => setShowSticker(!showSticker)} /></div>
           {showSticker &&
             <div className="stickers-bunch active">

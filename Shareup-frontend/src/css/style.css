@@ -469,6 +469,41 @@ a:hover.vk {
   right: 0;
 }
 
+.post-carousel{
+  position: relative;
+}
+
+.post-carousel .owl-dots{
+
+width: 100%;
+position: absolute;
+top: -16px;
+}
+
+.post-carousel .owl-dot{
+
+margin: 1px !important;
+  }
+
+.post-carousel .owl-dots span{
+
+  margin: 0px !important;
+  width: 9px !important;
+  height: 7px !important;
+  }
+
+  
+.post-carousel .owl-dots .owl-dot.active span{
+
+ background: #033347 !important;
+  }
+
+
+  .post-carousel .owl-dots .owl-dot:hover span{
+
+    background: #033347a3 !important;
+     }
+
 .post-carousel .owl-stage{
 /* max-height: 420px; */
 display: flex;
@@ -2982,6 +3017,7 @@ li.post-comment .comet-avatar {
   text-align: center;
   width: 280px;
   display: none;
+  z-index: 999;
 }
 .pdng1 {
   padding: 11px 15% 0 15%;
@@ -3026,6 +3062,7 @@ li.post-comment .comet-avatar {
 .gifs-bunch {
 
 
+  z-index: 999;
 
   background: #dbdbdf none repeat scroll 0 0;
   border-radius: 5px;
@@ -3090,6 +3127,7 @@ li.post-comment .comet-avatar {
 .stickers-bunch {
 
 
+  z-index: 999;
 
   background: #dbdbdf none repeat scroll 0 0;
   border-radius: 5px;

@@ -1147,7 +1147,7 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+          <Form  className='popwidth' onSubmit={close}>
 
             <div className='headpop'>
               <div className='row'>
@@ -1163,7 +1163,7 @@ function NewsfeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: '20%', textAlign: 'right' }}>
-                  <a className='popup-btn' href='/HangGift'>
+                  <a className='popup-btn' href='/HangGift' style={{ padding:'4px'}}>
                     Keep Swap
                   </a>
                 </div>

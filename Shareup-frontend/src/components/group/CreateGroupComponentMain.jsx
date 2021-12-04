@@ -171,7 +171,7 @@ function CreateGroupComponentMain() {
 
                     </div>
                     <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(0)} />
-                    <input type="button" name="" className="next action-button" defaultValue="Next Step" onClick={() => setStep(2)} />
+                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => setStep(2)} />
                 </fieldset>
             )
         }

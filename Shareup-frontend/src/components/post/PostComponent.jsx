@@ -458,7 +458,7 @@ export default function PostComponent({ post, setRefresh }) {
                   {post.postedimages.map((postImage,index) => (
                     <React.Fragment>
                       <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={{height:'420px', width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           className="lightbox-popup"
