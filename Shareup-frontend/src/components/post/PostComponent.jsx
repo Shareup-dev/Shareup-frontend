@@ -22,6 +22,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
 import Form from 'react-bootstrap/Form';
+import moment from 'moment'
 
 
 const my_url = `${storage.baseUrl}`
@@ -388,7 +389,8 @@ export default function PostComponent({ post, setRefresh }) {
                       ) : null}
                     </a>
                     <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
-                      on {`${post.published}`} {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>}
+                      on {moment(post.published, "DD MMMM YYYY hh:mm:ss").fromNow()} 
+                      {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>    
                 
