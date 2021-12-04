@@ -4831,12 +4831,18 @@ a.nav-link:hover {
   border-radius: 20px;
   /* height: 100px; */
 }
+.nav-pills>li.active>a:hover{
+  color: inherit;
+}
 .nav-pills .nav-link.active {
   font-size: 13px;
   background: #e5e5e5;
   color: rgb(0, 0, 0);
   padding: 10px 43px 10px 43px;
   margin: 2px;
+}
+.frnds .nav-pills .nav-item.active .nav-link{
+   /* background-color: #b6b6d982;  */
 }
 .nav-pills .nav-link.active:hover {
   cursor: pointer;
@@ -5037,6 +5043,11 @@ a.add-butn {
 .frnds {
   float: left;
   width: 100%;
+  padding-top: 20px;
+}
+.frnds .Friends-Title{
+  padding-left: 20px;
+  /* padding-bottom: 10px; */
 }
 
 .frnds .nav-tabs .nav-item {

@@ -515,7 +515,7 @@ return (
 			<div className="central-meta">
 				<div className="frnds">
 					{/* <ul className="nav nav-tabs"> */}
-					<div>
+					<div style={{paddingLeft: '10px' , paddingBottom:'10px'}}>
 						<p className="Friends-Title">Friends</p>
 						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
 					</div>

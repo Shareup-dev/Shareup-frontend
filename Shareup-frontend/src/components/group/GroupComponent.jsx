@@ -167,7 +167,9 @@ function GroupComponent({post}) {
 		console.log(searchedGroups)
 		return (
 			<div className="tab-content">
-				<div class="friends-search-container"><i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
+				<div class="friends-search-container">
+					{/* <i class="las la-search"></i> */}
+					<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} /></div>
 				<div className="tab-pane active fade show " id="">
 					<ul className="nearby-contct">
 						<li class="friends-card groupalign" style={{marginRight: '10px'}}>
@@ -284,7 +286,7 @@ function GroupComponent({post}) {
 			<div className="col-lg-6">
 				<div className="central-meta">
 					<div className="frnds">
-					<div>
+					<div style={{paddingBottom:'10px'}}>
 						<p className="Friends-Title">Groups</p>
 						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
 					</div>
