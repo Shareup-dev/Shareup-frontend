@@ -458,7 +458,7 @@ export default function PostComponent({ post, setRefresh }) {
                   {post.postedimages.map((postImage,index) => (
                     <React.Fragment>
                       <img
-                          style={{ width: '100%', objectFit: 'cover' }}
+                          style={{height:'420px', width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           className="lightbox-popup"
@@ -733,7 +733,7 @@ export default function PostComponent({ post, setRefresh }) {
                       </span>
                     </div>
                   ) : (
-                    <div className='btncmn' onClick={() => handleLikePost(post.id)}>
+                    <><div className='btncmn' onClick={() => handleLikePost(post.id)}>
                       <span className='dislike' data-toggle='tooltip' title=''>
                         {/* <img src='/assets/images/Star.svg' alt='' /> */}
                         {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
@@ -741,7 +741,40 @@ export default function PostComponent({ post, setRefresh }) {
                         <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span>
 
                       </span>
-                    </div>
+
+                     
+                      <div className='smiliehint'>
+                        
+                        
+
+                      
+                      {(
+                <div
+                  onMouseEnter={handleShowingReaction}
+                  onMouseLeave={handleUnshowingReaction}
+                  className='reaction-bunch active'
+                >
+                  <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')} />
+                  <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')} />
+                  <img src={'../assets/images/gif/laughing.gif'} onClick={() => handleSettingReactions('laughing')} />
+                  <img src={'../assets/images/gif/tongue.gif'} onClick={() => handleSettingReactions('tongue')} />
+                  <img src={'../assets/images/gif/angel.gif'} onClick={() => handleSettingReactions('angel')} />
+                  <img src={'../assets/images/gif/devil.gif'} onClick={() => handleSettingReactions('devil')} />
+                  <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')} />
+                </div>
+              )}
+
+
+
+
+
+
+
+
+
+
+                      </div>
+                    </div></>
                   )}
                     <div className='btncmn' onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments' >

@@ -455,8 +455,21 @@ a:hover.vk {
   justify-content: center;
   align-items: center;
 }
+
+
+.post-carousel:hover .owl-prev
+{
+  display: block !important;
+} 
+
+.post-carousel:hover .owl-next
+{
+  display: block !important;
+} 
+
 .owl-prev,
 .owl-next {
+  display: none !important;
   left: 0;
   position: absolute;
   top: 50%;
@@ -466,8 +479,49 @@ a:hover.vk {
 
 .owl-next {
   left: auto;
-  right: 0;
+  right: 16px;
 }
+
+
+.owl-prev {
+  right: auto;
+  left: 13px !important;
+}
+
+.post-carousel{
+  position: relative;
+}
+
+.post-carousel .owl-dots{
+
+width: 100%;
+position: absolute;
+top: -16px;
+}
+
+.post-carousel .owl-dot{
+
+margin: 1px !important;
+  }
+
+.post-carousel .owl-dots span{
+
+  margin: 0px !important;
+  width: 9px !important;
+  height: 7px !important;
+  }
+
+  
+.post-carousel .owl-dots .owl-dot.active span{
+
+ background: #033347 !important;
+  }
+
+
+  .post-carousel .owl-dots .owl-dot:hover span{
+
+    background: #033347a3 !important;
+     }
 
 .post-carousel .owl-stage{
 /* max-height: 420px; */
@@ -487,6 +541,19 @@ max-height: 460px;
 .post-carousel .owl-nav{
   /* margin-top: 0!important; */
 }
+
+
+.smiliehint{
+  display: none;
+}
+
+.dislike:hover + .smiliehint {
+
+  display: inline-block;
+}
+
+
+
 .ril__image{
   margin: 0 !important;;
   top: 25% !important;
@@ -2885,7 +2952,19 @@ li.post-comment .comet-avatar {
   padding-left:15px;
 }
 
+
+
+
+
+
 .gif {
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(255 , 255, 255, 1) 0%, 
+                                      rgba(206, 182, 219, 1) 80%, 
+                                      rgba(255 , 255, 255, 1) 0% );
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
   cursor: pointer;
   font-size: 20px;
   position: absolute;
@@ -2896,6 +2975,8 @@ li.post-comment .comet-avatar {
   line-height: 10px;
 }
 .sticker {
+
+
   cursor: pointer;
   font-size: 20px;
   position: absolute;
@@ -2905,6 +2986,14 @@ li.post-comment .comet-avatar {
   width: auto;
   line-height: 10px;
 }
+
+
+
+
+
+
+
+
 .cam {
   cursor: pointer;
   font-size: 20px;
@@ -2915,18 +3004,34 @@ li.post-comment .comet-avatar {
   width: auto;
   line-height: 10px;
 }
-.add-smiles {
+.add-smiles { 
+
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(242, 75, 76, 1) 15%, 
+                                      rgba(140, 67, 179, 1) 75%, 
+                                      rgba(83, 82, 214, 1) 0% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   position: absolute;
-  right: 65px;
+  right: 85px;
   top: 46%;
   transform: translateY(-50%);
   width: auto;
   line-height: 10px;
 }
 .btncmnt {
+  color: transparent;
+  background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
+                                      rgba(255 , 255, 255, 1) 0%, 
+                                      rgba(206, 182, 219, 1) 80%, 
+                                      rgba(255 , 255, 255, 1) 0% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
   display: inline;
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 40%;
   transform: translateY(-50%);
   width: auto;
@@ -2938,16 +3043,18 @@ li.post-comment .comet-avatar {
 }
 
 .smiles-bunch {
-  background: #eaeaea none repeat scroll 0 0;
+  background: #dbdbdf none repeat scroll 0 0;
   border-radius: 5px;
-  top: -63px;
-  font-size: 13px;
-  padding: 5px;
+  top: -320px;
+  font-size: 17px;
+  box-shadow: 0px 0px 9px 0px;
+  /* padding: 5px; */
   position: absolute;
-  right: 90px;
+  right: 78px;
   text-align: center;
-  width: 150px;
+  width: 280px;
   display: none;
+  z-index: 999;
 }
 .pdng1 {
   padding: 11px 15% 0 15%;
@@ -2955,27 +3062,153 @@ li.post-comment .comet-avatar {
 .smiles-bunch.active {
   display: block;
 }
-
 .smiles-bunch > i {
   cursor: pointer;
   display: inline-block;
   margin-bottom: 4px;
 }
-
 .smiles-bunch::before {
-  border-top: 7px solid #eaeaea;
+  border-top: 7px solid #919191;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   content: "";
   position: absolute;
   right: 11px;
+  z-index: 999;
   bottom: -7px;
   width: auto;
 }
-
 .smiles-bunch > i:hover {
   transform: scale(1.1);
 }
+
+
+.gifs {
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  right: 60px;
+  top: 46%;
+  transform: translateY(-50%);
+  width: auto;
+  line-height: 10px;
+}
+
+
+
+.gifs-bunch {
+
+
+  z-index: 999;
+
+  background: #dbdbdf none repeat scroll 0 0;
+  border-radius: 5px;
+  top: -319px;
+  font-size: 17px;
+  box-shadow: 0px 0px 9px 0px;
+  /* padding: 5px; */
+  position: absolute;
+  right: 52px;
+  text-align: center;
+  width: 280px;
+  display: none;
+}
+.gifs-bunch.active {
+  display: block;
+}
+
+.gifs-bunch > i {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.gifs-bunch::before {
+  border-top: 7px solid #919191;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  position: absolute;
+  right: 11px;
+  z-index: 999;
+  bottom: -7px;
+  width: auto;
+
+
+  
+}
+
+.gifs-bunch > i:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+
+.stickers{
+
+  cursor: pointer;
+  font-size: 23px;
+  position: absolute;
+  right: 34px;
+  top: 46%;
+  transform: translateY(-50%);
+  width: auto;
+  line-height: 10px;
+
+
+}
+
+
+.stickers-bunch {
+
+
+  z-index: 999;
+
+  background: #dbdbdf none repeat scroll 0 0;
+  border-radius: 5px;
+  top: -319px;
+  font-size: 17px;
+  box-shadow: 0px 0px 9px 0px;
+  /* padding: 5px; */
+  position: absolute;
+  right: 29px;
+  text-align: center;
+  width: 280px;
+  display: none;
+}
+.stickers-bunch.active {
+  display: block;
+}
+
+.stickers-bunch > i {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.stickers-bunch::before {
+  border-top: 7px solid #919191;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  position: absolute;
+  right: 11px;
+  z-index: 999;
+  bottom: -7px;
+  width: auto;
+
+
+  
+}
+
+.stickers-bunch > i:hover {
+  transform: scale(1.1);
+}
+
+
+
 
 .post-comt-box form button {
   right: 0;
@@ -12374,6 +12607,10 @@ img.hover-shadow {
   display: flex;
 }
 
+
+
+
+
 .reaction-bunch > i {
   cursor: pointer;
   display: inline-block;
@@ -13327,7 +13564,7 @@ breadcrumb-item + .breadcrumb-item::before {
 
 a.popup-btn {
   background: #033347;
-  padding: 5px;
+  padding: 4px;
   border-radius: 5px;
   color: #fff !important;
   font-size: 12px;
@@ -15686,5 +15923,5 @@ input.chat-text {
   /* padding-bottom: 10px; */
 }
 .post-comment{
-  padding-top: 20px;
+  padding-top: 10px;
 }

@@ -1147,7 +1147,7 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+          <Form  className='popwidth' onSubmit={close}>
 
             <div className='headpop'>
               <div className='row'>
@@ -1163,7 +1163,7 @@ function NewsfeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: '20%', textAlign: 'right' }}>
-                  <a className='popup-btn' href='/HangGift'>
+                  <a className='popup-btn' href='/HangGift' style={{ padding:'4px'}}>
                     Keep Swap
                   </a>
                 </div>
@@ -1346,21 +1346,21 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+          <Form  className='popwidth' onSubmit={close}>
             <div className='headpop'>
               <div className='row'>
-                <div style={{ width: '5%' }}>
+                <div style={{ width: '20%' }}>
                   <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
                     <i class='las la-times'></i>
                   </a>
                 </div>
                 <div
-                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '70%', textAlign: 'right' }}
+                  style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
                 >
                   {' '}
                   <span>Today to me, Tomorrow to you</span>
                 </div>
-                <div style={{ width: '25%', textAlign: 'right' }}>
+                <div style={{ width: '20%', textAlign: 'right' }}>
                   <a className='popup-btn' href='/HangGift'>
                     Keep Hang
                   </a>
