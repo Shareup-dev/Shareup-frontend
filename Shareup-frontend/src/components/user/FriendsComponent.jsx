@@ -200,7 +200,7 @@ function FriendsComponent() {
                                                 
                                                      <a href="#"  style={{ color: "#fff",background:'#033347' }}
 													 
-													 className="button more-action" data-ripple onClick={() => removeFriend(user.id, userM.id)}>Unfriend</a> 
+													 className="add-butn more-action" data-ripple onClick={() => removeFriend(user.id, userM.id)}>Unfriend</a> 
                                                 
                                                 
                                             </>

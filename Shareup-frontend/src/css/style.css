@@ -1940,6 +1940,11 @@ img#preview {
   width: 100%;
   height: 80%;
 }
+.sidebar .widget .user{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
 .sidebar .widget .user img {
   display: inline;
 
@@ -5319,7 +5324,7 @@ a.add-butn.more-action {
 }
 
 #frends a.add-butn.more-action {
-  right: 89px;
+  /* right: 89px; */
 }
 
 .nav-tabs--vertical {
@@ -15922,4 +15927,16 @@ input.chat-text {
 }
 .post-comment{
   padding-top: 10px;
+}
+.popsbmt-btn{
+  text-align: center;
+  background: #033347;
+  font-weight: bold;
+  color: white;
+  margin: 11px 11px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 96%;
 }

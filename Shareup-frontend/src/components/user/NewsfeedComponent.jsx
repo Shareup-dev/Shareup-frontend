@@ -100,6 +100,9 @@ function NewsfeedComponent() {
 
   const [privacy, setprivacy] = useState('privacy');
 
+  const [closeModal, setCloseModal] = useState(false);
+
+
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -635,21 +638,21 @@ function NewsfeedComponent() {
   };
 
   //swap upload function
-  const uploadSwap = (event) => {
-    event.preventDefault();
-    setUploadError('');
+  const uploadSwap = async(event) => {
+    await event.preventDefault();
+    await setUploadError('');
     console.log('uploading swap working');
     if (swapContent === '' && Object.keys(swapfiles).length === 0 && swapfiles.constructor === Object) {
       console.log('cant be null');
-      setUploadError('Please Insert A Text or an Image');
+      await setUploadError('Please Insert A Text or an Image');
       return;
     }
 
     const formData = new FormData();
 
-    formData.append('content', swapContent);
+    await formData.append('content', swapContent);
     for (let i = 0; i < swapfiles.length; i++) {
-      formData.append(`files`, swapfiles[i]);
+      await formData.append(`files`, swapfiles[i]);
     }
     console.log(formData.getAll(`files`));
     console.log(' this is the files' + files[0]);
@@ -657,21 +660,25 @@ function NewsfeedComponent() {
     for (let i = 0; i < `swapfiles`.length; i++) {
       console.log(swapfiles);
     }
-    formData.append(`swapfiles`, swapfiles);
-    formData.append(`privacy`, Privacy);
+    await formData.append(`swapfiles`, swapfiles);
+    await formData.append(`privacy`, Privacy);
     if (userF === null) {
-      SwapService.createSwap(user.id, formData, null).then((res) => {
+      await SwapService.createSwap(user.id, formData, null).then((res) => {
         console.log(JSON.stringify(res));
         console.log(res.data);
         console.log(user.id);
+        // setCloseModal(false)
+        // window.location.reload();
+
         setSwapContent('');
         handleRemoveImageSwap();
         setRefresh(res.data);
+        // window.location.reload();
         console.log('ssssssssssrefersh', refresh)
 
       });
     } else
-      SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+    await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
         console.log(JSON.stringify(res));
         setSwapContent('');
         handleRemoveImageSwap();
@@ -684,9 +691,9 @@ function NewsfeedComponent() {
     // subtitle.style.color = '#f00';
   };
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  // function closeModal() {
+  //   setIsOpen(false);
+  // }
   const getUser = async () => {
     if (user === null) {
       console.log('RUNNING');
@@ -1136,7 +1143,7 @@ function NewsfeedComponent() {
     return (
       <Popup
         trigger={
-          <span style={{ cursor: 'pointer' }}>
+          <span style={{ cursor: 'pointer' }} >
             <span style={{ marginRight: '5px', padding: '5px' }}>
               <img style={{ verticalAlign: 'middle', width: '30px' }} src='/assets/images/swap-icon3.png' alt='img' />
             </span>
@@ -1145,10 +1152,11 @@ function NewsfeedComponent() {
         }
         modal
         nested
+        closeOnDocumentClick
       >
         {(close) => (
-          <Form  className='popwidth' onSubmit={close}>
-
+          <Form  className='popwidth' onSubmit={(e)=>{
+               uploadSwap(e);close();}}>
             <div className='headpop'>
               <div className='row'>
                 <div style={{ width: '20%' }}>
@@ -1251,24 +1259,14 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowSwap()}
-            <div
+            <button
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-              onClick={uploadSwap}
+              className="popsbmt-btn"
+              // onClick={}
             >
               SWAP
-            </div>
+            </button>
           </Form>
         )}
       </Popup>
@@ -1452,18 +1450,8 @@ function NewsfeedComponent() {
             <div
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-              
+              className="popsbmt-btn"
+             
             >
               POST
             </div>
@@ -1485,7 +1473,9 @@ function NewsfeedComponent() {
         nested
       >
         {(close) => (
-          <Form className='popform popwidth'>
+          <Form className='popform popwidth' onSubmit={(e)=>{
+            uploadPost(e);close();
+          }}>
             <div className='headpop'>
               <div className='row'>
                 <div style={{ width: '20%' }}>
@@ -1609,24 +1599,14 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
-            <div
+            <button
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-              onClick={uploadPost}
+              className="popsbmt-btn"
+              // onClick={uploadPost}
             >
               POST
-            </div>
+            </button>
           </Form>
         )}
       </Popup>
@@ -1717,23 +1697,13 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowShareup()}
-            <div
+            <button
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
+              className="popsbmt-btn"
             >
               POST
-            </div>
+            </button>
           </Form>
         )}
       </Popup>
@@ -1828,17 +1798,7 @@ function NewsfeedComponent() {
               <div
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
+              className="popsbmt-btn"
             >
               POST
             </div>

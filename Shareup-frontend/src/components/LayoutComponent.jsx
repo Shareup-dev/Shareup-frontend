@@ -53,8 +53,9 @@ console.log("User: ", user);
                     <aside className="sidebar static">
                     <div className="widget">
                         {/* <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>   */}
-                       <div className="user"><img src={fileStorage.baseUrl+user.profilePicturePath}/>
-                        <a href="/profile"><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
+                        <div className="user">
+                          <img src={fileStorage.baseUrl+user.profilePicturePath}/>
+                          <a href="/profile" ><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                         </div>
                       </div>
 
@@ -108,7 +109,7 @@ console.log("User: ", user);
                   {/* --------------------------------------------------------------------------------- */}
                   {/* centerl meta */}
                   <div className="col-lg-3">
-                    <aside className="sidebar static">
+                    <aside className="sidebar static " style={{paddingTop:'10px'}}>
                       {/* <div className="widget friend-list stick-widget">
                         <div className="row"><img src="../assets/images/1865023.png"/><p className="widget-title">Ads</p></div>
                           <div className="ads"><a href="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg" data-lightbox="image-1" data-title="My caption"><img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img></a>
