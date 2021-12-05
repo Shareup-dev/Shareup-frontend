@@ -455,8 +455,21 @@ a:hover.vk {
   justify-content: center;
   align-items: center;
 }
+
+
+.post-carousel:hover .owl-prev
+{
+  display: block !important;
+} 
+
+.post-carousel:hover .owl-next
+{
+  display: block !important;
+} 
+
 .owl-prev,
 .owl-next {
+  display: none !important;
   left: 0;
   position: absolute;
   top: 50%;
@@ -466,7 +479,13 @@ a:hover.vk {
 
 .owl-next {
   left: auto;
-  right: 0;
+  right: 16px;
+}
+
+
+.owl-prev {
+  right: auto;
+  left: 13px !important;
 }
 
 .post-carousel{
@@ -522,6 +541,19 @@ max-height: 460px;
 .post-carousel .owl-nav{
   /* margin-top: 0!important; */
 }
+
+
+.smiliehint{
+  display: none;
+}
+
+.dislike:hover + .smiliehint {
+
+  display: inline-block;
+}
+
+
+
 .ril__image{
   margin: 0 !important;;
   top: 25% !important;
@@ -12570,6 +12602,10 @@ img.hover-shadow {
   display: flex;
 }
 
+
+
+
+
 .reaction-bunch > i {
   cursor: pointer;
   display: inline-block;
@@ -13523,7 +13559,7 @@ breadcrumb-item + .breadcrumb-item::before {
 
 a.popup-btn {
   background: #033347;
-  padding: 5px;
+  padding: 4px;
   border-radius: 5px;
   color: #fff !important;
   font-size: 12px;
@@ -15882,5 +15918,5 @@ input.chat-text {
   /* padding-bottom: 10px; */
 }
 .post-comment{
-  padding-top: 20px;
+  padding-top: 10px;
 }
