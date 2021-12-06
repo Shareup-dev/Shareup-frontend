@@ -1898,16 +1898,18 @@ img#preview {
   display: inline-block;
   position: relative;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background: #f0f2f5;
+  /* border-bottom: 1px solid #75757530; */
   /* border: 1px solid #ede9e9; */
   /* border-radius: 3px; */
 }
 .sidebar .widget .row {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #ede9e9;
+  /* margin-bottom: 10px; */
+  
+  padding-top: 15px;
   padding-bottom: 5px;
 }
 .sidebar .widget .row img {
@@ -4717,8 +4719,8 @@ nav.breadcrumb {
 
 }
 .sendrqstli:hover{
-  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3) !important;
- 
+  box-shadow:  0.3em 0.3em 1em rgba(0, 0, 0, 0.3) !important;
+  border:none;
  }
 
  .sendrqstli .item1 img{
@@ -5000,7 +5002,7 @@ width: 135%;
 .item2 a {
   line-height:16px;
   font-size: 16px;
-  color: rgb(107 107 107);
+  color: rgb(0 0 0);
 }
 
 .item23 a{
@@ -15524,7 +15526,7 @@ input.chat-text {
   font-size: 20px;
   font-weight: 800;
   margin-bottom: 15px;
-  margin-top: 5px;
+  /* margin-top: 5px; */
   padding: 15px;
   padding-bottom: 0;
 
@@ -15758,6 +15760,27 @@ input.chat-text {
   border-radius: 10px;
   transition: 0.3s;
 }
+.friend-widget{
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(117, 117, 117, 0.19) !important;
+  margin-bottom: 0!important;
+  
+}
+.friend-widget li{
+  padding:  10px 0;
+  margin-left: 0;
+  margin-top: 0px;
+  margin-right: 0;
+  /* margin-bottom: 10px; */
+  background-color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.sidebar-flwrs{
+  padding-bottom: 20px;
+  margin-bottom: 0 !important;
+  border-bottom: 1px solid rgba(117, 117, 117, 0.19) !important;
+}
 .sidebar-flwrs .followers{
   max-height: initial !important;
 }
@@ -15858,11 +15881,14 @@ input.chat-text {
   width: 70px;
 }
 .friends-card .grid-container .item2{
-  width: 40%;
+  width: 50%;
   padding-left: 0;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: center; */
 }
 .friends-card .grid-container .item4{
-  width: 25%;
+  width: 30%;
   margin-top: 0;
   display: flex;
   align-items: center;
@@ -15904,9 +15930,9 @@ input.chat-text {
   background: white ;
   /* padding: 15px; */
   border-radius: 10px;
-  margin-bottom:30px;
   padding-bottom: 5px;
 }
+
 .sidebar-news li{
   padding-left: 15px;
   padding-right: 15px;

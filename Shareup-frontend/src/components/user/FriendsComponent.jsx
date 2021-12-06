@@ -166,6 +166,8 @@ function FriendsComponent() {
                                 {/* <div className="  "> */}
                                 <div class="item2">
                                     <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
+									<div style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
+
 									{/* <button className="friends-button" onClick={() => unsendFriendRequest(user.id, userM.id)}>Request Sent</button> */}
 									
 								</div>
@@ -212,9 +214,7 @@ function FriendsComponent() {
                                 }
 								
                                 </div>
-                                <div class="item5">
-									<p ><i class="fas fa-ellipsis-h"></i></p> 
-								</div>
+                               
 								{/* <div class="item6">
                                      <span>Engr</span> 
                                     <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
@@ -268,12 +268,10 @@ const FollowingComponentFunction = () => {
                                     {/* <div className="  "> */}
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
-                                    </div>
+										<div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
+									</div>
                                     <div className="item4">
 										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
-									</div>
-									<div class="item5">
-										<p ><i class="fas fa-ellipsis-h"></i></p> 
 									</div>
                                     {/* <div class="item6">
                                         {/* <span>Engr</span> 
@@ -320,16 +318,13 @@ const FollowersComponentFunction = () => {
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 										{/* <button className="friends-button">Request Sent</button> */}
+										<div style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
 										
 										
                                     </div>
                                     <div className="item4">
 										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 									</div>
-                                    <div class="item5">
-                                        {/* <span>Engr</span> */}
-                                        <i style={{ fontSize: '20px' }} class="fas fa-ellipsis-h"></i>
-                                    </div>
                                      {/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
                                             <p><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.email}`}</a></p>
