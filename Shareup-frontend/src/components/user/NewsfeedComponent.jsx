@@ -1170,7 +1170,7 @@ function NewsfeedComponent() {
                   {' '}
                   <span>Create Swap</span>
                 </div>
-                <div style={{ width: '20%', textAlign: 'right' }}>
+                <div style={{ width: '20%', textAlign: 'right' ,padding:'0' }}>
                   <a className='popup-btn' href='/HangGift' style={{ padding:'4px'}}>
                     Keep Swap
                   </a>

@@ -392,7 +392,7 @@ export default function PostComponent({ post, setRefresh }) {
                   )}
                 </>
               )}
-              <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '10px' }}>
+              <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px' }}>
                 <div style={{ display: 'flex' }}>
                   <figure>
                     <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img" />
@@ -428,40 +428,40 @@ export default function PostComponent({ post, setRefresh }) {
                         <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
                     </div> */}
-                <div class="dropdown add-dropdown">
-                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
-                  </button>
-                  <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
-                    <ul>
-                      {post.user.id === user.id ? (
-                        <li onClick={() => handleEditPost(post.id)}>
-                          <i class='las la-pencil-alt'></i>
-                          <span>Edit Post</span>
-                        </li>
-                      ) : (
-                        <></>
-                      )}
-                      <li onClick={() => handleSavePost(post.id)}>
-                        <i class='lar la-bookmark'></i>
-                        <span>Save Post</span>
-                      </li>
-                      {post.user.id === user.id ? (
-                        <li onClick={() => handleDeletePost(post)}>
-                          <i class='las la-trash'></i>
-                          <span>Delete</span>
-                        </li>
-                      ) : (
-                        <></>
-                      )}
-                      <li>
-                        <i class='las la-link'></i>
-                        <span>Copy Link</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
+                    <div class="dropdown add-dropdown">
+                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='fas fa-ellipsis-h' style={{  fontSize: '20px' }}></i>
+                      </button>
+                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                        <ul>
+                            {post.user.id === user.id ? (
+                              <li onClick={() => handleEditPost(post.id)}>
+                                <i class='las la-pencil-alt'></i>
+                                <span>Edit Post</span>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            <li onClick={() => handleSavePost(post.id)}>
+                              <i class='lar la-bookmark'></i>
+                              <span>Save Post</span>
+                            </li>
+                            {post.user.id === user.id ? (
+                              <li onClick={() => handleDeletePost(post)}>
+                                <i class='las la-trash'></i>
+                                <span>Delete</span>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            <li>
+                              <i class='las la-link'></i>
+                              <span>Copy Link</span>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+               
               </div>
 
               {post.content && (
@@ -871,7 +871,7 @@ export default function PostComponent({ post, setRefresh }) {
 
 
                     <div className='btncmn'>
-                      <span className='views' data-toggle='tooltip'>
+                      <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i class="fas fa-share" style={{ paddingRight: '5px'}}></i>
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
@@ -881,10 +881,10 @@ export default function PostComponent({ post, setRefresh }) {
                     {/* <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         
-                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)}></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}></i>}
-                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> 
-                      </span>
-                    </div> */}
+                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
+                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
+                      {/* </span>
+                    </div> */} 
                   </div>
                 </div>
               </div>

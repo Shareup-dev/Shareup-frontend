@@ -143,17 +143,18 @@ function FriendsComponent() {
 
 	const FcomponentFunction = () => {
     return (<div className="tab-content">
-        <div class="friends-search-container">
+        <div class="friends-search-container grp-search">
             {/* <i class="las la-search"></i> */}
-			<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
+			<input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} />
         </div>
         <div className="tab-pane active fade show " id="frends">
             {/* <div style={{ contentAlign: 'center', textAlign: 'center', paddingTop: '15px' }}>
                 {(friendsList.length > 0) ? <p style={{ marginBottom: '5px', fontWeight: 'medium', fontSize: '24px', color: '#646464' }}>Your Friends!</p>:
                 <p style={{ fontWeight: 'medium', fontSize: '18px', color: '#646464' }}>There are no Friends!</p>}
             </div> */}
-            <ul className="nearby-contct">
-                {friendsList.map(
+            <ul className="nearby-contct" style={{marginTop:'15px'}}>
+                {friendsList&&friendsList.length>0?
+				friendsList.map(
                     userM =>
                         <li key={userM.id} className="friends-card grp">
                             <div className="grid-container">
@@ -237,7 +238,8 @@ function FriendsComponent() {
                                 {/* </div> */}
                             </div>
                         </li>
-                )}
+                )
+				:<div style={{display:'flex',justifyContent:'center',alignItems:'center' ,width:'100%',minHeight:'100px'}}><h2>No Friends</h2></div>}
             </ul>
             <div className="lodmore"><button className="btn-view btn-load-more" /></div>
         </div>
@@ -247,12 +249,12 @@ function FriendsComponent() {
 const FollowingComponentFunction = () => {
     return (
         <div className="tab-content">
-            <div class="friends-search-container">
+            <div class="friends-search-container grp-search">
                 {/* <i class="las la-search"></i> */}
-				<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowing} />
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Following" name="s" onChange={handleSearchedFollowing} />
             </div>
             <div className="tab-pane active fade show " id="following">
-                <ul className="nearby-contct">
+                <ul className="nearby-contct" style={{marginTop:'15px'}}>
                     {following.map(
                         userM =>
                             <li key={userM.id} className="friends-card grp">
@@ -297,13 +299,13 @@ const FollowingComponentFunction = () => {
 const FollowersComponentFunction = () => {
     return (
         <div className="tab-content">
-            <div class="friends-search-container">
+            <div class="friends-search-container grp-search">
                 {/* <i class="las la-search"></i> */}
-				<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowers} />
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} />
             </div>
             {/* <input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} /> */}
             <div className="tab-pane active fade show " id="following">
-                <ul className="nearby-contct">
+                <ul className="nearby-contct" style={{marginTop:'15px'}}>
                     {followers.map(
                         userM =>
                             <li key={userM.id} className="friends-card grp">
@@ -370,7 +372,7 @@ const FriendRequestSentComponentFunction = () => {
 		<div className="tab-content">
 			<input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} />
 			<div className="tab-pane active fade show " id="following">
-				<ul className="nearby-contct">
+				<ul className="nearby-contct" style={{marginTop:'15px'}}>
 					{friendRequestSent.map(
 						userM =>
 							<li key={userM.id}>
@@ -400,7 +402,7 @@ const FriendRequestRecievedComponentFunction = () => {
 		<div className="tab-content">
 			<input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} />
 			<div className="tab-pane active fade show " id="following">
-				<ul className="nearby-contct">
+				<ul className="nearby-contct" style={{marginTop:'15px'}}>
 					{friendRequestRecieved.map(
 						userM =>
 							<li key={userM.id}>
@@ -512,27 +514,50 @@ useEffect(() => {
 return (
 	<Layout user={user}>
 		<div className="col-lg-6">
-			<div className="central-meta">
+			<div className="central-meta swap-pg-cont">
 				<div className="frnds">
 					{/* <ul className="nav nav-tabs"> */}
-					<div style={{paddingLeft: '10px' , paddingBottom:'10px'}}>
+					<div >
 						<p className="Friends-Title">Friends</p>
-						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
+						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
 					</div>
 					<div class="navContent">
 
-						<ul class="nav nav-pills" role="tablist">
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" href="#!" onClick={() => setShowComp("members")}> <i class="las la-user"></i>Friends <a className='numberCircle'>{`${friendsList&&friendsList.length!=='undefined'?friendsList.length:''}`}</a></a>
+						<ul class="nav nav-pills swap-page-nav" role="tablist">
+							<li class="nav-item"style={{justifyContent:'flex-start'}} >
+                  				<div className="all" onClick={() => setShowComp("members")}>
+									<span style={{ cursor: 'pointer' }}  >
+										<span style={{  padding: '5px' }}> 
+											<i class="las la-user" style={{fontSize:'20px'}}></i>
+										</span>
+										Friends 
+										<a className='numberCircle'>{`${friendsList&&friendsList.length!=='undefined'?friendsList.length:''}`}</a>
+									</span>
+								</div>
 								{/* <span>{`${allUser.length}`}</span> */}
 							</li>
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("following")}> <i class="las la-user-cog"></i> Following <a className='numberCircle'>{`${following&&following.length?following.length:'0'}`}</a></a>
+							<li class="nav-item" style={{justifyContent:'center'}}>
+                  				<div className="my" onClick={() => setShowComp("following")}>
+									<span style={{ cursor: 'pointer' }} > 
+										<span style={{  padding: '5px' }}> 
+											<i class="las la-user-cog" style={{fontSize:'20px'}}></i> 
+										</span>
+										Following <a className='numberCircle'>{`${following&&following.length?following.length:'0'}`}</a>
+									</span>
+									</div>
 								{/* <span>{`${following.length}`}</span> */}
 							</li>
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("followers")}> <i class="las la-user-tag"></i> Followers <a className='numberCircle'>{`${followers&&followers.length?followers.length:'0'}`}</a></a>
-								{/* <span>{`${followers.length}`}</span> */}
+							<li class="nav-item" style={{justifyContent:'flex-end'}}>
+                  				<div className="new" onClick={() => setShowComp("followers")}>
+									<span style={{ cursor: 'pointer' }} >
+										<span style={{  padding: '5px' }}> 
+											<i class="las la-user-tag" style={{fontSize:'20px'}}></i> 
+										</span>
+										Followers
+											<a className='numberCircle'>{`${followers&&followers.length?followers.length:'0'}`}</a>
+									</span>
+								</div>	
+									{/* <span>{`${followers.length}`}</span> */}
 							</li>
 						</ul>
 					</div>
@@ -552,6 +577,7 @@ return (
 					{handleShowComp()}
 				</div>
 			</div>
+			
 		</div>
 	</Layout>
 );

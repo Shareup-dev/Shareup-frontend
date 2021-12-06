@@ -1026,7 +1026,9 @@ const handleRemoveImageSwap = () => {
         }
         modal nested>
         { close => (
-          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
+          <Form style={{ margin: '5px' }} className='popwidth' onSubmit={(e)=>{
+            uploadSwap(e);close();
+          }}>
 
             <div className='headpop'>
               <div className='row'>
@@ -1041,7 +1043,7 @@ const handleRemoveImageSwap = () => {
                   {' '}
                   <span>Create Swap</span>
                 </div>
-                <div style={{ width: '20%', textAlign: 'right' }}>
+                <div style={{ width: '20%', textAlign: 'right' ,padding:'0' }}>
                   <a className='popup-btn' href='/HangGift'>
                     Keep Swap
                   </a>
@@ -1130,24 +1132,14 @@ const handleRemoveImageSwap = () => {
             </div>
 
             {imageshowSwap()}
-            <div
+            <button
               type='submit'
               value='Submit'
-              style={{
-                textAlign: 'center',
-                background: '#033347',
-                fontWeight: 'bold',
-                color: 'white',
-                margin: '11px 11px',
-                padding: '15px',
-                borderRadius: '5px',
-                fontSize: '14px',
-                cursor: 'pointer',
-              }}
-              onClick={uploadSwap}
+              className="popsbmt-btn"
+              // onClick={uploadSwap}
             >
               SWAP
-            </div>
+            </button>
           </Form>  
         )}               
       </Popup>
@@ -1322,8 +1314,8 @@ const handleRemoveImageSwap = () => {
   const show = () => {
       return (
         <div className="loadMore">
-          {
-            swapsForUser.map(
+          { swapsForUser && swapsForUser.length>0
+            ?swapsForUser.map(
               post =>
                 <div key={post.id}>
                   {
@@ -1335,6 +1327,7 @@ const handleRemoveImageSwap = () => {
                   }
                 </div>
             )
+            :<div>No Swaps</div>
           }
 
         </div>
@@ -1414,31 +1407,38 @@ const handleRemoveImageSwap = () => {
 					<div className="frnds">
 					<div>
 						<p className="Friends-Title">Swaps</p>
-						<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i>
+						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
 					</div>
 						<div class="navContent">
 
-							<ul class="nav nav-pills swap-page-nav attachments" role="tablist">
-								<li class="nav-item">
-                  <span style={{ cursor: 'pointer' }} onClick={()=> allSwaps()}>
-                    <span style={{ marginRight: '5px', padding: '5px' }}> 
-                    <i class="fas fa-retweet" style={{fontSize:'20px'}}></i>
-                    {/* <span>{`${following.length}`}</span> */}
+							<ul class="nav nav-pills swap-page-nav" role="tablist">
+								<li class="nav-item" style={{justifyContent:'flex-start'}}>
+                  <div className="all">
+                    <span style={{ cursor: 'pointer' }} onClick={()=> allSwaps()}>
+                      <span style={{ marginRight: '5px', padding: '5px' }}> 
+                      <i class="fas fa-retweet" style={{fontSize:'20px'}}></i>
+                      {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                      All Swaps
                     </span>
-                    All Swaps
-                  </span>
+  								</div> 
 								</li> 
-								<li class="nav-item">
-                  <span style={{ cursor: 'pointer' }} onClick={()=> mySwaps()}>
-                    <span style={{ marginRight: '10px', padding: '5px' }}> 
-                    <i class="ti-control-shuffle" style={{fontSize:'20px'}}></i>
-                    {/* <span>{`${following.length}`}</span> */}
+								<li class="nav-item" style={{justifyContent:'center'}}>
+                  <div className="my">
+                    <span style={{ cursor: 'pointer' }} onClick={()=> mySwaps()}>
+                      <span style={{ marginRight: '5px', padding: '5px' }}> 
+                      <i class="ti-control-shuffle" style={{fontSize:'20px'}}></i>
+                      {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                      My Swaps 
                     </span>
-                    My Swaps 
-                  </span>
+                  </div>
 								</li>
-								<li class="nav-item">
+								<li class="nav-item" style={{justifyContent:'flex-end'}}>
+                  <div className="new">
+
                   {postSwap()}
+                  </div>
 								</li>
                 {/* <li class="nav-item">
                   <span style={{ cursor: 'pointer' }}>
@@ -1453,7 +1453,7 @@ const handleRemoveImageSwap = () => {
 							
 						</div>
     				<div class="friends-search-container" style={{display:'flex' ,alignItems:'center' ,justifyContent:'center'}}>
-              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{width:"80%"}}/>
+              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{width:"100%"}}/>
             </div>
 
 					</div>
