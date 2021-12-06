@@ -507,14 +507,14 @@ margin: 1px !important;
 .post-carousel .owl-dots span{
 
   margin: 0px !important;
-  width: 9px !important;
-  height: 7px !important;
+  width: 6px !important;
+  height: 6px !important;
   }
 
   
 .post-carousel .owl-dots .owl-dot.active span{
 
- background: #033347 !important;
+ background: #000000 !important;
   }
 
 
@@ -539,7 +539,7 @@ max-height: 460px;
 
 }
 .post-carousel .owl-nav{
-  /* margin-top: 0!important; */
+  margin-top: 0!important;
 }
 
 
@@ -2258,7 +2258,33 @@ form button {
 .commShare {
   cursor: pointer;
   float: none;
+padding: 0px 55px 0px 55px;
+  color: #000000c9;
 }
+
+
+.userreaction{
+
+  display: inline;
+  padding: 0px;
+}
+
+.noreaction{
+
+  font-weight: bold;
+  font-size:14px;
+  padding: 0px;
+}
+
+.isreaction{
+
+  font-weight: bold;
+  font-size:14px;
+  padding: 0px;
+}
+
+
+
 .friend-info {
   display: inline-block;
   position: relative;
@@ -2274,7 +2300,7 @@ form button {
 }
 
 .friend-name {
-  margin-top: 11px;
+  /* margin-top: 11px; */
   display: inline-block;
   padding-left: 10px;
   vertical-align: middle;
@@ -2308,6 +2334,8 @@ form button {
   width: 100%;
   text-align: center;
   padding:10px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important; 
 /* --gap: 16px;
 --num-cols: 2;
 --row-height: 300px;
@@ -2395,7 +2423,7 @@ height: 100%; */
     height: 45px;
 }
 .post-meta > p {
-  padding: 15px 0 10px 20px;
+  padding: 0px 0 8px 20px;
 }
 
 .description {
@@ -2425,21 +2453,22 @@ height: 100%; */
 
 .we-video-info {
   /* margin-top: 11px; */
- padding-top:13px;
+ padding-top:6px;
 border-top: 1px solid #0000001f;
   text-align: center;
   float: left;
   /* padding: 2px 0 2px 0; */
-  width: 100%;
+  width: 97%;
+  padding-bottom: 3px;
   position: relative;
   z-index: 0;
-  margin-top: 20px;
+  margin-top: 3px;
 }
 
 .we-video-info > .click {
   float: left;
   width: 100%;
-  line-height: 27px;
+  line-height: 26px;
   padding-left: 0;
   margin-bottom: 0;
 }
@@ -2522,15 +2551,19 @@ border-top: 1px solid #0000001f;
 .like{
 
   font-weight: bold;
-  font-size:14px;
-  padding: 0 40px 0 40px;
+  /* font-size:14px; */
+  /* padding: 0 40px 0 40px; */
+float: left;
+
 }
 
 .dislike{
 
   font-weight: bold;
-  font-size:14px;
-  padding: 0 40px 0 40px;
+  /* font-size:14px; */
+  /* padding: 0 40px 0 40px; */
+  float: left;
+
 }
 
 .we-video-info
@@ -2936,9 +2969,9 @@ li.post-comment .comet-avatar {
 
 .post-comt-box {
   display: inline-block;
-  padding-left: 12px;
+  padding-left: 8px;
   position: relative;
-  width: 93%;
+  width: 100%;
   /* padding-top:  10px; */
 }
 
@@ -2949,7 +2982,7 @@ li.post-comment .comet-avatar {
   color: #000000;
   font-size: 13px;
   font-weight: 500;
-  height: 40px;
+  height: 35px;
   line-height: 24px;
   margin: 0;
   padding-left:15px;
@@ -3009,13 +3042,13 @@ li.post-comment .comet-avatar {
 }
 .add-smiles { 
 
-  color: transparent;
+  /* color: transparent;
   background: linear-gradient( 147deg, rgba(252, 199, 71, 1) 0%,
                                       rgba(242, 75, 76, 1) 15%, 
                                       rgba(140, 67, 179, 1) 75%, 
                                       rgba(83, 82, 214, 1) 0% );
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
   position: absolute;
   right: 85px;
   top: 46%;
@@ -12221,6 +12254,7 @@ img.hover-shadow {
   display: inline-block;
   width: 100%;
   padding:10px;
+  padding-top: 0px;
 }
 /*  .coment-area.active {
     opacity: 1;
@@ -12390,23 +12424,25 @@ img.hover-shadow {
 }
 
 .counter {
+  width: 100%;
   display: inline;
   float: right;
-  font-size: 12px;
-  padding: 2px;
+  font-size: 14px;
+  /* font-weight: 600; */
+  padding: 0px 3px 4px 3px;
   position: relative;
   z-index: 0;
 }
 .counter ul li i {
-  font-size: 18px;
+  font-size: 15px;
 }
 .counter ul li {
-  margin: 10px;
+  /* margin: 10px; */
   color: #fff;
-  background: #b5b4b4;
+  /* background: #b5b4b4; */
   float: left;
   list-style-type: none;
-  padding: 5px 10px;
+  padding: 5px 8px 0px 10px;
   border-radius: 20px;
 }
 
@@ -13329,8 +13365,10 @@ breadcrumb-item + .breadcrumb-item::before {
 }
 .views {
   font-weight: bold;
-  font-size: 14px;
-  padding: 0 40px 0 40px;
+  /* font-size: 14px; */
+  /* padding: 0 40px 0 40px; */
+  float: right;
+
 }
 .comment i {
   padding: 2px;
@@ -13338,8 +13376,9 @@ breadcrumb-item + .breadcrumb-item::before {
 }
 .comment {
   font-weight: bold;
-  font-size: 14px;
-  padding: 0 40px 0 40px;
+  padding-right: 0px;
+  /* font-size: 14px; */
+  /* padding: 0 40px 0 40px; */
 }
 .views i {
   padding: 2px;
@@ -14728,7 +14767,9 @@ a.Hangin-btn:hover {
 
 .btncmn {
   display: inline;
+  font-size: 15px;
   padding: 10px;
+  padding-right: 40px;
 }
 .btncmn:hover {
   /* padding: 10px; */
@@ -15920,13 +15961,13 @@ input.chat-text {
   padding: 0;
 }
 .post-action i{
-  font-size: 20px;
+  font-size: 17px;
 }
 .post-action {
   /* padding-bottom: 10px; */
 }
 .post-comment{
-  padding-top: 10px;
+  padding-top: 1px;
 }
 .popsbmt-btn{
   text-align: center;

@@ -15,8 +15,8 @@ import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
 
 import OwlCarousel from 'react-owl-carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';  
-import 'owl.carousel/dist/assets/owl.theme.default.css';  
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -34,6 +34,8 @@ export default function PostComponent({ post, setRefresh }) {
   const [showComment, setShowComment] = useState(false)
   const [showMoreOptions, setShowMoreOptions] = useState(false)
   const [showReactions, setShowReactions] = useState(false)
+
+  const[showUserReactions, setShowUserReactions] = useState(false)
   const [swapContent, setSwapContent] = useState('');
   const [showSwapImage, setShowSwapImage] = useState(false);
   const [swapImage, setSwapImage] = useState({});
@@ -76,15 +78,17 @@ export default function PostComponent({ post, setRefresh }) {
     comments.map(comment => {
       counter += comment.replies.length + 1
     })
-    if(counter>0)
-    return counter
+    if (counter > 0)
+      return counter+ " Comments"
+      else return ""
+
   }
   const handleSwapContent = (event) => {
     console.log(event.target.value);
     setSwapContent(event.target.value);
   };
   const checkIfLiked = (post) => {
-    if(post.reactions){
+    if (post.reactions) {
       const result = post.reactions.filter(reaction => reaction.user.id == user.id)
       if (result.length > 0) {
         return true
@@ -113,7 +117,7 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
   const checkIfSaved = (post) => {
-    if(post.savedByUsers){
+    if (post.savedByUsers) {
       const result = post.savedByUsers.filter(userz => userz.id == user.id)
       if (result.length > 0) {
         console.log(" FOUND")
@@ -139,17 +143,17 @@ export default function PostComponent({ post, setRefresh }) {
   }
 
   const handleDeletePost = (post) => {
-    console.log(post.swapimages?'hi':'no')
-    if(post.swapimages){
+    console.log(post.swapimages ? 'hi' : 'no')
+    if (post.swapimages) {
       SwapService.deleteSwap(post.id).then(res => {
         console.log(res.status)
         setRefresh(res.data)
       })
-    }else
-    PostService.deletePost(post.id).then(res => {
-      console.log(res.status)
-      setRefresh(res.data)
-    })
+    } else
+      PostService.deletePost(post.id).then(res => {
+        console.log(res.status)
+        setRefresh(res.data)
+      })
   }
 
   const handleEditingSave = (value) => {
@@ -157,6 +161,19 @@ export default function PostComponent({ post, setRefresh }) {
     setRefresh(value)
     setShowMoreOptions(false)
   }
+
+
+
+  const handleShowuserReaction = () => {
+    setTimeout(function () { setShowUserReactions(true) }, 200);
+  }
+
+  const handleUnshowuserReaction = () => {
+    setTimeout(function () { setShowUserReactions(false) }, 200);
+  }
+
+
+  
 
   const handleShowingReaction = () => {
     setTimeout(function () { setShowReactions(true) }, 200);
@@ -166,12 +183,17 @@ export default function PostComponent({ post, setRefresh }) {
     setTimeout(function () { setShowReactions(false) }, 200);
   }
 
+
+
+
+
+
   const handleReaction = () => {
     if (likeReaction) {
       return (<i class="fas fa-star" ></i>)
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return (<i class="fas fa-star" style={{color:'#d83535'}}></i>)
+    return (<i class="fas fa-star" style={{ color: '#d83535' }}></i>)
   }
 
   const handleSettingReactions = (reaction) => {
@@ -185,7 +207,7 @@ export default function PostComponent({ post, setRefresh }) {
     if (likeReaction) {
       return (<img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />)
     }
-    return (<img src="/assets/images/Starwhite.svg" alt="" />)
+    return (<img src="/assets/images/Starwhite.svg" alt="" style={{ left: '16px' , height: '15px' ,position: 'absolute', bottom: '16px', background: 'darksalmon'}}/>)
   }
   //array fetch
   const postImg = (str) => {
@@ -200,20 +222,21 @@ export default function PostComponent({ post, setRefresh }) {
     e.preventDefault();
     setShowMoreOptions(!showMoreOptions);
   };
-  
+
   const imageshowSwap = () => {
     return (
       <div className="swap-rqst">
-        <div className='' style={{width:'100%'}}>
-          <label className='fileContainer' style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
+        <div className='' style={{ width: '100%' }}>
+          <label className='fileContainer' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
             Upload swap images<i class='lar la-file-image'></i>
           </label>
         </div>
       </div>
 
-    )}
-  const openLightbox =(index)=>{
+    )
+  }
+  const openLightbox = (index) => {
     setIsopen(true);
     setPhotoindex(index)
     console.log(index, 'indexxxxxxxxx')
@@ -223,7 +246,7 @@ export default function PostComponent({ post, setRefresh }) {
   return (
     <div
       className='central-meta item'
-      style={{ paddingBottom: '0px'}}
+      style={{ paddingBottom: '0px' }}
       key={post.id}
       onClick={(e) => {
         if (showMoreOptions) toggleShowMoreOptions(e);
@@ -259,14 +282,14 @@ export default function PostComponent({ post, setRefresh }) {
                             </React.Fragment>
                           ))}
                         </div>
-                      ) : 
-                      post.swapimages.length > 0 ? (
-                        <div className='postImage swap-image'>
-                          {post.swapimages.map((postImage) => {
-                            console.log(postImage, 'swp')
-                            return(
-                            <React.Fragment>
-                              {/* <a
+                      ) :
+                        post.swapimages.length > 0 ? (
+                          <div className='postImage swap-image'>
+                            {post.swapimages.map((postImage) => {
+                              console.log(postImage, 'swp')
+                              return (
+                                <React.Fragment>
+                                  {/* <a
                                 href={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 data-lightbox={`image-user-${post.user.id}`}
                               >
@@ -276,11 +299,12 @@ export default function PostComponent({ post, setRefresh }) {
                                   alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 />
                               </a> */}
-                             
-                            </React.Fragment>
-                          )})}
-                        </div>
-                      ) :null}
+
+                                </React.Fragment>
+                              )
+                            })}
+                          </div>
+                        ) : null}
                     </div>
                     <div className='itemS2'>
                       <div className='swapbtnfeed'>
@@ -368,12 +392,12 @@ export default function PostComponent({ post, setRefresh }) {
                   )}
                 </>
               )}
-              <div className='friend-name' style={{ width: "100%", display: 'flex' , justifyContent:'space-between' , alignItems:'center',paddingBottom:'10px'}}>
-                <div style={{display: 'flex'}}>
+              <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '10px' }}>
+                <div style={{ display: 'flex' }}>
                   <figure>
-                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img"/>
+                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img" />
                   </figure>
-                  <div style={{display:'flex' , flexDirection:'column' , justifyContent: 'center' , paddingLeft:'10px'}}>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                     <a
                       href={`/profile/${post.user.email}`}
                       title='#'
@@ -389,55 +413,55 @@ export default function PostComponent({ post, setRefresh }) {
                       ) : null}
                     </a>
                     <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
-                      on {moment(post.published, "DD MMMM YYYY hh:mm:ss").fromNow()} 
+                      on {moment(post.published, "DD MMMM YYYY hh:mm:ss").fromNow()}
                       {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
                     </span>
-                  </div>    
-                
+                  </div>
+
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
                 {/* <div
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div> */}
-                    {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
                       <span title='add icon'>
                         <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
                     </div> */}
-                    <div class="dropdown add-dropdown">
-                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class='las la-ellipsis-h' style={{  fontSize: '26px' }}></i>
-                      </button>
-                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
-                        <ul>
-                            {post.user.id === user.id ? (
-                              <li onClick={() => handleEditPost(post.id)}>
-                                <i class='las la-pencil-alt'></i>
-                                <span>Edit Post</span>
-                              </li>
-                            ) : (
-                              <></>
-                            )}
-                            <li onClick={() => handleSavePost(post.id)}>
-                              <i class='lar la-bookmark'></i>
-                              <span>Save Post</span>
-                            </li>
-                            {post.user.id === user.id ? (
-                              <li onClick={() => handleDeletePost(post)}>
-                                <i class='las la-trash'></i>
-                                <span>Delete</span>
-                              </li>
-                            ) : (
-                              <></>
-                            )}
-                            <li>
-                              <i class='las la-link'></i>
-                              <span>Copy Link</span>
-                            </li>
-                          </ul>
-                      </div>
-                    </div>
-               
+                <div class="dropdown add-dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
+                  </button>
+                  <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                    <ul>
+                      {post.user.id === user.id ? (
+                        <li onClick={() => handleEditPost(post.id)}>
+                          <i class='las la-pencil-alt'></i>
+                          <span>Edit Post</span>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
+                      <li onClick={() => handleSavePost(post.id)}>
+                        <i class='lar la-bookmark'></i>
+                        <span>Save Post</span>
+                      </li>
+                      {post.user.id === user.id ? (
+                        <li onClick={() => handleDeletePost(post)}>
+                          <i class='las la-trash'></i>
+                          <span>Delete</span>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
+                      <li>
+                        <i class='las la-link'></i>
+                        <span>Copy Link</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
               </div>
 
               {post.content && (
@@ -447,50 +471,50 @@ export default function PostComponent({ post, setRefresh }) {
                 </p>
               )}
               <div className='postImage'>
-              {post.postedimages&&post.postedimages.length>1
-              ?<>
-                <OwlCarousel items={1}
-                  className="owl-theme grp-carousel post-carousel"
-                  dots
-                  nav
-                  navText = {"<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"}
-                  margin={10}>
-                  {post.postedimages.map((postImage,index) => (
-                    <React.Fragment>
-                      <img
-                          style={{height:'420px', width: '100%', objectFit: 'cover' }}
-                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          className="lightbox-popup"
-                          onClick={() => openLightbox(index)}
-                        />
-                    </React.Fragment>
-                  ))}
-                  </OwlCarousel>
-                   {isOpen && (
-                    <Lightbox
-                      mainSrc={fileStorage.baseUrl + post.postedimages[photoIndex].imagePath}
-                      nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
-                      prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
-                      onCloseRequest={() => setIsopen(false)}
-                      onMovePrevRequest={() =>
-                        setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
-                      }
-                      onMoveNextRequest={() =>
-                        setPhotoindex((photoIndex + 1) % post.postedimages.length)
-                      }
-                    />
-                  )}
-                  </>
-                :post.postedimages&&post.postedimages.length==1
-                  ? post.postedimages.map((postImage) => (
-                    <React.Fragment>
+                {post.postedimages && post.postedimages.length > 1
+                  ? <>
+                    <OwlCarousel items={1}
+                      className="owl-theme grp-carousel post-carousel"
+                      dots
+                      nav
+                      navText={"<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"}
+                      margin={10}>
+                      {post.postedimages.map((postImage, index) => (
+                        <React.Fragment>
                           <img
+                            style={{ height: '420px', width: '100%', objectFit: 'cover' }}
+                            src={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                            alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                            className="lightbox-popup"
+                            onClick={() => openLightbox(index)}
+                          />
+                        </React.Fragment>
+                      ))}
+                    </OwlCarousel>
+                    {isOpen && (
+                      <Lightbox
+                        mainSrc={fileStorage.baseUrl + post.postedimages[photoIndex].imagePath}
+                        nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
+                        prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
+                        onCloseRequest={() => setIsopen(false)}
+                        onMovePrevRequest={() =>
+                          setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
+                        }
+                        onMoveNextRequest={() =>
+                          setPhotoindex((photoIndex + 1) % post.postedimages.length)
+                        }
+                      />
+                    )}
+                  </>
+                  : post.postedimages && post.postedimages.length == 1
+                    ? post.postedimages.map((postImage) => (
+                      <React.Fragment>
+                        <img
                           style={{ width: '100%', objectFit: 'cover' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           className="lightbox-popup"
-                          onClick={()=>setIsopen(true)}
+                          onClick={() => setIsopen(true)}
                         />
                         {isOpen && (
                           <Lightbox
@@ -498,18 +522,18 @@ export default function PostComponent({ post, setRefresh }) {
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
-                    </React.Fragment>
-                  ))
-                  :post.swapimages?post.swapimages.map((postImage) => (
-                    <div className="swappost-main-div">
-                      {/* <Popup */}
+                      </React.Fragment>
+                    ))
+                    : post.swapimages ? post.swapimages.map((postImage) => (
+                      <div className="swappost-main-div">
+                        {/* <Popup */}
                         {/* trigger={ */}
-                          <img
-                          style={post.user.id==user.id?{ width: '100%', objectFit: 'cover' }:{borderRadius:'10px 10px 0 0'}}
+                        <img
+                          style={post.user.id == user.id ? { width: '100%', objectFit: 'cover' } : { borderRadius: '10px 10px 0 0' }}
                           src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                           alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          onClick={()=>setIsopen(true)}
-                         
+                          onClick={() => setIsopen(true)}
+
                         />
                         {isOpen && (
                           <Lightbox
@@ -517,146 +541,146 @@ export default function PostComponent({ post, setRefresh }) {
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
-                      { post.user.id!==user.id&&
-                      <div className='swappost-cont'>
-                        <div className=''>
-                          <div className="bold " style={{marginBottom:'5px' ,marginTop:'10px' , color:'#050505'}}>{post.category?post.category:'Category'}</div>
-                          <div style={{ fontSize:'14px'}}>{post.content?post.content:'Get swapped with your favourite things'}</div>
-                          {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
-                        </div>
-                        <Popup
-                          trigger={
-                              <button className="button" >SWAP</button>
-                          }
-                          modal
-                          nested
-                        >
-                          {(close) => (
-                            <Form style={{ margin: '5px' }} className='popwidth rqst-swap-form' onSubmit={close}>
+                        {post.user.id !== user.id &&
+                          <div className='swappost-cont'>
+                            <div className=''>
+                              <div className="bold " style={{ marginBottom: '5px', marginTop: '10px', color: '#050505' }}>{post.category ? post.category : 'Category'}</div>
+                              <div style={{ fontSize: '14px' }}>{post.content ? post.content : 'Get swapped with your favourite things'}</div>
+                              {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
+                            </div>
+                            <Popup
+                              trigger={
+                                <button className="button" >SWAP</button>
+                              }
+                              modal
+                              nested
+                            >
+                              {(close) => (
+                                <Form style={{ margin: '5px' }} className='popwidth rqst-swap-form' onSubmit={close}>
 
-                              <div className='headpop'>
-                                <div className='row'>
-                                  <div style={{ width: '20%' }}>
-                                    <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                                      <i class='las la-times'></i>
-                                    </a>
+                                  <div className='headpop'>
+                                    <div className='row'>
+                                      <div style={{ width: '20%' }}>
+                                        <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                                          <i class='las la-times'></i>
+                                        </a>
+                                      </div>
+                                      <div
+                                        style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
+                                      >
+                                        {' '}
+                                        <span>Request for Swap</span>
+                                      </div>
+
+                                    </div>
                                   </div>
-                                  <div
-                                    style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
-                                  >
-                                    {' '}
-                                    <span>Request for Swap</span>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-                              <div style={{ padding: '0 11px 11px 11px' }}>
-                                <div className='popupimg'>
-                                  <img
-                                    src={
-                                      user
-                                        ? fileStorage.baseUrl + user.profilePicturePath
-                                        : fileStorage.baseUrl + userR.profilePicturePath
-                                    }
-                                    alt=''
-                                  />
-                                </div>
-                                <div class='popupuser-name'>
-                                  <div style={{ display: 'inline' }}>
-                                    <span>
-                                      {`${user.firstName} ${user.lastName}`}
-                                      {post.user ? <> <span style={{color: 'rgb(100 166 194)' , fontWeight:'500'}}>swap with</span> {`${post.user.firstName} ${post.user.lastName}`}</> : null}
-                                    </span>
-                                    <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
-                                      <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
-                                        {/* {popAudience()} */}
-                                      </li>
-                                      
-                                      {/* <div className='dropdownnewsfeed'>
+                                  <div style={{ padding: '0 11px 11px 11px' }}>
+                                    <div className='popupimg'>
+                                      <img
+                                        src={
+                                          user
+                                            ? fileStorage.baseUrl + user.profilePicturePath
+                                            : fileStorage.baseUrl + userR.profilePicturePath
+                                        }
+                                        alt=''
+                                      />
+                                    </div>
+                                    <div class='popupuser-name'>
+                                      <div style={{ display: 'inline' }}>
+                                        <span>
+                                          {`${user.firstName} ${user.lastName}`}
+                                          {post.user ? <> <span style={{ color: 'rgb(100 166 194)', fontWeight: '500' }}>swap with</span> {`${post.user.firstName} ${post.user.lastName}`}</> : null}
+                                        </span>
+                                        <span style={{ marginTop: '4px ', display: 'block', fontSize: '10px' }}>
+                                          <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+                                            {/* {popAudience()} */}
+                                          </li>
+
+                                          {/* <div className='dropdownnewsfeed'>
                                         <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
                                           <option value='Friends'>Friends</option>
                                           <option value='Public'>Public</option>
                                           <option value='Only Me'>Only Me</option>
                                         </select>
                                       </div>{' '} */}
+                                        </span>
+                                      </div>{' '}
+                                    </div>{' '}
+                                  </div>
+                                  <div style={{ minHeight: '150px' }}>
+                                    <span className='textPop'>
+                                      <textarea
+                                        className='textpopup'
+                                        rows={2}
+                                        // style={{fontSize:'14px'}}
+                                        placeholder={'Share about swap with ' + post.user.firstName + '?'}
+                                        name='swap_content'
+                                        value={swapContent}
+                                        onChange={handleSwapContent}
+                                      />
+
+                                      {showSwapImage ? (
+                                        <>
+                                          <div style={{ position: 'relative' }}>
+                                            {swapImage.map((item, key) => (
+                                              <img
+                                                src={item}
+                                                key={key}
+                                                style={{
+                                                  padding: '10px',
+                                                  display: 'inline-block',
+                                                  verticalAlign: 'middle',
+                                                }}
+                                              />
+                                            ))}
+
+                                            {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
+                                            <button
+                                              onClick={handleRemoveImageSwap}
+                                              style={{
+                                                right: '10px',
+                                                top: '10px',
+                                                position: 'absolute',
+                                                borderRadius: '100%',
+                                                background: '#b7b7b738',
+                                                padding: '10px 10px',
+                                              }}
+                                            >
+                                              <i class='las la-times'></i>
+                                            </button>
+                                          </div>
+
+                                        </>
+                                      ) : null}
                                     </span>
-                                  </div>{' '}
-                                </div>{' '}
-                              </div>
-                              <div style={{ minHeight:'150px' }}>
-                                <span className='textPop'>
-                                  <textarea
-                                    className='textpopup'
-                                    rows={2}
-                                    // style={{fontSize:'14px'}}
-                                    placeholder={'Share about swap with ' + post.user.firstName +'?' }
-                                    name='swap_content'
-                                    value={swapContent}
-                                    onChange={handleSwapContent}
-                                  />
+                                    {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
+                                  </div>
 
-                                  {showSwapImage ? (
-                                    <>
-                                      <div style={{position:'relative'}}>
-                                        {swapImage.map((item, key) => (
-                                          <img
-                                            src={item}
-                                            key={key}
-                                            style={{
-                                              padding: '10px',
-                                              display: 'inline-block',
-                                              verticalAlign: 'middle',
-                                            }}
-                                          />
-                                        ))}
+                                  {imageshowSwap()}
+                                  <div
+                                    type='submit'
+                                    value='Submit'
+                                    style={{
+                                      textAlign: 'center',
+                                      background: '#033347',
+                                      fontWeight: 'bold',
+                                      color: 'white',
+                                      margin: '11px 11px',
+                                      padding: '15px',
+                                      borderRadius: '5px',
+                                      fontSize: '14px',
+                                      cursor: 'pointer',
+                                    }}
+                                    onClick={close}
+                                  >
+                                    Request for Swap
+                                  </div>
+                                </Form>
+                              )}
+                            </Popup>
 
-                                        {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
-                                        <button
-                                          onClick={handleRemoveImageSwap}
-                                          style={{
-                                            right: '10px',
-                                            top: '10px',
-                                            position: 'absolute',
-                                            borderRadius: '100%',
-                                            background: '#b7b7b738',
-                                            padding: '10px 10px',
-                                          }}
-                                        >
-                                          <i class='las la-times'></i>
-                                        </button>
-                                      </div>
-
-                                    </>
-                                  ) : null}
-                                </span>
-                                {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
-                              </div>
-
-                              {imageshowSwap()}
-                              <div
-                                type='submit'
-                                value='Submit'
-                                style={{
-                                  textAlign: 'center',
-                                  background: '#033347',
-                                  fontWeight: 'bold',
-                                  color: 'white',
-                                  margin: '11px 11px',
-                                  padding: '15px',
-                                  borderRadius: '5px',
-                                  fontSize: '14px',
-                                  cursor: 'pointer',
-                                }}
-                                onClick={close}
-                              >
-                                Request for Swap
-                              </div>
-                            </Form>
-                          )}
-                        </Popup>
-
-                        {/* <div className='itemS3'> */}
-                        {/* <>
+                            {/* <div className='itemS3'> */}
+                            {/* <>
                           <div className='swapImage'>
                             <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
                               <img
@@ -666,11 +690,11 @@ export default function PostComponent({ post, setRefresh }) {
                             </a>
                           </div>{' '}
                         </> */}
-                        {/* </div> */}
+                            {/* </div> */}
+                          </div>
+                        }
                       </div>
-                      }
-                    </div>
-                  )):null}
+                    )) : null}
               </div>
               {/* {
                 post.swapimages&&post.swapimages.length>0&&
@@ -678,32 +702,87 @@ export default function PostComponent({ post, setRefresh }) {
                   
                 </>
               } */}
-              {/* <div className='counter'>
+              <div className='counter'>
                 <ul>
-                  <li>
-                    {handleCounterReaction()}
-                    <span> {post.reactions&&post.reactions.length} </span>
+                  <li style={{ float: 'left', color: 'black'}}>
+                     {checkIfLiked(post) ? (
+                      <div className='userreaction' >
+                        <span className='isreaction' data-toggle='tooltip' title=''>
+                          {handleReaction()}
+                         
+                          {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
+                        </span>
+                      </div>
+                    ) : (
+                      <>
+                        <div className='userreaction' onClick={() => handleLikePost(post.id)}>
+                          <span className='noreaction' data-toggle='tooltip' title=''
+                            onMouseEnter={handleShowuserReaction}
+                            onMouseLeave={handleUnshowuserReaction}>
+
+                            {/* <img src='/assets/images/Star.svg' alt='' /> */}
+                            {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
+                            <i class="far fa-star" ></i>
+                            
+                            {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
+
+                          </span>
+
+                        </div>
+                      </>
+                    )}
+                    <span style={{ paddingLeft: '5px'}}>
+                      
+                      
+                      {post.reactions && post.reactions.length +" "}
+                    
+                    </span>
                   </li>
-                  <li>
+
+
+
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+                  <li style={{ float: 'right', color: 'black', paddingLeft: '0px'}}>
+                    <span>
+
+                      {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
+                    </span>{' '}
+                    <span> {"1" +' '}
+                     shares </span>
+                  </li>
+
+
+
+                  <li style={{ float: 'right', color: 'black'}}>
                     <span
                       className='commentCounter'
                       style={{ marginRight: '5px' }}
                       onClick={() => setShowComment(!showComment)}
                     >
-                      <img src='/assets/images/commentwhite.svg' alt='' />
+                      {/* <img src='/assets/images/commentwhite.svg' alt='' /> */}
                     </span>{' '}
-                    <span> {`${getCommentCounter(post.comments)}`}</span>
+                    <span> {`${getCommentCounter(post.comments)}`+" "}
+                       </span>
                   </li>
-                  <li>
-                    <span>
-                      {' '}
-                      <img src='/assets/images/shareicnwhite.svg' alt='' />
-                    </span>{' '}
-                    <span> {`${getCommentCounter(post.comments)}`} </span>
-                  </li>
-                 
+
+
+
+
+
                 </ul>
-              </div> */}
+              </div>
 
               {showReactions && (
                 <div
@@ -721,29 +800,38 @@ export default function PostComponent({ post, setRefresh }) {
                 </div>
               )}
 
-              <div className='we-video-info post-action'>
+              <div className='we-video-info post-action' style={{ marginLeft: '10px' }}>
                 <div className='click'>
-                  
+
+
+
+
+
+
                   <div className='commShare'>
                     {checkIfLiked(post) ? (
-                    <div className='btncmn' onClick={() => handleLikePost(post.id)}>
-                      <span className='like' data-toggle='tooltip' title=''>
-                        {handleReaction()}
-                        <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span>
-                      </span>
-                    </div>
-                  ) : (
-                    <>
                       <div className='btncmn' onClick={() => handleLikePost(post.id)}>
-                        <span className='dislike' data-toggle='tooltip' title='' 
-                         onMouseEnter={handleShowingReaction}
-                         onMouseLeave={handleUnshowingReaction}>
-                          {/* <img src='/assets/images/Star.svg' alt='' /> */}
-                          {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                          <i class="far fa-star"></i>
-                          <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span>
+                        <span className='like' data-toggle='tooltip' title=''>
+                          {handleReaction()}
+                          Star
+                          {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
-                        {/* <div className='smiliehint'>
+                      </div>
+                    ) : (
+                      <>
+                        <div className='btncmn' onClick={() => handleLikePost(post.id)}>
+                          <span className='dislike' data-toggle='tooltip' title=''
+                            onMouseEnter={handleShowingReaction}
+                            onMouseLeave={handleUnshowingReaction}>
+
+                            {/* <img src='/assets/images/Star.svg' alt='' /> */}
+                            {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
+                            <i class="far fa-star" style={{ paddingRight: '5px'}}></i>
+                            Star
+                            {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
+
+                          </span>
+                          {/* <div className='smiliehint'>
                         {(
                           <div
                            
@@ -759,31 +847,44 @@ export default function PostComponent({ post, setRefresh }) {
                           </div>
                         )} 
                         </div> */}
-                      </div>
-                    </>
-                  )}
-                    <div className='btncmn' onClick={() => setShowComment(!showComment)}>
+
+                        </div>
+                      </>
+                    )}
+
+
+
+
+                    <div className='btncmn' style={{ padding: '0px'}} onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments' >
+
                         {/* <img src='/assets/images/comment.svg' /> */}
                         {/* <span style={{ paddingLeft: '2px' }}>Comment</span> */}
                         <i class="far fa-comment"></i>
-                        <span style={{paddingLeft:'5px'}}>{getCommentCounter(post.comments)}</span>
+                        <span style={{ paddingLeft: '5px' }}>
+                          Comments
+
+                          {/* {getCommentCounter(post.comments)} */}
+                        </span>
                       </span>
                     </div>
+
+
                     <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         {/* <img src='/assets/images/shareicn.svg' /> */}
-                        <i class="fas fa-share"></i>
+                        <i class="fas fa-share" style={{ paddingRight: '5px'}}></i>
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
+                        Share
                       </span>
                     </div>
-                    <div className='btncmn'>
+                    {/* <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         
                         {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)}></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}></i>}
-                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
+                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> 
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -828,9 +929,10 @@ export default function PostComponent({ post, setRefresh }) {
         )} */}
         {/* Till here */}
         <div className='coment-area'>
+
           <ul className='we-comet'>
-            
-            {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />}
+            <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
+            {/* {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />} */}
             {showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />}
           </ul>
         </div>
