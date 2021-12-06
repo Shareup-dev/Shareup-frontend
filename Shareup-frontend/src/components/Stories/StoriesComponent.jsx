@@ -63,6 +63,10 @@ function StoriesComponent({ story, setRefresh }) {
       setUserR(user);
     }
   };
+  
+const checkPop=()=>{
+  console.log('popup working');
+}
 
   useEffect(() => {
     getUser();
@@ -72,7 +76,7 @@ function StoriesComponent({ story, setRefresh }) {
 
   return (
     <div className="strysggstion-card">
-      <div className="strysggstion-Profimg">
+      <div className="strysggstion-Profimg" style={{borderColor: storiesForUser.length>0 ? 'blue' : 'white'}}>
         <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
       </div>
       <div
@@ -86,15 +90,23 @@ function StoriesComponent({ story, setRefresh }) {
           boxShadow: " 0 3px 6px rgb(84 84 84 / 41%)",
         }}
       >
-        <span>{storiesForUser.length - 1}</span>
+        <span>{storiesForUser.length}</span>
       </div>
       {/* <span style={{display:'inline-block', width:'25px', height:'15px' position:'absolute', left:'10px'}}>{storiesForUser.length}</span> */}
       <a href="#">
         {/* {story.storiesImagePath} data-lightbox={`image-user-${story.user.id}`} */}
-        <div className="strysggstion-imgStry">
+        <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
-            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" />
+            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
           </a>
+          <div className="strysggstion-imgStry-overlay">
+
+          </div>
+          <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
+            {/* <span className='mb-4 text-light'>{storiesForUser.length}</span> */}
+            <span className='mb-4 text-light p-2' style={{fontSize:'1rem'}}>{story.user.firstName} {story.user.lastName}</span>
+
+          </div>
         </div>
       </a>
     </div>
