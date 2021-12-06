@@ -406,7 +406,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </div> */}
                     <div class="dropdown add-dropdown">
                       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class='las la-ellipsis-h' style={{  fontSize: '26px' }}></i>
+                        <i class='fas fa-ellipsis-h' style={{  fontSize: '20px' }}></i>
                       </button>
                       <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
                         <ul>
@@ -771,7 +771,7 @@ export default function PostComponent({ post, setRefresh }) {
                       </span>
                     </div>
                     <div className='btncmn'>
-                      <span className='views' data-toggle='tooltip'>
+                      <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i class="fas fa-share"></i>
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
@@ -780,7 +780,7 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         
-                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)}></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}></i>}
+                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
                       </span>
                     </div>

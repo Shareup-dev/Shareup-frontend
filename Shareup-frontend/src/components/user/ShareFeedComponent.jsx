@@ -743,20 +743,19 @@ const handleRemoveImageSwap = () => {
       return (
         <div className="loadMore">
           {
-            postsForUser.map(
-              post =>
-                <div key={post.id}>
-                  {
-                    post.group ?
-                      post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
-                        testFanc(post) : null
-                      :
-                      testFanc(post)
-                  }
-                </div>
-            )
+            // postsForUser.map(
+            //   post =>
+            //     <div key={post.id}>
+            //       {
+            //         post.group ?
+            //           post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
+            //             testFanc(post) : null
+            //           :
+            //           testFanc(post)
+            //       }
+            //     </div>
+            // )
           }
-
         </div>
       )
     } 
@@ -861,62 +860,75 @@ useEffect(() => {
   }
 
   return (
-    <Layout user={user ? user : userR}>
-      {
-        user.newUser ? <GuideComponent /> :
+    <Layout user={user}>
+			<div className="col-lg-6">
+				<div className="central-meta swap-pg-cont">
+					<div className="frnds">
+					<div>
+						<p className="Friends-Title">Shares</p>
+						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+					</div>
+						<div class="navContent">
 
-          <div className="col-lg-6">
-
-            <div className="central-meta newsfeed">
-              <div className="new-postbox">
-                <figure>
-                  <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
-                </figure>
-                <div className="newpst-input">
-                  <Form>
-                   {postUp()}
-                    {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                    {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ width: "80%", border: "3px solid" }} />
-                        <button onClick={handleRemoveImage}>x</button>
-                      </>
-                      :
-                      null
-                    } */}
-
-                    <div className="attachments">
-                      <ul>
-                        <li>
-                        {popUp()}
-                          
-                          </li>
-{/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-                        </label> */}
-                        <li>{shareUp()}</li>
-                        <li>{photos()}</li>
-                        {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
-                        </label></li> */}
-                        
-                          
-                       
-                      </ul>
-                      
-                    </div>
-                    
-                  </Form>
-                </div>
-              </div>
+							<ul class="nav nav-pills swap-page-nav" role="tablist">
+								<li class="nav-item" style={{justifyContent:'flex-start'}}>
+                  <div className="all">
+                    <span style={{ cursor: 'pointer' }} >
+                      <span style={{ marginRight: '5px', padding: '5px' }}> 
+                      <i className="fas fa-share" style={{fontSize:'16px'}}></i>
+                      {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                      All Shares
+                    </span>
+  								</div> 
+								</li> 
+								<li class="nav-item" style={{justifyContent:'center'}}>
+                  <div className="my">
+                    <span style={{ cursor: 'pointer' }} >
+                      <span style={{ marginRight: '5px', padding: '5px' }}> 
+                      <i className="lar la-handshake" style={{fontSize:'20px'}}></i>
+                      {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                      My Shares
+                    </span>
+                  </div>
+								</li>
+								<li class="nav-item" style={{justifyContent:'flex-end'}}>
+                  <div className="new">
+                    <span style={{ cursor: 'pointer' }} >
+                        <span style={{ marginRight: '5px', padding: '5px' }}> 
+                        <i className="far fa-share-square" style={{fontSize:'16px'}}></i>
+                        {/* <span>{`${following.length}`}</span> */}
+                        </span>
+                        Share
+                    </span>
+                  
+                  </div>
+								</li>
+                {/* <li class="nav-item">
+                  <span style={{ cursor: 'pointer' }}>
+                    <span style={{ marginRight: '5px', padding: '5px' }}>
+                      <i class="fas fa-bell" style={{fontSize:'25px'}}></i>
+                    </span>
+                    Notifications
+                  </span>
+								</li> */}
+								
+							</ul>
+							
+						</div>
+    				<div class="friends-search-container" style={{display:'flex' ,alignItems:'center' ,justifyContent:'center'}}>
+              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{width:"100%"}}/>
             </div>
-            
-            {/* add post new box */}
-            {/* <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>Newsfeed</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span>|<span onClick={() => setShowComp("saved")}>SharePosts</span>|<span onClick={() => setShowComp("saved")}>Swap Posts</span></p> */}
-            {
-              show()
-            }
-          </div>
-      }
-    </Layout>
+
+					</div>
+          <div style={{minHeight:'200px',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>No Shares</div>
+
+				</div>
+						{show()}
+
+			</div>
+		</Layout>
 
   );
 }

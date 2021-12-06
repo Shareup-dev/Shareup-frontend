@@ -1908,7 +1908,7 @@ img#preview {
   align-items: center;
   margin-bottom: 10px;
   border-bottom: 2px solid #ede9e9;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
 }
 .sidebar .widget .row img {
   width: 10%;
@@ -1960,8 +1960,8 @@ img#preview {
   color: rgb(66, 66, 66);
   text-transform: capitalize;
   font-weight: "bold";
-  display: inline;
-  padding-left: 10px;
+  /* display: inline; */
+  margin-left: 10px;
 }
 .sidebar .widget-title {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -4668,7 +4668,8 @@ nav.breadcrumb {
 }
 
 .nearby-contct {
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
   display: inline-block;
   list-style: outside none none;
   margin-bottom: 0;
@@ -4708,7 +4709,7 @@ nav.breadcrumb {
   margin: 10px;
 }
 .grp {
-  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3); */
 }
 
 .sendrqstli{
@@ -4731,6 +4732,8 @@ nav.breadcrumb {
 /* <<<<<<< HEAD */
   margin-left: 0px;
   margin-right:0px;
+  margin-top: 0px;
+
 /* ======= */
   /* border: 1px solid #eaeaea;
 >>>>>>> ae14d18526766c81b931069b7ed23865ec8ebd1e */
@@ -4740,8 +4743,8 @@ nav.breadcrumb {
   border-radius: 10px;
 }
 .nearby-contct > li:hover {
-  box-shadow: 0 8px 8px #e1e8ec;
-  border-color: transparent;
+  box-shadow: 0 8px 8px #8b8b8b;
+  border-color: none;
 }
 
 
@@ -5013,11 +5016,11 @@ width: 135%;
 .friend-search {
   border-radius: 20px;
   text-align: -webkit-center;
-  background-color: #e5e5e5;
+  background-color: #a9a9a92b;
   border-width: 0px;
   /* margin-bottom: 20px; */
   height: 40px;
-  margin: 10px;
+  /* margin: 10px; */
 }
 .friends-button {
   border: none;
@@ -5050,11 +5053,11 @@ width: 135%;
   width: 100%;
   /* height: auto;
     margin: 0 auto; */
-  padding: 15px;
+  /* padding: 15px; */
 }
 .nav-pills {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 a.nav-link:hover {
   color: rgb(0, 0, 0);
@@ -5074,13 +5077,16 @@ a.nav-link:hover {
 }
 .nav-pills .nav-link.active {
   font-size: 13px;
-  background: #e5e5e5;
+  background: #a9a9a92b;
   color: rgb(0, 0, 0);
-  padding: 10px 43px 10px 43px;
-  margin: 2px;
+  /* padding: 10px 43px 10px 43px; */
+  /* margin: 2px; */
 }
 .frnds .nav-pills .nav-item.active .nav-link{
    /* background-color: #b6b6d982;  */
+}
+.frnds .nav-pills li{
+  width: 33%;
 }
 .nav-pills .nav-link.active:hover {
   cursor: pointer;
@@ -5281,10 +5287,10 @@ a.add-butn {
 .frnds {
   float: left;
   width: 100%;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 .frnds .Friends-Title{
-  padding-left: 20px;
+  /* padding-left: 20px; */
   /* padding-bottom: 10px; */
 }
 
@@ -13200,7 +13206,7 @@ breadcrumb-item + .breadcrumb-item::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: capitalize;
   letter-spacing: 0.3px;
 }
@@ -13286,7 +13292,7 @@ breadcrumb-item + .breadcrumb-item::before {
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 20px;
-  padding: 10px 0px 0px 10px;
+  /* padding: 10px 0px 0px 10px; */
   position: relative;
   text-transform: Capitalize;
 }
@@ -15598,11 +15604,11 @@ input.chat-text {
 
 
 .groupalign {
-  width: 31% !important;
+  width: 32% !important;
 
   text-align: center;
   display: inline-block;
-  /* margin-right: 10px !important; */
+  margin-right: 10px !important;
   border: 1px solid #eaeaea;
   transition: all 0.15s linear 0s;
   border-radius: 10px;
@@ -15611,8 +15617,11 @@ input.chat-text {
 
 
 }
+.groupalign:nth-child(3n){
+  margin-right: 0!important;
+}
 .groupalign:hover {
-  box-shadow: 0 3px 6px rgb(84 84 84 / 41%) !important;
+  box-shadow: 0 6px 15px rgb(84 84 84 / 55%)!important;
 }
 .groupalign .groupsggstion-by {
   position: absolute;
@@ -15646,7 +15655,9 @@ input.chat-text {
   opacity: 0.9;
 }
 
-
+.grp-search{
+  border-bottom: 1px solid #c4c4c4 !important;
+}
 
 .groupalign:hover .preview-btn , .slide .groupsggstion-card:hover .preview-btn{
   display: block;
@@ -15760,37 +15771,57 @@ input.chat-text {
 .swap-pg-cont .friends-search-container{
   border-bottom: none;
 }
-.swap-pg-cont .attachments{
+.swap-pg-cont .swap-page-nav{
   display: flex;
-  padding: 20px 0;
+  padding: 15px 0;
   margin-bottom: 0;
   width: 100%;
+  font-size: 14px;
+  text-align: center;
+  border-top: 0;
+    background: #fff;
 }
-.swap-pg-cont .attachments li{
+.swap-pg-cont .swap-page-nav li{
   /* margin:0 50px; */
-  width: 30%;
-  margin-right: 10px;
+  width: 33%;
+  /* margin-right: 10px; */
+  /* background: #a9a9a92b; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  color: black;
+  border-radius: 20px;
+  /* border: 1px solid #9a9a9a7a; */
+  /* padding: 5px 15px; */
+  transition: 0.3s;
+}
+
+.swap-pg-cont .swap-page-nav li div{
+  /* margin:0 50px; */
+  /* width: 33%; */
+  /* margin-right: 10px; */
   background: #a9a9a92b;
   display: flex;
   justify-content: center;
   align-items: center;
   color: black;
   border-radius: 20px;
+  width: 95%;
   /* border: 1px solid #9a9a9a7a; */
   padding: 5px 15px;
   transition: 0.3s;
 }
-.swap-pg-cont .attachments li > span{
- 
+.swap-pg-cont .swap-page-nav li > span{
+  
 }
-.swap-pg-cont .attachments li:hover{
+.swap-pg-cont .swap-page-nav li div:hover{
   cursor: pointer;
   box-shadow: 0 6px 15px rgb(84 84 84 / 55%);
 }
-.swap-pg-cont .attachments li span{
+.swap-pg-cont .swap-page-nav li span{
   display: flex;
   align-items: center;
-
+  font-weight: bold;
 }
 .swap-pg-cont{
   padding: 20px;
@@ -15808,11 +15839,11 @@ input.chat-text {
 }
 .friends-card{
   margin: 10px 20px;
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
   border: 1px solid #e7e7e7;
 }
 .friends-card:hover{
-  box-shadow: 0 3px 6px rgb(84 84 84 / 41%)!important;
+  box-shadow: 1 0 0 2px rgb(255 255 255), 0.3em 0.3em 1em rgb(0 0 0 / 30%) !important;
 }
 .friends-card .grid-container{
   display: flex;
@@ -15848,7 +15879,7 @@ input.chat-text {
   justify-content: center;
 }
 .friends-card .grid-container .item5 i{
-  font-size:15px;
+  font-size:20px;
   color: #000;
 }
 #following .item5{
@@ -15861,11 +15892,13 @@ input.chat-text {
 #following .item6 i{
 }
 .frnds .nearby-contct{
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 12%;
+  padding-right: 12%;
 }
 .frnds .friends-search-container input{
-  width: 80%;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 .sidebar-news{
   background: white ;
@@ -15936,4 +15969,7 @@ input.chat-text {
   font-size: 14px;
   cursor: pointer;
   width: 96%;
+}
+.numberCircle{
+  padding-left: 5px;
 }
