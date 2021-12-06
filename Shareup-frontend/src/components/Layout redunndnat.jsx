@@ -59,20 +59,14 @@ function Layout(props){
                       {/* --------------------------------------------------------------------------------- */}
                       {/* centerl meta */}
                       <div className="col-lg-3">
-                                            <aside className="sidebar static">
-                        <div className="widget friend-list stick-widget">
-                            <span style={{ float: 'right'}}>ads</span>
-                            <img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img>
-                                                </div>
-    
-    
-                                                {/* <FollowingWidgetComponent/> */}
-    
-                                                
-                          
-    
-                                            </aside>
-                                        </div>
+                        <aside className="sidebar static">
+                          <div className="widget friend-list stick-widget">
+                              <span style={{ float: 'right'}}>ads</span>
+                              <img src="https://technology-signals.com/wp-content/uploads/2019/05/images.martechadvisor.comvoice_technology_5cecf0b8-3f280e5abac0da913f8aa0868cf970c6a429a128.jpg"></img>
+                          </div>
+                          {/* <FollowingWidgetComponent/> */}  
+                        </aside>
+                        </div>
                       {/* sidebar */}
                     </div>
                   </div>

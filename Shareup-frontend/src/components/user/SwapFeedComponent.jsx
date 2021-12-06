@@ -1017,8 +1017,8 @@ const handleRemoveImageSwap = () => {
     return(
       <Popup trigger= {
         <span style={{ cursor: 'pointer' }}>
-          <span style={{ marginRight: '5px', padding: '5px' }}>
-            <i class="las la-sync-alt" aria-hidden="true" style={{fontSize:'20px'}}></i>
+          <span style={{  padding: '5px' }}>
+            <i class="las la-sync-alt" aria-hidden="true" style={{fontSize:'18px'}}></i>
           </span>
           Swap
         </span>

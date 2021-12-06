@@ -125,54 +125,57 @@ console.log("User: ", user);
                           </div>
                         </div> */}
                         
-                          <div style={{}} className="sidebar-news">
-                            <div class="media-date">What's trending</div>
-                            <div style={{}}>
-                              <ul>
-                                  <li>
-                                    <div className="headline-cont">
-                                      <p  className="headline"> 
-                                      Omicron variant of COVID-19: New travel guidelines to come into force from December 1
-                                      </p>
-                                      <img src={img1} />
-                                    </div>
-                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
-                                      <a href=" https://www.aljazeera.com/where/qatar/" target="_blank" className="source">Aljazeera Qatar News</a>
-                                      <p className="date">12/1/2021</p>
-                                    </div>
-
-                                  </li>
-                                      
-                                  <li>
+                          <div style={{paddingBottom:'20px',
+                            borderBottom: '1px solid #75757530'}} >
+                            <div className="sidebar-news">
+                              <div class="media-date">What's trending</div>
+                              <div style={{}}>
+                                <ul>
+                                    <li>
                                       <div className="headline-cont">
-                                        <p className="headline" >Prime Minister Scott Morrison says big tech firms have responsibility to ensure their platforms are safe.</p>
+                                        <p  className="headline"> 
+                                        Omicron variant of COVID-19: New travel guidelines to come into force from December 1
+                                        </p>
+                                        <img src={img1} />
                                       </div>
                                       <div style={{display:'flex' , justifyContent:'space-between'}}>
-                                        <a href="https://www.theverge.com/tech" target="_blank" className="source">Technology</a>
+                                        <a href=" https://www.aljazeera.com/where/qatar/" target="_blank" className="source">Aljazeera Qatar News</a>
                                         <p className="date">12/1/2021</p>
                                       </div>
-                                  </li>
-                                  <li>
-                                    <div className="headline-cont">
-                                      <p className="headline">Comprehensive Guide to Qatar Business ....</p>
-                                    </div>
-                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
-                                        <a href="https://thepeninsulaqatar.com/category/Qatar-Business" target="_blank" className="source">Business</a>
+
+                                    </li>
+                                        
+                                    <li>
+                                        <div className="headline-cont">
+                                          <p className="headline" >Prime Minister Scott Morrison says big tech firms have responsibility to ensure their platforms are safe.</p>
+                                        </div>
+                                        <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                          <a href="https://www.theverge.com/tech" target="_blank" className="source">Technology</a>
+                                          <p className="date">12/1/2021</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                      <div className="headline-cont">
+                                        <p className="headline">Comprehensive Guide to Qatar Business ....</p>
+                                      </div>
+                                      <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                          <a href="https://thepeninsulaqatar.com/category/Qatar-Business" target="_blank" className="source">Business</a>
+                                          <p className="date">12/1/2021</p>
+                                      </div>
+                                    </li>
+                                    <li> 
+                                      <div className="headline-cont">
+                                        <p className="headline">The #FIFArabCup Qatar 2021 kicks off today, coinciding with the inauguration of Al Bayt Stadium and Stadium 974, the latest stadiums to be ready for the FIFA World Cup 2022</p>
+                                      </div>
+                                      
+                                      <div style={{display:'flex' , justifyContent:'space-between'}}>
+                                        <a href="https://www.dohanews.co/category/sports/" target="_blank" className="source">Sports</a>
                                         <p className="date">12/1/2021</p>
-                                    </div>
-                                  </li>
-                                  <li> 
-                                    <div className="headline-cont">
-                                      <p className="headline">The #FIFArabCup Qatar 2021 kicks off today, coinciding with the inauguration of Al Bayt Stadium and Stadium 974, the latest stadiums to be ready for the FIFA World Cup 2022</p>
-                                    </div>
-                                    
-                                    <div style={{display:'flex' , justifyContent:'space-between'}}>
-                                      <a href="https://www.dohanews.co/category/sports/" target="_blank" className="source">Sports</a>
-                                      <p className="date">12/1/2021</p>
-                                    </div>
-                                  </li>
-                                  <li style={{textAlign:"center" ,paddingTop:'10px' }}><a href="https://www.aljazeera.com/" style={{fontSize: '12px' ,color:"#258eae"}} target="_blank">Show More</a></li>
-                              </ul>
+                                      </div>
+                                    </li>
+                                    <li style={{textAlign:"center" ,paddingTop:'10px' }}><a href="https://www.aljazeera.com/" style={{fontSize: '12px' ,color:"#258eae"}} target="_blank">Show More</a></li>
+                                </ul>
+                              </div> 
                             </div>  
                         </div>
                         <FriendsWidgetComponent />
