@@ -12,8 +12,6 @@ import styled from 'styled-components';
 import '../../modal.css';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
 import { useForm } from "react-hook-form";
-// import './signup.css';
-import '../../signup.css';
 
 const Container = styled.div`
   display: flex;
