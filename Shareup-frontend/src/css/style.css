@@ -189,7 +189,9 @@ padding: 21px 10px;
   background-color: #fff;
   color: #333;
 }
-
+.remove-overl{
+  display: none;
+}
 /* NAJAM FORM VALIDATION START */
 
 
@@ -14636,7 +14638,6 @@ visibility: visible !important;
 .active .risewidth{
   width: 100%;
   animation: risewidth 5s;
-
 }
 @keyframes risewidth{
   0%
@@ -14646,6 +14647,7 @@ visibility: visible !important;
   100%{
     width:100%;
   }
+  
 }
 
 
