@@ -606,7 +606,8 @@ useEffect(() => {
                                         {showPostImage ?
                                           <>
                                             <img id="preview" src={postImage} style={{ width: "100%" }} />
-                                                            <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+                                                            <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}>
+                                                              <i class="las la-times"></i></button>
                                           </>
                                           :
                                           null

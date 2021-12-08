@@ -4,12 +4,15 @@ import { Counter } from './features/counter/Counter';
 import './App.css';
 import './css/main.min.css';
 import './css/style.css';
+import './css/slider.css';
+
 import './css/color.css';
 import './css/responsive.css';
 import './css/fontawesome/css/all.min.css';
 import './css/styleguide.css';
 import './css/notifications.css';
 import './css/globals.css';
+import './css/emojionearea.min.css';
 import AuthService from './services/auth.services'
 
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
@@ -53,6 +56,7 @@ import ChatTestComponent from './components/ChatTest/ChatTestComponent';
 import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
+import Giphy from './components/Giphy';
 
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
@@ -88,6 +92,8 @@ function App() {
   const logout = () => {
     AuthService.logout();
   }
+
+Giphy();
 
 
   return (

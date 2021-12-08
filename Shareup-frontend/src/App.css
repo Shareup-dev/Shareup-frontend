@@ -22,6 +22,8 @@
 }
 
   .button {
+    margin-right: 5px;
+    margin-bottom: 30px;
     display: block;
     width: 115px;
   
@@ -216,6 +218,7 @@ select.list-dt:focus {
 
 #progressbar li {
     list-style-type: none;
+    padding-left: 57px;
     font-size: 12px;
     width: 25%;
     float: left;
@@ -679,6 +682,16 @@ body{
   grid-gap: 20px;
   font-size: 1.2em;
 } 
+.grid-containeraudience {
+  display: grid;
+  grid-template-columns: 0.15fr 1fr 0.1fr;
+  grid-gap: 20px;
+  font-size: 1.2em;
+}
+
+
+
+
 .grid-containerChat{
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;

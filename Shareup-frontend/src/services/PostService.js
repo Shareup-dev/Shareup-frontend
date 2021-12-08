@@ -36,7 +36,7 @@ class PostService {
 
     getPostForUser = async (email) => {
         authenticate();
-        const result = await authAxios.get(`posts/${email}`)
+        const result = await authAxios.get(`posts/email/${email}`)
         return result;
     }
 

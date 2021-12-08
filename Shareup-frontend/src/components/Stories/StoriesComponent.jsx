@@ -11,28 +11,21 @@ import GroupService from "../../services/GroupService";
 import StoriesService from "../../services/StoriesService";
 import Carousel from "react-bootstrap/Carousel";
 import settings from "../../services/Settings";
-
 import Modal from "react-modal";
 import Popup from "reactjs-popup";
 import fileStorage from "../../config/fileStorage";
 function StoriesComponent({ story, setRefresh }) {
   let history = useHistory();
-
   const { user } = useContext(UserContext);
-
   // const []
-
   // const inputRef = createRef();
-
   const [index, setIndex] = useState(0);
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [stories, setStories] = useState([]);
   const [userR, setUserR] = useState([]);
-
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
   const getStoriesForUser = async () => {
     await StoriesService.getStoriesForUser(
       AuthService.getCurrentUser().username
@@ -63,7 +56,7 @@ function StoriesComponent({ story, setRefresh }) {
       setUserR(user);
     }
   };
-  
+
 const checkPop=()=>{
   console.log('popup working');
 }
@@ -79,6 +72,7 @@ const checkPop=()=>{
       <div className="strysggstion-Profimg" style={{borderColor: storiesForUser.length>0 ? 'blue' : 'white'}}>
         <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
       </div>
+      
       <div
         className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center"
         style={{
@@ -90,6 +84,7 @@ const checkPop=()=>{
           boxShadow: " 0 3px 6px rgb(84 84 84 / 41%)",
         }}
       >
+        <span>{storiesForUser.length - 1}</span>
         <span>{storiesForUser.length}</span>
       </div>
       {/* <span style={{display:'inline-block', width:'25px', height:'15px' position:'absolute', left:'10px'}}>{storiesForUser.length}</span> */}
@@ -97,6 +92,7 @@ const checkPop=()=>{
         {/* {story.storiesImagePath} data-lightbox={`image-user-${story.user.id}`} */}
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
+            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" />
             <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">

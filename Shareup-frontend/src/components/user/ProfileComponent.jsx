@@ -231,8 +231,8 @@ function ProfileComponent() {
       aboutme: aboutme,
       job: job,
       hometown: homeTown,
-      gender:gender,
-      currenttown:currentTown,
+      gender: gender,
+      currenttown: currentTown,
       relationshipstatus: relationshipStatus,
       interests: interests,
 
@@ -337,207 +337,207 @@ function ProfileComponent() {
 
   const profileAboutComponent = () => {
     return (
-     /* <div className="container">
-         <div style={{ marginLeft: '5%', marginRight: '5%' }}>
+      /* <div className="container">
+          <div style={{ marginLeft: '5%', marginRight: '5%' }}>
+ 
+         <div className="row">
+           <div className="col-lg-8">
+             <div style={{ background: 'white', border: '1px solid #ececec', borderRadius: '10px', boxShadow: '0 1px 3px rgb(0 0 0 / 20%)', margin: '0 20px 20px 0' }}>
+               <div><span style={{ float: 'right' }}><i class="las la-ellipsis-v"></i></span></div>
+ 
+               <div className="admin-name">
+                 <h5>{`${userProfile.firstName} ${userProfile.lastName}`}</h5>
+                 <span>{`${userProfile.email}`}</span>
+               </div>
+ 
+ 
+ 
+               <div className="edit-area">
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">First Name</label>
+                   <input type="text" className="form-inpt" id="fullName" placeholder="Click to add"
+                     value={firstName} onChange={handleFirstName} />
+                 </div>
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Last Name</label>
+                   <input type="text" className="form-inpt" id="lastName" placeholder="Click to add"
+                     value={lastName} onChange={handleLastName} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">About Me</label>
+                   <input type="text" className="form-inpt" id="About" placeholder="Click to add" value={aboutme} onChange={handleAboutme} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Job</label>
+                   <input type="text" className="form-inpt" id="About" placeholder="Click to add"
+ 
+                     value={job} onChange={handleJob} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Email</label>
+                   <p>{userProfile.email} </p>
+                 </div>
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Role</label>
+                   <input disabled={true} className="form-inpt" type="url" id="interests" placeholder="No Role" style={{ color: "red" }}
+                     value={userProfile.role} onChange={handleOnChange} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Home Town</label>
+                   <input type="text" className="form-inpt" id="About" placeholder="Click to add"
+ 
+                     value={homeTown} onChange={handleHomeTown} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Relationship Status</label>
+                   <input type="text" className="form-inpt" id="Relationship Status" placeholder="Click to add"
+                     value={relationshipStatus} onChange={handleRelationshipStatus} />
+                 </div>
+ 
+ 
+ 
+ 
+ 
+ 
+                 <div className="form-group2">
+                   <label htmlFor="firstName">Interests</label>
+                   <input type="text" className="form-inpt" id="Interests" placeholder="Click to add" value={interests} onChange={handleInterests} />
+                 </div>
+ 
+ 
+ 
+ 
+                 <br></br>
+ 
+ 
+                 <div style={{ display: 'inline', margin: '10px 0' }}>
+                   <button id="submit" name="submit" className="shareIn-btn2" type="button" onClick={temp}>
+                     <span>Cancel</span>
+                   </button>
+                   {/* <button type="button" id="submit" name="submit" className="btn btn-secondary" onClick={temp} >Cancel</button> *
+                   <button id="submit" name="submit" className="shareIn-btn2" type="button" onClick={updateProfile}>
+                     <span>Save</span>
+                   </button>
+                   {/* <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={updateProfile}>Save</button> *
+                 </div>
+ 
+ 
+               </div>
+ 
+             </div>
+           </div>
+ 
+           <div className="col-lg-4">
+ 
+             <div className="widget-prof">
+               <ul><li className="head-widgt">Privacy</li>
+                 <li><div className="row"><input type="checkbox" /><p>Include my profile in ShareUp search</p></div></li>
+                 <li><div className="row"><input type="checkbox" /><p>Allow my contacts to see my contacts</p></div></li>
+                 <li><div className="row"><input type="checkbox" /><p>Allow my contacts to download photos I share to my ShareTime</p></div></li>
+ 
+               </ul>
+             </div>
+           </div>
+         </div>
+     </div></div>*/
+      <div className="right-edit-profile bck">
+        <div className="right-edit-profile-content">
+          <div className="right-edit-profile-image">
 
-        <div className="row">
-          <div className="col-lg-8">
-            <div style={{ background: 'white', border: '1px solid #ececec', borderRadius: '10px', boxShadow: '0 1px 3px rgb(0 0 0 / 20%)', margin: '0 20px 20px 0' }}>
-              <div><span style={{ float: 'right' }}><i class="las la-ellipsis-v"></i></span></div>
-
-              <div className="admin-name">
-                <h5>{`${userProfile.firstName} ${userProfile.lastName}`}</h5>
-                <span>{`${userProfile.email}`}</span>
-              </div>
 
 
+            {/* <form className="edit-phto"> */}
 
-              <div className="edit-area">
+            {/* <i className="fa fa-camera-retro"></i> */}
 
+            {/* </form> */}
+          </div>
+          <div className=".right-edit-profile-bio1">
+            <div className="right-edit-profile-bio-top">
+              <p>Bio</p>
+            </div>
+            <div className="right-edit-profile-bio-after1">
 
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">First Name</label>
-                  <input type="text" className="form-inpt" id="fullName" placeholder="Click to add"
-                    value={firstName} onChange={handleFirstName} />
-                </div>
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Last Name</label>
-                  <input type="text" className="form-inpt" id="lastName" placeholder="Click to add"
-                    value={lastName} onChange={handleLastName} />
-                </div>
-
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">About Me</label>
-                  <input type="text" className="form-inpt" id="About" placeholder="Click to add" value={aboutme} onChange={handleAboutme} />
-                </div>
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Job</label>
-                  <input type="text" className="form-inpt" id="About" placeholder="Click to add"
-
-                    value={job} onChange={handleJob} />
-                </div>
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Email</label>
-                  <p>{userProfile.email} </p>
-                </div>
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Role</label>
-                  <input disabled={true} className="form-inpt" type="url" id="interests" placeholder="No Role" style={{ color: "red" }}
-                    value={userProfile.role} onChange={handleOnChange} />
-                </div>
-
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Home Town</label>
-                  <input type="text" className="form-inpt" id="About" placeholder="Click to add"
-
-                    value={homeTown} onChange={handleHomeTown} />
-                </div>
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Relationship Status</label>
-                  <input type="text" className="form-inpt" id="Relationship Status" placeholder="Click to add"
-                    value={relationshipStatus} onChange={handleRelationshipStatus} />
-                </div>
-
-
-
-
-
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Interests</label>
-                  <input type="text" className="form-inpt" id="Interests" placeholder="Click to add" value={interests} onChange={handleInterests} />
-                </div>
-
-
-
-
-                <br></br>
-
-
-                <div style={{ display: 'inline', margin: '10px 0' }}>
-                  <button id="submit" name="submit" className="shareIn-btn2" type="button" onClick={temp}>
-                    <span>Cancel</span>
-                  </button>
-                  {/* <button type="button" id="submit" name="submit" className="btn btn-secondary" onClick={temp} >Cancel</button> *
-                  <button id="submit" name="submit" className="shareIn-btn2" type="button" onClick={updateProfile}>
-                    <span>Save</span>
-                  </button>
-                  {/* <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={updateProfile}>Save</button> *
-                </div>
-
-
-              </div>
-
+              {aboutme}
             </div>
           </div>
+          <div className="right-edit-profile-bio">
+            <div className="right-edit-profile-bio-top">
+              <p>Details</p>
 
-          <div className="col-lg-4">
-
-            <div className="widget-prof">
-              <ul><li className="head-widgt">Privacy</li>
-                <li><div className="row"><input type="checkbox" /><p>Include my profile in ShareUp search</p></div></li>
-                <li><div className="row"><input type="checkbox" /><p>Allow my contacts to see my contacts</p></div></li>
-                <li><div className="row"><input type="checkbox" /><p>Allow my contacts to download photos I share to my ShareTime</p></div></li>
-
+            </div>
+            <div className="right-edit-profile-details">
+              <ul>
+                {/* <span className="text-color-2">Current town / city</span> */}
+                <li><p><i className="las la-home" aria-hidden="true" /> <span className="bio">{currentTown}</span></p></li>
+                {/* <input type="text" className="inpt" id="Current town/city" placeholder="Current town/city" */}
+                {/* <span className="text-color-2">Home town</span> */}
+                <li><p><i class="las la-map-marker"></i><span className="bio">{homeTown}</span></p></li>
+                {/* <span className="text-color-2">Relationship status</span> */}
+                <li><p><i class="lab la-gratipay"></i> <span className="bio">{relationshipStatus}</span></p></li>
               </ul>
             </div>
           </div>
-        </div>
-    </div></div>*/
-<div className="right-edit-profile bck">
-          <div className="right-edit-profile-content">
-            <div className="right-edit-profile-image">
-        
-                     
-
-                        {/* <form className="edit-phto"> */}
-                        
-                          {/* <i className="fa fa-camera-retro"></i> */}
-                          
-                        {/* </form> */}
+          <div className="right-edit-profile-bio">
+            <div className="right-edit-profile-bio-top">
+              <p>Hobbies</p>
             </div>
-            <div className=".right-edit-profile-bio1">
-              <div className="right-edit-profile-bio-top">
-                <p>Bio</p>
-              </div>
+            <div className="right-edit-profile-details">
               <div className="right-edit-profile-bio-after1">
-            
-                {aboutme} 
-              </div>
-            </div>
-            <div className="right-edit-profile-bio">
-              <div className="right-edit-profile-bio-top">
-                <p>Details</p>
-                
-              </div>
-              <div className="right-edit-profile-details">
-                <ul>
-                {/* <span className="text-color-2">Current town / city</span> */}
-                  <li><p><i className="las la-home" aria-hidden="true" /> <span className="bio">{currentTown}</span></p></li>
-                  {/* <input type="text" className="inpt" id="Current town/city" placeholder="Current town/city" */}
-                  {/* <span className="text-color-2">Home town</span> */}
-                  <li><p><i class="las la-map-marker"></i><span className="bio">{homeTown}</span></p></li>
-                  {/* <span className="text-color-2">Relationship status</span> */}
-                  <li><p><i class="lab la-gratipay"></i> <span className="bio">{relationshipStatus}</span></p></li>
-                </ul>
-              </div>
-            </div>
-            <div className="right-edit-profile-bio">
-              <div className="right-edit-profile-bio-top">
-                <p>Hobbies</p>
-              </div>
-              <div className="right-edit-profile-details">
-                <div className="right-edit-profile-bio-after1">
                 <span className="bio">{interests}</span>
-                  {/* <p><span className="text-color-2">Add your hobbies...</span></p> */}
-                </div>
+                {/* <p><span className="text-color-2">Add your hobbies...</span></p> */}
               </div>
-            </div>
-            <div className="right-edit-more-details">
-              <p><span className="text-color">Switch to Professional account</span></p>
-            </div>
-            <div className="right-edit-more-details">
-              <p><span className="text-color">Professional information settings</span></p>
             </div>
           </div>
+          <div className="right-edit-more-details">
+            <p><span className="text-color">Switch to Professional account</span></p>
+          </div>
+          <div className="right-edit-more-details">
+            <p><span className="text-color">Professional information settings</span></p>
+          </div>
         </div>
+      </div>
     );
   }
 
@@ -545,55 +545,55 @@ function ProfileComponent() {
   return (
     <div>
       <ShareupInsideHeaderComponent />
-      
 
-         
-            <div className="row merged">
 
-              <section>
-                <div className="feature-photo">
-                <div className="container pdng1">
-        
-                  <div className="row">
-                  <div className="col-lg-3">
-                 
-                      {
-                        showProfilePicture ?
-                          <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicturePath ? <img className="border-gradient" src={fileStorage.baseUrl+userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
-                      }
 
-                        <form className="edit-phto">
-                        
-                          {/* <i className="fa fa-camera-retro"></i> */}
-                          <label className="fileContainer">
-                          <div className="add-profile mrgnFileCntnrVwProf">
-              +
-            </div>
-                            <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleProfileImage}></input>
+      <div className="row merged">
 
-                          </label>
-                          <a href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Upload</a> 
-                        </form>
-                     
-                      
-                      
-            </div>
-            <div className="col-lg-6">
-                      
-            <h5>{`${userProfile.firstName} ${userProfile.lastName}`}</h5>
-                      {/* <span>{`${userProfile.email}`}</span> */}
-                 <div className="profsts">
-                      <ul>
-                        <li><span style={{textAlign:'center'}}>0</span><span>Posts</span></li>
-                        <li><span style={{textAlign:'center'}}>0</span><span>Folowers</span></li>
-                        <li><span style={{textAlign:'center'}}>0</span><span>Following</span></li>
+        <section>
+          <div className="feature-photo">
+            <div className="container pdng1">
+
+              <div className="row">
+                <div className="col-lg-3">
+
+                  {
+                    showProfilePicture ?
+                      <img id="preview" src={profileRender} /> :
+                      userProfile.profilePicturePath ? <img className="border-gradient" src={fileStorage.baseUrl + userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                  }
+
+                  <form className="edit-phto">
+
+                    {/* <i className="fa fa-camera-retro"></i> */}
+                    <label className="fileContainer">
+                      <div className="add-profile mrgnFileCntnrVwProf">
+                        +
+                      </div>
+                      <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleProfileImage}></input>
+
+                    </label>
+                    <a href="#!" id="submit" name="submit" onClick={uploadProfilePicture}>Upload</a>
+                  </form>
+
+
+
+                </div>
+                <div className="col-lg-6">
+
+                  <h5>{`${userProfile.firstName} ${userProfile.lastName}`}</h5>
+                  {/* <span>{`${userProfile.email}`}</span> */}
+                  <div className="profsts">
+                    <ul>
+                      <li><span style={{ textAlign: 'center' }}>0</span><span>Posts</span></li>
+                      <li><span style={{ textAlign: 'center' }}>0</span><span>Folowers</span></li>
+                      <li><span style={{ textAlign: 'center' }}>0</span><span>Following</span></li>
                     </ul>
                     <span>Feeling happy to share and find my soul</span>
-                    </div></div>
-                    <div className="col-lg-3">
-                      <div style={{float:'right',marginTop:'10%',marginRight:'10px'}}><a href="/editprofile" style={{color:'#000000',fontWeight:'bold', background:'#D6D6D6'}} className="button">Edit Profile</a></div></div>
-{/*                      
+                  </div></div>
+                <div className="col-lg-3">
+                  <div style={{ float: 'right', marginTop: '10%', marginRight: '10px' }}><a href="/editprofile" style={{ color: '#000000', fontWeight: 'bold', background: '#D6D6D6' }} className="button">Edit Profile</a></div></div>
+                {/*                      
                     <div className="add-btn">
                       <span>1205 followers</span>
                       <a href="#" title="" data-ripple="">Add Friend</a>
@@ -605,12 +605,12 @@ function ProfileComponent() {
 				<input type="file" />
                       </label>
                     </form> */}
-                 
-                    
 
-                  
-                  </div>
-                  {/* <div className="user-avatar">
+
+
+
+              </div>
+              {/* <div className="user-avatar">
                    
                       {
                         showProfilePicture ?
@@ -626,71 +626,94 @@ function ProfileComponent() {
                     
                     <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={uploadProfilePicture}>Upload</button>
                   </div> */}
-                  <div><div className="stories">
-    
-    <ul>
-      <li>
-        <a href="#">
-          <div className="stories-card">
-            <div className="stories-img"><img src="/assets/images/vector-34@2x.png" alt="img" /></div>
-            <div className="add-storie">
-              +
-            </div>
-            <div className="stories-by">
-              <h5>Create Story</h5>
-            </div>
-          </div>
-        </a>
-      </li>
-     
-    </ul>
-  </div></div>
-<div className="timeline-info">
-                  <div className="row">
+              <div><div className="stories">
 
-                    <div className="col">
-                    <a className={(show === "timeline" ? "active button" : "button")} style={{}} title="" data-ripple="" onClick={() => setShow("timeline")}><i class="las la-rss"></i></a></div>
-                    <div className="col brdrmid"><a className={(show === "about" ? "active button" : "button")} title="" data-ripple="" onClick={() => setShow("about")}><i class="las la-icons"></i></a></div>
-                    <div className="col"><a className={(show === "friends" ? "active button" : "button")} title="" data-ripple="" onClick={() => setShow("friends")}><i class="las la-user-friends"></i></a></div>
-                      {/* <a className={(show === "timeline" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("timeline")}>time line</a>
+                <ul>
+                  <li>
+                    <a href="#">
+                      <div className="stories-card">
+                        <div className="stories-img"><img src="/assets/images/vector-34@2x.png" alt="img" /></div>
+                        <div className="add-storie">
+                          +
+                        </div>
+                        <div className="stories-by">
+                          <h5>Create Story</h5>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+                </ul>
+              </div></div>
+
+
+
+              
+
+
+
+
+
+              <div className="timeline-info">
+                <div className="row">
+
+                  <div className="col">
+                    <a className={(show === "timeline" ? "active button" : "button")} style={{}} title="" data-ripple="" onClick={() => setShow("timeline")}>
+                      <i class="las la-rss">
+                      </i>
+                    </a>
+                  </div>
+                  <div className="col brdrmid">
+                    <a className={(show === "about" ? "active button" : "button")} title="" data-ripple="" onClick={() => setShow("about")}>
+                      <i className="las la-icons">
+                      </i>
+                    </a>
+                  </div>
+                  <div className="col">
+                    <a className={(show === "friends" ? "active button" : "button")} title="" data-ripple="" onClick={() => setShow("friends")}>
+                      <i class="las la-user-friends">
+                      </i>
+                    </a>
+                  </div>
+                  {/* <a className={(show === "timeline" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("timeline")}>time line</a>
                       <a className={(show === "photos" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("photos")}>Photos</a>
                       <a className={(show === "videos" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("videos")}>Videos</a>
                       <a className={(show === "friends" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("friends")}>Friends</a>
                       <a className={(show === "groups" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("groups")}>Groups</a>
                       <a className={(show === "about" ? "active" : "")} title="" data-ripple="" onClick={() => setShow("about")}>about</a>
                       <a className={(show === "more" ? "active" : "")} data-ripple="" onClick={() => setShow("more")}>more</a> */}
-                    
-                  </div>
+
                 </div>
-                </div>
-            
-         
+              </div>
             </div>
-                
-                <div className="container pdng1">
-                
-
-                {/*  */}
-                <div className="changethis" style={{ overflow: 'auto' }}>
 
 
-                  {
+          </div>
 
-                    handleShow()
-                  }
-
+          <div className="container pdng1">
 
 
+            {/*  */}
+            <div className="changethis" style={{ overflow: 'auto' }}>
+
+
+              {
+
+                handleShow()
+              }
 
 
 
 
-                </div>
 
-                </div>
 
-              </section>
-            
+
+            </div>
+
+          </div>
+
+        </section>
+
 
       </div>
     </div>

@@ -131,7 +131,7 @@ export default function EditProfileComponent() {
                      
             {
                         showProfilePicture ?
-                          <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Upload</a></div> </> :
+                          <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Change Profile Picture</a></div> </> :
                           <> <img src={userProfile.profilePicturePath ? fileStorage.baseUrl+userProfile.profilePicturePath: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
                       }
                      
