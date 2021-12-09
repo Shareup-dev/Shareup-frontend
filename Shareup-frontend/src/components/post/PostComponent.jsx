@@ -465,7 +465,7 @@ export default function PostComponent({ post, setRefresh }) {
               </div>
 
               {post.content && (
-                <p id={`post-content-${post.id}`}>
+                <p id={`post-content-${post.id}`} style={{fontSize: '14px', color: 'black'}}>
                   {`${post.content}`}
                   <br></br>
                 </p>

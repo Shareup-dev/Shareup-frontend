@@ -1548,6 +1548,7 @@ function NewsfeedComponent() {
                       { postImage.length>1
                         ? <OwlCarousel 
                             items={1}
+                            className="owl-theme grp-carousel post-carousel"
                             nav
                             center={true}
                             dots={false}
@@ -2239,7 +2240,7 @@ function NewsfeedComponent() {
 
               {storiesForUser.map((story) => (
                 <>
-                  {story.storiesImagePath ? (
+                  {story.storiesImagePath && index===0 ? (
                     <>
                       <Popup
                         style={{ padding: '0px' }}
