@@ -1,10 +1,32 @@
+// const settings = {
+//   dev: {
+//     // apiUrl: "http://localhost:8080",
+//     apiUrl: "http://192.168.100.91:8080",
+
+//   },
+//   staging: {
+//     // apiUrl: "http://104.43.220.197:8080",
+//     apiUrl: "http://192.168.100.1:8080",
+//   },
+//   prod: {
+//     apiUrl: "https://shareup.digital/backend",
+//   },
+// };
+
+// const getCurrentSettings = () => {
+//   return settings.dev;
+// };
+
+// export default getCurrentSettings();
+
 const settings = {
   dev: {
     apiUrl: "http://192.168.100.244:8080",
+
   },
   staging: {
-    apiUrl: "http:/192.168.100.2:8080",
-
+    // apiUrl: "http://104.43.220.197:8080",
+    apiUrl: "http://192.168.100.1:8080",
   },
   prod: {
     apiUrl: "https://shareup.digital/backend",
