@@ -32,7 +32,8 @@ function FollowingWidgetComponent() {
     return (
         followers.length>0?
             <div className="widget sidebar-flwrs">
-                <div className="row"><img src="../assets/images/Public-Account-300x300.png"/><p className="widget-title">Who's following</p></div>
+                <div className="row"><img src="../assets/images/Public-Account-300x300.png" style={{width: '13%'}}/>
+                <p className="widget-title" style={{position:'absolute', left: '50px',}}>Who's following</p></div>
                 <ul className="followers">
                     {
                         followers.slice(0, 4).map((follower_user) =>

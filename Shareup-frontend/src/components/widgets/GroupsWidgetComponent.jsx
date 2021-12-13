@@ -46,7 +46,9 @@ function GroupsWidgetComponent() {
     return (
 
         <div className="widget friend-list stick-widget" >
-            <div className="row"><img src="../assets/images/b76706b9814f347e841ff15b89a5d170-instagram-discover-people-icon-by-vexels.png"/><p className="widget-title">Groups</p></div>
+            <div className="row">
+                <img src="../assets/images/b76706b9814f347e841ff15b89a5d170-instagram-discover-people-icon-by-vexels.png" style={{width:'14%'}}/>
+                <p className="widget-title" style={{position:'absolute', left: '50px',}}>Groups</p></div>
             {/* <div id="searchDir" /> */}
             <ul className="nearby-contct sidebar-grp">
                 {searchedGroups.slice(0,4).map(

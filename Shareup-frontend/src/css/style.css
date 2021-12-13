@@ -1983,7 +1983,7 @@ img#preview {
   float: none;
   margin: 0 auto;
   padding-bottom: 20px;
-  width: 80%;
+  /* width: 80%; */
 }
 
 .sidebar .widget {
