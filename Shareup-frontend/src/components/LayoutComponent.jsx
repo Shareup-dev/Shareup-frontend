@@ -49,11 +49,11 @@ console.log("User: ", user);
             <div className="row">
               <div className="col-lg-12">
                 <div className="row" id="page-contents">
-                  <div className="col-lg-3">
-                    <aside className="sidebar static">
-                    <div className="widget">
+                  <div className="col-lg-3" style={{maxWidth:'21%'}}>
+                    <aside className="sidebar static" style={{width:'91%', marginRight: '0px', paddingLeft: '3px'}}>
+                    <div className="widget" style={{borderBottom: '1px solid #75757530'}}>
                         {/* <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>   */}
-                        <div className="user">
+                        <div className="user" >
                           <img src={fileStorage.baseUrl+user.profilePicturePath}/>
                           <a href="/profile" ><p style={{fontWeight: "bold"}}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                         </div>
@@ -126,7 +126,8 @@ console.log("User: ", user);
                         </div> */}
                         
                           <div style={{paddingBottom:'20px',
-                            borderBottom: '1px solid #75757530'}} >
+                            // borderBottom: '1px solid #75757530'
+                            }} >
                             <div className="sidebar-news">
                               <div class="media-date">What's trending</div>
                               <div style={{}}>
@@ -178,6 +179,37 @@ console.log("User: ", user);
                               </div> 
                             </div>  
                         </div>
+                        
+
+
+
+
+                        <div className="sidebar-news" style={{}}>
+                              <div class="media-date">REELS</div>
+                              <div style={{}}>
+                                <ul>
+                                    <li>
+                                      <div className="headline-cont">
+                                     
+                                        <img src="/assets/images/reelimage.PNG" alt=""
+                                        style={{ height: '160px' , objectFit: "fill",width: '100%', bottom: '16px', padding: '0px'}}
+                                         />
+                                      </div>
+                                     
+
+                                    </li>
+                                        
+                                 
+                                 
+                                
+                                    <li style={{textAlign:"center" ,paddingTop:'10px' }}><a href="https://www.youtube.com/watch?v=V_SW9LjPUC0" style={{fontSize: '12px' ,color:"#258eae"}} target="_blank">Show More</a></li>
+                                </ul>
+                              </div> 
+                            </div> 
+
+
+
+
                         <FriendsWidgetComponent />
                         <FollowingWidgetComponent /> 
                         <GroupsWidgetComponent/>

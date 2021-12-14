@@ -37,7 +37,9 @@ function FriendsWidgetComponent() {
     return (
         friendsList.length>0?
             <div className="widget friend-widget stick-widget">
-                <div className="row"><img src="../assets/images/Graphicloads-Colorful-Long-Shadow-User-group.ico"/><p className="widget-title">Friends</p></div>
+                <div className="row" style={{paddingTop:'20px'}}>  
+                    <img src="../assets/images/Graphicloads-Colorful-Long-Shadow-User-group.ico" style={{width:'13%'}}/>
+                <p className="widget-title" style={{position:'absolute', left: '50px',}}>Friends</p></div>
                 {/* <div id="searchDir" /> */}
                 <ul id="people-list" className="nearby-contct" style={{marginTop:'0'}}>
                     {friendsList.slice(0, 4).map(friend =>

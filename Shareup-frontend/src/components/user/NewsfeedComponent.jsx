@@ -1530,6 +1530,7 @@ function NewsfeedComponent() {
                 </div>{' '}
               </div>{' '}
             </div>
+
             <div style={{ minHeight:'150px' }}>
               <span className='textPop'>
                 <textarea
@@ -1548,6 +1549,7 @@ function NewsfeedComponent() {
                       { postImage.length>1
                         ? <OwlCarousel 
                             items={1}
+                            className="owl-theme grp-carousel post-carousel"
                             nav
                             center={true}
                             dots={false}
@@ -1572,6 +1574,8 @@ function NewsfeedComponent() {
                             display: 'inline-block',
                             verticalAlign: 'middle',
                             borderRadius:'10px',
+                            width: 'fit-content',
+                            maxHeight: '450px',
                             marginBottom:'10px!important'
                           }}
                         />
@@ -1725,9 +1729,11 @@ function NewsfeedComponent() {
           modal
           nested
         >
-          {(close) => (
-            <Form className='popform popwidth'>
-              <div className='headpop'>
+           {(close) => (
+          <Form className='popform popwidth' onSubmit={(e)=>{
+            uploadPost(e);close();
+          }}>
+            <div className='headpop'>
               <div className='row'>
                 <div style={{ width: '20%' }}>
                   <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
@@ -1738,11 +1744,11 @@ function NewsfeedComponent() {
                   style={{ color: '#000000', fontSize: '18px', fontWeight: 'bold', width: '60%', textAlign: 'center' }}
                 >
                   {' '}
-                  <span>Share Photos</span>
+                  <span>We share, do you</span>
                 </div>
                 <div style={{ width: '20%', textAlign: 'right' }}>
-                  <a className='popup-btn' href=''>
-                    Keep Hang
+                  <a className='popup-btn' >
+                    Keep Post
                   </a>
                 </div>
               </div>
@@ -1778,32 +1784,89 @@ function NewsfeedComponent() {
                       </select>
                     </div>{' '} */}
                   </span>
-                </div>
-              </div>
+                </div>{' '}
+              </div>{' '}
             </div>
-              <div style={{ minHeight:'150px' }}>
-                <span className='textPop'>
-                  <textarea
-                    className='textpopup'
-                    rows={2}
-                    placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
-                    name='post_content'
-                    value={photosContent}
-                    onChange={handlePhotosContent}
-                  />
-                </span>
-              </div>
+            <div style={{ minHeight:'150px' }}>
+              <span className='textPop'>
+                <textarea
+                  className='textpopup'
+                  rows={2}
+                  style={{borderRadius: '0'  }}
+                  placeholder={uploadError ? `${uploadError}` : 'We share,do you?'}
+                  name='post_content'
+                  value={postContent}
+                  onChange={handlePostContent}
+                />
+                <div>
+                {showPostImage ? (
+                  <>
+                    <div style={{position:'relative', padding:'5px'}}>
+                      { postImage.length>1
+                        ? <OwlCarousel 
+                            items={1}
+                            className="owl-theme grp-carousel post-carousel"
+                            nav
+                            center={true}
+                            dots={false}
+                            margin={10}>
+                            {postImage.map((item, key) => (
+                              <img
+                                src={item}
+                                key={key}
+                                style={{
+                                  display: 'inline-block',
+                                  verticalAlign: 'middle',
+                                  borderRadius:'10px',
+                                  paddingBottom:'10px !important'
+                                }}
+                              />
+                            ))}
+                          </OwlCarousel>
+                        :postImage.length==1&&
+                        <img
+                          src={postImage[0]}
+                          style={{
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                            borderRadius:'10px',
+                            marginBottom:'10px!important'
+                          }}
+                        />
+                        }
+                      <button
+                        onClick={handleRemoveImage}
+                        style={{
+                          right: '20px',
+                          top:'10px',
+                          position: 'absolute',
+                          borderRadius: '100%',
+                          background: 'rgb(183 183 183 / 82%)',
+                          padding: '10px 10px',
+                          zIndex: '99',
+                        }}
+                      >
+                        <i class='las la-times'></i>
+                      </button>
+                    </div>
 
-              {imageshowPhotos()}
-              <div
+                  </>
+                ) : null}
+                </div>
+              </span>
+            </div>
+
+            {imageshowPost()}
+            <button
               type='submit'
               value='Submit'
               className="popsbmt-btn"
+              // onClick={uploadPost}
             >
               POST
-            </div>
-            </Form>
-          )}
+            </button>
+          </Form>
+        )}
         </Popup>
       </>
     );

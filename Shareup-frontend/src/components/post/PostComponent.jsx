@@ -274,7 +274,7 @@ export default function PostComponent({ post, setRefresh }) {
                                 data-lightbox={`image-user-${post.user.id}`}
                               >
                                 <img
-                                  style={{ width: '100%', objectFit: 'cover' }}
+                                  style={{ width: '100%',maxHeight: '550px',  objectFit: 'unset' }}
                                   src={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                   alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
                                 />
@@ -465,7 +465,7 @@ export default function PostComponent({ post, setRefresh }) {
               </div>
 
               {post.content && (
-                <p id={`post-content-${post.id}`}>
+                <p id={`post-content-${post.id}`} style={{fontSize: '14px', color: 'black'}}>
                   {`${post.content}`}
                   <br></br>
                 </p>
