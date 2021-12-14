@@ -8,6 +8,7 @@ import StoriesService from "../../services/StoriesService";
 import ShareupInsideHeaderComponent from "../dashboard/ShareupInsideHeaderComponent";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
+import styled from "styled-components";
 // import './button.css';
 // import '../../css/SliderJava';
 
@@ -24,6 +25,8 @@ function DisplayComponent() {
   const [stories, setStories] = useState([]);
   const [storiesS, setStoriesS] = useState([]);
   const [userR, setUserR] = useState([]);
+
+  const [mycolor, setMycolor] = useState([]);
 
   const delay = 5000;
 
@@ -87,11 +90,7 @@ function DisplayComponent() {
       resetTimeout();
     };
   }, [index]);
-  const nextSlide = (a) => {
-    // a.preventDefault();
-    console.log("check slide check", a);
-    // setIndex(a);
-  };
+ 
 
 
   return (
@@ -117,7 +116,10 @@ function DisplayComponent() {
                               }
                               alt=""
                             />
-                            <span>{background.user.firstName}</span>
+                                  <span >{background.user.firstName} </span>
+                                <span style={{marginLeft:'17rem'}}>{index+1}/{storiesForUser.length}</span>
+
+                                  
                           </div>
                           <img
                             className="stryDsplyImg"
@@ -129,35 +131,41 @@ function DisplayComponent() {
                       ) : null}
                     </>
                   ))}
+
                 </div>
 
                 <div className="slideshowDots">
                   {storiesForUser.map((_, idx) => (
                     <div
-                      key={idx}
+                      key={idx} id={idx}
                       className={`slideshowDot${
                         index === idx ? " active" : ""
-                      }`}
+                      } slider-indicator${idx}`} 
                       onClick={() => {
                         setIndex(idx);
                       }}
                     >
                       <span className="risewidth"></span>
+                      <div className="d-inline-block risewidth2"></div>
+
                     </div>
                   ))}
                 </div>
+
               </div>
             </div>
             <div class="slide-buttons">
-              <span
-                id="getnext"
-                onClick={() => {
-                  setIndex(index + 1);
-                  console.log("looking for -1", index);
-                }}
-              >
-                <i class="fas fa-arrow-right"></i>
-              </span>
+            <span
+                    id="getnext"
+                    onClick={() => {
+                      setIndex(index + 1);
+                      setMycolor(index);
+                      console.log('check set color', mycolor)
+                      console.log("looking for -1", index);
+                    }}
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                  </span>
 
               {index > 0 ? (
                 <span
