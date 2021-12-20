@@ -761,46 +761,21 @@ const handleRemoveImageSwap = () => {
         user.newUser ? <GuideComponent /> :
 
           <div className="col-lg-6"> 
-          <div className="central-meta newsfeed">
-              <div className="new-postbox">
-                <figure>
-                  <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" />
-                </figure>
-                <div className="newpst-input">
-                  <Form>
-                   {postUp()}
-                    {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                    {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ width: "80%", border: "3px solid" }} />
-                        <button onClick={handleRemoveImage}>x</button>
-                      </>
-                      :
-                      null
-                    } */}
+          <div className="central-meta swap-pg-cont">
+          <div className="frnds">
+					<div style={{paddingBottom:'20px'}}>
+						<p className="Friends-Title">Saved Shares</p>
+						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+					</div>
+						<div class="navContent">
 
-                    <div className="attachments">
-                      <ul>
-                        <li>
-                        {popUp()}
-                          
-                          </li>
-{/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-                        </label> */}
-                        <li>{shareUp()}</li>
-                        <li>{swapUp()}</li>
-                        {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
-                        </label></li> */}
-                        
-                          
-                       
-                      </ul>
-                      
-                    </div>
-                    
-                  </Form>
-                </div>
-              </div>
+						
+						</div>
+    				<div class="friends-search-container" style={{display:'flex' ,alignItems:'center' ,justifyContent:'center'}}>
+              <input className="friend-search" type="text" placeholder="Search ..." name="s" style={{width:"100%"}}/>
+            </div>
+
+					</div>
             </div>
   
             {/* add post new box */}
