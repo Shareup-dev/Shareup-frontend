@@ -82,7 +82,7 @@ function MessagesComponent() {
                 </div>
                 <div class="search-container" style={{ paddingBottom: '16px', borderBottom: '1px solid #cecece' }} >
                     {/* <i class="las la-search"></i> */}
-                    <input className="friend-search"  style={{ width: '-Webkit-Fill-Available', marginTop: '21px' }}
+                    <input className="friend-search"  style={{ width: '95%', marginTop: '21px' }}
                      type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
                 </div>
                 <div class="cntnrScrll">
