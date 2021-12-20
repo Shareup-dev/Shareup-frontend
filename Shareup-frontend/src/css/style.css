@@ -16115,6 +16115,9 @@ input.chat-text {
 .friends-card:hover{
   box-shadow: 1 0 0 2px rgb(255 255 255), 0.3em 0.3em 1em rgb(0 0 0 / 30%) !important;
 }
+
+
+
 .friends-card .grid-container{
   display: flex;
   padding: 7px;

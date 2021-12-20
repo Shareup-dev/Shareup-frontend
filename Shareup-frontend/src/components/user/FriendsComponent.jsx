@@ -519,6 +519,8 @@ return (
 					<div class="navContent">
 
 						<ul class="nav nav-pills swap-page-nav" role="tablist">
+							
+							
 							<li class="nav-item"style={{justifyContent:'flex-start'}} >
                   				<div className="all" onClick={() => setShowComp("members")}>
 									<span style={{ cursor: 'pointer' }}  >
@@ -531,6 +533,8 @@ return (
 								</div>
 								{/* <span>{`${allUser.length}`}</span> */}
 							</li>
+
+
 							<li class="nav-item" style={{justifyContent:'center'}}>
                   				<div className="my" onClick={() => setShowComp("following")}>
 									<span style={{ cursor: 'pointer' }} > 
@@ -542,6 +546,8 @@ return (
 									</div>
 								{/* <span>{`${following.length}`}</span> */}
 							</li>
+
+							
 							<li class="nav-item" style={{justifyContent:'flex-end'}}>
                   				<div className="new" onClick={() => setShowComp("followers")}>
 									<span style={{ cursor: 'pointer' }} >
