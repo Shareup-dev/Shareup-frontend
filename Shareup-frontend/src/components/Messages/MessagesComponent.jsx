@@ -136,10 +136,13 @@ function MessagesComponent() {
                 <div className="txtAreaMsg"><input className="chat-text" placeholder="Type message here" name="s" >
 
                 </input>
-                    <div className="add-microphicon"> <img width="20" src="/assets/images/picmsg.svg" /></div>
-                    <div className="add-stckricon"> <img width="20" src="/assets/images/stckrmsg.svg" /></div>
-                    <div className="add-picicon"> <img width="20" src="/assets/images/mic.svg" /></div>
-                    <button id="sendBtn">Send</button>
+                    <div className="add-microphicon" style={{ right: '55px'}}> <img width="20" src="/assets/images/picmsg.svg" /></div>
+                    <div className="add-stckricon" style={{ right: '85px'}}> <img width="20" src="/assets/images/stckrmsg.svg" /></div>
+                    <div className="add-picicon" style={{ right: '115px'}} > <img width="20" src="/assets/images/mic.svg" /></div>
+                    <button id="sendBtn" style={{
+                         position: 'absolute' , right: '4px', top: '3px',fontSize: '17px', border: '0px', borderRadius: '5px',  padding: '2px',
+    color: 'white',
+    background: '#033347'}}>Send</button>
                 </div>
             </div>
 
