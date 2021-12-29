@@ -57,6 +57,8 @@ function NewsfeedComponent() {
   const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
+
+  
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
   const [userR, setUserR] = useState([]);
@@ -190,6 +192,9 @@ function NewsfeedComponent() {
       setPostsForUser(uniquePost);
     });
   };
+
+
+
   const handleFileStry = (event) => {
     console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
@@ -251,6 +256,8 @@ function NewsfeedComponent() {
   useEffect(() => {
     console.log('@GET ALL POSTS UPDATE', posts);
   }, [posts]);
+
+
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then((res) => {
@@ -1274,60 +1281,6 @@ function NewsfeedComponent() {
   };
 
 
-  // const popSwap = () => {
-  //   return (
-
-  //     <Popup
-  //       trigger={
-  //         <span style={{ cursor: 'pointer' }}>
-  //           <span style={{ marginRight: '5px', padding: '5px' }}>
-  //             <img style={{ verticalAlign: 'middle', width: '30px' }} src='/assets/images/swap-icon3.png' alt='img' />
-  //           </span>
-  //           Swap
-  //         </span>
-  //       }
-  //       modal
-  //       nested
-  //     >
-  //       {(close) => (
-  //         <Form style={{ margin: '5px' }} className='popwidth' onSubmit={close}>
-  //           <div className="headpop">
-  //             <div className="row">
-  //               <div
-  //                 style={{
-  //                   color: "#000000",
-  //                   fontSize: "17px",
-  //                   fontWeight: "bold",
-  //                   width: "95%",
-  //                   textAlign: "center",
-  //                 }}
-  //               >
-  //                 <span>Create Swap Post</span>
-  //               </div>
-  //               <div style={{ width: "5%" }}>
-  //                 <span style={{}}>
-  //                   <a href="#!" onClick={close}>
-  //                   <i class="far fa-times-circle"></i>
-  //                   </a>
-  //                 </span>
-  //               </div>
-  //               {/* <div style={{ width: '10%', textAlign: 'center' }}>
-  //                 <span style={{ float: 'right' }}>
-  //                   {' '}
-  //                   <button style={{ float: 'right', borderRadius: '20px' }} type='submit' onClick={uploadPost}>
-  //                     Post
-  //                   </button>
-  //                 </span>
-  //               </div> */}
-  //             </div>
-  //           </div>
-  //           <SwapComponents setRefresh={setRefresh}/>
-  //         </Form>
-  //       )}
-  //     </Popup>
-  //   );
-  // };
-
   const hangsharePopUp = () => {
     return (
 
@@ -2079,6 +2032,9 @@ function NewsfeedComponent() {
 
 
 
+  useEffect(() => {
+    console.log("postsssssfeesseeeee ", postsForUser)
+  }, [postsForUser]);
 
 
   const show = () => {
@@ -2086,11 +2042,14 @@ function NewsfeedComponent() {
       <div className='loadMore'>
         {postsForUser.map((post) => (
           <div key={post.id}>
-            {post.group
-              ? post.group.members.some((member) => member.email === AuthService.getCurrentUser().username)
-                ? <PostComponent post={post} setRefresh={setRefresh} user={user}/>
+
+            {
+            post.group ? 
+            post.group.members.some((member) => member.email === AuthService.getCurrentUser().username) ? 
+            <PostComponent post={post} setRefresh={setRefresh} user={user}/>
                 : null
-              : <PostComponent post={post} setRefresh={setRefresh} />}
+              : <PostComponent post={post} setRefresh={setRefresh} />
+              }
           </div>
         ))}
       </div>
@@ -2176,6 +2135,9 @@ function NewsfeedComponent() {
     getSavedPost();
     testScript();
   }, [editPostId, refresh]);
+
+
+  
 
   useEffect(() => {
     getPostForUser();

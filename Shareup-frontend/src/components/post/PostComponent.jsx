@@ -13,6 +13,10 @@ import ImageGallery from 'react-image-gallery';
 import storage from "../../config/fileStorage";
 import Carousel from 'react-bootstrap/Carousel'
 import fileStorage from '../../config/fileStorage';
+import ShareService from '../../services/ShareService';
+
+
+
 
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -29,14 +33,14 @@ const my_url = `${storage.baseUrl}`
 
 export default function PostComponent({ post, setRefresh }) {
   const { user } = useContext(UserContext)
+
   const [editPostId, setEditPostId] = useState(null)
   const [userR, setUserR] = useState([]);
   const [showComment, setShowComment] = useState(false)
   const [showMoreOptions, setShowMoreOptions] = useState(false)
   const [showReactions, setShowReactions] = useState(false)
 
-  const[showUserReactions, setShowUserReactions] = useState(false)
-  const [swapContent, setSwapContent] = useState('');
+  const [showUserReactions, setShowUserReactions] = useState(false)
   const [showSwapImage, setShowSwapImage] = useState(false);
   const [swapImage, setSwapImage] = useState({});
   const [swapfiles, setSwapfiles] = useState([]);
@@ -55,6 +59,7 @@ export default function PostComponent({ post, setRefresh }) {
 
 
   ];
+
 
   const handleRemoveImageSwap = () => {
     // setSwapfiles({});
@@ -79,13 +84,28 @@ export default function PostComponent({ post, setRefresh }) {
       counter += comment.replies.length + 1
     })
     if (counter > 0)
-      return counter+ " Comments"
-      else return ""
+      return counter + " Comments"
+    else return ""
 
   }
+
+
+  const getShareCounter = (shares) => {
+    let counter = 0
+    shares.map(share => {
+      counter += share.replies.length + 1
+    })
+    if (counter > 0)
+      return counter + " shares"
+    else return ""
+
+  }
+
+
+
   const handleSwapContent = (event) => {
     console.log(event.target.value);
-    setSwapContent(event.target.value);
+    setShareContent(event.target.value);
   };
   const checkIfLiked = (post) => {
     if (post.reactions) {
@@ -143,8 +163,8 @@ export default function PostComponent({ post, setRefresh }) {
   }
 
   const handleDeletePost = (post) => {
-    console.log(post.swapimages ? 'hi' : 'no')
-    if (post.swapimages) {
+    console.log(post.media ? 'hi' : 'no')
+    if (post.media) {
       SwapService.deleteSwap(post.id).then(res => {
         console.log(res.status)
         setRefresh(res.data)
@@ -173,7 +193,7 @@ export default function PostComponent({ post, setRefresh }) {
   }
 
 
-  
+
 
   const handleShowingReaction = () => {
     setTimeout(function () { setShowReactions(true) }, 200);
@@ -190,10 +210,10 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return (<i class="fas fa-star" ></i>)
+      return (<i class="fas fa-star" style={{fontSize:'12px'}}></i>)
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return (<i class="fas fa-star" style={{ color: '#d83535' }}></i>)
+    return (<i class="fas fa-star" style={{fontSize:'12px', color: '#d83535' }}></i>)
   }
 
   const handleSettingReactions = (reaction) => {
@@ -207,7 +227,7 @@ export default function PostComponent({ post, setRefresh }) {
     if (likeReaction) {
       return (<img width={20} style={{ marginTop: '-5px' }} src={`../assets/images/gif/${likeReaction}.gif`} />)
     }
-    return (<img src="/assets/images/Starwhite.svg" alt="" style={{ left: '16px' , height: '15px' ,position: 'absolute', bottom: '16px', background: 'darksalmon'}}/>)
+    return (<img src="/assets/images/Starwhite.svg" alt="" style={{ left: '16px', height: '15px', position: 'absolute', bottom: '16px', background: 'darksalmon' }} />)
   }
   //array fetch
   const postImg = (str) => {
@@ -243,6 +263,163 @@ export default function PostComponent({ post, setRefresh }) {
   }
 
 
+
+
+
+
+  const [userF, setUserF] = useState(null);
+  const [shareContent, setShareContent] = useState('');
+
+  const uploadShare = async (event) => {
+    await event.preventDefault();
+    console.log('uploading share working');
+
+
+    const formData = new FormData();
+
+    await formData.append('content', shareContent);
+
+    console.log(' this is the sharecontentssssssss' + shareContent);
+
+    if (userF === null) {
+      await ShareService.createShare(user.id, post.id, formData, null).then((res) => {
+        console.log(' jsonnnn' + JSON.stringify(res));
+        console.log(' res.data' + res.data);
+        console.log(' user.id ' + user.id);
+        // setCloseModal(false)
+        // window.location.reload();
+
+        setShareContent('');
+        setRefresh(res.data);
+        // window.location.reload();
+
+      });
+    } else
+      await ShareService.createShare(user.id, post.id).then((res) => {
+        console.log(JSON.stringify(res));
+        setShareContent('');
+
+        setRefresh(res.data);
+      });
+  };
+
+  const sharepopup = () => {
+    return (
+      <Popup
+        trigger={
+          <span style={{ cursor: 'pointer' }} >
+            <span style={{ marginRight: '5px' }}>
+            </span>
+            Share
+          </span>
+        }
+        modal
+        nested
+        closeOnDocumentClick
+      >
+        {(close) => (
+          <Form className='popwidth' onSubmit={(e) => {
+            uploadShare(e); close();
+          }}>
+            <div className='headpop'>
+              <div className='row'>
+                <div style={{ width: '20%' }}>
+                  <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
+                    <i class='las la-times'></i>
+                  </a>
+                </div>
+
+                <div style={{ width: '20%', textAlign: 'right', padding: '0' }}>
+
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: '0 11px 11px 11px' }}>
+              <div className='popupimg'>
+                <img
+                  src={
+                    user
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
+                  }
+                  alt=''
+                />
+              </div>
+              <div class='popupuser-name'>
+                <div style={{ display: 'inline' }}>
+                  <span>
+                    {`${user.firstName} ${user.lastName}`}
+                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                  </span>
+                  <span style={{ marginTop: '4px ', display: 'block', fontSize: '10px' }}>
+                    <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
+
+                    </li>
+
+                  </span>
+                </div>{' '}
+              </div>{' '}
+            </div>
+            <div style={{ minHeight: '150px' }}>
+              <span className='textPop'>
+                <textarea
+                  className='textpopup'
+                  rows={2}
+                  name='swap_content'
+                  value={shareContent}
+                  onChange={handleSwapContent}
+                />
+
+                {showSwapImage ? (
+                  <>
+                    <div style={{ position: 'relative' }}>
+                      {swapImage.map((item, key) => (
+                        <img
+                          src={item}
+                          key={key}
+                          style={{
+                            padding: '10px',
+                            display: 'inline-block',
+                            verticalAlign: 'middle',
+                          }}
+                        />
+                      ))}
+
+
+                    </div>
+
+                  </>
+                ) : null}
+              </span>
+            </div>
+
+
+            <button
+              type='submit'
+              value='Submit'
+              className="popsbmt-btn"
+            // onClick={}
+            >
+              share
+            </button>
+          </Form>
+        )}
+      </Popup>
+    );
+  };
+
+
+
+
+  useEffect(() => {
+    console.log("postsssss ", post.post)
+  }, []);
+
+
+
+
+
+
   return (
     <div
       className='central-meta item'
@@ -261,32 +438,32 @@ export default function PostComponent({ post, setRefresh }) {
         {editPostId !== post.id ? (
           <div className='friend-info'>
             <div className='post-meta'>
-              {post.swapImagePath ? (
+              {post.mediaPath ? (
                 <>
                   <div className='grid-container1'>
                     <div className='itemS1'>
-                      {post.postedimages.length > 0 ? (
+                      {post.media.length > 0 ? (
                         <div className='postImage'>
-                          {post.postedimages.map((postImage) => (
+                          {post.media.map((postImage) => (
                             <React.Fragment>
                               <a
-                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                                 data-lightbox={`image-user-${post.user.id}`}
                               >
                                 <img
-                                  style={{ width: '100%',maxHeight: '550px',  objectFit: 'unset' }}
-                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                                  style={{ width: '100%', maxHeight: '550px', objectFit: 'unset' }}
+                                  src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                                  alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                                 />
                               </a>
                             </React.Fragment>
                           ))}
                         </div>
                       ) :
-                        post.swapimages.length > 0 ? (
+                        post.media.length > 0 ? (
                           <div className='postImage swap-image'>
-                            {post.swapimages.map((postImage) => {
-                              console.log(postImage, 'swp')
+                            {post.media.map((postImage) => {
+                              console.log("sadsad", postImage, 'swp')
                               return (
                                 <React.Fragment>
                                   {/* <a
@@ -314,10 +491,10 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className='itemS3'>
                       <>
                         <div className='swapImage'>
-                          <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                          <a href={post.mediaPath} data-lightbox={`image-user-${post.user.id}`}>
                             <img
                               style={{ width: '100%', objectFit: 'cover' }}
-                              src={post.swapImagePath}
+                              src={post.mediaPath}
                             />{' '}
                           </a>
                         </div>{' '}
@@ -335,7 +512,7 @@ export default function PostComponent({ post, setRefresh }) {
                 //single
 
                 <>
-                  {post.postImagePath && post.postImagePath.split(',').length > 1 ? (
+                  {post.swapImagePath && post.swapImagePath.split(',').length > 1 ? (
                     <div>
                       <Carousel
                         height='200px'
@@ -349,7 +526,6 @@ export default function PostComponent({ post, setRefresh }) {
                         }}
                       >
                         {
-                          // (post.postImagePath.split(',')).map((item,key)=>{imgfun(item,key)})
 
                           post.postImagePath.split(',').map((item, key) => (
                             <Carousel.Item>
@@ -428,50 +604,50 @@ export default function PostComponent({ post, setRefresh }) {
                         <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
                     </div> */}
-                    <div class="dropdown add-dropdown">
-                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class='fas fa-ellipsis-h' style={{  fontSize: '20px' }}></i>
-                      </button>
-                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
-                        <ul>
-                            {post.user.id === user.id ? (
-                              <li onClick={() => handleEditPost(post.id)}>
-                                <i class='las la-pencil-alt'></i>
-                                <span>Edit Post</span>
-                              </li>
-                            ) : (
-                              <></>
-                            )}
-                            <li onClick={() => handleSavePost(post.id)}>
-                              <i class='lar la-bookmark'></i>
-                              <span>Save Post</span>
-                            </li>
-                            {post.user.id === user.id ? (
-                              <li onClick={() => handleDeletePost(post)}>
-                                <i class='las la-trash'></i>
-                                <span>Delete</span>
-                              </li>
-                            ) : (
-                              <></>
-                            )}
-                            <li>
-                              <i class='las la-link'></i>
-                              <span>Copy Link</span>
-                            </li>
-                          </ul>
-                      </div>
-                    </div>
-               
+                <div class="dropdown add-dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
+                  </button>
+                  <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                    <ul>
+                      {post.user.id === user.id ? (
+                        <li onClick={() => handleEditPost(post.id)}>
+                          <i class='las la-pencil-alt'></i>
+                          <span>Edit Post</span>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
+                      <li onClick={() => handleSavePost(post.id)}>
+                        <i class='lar la-bookmark'></i>
+                        <span>Save Post</span>
+                      </li>
+                      {post.user.id === user.id ? (
+                        <li onClick={() => handleDeletePost(post)}>
+                          <i class='las la-trash'></i>
+                          <span>Delete</span>
+                        </li>
+                      ) : (
+                        <></>
+                      )}
+                      <li>
+                        <i class='las la-link'></i>
+                        <span>Copy Link</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
               </div>
 
               {post.content && (
-                <p id={`post-content-${post.id}`} style={{fontSize: '14px', color: 'black'}}>
+                <p id={`post-content-${post.id}`} style={{ fontSize: '14px', color: 'black' }}>
                   {`${post.content}`}
                   <br></br>
                 </p>
               )}
               <div className='postImage'>
-                {post.postedimages && post.postedimages.length > 1
+                {post.allPostsType === 'post' && post.media && post.media.length < 1
                   ? <>
                     <OwlCarousel items={1}
                       className="owl-theme grp-carousel post-carousel"
@@ -479,12 +655,12 @@ export default function PostComponent({ post, setRefresh }) {
                       nav
                       navText={"<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"}
                       margin={10}>
-                      {post.postedimages.map((postImage, index) => (
+                      {post.media.map((postImage, index) => (
                         <React.Fragment>
                           <img
                             style={{ height: '420px', width: '100%', objectFit: 'cover' }}
-                            src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                            alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                            src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                             className="lightbox-popup"
                             onClick={() => openLightbox(index)}
                           />
@@ -493,51 +669,51 @@ export default function PostComponent({ post, setRefresh }) {
                     </OwlCarousel>
                     {isOpen && (
                       <Lightbox
-                        mainSrc={fileStorage.baseUrl + post.postedimages[photoIndex].imagePath}
-                        nextSrc={post.postedimages[(photoIndex + 1) % post.postedimages.length]}
-                        prevSrc={post.postedimages[(photoIndex + post.postedimages.length - 1) % post.postedimages.length]}
+                        mainSrc={fileStorage.baseUrl + post.media[photoIndex].mediaPath}
+                        nextSrc={post.media[(photoIndex + 1) % post.media.length]}
+                        prevSrc={post.media[(photoIndex + post.media.length - 1) % post.media.length]}
                         onCloseRequest={() => setIsopen(false)}
                         onMovePrevRequest={() =>
-                          setPhotoindex((photoIndex + post.postedimages.length - 1) % post.postedimages.length)
+                          setPhotoindex((photoIndex + post.media.length - 1) % post.media.length)
                         }
                         onMoveNextRequest={() =>
-                          setPhotoindex((photoIndex + 1) % post.postedimages.length)
+                          setPhotoindex((photoIndex + 1) % post.media.length)
                         }
                       />
                     )}
                   </>
-                  : post.postedimages && post.postedimages.length == 1
-                    ? post.postedimages.map((postImage) => (
+                  : post.allPostsType === 'post' && post.media && post.media.length == 1
+                    ? post.media.map((postImage) => (
                       <React.Fragment>
                         <img
                           style={{ width: '100%', objectFit: 'cover' }}
-                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                           className="lightbox-popup"
                           onClick={() => setIsopen(true)}
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.imagePath}
+                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
                       </React.Fragment>
                     ))
-                    : post.swapimages ? post.swapimages.map((postImage) => (
+                    : post.allPostsType === 'swap' && post.media ? post.media.map((postImage) => (
                       <div className="swappost-main-div">
                         {/* <Popup */}
                         {/* trigger={ */}
                         <img
                           style={post.user.id == user.id ? { width: '100%', objectFit: 'cover' } : { borderRadius: '10px 10px 0 0' }}
-                          src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                          alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
+                          src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                          alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                           onClick={() => setIsopen(true)}
 
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.imagePath}
+                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -615,7 +791,7 @@ export default function PostComponent({ post, setRefresh }) {
                                         // style={{fontSize:'14px'}}
                                         placeholder={'Share about swap with ' + post.user.firstName + '?'}
                                         name='swap_content'
-                                        value={swapContent}
+                                        value={shareContent}
                                         onChange={handleSwapContent}
                                       />
 
@@ -694,22 +870,252 @@ export default function PostComponent({ post, setRefresh }) {
                           </div>
                         }
                       </div>
+
+
+
+
                     )) : null}
               </div>
-              {/* {
-                post.swapimages&&post.swapimages.length>0&&
-                <>
-                  
-                </>
-              } */}
+
+
+
+
+
+
+
+
+
+
+
+
+              {post.allPostsType === 'share'
+                ?
+                <div className='postShared'>
+
+                  <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px' }}>
+                    <div style={{ display: 'flex' }}>
+                      <figure>
+                        <img src={fileStorage.baseUrl + post.post.user.profilePicturePath} alt='' className="post-user-img" />
+                      </figure>
+                      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
+                        <a
+                          href={`/profile/${post.post.user.email}`}
+                          title='#'
+                          style={{ textTransform: 'capitalize', fontWeight: 'bold' }}
+                        >
+                          {`${post.post.user.firstName} ${post.post.user.lastName}`}
+                          {post.post.userTag ? (
+                            <>
+                              <span style={{ padding: '0 5px' }}>with</span>{' '}
+                              <span className='tagPost'>{post.post.userTag.firstName}</span>
+                              <span className='tagPost'>{post.post.userTag.lastName}</span>
+                            </>
+                          ) : null}
+                        </a>
+                        <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
+                          on {moment(post.post.published, "DD MMMM YYYY hh:mm:ss").fromNow()}
+                          {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                        </span>
+                      </div>
+
+                      {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
+                    </div>
+                    {/* <div
+                  style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
+                ></div> */}
+                    {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
+                      <span title='add icon'>
+                        <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
+                      </span>
+                    </div> */}
+                    <div class="dropdown add-dropdown">
+                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
+                      </button>
+                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                        <ul>
+                          {post.post.user.id === user.id ? (
+                            <li onClick={() => handleEditPost(post.id)}>
+                              <i class='las la-pencil-alt'></i>
+                              <span>Edit Post</span>
+                            </li>
+                          ) : (
+                            <></>
+                          )}
+                          <li onClick={() => handleSavePost(post.id)}>
+                            <i class='lar la-bookmark'></i>
+                            <span>Save Post</span>
+                          </li>
+                          {post.post.user.id === user.id ? (
+                            <li onClick={() => handleDeletePost(post.post)}>
+                              <i class='las la-trash'></i>
+                              <span>Delete</span>
+                            </li>
+                          ) : (
+                            <></>
+                          )}
+                          <li>
+                            <i class='las la-link'></i>
+                            <span>Copy Link</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  {post.post.content && (
+                    <p id={`post-content-${post.id}`} style={{ fontSize: '14px', color: 'black' }}>
+                      {`${post.post.content}`}
+                      <br></br>
+                    </p>
+                  )}
+
+
+
+
+
+                  {
+
+
+
+                    post.allPostsType === 'share'
+                      ?
+
+
+                      post.post.media.map((postImage) => (
+                        <React.Fragment>
+                          <img
+                            style={{ width: '100%', objectFit: 'cover' }}
+                            src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            className="lightbox-popup"
+                            onClick={() => setIsopen(true)}
+                          />
+                          {isOpen && (
+                            <Lightbox
+                              mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                              onCloseRequest={() => setIsopen(false)}
+                            />
+                          )}
+                        </React.Fragment>
+                      ))
+                      : post.allPostsType === 'share' && post.post.media ? post.post.media.map((postImage) => (
+                        <div className="swappost-main-div">
+                          {/* <Popup */}
+                          {/* trigger={ */}
+                          <img
+                            style={post.user.id == user.id ? { width: '100%', objectFit: 'cover' } : { borderRadius: '10px 10px 0 0' }}
+                            src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            onClick={() => setIsopen(true)}
+
+                          />
+                          {isOpen && (
+                            <Lightbox
+                              mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                              onCloseRequest={() => setIsopen(false)}
+                            />
+                          )}
+
+                        </div>
+
+
+
+
+                      )) : null}
+
+
+
+                  <div className='counter' style={{fontSize: '12px'}}>
+                    <ul>
+                      <li style={{ float: 'left', color: 'black' }}>
+                        {checkIfLiked(post.post) ? (
+                          <div className='userreaction' >
+                            <span className='isreaction' data-toggle='tooltip' title=''>
+                              {handleReaction()}
+
+                              {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
+                            </span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className='userreaction' onClick={() => handleLikePost(post.post.id)}>
+                              <span className='noreaction' data-toggle='tooltip' title=''
+                                onMouseEnter={handleShowuserReaction}
+                                onMouseLeave={handleUnshowuserReaction}>
+
+                                {/* <img src='/assets/images/Star.svg' alt='' /> */}
+                                {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
+                                <i class="far fa-star" ></i>
+
+                                {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
+
+                              </span>
+
+                            </div>
+                          </>
+                        )}
+                        <span style={{ paddingLeft: '5px' }}>
+
+
+                          {post.post.reactions && post.post.reactions.length + " "}
+
+                        </span>
+                      </li>
+
+
+
+                      <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
+                        <span> 
+                          {sharepopup()}
+                          {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
+
+
+                        </span>
+                      </li>
+
+
+
+                      <li style={{ cursor: 'pointer',float: 'right', color: 'black' }}>
+                        <span                       
+
+                          className='commentCounter'
+                          style={{  marginRight: '5px' }}
+                          onClick={() => setShowComment(!showComment)}
+                        >
+                          {/* <img src='/assets/images/commentwhite.svg' alt='' /> */}
+                        </span >{' '}
+                        <span > {`${getCommentCounter(post.post.comments)}` + " "}
+                        </span>
+                      </li>
+
+
+
+
+
+                    </ul>
+                  </div>
+
+
+                </div>
+
+                : null
+
+
+              }
+
+
+
+
               <div className='counter'>
                 <ul>
-                  <li style={{ float: 'left', color: 'black'}}>
-                     {checkIfLiked(post) ? (
+                  <li style={{ float: 'left', color: 'black' }}>
+                    {checkIfLiked(post) ? (
                       <div className='userreaction' >
                         <span className='isreaction' data-toggle='tooltip' title=''>
                           {handleReaction()}
-                         
+
                           {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
                       </div>
@@ -723,7 +1129,7 @@ export default function PostComponent({ post, setRefresh }) {
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i class="far fa-star" ></i>
-                            
+
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
 
                           </span>
@@ -731,41 +1137,30 @@ export default function PostComponent({ post, setRefresh }) {
                         </div>
                       </>
                     )}
-                    <span style={{ paddingLeft: '5px'}}>
-                      
-                      
-                      {post.reactions && post.reactions.length +" "}
-                    
+                    <span style={{ paddingLeft: '5px' }}>
+
+
+                      {post.reactions && post.reactions.length + " "}
+
                     </span>
                   </li>
 
 
 
-
-                  
-
-
+                  <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
+                    <span> {`${(post.numberOfshares)}` + " "}  
 
 
-
-
-
-
-
-
-
-                  <li style={{ float: 'right', color: 'black', paddingLeft: '0px'}}>
-                    <span>
-
+                      {sharepopup()}
                       {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
-                    </span>{' '}
-                    <span> {"1" +' '}
-                     shares </span>
+
+
+                    </span>
                   </li>
 
 
 
-                  <li style={{ float: 'right', color: 'black'}}>
+                  <li style={{cursor: 'pointer',float: 'right', color: 'black' }}>
                     <span
                       className='commentCounter'
                       style={{ marginRight: '5px' }}
@@ -773,8 +1168,8 @@ export default function PostComponent({ post, setRefresh }) {
                     >
                       {/* <img src='/assets/images/commentwhite.svg' alt='' /> */}
                     </span>{' '}
-                    <span> {`${getCommentCounter(post.comments)}`+" "}
-                       </span>
+                    <span> {`${getCommentCounter(post.comments)}` + " "}
+                    </span>
                   </li>
 
 
@@ -804,10 +1199,6 @@ export default function PostComponent({ post, setRefresh }) {
                 <div className='click'>
 
 
-
-
-
-
                   <div className='commShare'>
                     {checkIfLiked(post) ? (
                       <div className='btncmn' onClick={() => handleLikePost(post.id)}>
@@ -826,7 +1217,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i class="far fa-star" style={{ paddingRight: '5px'}}></i>
+                            <i class="far fa-star" style={{ paddingRight: '5px' }}></i>
                             Star
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
 
@@ -855,7 +1246,7 @@ export default function PostComponent({ post, setRefresh }) {
 
 
 
-                    <div className='btncmn' style={{ padding: '0px'}} onClick={() => setShowComment(!showComment)}>
+                    <div className='btncmn' style={{ padding: '0px' }} onClick={() => setShowComment(!showComment)}>
                       <span className='comment' data-toggle='tooltip' title='Comments' >
 
                         {/* <img src='/assets/images/comment.svg' /> */}
@@ -873,9 +1264,10 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className='btncmn'>
                       <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
-                        <i class="fas fa-share" style={{ paddingRight: '5px'}}></i>
-                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
-                        Share
+                        <i class="fas fa-share" style={{ paddingRight: '5px' }}></i>
+
+                        {sharepopup()}
+
                       </span>
                     </div>
                     {/* <div className='btncmn'>
@@ -883,8 +1275,8 @@ export default function PostComponent({ post, setRefresh }) {
                         
                         {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
-                      {/* </span>
-                    </div> */} 
+                    {/* </span>
+                    </div> */}
                   </div>
                 </div>
               </div>
