@@ -2485,7 +2485,7 @@ border: 1px solid #e0e0e0;
 
 
 .swappost-main-div img{
-  /* border-radius:10px 10px 0 0!important; */
+  border-radius:10px 10px 0 0!important;
   vertical-align: middle !important;
 
 }
