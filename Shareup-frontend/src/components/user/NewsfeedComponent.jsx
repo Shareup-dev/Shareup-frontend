@@ -488,6 +488,13 @@ function NewsfeedComponent() {
     
   };
 
+
+  useEffect(() => {
+    console.log("userFfffffffff", userF)
+  }, []);
+
+
+
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
       setRefresh(res.data);
@@ -1465,7 +1472,9 @@ function NewsfeedComponent() {
                 <div style={{ display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
-                    {userF ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}
+                    {userF ? <> 
+                   <span style={{ fontWeight: '100' , fontSize: '14px'}}> with   </span> 
+                     {`${userF.firstName} ${userF.lastName}`}</> : null}
                   </span>
                   <span style={{ marginTop: '4px ' ,display: 'block', fontSize: '10px' }}>
                     <li style={{ paddingLeft: '0%', paddingTop: '1%', listStyleType: 'none' }}>
@@ -2033,7 +2042,7 @@ function NewsfeedComponent() {
 
 
   useEffect(() => {
-    console.log("postsssssfeesseeeee ", postsForUser)
+    console.log("postsssssfeesseeeee ", userF)
   }, [postsForUser]);
 
 
@@ -2046,7 +2055,7 @@ function NewsfeedComponent() {
             {
             post.group ? 
             post.group.members.some((member) => member.email === AuthService.getCurrentUser().username) ? 
-            <PostComponent post={post} setRefresh={setRefresh} user={user}/>
+            <PostComponent post={post} setRefresh={setRefresh} user={user} userF={userF}/>
                 : null
               : <PostComponent post={post} setRefresh={setRefresh} />
               }
@@ -2083,6 +2092,7 @@ function NewsfeedComponent() {
     setUserF(userM);
     console.log(userM);
   };
+  
   const handleSearchedUser = (event) => {
     if (event.target.value === '') {
       setSearchedUser(allUser);

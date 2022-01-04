@@ -127,23 +127,7 @@ function GroupComponent({post}) {
 			<div className="tab-content">
 				<div className="tab-pane active fade show " id="">
 					<ul className="nearby-contct" style={{marginTop:'15px'}}>
-						{/* <li class="friends-card groupalign" style={{marginRight: '10px'}}>
-							<a href='/group/create'>
-								<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'278px'}}>
-									<div className='groupsggstion-img'>
-										<div>
-											<img src={Grpicon} className="no-img"/>
-										</div>
-										<i class="fas fa-plus-circle"></i>
-									</div>
-									<div className='groupsggstion-by'>
-										<a href='/group/create'>
-											<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
-										</a>
-									</div>
-								</div>
-							</a>
-						</li> */}
+						
 						{allGroups.map((group) =>
 								<li key={group.id} className="friends-card groupalign" >
 		                            <a href={`/groups/${group.id}`}>
@@ -196,26 +180,11 @@ function GroupComponent({post}) {
 			
 			<div className="tab-pane active fade show " id="">
 				<ul className="nearby-contct" style={{marginTop:'15px'}}>
-					{/* <li class="friends-card groupalign" style={{marginRight: '10px'}}>
-						<a href='/group/create'>
-							<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'270px'}}>
-								<div className='groupsggstion-img'>
-									<div>
-										<img src={Grpicon} className="no-img"/>
-									</div>
-									<i class="fas fa-plus-circle"></i>
-								</div>
-								<div className='groupsggstion-by'>
-									<a href='/group/create'>
-										<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
-									</a>
-								</div>
-							</div>
-						</a>
-					</li> */}
+					
 					{myGroups.map((group,index) =>
 							<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
 								<a href={`/groups/${group.id}`}>
+
 
 									<div className="group-li-item">
 										{/* <figure> */}

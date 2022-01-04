@@ -43,7 +43,7 @@ function ShareFeedComponent() {
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [showComp, setShowComp] = useState("newsfeed");
-const[showCompont,setShowCompont]= useState();
+  const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   const [postsForUser, setPostsForUser] = useState([]);
   const [storiesForUser, setStoriesForUser] = useState([]);
@@ -52,20 +52,20 @@ const[showCompont,setShowCompont]= useState();
   const [group, setGroup] = useState([]);
   const [allGroups, setAllGroups] = useState([]);
   const [searchedGroups, setSearchedGroups] = useState([]);
-  
+
   const [count, setCount] = useState(1);
 
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
-  
+
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState({});
   const [swapfiles, setSwapfiles] = useState({});
   const [postImage, setPostImage] = useState({});
   const [showPostImage, setShowPostImage] = useState(false);
- 
+
   const [uploadError, setUploadError] = useState("");
 
   const [editPostId, setEditPostId] = useState(null)
@@ -73,10 +73,10 @@ const[showCompont,setShowCompont]= useState();
   const [img, setImage] = useState("");
   const [Privacy, setPrivacy] = useState("");
   const [friendsList, setFriendsList] = useState([]);
-    const [allUser, setAllUser] = useState([]);
-    const [userF, setUserF] = useState(null);
-    const [searchedUser, setSearchedUser] = useState([]);
-    
+  const [allUser, setAllUser] = useState([]);
+  const [userF, setUserF] = useState(null);
+  const [searchedUser, setSearchedUser] = useState([]);
+
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -102,7 +102,7 @@ const[showCompont,setShowCompont]= useState();
     event.preventDefault();
     setUploadError("")
     console.log("uploading stories working")
-    
+
 
     const formData = new FormData();
     console.log(" this is the files" + filesStry)
@@ -115,19 +115,19 @@ const[showCompont,setShowCompont]= useState();
 
     })
   }
-  
-  
-    // const checkIfUserAlreadyPostStory = (story) => {
-    //   const found = story.some(el => el.id === user.id);
-    //   return found
-    // }
-  
+
+
+  // const checkIfUserAlreadyPostStory = (story) => {
+  //   const found = story.some(el => el.id === user.id);
+  //   return found
+  // }
+
   const getStoriesForUser = async () => {
     await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then(res => {
-      const sorting = res.data.sort(function(a, b) {
+      const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.date), dateB = new Date(b.date);
         return dateB - dateA;
-    });
+      });
       const uniqueStories = Array.from(new Set(sorting.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
@@ -137,10 +137,10 @@ const[showCompont,setShowCompont]= useState();
   }
   const getPostForUser = async () => {
     await PostService.getPostForUser(AuthService.getCurrentUser().username).then(res => {
-      const sorting = res.data.sort(function(a, b) {
+      const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
-    });
+      });
       const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
@@ -168,41 +168,41 @@ const[showCompont,setShowCompont]= useState();
     setShowstoriesImage(false)
   }
   const handleLeaveGroup = (group_id) => {
-		console.log(group_id)
-		GroupService.leaveGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-			setGroup(res.data)
-		})
-	}
+    console.log(group_id)
+    GroupService.leaveGroup(user.id, group_id).then(res => {
+      setRefresh(res.data)
+      setGroup(res.data)
+    })
+  }
 
-	const handleJoinGroup = (group_id) => {
-		console.log(group_id)
-		GroupService.joinGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-			setGroup(res.data)
-		})
-	}
+  const handleJoinGroup = (group_id) => {
+    console.log(group_id)
+    GroupService.joinGroup(user.id, group_id).then(res => {
+      setRefresh(res.data)
+      setGroup(res.data)
+    })
+  }
 
-	const checkIfInGroup = (members) => {
-		const found = members.some(el => el.id === user.id);
-		return found
-	}
+  const checkIfInGroup = (members) => {
+    const found = members.some(el => el.id === user.id);
+    return found
+  }
   const getAllGroups = async () => {
-		await GroupService.getAllGroups().then(res => {
-			setAllGroups(res.data)
-			setSearchedGroups(res.data)
-		})
-	}
+    await GroupService.getAllGroups().then(res => {
+      setAllGroups(res.data)
+      setSearchedGroups(res.data)
+    })
+  }
 
-	
+
   const getPost = async () => {
     await PostService.getPost().then(res => {
       setPosts(res.data)
     })
   }
-  
 
- 
+
+
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then(res => {
@@ -239,12 +239,12 @@ const[showCompont,setShowCompont]= useState();
       setCommentContent("")
     })
   }
-  const handleCount=(opertator) => {
-    if(opertator === "+"){
+  const handleCount = (opertator) => {
+    if (opertator === "+") {
       let counting = count + 1
-      console.log(counting+"hi count")
+      console.log(counting + "hi count")
       setCount(counting)
-    
+
     }
   }
   const handleEditPost = (id) => {
@@ -267,7 +267,7 @@ const[showCompont,setShowCompont]= useState();
     setShowPostImage(true)
   }
 
- 
+
   const handleRemoveImage = () => {
     setFiles({})
     setShowPostImage(false)
@@ -289,7 +289,7 @@ const[showCompont,setShowCompont]= useState();
     //     return false
     //   }
     // })
-    
+
     const result = post.reactions.filter(reaction => reaction.user.id == userR.id)
     if (result.length > 0) {
       return true
@@ -333,9 +333,9 @@ const[showCompont,setShowCompont]= useState();
     })
     return counter
   }
-  const handlePrivacy=(event)=>{
+  const handlePrivacy = (event) => {
     console.log(event.target.value)
-      setPrivacy(event.target.value)
+    setPrivacy(event.target.value)
   }
   const uploadPost = (event) => {
     event.preventDefault();
@@ -361,13 +361,13 @@ const[showCompont,setShowCompont]= useState();
         handleRemoveImage()
         setRefresh(res.data)
       })
-    }else
-    PostService.createPost(user.id, formData, userF.id).then(res => {
-      console.log(JSON.stringify(res))
-      setPostContent("")
-      handleRemoveImage()
-      setRefresh(res.data)
-    })
+    } else
+      PostService.createPost(user.id, formData, userF.id).then(res => {
+        console.log(JSON.stringify(res))
+        setPostContent("")
+        handleRemoveImage()
+        setRefresh(res.data)
+      })
   }
 
   const handleLikePost = async (post_id) => {
@@ -381,55 +381,55 @@ const[showCompont,setShowCompont]= useState();
       setRefresh(res.data)
     })
   }
-  const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);
   }
-//swapcomponents
-const handleSwapContent = (event) => {
-  console.log(event.target.value)
-  setSwapContent(event.target.value)
-}
-const handleFileSwap = (event) => {
-  console.log(event.target.files[0])
-  setSwapfiles(event.target.files[0])
-  const reader = new FileReader();
-  reader.onload = () => {
-    if (reader.readyState === 2) {
-      setSwapImage(reader.result)
-    }
+  //swapcomponents
+  const handleSwapContent = (event) => {
+    console.log(event.target.value)
+    setSwapContent(event.target.value)
   }
-  console.log(event.target.files[0])
-  // if(event.target.files[0].type === blob){
-  reader.readAsDataURL(event.target.files[0])
-  // }
-  setShowSwapImage(true)
-}
-const handleRemoveImageSwap = () => {
-  setSwapfiles({})
-  setShowSwapImage(false)
-}
-// const uploadSwap = (event) => {
-//   event.preventDefault();
-//   setUploadError("")
-//   console.log("uploading post working")
-//   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-//     console.log("cant be null")
-//     setUploadError("Please Insert A Text or an Image")
-//     return
-//   }
+  const handleFileSwap = (event) => {
+    console.log(event.target.files[0])
+    setSwapfiles(event.target.files[0])
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setSwapImage(reader.result)
+      }
+    }
+    console.log(event.target.files[0])
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0])
+    // }
+    setShowSwapImage(true)
+  }
+  const handleRemoveImageSwap = () => {
+    setSwapfiles({})
+    setShowSwapImage(false)
+  }
+  // const uploadSwap = (event) => {
+  //   event.preventDefault();
+  //   setUploadError("")
+  //   console.log("uploading post working")
+  //   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
+  //     console.log("cant be null")
+  //     setUploadError("Please Insert A Text or an Image")
+  //     return
+  //   }
 
-//   const formData = new FormData();
-//   formData.append('content', swapContent)
-//   console.log(" this is the files" + files)
-//   formData.append(`files`, files)
-//   SwapService.createSwap(user.id, formData).then(res => {
-//     console.log(JSON.stringify(res))
-//     setSwapContent("")
-//     handleRemoveImage()
-//     setRefresh(res.data)
-//   })
-// }
+  //   const formData = new FormData();
+  //   formData.append('content', swapContent)
+  //   console.log(" this is the files" + files)
+  //   formData.append(`files`, files)
+  //   SwapService.createSwap(user.id, formData).then(res => {
+  //     console.log(JSON.stringify(res))
+  //     setSwapContent("")
+  //     handleRemoveImage()
+  //     setRefresh(res.data)
+  //   })
+  // }
 
 
 
@@ -439,7 +439,7 @@ const handleRemoveImageSwap = () => {
     // subtitle.style.color = '#f00';
   }
 
-  function closeModal(){
+  function closeModal() {
     setIsOpen(false);
   }
   const getUser = async () => {
@@ -453,312 +453,312 @@ const handleRemoveImageSwap = () => {
       setUserR(user)
     }
   }
-  const imageshow =() =>{
-  
-  return( 
-    <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
-    <div style={{display:'inline'}}>What's in hang?</div>
- 
-     <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></div>
-    <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
-                       {close => ( <Form style={{margin:'5px'}} className="popwidth">
-                       <div class="search-container">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
-        </div>
-        {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></>:null}
-        <div>
-        <ul>
-        {(friendsList.length > 0) ? <>
-                {friendsList.map(
+  const imageshow = () => {
+
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>What's in hang?</div>
+
+        <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+        <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+          {close => (<Form style={{ margin: '5px' }} className="popwidth">
+            <div class="search-container">
+              <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            </div>
+            {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
+            <div>
+              <ul>
+                {(friendsList.length > 0) ? <>
+                  {friendsList.map(
                     userM =>
-                    (user.id !== userM.id) ?
+                      (user.id !== userM.id) ?
                         <li key={userM.id} className="friends-card">
-                        <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
-                                {/* <figure> */}
-                                <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
-                                    {/* </figure> */}
-                                    
-                                </div>
-                                <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
-                                </div>
-                                {/* <div className="  "> */}
-                              </div></a>
+                          <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
+                            {/* <figure> */}
+                            <div class="item1">
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              {/* </figure> */}
+
+                            </div>
+                            <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                            </div>
+                            {/* <div className="  "> */}
+                          </div></a>
                         </li>
-                         :null
-                )}</>:<div style={{padding:'10% 0',textAlign:'center'}}>You have no friends to tag</div>}
-            </ul></div>   
-                       </Form>
-                  )}                 
-  </Popup>
-      </div>
-    <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></div>
-      
-   
-    {/* <ul style={{marginLeft:'10px'}}>
+                        : null
+                  )}</> : <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>}
+              </ul></div>
+          </Form>
+          )}
+        </Popup>
+        </div>
+        <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+
+
+        {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
       <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-    </label></li></ul>*/}</div> 
-  )
-    
-  
+    </label></li></ul>*/}</div>
+    )
+
+
   }
-  const imageshowPost =() =>{
-  
-    return( 
-      <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
-      <div style={{display:'inline'}}>Add More</div>
-   
-       <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-      </label></div>
-      <div className="gifpopup"><Popup  trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
-                       {close => ( <Form style={{margin:'5px'}} className="popwidth">
-                       <div class="search-container">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
-        </div>
-        {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></>:null}
-        <div>
-        <ul>
-        {(friendsList.length > 0) ? <>
-                {friendsList.map(
+  const imageshowPost = () => {
+
+    return (
+      <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
+        <div style={{ display: 'inline' }}>Add More</div>
+
+        <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+        <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+          {close => (<Form style={{ margin: '5px' }} className="popwidth">
+            <div class="search-container">
+              <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            </div>
+            {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
+            <div>
+              <ul>
+                {(friendsList.length > 0) ? <>
+                  {friendsList.map(
                     userM =>
-                    (user.id !== userM.id) ?
+                      (user.id !== userM.id) ?
                         <li key={userM.id} className="friends-card">
-                        <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
-                                {/* <figure> */}
-                                <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
-                                    {/* </figure> */}
-                                    
-                                </div>
-                                <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
-                                </div>
-                                {/* <div className="  "> */}
-                              </div></a>
+                          <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
+                            {/* <figure> */}
+                            <div class="item1">
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              {/* </figure> */}
+
+                            </div>
+                            <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                            </div>
+                            {/* <div className="  "> */}
+                          </div></a>
                         </li>
-                         :null
-                )}</>:<div style={{padding:'10% 0',textAlign:'center'}}>You have no friends to tag</div>}
-            </ul></div>   
-                       </Form>
-                  )}                 
-  </Popup>
-      </div>
-      <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-      </label></div>
-        
-     
-      {/* <ul style={{marginLeft:'10px'}}>
+                        : null
+                  )}</> : <div style={{ padding: '10% 0', textAlign: 'center' }}>You have no friends to tag</div>}
+              </ul></div>
+          </Form>
+          )}
+        </Popup>
+        </div>
+        <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        </label></div>
+
+
+        {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
         <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-      </label></li></ul>*/}</div> 
+      </label></li></ul>*/}</div>
     )
-      
-    
-    }
-   
-  
+
+
+  }
+
+
 
   const popUp = () => {
-    return(
- <Popup  trigger={<span style={{cursor: "pointer"}} ><span style={{marginRight:'5px',padding:'5px'}}><img style={{verticalAlign:'middle',width:'15px'}} src="/assets/images/hangshare.svg" alt="img" /></span>Hang Share</span>} modal nested>
-                       {close => ( <Form className="popwidth" style={{margin:'5px'}}>
-                    
-    <div className="headpop">
-      
-    <div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
-    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'70%',textAlign: 'center'}}> <span>Today to me, Tomorrow to you</span></div>
-    <div style={{width:'25%',textAlign:'right'}}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
-    </div></div>
+    return (
+      <Popup trigger={<span style={{ cursor: "pointer" }} ><span style={{ marginRight: '5px', padding: '5px' }}><img style={{ verticalAlign: 'middle', width: '15px' }} src="/assets/images/hangshare.svg" alt="img" /></span>Hang Share</span>} modal nested>
+        {close => (<Form className="popwidth" style={{ margin: '5px' }}>
 
-    <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-       <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
-  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-    <option value="Friends">Friends</option>
-    <option value="Public">Public</option>
-    <option value="Only Me">Only Me</option>
-  </select></div> </span></div> </div> </div>
-  <div style={{margin:'0 0 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                    {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} />
-                                                        <button onClick={handleRemoveImage} style={{ right: '25px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
-                      </>
-                      :
-                      null
-                    }
+          <div className="headpop">
 
-</span>
-                                    {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}</div> 
-        
-                                  {
-                                     imageshow()
-                                   }
-                                   <div style={{textAlign:'center',background:'#C4C4C4',fontWeight:'bold',color:'rgb(68 68 68)', margin:'11px 11px', padding:'15px',borderRadius:'5px', fontSize:'14px',cursor:"pointer"}} onClick={uploadPost}>Post</div>
-                                   
+            <div className="row"><div style={{ width: '5%' }}><a href="#!" style={{ padding: '10px 80px 10px 0' }} onClick={close}><i class="las la-times"></i></a></div>
+              <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '70%', textAlign: 'center' }}> <span>Today to me, Tomorrow to you</span></div>
+              <div style={{ width: '25%', textAlign: 'right' }}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
+            </div></div>
 
-                  </Form>
-                  )}                 
-  </Popup> 
+          <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+              <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
+                <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                  <option value="Friends">Friends</option>
+                  <option value="Public">Public</option>
+                  <option value="Only Me">Only Me</option>
+                </select></div> </span></div> </div> </div>
+          <div style={{ margin: '0 0 100px 11px' }}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+            {showPostImage ?
+              <>
+                <img id="preview" src={postImage} style={{ width: "100%", objectFit: 'cover' }} />
+                <button onClick={handleRemoveImage} style={{ right: '25px', position: 'absolute', borderRadius: '100%', background: '#b7b7b738', padding: '10px 10px' }}><i class="las la-times"></i></button>
+              </>
+              :
+              null
+            }
+
+          </span>
+            {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}</div>
+
+          {
+            imageshow()
+          }
+          <div style={{ textAlign: 'center', background: '#C4C4C4', fontWeight: 'bold', color: 'rgb(68 68 68)', margin: '11px 11px', padding: '15px', borderRadius: '5px', fontSize: '14px', cursor: "pointer" }} onClick={uploadPost}>Post</div>
+
+
+        </Form>
+        )}
+      </Popup>
     )
-                  }
+  }
 
   const postUp = () => {
-                    return(
-                <Popup trigger={<div className="textbox"><span style={{cursor: "pointer",padding:'5px'}}>We share,do you?</span></div>} modal nested>
-                                       {close => (<Form className="popwidth">
-                                    
-                    <div className="headpop">
-                    <div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
-                    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}><span>We share, do you?</span></div>
-                    <div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
-                    </div></div>
-                
-                    <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-                       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-                       <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
-                  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-                    <option value="Friends">Friends</option>
-                    <option value="Public">Public</option>
-                    <option value="Only Me">Only Me</option>
-                  </select></div> </span></div> </div> </div>
-                 <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                                    {showPostImage ?
-                                      <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
-                                                        <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
-                                      </>
-                                      :
-                                      null
-                                    }</span>
-                                   </div>
-                
-                                  {
-                                     imageshowPost()
-                                   }
-                 
-                
-                                  </Form>  
-                    )
-                                  }               
-                  </Popup>
-                    )
-                                  }
-                
- const shareUp = () => {
-                    return(
-                <Popup trigger={<span style={{cursor: "pointer"}}><img style={{verticalAlign:'middle',padding:'5px'}} src="/assets/images/share-2.svg" alt="img" />Share Up</span>} modal nested>
-                                       {close =>( <Form className="popwidth">
-                                    
-                    <div className="headpop">
-                    <div className="row"><div style={{width:'5%'}}><a href="#!" onClick={close} ><i class="las la-times"></i></a></div>
-                    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}><span>Share up</span></div>
-                    <div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}> <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
-                    </div></div>
-                
-                    <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-                       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-                       <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
-                  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-                    <option value="Friends">Friends</option>
-                    <option value="Public">Public</option>
-                    <option value="Only Me">Only Me</option>
-                  </select></div> </span></div> </div> </div>
-                  <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                                    {showPostImage ?
-                                      <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
-                                                        <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
-                                      </>
-                                      :
-                                      null
-                                    }</span>
-                
-                                   </div>
-                
-                                  {
-                                     imageshowPost()
-                                   }
-                                   
-                                  </Form>  
-                                       )}               
-                  </Popup>
-                    )
-                                  }
-      const photos = () => {
-                                    return(<>
-                                   
-                                <Popup trigger={<span style={{cursor: "pointer"}}><img style={{verticalAlign: "middle",padding:'5px'}} src="assets/images/images.svg"/><span>Photos</span></span>} modal nested>
-                                                   {close =>(     <Form className="popwidth">
-                                                    
-                                                    <div className="headpop">
-                    <div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
-                    <div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}><span>We share, do you?</span></div>
-                    <div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
-                    </div></div>
-                
-                    <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
-                       <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}{(userF)?<> with {`${userF.firstName} ${userF.lastName}`}</>:null}</span>
-                       <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
-                  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
-                    <option value="Friends">Friends</option>
-                    <option value="Public">Public</option>
-                    <option value="Only Me">Only Me</option>
-                  </select></div> </span></div> </div> </div>
-                 <div style={{margin:'0 11px 100px 11px'}}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                                    {showPostImage ?
-                                      <>
-                                        <img id="preview" src={postImage} style={{ width: "100%" }} />
-                                                        <button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
-                                      </>
-                                      :
-                                      null
-                                    }</span>
-                                   </div>
-                
-                                  {
-                                     imageshowPost()
-                                   }
-                
-                                                
-                                                                  
-                                
-                                                  </Form> 
-                                                   )}                
-                                  </Popup></>
-                                    )
-                                                  }
+    return (
+      <Popup trigger={<div className="textbox"><span style={{ cursor: "pointer", padding: '5px' }}>We share,do you?</span></div>} modal nested>
+        {close => (<Form className="popwidth">
+
+          <div className="headpop">
+            <div className="row"><div style={{ width: '5%' }}><a href="#!" onClick={close}><i class="las la-times"></i></a></div>
+              <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}><span>We share, do you?</span></div>
+              <div style={{ width: '10%', textAlign: 'center' }}><span style={{ float: 'right' }}>  <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Post</button></span></div>
+            </div></div>
+
+          <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+              <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
+                <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                  <option value="Friends">Friends</option>
+                  <option value="Public">Public</option>
+                  <option value="Only Me">Only Me</option>
+                </select></div> </span></div> </div> </div>
+          <div style={{ margin: '0 11px 100px 11px' }}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+            {showPostImage ?
+              <>
+                <img id="preview" src={postImage} style={{ width: "100%" }} />
+                <button onClick={handleRemoveImage} style={{ right: '20px', position: 'absolute', borderRadius: '100%', background: '#b7b7b738', padding: '10px 10px' }}><i class="las la-times"></i></button>
+              </>
+              :
+              null
+            }</span>
+          </div>
+
+          {
+            imageshowPost()
+          }
+
+
+        </Form>
+        )
+        }
+      </Popup>
+    )
+  }
+
+  const shareUp = () => {
+    return (
+      <Popup trigger={<span style={{ cursor: "pointer" }}><img style={{ verticalAlign: 'middle', padding: '5px' }} src="/assets/images/share-2.svg" alt="img" />Share Up</span>} modal nested>
+        {close => (<Form className="popwidth">
+
+          <div className="headpop">
+            <div className="row"><div style={{ width: '5%' }}><a href="#!" onClick={close} ><i class="las la-times"></i></a></div>
+              <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}><span>Share up</span></div>
+              <div style={{ width: '10%', textAlign: 'center' }}><span style={{ float: 'right' }}> <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Post</button></span></div>
+            </div></div>
+
+          <div style={{ padding: '0 11px 11px 11px' }}>  <div className="popupimg">
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+              <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
+                <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                  <option value="Friends">Friends</option>
+                  <option value="Public">Public</option>
+                  <option value="Only Me">Only Me</option>
+                </select></div> </span></div> </div> </div>
+          <div style={{ margin: '0 11px 100px 11px' }}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+            {showPostImage ?
+              <>
+                <img id="preview" src={postImage} style={{ width: "100%" }} />
+                <button onClick={handleRemoveImage} style={{ right: '20px', position: 'absolute', borderRadius: '100%', background: '#b7b7b738', padding: '10px 10px' }}><i class="las la-times"></i></button>
+              </>
+              :
+              null
+            }</span>
+
+          </div>
+
+          {
+            imageshowPost()
+          }
+
+        </Form>
+        )}
+      </Popup>
+    )
+  }
+  const photos = () => {
+    return (<>
+
+      <Popup trigger={<span style={{ cursor: "pointer" }}><img style={{ verticalAlign: "middle", padding: '5px' }} src="assets/images/images.svg" /><span>Photos</span></span>} modal nested>
+        {close => (<Form className="popwidth">
+
+          <div className="headpop">
+            <div className="row"><div style={{ width: '5%' }}><a href="#!" onClick={close}><i class="las la-times"></i></a></div>
+              <div style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold', width: '85%', textAlign: 'center' }}><span>We share, do you?</span></div>
+              <div style={{ width: '10%', textAlign: 'center' }}><span style={{ float: 'right' }}>  <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Post</button></span></div>
+            </div></div>
+
+          <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
+              <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
+                <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
+                  <option value="Friends">Friends</option>
+                  <option value="Public">Public</option>
+                  <option value="Only Me">Only Me</option>
+                </select></div> </span></div> </div> </div>
+          <div style={{ margin: '0 11px 100px 11px' }}><span className="textPop"><textarea className="textpopup" rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
+            {showPostImage ?
+              <>
+                <img id="preview" src={postImage} style={{ width: "100%" }} />
+                <button onClick={handleRemoveImage} style={{ right: '20px', position: 'absolute', borderRadius: '100%', background: '#b7b7b738', padding: '10px 10px' }}><i class="las la-times"></i></button>
+              </>
+              :
+              null
+            }</span>
+          </div>
+
+          {
+            imageshowPost()
+          }
+
+
+
+
+        </Form>
+        )}
+      </Popup></>
+    )
+  }
   const testFanc = (post) => {
-    return ( <SharePostComponent post={post} setRefresh={setRefresh}/>)
+    return (<SharePostComponent post={post} setRefresh={setRefresh} />)
   }
 
   const show = () => {
-    
-      return (
-        <div className="loadMore">
-          {
-            // postsForUser.map(
-            //   post =>
-            //     <div key={post.id}>
-            //       {
-            //         post.group ?
-            //           post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
-            //             testFanc(post) : null
-            //           :
-            //           testFanc(post)
-            //       }
-            //     </div>
-            // )
-          }
-        </div>
-      )
-    } 
+
+    return (
+      <div className="loadMore">
+        {
+          // postsForUser.map(
+          //   post =>
+          //     <div key={post.id}>
+          //       {
+          //         post.group ?
+          //           post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
+          //             testFanc(post) : null
+          //           :
+          //           testFanc(post)
+          //       }
+          //     </div>
+          // )
+        }
+      </div>
+    )
+  }
   //   if (showComp === "newsfeed") {
   //   else {
   //     return (
@@ -782,54 +782,54 @@ const handleRemoveImageSwap = () => {
   //     )
   //   }
   // }
-  const handleTag = (userM)=>{
+  const handleTag = (userM) => {
     setUserF(userM)
-    console.log(userM) 
-   }
-const handleSearchedUser = (event) => {
+    console.log(userM)
+  }
+  const handleSearchedUser = (event) => {
     if (event.target.value === "") {
-        setSearchedUser(allUser)
+      setSearchedUser(allUser)
     } else {
-        let temp = []
-        allUser.map(u => {
-            const email = u.email.toLowerCase()
-            const firstname = u.firstName.toLowerCase()
-            const lastname = u.lastName.toLowerCase()
-            const searchedvalue = event.target.value.toLowerCase()
-            if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
-                temp.push(u)
-            }
-        })
-        setSearchedUser(temp)
-        console.log(temp)
+      let temp = []
+      allUser.map(u => {
+        const email = u.email.toLowerCase()
+        const firstname = u.firstName.toLowerCase()
+        const lastname = u.lastName.toLowerCase()
+        const searchedvalue = event.target.value.toLowerCase()
+        if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
+          temp.push(u)
+        }
+      })
+      setSearchedUser(temp)
+      console.log(temp)
     }
-}
-const getAllUser = async () => {
+  }
+  const getAllUser = async () => {
     await UserService.getUsers().then(res => {
-        setAllUser(res.data)
-        setSearchedUser(res.data)
+      setAllUser(res.data)
+      setSearchedUser(res.data)
     })
     console.log(user.email + " This is the users")
-}
-const getFriendsList = async () => {
+  }
+  const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
-        setFriendsList(res.data)
+      setFriendsList(res.data)
     })
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     getAllUser()
     getFriendsList()
     testScript()
-},[])
+  }, [])
   useEffect(() => {
-		getAllGroups()
-		
-	}, [showComp, group])
+    getAllGroups()
 
-	useEffect(() => {
-		testScript()
-	}, [])
+  }, [showComp, group])
+
+  useEffect(() => {
+    testScript()
+  }, [])
 
 
   useEffect(() => {
@@ -847,7 +847,7 @@ useEffect(() => {
     getSavedPost()
     testScript()
   }, [user])
-   useEffect(() => {
+  useEffect(() => {
     getStoriesForUser()
     testScript()
   }, [stories])
@@ -861,50 +861,50 @@ useEffect(() => {
 
   return (
     <Layout user={user}>
-			<div className="col-lg-6">
-				<div className="central-meta swap-pg-cont">
-					<div className="frnds">
-					<div>
-						<p className="Friends-Title">Shares</p>
-						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
-					</div>
-						<div class="navContent">
+      <div className="col-lg-6">
+        <div className="central-meta swap-pg-cont">
+          <div className="frnds">
+            <div>
+              <p className="Friends-Title">Shares</p>
+              <i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+            </div>
+            <div class="navContent">
 
-							<ul class="nav nav-pills swap-page-nav" role="tablist">
-								<li class="nav-item" style={{justifyContent:'flex-start'}}>
+              <ul class="nav nav-pills swap-page-nav" role="tablist">
+                <li class="nav-item" style={{ justifyContent: 'flex-start' }}>
                   <div className="all">
                     <span style={{ cursor: 'pointer' }} >
-                      <span style={{ marginRight: '5px', padding: '5px' }}> 
-                      <i className="fas fa-share" style={{fontSize:'16px'}}></i>
-                      {/* <span>{`${following.length}`}</span> */}
+                      <span style={{ marginRight: '5px', padding: '5px' }}>
+                        <i className="fas fa-share" style={{ fontSize: '16px' }}></i>
+                        {/* <span>{`${following.length}`}</span> */}
                       </span>
                       All Shares
                     </span>
-  								</div> 
-								</li> 
-								<li class="nav-item" style={{justifyContent:'center'}}>
+                  </div>
+                </li>
+                <li class="nav-item" style={{ justifyContent: 'center' }}>
                   <div className="my">
                     <span style={{ cursor: 'pointer' }} >
-                      <span style={{ marginRight: '5px', padding: '5px' }}> 
-                      <i className="lar la-handshake" style={{fontSize:'20px'}}></i>
-                      {/* <span>{`${following.length}`}</span> */}
+                      <span style={{ marginRight: '5px', padding: '5px' }}>
+                        <i className="lar la-handshake" style={{ fontSize: '20px' }}></i>
+                        {/* <span>{`${following.length}`}</span> */}
                       </span>
                       My Shares
                     </span>
                   </div>
-								</li>
-								<li class="nav-item" style={{justifyContent:'flex-end'}}>
+                </li>
+                <li class="nav-item" style={{ justifyContent: 'flex-end' }}>
                   <div className="new">
                     <span style={{ cursor: 'pointer' }} >
-                        <span style={{ marginRight: '5px', padding: '5px' }}> 
-                        <i className="far fa-share-square" style={{fontSize:'16px'}}></i>
+                      <span style={{ marginRight: '5px', padding: '5px' }}>
+                        <i className="far fa-share-square" style={{ fontSize: '16px' }}></i>
                         {/* <span>{`${following.length}`}</span> */}
-                        </span>
-                        Share
+                      </span>
+                      Share
                     </span>
-                  
+
                   </div>
-								</li>
+                </li>
                 {/* <li class="nav-item">
                   <span style={{ cursor: 'pointer' }}>
                     <span style={{ marginRight: '5px', padding: '5px' }}>
@@ -913,22 +913,22 @@ useEffect(() => {
                     Notifications
                   </span>
 								</li> */}
-								
-							</ul>
-							
-						</div>
-    				<div class="friends-search-container" style={{display:'flex' ,alignItems:'center' ,justifyContent:'center'}}>
-              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{width:"100%"}}/>
+
+              </ul>
+
+            </div>
+            <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <input className="friend-search" type="text" placeholder="Search Swap" name="s" style={{ width: "100%" }} />
             </div>
 
-					</div>
-          <div style={{minHeight:'200px',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>No Shares</div>
+          </div>
+          <div style={{ minHeight: '200px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>No Shares</div>
 
-				</div>
-						{show()}
+        </div>
+        {show()}
 
-			</div>
-		</Layout>
+      </div>
+    </Layout>
 
   );
 }
