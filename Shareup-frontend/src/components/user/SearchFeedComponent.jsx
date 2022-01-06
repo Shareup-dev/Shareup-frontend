@@ -1226,8 +1226,12 @@ function SearchFeedComponent() {
                             <input className="friend-search" type="text" placeholder="Search" name="search"
 
                                 value={searchTerm}
-                                onChange={(event) => store.dispatch(setSearchTerm(event.target.value))}
-                                onKeyUp={KeyPressHandler}
+                                onChange={
+                                    (event) => store.dispatch(setSearchTerm(event.target.value))
+                            }
+                        
+                        
+                        onKeyUp={KeyPressHandler}
                                 style={{ width: "100%" }} />
 
 
@@ -1248,11 +1252,8 @@ function SearchFeedComponent() {
                 {
 
                     Sortsearch === "AllSearch" ?
-
-
                         showAll()
-
-                        : Sortsearch === "SearchByPeople" ?
+                     : Sortsearch === "SearchByPeople" ?
                             showUser()
                             : Sortsearch === "SearchByPosts" ?
                                 showPost()
