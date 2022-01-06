@@ -45,6 +45,9 @@ function AddFriendsComponent() {
 		})
 	}
 
+
+
+
 	const removeFriend = (uid, fid) => {
 		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.removeFriends(uid, fid).then(res => {
@@ -54,27 +57,43 @@ function AddFriendsComponent() {
 
 	const handleSearchedFollowing = (event) => {
 		if (event.target.value === "") {
-			setSearchedFollowing(following)
+			setSearchedFollowing(allUser)
 		} else {
 			let temp = []
-			following.map(u => {
-				if (u.email.includes(event.target.value)) {
+			allUser.map(u => {
+				const email = u.email.toLowerCase()
+				const firstname = u.firstName.toLowerCase()
+				const lastname = u.lastName.toLowerCase()
+				const searchedvalue = event.target.value.toLowerCase()
+
+				if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
 					temp.push(u)
 				}
 			})
 			setSearchedFollowing(temp)
+			setSearchedUser(temp)
 			console.log(temp)
 		}
-
 	}
 
+
+
+
+
+
+	
 	const handleSearchedFollowers = (event) => {
 		if (event.target.value === "") {
-			setSearchedFollowers(followers)
+			setSearchedFollowers(allUser)
 		} else {
 			let temp = []
-			following.map(u => {
-				if (u.email.includes(event.target.value)) {
+			allUser.map(u => {
+				const email = u.email.toLowerCase()
+				const firstname = u.firstName.toLowerCase()
+				const lastname = u.lastName.toLowerCase()
+				const searchedvalue = event.target.value.toLowerCase()
+				
+				if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
 					temp.push(u)
 				}
 			})
@@ -141,7 +160,7 @@ function AddFriendsComponent() {
 	const FcomponentFunction = () => {
 		return (<div className="tab-content">
 			<div class="friends-search-container grp-search">
-				
+
 				<input className="friend-search"
 					type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
 			</div>
@@ -166,21 +185,21 @@ function AddFriendsComponent() {
 										<div class="item2">
 											<p className="nameTag">
 												<a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
-												<div  style={{fontSize:'12px',paddingTop:'5px'}}>
-													
-											10 Mutual friends
+											<div style={{ fontSize: '12px', paddingTop: '5px' }}>
+
+												10 Mutual friends
 											</div>
 											{/* <button className="friends-button" onClick={() => unsendFriendRequest(user.id, userM.id)}>Request Sent</button> */}
-											
+
 										</div>
 										<div class="item4">
-										{
+											{
 												(user.id !== userM.id) ?
 													(!friendsList.some(el => el.id === userM.id)) ?
 														friendRequestRecieved.some(el => el.id === userM.id)
 															?
 															<>
-																	<a href="#!" title="#" className="add-butn more-action" style={{ color: "white", background: '#EAEAEA', fontSize: '12px' }} data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept Request</a>
+																<a href="#!" title="#" className="add-butn more-action" style={{ color: "white", background: '#EAEAEA', fontSize: '12px' }} data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept Request</a>
 
 																{/* <div class="item3">
                                                             <p><a style={{ display: "block", float: "right", color: "#fff",background:'#033347',fontSize:'12px' }} href="#" onClick={() => declineFriendRequest(user.id, userM.id)}>Decline Friend Request</a></p>
@@ -249,11 +268,11 @@ function AddFriendsComponent() {
 		return (
 			<div className="tab-content">
 				<div class="friends-search-container grp-search">
-					<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowing} />
+					<input className="friend-search" type="text" id="header-search" placeholder="Search Following" name="s" onChange={handleSearchedFollowing} />
 				</div>
 				<div className="tab-pane active fade show " id="following">
 					<ul className="nearby-contct">
-						{following.map(
+						{searchedFollowing.map(
 							userM =>
 								<li key={userM.id} className="friends-card grp">
 									<div className="grid-container">
@@ -266,14 +285,14 @@ function AddFriendsComponent() {
 										{/* <div className="  "> */}
 										<div class="item2">
 											<p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
-											<div  style={{fontSize:'12px',paddingTop:'5px'}}>
-											10 Mutual friends
+											<div style={{ fontSize: '12px', paddingTop: '5px' }}>
+												10 Mutual friends
 											</div>
-										
+
 										</div>
 										<div className="item4">
 
-										<a href="#" className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+											<a href="#" className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 
 										</div>
 
@@ -303,12 +322,12 @@ function AddFriendsComponent() {
 		return (
 			<div className="tab-content">
 				<div class="friends-search-container grp-search">
-					<input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedFollowers} />
+					<input className="friend-search" type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} />
 				</div>
 				{/* <input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} /> */}
 				<div className="tab-pane active fade show " id="following">
 					<ul className="nearby-contct">
-						{followers.map(
+						{searchedFollowers.map(
 							userM =>
 								<li key={userM.id} className="friends-card grp">
 									<div className="grid-container">
@@ -322,10 +341,10 @@ function AddFriendsComponent() {
 										<div class="item2">
 											<p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 											{/* <button className="friends-button">Request Sent</button> */}
-											
-											<div style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
 
-										
+											<div style={{ fontSize: '12px', paddingTop: '5px' }}>10 Mutual friends</div>
+
+
 										</div>
 
 										<div class="item4">
@@ -433,6 +452,9 @@ function AddFriendsComponent() {
 		await UserService.getUsers().then(res => {
 			setAllUser(res.data)
 			setSearchedUser(res.data)
+			setSearchedFollowing(res.data)
+			setSearchedFollowers(res.data)
+
 		})
 		console.log(user.email + " This is the users")
 	}
@@ -443,17 +465,22 @@ function AddFriendsComponent() {
 		})
 	}
 
-	const getAllFollowing = async () => {
-		await UserService.getFollowing(AuthService.getCurrentUser().username).then(res => {
-			setFollowing(res.data)
-		})
-	}
+	// const getAllFollowing = async () => {
+	// 	await UserService.getFollowing(AuthService.getCurrentUser().username).then(res => {
+	// 		setFollowing(res.data)
 
-	const getAllFollowers = async () => {
-		await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
-			setFollowers(res.data)
-		})
-	}
+	// 		setSearchedFollowing(res.data)
+	// 	})
+	// }
+
+	// const getAllFollowers = async () => {
+	// 	await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
+	// 		setFollowers(res.data)
+	// 		setAllUser(res.data)
+
+	// 		setSearchedFollowers(res.data)
+	// 	})
+	// }
 
 	const getAllFriendRequestSent = async () => {
 		await UserService.getFriendRequestSent(AuthService.getCurrentUser().username).then(res => {
@@ -490,8 +517,8 @@ function AddFriendsComponent() {
 	useEffect(() => {
 		getAllUser()
 		getFriendsList()
-		getAllFollowing()
-		getAllFollowers()
+		// getAllFollowing()
+		// getAllFollowers()
 		getAllFriendRequestSent()
 		getAllFriendRequestRecieved()
 
@@ -511,10 +538,10 @@ function AddFriendsComponent() {
 					<div className="frnds">
 						{/* <ul className="nav nav-tabs"> */}
 						<div>
-							<p className="Friends-Title">Friends</p>
+							<p className="Friends-Title">Add Friends</p>
 							<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
 						</div>
-						
+
 						<div class="navContent">
 
 							<ul class="nav nav-pills swap-page-nav" role="tablist">
@@ -534,19 +561,19 @@ function AddFriendsComponent() {
 
 
 
-					
-								<li class="nav-item" style={{justifyContent:'center'}}>
-                  				<div className="my" onClick={() => setShowComp("following")}>
-									<span style={{ cursor: 'pointer' }} > 
-										<span style={{  padding: '5px' }}> 
-											<i class="las la-user-cog" style={{fontSize:'20px'}}></i> 
+
+								<li class="nav-item" style={{ justifyContent: 'center' }}>
+									<div className="my" onClick={() => setShowComp("following")}>
+										<span style={{ cursor: 'pointer' }} >
+											<span style={{ padding: '5px' }}>
+												<i class="las la-user-cog" style={{ fontSize: '20px' }}></i>
+											</span>
+											Following
+											<a className='numberCircle'>{`${following.length}`}</a>
 										</span>
-										Following
-										 <a className='numberCircle'>{`${following.length}`}</a>
-									</span>
 									</div>
-								{/* <span>{`${following.length}`}</span> */}
-							</li>
+									{/* <span>{`${following.length}`}</span> */}
+								</li>
 
 
 
@@ -556,20 +583,20 @@ function AddFriendsComponent() {
 
 
 
-					
 
-								<li class="nav-item" style={{justifyContent:'flex-end'}}>
-                  				<div className="new" onClick={() => setShowComp("followers")}>
-									<span style={{ cursor: 'pointer' }} >
-										<span style={{  padding: '5px' }}> 
-											<i class="las la-user-tag" style={{fontSize:'20px'}}></i> 
-										</span>
-										Followers
+
+								<li class="nav-item" style={{ justifyContent: 'flex-end' }}>
+									<div className="new" onClick={() => setShowComp("followers")}>
+										<span style={{ cursor: 'pointer' }} >
+											<span style={{ padding: '5px' }}>
+												<i class="las la-user-tag" style={{ fontSize: '20px' }}></i>
+											</span>
+											Followers
 											<a className='numberCircle'>{`${followers.length}`}</a>
-									</span>
-								</div>	
+										</span>
+									</div>
 									{/* <span>{`${followers.length}`}</span> */}
-							</li>
+								</li>
 
 
 

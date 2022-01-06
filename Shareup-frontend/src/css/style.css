@@ -2448,8 +2448,44 @@ height: 100%; */
 .postImage .swap-image a{
   vertical-align: middle !important;
 }
+
+
+.postShared {
+  border-radius: 10px 10px 10px 10px;
+  display: inline-block;
+
+  width: 97%;
+  margin-left: 10px;
+  text-align: start;
+  padding:10px;
+  padding-top: 3px !important;
+  padding-bottom: 5px !important;
+border: 1px solid #e0e0e0;
+  box-shadow: 0px 0px 1px 0px #6c6c6c;
+
+
+}
+.postShared .swap-image a{
+  vertical-align: middle !important;
+}
+
+.postShared img {
+  border-radius: 10px 10px 10px 10px;
+}
+.postShared img:hover {
+  cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
 .swappost-main-div img{
-  /* border-radius:10px 10px 0 0!important; */
+  border-radius:10px 10px 0 0!important;
   vertical-align: middle !important;
 
 }

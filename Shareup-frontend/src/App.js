@@ -56,6 +56,12 @@ import ChatTestComponent from './components/ChatTest/ChatTestComponent';
 import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
+import SearchFeedComponent from './components/user/SearchFeedComponent';
+
+
+
+
+
 import Giphy from './components/Giphy';
 
 
@@ -140,6 +146,8 @@ Giphy();
       <ProtectedRoute path="/chatTest" component={ChatTestComponent}></ProtectedRoute>
       <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
       <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
+      <ProtectedRoute path="/searchFeed" component={SearchFeedComponent}></ProtectedRoute>
+
     
       
       {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
