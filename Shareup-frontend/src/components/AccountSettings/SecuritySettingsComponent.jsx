@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory,useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
@@ -16,13 +16,159 @@ import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderCompon
 import Layout from '../LayoutComponent';
 
 export default function SecuritySettingsComponent() {
-    const { user } = useContext(UserContext)
+    const { email: user_email } = useParams();
+        const { user } = useContext(UserContext)
     const [show, setShow] = useState('general')
     const [showField, setshowField] = useState('')
     const [showS, setshowS] = useState('')
     const [searchedUser, setSearchedUser] = useState([]);
     const [allUser, setAllUser] = useState([]);
    
+   //by najam start
+   const [userProfile, setUserProfile] = useState([])
+   const [id, setId] = useState()
+   const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [role, setRole] = useState("")
+  const [aboutme, setAboutme] = useState("")
+  const [job, setJob] = useState("")
+  const [homeTown, setHomeTown] = useState("")
+  const [relationshipStatus, setRelationshipStatus] = useState("")
+  const [interests, setInterests] = useState("")
+  const [gender, setGender] = useState("")
+  const [currentTown, setCurrentTown] = useState("")
+
+    const currentUserGet = async () => {
+    await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
+      console.log(JSON.stringify(res.data))
+      setUserProfile(res.data)
+      //
+      setFirstName(res.data.firstName)
+      setId(res.data.id)
+      setLastName(res.data.lastName)
+      setEmail(res.data.email)
+      setRole(res.data.role)
+      setAboutme(res.data.aboutme)
+      setJob(res.data.job)
+      setHomeTown(res.data.hometown)
+      setGender(res.data.gender)
+      setCurrentTown(res.data.currenttown)
+      setRelationshipStatus(res.data.relationshipstatus)
+      setInterests(res.data.interests)
+
+
+
+    })
+  }
+
+    
+    const updateProfile = async () => {
+      let updateduser = {
+        id:id,
+        firstName: firstName,
+        lastName: lastName,
+        email: user.email,
+        aboutme: aboutme,
+        job: job,
+        hometown: homeTown,
+        relationshipstatus: relationshipStatus,
+        interests: interests,
+  
+      }
+      UserService.editProfile(user.email, updateduser).then(res => {
+        setUserProfile(res.data)
+      })
+  setshowField()
+
+    }
+    const handleFirstname = (event) => { setFirstName(event.target.value) }
+
+    const [u, setU]=useState('username')
+    console.log("get u value", u)
+    const myid=id;
+
+    const handleU = (event) => {setU(event.target.value)}
+    const adu=()=>{
+      localStorage.setItem('naaaz',JSON.stringify([{myid,u}]))
+      setU(u)
+      callTask()
+      setshowField()
+    }
+const callTask=()=>{
+  const getTasks = JSON.parse(localStorage.getItem("naaaz"));
+  console.log('getatsk baba', getTasks[0].u)
+  setU(getTasks[0].u)
+
+}
+
+
+
+
+
+    const getTasks = JSON.parse(localStorage.getItem("naaaz"));
+// fetch phone number
+const addP=()=>{
+  localStorage.setItem('phone',JSON.stringify([{myid,p_no}]))
+  setPhone(p_no)
+  callPhone()
+  setshowField()
+
+}
+const callPhone=()=>{
+const getPhone1 = JSON.parse(localStorage.getItem("phone"));
+console.log('getatsk baba', getPhone1[0].p_no)
+setPhone(getPhone1[0].p_no)
+
+}
+
+
+
+const fetchPhone = JSON.parse(localStorage.getItem("phone"));
+const [p_no, setPhone]=useState('')
+const handlePhone = (event) => {setPhone(event.target.value)}
+
+const phoneBaba=()=>{
+  if(fetchPhone===null){
+    // setPhone('phone')
+    console.log('fetch phone baba', p_no)
+  }
+  else{
+    setPhone(fetchPhone[0].p_no)
+  }
+}
+
+// fetch phone number
+
+
+    const [tasks, setTasks] = useState(getTasks); // Task State
+    console.log('checking localstorage data', tasks)
+
+    useEffect(() => {
+      currentUserGet()
+
+      if (getTasks === null) {
+       setU(firstName)
+       phoneBaba();
+     
+
+
+   } else {
+      setU(getTasks[0].u)
+      phoneBaba();
+
+    }
+    
+     
+  }, [])
+
+const hideFunction=()=>{
+  setshowField();
+}
+
+
+   //by najam ends
+
     
   
     const handleSearchedUser = (event) => {
@@ -52,10 +198,13 @@ export default function SecuritySettingsComponent() {
       if (showField === 'editname') {
         return (<>
           <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Name</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+          <div className="right-settings-details-input"><input type="text" value={firstName}  onChange={handleFirstname}/></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
-                  </li>
+                  <div className='d-flex justify-content-end bckgrnd'>
+                  <li className="bckgrnd"><div className="scrtySave mx-2"><a href="#" onClick={hideFunction}>Cancel</a></div></li>
+                   <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={updateProfile}>Save</a></div></li>
+                  </div>
+                   
                   
             </>
         )
@@ -65,10 +214,12 @@ export default function SecuritySettingsComponent() {
       if (showField === 'username'){
         return (<>
 <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >User Name</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+<div className="right-settings-details-input"><input type="text" value={u} onChange={handleU}/></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
-                  </li>
+                  <div className='d-flex justify-content-end bckgrnd'>
+                  <li className="bckgrnd"><div className="scrtySave mx-2"><a href="#" onClick={hideFunction}>Cancel</a></div></li>
+                   <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={adu}>Save</a></div></li>
+                  </div>
 
         </>
         )
@@ -78,10 +229,13 @@ export default function SecuritySettingsComponent() {
       if (showField === 'phno'){
         return (<>
 <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Mobile</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+<div className="right-settings-details-input"><input type="text" value={p_no} placeholder={p_no} onChange={handlePhone} /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
-                  </li>
+                  <div className='d-flex justify-content-end bckgrnd'>
+                 <li className="bckgrnd"><div className="scrtySave mx-2"><a href="#" onClick={hideFunction}>Cancel</a></div></li>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={addP}>Save</a></div></li>
+                 </div>
+
 
         </>
         )
@@ -161,7 +315,7 @@ export default function SecuritySettingsComponent() {
                   <p className="clr">Name</p>
                   <div className="right-settings-details">
                   <ul>
-                  <li><p className="secrtySec">name</p>   {
+                  <li><p className="secrtySec">{firstName}</p>   {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('editname')}>Edit</p>:
               <p className="secrtyEdt" onClick={() => setshowField('editname')}>Edit</p>}
               </li>
@@ -176,10 +330,24 @@ export default function SecuritySettingsComponent() {
                   <p className="clr">UserName</p>
                   <div className="right-settings-details">
                   <ul>
-                  <li><p className="secrtySec">https://shareup.qa/name<br/></p> {
+                  { localStorage.getItem("naaaz") === null ?
+                    <>
+                    <li><p className="secrtySec" style={{textTransform:'lowercase'}}>{`https://shareup.qa/${firstName}`}123<br/></p> {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('username')}>Edit</p>:
               <p className="secrtyEdt" onClick={() => setshowField('username')}>Edit</p>}</li>
                   {adduname()}
+                    </>
+                  
+                 : <>
+                 <li><p className="secrtySec" style={{textTransform:'lowercase'}}>{`https://shareup.qa/${u}`}<br/></p> {
+              showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('username')}>Edit</p>:
+              <p className="secrtyEdt" onClick={() => setshowField('username')}>Edit</p>}</li>
+                  {adduname()}
+                 </>
+                 
+                 
+                 }
+                  
                   </ul></div>
                  
                 </div>
@@ -189,10 +357,20 @@ export default function SecuritySettingsComponent() {
                   <p className="clr">Phone Number</p>
                   <div className="right-settings-details">
                   <ul>
-                  <li ><p className="secrtySec">number<br/></p> {
+                  { localStorage.getItem("phone") === null ?
+                  <>
+                  <li ><p className="secrtySec">phone<br/></p> {
               showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('phno')}>Edit</p>:
               <p className="secrtyEdt" onClick={() => setshowField('phno')}>Edit</p>}</li>
                   {addph()}
+                  </>
+                  :<>
+                  <li ><p className="secrtySec">{p_no}<br/></p> {
+              showField === "editname" ?<p className="secrtyEdt active" onClick={() => setshowField('phno')}>Edit</p>:
+              <p className="secrtyEdt" onClick={() => setshowField('phno')}>Edit</p>}</li>
+                  {addph()}
+                  </>
+      }
                   </ul></div>
                  
                 </div>
