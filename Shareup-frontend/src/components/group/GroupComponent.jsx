@@ -31,6 +31,8 @@ function GroupComponent({post}) {
 	const [userInGroup, setUserInGroup] = useState(false);
 	const [group, setGroup] = useState([]);
 	const [allGroups, setAllGroups] = useState([]);
+
+
 	const [searchedGroups, setSearchedGroups] = useState([]);
 
 	const [myGroups, setMyGroups] = useState([]);
@@ -41,7 +43,7 @@ function GroupComponent({post}) {
 	const getAllGroups = async () => {
 		await GroupService.getAllGroups().then(res => {
 			setAllGroups(res.data)
-			// setSearchedGroups(res.data)
+			setSearchedGroups(res.data)
 		})
 	}
 
@@ -52,7 +54,7 @@ function GroupComponent({post}) {
           return res.data.find(a => a.id === id)
         })
 			setMyGroups(uniqueGroups)
-			// setSearchedMyGroups(uniqueGroups)
+			setSearchedMyGroups(uniqueGroups)
 		})
 	}
 
@@ -124,27 +126,15 @@ function GroupComponent({post}) {
 	const showAllGroupsComponent = () => {
 		// console.log(searchedGroups)
 		return (
+			
 			<div className="tab-content">
+					<div class="friends-search-container grp-search" >
+							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} style={{width:'100%',marginLeft:'0'}}/>
+						</div>
 				<div className="tab-pane active fade show " id="">
 					<ul className="nearby-contct" style={{marginTop:'15px'}}>
-						{/* <li class="friends-card groupalign" style={{marginRight: '10px'}}>
-							<a href='/group/create'>
-								<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'278px'}}>
-									<div className='groupsggstion-img'>
-										<div>
-											<img src={Grpicon} className="no-img"/>
-										</div>
-										<i class="fas fa-plus-circle"></i>
-									</div>
-									<div className='groupsggstion-by'>
-										<a href='/group/create'>
-											<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
-										</a>
-									</div>
-								</div>
-							</a>
-						</li> */}
-						{allGroups.map((group) =>
+						
+						{searchedGroups.map((group) =>
 								<li key={group.id} className="friends-card groupalign" >
 		                            <a href={`/groups/${group.id}`}>
 
@@ -193,29 +183,16 @@ function GroupComponent({post}) {
 	const showMyGroupsComponent = () => {
 		return (
 			<div className="tab-content">
-			
+			<div class="friends-search-container grp-search" >
+							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
+						</div>
 			<div className="tab-pane active fade show " id="">
 				<ul className="nearby-contct" style={{marginTop:'15px'}}>
-					{/* <li class="friends-card groupalign" style={{marginRight: '10px'}}>
-						<a href='/group/create'>
-							<div className='groupsggstion-card' style={searchedGroups.length>0?{}:{height:'270px'}}>
-								<div className='groupsggstion-img'>
-									<div>
-										<img src={Grpicon} className="no-img"/>
-									</div>
-									<i class="fas fa-plus-circle"></i>
-								</div>
-								<div className='groupsggstion-by'>
-									<a href='/group/create'>
-										<h5 style={{ fontWeight: 'bold',margin:'10px', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}>Create Group</h5>
-									</a>
-								</div>
-							</div>
-						</a>
-					</li> */}
-					{myGroups.map((group,index) =>
+					
+					{searchedMyGroups.map((group,index) =>
 							<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
 								<a href={`/groups/${group.id}`}>
+
 
 									<div className="group-li-item">
 										{/* <figure> */}
@@ -237,6 +214,8 @@ function GroupComponent({post}) {
 													}
 												{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
 											</div>
+
+											
 										</div>
 										
 										{/* <div class="item6">
@@ -277,22 +256,7 @@ function GroupComponent({post}) {
 							<p className="Friends-Title">Groups</p>
 							<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
 						</div>
-						{/* <div class="navContent"> */}
-							{/* <ul class="nav nav-pills " role="tablist"> */}
-								{/* <li class="nav-item"> */}
-									{/* <a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("allgroups")}> <i class="las la-users"></i> All Groups <a className='numberCircle'></a></a> */}
-									{/* <span>{`${allUser.length}`}</span> */}
-								{/* </li> */}
-								{/* <li class="nav-item"> */}
-									{/* <a class="nav-link active" data-toggle="pill" onClick={() => setShowComp("mygroups")}> <i class="las la-user-friends"></i> My Groups <a className='numberCircle'></a></a> */}
-									{/* <span>{`${following.length}`}</span> */}
-								{/* </li> */}
-								{/* <li class="nav-item"> */}
-									{/* <a class="nav-link active" data-toggle="pill" onClick={()=>history.push('/group/create')}> <i class="las la-plus-circle"></i> Create Group <a className='numberCircle'></a></a> */}
-									{/* <span>{`${followers.length}`}</span> */}
-								{/* </li> */}
-								
-							{/* </ul> */}
+						
 							
 						</div>
 						<div class="navContent">
@@ -333,9 +297,7 @@ function GroupComponent({post}) {
 							</ul>
 												
 						</div>
-						<div class="friends-search-container grp-search" >
-							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} style={{width:'100%',marginLeft:'0'}}/>
-						</div>
+					
 						{handleShowComp()}
 					</div>
 			</div>

@@ -42,6 +42,15 @@ class SwapService {
         return result;
     }
 
+    getSwapForUserFriends = async (email) => {
+        authenticate();
+        const result = await authAxios.get(`swaps/femail/${email}`)
+        return result;
+    }
+
+
+
+
     getSavedSwapForUser = async (email) => {
         authenticate();
         const result = await authAxios.get(`swaps/${email}/saved_swaps`)

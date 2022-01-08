@@ -61,7 +61,12 @@ function FriendsComponent() {
 		} else {
 			let temp = []
 			following.map(u => {
-				if (u.email.includes(event.target.value)) {
+				const email = u.email.toLowerCase()
+				const firstname = u.firstName.toLowerCase()
+				const lastname = u.lastName.toLowerCase()
+				const searchedvalue = event.target.value.toLowerCase()
+				
+				if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
 					temp.push(u)
 				}
 			})
@@ -71,13 +76,19 @@ function FriendsComponent() {
 
 	}
 
+
 	const handleSearchedFollowers = (event) => {
 		if (event.target.value === "") {
 			setSearchedFollowers(followers)
 		} else {
 			let temp = []
-			following.map(u => {
-				if (u.email.includes(event.target.value)) {
+			followers.map(u => {
+				const email = u.email.toLowerCase()
+				const firstname = u.firstName.toLowerCase()
+				const lastname = u.lastName.toLowerCase()
+				const searchedvalue = event.target.value.toLowerCase()
+				
+				if (email.includes(searchedvalue) || firstname.includes(searchedvalue) || lastname.includes(searchedvalue)) {
 					temp.push(u)
 				}
 			})
@@ -153,8 +164,8 @@ function FriendsComponent() {
                 <p style={{ fontWeight: 'medium', fontSize: '18px', color: '#646464' }}>There are no Friends!</p>}
             </div> */}
             <ul className="nearby-contct" style={{marginTop:'15px'}}>
-                {friendsList&&friendsList.length>0?
-				friendsList.map(
+                {searchedUser&&searchedUser.length>0?
+				searchedUser.map(
                     userM =>
                         <li key={userM.id} className="friends-card grp">
                             <div className="grid-container">
@@ -255,7 +266,7 @@ const FollowingComponentFunction = () => {
             </div>
             <div className="tab-pane active fade show " id="following">
                 <ul className="nearby-contct" style={{marginTop:'15px'}}>
-                    {following.map(
+                    {searchedFollowing.map(
                         userM =>
                             <li key={userM.id} className="friends-card grp">
                                 <div className="grid-container">
@@ -304,7 +315,7 @@ const FollowersComponentFunction = () => {
             {/* <input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} /> */}
             <div className="tab-pane active fade show " id="following">
                 <ul className="nearby-contct" style={{marginTop:'15px'}}>
-                    {followers.map(
+                    {searchedFollowers.map(
                         userM =>
                             <li key={userM.id} className="friends-card grp">
                                 <div className="grid-container">
@@ -434,7 +445,6 @@ const getAllUser = async () => {
 			}
 			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
 		})
-		setSearchedUser(res.data)
 	})
 	console.log(user.email + " This is the users")
 }
@@ -442,18 +452,23 @@ const getAllUser = async () => {
 const getFriendsList = async () => {
 	await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
 		setFriendsList(res.data)
+		setSearchedUser	(res.data)
 	})
 }
 
 const getAllFollowing = async () => {
 	await UserService.getFollowing(AuthService.getCurrentUser().username).then(res => {
 		setFollowing(res.data)
+		setSearchedFollowing(res.data)
 	})
 }
+
 
 const getAllFollowers = async () => {
 	await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
 		setFollowers(res.data)
+		setSearchedFollowers(res.data)
+
 	})
 }
 
@@ -471,10 +486,10 @@ const getAllFriendRequestRecieved = async () => {
 
 const handleSearchedUser = (event) => {
 	if (event.target.value === "") {
-		setSearchedUser(allUser)
+		setSearchedUser(friendsList)
 	} else {
 		let temp = []
-		allUser.map(u => {
+		friendsList.map(u => {
 			const email = u.email.toLowerCase()
 			const firstname = u.firstName.toLowerCase()
 			const lastname = u.lastName.toLowerCase()
@@ -519,6 +534,8 @@ return (
 					<div class="navContent">
 
 						<ul class="nav nav-pills swap-page-nav" role="tablist">
+							
+							
 							<li class="nav-item"style={{justifyContent:'flex-start'}} >
                   				<div className="all" onClick={() => setShowComp("members")}>
 									<span style={{ cursor: 'pointer' }}  >
@@ -531,6 +548,8 @@ return (
 								</div>
 								{/* <span>{`${allUser.length}`}</span> */}
 							</li>
+
+
 							<li class="nav-item" style={{justifyContent:'center'}}>
                   				<div className="my" onClick={() => setShowComp("following")}>
 									<span style={{ cursor: 'pointer' }} > 
@@ -542,6 +561,8 @@ return (
 									</div>
 								{/* <span>{`${following.length}`}</span> */}
 							</li>
+
+							
 							<li class="nav-item" style={{justifyContent:'flex-end'}}>
                   				<div className="new" onClick={() => setShowComp("followers")}>
 									<span style={{ cursor: 'pointer' }} >
