@@ -819,7 +819,7 @@ function SearchFeedComponent() {
                 <fieldset style={{ background: 'white', padding: '20px', borderRadius: '10px' }}>
                     <p className="Friends-Title" style={{ fontSize: '15px' }}>People</p>
                     <div className="form-card" style={{ paddingTop: '10px' }}>
-                        <ul className="nearby-contct">
+                        <ul className="nearby-contct" style={{ paddingRight: '12%', paddingLeft: '12%'}}>
                             {Searchbyuser.length !== 0 ?
                                 Searchbyuser.map(userF =>
                                     <li className="sendrqstli" style={{ background: 'white' }} key={userF.id}>
@@ -934,7 +934,7 @@ function SearchFeedComponent() {
                     <fieldset >
                         <p className="Friends-Title" style={{ fontSize: '15px' }}>People</p>
                         <div className="form-card" style={{ paddingTop: '10px' }}>
-                            <ul className="nearby-contct">
+                            <ul className="nearby-contct" style={{ paddingRight: '12%', paddingLeft: '12%'}}>
 
                                 {Searchbyuser.length !== 0 ?
                                     Searchbyuser.slice(0, 4).map(userF =>
