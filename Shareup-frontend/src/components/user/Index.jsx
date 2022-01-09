@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import '../../modal.css';
 import RegisterSuccessfulComponent from './RegisterSuccessfulComponent';
 import { useForm } from "react-hook-form";
+import Telephone from "./PhoneComponent";
 
 const Container = styled.div`
   display: flex;
@@ -79,7 +80,7 @@ function Index({ set, setUser }) {
   const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
+  const [p_no, setPhone] = useState('');
   //For Validation
   const [allFieldFillError, setAllFieldFillError] = useState('');
   const [firstNameError, setFirstNameError] = useState('');
@@ -96,9 +97,38 @@ function Index({ set, setUser }) {
 
 
 
+  //Najam phone field validation
   useEffect(() => {
+    document.querySelector('.yahoobaba').style.display="none";
+
   }, [])
 
+  const handlePhone = (a) => {
+    setPhone(a);
+    console.log("HANDLE PHONE TRIGGER", p_no)
+    document.querySelector('.yahoobaba').style.display="none";
+  }
+
+  const myid=12;
+  const addP=()=>{
+    localStorage.setItem('phone',JSON.stringify([{myid,p_no}]))
+    setPhone(p_no)
+    
+  }
+
+
+  function formValidation(){
+
+    console.log('after submit', document.querySelector('.PhoneInputInput').value);
+   const val= document.querySelector('.PhoneInputInput').value;
+   if(val == ""){
+     document.querySelector('.yahoobaba').style.display="block";
+     console.log('yes it worked')
+   }
+}
+
+
+  //Najam phone field validation
    const handleEmail = (event) => {
      setEmail(event.target.value)
    }
@@ -126,7 +156,7 @@ function Index({ set, setUser }) {
     setPasswordError("")
     let validated = true
 
-    if (email == '' || password == '' || confirmPassword == '' || firstName == '' || lastName == '') {
+    if (email == '' || password == '' || confirmPassword == '' || firstName == '' || lastName == '' || p_no == '') {
       console.log("Please Fill Out Every Field")
       setAllFieldFillError("Please Fill Out Every Field")
       validated = false;
@@ -165,6 +195,8 @@ const onSubmit = (data) => {
   {
     handleRegister();
     reset();
+    addP();
+
   }
   else{
     document.getElementById('message').innerHTML="password didnt match";
@@ -177,22 +209,24 @@ const onSubmit = (data) => {
 //najam form register / login end
 
   const handleRegister = async() => {
-    let user = { email, password,confirmPassword, firstName, lastName }
+    let user = { email, password,confirmPassword, firstName, lastName , p_no}
     console.log("register " + user.email + " " + user.password + " " + user.confirmPassword + " " + user.firstName + " " + user.lastName)
 
     console.log(JSON.stringify(user))
     await UserService.createUser(user).then(res => {
       history.push('/');
-      setRegisterSuccessful("Your Account Is Successfully Registered")
+      setRegisterSuccessful(<h1 className='successfull-msg' style={{fontSize: '30px', color: 'green', textAlign: 'center'}}>Your Account Is Successfully Registered</h1>)
+      setTimeout(() => document.querySelector('.successfull-msg').style.display="none",4000)
       setShowComponent("login")
-      handleLoginAutomatically()
-      openModal()
+      // handleLoginAutomatically()
+      // openModal()
     }).catch(
         error => {
           setRegisterError("User Already Registered");
         }
       )    
   }
+
 
   const getUser = async (email) => {
     await UserService.getUserByEmail(email).then(res => {
@@ -279,6 +313,7 @@ const onSubmit = (data) => {
         <div className="log-reg-area reg">
           <h2 className="log-title">Register new Account</h2>
      <form onSubmit={handleSubmit(onSubmit)} style={{color:'white', padding:'1rem 0'}}> 
+     <h2 className="text-center successfull-msg" style={{color:'red'}}>{registerError}</h2>
      <div className='row' >
      <div className="col-md-6 py-3 pl-1 form-icon txt_field">
               {/* <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label> */}
@@ -341,6 +376,20 @@ const onSubmit = (data) => {
                 </small>
               )}
             </div>
+             {/* phone field */}
+             <div className="col-md-6 py-2 pl-1 form-icon">
+           
+                  <Telephone p_no={p_no} setPhone={setPhone} handlePhone={handlePhone} trigger={trigger}  />
+    
+                  <div className=' yahoobaba'>
+                    <i className="fas fa-exclamation-circle"></i>
+                    <small>Phone number required</small>
+                  </div>
+              
+            </div>
+
+           {/* phone field */}
+           
 
             <div className="col-md-6 py-3 pl-1 form-icon">
               {/* <label className="form-label pb-1">Password:</label> */}
@@ -362,7 +411,7 @@ const onSubmit = (data) => {
                 </small>
               )}
             </div>
-            <div className="col-md-12 py-3 pl-1 form-icon">
+            <div className="col-md-6 py-3 pl-1 form-icon">
               {/* <label className="form-label pb-1">Confirm Password:</label> */}
               <input
                 type="password" 
@@ -399,7 +448,7 @@ const onSubmit = (data) => {
             </div>
             <a href="#" onClick={() => setShowComponent("login")} className="already-have">Already an account?</a>
 
-            <div className="submit-btns">
+            <div className="submit-btns" onClick={formValidation}>
               <button className="mtr-btn signup" type='submit'>
                 <span>Share In</span>
               </button>
