@@ -14254,7 +14254,8 @@ a.openmap {
 .central-edit-profile {
   display: flex;
   flex-direction: row;
-  width: 55%;
+  /* width: 55%; */
+  width: 75%;
   margin: auto;
   background-color: white;
   border-radius: 7px;
@@ -14990,7 +14991,8 @@ visibility: visible !important;
 .central-settings {
   display: flex;
   flex-direction: row;
-  width: 55%;
+  /* width: 55%; */
+  width: 75%;
   margin: auto;
   margin-bottom: 11px;
   border-radius: 10px;

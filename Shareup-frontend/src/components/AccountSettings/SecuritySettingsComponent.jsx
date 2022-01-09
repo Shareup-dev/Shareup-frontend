@@ -72,6 +72,7 @@ export default function SecuritySettingsComponent() {
         aboutme: aboutme,
         job: job,
         hometown: homeTown,
+      currenttown:currentTown,
         relationshipstatus: relationshipStatus,
         interests: interests,
   
