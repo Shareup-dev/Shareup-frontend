@@ -434,7 +434,7 @@ else
           <div>
             <h1>Edit Profile</h1>
             {
-              show === "overview" ? <div className="edit-profile-list active" onClick={() => setShow('overview')}><p>Overview</p></div> : <div className="edit-profile-list" onClick={() => setShow('overview')}><p>Overview</p></div>
+              show === "overview" ? <div className="edit-profile-list active d- flex align-items-center" onClick={() => setShow('overview')}><p> Overview</p></div> : <div className="edit-profile-list" onClick={() => setShow('overview')}><p>Overview</p></div>
             }
             {
               show === "personal information" ? <div className="edit-profile-list active" onClick={() => setShow('personal information')}><p>Personal Information</p></div> : <div className="edit-profile-list" onClick={() => setShow('personal information')}><p>Personal Information</p></div>

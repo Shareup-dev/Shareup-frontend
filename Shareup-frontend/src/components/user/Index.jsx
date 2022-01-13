@@ -211,7 +211,7 @@ const onSubmit = (data) => {
   const handleRegister = async() => {
     let user = { email, password,confirmPassword, firstName, lastName , p_no}
     console.log("register " + user.email + " " + user.password + " " + user.confirmPassword + " " + user.firstName + " " + user.lastName)
-
+    console.log("Checking passwprd encription", password)
     console.log(JSON.stringify(user))
     await UserService.createUser(user).then(res => {
       history.push('/');

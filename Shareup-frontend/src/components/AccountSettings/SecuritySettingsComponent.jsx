@@ -11,7 +11,8 @@ import { testScript } from '../../js/script';
 import DropdownComponent from './DropdownPrivacyComponent';
 import DropdownOnComponent from './DropdownOnComponent';
 import DropdownLimitsComponent from './DropdownLimitsComponent';
-
+import LocationOnOff from  './LocationOnOff'
+import Locationbaba from './LocationComponent';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
 
@@ -38,6 +39,8 @@ export default function SecuritySettingsComponent() {
   const [interests, setInterests] = useState("")
   const [gender, setGender] = useState("")
   const [currentTown, setCurrentTown] = useState("")
+  const [password, setPassword] = useState("");
+
 
     const currentUserGet = async () => {
     await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
@@ -56,11 +59,14 @@ export default function SecuritySettingsComponent() {
       setCurrentTown(res.data.currenttown)
       setRelationshipStatus(res.data.relationshipstatus)
       setInterests(res.data.interests)
+      setPassword(res.data.password)
 
 
 
     })
   }
+
+  console.log("Fetching current password...", password)
 
     
     const updateProfile = async () => {
@@ -72,15 +78,17 @@ export default function SecuritySettingsComponent() {
         aboutme: aboutme,
         job: job,
         hometown: homeTown,
-      currenttown:currentTown,
+        currenttown:currentTown,
         relationshipstatus: relationshipStatus,
         interests: interests,
+        password: password,
   
       }
       UserService.editProfile(user.email, updateduser).then(res => {
         setUserProfile(res.data)
       })
   setshowField()
+  console.log("Updated userbaba", updateduser)
 
     }
     const handleFirstname = (event) => { setFirstName(event.target.value) }
@@ -159,6 +167,7 @@ const phoneBaba=()=>{
       phoneBaba();
 
     }
+
     
      
   }, [])
@@ -166,6 +175,29 @@ const phoneBaba=()=>{
 const hideFunction=()=>{
   setshowField();
 }
+
+//Najam Chnage password start
+const handlePassword = (event) => { 
+  setPassword(event.target.value);
+console.log("handle password func trigger");
+}
+
+const [newPassword, setNewPassword]=useState('')
+const handleChange=()=>{
+  console.log("Handle chnage password function")
+  if (password === newPassword){
+    console.log("password match");
+  }
+  else{
+    console.log("password didnt patch");
+  }
+}
+
+
+
+
+
+//Najam Chnage password end
 
 
    //by najam ends
@@ -246,15 +278,15 @@ const hideFunction=()=>{
       if (showField === 'frgtpswd'){
         return (<>
 <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Current Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+                  <div className="right-settings-details-input"><input type="password" value={password} onChange={handlePassword} /></div>
                   </li>
                   <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >New Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+                  <div className="right-settings-details-input"><input type="password" /></div>
                   </li>
                   <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Repeat Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+                  <div className="right-settings-details-input"><input type="password" /></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={updateProfile}>Save</a></div>
                   </li>
 
         </>
@@ -497,13 +529,18 @@ const hideFunction=()=>{
                 <div className="right-settings-details">
                 <ul>
                 <li><p className="secrtySec">Turn on Location for your mobile devices?</p>
-                <DropdownOnComponent/>
+                {/* <DropdownOnComponent/> */}
+                <Locationbaba/>
+              
+
+  
                 </li>
-                
-                </ul></div>
+                </ul>
+                </div>
                
               </div>
               </div>
+             
               
               
             </div>
