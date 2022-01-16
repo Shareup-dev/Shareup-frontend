@@ -565,7 +565,7 @@
                     {
                       showProfilePicture ?
                         <img id="preview" src={profileRender}  /> :
-                        userProfile.profilePicturePath ? <img className="border-gradient" style={{paddingLeft:'30px', width:'180px'}} src={fileStorage.baseUrl + userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                        userProfile.profilePicturePath ? <img className="border-gradient" style={{marginLeft:'30px', marginTop:'30px', height:'165px', width:'180px'}} src={fileStorage.baseUrl + userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                     }
 
                     <form className="edit-phto" >
