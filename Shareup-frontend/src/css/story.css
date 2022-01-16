@@ -375,7 +375,7 @@ html::-webkit-scrollbar-track {
 	font-size: .9rem
 }
 
-.module .module-content .byline {
+.module .module-content .byline {	
 	clear: both;
 	text-transform: uppercase;
 	background: rgba(0, 0, 0, .05);

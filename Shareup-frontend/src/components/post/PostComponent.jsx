@@ -347,6 +347,7 @@ export default function PostComponent({ post, setRefresh }) {
                 />
               </div>
               <div class='popupuser-name'>
+
                 <div style={{ display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}

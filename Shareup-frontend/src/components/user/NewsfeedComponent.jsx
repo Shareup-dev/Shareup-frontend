@@ -934,7 +934,7 @@ function NewsfeedComponent() {
           </label>
         </div>
         <div className='gifpopup' >
-          <Popup
+          <Popup style = {{height:'100px'}}
             trigger={
               <a href='#!'>
                 <i class='las la-user-tag' style={{ fontSize: '28px', paddingBottom: '14px'}}></i>
@@ -944,7 +944,7 @@ function NewsfeedComponent() {
             nested
           >
             {(close) => (
-              <Form style={{ margin: '5px' }} className='popwidth'>
+              <Form  className='popwidth poptag'>
                 <div class='search-container'>
                   <i class='las la-search'></i>
                   <input
@@ -963,25 +963,36 @@ function NewsfeedComponent() {
                   </>
                 ) : null}
                 <div>
-                  <ul>
+                <ul className="nearby-contct">
+                  
                     {friendsList.length > 0 ? (
                       <>
+                        
                         {friendsList.map((userM) =>
                           user.id !== userM.id ? (
-                            <li key={userM.id} className='friends-card'>
+                          
+                            <li key={userM.id} className="friends-card grp">
+                              
                               <a href='#!' onClick={() => handleTag(userM)}>
                                 {' '}
                                 <div className='grid-container'>
                                   {/* <figure> */}
                                   <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                      <img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt='' />
                                     </a>
                                     {/* </figure> */}
                                   </div>
                                   <div class='item2'>
-                                    <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
+                                    <p className='nameTag'>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
+                                    <div style={{ fontSize: '12px', paddingTop: '5px' }}>
+
+                              10 Mutual friends
+                                      </div>
+
                                   </div>
+                             
                                   {/* <div className="  "> */}
                                 </div>
                               </a>

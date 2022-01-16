@@ -517,6 +517,7 @@ function ShareFeedComponent() {
           {close => (<Form style={{ margin: '5px' }} className="popwidth">
             <div class="search-container">
               <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            
             </div>
             {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
             <div>
