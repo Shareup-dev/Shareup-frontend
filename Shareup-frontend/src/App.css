@@ -755,6 +755,8 @@ body{
   display: contents;
 }
 
+
+
 .stories a {
   font-weight:400;
   color:#1976f3;
@@ -787,6 +789,21 @@ body{
   box-shadow: 0 3px 6px rgb(50 50 93 / 10%);
   
 }
+
+.stories .stories-justcreate {
+  
+  background:#d6d6d6 ;
+  width: 115px;
+  height: 25px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgb(50 50 93 / 10%);
+  
+}
+
+
+
 .stories .stories-card .stories-img {
   text-align: center;
   width:100%;
