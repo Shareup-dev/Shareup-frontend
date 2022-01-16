@@ -16,9 +16,10 @@ export default function SharePostComponent({ post, setRefresh }) {
     const [editPostId, setEditPostId] = useState(null)
     const [userR, setUserR] = useState([]);
     const [showComment, setShowComment] = useState(false)
+    const [showShare, setShare] = useState(false)
     const [showMoreOptions, setShowMoreOptions] = useState(false)
     const [showReactions, setShowReactions] = useState(false)
-
+    
     const [likeReaction, setLikeReaction] = useState(null)
 
     const something = (event) => {
@@ -35,6 +36,13 @@ export default function SharePostComponent({ post, setRefresh }) {
         let counter = 0
         comments.map(comment => {
             counter += comment.replies.length + 1
+        })
+        return counter
+    }
+    const getShareCounter = (shares) => {
+        let counter = 0
+        shares.map(comment => {
+            counter += shares.replies.length + 1
         })
         return counter
     }
