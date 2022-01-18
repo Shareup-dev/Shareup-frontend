@@ -16289,3 +16289,24 @@ input.chat-text {
   height: 408px;
   overflow: scroll;
 }
+#alertMessage{
+  font-size: 12px;
+  font-weight: 600;
+  color: red;
+  text-align: right;
+ 
+  
+}
+#message{
+  font-size: 12px;
+  font-weight: 500;
+  color: red;
+  text-align: right;
+}
+#chgpassmsg{
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  padding: 3px;
+}
