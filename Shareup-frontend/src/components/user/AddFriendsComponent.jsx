@@ -105,6 +105,8 @@ function AddFriendsComponent() {
 	const acceptFriendRequest = (uid, fid) => {
 		FriendsService.acceptRequest(uid, fid).then(res => {
 			setRefresh(res.data)
+
+		
 		})
 	}
 
@@ -117,6 +119,7 @@ function AddFriendsComponent() {
 	const unsendFriendRequest = (uid, fid) => {
 		FriendsService.unsendRequest(uid, fid).then(res => {
 			setRefresh(res.data)
+			
 		})
 	}
 
