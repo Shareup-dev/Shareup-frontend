@@ -105,8 +105,6 @@ function AddFriendsComponent() {
 	const acceptFriendRequest = (uid, fid) => {
 		FriendsService.acceptRequest(uid, fid).then(res => {
 			setRefresh(res.data)
-
-		
 		})
 	}
 
@@ -119,7 +117,6 @@ function AddFriendsComponent() {
 	const unsendFriendRequest = (uid, fid) => {
 		FriendsService.unsendRequest(uid, fid).then(res => {
 			setRefresh(res.data)
-			
 		})
 	}
 
@@ -181,7 +178,8 @@ function AddFriendsComponent() {
 									<div className="grid-container">
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+										<a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+												<img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}

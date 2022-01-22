@@ -347,6 +347,7 @@ export default function PostComponent({ post, setRefresh }) {
                 />
               </div>
               <div class='popupuser-name'>
+
                 <div style={{ display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1257,6 +1258,9 @@ export default function PostComponent({ post, setRefresh }) {
 
                       <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
                         <span>
+                     
+                      {`${(post.post.numberOfshares)}` + " "}
+                 
                           {sharepopup()}
                           {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
 
@@ -1339,7 +1343,7 @@ export default function PostComponent({ post, setRefresh }) {
 
 
                   <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
-                    <span> {`${(post.numberOfshares)}` + " "}
+                    <span>  {`${(post.numberOfshares)}` + " "}
 
 
                       {sharepopup()}
@@ -1456,7 +1460,6 @@ export default function PostComponent({ post, setRefresh }) {
                       <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i class="fas fa-share" style={{ paddingRight: '5px' }}></i>
-
                         {sharepopup()}
 
                       </span>

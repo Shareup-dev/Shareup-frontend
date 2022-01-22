@@ -14,6 +14,8 @@ import DropdownLimitsComponent from './DropdownLimitsComponent';
 
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
+import { data, event } from 'jquery';
+import { set } from 'nprogress';
 
 export default function SecuritySettingsComponent() {
     const { email: user_email } = useParams();
@@ -38,7 +40,9 @@ export default function SecuritySettingsComponent() {
   const [interests, setInterests] = useState("")
   const [gender, setGender] = useState("")
   const [currentTown, setCurrentTown] = useState("")
-
+  const [NewPwd, setNewPwd] = useState("")
+  const [conPass, setconPass] = useState("")
+  const [curPass,setcurPass] = useState("")
     const currentUserGet = async () => {
     await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
       console.log(JSON.stringify(res.data))
@@ -101,11 +105,112 @@ const callTask=()=>{
   setU(getTasks[0].u)
 
 }
+ const handlechgpwd=(evt)=>{
+    setNewPwd(evt.target.value);
+
+  //  val = evt.target.value;
+
+ }
+ const handleconPass =(evt)=>{
+   setconPass(evt.target.value)
+ }
+ const handleCurrPass=(evt)=>{
+   setcurPass(evt.target.value)
+ }
+  // console.log(curPass)
+  const passres="";
+const HandleCurrentPass=async()=>{
+  // let blank={ "":""}
+  // var password= {password:NewPwd}
+  // console.log(curPass)
+  const alertmsg=  document.getElementById('alertMessage');
+  alertmsg.style.display = 'none';
+  alertmsg.style.margin='0px';
+  await PostService.CheckOldPass(AuthService.getCurrentUser().username,curPass).then(
+    res=>{
+      // console.log('get saved post' + res);
+      console.log(res.data)
+      if(res.data=="password match"){
+        document.getElementById('curPass').style.borderBottom="1px solid green";
+        console.log(password)
+         if(password.password==conPass){
+          HandleupdatePass();
+         }
+         
+        }
+  
+      return res;
+    }
+  ).catch(err=>{
+    console.log("There is an error " +err)
+    alertmsg.style.display = 'block';
+    alertmsg.style.marginRight='10px';
+    document.getElementById('curPass').style.borderBottom="1px solid red"
+    document.getElementById('alertMessage').innerHTML='Current Password is not valid';
+    document.getElementById('message').style.display="block";
+    document.getElementById('message').innerHTML = 'Password Matched';
+    document.getElementById('message').style.color='red';
+  })
+}
+var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    // document.getElementById('message').style.color = 'green';
+    let msg = document.getElementById('message');
+    if(document.getElementById('password').value &&
+    document.getElementById('confirm_password').value == "") {
+      msg.style.display = 'none';
+    } else {
+      document.getElementById('confirm_password').style.borderBottom="1px solid green"
+      msg.style.display = 'block';
+      msg.style.color='green';
+      msg.innerHTML='Password Matched';
+      msg.style.fontSize=`13px`;
+      msg.style.marginRight='10px';
+    }
+   
+  } else {
+    document.getElementById('message').style.display = 'block';
+    document.getElementById('confirm_password').style.borderBottom="1px solid red";
+    document.getElementById('message').innerHTML = 'Password Not Matched';
+    document.getElementById('message').style.color='red';
+    document.getElementById('message').style.marginRight='10px';
+    document.getElementById('message').style.fontSize=`13px`;
+    document.getElementById('message').style.marginRight='10px';
+  }
+}
+const password= {password:NewPwd}
+
+ const HandleupdatePass=async(evt)=>{
+
+  document.getElementById('message').style.display="none";
+    await PostService.updateuserPassword(AuthService.getCurrentUser().username,conPass,password).then(
+      res=>{
+        set(`${res.password} saved`)
+        console.log("Password chnaged "+res.password)
+      console.log("Changed");
+      document.getElementById('message').style.display="block";
+      document.getElementById('message').innerHTML="Password Changed";
+        document.getElementById('message').style.color="green";
+      }
+    ).catch(err=>{
+      console.log(err)
+      document.getElementById('message').style.display="block";
+      document.getElementById('message').innerHTML="Password Not Changed";
+    })
+    
+  
+  // console.log(updateddata)
+  
+   
+  
+  
+ }
 
 
-
-
-
+ 
+ 
+ 
     const getTasks = JSON.parse(localStorage.getItem("naaaz"));
 // fetch phone number
 const addP=()=>{
@@ -202,6 +307,7 @@ const hideFunction=()=>{
                   </li>
                   <div className='d-flex justify-content-end bckgrnd'>
                   <li className="bckgrnd"><div className="scrtySave mx-2"><a href="#" onClick={hideFunction}>Cancel</a></div></li>
+
                    <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={updateProfile}>Save</a></div></li>
                   </div>
                    
@@ -218,7 +324,7 @@ const hideFunction=()=>{
                   </li>
                   <div className='d-flex justify-content-end bckgrnd'>
                   <li className="bckgrnd"><div className="scrtySave mx-2"><a href="#" onClick={hideFunction}>Cancel</a></div></li>
-                   <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={adu}>Save</a></div></li>
+                   <li className="bckgrnd"><div className="scrtySave"><a href='#'>Save</a></div></li>
                   </div>
 
         </>
@@ -244,18 +350,37 @@ const hideFunction=()=>{
     const forgotpwd = () => {
       if (showField === 'frgtpswd'){
         return (<>
-<li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Current Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+        <span id="chgpassmsg"></span>
+<li className="bckgrnd"> 
+
+<div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}>
+
+  <p >Current Password</p></div>
+                  <div className="right-settings-details-input">
+                  
+
+                  
+                    <input type="text" id="curPass"name="curPass" onChange={handleCurrPass} />
+                    <br />
+                    <span id="alertMessage"></span>
+                    </div>
+                    
                   </li>
+                  
+
                   <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >New Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+                  <div className="right-settings-details-input"><input type="text" name='password' onChange={handlechgpwd} id='password' onKeyUp={check}/></div>
                   </li>
                   <li className="bckgrnd"> <div style={{flex:1, textAlign: 'center',paddingTop:'10px',fontSize:'14px'}}><p >Repeat Password</p></div>
-                  <div className="right-settings-details-input"><input type="text" /></div>
+                  <div className="right-settings-details-input"><input type="text"  name='conPass' onChange={handleconPass} id='confirm_password' onKeyUp={check}/>
+                  <span id='message'></span></div>
                   </li>
-                  <li className="bckgrnd"><div className="scrtySave"><a href="#">Save</a></div>
+                  
+                  
+                  <li className="bckgrnd"><div className="scrtySave"><a href="#" onClick={HandleCurrentPass}>Save</a>
+                  </div>
                   </li>
-
+                 
         </>
         )
       }
@@ -722,4 +847,4 @@ and other profile info? Friends<br/></p><DropdownComponent/></li>
       </div>
 </>
     )
-}
+      }
