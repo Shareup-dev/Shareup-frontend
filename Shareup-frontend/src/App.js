@@ -94,7 +94,7 @@ function App() {
   // useEffect(() => {
   //   AuthService.setCurrentUser(jwtUser)
   // }, []);
-
+  
   const logout = () => {
     AuthService.logout();
   }
