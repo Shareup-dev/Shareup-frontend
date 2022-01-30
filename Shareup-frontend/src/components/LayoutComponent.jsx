@@ -10,6 +10,8 @@ import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
 import settings from '../services/Settings';
 import fileStorage from '../config/fileStorage';
+import Popup from 'reactjs-popup';
+
 import img1 from '../images/news1.jpg'
 
 export default function Layout(props) {
@@ -25,6 +27,37 @@ export default function Layout(props) {
   }, [])
 
   const { user } = useContext(UserContext)
+
+  const [filesReel, setFilesReel] = useState({});
+  const [ReelVideo, setReelVideo] = useState([]);
+  const [ShowReelVideo, setShowReelVideo] = useState(false);
+
+
+  const handleFileReel = (event) => {
+    console.log("sadsadsa", event.target.files[0].name);
+
+    setFilesReel(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setReelVideo(reader.result);
+      }
+    };
+    console.log(event.target.files[0]);
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0]);
+    // }
+    setShowReelVideo(true);
+  };
+
+  const handleRemoveReelVideo = () => {
+    setFilesReel({});
+    setShowReelVideo(false);
+  };
+
+
+
+
 
   if (isLoading) {
     return null
@@ -91,7 +124,7 @@ export default function Layout(props) {
                             </li>
 
 
-                         
+
 
 
 
@@ -214,10 +247,87 @@ export default function Layout(props) {
 
                               </li>
 
+                              <Popup trigger={<div className='add-reel'> Add Reel</div>} modal>
+                                {(close) => (
+                                  <Form className='popwidth'>
+
+                                    <div className='headpop'>
+                                      <div style={{ padding: '10px' }}>
+                                        <span>
+                                          <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                                            <i class='las la-times'></i>
+                                          </a>
+                                        </span>
+                                        <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
+                                          Lets Add Reel Video
+                                        </span>
+
+                                        {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                        <span style={{ float: 'right' }}>
+                                          {' '}
+                                          <button
+                                            style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
+                                            type='submit'
+                                          // onClick={uploadReels}
+                                          >
+                                            Upload
+                                          </button>
+                                        </span>
+                                        {/* :null}  */}
+                                      </div>
+                                    </div>
+
+                                    <div style={{ margin: '0 11px 10px 11px' }}>
+                                      <span className='textPop'>
+                                        {ShowReelVideo ? (
+                                          <>
+
+                                            <video width="100%" height={"350px"} controls>
+                                              <source src={ReelVideo} />
+                                            </video>
+
+
+                                            <button
+                                              onClick={handleRemoveReelVideo}
+                                              style={{
+                                                right: '20px',
+                                                position: 'absolute',
+                                                borderRadius: '100%',
+                                                background: '#b7b7b738',
+                                                padding: '10px 10px',
+                                              }}
+                                            >
+                                              <i class='las la-times'></i>
+                                            </button>
+                                          </>
+                                        ) : (
+                                          <div style={{ textAlign: 'center' }}>
+                                            <label className='fileContainer'>
+                                              <div className='reelvideo' type='submit'>
+                                                <input
+                                                  type='file'
+                                                  name='reel_video'
+                                                  accept='video/*'
+                                                  onChange={handleFileReel}
+                                                ></input>
+                                                Add Reel Video
+                                              </div>
+                                            </label>
+                                          </div>
+                                        )}
+                                      </span>
+                                      {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                                    </div>
+                                    {/* </> 
+                                                   
+                                 )}  */}
+                                  </Form>
+                                )}
+                              </Popup>
 
 
 
-                              <li style={{ textAlign: "center", paddingTop: '10px' }}><a href="https://www.youtube.com/watch?v=V_SW9LjPUC0" style={{ fontSize: '12px', color: "#258eae" }} target="_blank">Show More</a></li>
+                              <div className='add-reel'> Explore</div>
                             </ul>
                           </div>
                         </div>
