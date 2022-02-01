@@ -151,10 +151,10 @@ function NewsfeedComponent() {
     }
 
     const formData = new FormData();
-    console.log(' this is the files' + filesStry);
+    console.log(' this is the files' + formData);
     formData.append(`stryfiles`, filesStry);
     StoriesService.createStories(user.id, formData).then((res) => {
-      console.log(JSON.stringify(res));
+      console.log("jsonnn   " ,JSON.stringify(res));
       handleRemoveImageStry();
       setStories(res.data);
       setRefresh(res.data);
@@ -209,6 +209,7 @@ function NewsfeedComponent() {
     reader.readAsDataURL(event.target.files[0]);
     // }
     setShowstoriesImage(true);
+
   };
   const handleRemoveImageStry = () => {
     setFilesStry({});
@@ -2166,6 +2167,7 @@ function NewsfeedComponent() {
     getSavedPost();
     testScript();
   }, [user]);
+  
   useEffect(() => {
     getStoriesForUser();
     testScript();

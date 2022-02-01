@@ -10,6 +10,8 @@ import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
 import settings from '../services/Settings';
 import fileStorage from '../config/fileStorage';
+import ReelsServices from '../services/ReelsServices';
+
 import Popup from 'reactjs-popup';
 
 import img1 from '../images/news1.jpg'
@@ -24,17 +26,79 @@ export default function Layout(props) {
     if (props.user) {
       setIsLoading(false)
     }
+
   }, [])
 
   const { user } = useContext(UserContext)
 
+  const [refresh, setRefresh] = useState(null);
+  const [reels, setReels] = useState([]);
+
   const [filesReel, setFilesReel] = useState({});
   const [ReelVideo, setReelVideo] = useState([]);
   const [ShowReelVideo, setShowReelVideo] = useState(false);
+  const [uploadErrorReel, setUploadErrorReel] = useState('');
+
+
+
+  const uploadReels = (event) => {
+    event.preventDefault();
+    setUploadErrorReel('');
+    console.log('uploading reels working');
+
+    if (Object.keys(filesReel).length === 0 && filesReel.constructor === Object) {
+      console.log('cant be null');
+      setUploadErrorReel('Please Add reel video');
+      console.log(uploadErrorReel);
+      return;
+    }
+
+    var video = document.getElementById("video");
+    const canvas = document.createElement("canvas");
+    // scale the canvas accordingly
+    canvas.width = video.videoWidth/10;
+    canvas.height = video.videoHeight/10;
+    // draw the video at that frame
+    canvas.getContext('2d').drawImage(video,10,10);
+    // convert it to a usable data URL
+    const dataURL = canvas.toDataURL();
+    var img = document.createElement("img");
+    img.src = fileStorage.baseUrl+"/user-stories/1643529794109/Picture.jpg";
+    
+
+    const formData = new FormData();
+    var thumbnails = img.src;
+    var content = "asdsadasd";
+   
+    console.log("dataaaaaaaaaa", formData);
+    // console.log("thumbnails", thumbnails);
+    // console.log("content", content);
+
+    formData.append(`content`, content);
+    formData.append(`thumbnails`, thumbnails);
+    formData.append(`reelfiles`, filesReel);
+
+
+   ReelsServices.createReels(user.id, formData).then((res) => {
+    console.log("jsonnn" ,JSON.stringify(res));
+    handleRemoveReelVideo();
+    setReels(res.data);
+    setRefresh(res.data);
+
+    console.log("response", reels);
+
+  });
+
+  
+  };
+
+
+
+
+
 
 
   const handleFileReel = (event) => {
-    console.log("sadsadsa", event.target.files[0].name);
 
     setFilesReel(event.target.files[0]);
     const reader = new FileReader();
@@ -48,6 +112,8 @@ export default function Layout(props) {
     reader.readAsDataURL(event.target.files[0]);
     // }
     setShowReelVideo(true);
+
+
   };
 
   const handleRemoveReelVideo = () => {
@@ -268,7 +334,7 @@ export default function Layout(props) {
                                           <button
                                             style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
                                             type='submit'
-                                          // onClick={uploadReels}
+                                            onClick={uploadReels}
                                           >
                                             Upload
                                           </button>
@@ -282,7 +348,7 @@ export default function Layout(props) {
                                         {ShowReelVideo ? (
                                           <>
 
-                                            <video width="100%" height={"350px"} controls>
+                                            <video id='video' width="100%" height={"350px"} controls="controls">
                                               <source src={ReelVideo} />
                                             </video>
 
@@ -327,7 +393,11 @@ export default function Layout(props) {
 
 
 
-                              <div className='add-reel'> Explore</div>
+                              <div className='add-reel'> 
+                              <a href="/reelFeed" title="#"  style={{color: 'white'}}> My Reels </a>
+
+                             </div>
+
                             </ul>
                           </div>
                         </div>

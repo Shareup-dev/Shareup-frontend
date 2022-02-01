@@ -576,7 +576,8 @@ function OtherProfileComponent() {
       <li>
         <a href="#">
           <div className="stories-card">
-            <div className="stories-img"><img src="/assets/images/vector-34@2x.png" alt="img" /></div>
+            <div className="stories-img">
+              <img src="/assets/images/vector-34@2x.png" alt="img" /></div>
             <div className="add-storie">
               +
             </div>
