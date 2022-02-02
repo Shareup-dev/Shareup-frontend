@@ -31,6 +31,14 @@ class ReelsServices {
         return result
     }
 
+
+
+    getReelForUser = async (email) => {
+        authenticate();
+        const result = await authAxios.get(`reel/user/${email}`)
+        return result;
+    }
+
     
 }
 

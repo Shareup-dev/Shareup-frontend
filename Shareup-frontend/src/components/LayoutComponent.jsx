@@ -394,7 +394,7 @@ export default function Layout(props) {
 
 
                               <div className='add-reel'> 
-                              <a href="/reelFeed" title="#"  style={{color: 'white'}}> My Reels </a>
+                              <a href="/reelFeed" title="#"  style={{color: 'white'}}> Explore Reels </a>
 
                              </div>
 

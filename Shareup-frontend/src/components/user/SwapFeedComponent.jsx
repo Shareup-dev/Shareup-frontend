@@ -1476,7 +1476,7 @@ const AllswapscomponentFunction = () => {
         {searchedSwapFriend && searchedSwapFriend.length > 0
           ? searchedSwapFriend.map(
             post =>
-              <div key={post.id}>
+              <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
                   post.group ?
                     post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
@@ -1503,7 +1503,7 @@ const AllswapscomponentFunction = () => {
         {searchedSwap && searchedSwap.length > 0
           ? searchedSwap.map(
             post =>
-              <div key={post.id}>
+              <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
                   post.group ?
                     post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?

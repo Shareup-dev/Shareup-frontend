@@ -6,6 +6,7 @@ import UserService from '../../services/UserService';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
+import ReelsServices from '../../services/ReelsServices';
 import AuthService from '../../services/auth.services';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { testScript } from '../../js/script';
@@ -43,7 +44,7 @@ function ReelFeedComponent() {
   const [storiesImage, setStoriesImage] = useState([]);
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
-  const [showComp, setShowComp] = useState("AllSwaps");
+  const [showComp, setShowComp] = useState("AllReels");
   const [showCompont, setShowCompont] = useState();
   const [posts, setPosts] = useState([]);
   
@@ -134,14 +135,14 @@ function ReelFeedComponent() {
     getPost().then(() => {
       setIsLoading(false)
     })
-    getSwapsForUser()
+    getReelsForUser()
     getSwapForUserFriends()
     getSavedPost()
     testScript()
   }, [editPostId, refresh])
 
   useEffect(() => {
-    getSwapsForUser()
+    getReelsForUser()
     getSwapForUserFriends()
     getSavedPost()
     testScript()
@@ -188,9 +189,9 @@ function ReelFeedComponent() {
       setStoriesForUser(uniqueStories)
     })
   }
-  const getSwapsForUser = async () => {
+  const getReelsForUser = async () => {
 
-    await SwapService.getSwapForUser(AuthService.getCurrentUser().username).then(res => {
+    await ReelsServices.getReelForUser(AuthService.getCurrentUser().username).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
@@ -202,6 +203,8 @@ function ReelFeedComponent() {
       setSwapsForUser(uniquePost)
       setSearchedSwap(uniquePost)
     })
+
+    console.log(user.id + " This is the users Iddddddddd" )
   }
 
   const getSwapForUserFriends = async () => {
@@ -224,7 +227,7 @@ function ReelFeedComponent() {
 
   const mySwaps = async () => {
 
-    getSwapsForUser()
+    getReelsForUser()
 
 
 
@@ -1165,7 +1168,7 @@ function ReelFeedComponent() {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div>No Reels to show</div>
         }
 
       </div>
@@ -1251,7 +1254,7 @@ function ReelFeedComponent() {
 
 
 
-const AllswapscomponentFunction = () => {
+const AllReelscomponentFunction = () => {
     return (
       <div className="loadMore">
          <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1260,7 +1263,7 @@ const AllswapscomponentFunction = () => {
         {searchedSwapFriend && searchedSwapFriend.length > 0
           ? searchedSwapFriend.map(
             post =>
-              <div key={post.id}>
+              <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
                   post.group ?
                     post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
@@ -1270,7 +1273,7 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div>No Reels to show</div>
         }
 
       </div>
@@ -1278,7 +1281,7 @@ const AllswapscomponentFunction = () => {
   }
 
 
-  const MySwapsComponentFunction = () => {
+  const MyReelsComponentFunction = () => {
     return (
       <div className="loadMore">
          <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1287,7 +1290,7 @@ const AllswapscomponentFunction = () => {
         {searchedSwap && searchedSwap.length > 0
           ? searchedSwap.map(
             post =>
-              <div key={post.id}>
+              <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
                   post.group ?
                     post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
@@ -1297,7 +1300,7 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div>No Reels to show</div>
         }
 
       </div>
@@ -1305,10 +1308,10 @@ const AllswapscomponentFunction = () => {
   }
   
 	const handleShowComp = () => {
-		if (showComp === "AllSwaps") {
-			return AllswapscomponentFunction()
-		} else if (showComp === "MySwaps") {
-			return MySwapsComponentFunction()
+		if (showComp === "AllReels") {
+			return AllReelscomponentFunction()
+		} else if (showComp === "MyReels") {
+			return MyReelsComponentFunction()
 		}
 		}
 
@@ -1338,7 +1341,7 @@ const AllswapscomponentFunction = () => {
 
               <ul class="nav nav-pills swap-page-nav" role="tablist">
                 <li class="nav-item" style={{ justifyContent: 'flex-start' }}>
-                  <div className="all" onClick={() => setShowComp("AllSwaps")}>
+                  <div className="all" onClick={() => setShowComp("AllReels")}>
                     <span style={{ cursor: 'pointer' }}>
                       <span style={{ marginRight: '5px', padding: '5px' }}>
                         <i class="fas fa-retweet" style={{ fontSize: '20px' }}></i>
@@ -1349,7 +1352,7 @@ const AllswapscomponentFunction = () => {
                   </div>
                 </li>
                 <li class="nav-item" style={{ justifyContent: 'center' }}>
-                  <div className="my" onClick={() => setShowComp("MySwaps")}>
+                  <div className="my" onClick={() => setShowComp("MyReels")}>
                     <span style={{ cursor: 'pointer' }}>
                       <span style={{ marginRight: '5px', padding: '5px' }}>
                         <i class="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
