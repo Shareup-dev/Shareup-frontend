@@ -23,7 +23,7 @@ import SwapPostComponent from '../post/SwapPostComponent';
 import StoriesComponent from '../Stories/StoriesComponent';
 import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
-import PostComponent from '../post/PostComponent';
+import ReelPostComponent from '../post/ReelPostComponent';
 import fileStorage from '../../config/fileStorage';
 
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
@@ -1149,7 +1149,7 @@ function ReelFeedComponent() {
   
   
   const testFanc = (post) => {
-    return (<PostComponent post={post} setRefresh={setRefresh} />)
+    return (<ReelPostComponent post={post} setRefresh={setRefresh} />)
   }
 
   const show = () => {
