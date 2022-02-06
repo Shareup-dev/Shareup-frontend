@@ -27,7 +27,7 @@ class ReelsServices {
 
         console.log(formdata)
 
-        const result = await authAxios.post(`/reels/${userId}`,formdata)
+        const result = await authAxios.post(`/reels/web/${userId}`,formdata)
         return result
     }
 
@@ -39,6 +39,11 @@ class ReelsServices {
         return result;
     }
 
+    getPreviewReel = async () => {
+        authenticate();
+        const result = await authAxios.get(`/last/reels`)
+        return result;
+    }
     
 }
 

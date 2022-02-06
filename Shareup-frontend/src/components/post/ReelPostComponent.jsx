@@ -545,9 +545,6 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                             />
 
 
-
-
-
                                         </React.Fragment>
                                     ))
                                     : null}

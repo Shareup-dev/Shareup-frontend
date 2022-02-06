@@ -2198,9 +2198,7 @@ function NewsfeedComponent() {
                     <Popup trigger={<div className='add-stry'> +</div>} modal>
                       {(close) => (
                         <Form className='popwidth'>
-                          {/* {storiesForUser.map(
-  storyauth =>
-              <>  */}
+                   
                           <div className='headpop'>
                             <div style={{ padding: '10px' }}>
                               <span>

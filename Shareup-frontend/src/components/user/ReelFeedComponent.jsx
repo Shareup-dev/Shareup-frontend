@@ -147,6 +147,7 @@ function ReelFeedComponent() {
     getSavedPost()
     testScript()
   }, [user])
+  
   useEffect(() => {
     getStoriesForUser()
     testScript()
@@ -189,6 +190,7 @@ function ReelFeedComponent() {
       setStoriesForUser(uniqueStories)
     })
   }
+  
   const getReelsForUser = async () => {
 
     await ReelsServices.getReelForUser(AuthService.getCurrentUser().username).then(res => {

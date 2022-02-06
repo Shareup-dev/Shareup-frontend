@@ -16227,3 +16227,18 @@ hr.new1 {
   margin-bottom: 10px;
 }
 
+.reelbtn {
+  font-size: Large;
+  right: 1%;
+  position: absolute;
+  top: 76px;
+  background: #00000014;
+  color: #104554;
+}
+
+.reelbtn:hover{
+  border-radius: 5px ;
+  border: 0px #000000 !important;
+}
+
+

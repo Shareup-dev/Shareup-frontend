@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import UserContext from '../contexts/UserContext';
+import AuthService from '../services/auth.services';
 import PostService from '../services/PostService';
 import ShareupInsideHeaderComponent from './dashboard/ShareupInsideHeaderComponent';
 import EditPostComponent from './user/EditPostComponent'
@@ -29,6 +30,15 @@ export default function Layout(props) {
 
   }, [])
 
+ 
+
+  useEffect(() => {
+    if (props.user) {
+      setIsLoading(false)
+    }
+
+  }, [])
+
   const { user } = useContext(UserContext)
 
   const [refresh, setRefresh] = useState(null);
@@ -38,6 +48,7 @@ export default function Layout(props) {
   const [ReelVideo, setReelVideo] = useState([]);
   const [ShowReelVideo, setShowReelVideo] = useState(false);
   const [uploadErrorReel, setUploadErrorReel] = useState('');
+  const [reelPreviewPath, setReelPreviewPath] = useState([]);
 
 
 
@@ -56,44 +67,57 @@ export default function Layout(props) {
     var video = document.getElementById("video");
     const canvas = document.createElement("canvas");
     // scale the canvas accordingly
-    canvas.width = video.videoWidth/10;
-    canvas.height = video.videoHeight/10;
+    canvas.width = video.videoWidth / 10;
+    canvas.height = video.videoHeight / 10;
     // draw the video at that frame
-    canvas.getContext('2d').drawImage(video,10,10);
+    canvas.getContext('2d').drawImage(video, 10, 10);
     // convert it to a usable data URL
     const dataURL = canvas.toDataURL();
     var img = document.createElement("img");
-    img.src = fileStorage.baseUrl+"/user-stories/1643529794109/Picture.jpg";
-    
+    img.src = fileStorage.baseUrl + "/user-stories/1643529794109/Picture.jpg";
+
 
     const formData = new FormData();
-    var thumbnails = img.src;
-    var content = "asdsadasd";
-   
+    var content = "test";
+
     console.log("dataaaaaaaaaa", formData);
     // console.log("thumbnails", thumbnails);
     // console.log("content", content);
 
     formData.append(`content`, content);
-    formData.append(`thumbnails`, thumbnails);
     formData.append(`reelfiles`, filesReel);
 
 
-   ReelsServices.createReels(user.id, formData).then((res) => {
-    console.log("jsonnn" ,JSON.stringify(res));
-    handleRemoveReelVideo();
-    setReels(res.data);
-    setRefresh(res.data);
+    ReelsServices.createReels(user.id, formData).then((res) => {
+      console.log("jsonnn", JSON.stringify(res));
+      handleRemoveReelVideo();
+      setReels(res.data);
+      setRefresh(res.data);
 
-    console.log("response", reels);
+      console.log("response", reels);
 
-  });
+    });
 
-  
+
   };
 
+  useEffect(() => {
+ 
+    getPreviewReel()
+    
+  }, [ refresh])
 
+  const getPreviewReel = async () => {
 
+    await ReelsServices.getPreviewReel(AuthService.getCurrentUser().username).then(res => {
+      console.log("jsonnn", JSON.stringify(res));
+      console.log(" This is the response", res.data.media[0])
+      setReelPreviewPath(res.data.media[0])
+     
+
+    })
+    console.log(user.id + " This is the users Iddddddddd")
+  }
 
 
 
@@ -188,15 +212,6 @@ export default function Layout(props) {
 
                               <a href="/Addfriends" title="#">Add Friends</a>
                             </li>
-
-
-
-
-
-
-
-
-
 
                             <li>
                               <div style={{ marginRight: "5px", display: "inline" }}><i className="ti-user" /><i className="ti-user" style={{ marginLeft: "-19px" }} /></div>
@@ -305,9 +320,32 @@ export default function Layout(props) {
                               <li>
                                 <div className="headline-cont">
 
-                                  <img src="/assets/images/reelimage.PNG" alt=""
-                                    style={{ height: '160px', objectFit: "fill", width: '100%', bottom: '16px', padding: '0px' }}
-                                  />
+
+                                  {reelPreviewPath
+                                    ?
+
+                                    <React.Fragment>
+                                      <video
+                                        preload="none"
+                                        loop
+                                        controls
+                                        autoPlay
+                                        muted
+                                        style={{ width: '100%', maxHeight: '175px', objectFit: 'fill' }}
+                                        src={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
+                                        type="video/mp4"
+
+                                      alt={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
+                                      // onClick={() => setIsopen()}
+                                      />
+
+                                    </React.Fragment>
+
+                                    : <div>No Reels to show</div>
+                                  }
+
+
+                             
                                 </div>
 
 
@@ -393,10 +431,10 @@ export default function Layout(props) {
 
 
 
-                              <div className='add-reel'> 
-                              <a href="/reelFeed" title="#"  style={{color: 'white'}}> Explore Reels </a>
+                              <div className='add-reel'>
+                                <a href="/reelFeed" title="#" style={{ color: 'white' }}> Explore Reels </a>
 
-                             </div>
+                              </div>
 
                             </ul>
                           </div>
