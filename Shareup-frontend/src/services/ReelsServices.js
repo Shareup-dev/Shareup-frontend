@@ -44,6 +44,14 @@ class ReelsServices {
         const result = await authAxios.get(`/last/reels`)
         return result;
     }
+
+    getAllReels = async () => {
+        authenticate();
+        const result = await authAxios.get(`reels`)
+        return result;
+    }
+
+
     
 }
 

@@ -30,7 +30,7 @@ export default function Layout(props) {
 
   }, [])
 
- 
+
 
   useEffect(() => {
     if (props.user) {
@@ -102,10 +102,10 @@ export default function Layout(props) {
   };
 
   useEffect(() => {
- 
+
     getPreviewReel()
-    
-  }, [ refresh])
+
+  }, [refresh])
 
   const getPreviewReel = async () => {
 
@@ -113,7 +113,7 @@ export default function Layout(props) {
       console.log("jsonnn", JSON.stringify(res));
       console.log(" This is the response", res.data.media[0])
       setReelPreviewPath(res.data.media[0])
-     
+
 
     })
     console.log(user.id + " This is the users Iddddddddd")
@@ -329,13 +329,13 @@ export default function Layout(props) {
                                         preload="none"
                                         loop
                                         controls
-                                        autoPlay
+
                                         muted
-                                        style={{ width: '100%', maxHeight: '175px', objectFit: 'fill' }}
+                                        style={{ width: '100%', height: '195px', objectFit: 'fill' }}
                                         src={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
                                         type="video/mp4"
 
-                                      alt={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
+                                        alt={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
                                       // onClick={() => setIsopen()}
                                       />
 
@@ -345,7 +345,7 @@ export default function Layout(props) {
                                   }
 
 
-                             
+
                                 </div>
 
 
@@ -385,7 +385,6 @@ export default function Layout(props) {
                                       <span className='textPop'>
                                         {ShowReelVideo ? (
                                           <>
-
                                             <video id='video' width="100%" height={"350px"} controls="controls">
                                               <source src={ReelVideo} />
                                             </video>

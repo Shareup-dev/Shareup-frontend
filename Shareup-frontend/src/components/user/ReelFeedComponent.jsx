@@ -85,34 +85,19 @@ function ReelFeedComponent() {
   const [swapsForUserFriends, setSwapsForUserFriends] = useState([]);
 
 
-
-  const [searchedSwap, setSearchedSwap] = useState([]);
-  const [searchedSwapFriend, setSearchedSwapFriend] = useState([]);
+  const [uploadErrorReel, setUploadErrorReel] = useState('');
+  const [searchedReelforUser, setSearchedReelforUser] = useState([]);
+  const [searchedReel, setSearchedReel] = useState([]);
+  const [filesReel, setFilesReel] = useState({});
+  const [ReelVideo, setReelVideo] = useState([]);
+  const [ShowReelVideo, setShowReelVideo] = useState(false);
+  const [reels, setReels] = useState([]);
 
   const [searchedUser, setSearchedUser] = useState([]);
 
   const [privacy, setprivacy] = useState('privacy');
 
 
-  // const [cursorPosition, setCursorPosition] = useState();
-  // const pickEmoji = (e, {emoji}) => {
-  //   const ref = inputRef.current;
-  //   ref.focus();
-  //   const start = commentContent.substring(0, ref.seletionStart);
-  //   const end = commentContent.substring(ref.selectionStart);
-  //   const text = start + emoji + end;
-  //   setCommentContent(text)
-  //   setCursorPosition(start.length+emoji.length)
-  // }
-
-  // useEffect(() => {
-  //   inputRef.current.selectionEnd = cursorPosition;
-  // },[cursorPosition])
-  // const getStories = async () => {
-  //   await StoriesService.getStories().then(res => {
-  //     setStories(res.data)
-  //   })
-  // }
   useEffect(() => {
     getAllUser()
     getFriendsList()
@@ -136,14 +121,14 @@ function ReelFeedComponent() {
       setIsLoading(false)
     })
     getReelsForUser()
-    getSwapForUserFriends()
+    getAllReels()
     getSavedPost()
     testScript()
   }, [editPostId, refresh])
 
   useEffect(() => {
     getReelsForUser()
-    getSwapForUserFriends()
+    getAllReels()
     getSavedPost()
     testScript()
   }, [user])
@@ -191,6 +176,7 @@ function ReelFeedComponent() {
     })
   }
   
+  
   const getReelsForUser = async () => {
 
     await ReelsServices.getReelForUser(AuthService.getCurrentUser().username).then(res => {
@@ -202,16 +188,15 @@ function ReelFeedComponent() {
         .map(id => {
           return res.data.find(a => a.id === id)
         })
-      setSwapsForUser(uniquePost)
-      setSearchedSwap(uniquePost)
+      setSearchedReelforUser(uniquePost)
     })
 
     console.log(user.id + " This is the users Iddddddddd" )
   }
 
-  const getSwapForUserFriends = async () => {
+  const getAllReels = async () => {
 
-    await SwapService.getSwapForUserFriends(AuthService.getCurrentUser().username).then(res => {
+    await ReelsServices.getAllReels(AuthService.getCurrentUser().username).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
@@ -220,25 +205,88 @@ function ReelFeedComponent() {
         .map(id => {
           return res.data.find(a => a.id === id)
         })
-      setSwapsForUserFriends(uniquePost)
-      setSearchedSwapFriend(uniquePost)
+        
+      setSearchedReel(uniquePost)
 
     })
   }
 
 
-  const mySwaps = async () => {
+  const uploadReels = (event) => {
+    event.preventDefault();
+    setUploadErrorReel('');
+    console.log('uploading reels working');
 
-    getReelsForUser()
+    if (Object.keys(filesReel).length === 0 && filesReel.constructor === Object) {
+      console.log('cant be null');
+      setUploadErrorReel('Please Add reel video');
+      console.log(uploadErrorReel);
+      return;
+    }
+
+    var video = document.getElementById("video");
+    const canvas = document.createElement("canvas");
+    // scale the canvas accordingly
+    canvas.width = video.videoWidth / 10;
+    canvas.height = video.videoHeight / 10;
+    // draw the video at that frame
+    canvas.getContext('2d').drawImage(video, 10, 10);
+    // convert it to a usable data URL
+    const dataURL = canvas.toDataURL();
+    var img = document.createElement("img");
+    img.src = fileStorage.baseUrl + "/user-stories/1643529794109/Picture.jpg";
 
 
+    const formData = new FormData();
+    var content = "test";
 
-  }
-  const allSwaps = async () => {
-    // setSwapsForUser(swapsForUser)
-    getSwapForUserFriends()
+    console.log("dataaaaaaaaaa", formData);
+    // console.log("thumbnails", thumbnails);
+    // console.log("content", content);
 
-  }
+    formData.append(`content`, content);
+    formData.append(`reelfiles`, filesReel);
+
+
+    ReelsServices.createReels(user.id, formData).then((res) => {
+      console.log("jsonnn", JSON.stringify(res));
+      handleRemoveReelVideo();
+      setReels(res.data);
+      setRefresh(res.data);
+
+      console.log("response", reels);
+
+    });
+
+
+  };
+
+  
+
+  const handleRemoveReelVideo = () => {
+    setFilesReel({});
+    setShowReelVideo(false);
+  };
+
+  const handleFileReel = (event) => {
+
+    setFilesReel(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setReelVideo(reader.result);
+      }
+    };
+    console.log(event.target.files[0]);
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0]);
+    // }
+    setShowReelVideo(true);
+
+
+  };
+  
+
 
 
 
@@ -1052,94 +1100,91 @@ function ReelFeedComponent() {
   //Adding new swap
   const addReel = () => {
     return (
-        <Popup trigger={
-            <span style={{ cursor: 'pointer' }}>
-            <span style={{ padding: '5px' }}>
-              <i class="las la-sync-alt" aria-hidden="true" style={{ fontSize: '18px' }}></i>
-            </span>
-            Add Reel
-          </span>
-        
-        } modal>
-        {(close) => (
-          <Form className='popwidth'>
 
-            <div className='headpop'>
-              <div style={{ padding: '10px' }}>
-                <span>
-                  <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
-                    <i class='las la-times'></i>
-                  </a>
-                </span>
-                <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
-                  Lets Add Reel Video
-                </span>
+      <Popup trigger={<div className='my'>
+          <span style={{ cursor: 'pointer' }}>
+                      <span style={{ marginRight: '5px', padding: '5px' }}>
+                        <i class="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
+                        {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                      Add Reels
+                    </span>
+         </div>} modal>
+      {(close) => (
+        <Form className='popwidth'>
 
-                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                <span style={{ float: 'right' }}>
-                  {' '}
-                  <button
-                    style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
-                    type='submit'
-                    // onClick={uploadReels}
-                  >
-                    Upload
-                  </button>
-                </span>
-                {/* :null}  */}
-              </div>
-            </div>
-{/* 
-            <div style={{ margin: '0 11px 10px 11px' }}>
-              <span className='textPop'>
-                {ShowReelVideo ? (
-                  <>
-
-                    <video id='video' width="100%" height={"350px"} controls="controls">
-                      <source src={ReelVideo} />
-                    </video>
-
-
-                    <button
-                      onClick={handleRemoveReelVideo}
-                      style={{
-                        right: '20px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
-                      }}
-                    >
-                      <i class='las la-times'></i>
-                    </button>
-                  </>
-                ) : (
-                  <div style={{ textAlign: 'center' }}>
-                    <label className='fileContainer'>
-                      <div className='reelvideo' type='submit'>
-                        <input
-                          type='file'
-                          name='reel_video'
-                          accept='video/*'
-                          onChange={handleFileReel}
-                        ></input>
-                        Add Reel Video
-                      </div>
-                    </label>
-                  </div>
-                )}
+          <div className='headpop'>
+            <div style={{ padding: '10px' }}>
+              <span>
+                <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                  <i class='las la-times'></i>
+                </a>
               </span>
-              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-            {/* </div> */}
- 
+              <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
+                Lets Add Reel Video
+              </span>
+
+              {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+              <span style={{ float: 'right' }}>
+                {' '}
+                <button
+                  style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
+                  type='submit'
+                  onClick={uploadReels}
+                >
+                  Upload
+                </button>
+              </span>
+              {/* :null}  */}
+            </div>
+          </div>
+
+          <div style={{ margin: '0 11px 10px 11px' }}>
+            <span className='textPop'>
+              {ShowReelVideo ? (
+                <>
+                  <video id='video' width="100%" height={"350px"} controls="controls">
+                    <source src={ReelVideo} />
+                  </video>
 
 
-            {/* </> 
-                           
-         )}  */}
-          </Form>
-        )}
-      </Popup>
+                  <button
+                    onClick={handleRemoveReelVideo}
+                    style={{
+                      right: '20px',
+                      position: 'absolute',
+                      borderRadius: '100%',
+                      background: '#b7b7b738',
+                      padding: '10px 10px',
+                    }}
+                  >
+                    <i class='las la-times'></i>
+                  </button>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <label className='fileContainer'>
+                    <div className='reelvideo' type='submit'>
+                      <input
+                        type='file'
+                        name='reel_video'
+                        accept='video/*'
+                        onChange={handleFileReel}
+                      ></input>
+                      Add Reel Video
+                    </div>
+                  </label>
+                </div>
+              )}
+            </span>
+            {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+          </div>
+          {/* </> 
+                         
+       )}  */}
+        </Form>
+      )}
+    </Popup>
 
     )
   }
@@ -1201,7 +1246,7 @@ function ReelFeedComponent() {
 
   const handleSearchedSwap = (event) => {
     if (event.target.value === "") {
-      setSearchedSwap(swapsForUser)
+      setSearchedReelforUser(swapsForUser)
     } else {
       let temp = []
       swapsForUser.map(u => {
@@ -1212,7 +1257,7 @@ function ReelFeedComponent() {
           temp.push(u)
         }
       })
-      setSearchedSwap(temp)
+      setSearchedReelforUser(temp)
       console.log(temp)
     }
   }
@@ -1221,7 +1266,7 @@ function ReelFeedComponent() {
 
   const handleSearchedSwapFriend = (event) => {
     if (event.target.value === "") {
-      setSearchedSwap(swapsForUserFriends)
+      setSearchedReelforUser(swapsForUserFriends)
     } else {
       let temp = []
       swapsForUserFriends.map(u => {
@@ -1229,12 +1274,12 @@ function ReelFeedComponent() {
       
         const searchedvalue = event.target.value.toLowerCase()
         if (content.includes(searchedvalue) ) {
-          setSearchedSwapFriend(temp)
+          setSearchedReel(temp)
 
           temp.push(u)
         }
       })
-      setSearchedSwapFriend(temp)
+      setSearchedReel(temp)
       console.log(temp)
     }
   }
@@ -1262,8 +1307,8 @@ const AllReelscomponentFunction = () => {
          <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <input className="friend-search" type="text" placeholder="Search Swap" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
             </div>
-        {searchedSwapFriend && searchedSwapFriend.length > 0
-          ? searchedSwapFriend.map(
+        {searchedReel && searchedReel.length > 0
+          ? searchedReel.map(
             post =>
               <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
@@ -1289,8 +1334,8 @@ const AllReelscomponentFunction = () => {
          <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <input className="friend-search" type="text" placeholder="Search Swap" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
             </div>
-        {searchedSwap && searchedSwap.length > 0
-          ? searchedSwap.map(
+        {searchedReelforUser && searchedReelforUser.length > 0
+          ? searchedReelforUser.map(
             post =>
               <div style={{paddingBottom:'10px'}} key={post.id}>
                 {
@@ -1365,11 +1410,10 @@ const AllReelscomponentFunction = () => {
                   </div>
                 </li>
                 <li class="nav-item" style={{ justifyContent: 'flex-end' }}>
-                  <div className="new">
+                 
                    
 
                     {addReel()}
-                  </div>
                 </li>
                 {/* <li class="nav-item">
                   <span style={{ cursor: 'pointer' }}>
