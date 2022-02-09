@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Redirect, useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import UserContext from '../contexts/UserContext';
+import AuthService from '../services/auth.services';
 import PostService from '../services/PostService';
 import ShareupInsideHeaderComponent from './dashboard/ShareupInsideHeaderComponent';
 import EditPostComponent from './user/EditPostComponent'
@@ -10,6 +11,10 @@ import FriendsWidgetComponent from './widgets/FriendsWidgetComponent';
 import GroupsWidgetComponent from './widgets/GroupsWidgetComponent';
 import settings from '../services/Settings';
 import fileStorage from '../config/fileStorage';
+import ReelsServices from '../services/ReelsServices';
+
+import Popup from 'reactjs-popup';
+
 import img1 from '../images/news1.jpg'
 
 export default function Layout(props) {
@@ -22,9 +27,127 @@ export default function Layout(props) {
     if (props.user) {
       setIsLoading(false)
     }
+
+  }, [])
+
+
+
+  useEffect(() => {
+    if (props.user) {
+      setIsLoading(false)
+    }
+
   }, [])
 
   const { user } = useContext(UserContext)
+
+  const [refresh, setRefresh] = useState(null);
+  const [reels, setReels] = useState([]);
+
+  const [filesReel, setFilesReel] = useState({});
+  const [ReelVideo, setReelVideo] = useState([]);
+  const [ShowReelVideo, setShowReelVideo] = useState(false);
+  const [uploadErrorReel, setUploadErrorReel] = useState('');
+  const [reelPreviewPath, setReelPreviewPath] = useState([]);
+
+
+
+  const uploadReels = (event) => {
+    event.preventDefault();
+    setUploadErrorReel('');
+    console.log('uploading reels working');
+
+    if (Object.keys(filesReel).length === 0 && filesReel.constructor === Object) {
+      console.log('cant be null');
+      setUploadErrorReel('Please Add reel video');
+      console.log(uploadErrorReel);
+      return;
+    }
+
+    var video = document.getElementById("video");
+    const canvas = document.createElement("canvas");
+    // scale the canvas accordingly
+    canvas.width = video.videoWidth / 10;
+    canvas.height = video.videoHeight / 10;
+    // draw the video at that frame
+    canvas.getContext('2d').drawImage(video, 10, 10);
+    // convert it to a usable data URL
+    const dataURL = canvas.toDataURL();
+    var img = document.createElement("img");
+    img.src = fileStorage.baseUrl + "/user-stories/1643529794109/Picture.jpg";
+
+
+    const formData = new FormData();
+    var content = "test";
+
+    console.log("dataaaaaaaaaa", formData);
+    // console.log("thumbnails", thumbnails);
+    // console.log("content", content);
+
+    formData.append(`content`, content);
+    formData.append(`reelfiles`, filesReel);
+
+
+    ReelsServices.createReels(user.id, formData).then((res) => {
+      console.log("jsonnn", JSON.stringify(res));
+      handleRemoveReelVideo();
+      setReels(res.data);
+      setRefresh(res.data);
+
+      console.log("response", reels);
+
+    });
+
+
+  };
+
+  useEffect(() => {
+
+    getPreviewReel()
+
+  }, [refresh])
+
+  const getPreviewReel = async () => {
+
+    await ReelsServices.getPreviewReel(AuthService.getCurrentUser().username).then(res => {
+      console.log("jsonnn", JSON.stringify(res));
+      console.log(" This is the response", res.data.media[0])
+      setReelPreviewPath(res.data.media[0])
+
+
+    })
+    console.log(user.id + " This is the users Iddddddddd")
+  }
+
+
+
+
+  const handleFileReel = (event) => {
+
+    setFilesReel(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setReelVideo(reader.result);
+      }
+    };
+    console.log(event.target.files[0]);
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0]);
+    // }
+    setShowReelVideo(true);
+
+
+  };
+
+  const handleRemoveReelVideo = () => {
+    setFilesReel({});
+    setShowReelVideo(false);
+  };
+
+
+
+
 
   if (isLoading) {
     return null
@@ -89,15 +212,6 @@ export default function Layout(props) {
 
                               <a href="/Addfriends" title="#">Add Friends</a>
                             </li>
-
-
-                         
-
-
-
-
-
-
 
                             <li>
                               <div style={{ marginRight: "5px", display: "inline" }}><i className="ti-user" /><i className="ti-user" style={{ marginLeft: "-19px" }} /></div>
@@ -206,18 +320,122 @@ export default function Layout(props) {
                               <li>
                                 <div className="headline-cont">
 
-                                  <img src="/assets/images/reelimage.PNG" alt=""
-                                    style={{ height: '160px', objectFit: "fill", width: '100%', bottom: '16px', padding: '0px' }}
-                                  />
+
+                                  {reelPreviewPath
+                                    ?
+
+                                    <React.Fragment>
+                                      <video
+                                        loop
+                                        controls
+                                        // autoPlay
+                                        muted
+                                        style={{ width: '100%', height: '195px', objectFit: 'fill' }}
+                                        src={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
+                                        type="video/mp4"
+                                        alt={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
+                                      // onClick={() => setIsopen()}
+
+
+
+                                      />
+
+                                    </React.Fragment>
+
+                                    : <div>No Reels to show</div>
+                                  }
+
+
+
                                 </div>
 
 
                               </li>
 
+                              <Popup trigger={<div className='add-reel'> Add Reel</div>} modal>
+                                {(close) => (
+                                  <Form className='popwidth'>
+
+                                    <div className='headpop'>
+                                      <div style={{ padding: '10px' }}>
+                                        <span>
+                                          <a href='#!' style={{ padding: '10px 150px 10px 0' }} onClick={close}>
+                                            <i class='las la-times'></i>
+                                          </a>
+                                        </span>
+                                        <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
+                                          Lets Add Reel Video
+                                        </span>
+
+                                        {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                        <span style={{ float: 'right' }}>
+                                          {' '}
+                                          <button
+                                            style={{ float: 'right', borderRadius: '20px', padding: '5px 20px' }}
+                                            type='submit'
+                                            onClick={uploadReels}
+                                          >
+                                            Upload
+                                          </button>
+                                        </span>
+                                        {/* :null}  */}
+                                      </div>
+                                    </div>
+
+                                    <div style={{ margin: '0 11px 10px 11px' }}>
+                                      <span className='textPop'>
+                                        {ShowReelVideo ? (
+                                          <>
+                                            <video id='video' width="100%" height={"350px"} controls="controls">
+                                              <source src={ReelVideo} />
+                                            </video>
+
+
+                                            <button
+                                              onClick={handleRemoveReelVideo}
+                                              style={{
+                                                right: '20px',
+                                                position: 'absolute',
+                                                borderRadius: '100%',
+                                                background: '#b7b7b738',
+                                                padding: '10px 10px',
+                                              }}
+                                            >
+                                              <i class='las la-times'></i>
+                                            </button>
+                                          </>
+                                        ) : (
+                                          <div style={{ textAlign: 'center' }}>
+                                            <label className='fileContainer'>
+                                              <div className='reelvideo' type='submit'>
+                                                <input
+                                                  type='file'
+                                                  name='reel_video'
+                                                  accept='video/*'
+                                                  onChange={handleFileReel}
+                                                ></input>
+                                                Add Reel Video
+                                              </div>
+                                            </label>
+                                          </div>
+                                        )}
+                                      </span>
+                                      {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                                    </div>
+                                    {/* </> 
+                                                   
+                                 )}  */}
+                                  </Form>
+                                )}
+                              </Popup>
 
 
 
-                              <li style={{ textAlign: "center", paddingTop: '10px' }}><a href="https://www.youtube.com/watch?v=V_SW9LjPUC0" style={{ fontSize: '12px', color: "#258eae" }} target="_blank">Show More</a></li>
+                              <div className='add-reel'>
+                                <a href="/reelFeed" title="#" style={{ color: 'white' }}> Explore Reels </a>
+
+                              </div>
+
                             </ul>
                           </div>
                         </div>

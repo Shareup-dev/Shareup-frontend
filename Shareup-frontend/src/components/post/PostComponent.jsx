@@ -347,6 +347,7 @@ export default function PostComponent({ post, setRefresh }) {
                 />
               </div>
               <div class='popupuser-name'>
+
                 <div style={{ display: 'inline' }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -663,6 +664,9 @@ export default function PostComponent({ post, setRefresh }) {
                   <br></br>
                 </p>
               )}
+
+
+
               <div className='postImage'>
                 {post.allPostsType === 'post' && post.media && post.media.length > 1
                   ? <>
@@ -891,16 +895,56 @@ export default function PostComponent({ post, setRefresh }) {
 
 
 
-                    )) : null}
+                    ))
+                      : post.allPostsType === 'reel' && post.media
+                        ? post.media.map((postVideo) => (
+
+                          <React.Fragment>
+                            <video
+                              preload="none"
+                              loop
+                              controls
+                              autoPlay
+                              muted
+                              style={{ width: '100%', maxHeight: '460px', objectFit: 'fill', borderRadius: '10px' }}
+                              src={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
+                              type="video/mp4"
+
+                              alt={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
+                              onClick={() => setIsopen()}
+                            />
+
+                            <a href='/reelFeed' >
+
+                              <button type="button" class="btn btn-default btn-sm reelbtn" 
+                              
+                              onClick={() => setIsopen()}>
+                                <span class="glyphicon glyphicon-expand"></span> Watch more reels
+                              </button>
+
+                            </a>
+
+
+                            {isOpen && (
+                              <Lightbox
+                                mainSrc={fileStorage.baseUrl + postVideo.mediaPath}
+                                onCloseRequest={() => setIsopen(false)}
+                              />
+                            )}
+                          </React.Fragment>
+
+
+
+                        )) : null}
               </div>
 
-              {post.allPostsType === 'share'?
+              {post.allPostsType === 'share' ?
                 <div className='postShared'>
 
                   <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px' }}>
                     <div style={{ display: 'flex' }}>
                       <figure>
-                        <img src={fileStorage.baseUrl + post.post.user.profilePicturePath} alt='' className="post-user-img" style={{borderRadius: '100%'}} />
+                        <img src={fileStorage.baseUrl + post.post.user.profilePicturePath} alt='' className="post-user-img" style={{ borderRadius: '100%' }} />
                       </figure>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                         <a
@@ -1212,7 +1256,34 @@ export default function PostComponent({ post, setRefresh }) {
 
 
 
-                        )) : null}
+                        )) : post.post.allPostsType === 'reel' && post.post.media && post.post.media.length == 1
+                          ? post.post.media.map((postVideo) => (
+                            <React.Fragment>
+                              <video
+                                preload="none"
+                                loop
+                                controls
+                                autoPlay
+                                muted
+                                style={{ width: '100%', maxHeight: '460px', objectFit: 'fill', borderRadius: '10px' }}
+                                src={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
+                                type="video/mp4"
+
+                                alt={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
+                                onClick={() => setIsopen()}
+                              />
+                              <a href='/reelFeed' >
+
+                                <button type="button" class="btn btn-default btn-sm reelbtn"
+                                style={{right:'3%', top:'143px'}}
+                                onClick={() => setIsopen()}>
+                                  <span class="glyphicon glyphicon-expand"></span> Watch more reels
+                                </button>
+
+                              </a>
+                            </React.Fragment>
+                          ))
+                          : null}
 
 
 
@@ -1257,6 +1328,9 @@ export default function PostComponent({ post, setRefresh }) {
 
                       <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
                         <span>
+
+                          {`${(post.post.numberOfshares)}` + " "}
+
                           {sharepopup()}
                           {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
 
@@ -1339,7 +1413,7 @@ export default function PostComponent({ post, setRefresh }) {
 
 
                   <li style={{ float: 'right', color: 'black', paddingLeft: '0px' }}>
-                    <span> {`${(post.numberOfshares)}` + " "}
+                    <span>  {`${(post.numberOfshares)}` + " "}
 
 
                       {sharepopup()}
@@ -1456,7 +1530,6 @@ export default function PostComponent({ post, setRefresh }) {
                       <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i class="fas fa-share" style={{ paddingRight: '5px' }}></i>
-
                         {sharepopup()}
 
                       </span>

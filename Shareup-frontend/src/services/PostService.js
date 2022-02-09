@@ -71,6 +71,21 @@ class PostService {
         const result = await authAxios.delete(`comment/${commentid}`)
         return result
     }
+    updateuserPassword = async(email,ConPass,password)=>{
+        console.log("This is conpass " +ConPass)
+        console.log(password)
+       const result = await authAxios.put(`/users/${email}/change_password/${ConPass}`,password)
+        // console.log("Pass updated "+password);
+       return result
+     }
+     CheckOldPass = async (email,conpass) => {
+        authenticate();
+        // console.log(pass)
+        const result = await authAxios.get(`/users/${email}/${conpass}`)
+        return result;
+        // console.log(result)
+    }
+
 }
 
 export default new PostService();

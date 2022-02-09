@@ -178,7 +178,8 @@ function AddFriendsComponent() {
 									<div className="grid-container">
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+										<a href={`/profile/${userM.email}`} title={`${userM.email}`}>
+												<img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}

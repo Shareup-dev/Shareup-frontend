@@ -42,6 +42,7 @@ import GuideComponent from './components/user/GuideComponent';
 import NotificationChatComponent from './components/user/NotificationChatComponent';
 import ShareFeedComponent from './components/user/ShareFeedComponent';
 import SwapFeedComponent from './components/user/SwapFeedComponent';
+import ReelFeedComponent from './components/user/ReelFeedComponent';
 import ActivityComponent from './components/user/ActivityComponent';
 import SecuritySettingsComponent from './components/AccountSettings/SecuritySettingsComponent';
 import HangGiftComponent from './components/Hang/HangGiftComponent';
@@ -94,7 +95,7 @@ function App() {
   // useEffect(() => {
   //   AuthService.setCurrentUser(jwtUser)
   // }, []);
-
+  
   const logout = () => {
     AuthService.logout();
   }
@@ -147,6 +148,8 @@ Giphy();
       <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
       <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
       <ProtectedRoute path="/searchFeed" component={SearchFeedComponent}></ProtectedRoute>
+      <ProtectedRoute path="/reelFeed" component={ReelFeedComponent}></ProtectedRoute>
+
 
     
       

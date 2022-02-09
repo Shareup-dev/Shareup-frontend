@@ -16,24 +16,7 @@ export default function PostProfileComponent({ posts, setRefresh }) {
 
     return (
         <div className="row">
-                   
-                  {/* <div className="col-lg-4">
-                  <div className="widget-prof">
-                    <div className="head-widgt">Profile Summary</div>
-                    <ul><li>Edit Details</li>
-                    <li>Add Hobbies</li>
-                    <li>Add Featured</li>
-                    </ul>
-                  </div>
-				  <div className="widget-prof">
-                    <div className="head-widgt">Photos</div>
-                    
-                  </div>
-				  <div className="widget-prof">
-           <div className="head-widgt">Friends</div>
-				  <FriendProfWidgtComponent/></div>
-                  </div>
-                  <div className="col-lg-8"> */}
+                  
                   <PostTextBoxComponent/>
             {
                 posts.map(post =>
