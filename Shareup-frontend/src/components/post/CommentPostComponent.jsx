@@ -19,6 +19,7 @@ export default function CommentPostComponent({post, setRefresh}) {
         })
       }
 
+      
     const sortComment = () => {
       const comments = [...post.comments]
       comments.sort(function(a, b) {
