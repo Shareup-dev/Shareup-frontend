@@ -326,17 +326,18 @@ export default function Layout(props) {
 
                                     <React.Fragment>
                                       <video
-                                        preload="none"
                                         loop
                                         controls
-
+                                        // autoPlay
                                         muted
                                         style={{ width: '100%', height: '195px', objectFit: 'fill' }}
                                         src={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
                                         type="video/mp4"
-
                                         alt={`${fileStorage.baseUrl}${reelPreviewPath.mediaPath}`}
                                       // onClick={() => setIsopen()}
+
+
+
                                       />
 
                                     </React.Fragment>
