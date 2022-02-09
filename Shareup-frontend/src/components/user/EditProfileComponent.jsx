@@ -13,7 +13,11 @@ import settings from '../../services/Settings';
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import Layout from '../LayoutComponent';
 import fileStorage from '../../config/fileStorage';
-
+import AboutmeModal from "./AboutmeModal";
+import DetailsModal from "./DetailsModal";
+import HobiesModal from './HobiesModal';
+import "./Modal.css";
+import "./NaajApp.css";
 export default function EditProfileComponent() {
   let history = useHistory();
   const [DescribeYourself, setDescribeYourself] = useState("")
@@ -36,6 +40,14 @@ export default function EditProfileComponent() {
   const [currentTown, setCurrentTown] = useState("")
   const [relationshipStatus, setRelationshipStatus] = useState("")
   const [interests, setInterests] = useState("")
+   //Najam start here
+   const [id, setId] = useState()
+   const [modalOpen, setModalOpen] = useState(false);
+   const [DetailsModalOpen, setDetailsModalOpen] = useState(false);
+   const [HobiesModalOpen, setHobiesModalOpen] = useState(false);
+   const [country, setCountry] = useState('');
+ 
+   //Najam end here
 
   const [show, setShow] = useState('overview')
   const handleProfileImage = (event) => {
@@ -54,6 +66,7 @@ export default function EditProfileComponent() {
     await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
       console.log(JSON.stringify(res.data))
       setUserProfile(res.data)
+      setId(res.data.id)
       setFirstName(res.data.firstName)
       setLastName(res.data.lastName)
       setEmail(res.data.email)
@@ -87,6 +100,10 @@ export default function EditProfileComponent() {
     UserService.editProfile(user.email, updateduser).then(res => {
       setUserProfile(res.data)
     })
+    addP()
+    setModalOpen(false)
+    setDetailsModalOpen(false)
+    setHobiesModalOpen(false)
   }
   const handleAboutme = (event) => { setAboutme(event.target.value) }
   const handleHomeTown = (event) => { setHomeTown(event.target.value) }
@@ -95,6 +112,42 @@ export default function EditProfileComponent() {
   const handleInterests = (event) => { setInterests(event.target.value) }
   const handleGender = (event) => { setGender(event.target.value) }
 
+  
+// By najam start here
+const [p_no, setPhone]=useState('')
+const [dob, setDob]= useState('')
+const myid=id;
+
+const handlePhone = (event) => {setPhone(event.target.value)}
+const handleDate=(event) => {setDob(event.target.value)}
+
+const addP=()=>{
+  localStorage.setItem('phone',JSON.stringify([{myid,p_no}]))
+  localStorage.setItem('Datebaba',JSON.stringify([{myid,dob}]))
+  setPhone(p_no)
+  setDob(dob)
+  callPhone()
+}
+const callPhone=()=>{
+const getPhone1 = JSON.parse(localStorage.getItem("phone"));
+const getDate1 = JSON.parse(localStorage.getItem("Datebaba"));
+console.log('getatsk baba', getPhone1[0].p_no)
+setPhone(getPhone1[0].p_no)
+setDob(getDate1[0].dob)
+
+}
+
+const hideFunction=()=>{
+
+  show()
+}
+
+const clrAboutMe=()=>{
+
+  setAboutme('')
+}
+
+// By najam end here
   const uploadProfilePicture = async () => {
     if (profilePicture === "") {
       console.log("cant be null")
@@ -106,14 +159,42 @@ export default function EditProfileComponent() {
       window.location.reload();
     })
   }
+  const getPhone1= JSON.parse(localStorage.getItem("phone"));
   useEffect(() => {
     currentUserGet()
-    
-
+    //najam start
+if (getPhone1 === null) {
+    setPhone()
+ 
+ } 
+ else
+  {
+   setPhone(getPhone1[0].p_no)
+ }
+ //najam end
   }, [refresh])
 
 
 
+
+  const getDate2= JSON.parse(localStorage.getItem("Datebaba"));
+
+  useEffect(() => {
+    currentUserGet()
+//najam start
+if (getDate2 === null) {
+   setDob()
+
+} 
+else
+ {
+  setDob(getDate2[0].dob)
+}
+//najam start
+   
+    
+
+  }, [refresh])
   const changeView = () => {
     if (show === 'overview') {
       return (
@@ -141,43 +222,86 @@ export default function EditProfileComponent() {
                           {/* <i className="fa fa-camera-retro"></i> */}
                           
                         {/* </form> */}
+                        <p className='font-weight-bold mt-4' style={{color:'#033347'}}>{firstName} {lastName}</p>
             </div>
             <div className="right-edit-profile-bio">
               <div className="right-edit-profile-bio-top">
                 <p>Bio</p>
-                <p><a href="#" className="text-color" onClick={updateProfile}>Save</a></p>
+                <p className="">
+      <a href="#" className="text-color"
+       
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+       {aboutme ? 'Edit': 'Add'}
+      </a>
+
+      {modalOpen && <AboutmeModal setOpenModal={setModalOpen} handleAboutme={handleAboutme}   updateProfile={updateProfile} Fvalue={aboutme}  clrAboutMe={clrAboutMe} />}
+    </p>
+{/*modal ends */}
               </div>
               <div className="right-edit-profile-bio-after">
             
-                <input type="text" className="inpt" id="DescribeYourself" placeholder="DescribeYourself" value={aboutme} onChange={handleAboutme}
-                    />
+              {/*  <input type="text" className="inpt" id="DescribeYourself" placeholder="DescribeYourself" value={aboutme} onChange={handleAboutme}
+    />*/}
+    <p>{  aboutme ?  aboutme : 'Describe yourself'}</p>
+
               </div>
             </div>
             <div className="right-edit-profile-bio">
               <div className="right-edit-profile-bio-top">
                 <p>Details</p>
-                <p><a href="#" className="text-color" onClick={updateProfile}>Save</a></p>
+                   {/*modal start */}
+
+                   <p className="">
+                   <a href="#" className="text-color"
+                   
+                     onClick={() => {
+                       setDetailsModalOpen(true);
+                     }}
+                   >
+                   {currentTown ? 'Edit': 'Add'}
+                   </a>
+
+                   {DetailsModalOpen && <DetailsModal setDetailsModalOpen={setDetailsModalOpen} homeTown={homeTown} currentTown={currentTown} relationshipStatus={relationshipStatus}   updateProfile={updateProfile} setRelationshipStatus={setRelationshipStatus} setCurrentTown={setCurrentTown} setHomeTown={setHomeTown} clrAboutMe={clrAboutMe} />}
+                 </p>
+         {/*modal ends */}
               </div>
               <div className="right-edit-profile-details">
                 <ul>
                 {/* <span className="text-color-2">Current town / city</span> */}
-                  <li><p><i className="las la-home" aria-hidden="true" /> <input type="text" className="inpt" id="DescribeYourself" placeholder="Current town/City" value={currentTown} onChange={handleCurrentTown}></input></p></li>
+                <li><p><i className="las la-home" aria-hidden="true" style={{fontSize:'1.8rem'}} /> {currentTown ? currentTown : 'Add current country'}</p></li>
                   {/* <input type="text" className="inpt" id="Current town/city" placeholder="Current town/city" */}
                   {/* <span className="text-color-2">Home town</span> */}
-                  <li><p><i class="las la-map-marker"></i><input type="text" className="inpt" id="DescribeYourself" placeholder="Home town" value={homeTown} onChange={handleHomeTown}></input></p></li>
+                  <li><p><i class="las la-map-marker" style={{fontSize:'1.8rem'}}></i>{homeTown ? homeTown : 'Add current city'}</p></li>
                   {/* <span className="text-color-2">Relationship status</span> */}
-                  <li><p><i class="lab la-gratipay"></i> <input type="text" className="inpt" id="DescribeYourself" placeholder="Relationship status" value={relationshipStatus} onChange={handleRelationshipStatus}></input></p></li>
+                  <li><p><i class="lab la-gratipay"style={{fontSize:'1.8rem'}} ></i>{relationshipStatus ? relationshipStatus : 'Add Relationship status'}</p></li>
                 </ul>
               </div>
             </div>
             <div className="right-edit-profile-bio">
               <div className="right-edit-profile-bio-top">
                 <p>Hobbies</p>
-                <p><a href="#" className="text-color" onClick={updateProfile}>Save</a></p>
-              </div>
+               
+                {/*modal start here */}
+                <p className="">
+              <a href="#" className="text-color"
+              
+                onClick={() => {
+                  setHobiesModalOpen(true);
+                }}
+              >
+              {interests ? 'Edit': 'Add'}
+              </a>
+
+              {HobiesModalOpen && <HobiesModal setHobiesModalOpen={setHobiesModalOpen} setInterest={setInterests}   updateProfile={updateProfile} interests={interests}  clrAboutMe={clrAboutMe} />}
+                </p>
+                {/*modal ends */}              </div>
               <div className="right-edit-profile-details">
                 <div className="right-edit-profile-bio-after">
-                <input type="text" className="inpt" id="DescribeYourself" placeholder="Add Your Hobbies" value={interests} onChange={handleInterests}></input>
+                {/* <input type="text" className="inpt" id="DescribeYourself" placeholder="Add Your Hobbies" value={interests} setInterests={setInterests} onChange={handleInterests}></input> */}
+                <p>{interests ? interests : 'Add you hobby here'}</p>
                   {/* <p><span className="text-color-2">Add your hobbies...</span></p> */}
                 </div>
               </div>
@@ -193,42 +317,59 @@ export default function EditProfileComponent() {
       )
     }
     if (show === "personal information") {
-      return (
-        <div className="right-edit-profile">
-          <div className="right-edit-profile-content">
-            <div className="right-edit-personal-information-top">
-              <h1>Personal information</h1>
-            </div>
-            <div className="right-edit-personal-information">
-              <p>Provide your Personal information, even if the account is used for a bussiness ,
-                a pet or something else. This wont be part of your public profile</p>
-                <div className="right-edit-profile-details padding">
-              <ul>
-                <li className='border-bottom'>
-                  <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Email Address</p></div>
-                  <div className="right-edit-details-input">{userProfile.email}</div>
-                </li>
-                <li className='border-bottom'>
-                  <div style={{display:'flex', alignItems:'center', flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
-                  <div className="right-edit-details-input"><input type="text" /></div>
-                </li>
-                <li className='border-bottom'>
-                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Gender</p></div>
-                <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div>
-                </li>
-                <li className='border-bottom'>
-                <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
-                <div className="right-edit-details-input"><input type="text" /></div>
-                </li>
-              </ul>
-              
-            </div>
-           <div style={{textAlign:'center',padding:'5px'}}> <a href="#" className="text-color" onClick={updateProfile}>Save</a></div>
+        return (
+          <div className="right-edit-profile">
+            <div className="right-edit-profile-content">
+              <div className="right-edit-personal-information-top">
+                <h1>Personal information</h1>
+              </div>
+              <div className="right-edit-personal-information">
+                <p>Provide your Personal information, even if the account is used for a bussiness ,
+                  a pet or something else. This wont be part of your public profile</p>
+                  <div className="right-edit-profile-details padding">
+                <ul>
+                  <li className='border-bottom'>
+                    <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Email Address</p></div>
+                    <div className="right-edit-details-input">{userProfile.email}</div>
+                  </li>
+                  <li className='border-bottom'>
+                    <div style={{display:'flex', alignItems:'center', flex:1, textAlign: 'left'}}><p>Phone Number</p></div>
+                    <div className="right-edit-details-input d-flex">
+                   
+                      <input type="tel" value={p_no} onChange={handlePhone}  />
+                      </div>
+                  </li>
+                  <li className='border-bottom'>
+                  <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Gender</p></div>
+                  {/* <div className="right-edit-details-input"><input type="text" value={gender} onChange={handleGender} /></div> */}
+  
+                  <select className="" aria-label="Default select example"
+                  onChange={(e) => {
+                    const selectedGender = e.target.value;
+                    setGender(selectedGender);
+                  }}
+                  style={{borderColor:'white'}}
+                  >
+                    <option selected>{gender ? gender : 'Select gender'}</option>
+                    <option value="Male" >Male</option>
+                    <option value="Female" >Female</option>
+                    <option value="Others" >Others</option>
+                  </select>
+                  </li>
+                 
+                  <li className='border-bottom'>
+                  <div style={{display:'flex',alignItems:'center',flex:1, textAlign: 'left'}}><p>Date of Birth</p></div>
+                  <div className="right-edit-details-input"><input type="date" value={dob} onChange={handleDate} /></div>
+                  </li>
+                </ul>
+                
+              </div>
+             <div style={{textAlign:'center',padding:'5px'}}><a href="#" className="text-color" onClick={updateProfile}>Save</a></div>
+              </div>
             </div>
           </div>
-        </div>
-      )
-    }
+        )
+      }
     if (show === "your details") {
       return (
         <div className="right-edit-profile">
@@ -257,30 +398,34 @@ export default function EditProfileComponent() {
       )
     }
     if (show === "basic contact info") {
-      return (
-        <div className="right-edit-profile">
-          <div className="right-edit-profile-content">
-            <div className="right-edit-personal-information-top">
-              <h1>Basic Contact Info</h1>
-            </div>
-            <div className="right-edit-profile-details padding">
-              <ul>
-              <li className='d-flex align-items-center border-bottom'>
-                  <div style={{flex:1, textAlign: 'left'}}><p>Email Address</p></div>
-                  <div className="right-edit-details-input">{userProfile.email}</div>
-                </li>
+        return (
+          <div className="right-edit-profile">
+            <div className="right-edit-profile-content">
+              <div className="right-edit-personal-information-top">
+                <h1>Basic Contact Info</h1>
+              </div>
+              <div className="right-edit-profile-details padding">
+                <ul>
                 <li className='d-flex align-items-center border-bottom'>
-                  <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Phone Number</p></div>
-                  <div className="right-edit-details-input"><input type="text" /></div>
-                </li>
-              </ul>
+                    <div style={{flex:1, textAlign: 'left'}}><p>Email Address:</p></div>
+                    <div className="right-edit-details-input">{userProfile.email}</div>
+                  </li>
+                  <li className='d-flex align-items-center border-bottom'>
+                    <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Phone Number:</p></div>
+                    <div className="right-edit-details-input">{p_no ? p_no : 'Phone not added'}</div>
+                  </li>
+                  <li className='d-flex align-items-center border-bottom'>
+                    <div style={{flex:1, textAlign: 'left',lineHeight: '2'}}><p>Date of Birth:</p></div>
+                    <div className="right-edit-details-input">{dob ? dob : 'Date of birth'}</div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )
+        )
+      }
+      return (<div className="right-edit-profile"></div>)
     }
-    return (<div className="right-edit-profile"></div>)
-  }
   return (
     <>
       <ShareupInsideHeaderComponent />

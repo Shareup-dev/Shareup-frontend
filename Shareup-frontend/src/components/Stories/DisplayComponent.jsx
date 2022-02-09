@@ -79,7 +79,7 @@ function DisplayComponent() {
   useEffect(() => {
     resetTimeout();
     timeoutRef.current = setTimeout(
-      () => setIndex((prevIndex) => (prevIndex === 5 ? 0 : prevIndex + 1)),
+      () => setIndex((prevIndex) => (prevIndex === storiesForUser.length-1 ? setTimeout(() => document.querySelector('.popup-overlay').style.display="none",200) : prevIndex + 1)),
       delay
     );
 
@@ -149,21 +149,25 @@ function DisplayComponent() {
               </div>
             </div>
             <div class="slide-buttons">
-              <span
-                id="getnext"
-                onClick={() => {
-                  setIndex(index + 1);
-                  console.log("looking for -1", index);
-                }}
-              >
-                <i class="fas fa-arrow-right"></i>
-              </span>
+            {index+1 < storiesForUser.length ? (
+            <span
+                    id="getnext"
+                    onClick={() => {
+                      setIndex(index + 1);
+                      console.log("looking for -1", index);
+                    }}
+                  >
+                    <i class="fas fa-arrow-right"></i>
+                    
+                  </span> 
+              ) :''}
 
               {index > 0 ? (
                 <span
                   id="getprev"
                   onClick={() => {
                     setIndex(index - 1);
+
                   }}
                 >
                   <i class="fas fa-arrow-left"></i>
