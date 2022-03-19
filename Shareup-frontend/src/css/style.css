@@ -1084,11 +1084,15 @@ header.sticky {
 }
 
 .logo {
-  display: inline-block;
+  /* display: inline-block;
   vertical-align: inherit;
   width: 30%;
   position: relative;
-  z-index: 10;
+  z-index: 10; */
+display: inline-block;
+  text-align: center;
+  width: 100%;
+
 }
 .logo-inside {
   text-align: center;
@@ -3585,7 +3589,7 @@ footer .logo {
 }
 .logo-inside > a > img {
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: center;
 }
 
 .logo > a > img {
@@ -12128,7 +12132,7 @@ aside.sidebar.full-style {
   width: 100%;
 }
 .product-screenshot {
-  min-height: 60vh;
+  min-height: 80vh;
   background: #fff;
   text-align: center;
   position: relative;
@@ -15386,7 +15390,7 @@ a.Hangin-btn:hover {
 }
 .mainContnr {
   width: 100%;
-  min-height: 100vh;
+  min-height: 110vh;
 }
 .featureAbt {
   padding: 10px;
