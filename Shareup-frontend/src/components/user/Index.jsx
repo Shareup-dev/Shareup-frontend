@@ -13,6 +13,7 @@ import "../../modal.css";
 import RegisterSuccessfulComponent from "./RegisterSuccessfulComponent";
 import { useForm } from "react-hook-form";
 import Telephone from "./PhoneComponent";
+import authServices from "../../services/auth.services";
 
 const Container = styled.div`
   display: flex;
@@ -70,6 +71,7 @@ function Index({ set, setUser }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otp, setOTP] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -89,6 +91,7 @@ function Index({ set, setUser }) {
 
   const [registerSuccessful, setRegisterSuccessful] = useState("");
   const [registerError, setRegisterError] = useState("");
+  const [otpError, setOTPError] = useState("");
 
   const handlePhone = (a) => {
     setPhone(a);
@@ -102,24 +105,23 @@ function Index({ set, setUser }) {
   };
 
   function formValidation() {
-    console.log(
-      "after submit",
-      document.querySelector(".PhoneInputInput").value
-    );
+
     const val = document.querySelector(".PhoneInputInput").value;
     if (val == "") {
       document.querySelector(".yahoobaba").style.display = "block";
-      console.log("yes it worked");
     }
   }
 
-  //Najam phone field validation
   const handleEmail = (event) => {
     setEmail(event.target.value);
   };
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleOTP = (event) => {
+    setOTP(event.target.value);
   };
 
   // const handleConfirmPassword = (event) => {
@@ -149,18 +151,15 @@ function Index({ set, setUser }) {
       lastName == "" ||
       p_no == ""
     ) {
-      console.log("Please Fill Out Every Field");
       setAllFieldFillError("Please Fill Out Every Field");
       validated = false;
     }
     if (!email.includes("@")) {
-      console.log("Please ensure your email contains @");
       setEmailError("Please ensure your email contains @");
 
       validated = false;
     }
     if (password != confirmPassword) {
-      console.log("Make sure your password match");
       setPasswordError("Make sure your password match");
       // alert("Make sure your password match")
       validated = false;
@@ -168,6 +167,106 @@ function Index({ set, setUser }) {
     if (validated) {
       handleRegister();
     }
+  };
+
+  const validateOtp = (event) => {
+    event.preventDefault();
+    setOTPError("");
+    let validated = true;
+
+    if (otp == "") {
+      setOTPError("Please enter OTP");
+      validated = false;
+    }
+
+    if (validated) {
+      handleOtp();
+    }
+  };
+  const validateForgotOtp = (event) => {
+    event.preventDefault();
+    setOTPError("");
+    let validated = true;
+
+    if (otp == "") {
+      setOTPError("Please enter OTP");
+      validated = false;
+    }
+
+    if (validated) {
+      handleOtpForgot();
+    }
+  };
+  const validatedResentOTP = (event) => {
+    event.preventDefault();
+    setOTPError("");
+    let validated = false;
+
+    if ((otp == "") || (otp != ""))  {
+      validated = true;
+    }
+
+    if (validated) {
+      setOTPError('OTP has been sent');
+      resendOtp();
+    }
+  };
+
+
+  const resendOtp = () => {
+    authServices
+        .verifyEmailOTP(email)
+        .then(res => {
+        });
+  };
+  const validateForgetEmail = (event) => {
+    event.preventDefault();
+    setEmailError("");
+    let validated = true;
+
+    if (email == "") {
+      document.getElementById("email-empty").innerHTML = "Please enter email";
+      // document.getElementById('loginemail').style.border="2px solid red";
+      document.querySelector(".input-error-icon").style.visibility = "visible";
+
+      validated = false;
+    }
+    if (email) {
+      if (!email.includes("@")) {
+        document.getElementById("email-empty").innerHTML = "Please Enter correct email ";
+
+        validated = false;
+      }
+    }
+
+    if (validated) {
+      sendForgotOtp();
+    }
+  };
+  const ResendForgetEmail = (event) => {
+    event.preventDefault();
+    setOTPError("");
+    let validated = false;
+
+    if ((otp == "") || (otp != ""))  {
+      validated = true;
+    }
+
+    if (validated) {
+      setOTPError('OTP has been sent');
+      sendForgotOtp();
+    }
+  };
+
+  const sendForgotOtp = () => { 
+    authServices
+        .passwordResetOTP(email)
+        .then(res => {
+          setShowComponent("otpForg")
+        })
+        .catch((error) => {
+          setEmailError("User does not exist");
+        });
   };
 
   //najam form register / login start
@@ -180,54 +279,30 @@ function Index({ set, setUser }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("legth is" + data.length);
-
     if (data.password == data.confirmPassword) {
       handleRegister();
       reset();
       addP();
+      setShowComponent("regProg")
     } else {
       document.getElementById("message").innerHTML = "password didnt match";
     }
   };
-
+  
+  const onChange = (data) => {
+    if (data.password == data.confirmPassword) {
+      changePassword();
+    } else {
+      document.getElementById("message").innerHTML = "password didnt match";
+    }
+  };
   //najam form register / login end
 
   const handleRegister = async () => {
     let user = { email, password, confirmPassword, firstName, lastName, p_no };
-    console.log(
-      "register " +
-        user.email +
-        " " +
-        user.password +
-        " " +
-        user.confirmPassword +
-        " " +
-        user.firstName +
-        " " +
-        user.lastName
-    );
-
-    console.log(JSON.stringify(user));
     await UserService.createUser(user)
       .then((res) => {
-        history.push("/");
-        setRegisterSuccessful(
-          <h1
-            className="successfull-msg"
-            style={{ fontSize: "30px", color: "green", textAlign: "center" }}
-          >
-            Your Account Is Successfully Registered
-          </h1>
-        );
-        setTimeout(
-          () =>
-            (document.querySelector(".successfull-msg").style.display = "none"),
-          4000
-        );
-        setShowComponent("login");
-        // handleLoginAutomatically()
-        // openModal()
+             setShowComponent("otpPage")
       })
       .catch((error) => {
         setRegisterError("User Already Registered");
@@ -256,7 +331,6 @@ function Index({ set, setUser }) {
       validated = false;
     }
     if (password == "") {
-      console.log("Please Fill Out Every Field");
       document.getElementById("password-empty").innerHTML =
         "Please enter password";
       // document.getElementById('loginpassword').style.border="2px solid red";
@@ -267,7 +341,6 @@ function Index({ set, setUser }) {
 
     if (email) {
       if (!email.includes("@")) {
-        console.log("Please ensure your email contains @");
         document.getElementById("email-empty").innerHTML = "Please include @";
 
         validated = false;
@@ -280,33 +353,82 @@ function Index({ set, setUser }) {
   };
 
   const handleLogin = async () => {
-    console.log("working");
-
     await AuthService.login(email, password).then(
       (res) => {
-        console.log(res.data + " THIS IS THE DATA");
+        if (res.status === 200) {
         set(res.data);
         getUser(res.data.username);
         history.push("/newsfeed");
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setLoginError("Incorrect Email and or Password");
+      }})
+      .catch(e => {
+          if (e.message === 'Request failed with status code 401'){
+            setShowComponent("otpPage");
+          }else{
+            setLoginError('Incorrect Email and or Password');
+         }
       }
     );
   };
 
+
+  const handleOtp = async () => {
+    authServices
+      .verifyEmailConfirmOTP(email,otp)
+      .then(res => {
+        if (res.status === 200) {
+          setShowComponent("login")
+        } })
+        .catch(e => {
+          if (e.message === 'Request failed with status code 400'){
+          setOTPError('Incorrect code');
+          ;
+        }else if (e.message === 'Request failed with status code 408'){
+          setOTPError('Code expired');
+          ;
+       } else {setOTPError('Unexpected error.');
+      ;}
+        })
+        
+      
+  };
+
+  const changePassword = async () => {
+    authServices
+      .resetPassword(email,password)
+      .then(res => {
+        if (res.status === 200) {
+          setShowComponent("login")
+        } })
+        .catch(e => {
+          setOTPError(e.message );        
+        })
+        
+      
+  };
+
+  const handleOtpForgot = async () => {
+    authServices
+      .verifyPasswordResetOTP(email,otp)
+      .then(res => {
+        if (res.status === 200) {
+          setShowComponent("Password")
+        } })
+        .catch(e => {
+          if (e.message === 'Request failed with status code 400'){
+          setOTPError('Incorrect code');
+          ;
+        }else if (e.message === 'Request failed with status code 408'){
+          setOTPError('Code expired');
+          ;
+       } else {setOTPError('Unexpected error.');
+       ;}
+        })    
+  };
+//you can stoup here
   const handleLoginAutomatically = async () => {
-    console.log("working auto");
 
     await AuthService.login(email, password).then(
       (res) => {
-        console.log(res.data + " THIS IS THE DATA");
         set(res.data);
         getUser(res.data.username);
       },
@@ -358,7 +480,7 @@ function Index({ set, setUser }) {
                 {errors.firstName && (
                   <small className="">
                     {errors.firstName.message}
-                    <i class="fas fa-exclamation-circle input-error-icon"></i>
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
               </div>
@@ -381,7 +503,7 @@ function Index({ set, setUser }) {
                 {errors.lastName && (
                   <small className="">
                     {errors.lastName.message}
-                    <i class="fas fa-exclamation-circle input-error-icon"></i>
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
               </div>
@@ -409,7 +531,7 @@ function Index({ set, setUser }) {
                 {errors.email && (
                   <small className="">
                     {errors.email.message}
-                    <i class="fas fa-exclamation-circle input-error-icon"></i>
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
               </div>
@@ -443,7 +565,7 @@ function Index({ set, setUser }) {
                 {errors.password && (
                   <small className="">
                     {errors.password.message}
-                    <i class="fas fa-exclamation-circle input-error-icon"></i>
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
               </div>
@@ -467,7 +589,7 @@ function Index({ set, setUser }) {
                 {errors.confirmPassword && (
                   <small className="">
                     {errors.confirmPassword.message}
-                    <i class="fas fa-exclamation-circle input-error-icon"></i>
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
                 <small className="" id="message"></small>
@@ -536,7 +658,7 @@ function Index({ set, setUser }) {
                   required="required"
                   className="form-control m-0 border-radius"
                 />
-                <i class="fas fa-exclamation-circle input-error-icon"></i>
+                <i className="fas fa-exclamation-circle input-error-icon"></i>
                 <small id="email-empty"></small>
               </div>
 
@@ -552,13 +674,13 @@ function Index({ set, setUser }) {
                   placeholder="Enter password"
                   className="form-control m-0 border-radius"
                 />
-                <i class="fas fa-exclamation-circle  input-error-icon2"></i>
+                <i className="fas fa-exclamation-circle  input-error-icon2"></i>
 
                 <small id="password-empty"></small>
               </div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <a href="#" className="forgot-pwd">
+              <a onClick={() => setShowComponent("email")} className="forgot-pwd">
                 Forgot Password?
               </a>
               <a
@@ -577,6 +699,255 @@ function Index({ set, setUser }) {
         </div>
       );
     }
+    if (showComponent === "otpPage") {
+      return (
+        <div className="log-reg-area">
+          <h2 className="log-title">Account Verification</h2>
+          
+          <p style={{ fontSize: 14, color: "white", textAlign: "center" }} >
+              Shareup has sent you a verification code to your Email
+              </p>
+          <form style={{ color: "white",textAlign: "center" }}>
+          <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
+                <input className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded" 
+                type="text" 
+                id="otp" 
+                name="otp" 
+                value={otp}
+                onChange={handleOTP}
+                required="required"
+                placeholder="Enter OTP"
+                maxLength="6" /> 
+                {/* <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
+                <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="third" maxLength="1" /> 
+                <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fourth" maxLength="1" /> 
+                <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
+                <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
+              </div>
+              <div className="py-3 ">
+          <p>
+            {otpError && (
+              <div style={{ fontSize: 20, color: "red", textAlign: "center" }}>
+                {otpError}
+              </div>
+            )}
+          </p>
+          </div>
+              <div >
+              <p >
+              Verification code expires in 5 minutes
+              </p>
+            </div>
+            <div >
+              <p >
+              Didn't get the code
+              </p>
+              
+              <button style={{ color: "green"}} onClick={validatedResentOTP}>
+                <span>Re-send</span>
+              </button>
+            </div>
+            <div className="submit-btns-log">
+              <button className="mtr-btn signup" onClick={validateOtp}>
+                <span>Verify</span>
+              </button>
+            </div>
+          </form>
+          
+        </div>
+      );
+    }
+    if (showComponent === "regProg"){
+        return (
+          <div className="log-reg-area">
+<h1
+           className="successfull-msg"
+           style={{ fontSize: "40px", color: "green", textAlign: "center" }} >
+           Welcome to ShareUp
+           Registration Under Process ...
+         </h1>
+          </div>
+        );
+
+
+
+    }
+    if (showComponent === "validReg"){
+      return (
+        <div className="log-reg-area">
+         <h1
+           className="successfull-msg"
+           style={{ fontSize: "30px", color: "green", textAlign: "center" }}
+         >
+           Your Account Is Successfully Registered,Please Verify your Email
+         </h1>
+        </div>
+      );
+
+
+
+  }
+  if (showComponent === "otpForg") {
+    return (
+      <div className="log-reg-area">
+        <h2 className="log-title">Changing Account password</h2>
+        
+        <p style={{ fontSize: 14, color: "white", textAlign: "center" }} >
+            Shareup has sent you a verification code to your Email
+            </p>
+        <form style={{ color: "white",textAlign: "center" }}>
+        <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
+              <input className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded" 
+              type="text" 
+              id="otp" 
+              name="otp" 
+              value={otp}
+              onChange={handleOTP}
+              required="required"
+              placeholder="Enter OTP"
+              maxLength="6" /> 
+              {/* <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
+              <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="third" maxLength="1" /> 
+              <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fourth" maxLength="1" /> 
+              <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
+              <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
+            </div>
+            <div className="py-3 ">
+        <p>
+          {otpError && (
+            <div style={{ fontSize: 20, color: "red", textAlign: "center" }}>
+              {otpError}
+            </div>
+          )}
+        </p>
+        </div>
+            <div >
+            <p >
+            Verification code expires in 5 minutes
+            </p>
+          </div>
+          <div >
+            <p >
+            Didn't get the code
+            </p>
+            
+            <button style={{ color: "green"}} onClick={ResendForgetEmail}>
+              <span>Re-send</span>
+            </button>
+          </div>
+          <div className="submit-btns-log">
+            <button className="mtr-btn signup" onClick={validateForgotOtp}>
+              <span>Verify</span>
+            </button>
+          </div>
+        </form>
+        
+      </div>
+    );
+  }
+  if (showComponent === "Password") {
+    return (
+      <div className="log-reg-area reg">
+        <h2 className="log-title">Changing Password</h2>
+        <form
+          onSubmit={handleSubmit(onChange)}
+          style={{ color: "white", padding: "1rem 0" }}
+        >
+          <div className="row">
+            <div className="col-md-6 py-3 pl-1 form-icon">
+              {/* <label className="form-label pb-1">Password:</label> */}
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                className={`form-control m-0 ${
+                  errors.password && "invalid"
+                } border-radius`}
+                {...register("password", {
+                  required: "Password is Required",
+                })}
+                onKeyUp={(e) => {
+                  trigger("password");
+                  setPassword(e.target.value);
+                }}
+              />
+              {errors.password && (
+                <small className="">
+                  {errors.password.message}
+                  <i className="fas fa-exclamation-circle input-error-icon"></i>
+                </small>
+              )}
+            </div>
+            <div className="col-md-6 py-3 pl-1 form-icon">
+              {/* <label className="form-label pb-1">Confirm Password:</label> */}
+              <input
+                type="password"
+                placeholder="Confirm password"
+                id="confirm_password"
+                className={`form-control m-0 ${
+                  errors.confirmPassword && "invalid"
+                } border-radius`}
+                {...register("confirmPassword", {
+                  required: " Confirm password is Required",
+                })}
+                onKeyUp={(e) => {
+                  trigger("confirmPassword");
+                  setConfirmPassword(e.target.value);
+                }}
+              />
+              {errors.confirmPassword && (
+                <small className="">
+                  {errors.confirmPassword.message}
+                  <i className="fas fa-exclamation-circle input-error-icon"></i>
+                </small>
+              )}
+              <small className="" id="message"></small>
+            </div>
+          </div>
+          <div className="submit-btns" >
+            <button  className="mtr-btn signup" type="submit">
+              <span>Confirm</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+  if (showComponent === "email") {
+    return (
+      <div className="log-reg-area">
+        <h2 className="log-title">Changing Password</h2>
+          {emailError && (
+            <p style={{ fontSize: 15, color: "red", textAlign: "center" }}>
+              {emailError}
+            </p>
+          )}
+        <form style={{ color: "white", padding: "2rem 0" }}>
+          <div className="row">
+            <div className="col-md-12 py-3 pl-1 login-form-icon">
+              <input
+                placeholder="Enter email"
+                id="loginemail"
+                type="text"
+                name="email"
+                value={email}
+                onChange={handleEmail}
+                required="required"
+                className="form-control m-0 border-radius"
+              />
+              <i className="fas fa-exclamation-circle input-error-icon"></i>
+              <small id="email-empty"></small>
+            </div>
+          </div>
+          <div className="submit-btns-log">
+            <button className="mtr-btn signup" onClick={validateForgetEmail}>
+              <span>Reset password</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  }
   };
   const renderAuthButton = () => {
     if (showComponent === "login") {
@@ -596,7 +967,7 @@ function Index({ set, setUser }) {
           type="button"
           onClick={() => setShowComponent("login")}
         >
-          <span>login</span>
+          <span>Login</span>
         </button>
       );
     }

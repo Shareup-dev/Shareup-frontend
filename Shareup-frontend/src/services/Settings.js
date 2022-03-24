@@ -10,10 +10,13 @@ const settings = {
   prod: {
     apiUrl: "https://shareup.digital/backend",
   },
+  lokee: {
+    apiUrl: "http://192.168.100.239:8080",
+  },
 };
 
 const getCurrentSettings = () => {
-  return settings.staging;
+  return settings.lokee;
 };
 
 export default getCurrentSettings();
