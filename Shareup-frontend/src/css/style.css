@@ -1084,14 +1084,14 @@ header.sticky {
 }
 
 .logo {
-  /* display: inline-block;
+  display: inline-block;
   vertical-align: inherit;
   width: 30%;
   position: relative;
-  z-index: 10; */
-display: inline-block;
+  z-index: 10;
+/* display: inline-block;
   text-align: center;
-  width: 100%;
+  width: 100%; */
 
 }
 .logo-inside {
@@ -3589,7 +3589,7 @@ footer .logo {
 }
 .logo-inside > a > img {
   display: inline-block;
-  vertical-align: center;
+  vertical-align: middle;
 }
 
 .logo > a > img {

@@ -231,6 +231,7 @@ function PostTextBoxComponent() {
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("");
+    console.log(postContent);
     console.log("uploading post working");
     if (
       postContent === "" &&
@@ -252,6 +253,7 @@ function PostTextBoxComponent() {
         setPostContent("");
         handleRemoveImage();
         setRefresh(res.data);
+        window.location.reload(false);
       });
     } else
       PostService.createPost(user.id, formData, userF.id).then((res) => {
@@ -259,6 +261,7 @@ function PostTextBoxComponent() {
         setPostContent("");
         handleRemoveImage();
         setRefresh(res.data);
+        window.location.reload(false);
       });
   };
 
@@ -1198,7 +1201,7 @@ function PostTextBoxComponent() {
                     className="textpopup"
                     rows={2}
                     placeholder={
-                      uploadError ? `${uploadError}` : "We share,do you?"
+                      uploadError ? `${uploadError}` : "We share,do you"
                     }
                     name="post_content"
                     value={postContent}
@@ -1796,18 +1799,11 @@ function PostTextBoxComponent() {
 
                 {showSwapImage ? (
                   <>
-                    <div style={{ position: "relative" }}>
-                      {swapImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            padding: "10px",
-                            display: "inline-block",
-                            verticalAlign: "middle",
-                          }}
-                        />
-                      ))}
+                    <img
+                      id="preview"
+                      src={swapImage}
+                      style={{ width: "100%", objectFit: "cover" }}
+                    />
 
                       {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
                       <button
@@ -1823,7 +1819,6 @@ function PostTextBoxComponent() {
                       >
                         <i class="las la-times"></i>
                       </button>
-                    </div>
                   </>
                 ) : null}
               </span>
@@ -1835,7 +1830,7 @@ function PostTextBoxComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={}
+              onClick={uploadSwap}
             >
               SWAP
             </button>
@@ -1846,53 +1841,42 @@ function PostTextBoxComponent() {
   };
   
   const uploadSwap = async (event) => {
-    await event.preventDefault();
-    await setUploadError("");
+     event.preventDefault();
+     setUploadError("");
+    console.log(swapContent);
     console.log("uploading swap working");
     if (
       swapContent === "" &&
-      Object.keys(swapfiles).length === 0 &&
-      swapfiles.constructor === Object
+      Object.keys(files).length === 0 &&
+      files.constructor === Object
     ) {
+      console.log(swapContent);
       console.log("cant be null");
-      await setUploadError("Please Insert A Text or an Image");
+       setUploadError("Please Insert A Text or an Image");
       return;
     }
 
     const formData = new FormData();
 
-    await formData.append("content", swapContent);
-    for (let i = 0; i < swapfiles.length; i++) {
-      await formData.append(`files`, swapfiles[i]);
-    }
-    console.log(formData.getAll(`files`));
-    console.log(" this is the files" + files[0]);
-    console.log(" this is the swapfiles" + swapfiles);
-    for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
-    }
-    await formData.append(`swapfiles`, swapfiles);
-    await formData.append(`privacy`, Privacy);
+     formData.append("content", swapContent);
+     formData.append(`files`, files);
     if (userF === null) {
-      await SwapService.createSwap(user.id, formData, null).then((res) => {
-        console.log(JSON.stringify(res));
-        console.log(res.data);
-        console.log(user.id);
-        // setCloseModal(false)
-        // window.location.reload();
-
+      console.log("Next API");
+      setRefresh(formData);
+       SwapService.createSwap(user.id,formData).then((res) => {
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
-        // window.location.reload();
-        console.log("ssssssssssrefersh", refresh);
+        window.location.reload(false);
+        console.log("Refersh", refresh);
       });
     } else
-      await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+       SwapService.createSwap(user.id, formData).then((res) => {
         console.log(JSON.stringify(res));
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
+        window.location.reload(false);
       });
   };
   

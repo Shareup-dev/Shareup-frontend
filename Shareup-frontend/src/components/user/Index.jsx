@@ -376,7 +376,7 @@ function Index({ set, setUser }) {
       .verifyEmailConfirmOTP(email,otp)
       .then(res => {
         if (res.status === 200) {
-          setShowComponent("login")
+          {handleLogin()}
         } })
         .catch(e => {
           if (e.message === 'Request failed with status code 400'){
@@ -611,12 +611,14 @@ function Index({ set, setUser }) {
                 <i className="check-box" />I am 18 years old or above
               </label>
             </div>
+            <div style={{ textAlign: 'center' }} >
             <a
               onClick={() => setShowComponent("login")}
               className="already-have"
-            >
-              Already an account?
+              style={{ textAlign: 'center' }} >
+              Already have an account?
             </a>
+            </div>
 
             <div className="submit-btns" onClick={formValidation}>
               <button className="mtr-btn signup" type="submit">
@@ -916,17 +918,24 @@ function Index({ set, setUser }) {
   if (showComponent === "email") {
     return (
       <div className="log-reg-area">
-        <h2 className="log-title">Changing Password</h2>
-          {emailError && (
-            <p style={{ fontSize: 15, color: "red", textAlign: "center" }}>
-              {emailError}
-            </p>
-          )}
-        <form style={{ color: "white", padding: "2rem 0" }}>
-          <div className="row">
-            <div className="col-md-12 py-3 pl-1 login-form-icon">
+       
+        <h2 className="log-title py-5" style={{ fontSize: 32,textAlign: "center" }} ></h2>
+        <div>        
+
+        <h2 className="log-title" style={{ fontSize: 32,textAlign: "center" }} >Forgot Your Password ?</h2>
+        {emailError && (
+               <p id="demo" className="py-3" style={{ fontSize: 15, color: "red", textAlign: "center" }}>
+                {emailError}
+               </p>
+                )}
+
+        <p className="py-2">Please enter your email and get your account right back</p></div>
+
+        <form style={{ color: "white"}}>
+          <div className="row" style={{textAlign: "center"}}>
+            <div className="col-md-12 py-3 login-form-icon">
               <input
-                placeholder="Enter email"
+                placeholder="Enter your email"
                 id="loginemail"
                 type="text"
                 name="email"
@@ -937,13 +946,18 @@ function Index({ set, setUser }) {
               />
               <i className="fas fa-exclamation-circle input-error-icon"></i>
               <small id="email-empty"></small>
+              <a  onClick={() => setShowComponent("login")} className="already-have py-3" style={{ fontSize: 12, textAlign: "center"}}>
+              Remembered your password?
+            </a>
             </div>
+            
+
           </div>
-          <div className="submit-btns-log">
-            <button className="mtr-btn signup" onClick={validateForgetEmail}>
-              <span>Reset password</span>
+          <div style={{textAlign: "center"}}>
+            <button className="mtr-btn signup" onClick={validateForgetEmail} >
+              <span>Share</span>
             </button>
-          </div>
+            </div>
         </form>
       </div>
     );
@@ -967,98 +981,61 @@ function Index({ set, setUser }) {
           type="button"
           onClick={() => setShowComponent("login")}
         >
-          <span>Login</span>
+          <span>Members Login</span>
         </button>
       );
     }
   };
-
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <RegisterSuccessfulComponent closeModal={closeModal} />
-      </Modal>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <RegisterSuccessfulComponent closeModal={closeModal}/>
+        </Modal>
       <div className="theme-layout">
-        <div className="container-land pdng0 text-center">
-          <div className="topbarLand transparent text-center">
-            <div className="row">
-              <div className="logo text-center col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                <a href="/">
-                  <img
-                    style={{ marginTop: "15px", marginRight: "10px" }}
-                    src="/assets/images/New_Shareup_White.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="top-area-land text-center col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <ul className="setting-area" style={{ marginTop: "20px" }}>
-                  <li>
-                    <a href="/about" title="About" data-ripple>
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/privacyPolicy" title="Home" data-ripple>
-                      Privacy Bill of Rights
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="Languages" data-ripple>
-                      <i className="fa fa-globe" />
-                    </a>
-                    <div className="dropdowns languages">
-                      <a href="#">
-                        <i className="ti-check" />
-                        English
-                      </a>{" "}
-                      <a href="#">Arabic</a> <a href="#">Dutch</a>{" "}
-                      <a href="#">French</a>
-                    </div>
-                  </li>
+        <div className="container-land pdng0">
+          <div className="topbarLand transparent">
+            <div className="logo">
+              <a href="/"><img src="/assets/images/New_Shareup_White.png" alt="" /></a>
+            </div>
+            <div className="top-area-land">
+              <ul className="setting-area">
+                <li><a href="/about" title="About" data-ripple>About</a></li>
+                <li><a href="/privacyPolicy" title="Home" data-ripple>Privacy
+                        Bill of Rights</a></li>
+                <li><a href="#" title="Languages" data-ripple><i className="fa fa-globe" /></a>
+                  <div className="dropdowns languages">
+                    <a href="#" ><i className="ti-check" />English</a> <a href="#" >Arabic</a> <a href="#" >Dutch</a> <a href="#" >French</a>
+                  </div></li>
                   <li>
                     {renderAuthButton()}
                   </li>
-                </ul>
-              </div>
+              </ul>
             </div>
           </div>
-          <div className="mainContnr ">
-            <div className="row">
-              <div className="col-lg-6 col-md-7 col-sm-12 col-xs-12 ">
-                <div className="login-reg-bg">
-                  <div>
-                    {registerSuccessful && (
-                      <p
-                        style={{
-                          fontSize: 30,
-                          color: "green",
-                          textAlign: "center",
-                        }}
-                      >
-                        {registerSuccessful}
-                      </p>
-                    )}
-                  </div>
-                  {handleShow()}
-                </div>
+          <div className="mainContnr">
+            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div className="login-reg-bg">
+                <div>
+                  {registerSuccessful &&
+                <p style={{ fontSize: 30, color: 'green', textAlign: 'center' }}>{registerSuccessful}</p>
+                }
+                </div>     
+                {
+                  handleShow()
+                }
               </div>
-              <div className="col-lg-4 col-md-3 d-none d-md-block ">
-                <div className="land-featurearea">
-                  <div className="land-meta ">
-                    <img
-                      style={{ width: "50%", marginRight: "35%" }}
-                      src="/assets/images/cropped_flipped.png"
-                      alt="img"
-                    />
-                    <p>Lets share without fear</p>
-                  </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div className="land-featurearea">
+                <div className="land-meta">
+                  <img style={{width:'40%',marginRight:'35%'}} src="/assets/images/cropped_flipped.png" alt="img" />
+                  <p>Lets share without fear</p>
                 </div>
               </div>
             </div>
@@ -1076,92 +1053,41 @@ function Index({ set, setUser }) {
         <div className="tabs-content" id="our-story">
           <div className="row">
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="100px"
-                  src="/assets/images/shield_only3.png"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="100px" src="/assets/images/shield_only3.png" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <h3
-                  className="featureAbt"
-                  style={{ color: "#00587a", textAlign: "center" }}
-                >
-                  Secure
-                </h3>
+              <div style={{ textAlign: 'center' }}>
+                <h3 className="featureAbt" style={{ color: '#00587a', textAlign: 'center' }}>Secure</h3>
                 {/* <p className="feature">ShareUp never spam you.Provide secure
                 platform for sharing.</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/chat_icon_digital3.png"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src="/assets/images/chat_icon_digital3.png" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <h3 className="featureAbt" style={{ color: "#db6400" }}>
-                  Chat
-                </h3>
+              <div style={{ textAlign: 'center' }}>
+                <h3 className="featureAbt" style={{ color: '#db6400' }}>Chat</h3>
                 {/* <p className="feature">No more Prying eyes! SHAREUP will cover
                 you.</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/21964583.png"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src='/assets/images/21964583.png' alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <h3 className="featureAbt" style={{ color: "#008891" }}>
-                  Share
-                </h3>
+              <div style={{ textAlign: 'center' }}>
+                <h3  className="featureAbt" style={{ color: '#008891' }}>Share</h3>
                 {/* <p className="feature">Find new ways to Share anything from
                 anywhere</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/social_globe@2x-dark.png"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src="/assets/images/social_globe@2x-dark.png" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <h3 className="featureAbt" style={{ color: "#cd134b" }}>
-                  Socialize
-                </h3>
+              <div style={{ textAlign: 'center' }}>
+                <h3 className="featureAbt" style={{ color: '#cd134b'}}>Socialize</h3>
                 {/* <p className="feature">Start Socializing, you are not alone!</p> */}
               </div>
             </div>
@@ -1181,203 +1107,82 @@ function Index({ set, setUser }) {
         </div>
       </div>
       <footer>
-        <div className="row">
-          <div className="widget">
-            <ul className="list-style">
-              <li>
-                <a href="#" title="About">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" title="FAQ">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" title="Privacy">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" title="English">
-                  English
-                </a>
-              </li>
-              <li>
-                <a href="#" title="Help Centre">
-                  Help Centre
-                </a>
-              </li>
-            </ul>
-            <ul className="list-style">
-              <li>
-                <a href="#">Afrikaans</a>
-              </li>
-              <li>
-                <a href="#">Shqip</a>
-              </li>
-              <li>
-                <a href="#">العربية</a>
-              </li>
-              <li>
-                <a href="#">Հայերեն</a>
-              </li>
-              <li>
-                <a href="#">Azərbaycan</a>
-              </li>
-              <li>
-                <a href="#">dili</a>
-              </li>
-              <li>
-                <a href="#">Euskara</a>
-              </li>
-              <li>
-                <a href="#">Беларуская</a>
-              </li>
-              <li>
-                <a href="#">мова</a>
-              </li>
-              <li>
-                <a href="#">বাংলা</a>
-              </li>
-              <li>
-                <a href="#">简体中文</a>
-              </li>
-              <li>
-                <a href="#">繁體中文</a>
-              </li>
-              <li>
-                <a href="#">Corsu</a>
-              </li>
-              <li>
-                <a href="#">Dansk</a>
-              </li>
-              <li>
-                <a href="#">Netherlands</a>
-              </li>
-              <li>
-                <a href="#">English</a>
-              </li>
-              <li>
-                <a href="#">Filipino</a>
-              </li>
-              <li>
-                <a href="#">Suomi</a>
-              </li>
-              <li>
-                <a href="#">Français</a>
-              </li>
-              <li>
-                <a href="#">ქართული</a>
-              </li>
-              <li>
-                <a href="#">Deutsch</a>
-              </li>
-              <li>
-                <a href="#">Ελληνικά</a>
-              </li>
-              <li>
-                <a href="#">ગુજરાતી</a>
-              </li>
-              <li>
-                <a href="#">Kreyol</a>
-              </li>
-              <li>
-                <a href="#">ayisyen</a>
-              </li>
-              <li>
-                <a href="#">Harshen</a>
-              </li>
-              <li>
-                <a href="#">Hausa</a>
-              </li>
-              <li>
-                <a href="#">Ōlelo</a>
-              </li>
-              <li>
-                <a href="#">Hawaiʻi</a>
-              </li>
-              <li>
-                <a href="#">עִבְרִית</a>
-              </li>
-              <li>
-                <a href="#">हिन्दी</a>
-              </li>
-              <li>
-                <a href="#">Hmong</a>
-              </li>
-              <li>
-                <a href="#">Magyar</a>
-              </li>
-              <li>
-                <a href="#">Íslenska</a>
-              </li>
-              <li>
-                <a href="#">Igbo</a>
-              </li>
-              <li>
-                <a href="#">Bahasa Indonesia</a>
-              </li>
-              <li>
-                <a href="#">Gaelige</a>
-              </li>
-              <li>
-                <a href="#">Italiano</a>
-              </li>
-              <li>
-                <a href="#">日本語</a>
-              </li>
-              <li>
-                <a href="#">Basa Jawa</a>
-              </li>
-              <li>
-                <a href="#">ಕನ್ನಡ</a>
-              </li>
-              <li>
-                <a href="#">Қазақ</a>
-              </li>
-              <li>
-                <a href="#">тілі</a>
-              </li>
-              <li>
-                <a href="#">Slovenščina</a>
-              </li>
-              <li>
-                <a href="#">Afsoomaali</a>
-              </li>
-              <li>
-                <a href="#">Español</a>
-              </li>
-              <li>
-                <a href="#">Basa Sunda</a>
-              </li>
-              <li>
-                <a href="#">Kiswahili</a>
-              </li>
-              <li>
-                <a href="#">Svenska</a>
-              </li>
-              <li>
-                <a href="#">Тоҷикӣ</a>
-              </li>
-              <li>
-                <a href="#">Српски </a>
-              </li>
-              <li>
-                <a href="#">Malagasy</a>
-              </li>
-              <li>
-                <a href="#">Samoan</a>
-              </li>
-              <li>
-                <a href="#">Türkçe</a>
-              </li>
-            </ul>
+        
+          <div className="row">
+            <div className="widget">
+              <ul className="list-style">
+                <li><a href="#" title="About">About</a></li>
+                <li><a href="#" title="FAQ">FAQ</a></li>
+                <li><a href="#" title="Privacy">Privacy</a></li>
+                <li><a href="#" title="English">English</a></li>
+                <li><a href="#" title="Help Centre">Help Centre</a></li>
+              </ul>
+              <ul className="list-style">
+                <li><a href="#">Afrikaans</a></li>
+                <li><a href="#">Shqip</a></li>
+                <li><a href="#">العربية</a></li>
+                <li><a href="#">Հայերեն</a></li>
+                <li><a href="#">Azərbaycan</a></li>
+                <li><a href="#">dili</a></li>
+                <li><a href="#">Euskara</a></li>
+                <li><a href="#">Беларуская</a></li>
+                <li><a href="#">мова</a></li>
+                <li><a href="#">বাংলা</a></li>
+                <li><a href="#">简体中文</a></li>
+                <li><a href="#">繁體中文</a></li>
+                <li><a href="#">Corsu</a></li>
+                <li><a href="#">Dansk</a></li>
+                <li><a href="#">Netherlands</a></li>
+                <li><a href="#">English</a></li>
+                <li><a href="#">Filipino</a></li>
+                <li><a href="#">Suomi</a></li>
+                <li><a href="#">Français</a></li>
+                <li><a href="#">ქართული</a></li>
+                <li><a href="#">Deutsch</a></li>
+                <li><a href="#">Ελληνικά</a></li>
+                <li><a href="#">ગુજરાતી</a></li>
+                <li><a href="#">Kreyol</a></li>
+                <li><a href="#">ayisyen</a></li>
+                <li><a href="#">Harshen</a></li>
+                <li><a href="#">Hausa</a></li>
+                <li><a href="#">Ōlelo</a></li>
+                <li><a href="#">Hawaiʻi</a></li>
+                <li><a href="#">עִבְרִית</a></li>
+                <li><a href="#">हिन्दी</a></li>
+                <li><a href="#">Hmong</a></li>
+                <li><a href="#">Magyar</a></li>
+                <li><a href="#">Íslenska</a></li>
+                <li><a href="#">Igbo</a></li>
+                <li><a href="#">Bahasa Indonesia</a></li>
+                <li><a href="#">Gaelige</a></li>
+                <li><a href="#">Italiano</a></li>
+                <li><a href="#">日本語</a></li>
+                <li><a href="#">Basa Jawa</a></li>
+                <li><a href="#">ಕನ್ನಡ</a></li>
+                <li><a href="#">Қазақ</a></li>
+                <li><a href="#">тілі</a></li>
+                <li><a href="#">Slovenščina</a></li>
+                <li><a href="#">Afsoomaali</a></li>
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Basa Sunda</a></li>
+                <li><a href="#">Kiswahili</a></li>
+                <li><a href="#">Svenska</a></li>
+                <li><a href="#">Тоҷикӣ</a></li>
+                <li><a href="#">Српски </a></li>
+                <li><a href="#">Malagasy</a></li>
+                <li><a href="#">Samoan</a></li>
+                <li><a href="#">Türkçe</a></li>
+
+
+
+              </ul>
+            </div>
           </div>
-        </div>
+        
       </footer>
     </div>
   );
 }
 export default Index;
+  
+

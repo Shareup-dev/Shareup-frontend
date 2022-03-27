@@ -1,143 +1,76 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 function AboutComponent() {
+
   return (
     <div>
       <div className="theme-layout">
-        <div className="container-land pdng0 text-center">
-          <div className="topbarLand transparent text-center">
-            <div className="row">
-              <div className="logo  text-center col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                <a href="/">
-                  <img
-                    style={{ marginTop: "15px", marginRight: "10px" }}
-                    src="/assets/images/New_Shareup_White.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="top-area-land  col-lg-8 col-md-8 col-sm-12 col-xs-12  text-center">
-                <ul className="setting-area" style={{ marginTop: "20px" }}>
+        <div className="container-about pdng0">
+          <div className="topbarLand transparent">
+            <div className="logo">
+              <a title href="/"><img src="/assets/images/New_Shareup_White.png" alt="" /></a>
+            </div>
+            <div className="top-area-land">
+              <ul className="setting-area">
+                <li><a href="/about" title="About" data-ripple>About</a></li>
+                <li><a href="/privacyPolicy" title="Home" data-ripple>Privacy
+                          Bill of Rights</a></li>
+                <li><a href="#" title="Languages" data-ripple><i className="fa fa-globe" /></a>
+                  <div className="dropdowns languages">
+                    <a href="#" title><i className="ti-check" />English</a> <a href="#" title>Arabic</a> <a href="#" title>Dutch</a> <a href="#" title>French</a>
+                  </div></li>
                   <li>
-                    <a href="/about" title="About" data-ripple>
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/privacyPolicy" title="Home" data-ripple>
-                      Privacy Bill of Rights
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="Languages" data-ripple>
-                      <i className="fa fa-globe" />
-                    </a>
-                    <div className="dropdowns languages">
-                      <a href="#">
-                        <i className="ti-check" />
-                        English
-                      </a>{" "}
-                      <a href="#">Arabic</a> <a href="#">Dutch</a>{" "}
-                      <a href="#">French</a>
-                    </div>
-                  </li>
-                  <li>
-                    <a href="/" title>
-                      <button className="shareIn-btn" type="button">
+                      <a href="/" title><button className="shareIn-btn" type="button">
                         <span>Members Login</span>
-                      </button>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                      </button></a></li>
+              </ul>
             </div>
           </div>
-
           <div className="mainContnr">
             <div className="about-area">
-              <div className="about-meta px-3">
+              <div className="about-meta">
                 <p>Shareup, a space for you with trust love care and privacy</p>
               </div>
             </div>
+
           </div>
         </div>
         <div className="tabs-about" id="our-story">
           <div className="row">
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/cyber-security-illustration-lock-symbol-scatter-blue-light-pixel-data-dark-background-presentation_115968-6.jpg"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src="/assets/images/cyber-security-illustration-lock-symbol-scatter-blue-light-pixel-data-dark-background-presentation_115968-6.jpg" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <p className="feature">
-                  ShareUp never spam you. Provide secure platform for sharing.
-                </p>
+              <div style={{ textAlign: 'center' }}>
+                <p className="feature">ShareUp never spam you. Provide secure
+                  platform for sharing.</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/uklargetreasuryteam.jpg"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src="/assets/images/uklargetreasuryteam.jpg" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <p className="feature">
-                  No more Prying eyes! SHAREUP will cover you.
-                </p>
+              <div style={{ textAlign: 'center' }}>
+
+                <p className="feature">No more Prying eyes! SHAREUP will cover
+                  you.</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/hands-digital-universe-background.jpg"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src='/assets/images/hands-digital-universe-background.jpg' alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
-                <p className="feature">
-                  Find new ways to Share anything from anywhere
-                </p>
+              <div style={{ textAlign: 'center' }}>
+
+                <p className="feature">Find new ways to Share anything from
+                  anywhere</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div
-                style={{
-                  height: "200px",
-                  textAlign: "center",
-                  paddingTop: "50px",
-                }}
-              >
-                <img
-                  width="150px"
-                  src="/assets/images/r46gr1uotloki6xkkp8bCopy.jpg"
-                  alt="img"
-                />
+              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
+                <img width="150px" src="/assets/images/r46gr1uotloki6xkkp8bCopy.jpg" alt="img" />
               </div>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 <p className="feature">Start Socializing, you are not alone!</p>
               </div>
             </div>
@@ -145,31 +78,24 @@ function AboutComponent() {
         </div>
         <div className="row shareup">
           <h2 className="heading">ShareUp Story</h2>
-          <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div className="about-img">
-              <img
-                width="100"
-                src="/assets/images/Shareup-Main-without-texture1.png"
-                alt="img"
-              />
+              
+              <img width="100"  src="/assets/images/Shareup-Main-without-texture1.png" alt="img" />
+             
             </div>
           </div>
-          <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div className="container">
               <div className="about-story">
-                <p className="shareup-text">
-                  ShareUp started in Qatar(Middle East) with the aim of being
-                  the most private and secure social media in the world. Our
-                  founder Mr. Firat Yagmur came up with a wonderful and unique
-                  idea of sharing platform where people can connect from heart
-                  to heart. More than that, it is secure and protects your
-                  privacy with the most trending technology we use. We provide
-                  you most private and secure social media platform. Your data
-                  is our concern. You Share, we share and everyone share. Let’s
-                  share without fear. You are our concern, not our target.
-                </p>
+                <p className="shareup-text">ShareUp started in Qatar(Middle East) with the aim of being the most private and secure social media in the world. Our founder Mr. Firat Yagmur came up with a wonderful and unique idea of  sharing platform where people can connect from heart to heart.
+
+                More than that, it is secure and protects your privacy with the most  trending technology we use.
+
+We provide you most private and secure social media platform. Your data is our concern. You Share, we share and everyone share. Let’s share without fear. You are our concern, not our target.</p>
               </div>
             </div>
+
           </div>
         </div>
 
