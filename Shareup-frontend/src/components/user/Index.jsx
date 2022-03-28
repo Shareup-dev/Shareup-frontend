@@ -105,7 +105,6 @@ function Index({ set, setUser }) {
   };
 
   function formValidation() {
-
     const val = document.querySelector(".PhoneInputInput").value;
     if (val == "") {
       document.querySelector(".yahoobaba").style.display = "block";
@@ -202,22 +201,18 @@ function Index({ set, setUser }) {
     setOTPError("");
     let validated = false;
 
-    if ((otp == "") || (otp != ""))  {
+    if (otp == "" || otp != "") {
       validated = true;
     }
 
     if (validated) {
-      setOTPError('OTP has been sent');
+      setOTPError("OTP has been sent");
       resendOtp();
     }
   };
 
-
   const resendOtp = () => {
-    authServices
-        .verifyEmailOTP(email)
-        .then(res => {
-        });
+    authServices.verifyEmailOTP(email).then((res) => {});
   };
   const validateForgetEmail = (event) => {
     event.preventDefault();
@@ -233,7 +228,8 @@ function Index({ set, setUser }) {
     }
     if (email) {
       if (!email.includes("@")) {
-        document.getElementById("email-empty").innerHTML = "Please Enter correct email ";
+        document.getElementById("email-empty").innerHTML =
+          "Please Enter correct email ";
 
         validated = false;
       }
@@ -248,25 +244,25 @@ function Index({ set, setUser }) {
     setOTPError("");
     let validated = false;
 
-    if ((otp == "") || (otp != ""))  {
+    if (otp == "" || otp != "") {
       validated = true;
     }
 
     if (validated) {
-      setOTPError('OTP has been sent');
+      setOTPError("OTP has been sent");
       sendForgotOtp();
     }
   };
 
-  const sendForgotOtp = () => { 
+  const sendForgotOtp = () => {
     authServices
-        .passwordResetOTP(email)
-        .then(res => {
-          setShowComponent("otpForg")
-        })
-        .catch((error) => {
-          setEmailError("User does not exist");
-        });
+      .passwordResetOTP(email)
+      .then((res) => {
+        setShowComponent("otpForg");
+      })
+      .catch((error) => {
+        setEmailError("User does not exist");
+      });
   };
 
   //najam form register / login start
@@ -283,12 +279,12 @@ function Index({ set, setUser }) {
       handleRegister();
       reset();
       addP();
-      setShowComponent("regProg")
+      setShowComponent("regProg");
     } else {
       document.getElementById("message").innerHTML = "password didnt match";
     }
   };
-  
+
   const onChange = (data) => {
     if (data.password == data.confirmPassword) {
       changePassword();
@@ -302,7 +298,7 @@ function Index({ set, setUser }) {
     let user = { email, password, confirmPassword, firstName, lastName, p_no };
     await UserService.createUser(user)
       .then((res) => {
-             setShowComponent("otpPage")
+        setShowComponent("otpPage");
       })
       .catch((error) => {
         setRegisterError("User Already Registered");
@@ -353,80 +349,77 @@ function Index({ set, setUser }) {
   };
 
   const handleLogin = async () => {
-    await AuthService.login(email, password).then(
-      (res) => {
+    await AuthService.login(email, password)
+      .then((res) => {
         if (res.status === 200) {
-        set(res.data);
-        getUser(res.data.username);
-        history.push("/newsfeed");
-      }})
-      .catch(e => {
-          if (e.message === 'Request failed with status code 401'){
-            setShowComponent("otpPage");
-          }else{
-            setLoginError('Incorrect Email and or Password');
-         }
-      }
-    );
+          set(res.data);
+          getUser(res.data.username);
+          history.push("/newsfeed");
+        }
+      })
+      .catch((e) => {
+        if (e.message === "Request failed with status code 401") {
+          setShowComponent("otpPage");
+        } else {
+          setLoginError("Incorrect Email and or Password");
+        }
+      });
   };
-
 
   const handleOtp = async () => {
     authServices
-      .verifyEmailConfirmOTP(email,otp)
-      .then(res => {
+      .verifyEmailConfirmOTP(email, otp)
+      .then((res) => {
         if (res.status === 200) {
-          {handleLogin()}
-        } })
-        .catch(e => {
-          if (e.message === 'Request failed with status code 400'){
-          setOTPError('Incorrect code');
-          ;
-        }else if (e.message === 'Request failed with status code 408'){
-          setOTPError('Code expired');
-          ;
-       } else {setOTPError('Unexpected error.');
-      ;}
-        })
-        
-      
+          {
+            handleLogin();
+          }
+        }
+      })
+      .catch((e) => {
+        if (e.message === "Request failed with status code 400") {
+          setOTPError("Incorrect code");
+        } else if (e.message === "Request failed with status code 408") {
+          setOTPError("Code expired");
+        } else {
+          setOTPError("Unexpected error.");
+        }
+      });
   };
 
   const changePassword = async () => {
     authServices
-      .resetPassword(email,password)
-      .then(res => {
+      .resetPassword(email, password)
+      .then((res) => {
         if (res.status === 200) {
-          setShowComponent("login")
-        } })
-        .catch(e => {
-          setOTPError(e.message );        
-        })
-        
-      
+          setShowComponent("login");
+        }
+      })
+      .catch((e) => {
+        setOTPError(e.message);
+      });
   };
 
   const handleOtpForgot = async () => {
     authServices
-      .verifyPasswordResetOTP(email,otp)
-      .then(res => {
+      .verifyPasswordResetOTP(email, otp)
+      .then((res) => {
         if (res.status === 200) {
-          setShowComponent("Password")
-        } })
-        .catch(e => {
-          if (e.message === 'Request failed with status code 400'){
-          setOTPError('Incorrect code');
-          ;
-        }else if (e.message === 'Request failed with status code 408'){
-          setOTPError('Code expired');
-          ;
-       } else {setOTPError('Unexpected error.');
-       ;}
-        })    
+          setShowComponent("Password");
+        }
+      })
+      .catch((e) => {
+        if (e.message === "Request failed with status code 400") {
+          setOTPError("Incorrect code");
+        } else if (e.message === "Request failed with status code 408") {
+          setOTPError("Code expired");
+        } else {
+          setOTPError("Unexpected error.");
+        }
+      });
   };
-//you can stoup here
+  //you can stoup here
   const handleLoginAutomatically = async () => {
-
     await AuthService.login(email, password).then(
       (res) => {
         set(res.data);
@@ -611,13 +604,14 @@ function Index({ set, setUser }) {
                 <i className="check-box" />I am 18 years old or above
               </label>
             </div>
-            <div style={{ textAlign: 'center' }} >
-            <a
-              onClick={() => setShowComponent("login")}
-              className="already-have"
-              style={{ textAlign: 'center' }} >
-              Already have an account?
-            </a>
+            <div style={{ textAlign: "center" }}>
+              <a
+                onClick={() => setShowComponent("login")}
+                className="already-have"
+                style={{ textAlign: "center" }}
+              >
+                Already have an account?
+              </a>
             </div>
 
             <div className="submit-btns" onClick={formValidation}>
@@ -682,7 +676,10 @@ function Index({ set, setUser }) {
               </div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <a onClick={() => setShowComponent("email")} className="forgot-pwd">
+              <a
+                onClick={() => setShowComponent("email")}
+                className="forgot-pwd"
+              >
                 Forgot Password?
               </a>
               <a
@@ -705,47 +702,47 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area">
           <h2 className="log-title">Account Verification</h2>
-          
-          <p style={{ fontSize: 14, color: "white", textAlign: "center" }} >
-              Shareup has sent you a verification code to your Email
-              </p>
-          <form style={{ color: "white",textAlign: "center" }}>
-          <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
-                <input className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded" 
-                type="text" 
-                id="otp" 
-                name="otp" 
+
+          <p style={{ fontSize: 14, color: "white", textAlign: "center" }}>
+            Shareup has sent you a verification code to your Email
+          </p>
+          <form style={{ color: "white", textAlign: "center" }}>
+            <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
+              <input
+                className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded"
+                type="text"
+                id="otp"
+                name="otp"
                 value={otp}
                 onChange={handleOTP}
                 required="required"
                 placeholder="Enter OTP"
-                maxLength="6" /> 
-                {/* <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
+                maxLength="6"
+              />
+              {/* <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="third" maxLength="1" /> 
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fourth" maxLength="1" /> 
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
-              </div>
-              <div className="py-3 ">
-          <p>
-            {otpError && (
-              <div style={{ fontSize: 20, color: "red", textAlign: "center" }}>
-                {otpError}
-              </div>
-            )}
-          </p>
-          </div>
-              <div >
-              <p >
-              Verification code expires in 5 minutes
+            </div>
+            <div className="py-3 ">
+              <p>
+                {otpError && (
+                  <div
+                    style={{ fontSize: 20, color: "red", textAlign: "center" }}
+                  >
+                    {otpError}
+                  </div>
+                )}
               </p>
             </div>
-            <div >
-              <p >
-              Didn't get the code
-              </p>
-              
-              <button style={{ color: "green"}} onClick={validatedResentOTP}>
+            <div>
+              <p>Verification code expires in 5 minutes</p>
+            </div>
+            <div>
+              <p>Didn't get the code</p>
+
+              <button style={{ color: "green" }} onClick={validatedResentOTP}>
                 <span>Re-send</span>
               </button>
             </div>
@@ -755,59 +752,54 @@ function Index({ set, setUser }) {
               </button>
             </div>
           </form>
-          
         </div>
       );
     }
-    if (showComponent === "regProg"){
-        return (
-          <div className="log-reg-area">
-<h1
-           className="successfull-msg"
-           style={{ fontSize: "40px", color: "green", textAlign: "center" }} >
-           Welcome to ShareUp
-           Registration Under Process ...
-         </h1>
-          </div>
-        );
-
-
-
-    }
-    if (showComponent === "validReg"){
+    if (showComponent === "regProg") {
       return (
         <div className="log-reg-area">
-         <h1
-           className="successfull-msg"
-           style={{ fontSize: "30px", color: "green", textAlign: "center" }}
-         >
-           Your Account Is Successfully Registered,Please Verify your Email
-         </h1>
+          <h1
+            className="successfull-msg"
+            style={{ fontSize: "40px", color: "green", textAlign: "center" }}
+          >
+            Welcome to ShareUp Registration Under Process ...
+          </h1>
         </div>
       );
+    }
+    if (showComponent === "validReg") {
+      return (
+        <div className="log-reg-area">
+          <h1
+            className="successfull-msg"
+            style={{ fontSize: "30px", color: "green", textAlign: "center" }}
+          >
+            Your Account Is Successfully Registered,Please Verify your Email
+          </h1>
+        </div>
+      );
+    }
+    if (showComponent === "otpForg") {
+      return (
+        <div className="log-reg-area">
+          <h2 className="log-title">Changing Account password</h2>
 
-
-
-  }
-  if (showComponent === "otpForg") {
-    return (
-      <div className="log-reg-area">
-        <h2 className="log-title">Changing Account password</h2>
-        
-        <p style={{ fontSize: 14, color: "white", textAlign: "center" }} >
+          <p style={{ fontSize: 14, color: "white", textAlign: "center" }}>
             Shareup has sent you a verification code to your Email
-            </p>
-        <form style={{ color: "white",textAlign: "center" }}>
-        <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
-              <input className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded" 
-              type="text" 
-              id="otp" 
-              name="otp" 
-              value={otp}
-              onChange={handleOTP}
-              required="required"
-              placeholder="Enter OTP"
-              maxLength="6" /> 
+          </p>
+          <form style={{ color: "white", textAlign: "center" }}>
+            <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
+              <input
+                className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded"
+                type="text"
+                id="otp"
+                name="otp"
+                value={otp}
+                onChange={handleOTP}
+                required="required"
+                placeholder="Enter OTP"
+                maxLength="6"
+              />
               {/* <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="second" maxLength="1" /> 
               <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="third" maxLength="1" /> 
               <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fourth" maxLength="1" /> 
@@ -815,153 +807,165 @@ function Index({ set, setUser }) {
               <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
             </div>
             <div className="py-3 ">
-        <p>
-          {otpError && (
-            <div style={{ fontSize: 20, color: "red", textAlign: "center" }}>
-              {otpError}
-            </div>
-          )}
-        </p>
-        </div>
-            <div >
-            <p >
-            Verification code expires in 5 minutes
-            </p>
-          </div>
-          <div >
-            <p >
-            Didn't get the code
-            </p>
-            
-            <button style={{ color: "green"}} onClick={ResendForgetEmail}>
-              <span>Re-send</span>
-            </button>
-          </div>
-          <div className="submit-btns-log">
-            <button className="mtr-btn signup" onClick={validateForgotOtp}>
-              <span>Verify</span>
-            </button>
-          </div>
-        </form>
-        
-      </div>
-    );
-  }
-  if (showComponent === "Password") {
-    return (
-      <div className="log-reg-area reg">
-        <h2 className="log-title">Changing Password</h2>
-        <form
-          onSubmit={handleSubmit(onChange)}
-          style={{ color: "white", padding: "1rem 0" }}
-        >
-          <div className="row">
-            <div className="col-md-6 py-3 pl-1 form-icon">
-              {/* <label className="form-label pb-1">Password:</label> */}
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter password"
-                className={`form-control m-0 ${
-                  errors.password && "invalid"
-                } border-radius`}
-                {...register("password", {
-                  required: "Password is Required",
-                })}
-                onKeyUp={(e) => {
-                  trigger("password");
-                  setPassword(e.target.value);
-                }}
-              />
-              {errors.password && (
-                <small className="">
-                  {errors.password.message}
-                  <i className="fas fa-exclamation-circle input-error-icon"></i>
-                </small>
-              )}
-            </div>
-            <div className="col-md-6 py-3 pl-1 form-icon">
-              {/* <label className="form-label pb-1">Confirm Password:</label> */}
-              <input
-                type="password"
-                placeholder="Confirm password"
-                id="confirm_password"
-                className={`form-control m-0 ${
-                  errors.confirmPassword && "invalid"
-                } border-radius`}
-                {...register("confirmPassword", {
-                  required: " Confirm password is Required",
-                })}
-                onKeyUp={(e) => {
-                  trigger("confirmPassword");
-                  setConfirmPassword(e.target.value);
-                }}
-              />
-              {errors.confirmPassword && (
-                <small className="">
-                  {errors.confirmPassword.message}
-                  <i className="fas fa-exclamation-circle input-error-icon"></i>
-                </small>
-              )}
-              <small className="" id="message"></small>
-            </div>
-          </div>
-          <div className="submit-btns" >
-            <button  className="mtr-btn signup" type="submit">
-              <span>Confirm</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    );
-  }
-  if (showComponent === "email") {
-    return (
-      <div className="log-reg-area">
-       
-        <h2 className="log-title py-5" style={{ fontSize: 32,textAlign: "center" }} ></h2>
-        <div>        
-
-        <h2 className="log-title" style={{ fontSize: 32,textAlign: "center" }} >Forgot Your Password ?</h2>
-        {emailError && (
-               <p id="demo" className="py-3" style={{ fontSize: 15, color: "red", textAlign: "center" }}>
-                {emailError}
-               </p>
+              <p>
+                {otpError && (
+                  <div
+                    style={{ fontSize: 20, color: "red", textAlign: "center" }}
+                  >
+                    {otpError}
+                  </div>
                 )}
-
-        <p className="py-2">Please enter your email and get your account right back</p></div>
-
-        <form style={{ color: "white"}}>
-          <div className="row" style={{textAlign: "center"}}>
-            <div className="col-md-12 py-3 login-form-icon">
-              <input
-                placeholder="Enter your email"
-                id="loginemail"
-                type="text"
-                name="email"
-                value={email}
-                onChange={handleEmail}
-                required="required"
-                className="form-control m-0 border-radius"
-              />
-              <i className="fas fa-exclamation-circle input-error-icon"></i>
-              <small id="email-empty"></small>
-              <a  onClick={() => setShowComponent("login")} className="already-have py-3" style={{ fontSize: 12, textAlign: "center"}}>
-              Remembered your password?
-            </a>
+              </p>
             </div>
-            
+            <div>
+              <p>Verification code expires in 5 minutes</p>
+            </div>
+            <div>
+              <p>Didn't get the code</p>
 
+              <button style={{ color: "green" }} onClick={ResendForgetEmail}>
+                <span>Re-send</span>
+              </button>
+            </div>
+            <div className="submit-btns-log">
+              <button className="mtr-btn signup" onClick={validateForgotOtp}>
+                <span>Verify</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
+    if (showComponent === "Password") {
+      return (
+        <div className="log-reg-area reg">
+          <h2 className="log-title">Changing Password</h2>
+          <form
+            onSubmit={handleSubmit(onChange)}
+            style={{ color: "white", padding: "1rem 0" }}
+          >
+            <div className="row">
+              <div className="col-md-6 py-3 pl-1 form-icon">
+                {/* <label className="form-label pb-1">Password:</label> */}
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Enter password"
+                  className={`form-control m-0 ${
+                    errors.password && "invalid"
+                  } border-radius`}
+                  {...register("password", {
+                    required: "Password is Required",
+                  })}
+                  onKeyUp={(e) => {
+                    trigger("password");
+                    setPassword(e.target.value);
+                  }}
+                />
+                {errors.password && (
+                  <small className="">
+                    {errors.password.message}
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
+                  </small>
+                )}
+              </div>
+              <div className="col-md-6 py-3 pl-1 form-icon">
+                {/* <label className="form-label pb-1">Confirm Password:</label> */}
+                <input
+                  type="password"
+                  placeholder="Confirm password"
+                  id="confirm_password"
+                  className={`form-control m-0 ${
+                    errors.confirmPassword && "invalid"
+                  } border-radius`}
+                  {...register("confirmPassword", {
+                    required: " Confirm password is Required",
+                  })}
+                  onKeyUp={(e) => {
+                    trigger("confirmPassword");
+                    setConfirmPassword(e.target.value);
+                  }}
+                />
+                {errors.confirmPassword && (
+                  <small className="">
+                    {errors.confirmPassword.message}
+                    <i className="fas fa-exclamation-circle input-error-icon"></i>
+                  </small>
+                )}
+                <small className="" id="message"></small>
+              </div>
+            </div>
+            <div className="submit-btns">
+              <button className="mtr-btn signup" type="submit">
+                <span>Confirm</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
+    if (showComponent === "email") {
+      return (
+        <div className="log-reg-area">
+          <h2
+            className="log-title py-5"
+            style={{ fontSize: 32, textAlign: "center" }}
+          ></h2>
+          <div>
+            <h2
+              className="log-title"
+              style={{ fontSize: 32, textAlign: "center" }}
+            >
+              Forgot Your Password ?
+            </h2>
+            {emailError && (
+              <p
+                id="demo"
+                className="py-3"
+                style={{ fontSize: 15, color: "red", textAlign: "center" }}
+              >
+                {emailError}
+              </p>
+            )}
+
+            <p className="py-2">
+              Please enter your email and get your account right back
+            </p>
           </div>
-          <div style={{textAlign: "center"}}>
-            <button className="mtr-btn signup" onClick={validateForgetEmail} >
-              <span>Share</span>
-            </button>
+
+          <form style={{ color: "white" }}>
+            <div className="row" style={{ textAlign: "center" }}>
+              <div className="col-md-12 py-3 login-form-icon">
+                <input
+                  placeholder="Enter your email"
+                  id="loginemail"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={handleEmail}
+                  required="required"
+                  className="form-control m-0 border-radius"
+                />
+                <i className="fas fa-exclamation-circle input-error-icon"></i>
+                <small id="email-empty"></small>
+                <a
+                  onClick={() => setShowComponent("login")}
+                  className="already-have py-3"
+                  style={{ fontSize: 12, textAlign: "center" }}
+                >
+                  Remembered your password?
+                </a>
+              </div>
             </div>
-        </form>
-      </div>
-    );
-  }
+            <div style={{ textAlign: "center" }}>
+              <button className="mtr-btn signup" onClick={validateForgetEmail}>
+                <span>Share</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
   };
   const renderAuthButton = () => {
     if (showComponent === "login") {
@@ -988,33 +992,49 @@ function Index({ set, setUser }) {
   };
   return (
     <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <RegisterSuccessfulComponent closeModal={closeModal}/>
-        </Modal>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <RegisterSuccessfulComponent closeModal={closeModal} />
+      </Modal>
       <div className="theme-layout">
         <div className="container-land pdng0">
           <div className="topbarLand transparent">
             <div className="logo">
-              <a href="/"><img src="/assets/images/New_Shareup_White.png" alt="" /></a>
+              <a href="/">
+                <img src="/assets/images/New_Shareup_White.png" alt="" />
+              </a>
             </div>
             <div className="top-area-land">
               <ul className="setting-area">
-                <li><a href="/about" title="About" data-ripple>About</a></li>
-                <li><a href="/privacyPolicy" title="Home" data-ripple>Privacy
-                        Bill of Rights</a></li>
-                <li><a href="#" title="Languages" data-ripple><i className="fa fa-globe" /></a>
+                <li>
+                  <a href="/about" title="About" data-ripple>
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/privacyPolicy" title="Home" data-ripple>
+                    Privacy Bill of Rights
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title="Languages" data-ripple>
+                    <i className="fa fa-globe" />
+                  </a>
                   <div className="dropdowns languages">
-                    <a href="#" ><i className="ti-check" />English</a> <a href="#" >Arabic</a> <a href="#" >Dutch</a> <a href="#" >French</a>
-                  </div></li>
-                  <li>
-                    {renderAuthButton()}
-                  </li>
+                    <a href="#">
+                      <i className="ti-check" />
+                      English
+                    </a>{" "}
+                    <a href="#">Arabic</a> <a href="#">Dutch</a>{" "}
+                    <a href="#">French</a>
+                  </div>
+                </li>
+                <li>{renderAuthButton()}</li>
               </ul>
             </div>
           </div>
@@ -1022,19 +1042,29 @@ function Index({ set, setUser }) {
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div className="login-reg-bg">
                 <div>
-                  {registerSuccessful &&
-                <p style={{ fontSize: 30, color: 'green', textAlign: 'center' }}>{registerSuccessful}</p>
-                }
-                </div>     
-                {
-                  handleShow()
-                }
+                  {registerSuccessful && (
+                    <p
+                      style={{
+                        fontSize: 30,
+                        color: "green",
+                        textAlign: "center",
+                      }}
+                    >
+                      {registerSuccessful}
+                    </p>
+                  )}
+                </div>
+                {handleShow()}
               </div>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div className="land-featurearea">
                 <div className="land-meta">
-                  <img style={{width:'40%',marginRight:'35%'}} src="/assets/images/cropped_flipped.png" alt="img" />
+                  <img
+                    style={{ width: "40%", marginRight: "35%" }}
+                    src="/assets/images/cropped_flipped.png"
+                    alt="img"
+                  />
                   <p>Lets share without fear</p>
                 </div>
               </div>
@@ -1053,41 +1083,92 @@ function Index({ set, setUser }) {
         <div className="tabs-content" id="our-story">
           <div className="row">
             <div className="col-lg-3 col-md-6">
-              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                <img width="100px" src="/assets/images/shield_only3.png" alt="img" />
+              <div
+                style={{
+                  height: "200px",
+                  textAlign: "center",
+                  paddingTop: "50px",
+                }}
+              >
+                <img
+                  width="100px"
+                  src="/assets/images/shield_only3.png"
+                  alt="img"
+                />
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <h3 className="featureAbt" style={{ color: '#00587a', textAlign: 'center' }}>Secure</h3>
+              <div style={{ textAlign: "center" }}>
+                <h3
+                  className="featureAbt"
+                  style={{ color: "#00587a", textAlign: "center" }}
+                >
+                  Secure
+                </h3>
                 {/* <p className="feature">ShareUp never spam you.Provide secure
                 platform for sharing.</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                <img width="150px" src="/assets/images/chat_icon_digital3.png" alt="img" />
+              <div
+                style={{
+                  height: "200px",
+                  textAlign: "center",
+                  paddingTop: "50px",
+                }}
+              >
+                <img
+                  width="150px"
+                  src="/assets/images/chat_icon_digital3.png"
+                  alt="img"
+                />
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <h3 className="featureAbt" style={{ color: '#db6400' }}>Chat</h3>
+              <div style={{ textAlign: "center" }}>
+                <h3 className="featureAbt" style={{ color: "#db6400" }}>
+                  Chat
+                </h3>
                 {/* <p className="feature">No more Prying eyes! SHAREUP will cover
                 you.</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                <img width="150px" src='/assets/images/21964583.png' alt="img" />
+              <div
+                style={{
+                  height: "200px",
+                  textAlign: "center",
+                  paddingTop: "50px",
+                }}
+              >
+                <img
+                  width="150px"
+                  src="/assets/images/21964583.png"
+                  alt="img"
+                />
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <h3  className="featureAbt" style={{ color: '#008891' }}>Share</h3>
+              <div style={{ textAlign: "center" }}>
+                <h3 className="featureAbt" style={{ color: "#008891" }}>
+                  Share
+                </h3>
                 {/* <p className="feature">Find new ways to Share anything from
                 anywhere</p> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                <img width="150px" src="/assets/images/social_globe@2x-dark.png" alt="img" />
+              <div
+                style={{
+                  height: "200px",
+                  textAlign: "center",
+                  paddingTop: "50px",
+                }}
+              >
+                <img
+                  width="150px"
+                  src="/assets/images/social_globe@2x-dark.png"
+                  alt="img"
+                />
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <h3 className="featureAbt" style={{ color: '#cd134b'}}>Socialize</h3>
+              <div style={{ textAlign: "center" }}>
+                <h3 className="featureAbt" style={{ color: "#cd134b" }}>
+                  Socialize
+                </h3>
                 {/* <p className="feature">Start Socializing, you are not alone!</p> */}
               </div>
             </div>
@@ -1107,82 +1188,203 @@ function Index({ set, setUser }) {
         </div>
       </div>
       <footer>
-        
-          <div className="row">
-            <div className="widget">
-              <ul className="list-style">
-                <li><a href="#" title="About">About</a></li>
-                <li><a href="#" title="FAQ">FAQ</a></li>
-                <li><a href="#" title="Privacy">Privacy</a></li>
-                <li><a href="#" title="English">English</a></li>
-                <li><a href="#" title="Help Centre">Help Centre</a></li>
-              </ul>
-              <ul className="list-style">
-                <li><a href="#">Afrikaans</a></li>
-                <li><a href="#">Shqip</a></li>
-                <li><a href="#">العربية</a></li>
-                <li><a href="#">Հայերեն</a></li>
-                <li><a href="#">Azərbaycan</a></li>
-                <li><a href="#">dili</a></li>
-                <li><a href="#">Euskara</a></li>
-                <li><a href="#">Беларуская</a></li>
-                <li><a href="#">мова</a></li>
-                <li><a href="#">বাংলা</a></li>
-                <li><a href="#">简体中文</a></li>
-                <li><a href="#">繁體中文</a></li>
-                <li><a href="#">Corsu</a></li>
-                <li><a href="#">Dansk</a></li>
-                <li><a href="#">Netherlands</a></li>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Filipino</a></li>
-                <li><a href="#">Suomi</a></li>
-                <li><a href="#">Français</a></li>
-                <li><a href="#">ქართული</a></li>
-                <li><a href="#">Deutsch</a></li>
-                <li><a href="#">Ελληνικά</a></li>
-                <li><a href="#">ગુજરાતી</a></li>
-                <li><a href="#">Kreyol</a></li>
-                <li><a href="#">ayisyen</a></li>
-                <li><a href="#">Harshen</a></li>
-                <li><a href="#">Hausa</a></li>
-                <li><a href="#">Ōlelo</a></li>
-                <li><a href="#">Hawaiʻi</a></li>
-                <li><a href="#">עִבְרִית</a></li>
-                <li><a href="#">हिन्दी</a></li>
-                <li><a href="#">Hmong</a></li>
-                <li><a href="#">Magyar</a></li>
-                <li><a href="#">Íslenska</a></li>
-                <li><a href="#">Igbo</a></li>
-                <li><a href="#">Bahasa Indonesia</a></li>
-                <li><a href="#">Gaelige</a></li>
-                <li><a href="#">Italiano</a></li>
-                <li><a href="#">日本語</a></li>
-                <li><a href="#">Basa Jawa</a></li>
-                <li><a href="#">ಕನ್ನಡ</a></li>
-                <li><a href="#">Қазақ</a></li>
-                <li><a href="#">тілі</a></li>
-                <li><a href="#">Slovenščina</a></li>
-                <li><a href="#">Afsoomaali</a></li>
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Basa Sunda</a></li>
-                <li><a href="#">Kiswahili</a></li>
-                <li><a href="#">Svenska</a></li>
-                <li><a href="#">Тоҷикӣ</a></li>
-                <li><a href="#">Српски </a></li>
-                <li><a href="#">Malagasy</a></li>
-                <li><a href="#">Samoan</a></li>
-                <li><a href="#">Türkçe</a></li>
-
-
-
-              </ul>
-            </div>
+        <div className="row">
+          <div className="widget">
+            <ul className="list-style">
+              <li>
+                <a href="#" title="About">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#" title="FAQ">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href="#" title="Privacy">
+                  Privacy
+                </a>
+              </li>
+              <li>
+                <a href="#" title="English">
+                  English
+                </a>
+              </li>
+              <li>
+                <a href="#" title="Help Centre">
+                  Help Centre
+                </a>
+              </li>
+            </ul>
+            <ul className="list-style">
+              <li>
+                <a href="#">Afrikaans</a>
+              </li>
+              <li>
+                <a href="#">Shqip</a>
+              </li>
+              <li>
+                <a href="#">العربية</a>
+              </li>
+              <li>
+                <a href="#">Հայերեն</a>
+              </li>
+              <li>
+                <a href="#">Azərbaycan</a>
+              </li>
+              <li>
+                <a href="#">dili</a>
+              </li>
+              <li>
+                <a href="#">Euskara</a>
+              </li>
+              <li>
+                <a href="#">Беларуская</a>
+              </li>
+              <li>
+                <a href="#">мова</a>
+              </li>
+              <li>
+                <a href="#">বাংলা</a>
+              </li>
+              <li>
+                <a href="#">简体中文</a>
+              </li>
+              <li>
+                <a href="#">繁體中文</a>
+              </li>
+              <li>
+                <a href="#">Corsu</a>
+              </li>
+              <li>
+                <a href="#">Dansk</a>
+              </li>
+              <li>
+                <a href="#">Netherlands</a>
+              </li>
+              <li>
+                <a href="#">English</a>
+              </li>
+              <li>
+                <a href="#">Filipino</a>
+              </li>
+              <li>
+                <a href="#">Suomi</a>
+              </li>
+              <li>
+                <a href="#">Français</a>
+              </li>
+              <li>
+                <a href="#">ქართული</a>
+              </li>
+              <li>
+                <a href="#">Deutsch</a>
+              </li>
+              <li>
+                <a href="#">Ελληνικά</a>
+              </li>
+              <li>
+                <a href="#">ગુજરાતી</a>
+              </li>
+              <li>
+                <a href="#">Kreyol</a>
+              </li>
+              <li>
+                <a href="#">ayisyen</a>
+              </li>
+              <li>
+                <a href="#">Harshen</a>
+              </li>
+              <li>
+                <a href="#">Hausa</a>
+              </li>
+              <li>
+                <a href="#">Ōlelo</a>
+              </li>
+              <li>
+                <a href="#">Hawaiʻi</a>
+              </li>
+              <li>
+                <a href="#">עִבְרִית</a>
+              </li>
+              <li>
+                <a href="#">हिन्दी</a>
+              </li>
+              <li>
+                <a href="#">Hmong</a>
+              </li>
+              <li>
+                <a href="#">Magyar</a>
+              </li>
+              <li>
+                <a href="#">Íslenska</a>
+              </li>
+              <li>
+                <a href="#">Igbo</a>
+              </li>
+              <li>
+                <a href="#">Bahasa Indonesia</a>
+              </li>
+              <li>
+                <a href="#">Gaelige</a>
+              </li>
+              <li>
+                <a href="#">Italiano</a>
+              </li>
+              <li>
+                <a href="#">日本語</a>
+              </li>
+              <li>
+                <a href="#">Basa Jawa</a>
+              </li>
+              <li>
+                <a href="#">ಕನ್ನಡ</a>
+              </li>
+              <li>
+                <a href="#">Қазақ</a>
+              </li>
+              <li>
+                <a href="#">тілі</a>
+              </li>
+              <li>
+                <a href="#">Slovenščina</a>
+              </li>
+              <li>
+                <a href="#">Afsoomaali</a>
+              </li>
+              <li>
+                <a href="#">Español</a>
+              </li>
+              <li>
+                <a href="#">Basa Sunda</a>
+              </li>
+              <li>
+                <a href="#">Kiswahili</a>
+              </li>
+              <li>
+                <a href="#">Svenska</a>
+              </li>
+              <li>
+                <a href="#">Тоҷикӣ</a>
+              </li>
+              <li>
+                <a href="#">Српски </a>
+              </li>
+              <li>
+                <a href="#">Malagasy</a>
+              </li>
+              <li>
+                <a href="#">Samoan</a>
+              </li>
+              <li>
+                <a href="#">Türkçe</a>
+              </li>
+            </ul>
           </div>
-        
+        </div>
       </footer>
     </div>
   );
 }
 export default Index;
-  
-
