@@ -14,7 +14,7 @@ import RegisterSuccessfulComponent from "./RegisterSuccessfulComponent";
 import { useForm } from "react-hook-form";
 import Telephone from "./PhoneComponent";
 import authServices from "../../services/auth.services";
-
+import Toast from "react-bootstrap/Toast";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -51,6 +51,7 @@ function Index({ set, setUser }) {
   let history = useHistory();
 
   const [showComponent, setShowComponent] = useState("login");
+  const [show, setShow] = useState();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -174,6 +175,7 @@ function Index({ set, setUser }) {
     let validated = true;
 
     if (otp == "") {
+      setShow(true);
       setOTPError("Please enter OTP");
       validated = false;
     }
@@ -188,6 +190,7 @@ function Index({ set, setUser }) {
     let validated = true;
 
     if (otp == "") {
+      setShow(true);
       setOTPError("Please enter OTP");
       validated = false;
     }
@@ -206,6 +209,7 @@ function Index({ set, setUser }) {
     }
 
     if (validated) {
+      setShow(true);
       setOTPError("OTP has been sent");
       resendOtp();
     }
@@ -221,20 +225,31 @@ function Index({ set, setUser }) {
 
     if (email == "") {
       document.getElementById("email-empty").innerHTML = "Please enter email";
-      // document.getElementById('loginemail').style.border="2px solid red";
       document.querySelector(".input-error-icon").style.visibility = "visible";
-
       validated = false;
+      setTimeout(() => {
+        if (document.getElementById("email-empty")) {
+          document.getElementById("email-empty").innerHTML = "";
+        }
+
+        if (document.querySelector(".input-error-icon")) {
+          document.querySelector(".input-error-icon").style.visibility =
+            "hidden";
+        }
+      }, 5000);
     }
     if (email) {
       if (!email.includes("@")) {
         document.getElementById("email-empty").innerHTML =
-          "Please Enter correct email ";
-
+          "Invalid email address";
         validated = false;
+        setTimeout(() => {
+          if (document.getElementById("email-empty")) {
+            document.getElementById("email-empty").innerHTML = "";
+          }
+        }, 5000);
       }
     }
-
     if (validated) {
       sendForgotOtp();
     }
@@ -249,6 +264,7 @@ function Index({ set, setUser }) {
     }
 
     if (validated) {
+      setShow(true);
       setOTPError("OTP has been sent");
       sendForgotOtp();
     }
@@ -260,8 +276,15 @@ function Index({ set, setUser }) {
       .then((res) => {
         setShowComponent("otpForg");
       })
-      .catch((error) => {
-        setEmailError("User does not exist");
+      .catch((e) => {
+        setShow(true);
+        if (e.message === "Request failed with status code 400") {
+          setEmailError("User does not exist");
+        } else if (e.message === "Request failed with status code 500") {
+          setEmailError("Server Problem ");
+        } else {
+          setEmailError(e.message);
+        }
       });
   };
 
@@ -279,9 +302,14 @@ function Index({ set, setUser }) {
       handleRegister();
       reset();
       addP();
-      setShowComponent("regProg");
+      // setShowComponent("regProg");
     } else {
-      document.getElementById("message").innerHTML = "password didnt match";
+      document.getElementById("message").innerHTML = "Password didn't match";
+      setTimeout(() => {
+        if (document.getElementById("message")) {
+          document.getElementById("message").innerHTML = "";
+        }
+      }, 5000);
     }
   };
 
@@ -290,6 +318,11 @@ function Index({ set, setUser }) {
       changePassword();
     } else {
       document.getElementById("message").innerHTML = "password didnt match";
+      setTimeout(() => {
+        if (document.getElementById("message")) {
+          document.getElementById("message").innerHTML = "";
+        }
+      }, 5000);
     }
   };
   //najam form register / login end
@@ -300,8 +333,15 @@ function Index({ set, setUser }) {
       .then((res) => {
         setShowComponent("otpPage");
       })
-      .catch((error) => {
-        setRegisterError("User Already Registered");
+      .catch((e) => {
+        setShow(true);
+        if (e.message === "Request failed with status code 400") {
+          setRegisterError("User Already Registered");
+        } else if (e.message === "Request failed with status code 500") {
+          setRegisterError("Server Problem ");
+        } else {
+          setRegisterError(e.message);
+        }
       });
   };
 
@@ -321,27 +361,54 @@ function Index({ set, setUser }) {
 
     if (email == "") {
       document.getElementById("email-empty").innerHTML = "Please enter email";
-      // document.getElementById('loginemail').style.border="2px solid red";
       document.querySelector(".input-error-icon").style.visibility = "visible";
-
       validated = false;
+      setTimeout(() => {
+        if (document.getElementById("email-empty")) {
+          document.getElementById("email-empty").innerHTML = "";
+        }
+        if (document.querySelector(".input-error-icon")) {
+          document.querySelector(".input-error-icon").style.visibility =
+            "hidden";
+        }
+      }, 5000);
     }
     if (password == "") {
       document.getElementById("password-empty").innerHTML =
         "Please enter password";
-      // document.getElementById('loginpassword').style.border="2px solid red";
       document.querySelector(".input-error-icon2").style.visibility = "visible";
-
+      setTimeout(() => {
+        if (document.getElementById("password-empty")) {
+          document.getElementById("password-empty").innerHTML = "";
+        }
+        if (document.querySelector(".input-error-icon2")) {
+          document.querySelector(".input-error-icon2").style.visibility =
+            "hidden";
+        }
+      }, 5000);
       validated = false;
     }
 
     if (email) {
       if (!email.includes("@")) {
-        document.getElementById("email-empty").innerHTML = "Please include @";
-
+        document.getElementById("email-empty").innerHTML =
+          "Invalid email address";
+        setTimeout(() => {
+          if (document.getElementById("email-empty")) {
+            document.getElementById("email-empty").innerHTML = "";
+          }
+        }, 5000);
         validated = false;
       }
     }
+    // if (validated == false) {
+    //   setTimeout(() => {
+    //     document.getElementById("email-empty").innerHTML = "";
+    //     document.getElementById("password-empty").innerHTML = "";
+    //     document.querySelector(".input-error-icon").style.visibility = "hidden";
+    //     document.querySelector(".input-error-icon2").style.visibility = "hidden";
+    //   }, 5000);
+    // }
 
     if (validated) {
       handleLogin();
@@ -358,10 +425,13 @@ function Index({ set, setUser }) {
         }
       })
       .catch((e) => {
+        setShow(true);
         if (e.message === "Request failed with status code 401") {
           setShowComponent("otpPage");
+        } else if (e.message === "Request failed with status code 500") {
+          setLoginError("Incorrect Email or Password");
         } else {
-          setLoginError("Incorrect Email and or Password");
+          setLoginError("Unexpected error :" + e.message);
         }
       });
   };
@@ -377,12 +447,13 @@ function Index({ set, setUser }) {
         }
       })
       .catch((e) => {
+        setShow(true);
         if (e.message === "Request failed with status code 400") {
           setOTPError("Incorrect code");
         } else if (e.message === "Request failed with status code 408") {
           setOTPError("Code expired");
         } else {
-          setOTPError("Unexpected error.");
+          setOTPError("Unexpected error." + e.message);
         }
       });
   };
@@ -396,7 +467,8 @@ function Index({ set, setUser }) {
         }
       })
       .catch((e) => {
-        setOTPError(e.message);
+        setShow(true);
+        setPasswordError(e.message);
       });
   };
 
@@ -409,16 +481,16 @@ function Index({ set, setUser }) {
         }
       })
       .catch((e) => {
+        setShow(true);
         if (e.message === "Request failed with status code 400") {
           setOTPError("Incorrect code");
         } else if (e.message === "Request failed with status code 408") {
           setOTPError("Code expired");
         } else {
-          setOTPError("Unexpected error.");
+          setOTPError("Unexpected error." + e.message);
         }
       });
   };
-  //you can stoup here
   const handleLoginAutomatically = async () => {
     await AuthService.login(email, password).then(
       (res) => {
@@ -446,12 +518,25 @@ function Index({ set, setUser }) {
             onSubmit={handleSubmit(onSubmit)}
             style={{ color: "white", padding: "1rem 0" }}
           >
-            <h2
-              className="text-center successfull-msg"
-              style={{ color: "red" }}
-            >
-              {registerError}
-            </h2>
+            <div class="d-flex justify-content-center align-items-center ">
+              {registerError && (
+                <Toast
+                  className={"bg-danger text-white rounded"}
+                  onClose={() => setShow(false)}
+                  show={show}
+                  delay={3000}
+                  autohide
+                >
+                  <Toast.Body
+                    className={"bg-danger text-white rounded"}
+                    style={{ fontSize: 20, textAlign: "center" }}
+                  >
+                    {registerError}
+                  </Toast.Body>
+                </Toast>
+              )}
+            </div>
+
             <div className="row">
               <div className="col-md-6 py-3 pl-1 form-icon txt_field">
                 {/* <label className="form-label  pb-1"  for="validationCustom01" >First Name:</label> */}
@@ -464,6 +549,10 @@ function Index({ set, setUser }) {
                   } border-radius`}
                   {...register("firstName", {
                     required: "First Name is Required",
+                    pattern: {
+                      value: /^[A-Za-z]{2,}$/i,
+                      message: "Invalid First name",
+                    },
                   })}
                   onKeyUp={(e) => {
                     trigger("firstName");
@@ -471,7 +560,7 @@ function Index({ set, setUser }) {
                   }}
                 />
                 {errors.firstName && (
-                  <small className="">
+                  <small id="rfirstname" className="">
                     {errors.firstName.message}
                     <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
@@ -487,6 +576,10 @@ function Index({ set, setUser }) {
                   } border-radius`}
                   {...register("lastName", {
                     required: "Last name is Required",
+                    pattern: {
+                      value: /^[A-Za-z]{2,}$/i,
+                      message: "Invalid Last name",
+                    },
                   })}
                   onKeyUp={(e) => {
                     trigger("lastName");
@@ -494,7 +587,7 @@ function Index({ set, setUser }) {
                   }}
                 />
                 {errors.lastName && (
-                  <small className="">
+                  <small id="rlastName" className="">
                     {errors.lastName.message}
                     <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
@@ -522,7 +615,7 @@ function Index({ set, setUser }) {
                   }}
                 />
                 {errors.email && (
-                  <small className="">
+                  <small id="remail" className="">
                     {errors.email.message}
                     <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
@@ -556,7 +649,7 @@ function Index({ set, setUser }) {
                   }}
                 />
                 {errors.password && (
-                  <small className="">
+                  <small id="rpassword" className="">
                     {errors.password.message}
                     <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
@@ -580,12 +673,15 @@ function Index({ set, setUser }) {
                   }}
                 />
                 {errors.confirmPassword && (
-                  <small className="">
+                  <small id="rconfirmPassword" className="">
                     {errors.confirmPassword.message}
                     <i className="fas fa-exclamation-circle input-error-icon"></i>
                   </small>
                 )}
-                <small className="" id="message"></small>
+                <small className="" id="message">
+                <i className="fas fa-exclamation-circle input-error-icon"></i>
+
+                </small>
               </div>
             </div>
 
@@ -625,21 +721,36 @@ function Index({ set, setUser }) {
     }
     if (showComponent === "login") {
       return (
-        <div className="log-reg-area">
+        <div className="log-reg-area" style={{ textAlign: "center" }}>
           <h2 className="log-title">Login</h2>
-          <p>
+          <div class="d-flex justify-content-center align-items-center ">
             {loginError && (
-              <div style={{ fontSize: 20, color: "red", textAlign: "center" }}>
-                {loginError}
-              </div>
+              <Toast
+                className={"bg-danger text-white rounded"}
+                onClose={() => setShow(false)}
+                show={show}
+                delay={3000}
+                autohide
+              >
+                <Toast.Body
+                  className={"bg-danger text-white rounded"}
+                  style={{ fontSize: 20 }}
+                >
+                  {loginError}
+                </Toast.Body>
+              </Toast>
             )}
-          </p>
-          {emailError && (
-            <p style={{ fontSize: 15, color: "red", textAlign: "center" }}>
-              {emailError}
-            </p>
-          )}
-
+            {emailError && (
+              <Toast
+                onClose={() => setShow(false)}
+                show={show}
+                delay={3000}
+                autohide
+              >
+                <Toast.Body>{emailError}</Toast.Body>
+              </Toast>
+            )}
+          </div>
           <form style={{ color: "white", padding: "2rem 0" }}>
             <div className="row">
               <div className="col-md-6 py-3 pl-1 login-form-icon">
@@ -702,7 +813,26 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area">
           <h2 className="log-title">Account Verification</h2>
-
+          <div class="d-flex justify-content-center align-items-center">
+            <div className="py-3 ">
+              {otpError && (
+                <Toast
+                  className={"bg-danger text-white rounded"}
+                  onClose={() => setShow(false)}
+                  show={show}
+                  delay={3000}
+                  autohide
+                >
+                  <Toast.Body
+                    className={"bg-danger text-white rounded"}
+                    style={{ fontSize: 20, textAlign: "center" }}
+                  >
+                    {otpError}
+                  </Toast.Body>
+                </Toast>
+              )}
+            </div>
+          </div>
           <p style={{ fontSize: 14, color: "white", textAlign: "center" }}>
             Shareup has sent you a verification code to your Email
           </p>
@@ -725,17 +855,7 @@ function Index({ set, setUser }) {
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
                 <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
             </div>
-            <div className="py-3 ">
-              <p>
-                {otpError && (
-                  <div
-                    style={{ fontSize: 20, color: "red", textAlign: "center" }}
-                  >
-                    {otpError}
-                  </div>
-                )}
-              </p>
-            </div>
+
             <div>
               <p>Verification code expires in 5 minutes</p>
             </div>
@@ -783,7 +903,26 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area">
           <h2 className="log-title">Changing Account password</h2>
-
+          <div class="d-flex justify-content-center align-items-center">
+            <div className="py-3 ">
+              {otpError && (
+                <Toast
+                  className={"bg-danger text-white rounded"}
+                  onClose={() => setShow(false)}
+                  show={show}
+                  delay={3000}
+                  autohide
+                >
+                  <Toast.Body
+                    className={"bg-danger text-white rounded"}
+                    style={{ fontSize: 20, textAlign: "center" }}
+                  >
+                    {otpError}
+                  </Toast.Body>
+                </Toast>
+              )}
+            </div>
+          </div>
           <p style={{ fontSize: 14, color: "white", textAlign: "center" }}>
             Shareup has sent you a verification code to your Email
           </p>
@@ -806,17 +945,7 @@ function Index({ set, setUser }) {
               <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="fifth" maxLength="1" /> 
               <input className="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center form-control rounded" type="text" id="sixth" maxLength="1" />  */}
             </div>
-            <div className="py-3 ">
-              <p>
-                {otpError && (
-                  <div
-                    style={{ fontSize: 20, color: "red", textAlign: "center" }}
-                  >
-                    {otpError}
-                  </div>
-                )}
-              </p>
-            </div>
+
             <div>
               <p>Verification code expires in 5 minutes</p>
             </div>
@@ -840,6 +969,24 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area reg">
           <h2 className="log-title">Changing Password</h2>
+          <div class="d-flex justify-content-center align-items-center">
+            {passwordError && (
+              <Toast
+                className={"bg-danger text-white rounded"}
+                onClose={() => setShow(false)}
+                show={show}
+                delay={3000}
+                autohide
+              >
+                <Toast.Body
+                  className={"bg-danger text-white rounded"}
+                  style={{ fontSize: 20, textAlign: "center" }}
+                >
+                  {passwordError}
+                </Toast.Body>
+              </Toast>
+            )}
+          </div>
           <form
             onSubmit={handleSubmit(onChange)}
             style={{ color: "white", padding: "1rem 0" }}
@@ -918,16 +1065,24 @@ function Index({ set, setUser }) {
             >
               Forgot Your Password ?
             </h2>
-            {emailError && (
-              <p
-                id="demo"
-                className="py-3"
-                style={{ fontSize: 15, color: "red", textAlign: "center" }}
-              >
-                {emailError}
-              </p>
-            )}
-
+            <div class="d-flex justify-content-center align-items-center py-3">
+              {emailError && (
+                <Toast
+                  className={"bg-danger text-white rounded"}
+                  onClose={() => setShow(false)}
+                  show={show}
+                  delay={3000}
+                  autohide
+                >
+                  <Toast.Body
+                    className={"bg-danger text-white rounded"}
+                    style={{ fontSize: 20, textAlign: "center" }}
+                  >
+                    {emailError}
+                  </Toast.Body>
+                </Toast>
+              )}
+            </div>
             <p className="py-2">
               Please enter your email and get your account right back
             </p>
