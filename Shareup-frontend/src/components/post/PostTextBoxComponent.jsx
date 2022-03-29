@@ -1809,8 +1809,7 @@ function PostTextBoxComponent() {
                       <button
                         onClick={handleRemoveImageSwap}
                         style={{
-                          right: "10px",
-                          top: "10px",
+                          right: "20px",
                           position: "absolute",
                           borderRadius: "100%",
                           background: "#b7b7b738",
@@ -1860,8 +1859,7 @@ function PostTextBoxComponent() {
 
      formData.append("content", swapContent);
      formData.append(`files`, files);
-    if (userF === null) {
-      console.log("Next API");
+      console.log("Creating Swap");
       setRefresh(formData);
        SwapService.createSwap(user.id,formData).then((res) => {
         setSwapContent("");
@@ -1870,14 +1868,7 @@ function PostTextBoxComponent() {
         window.location.reload(false);
         console.log("Refersh", refresh);
       });
-    } else
-       SwapService.createSwap(user.id, formData).then((res) => {
-        console.log(JSON.stringify(res));
-        setSwapContent("");
-        handleRemoveImageSwap();
-        setRefresh(res.data);
-        window.location.reload(false);
-      });
+
   };
   
   return (

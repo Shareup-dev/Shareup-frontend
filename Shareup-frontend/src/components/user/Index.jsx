@@ -679,7 +679,7 @@ function Index({ set, setUser }) {
                   </small>
                 )}
                 <small className="" id="message">
-                <i className="fas fa-exclamation-circle input-error-icon"></i>
+                <i className=""></i>
 
                 </small>
               </div>
