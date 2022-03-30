@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@agney/react-loading": "^0.1.2",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.1",
@@ -43,6 +44,7 @@
     "react-responsive-carousel": "^3.2.20",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
+    "react-spinner-animated": "^3.1.1",
     "react-spring": "^9.0.0-rc.3",
     "react-stomp-client": "^1.2.0",
     "reactjs-popup": "^2.0.5",

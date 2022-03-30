@@ -15,6 +15,10 @@ import { useForm } from "react-hook-form";
 import Telephone from "./PhoneComponent";
 import authServices from "../../services/auth.services";
 import Toast from "react-bootstrap/Toast";
+import { BarLoader,DoubleOrbit, HalfMalf,Spinner,TripleMaze } 
+from 'react-spinner-animated';
+import 'react-spinner-animated/dist/index.css'
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -80,7 +84,6 @@ function Index({ set, setUser }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [p_no, setPhone] = useState("");
-  //For Validation
   const [allFieldFillError, setAllFieldFillError] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -216,7 +219,19 @@ function Index({ set, setUser }) {
   };
 
   const resendOtp = () => {
-    authServices.verifyEmailOTP(email).then((res) => {});
+    setShowComponent("sendingOTploading");
+    authServices.verifyEmailOTP(email)
+    .then((res) => {
+      setShowComponent("otpPage");
+    }).catch((e) => {
+      setShowComponent("otpPage");
+      setShow(true);
+      if (e.message === "Request failed with status code 500") {
+        setEmailError("Server Problem ");
+      } else {
+        setEmailError(e.message);
+      }
+    });
   };
   const validateForgetEmail = (event) => {
     event.preventDefault();
@@ -271,12 +286,14 @@ function Index({ set, setUser }) {
   };
 
   const sendForgotOtp = () => {
+    setShowComponent("sendingOTploading");
     authServices
       .passwordResetOTP(email)
       .then((res) => {
         setShowComponent("otpForg");
       })
       .catch((e) => {
+        setShowComponent("email");
         setShow(true);
         if (e.message === "Request failed with status code 400") {
           setEmailError("User does not exist");
@@ -300,8 +317,6 @@ function Index({ set, setUser }) {
   const onSubmit = (data) => {
     if (data.password == data.confirmPassword) {
       handleRegister();
-      reset();
-      addP();
       // setShowComponent("regProg");
     } else {
       document.getElementById("message").innerHTML = "Password didn't match";
@@ -328,12 +343,16 @@ function Index({ set, setUser }) {
   //najam form register / login end
 
   const handleRegister = async () => {
+    setShowComponent("regProg");
     let user = { email, password, confirmPassword, firstName, lastName, p_no };
     await UserService.createUser(user)
       .then((res) => {
+        reset();
+        addP(); 
         setShowComponent("otpPage");
       })
       .catch((e) => {
+        setShowComponent("register");
         setShow(true);
         if (e.message === "Request failed with status code 400") {
           setRegisterError("User Already Registered");
@@ -521,14 +540,13 @@ function Index({ set, setUser }) {
             <div class="d-flex justify-content-center align-items-center ">
               {registerError && (
                 <Toast
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   onClose={() => setShow(false)}
                   show={show}
-                  delay={3000}
-                  autohide
+                  
                 >
                   <Toast.Body
-                    className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                     style={{ fontSize: 20, textAlign: "center" }}
                   >
                     {registerError}
@@ -726,14 +744,12 @@ function Index({ set, setUser }) {
           <div class="d-flex justify-content-center align-items-center ">
             {loginError && (
               <Toast
-                className={"bg-danger text-white rounded"}
+                className={"bg-transparent text-danger rounded"}
                 onClose={() => setShow(false)}
                 show={show}
-                delay={3000}
-                autohide
               >
                 <Toast.Body
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   style={{ fontSize: 20 }}
                 >
                   {loginError}
@@ -742,12 +758,15 @@ function Index({ set, setUser }) {
             )}
             {emailError && (
               <Toast
+                className={"bg-transparent text-danger rounded"}
                 onClose={() => setShow(false)}
                 show={show}
-                delay={3000}
-                autohide
+                
               >
-                <Toast.Body>{emailError}</Toast.Body>
+                <Toast.Body
+                className={"bg-transparent text-danger rounded"}
+                  style={{ fontSize: 20 }}
+                >{emailError}</Toast.Body>
               </Toast>
             )}
           </div>
@@ -817,14 +836,13 @@ function Index({ set, setUser }) {
             <div className="py-3 ">
               {otpError && (
                 <Toast
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   onClose={() => setShow(false)}
                   show={show}
-                  delay={3000}
-                  autohide
+                
                 >
                   <Toast.Body
-                    className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                     style={{ fontSize: 20, textAlign: "center" }}
                   >
                     {otpError}
@@ -837,7 +855,7 @@ function Index({ set, setUser }) {
             Shareup has sent you a verification code to your Email
           </p>
           <form style={{ color: "white", textAlign: "center" }}>
-            <div className="inputs d-flex flex-row justify-content-center py-3 pl-2 ">
+            <div className="inputs d-flex flex-row justify-content-center py-3 ">
               <input
                 className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center form-control rounded"
                 type="text"
@@ -861,13 +879,16 @@ function Index({ set, setUser }) {
             </div>
             <div>
               <p>Didn't get the code</p>
+              <div className="py-1" >
 
-              <button style={{ color: "green" }} onClick={validatedResentOTP}>
+              <a style={{ color: "green"  }} onClick={validatedResentOTP}>
                 <span>Re-send</span>
-              </button>
+              </a>
             </div>
+            </div>
+
             <div className="submit-btns-log">
-              <button className="mtr-btn signup" onClick={validateOtp}>
+              <button id="subOtp" className="mtr-btn signup"  onClick={validateOtp}>
                 <span>Verify</span>
               </button>
             </div>
@@ -877,14 +898,18 @@ function Index({ set, setUser }) {
     }
     if (showComponent === "regProg") {
       return (
-        <div className="log-reg-area">
-          <h1
-            className="successfull-msg"
-            style={{ fontSize: "40px", color: "green", textAlign: "center" }}
-          >
-            Welcome to ShareUp Registration Under Process ...
-          </h1>
-        </div>
+        <div className="log-reg-area reg" style={{ fontSize: "24px", color: "green", textAlign: "center" }}>
+          <HalfMalf className="log-title"  text={"Welcome to ShareUp Registration Under Process ..."} 
+            center={false} width={"400px"} height={"400px"}/>
+          </div>
+      );
+    }
+    if (showComponent === "sendingOTploading") {
+      return (
+        <div className="log-reg-area reg" style={{ fontSize: "24px", color: "green", textAlign: "center" }}>
+          <HalfMalf className="log-title"  text={"Sending OTP to your email"} 
+            center={false} width={"400px"} height={"400px"}/>
+          </div>
       );
     }
     if (showComponent === "validReg") {
@@ -907,14 +932,13 @@ function Index({ set, setUser }) {
             <div className="py-3 ">
               {otpError && (
                 <Toast
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   onClose={() => setShow(false)}
                   show={show}
-                  delay={3000}
-                  autohide
+                  
                 >
                   <Toast.Body
-                    className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                     style={{ fontSize: 20, textAlign: "center" }}
                   >
                     {otpError}
@@ -951,10 +975,11 @@ function Index({ set, setUser }) {
             </div>
             <div>
               <p>Didn't get the code</p>
-
-              <button style={{ color: "green" }} onClick={ResendForgetEmail}>
-                <span>Re-send</span>
-              </button>
+              <div className="py-1" >
+                <a style={{ color: "green"  }} onClick={ResendForgetEmail}>
+                  <span>Re-send</span>
+                </a>
+                </div>
             </div>
             <div className="submit-btns-log">
               <button className="mtr-btn signup" onClick={validateForgotOtp}>
@@ -972,14 +997,13 @@ function Index({ set, setUser }) {
           <div class="d-flex justify-content-center align-items-center">
             {passwordError && (
               <Toast
-                className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                 onClose={() => setShow(false)}
                 show={show}
-                delay={3000}
-                autohide
+                
               >
                 <Toast.Body
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   style={{ fontSize: 20, textAlign: "center" }}
                 >
                   {passwordError}
@@ -1068,14 +1092,13 @@ function Index({ set, setUser }) {
             <div class="d-flex justify-content-center align-items-center py-3">
               {emailError && (
                 <Toast
-                  className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                   onClose={() => setShow(false)}
                   show={show}
-                  delay={3000}
-                  autohide
+                  
                 >
                   <Toast.Body
-                    className={"bg-danger text-white rounded"}
+                  className={"bg-transparent text-danger rounded"}
                     style={{ fontSize: 20, textAlign: "center" }}
                   >
                     {emailError}

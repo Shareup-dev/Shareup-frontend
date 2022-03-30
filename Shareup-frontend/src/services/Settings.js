@@ -11,7 +11,7 @@ const settings = {
     apiUrl: "https://shareup.digital/backend",
   },
   lokee: {
-    apiUrl: "http://192.168.100.239:8080",
+    apiUrl: "http://192.168.100.88:8080",
   },
 };
 
