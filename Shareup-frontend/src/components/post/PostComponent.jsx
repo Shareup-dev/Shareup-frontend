@@ -69,14 +69,14 @@ export default function PostComponent({ post, setRefresh }) {
     setRefresh(id);
   };
 
-  const getCommentCounter = (comments) => {
-    let counter = 0;
-    comments.map((comment) => {
-      counter += comment.replies.length + 1;
-    });
-    if (counter > 0) return counter + " Comments";
-    else return "";
-  };
+  // const getCommentCounter = (comments) => {
+  //   let counter = 0;
+  //   comments.map((comment) => {
+  //     counter += comment.replies.length + 1;
+  //   });
+  //   if (counter > 0) return counter + " Comments";
+  //   else return "";
+  // };
 
   const getShareCounter = (shares) => {
     let counter = 0;
@@ -321,7 +321,6 @@ export default function PostComponent({ post, setRefresh }) {
       await ShareService.createShare(user.id, post.id).then((res) => {
         console.log(JSON.stringify(res));
         setShareContent("");
-
         setRefresh(res.data);
       });
   };
@@ -477,7 +476,7 @@ export default function PostComponent({ post, setRefresh }) {
                             <React.Fragment>
                               <a
                                 href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                                data-lightbox={`image-user-${post.user.id}`}
+                                data-lightbox={`image-user-${post.userdata.id}`}
                               >
                                 <img
                                   style={{
@@ -500,7 +499,7 @@ export default function PostComponent({ post, setRefresh }) {
                               <React.Fragment>
                                 {/* <a
                                 href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                data-lightbox={`image-user-${post.user.id}`}
+                                data-lightbox={`image-user-${post.userdata.id}`}
                               >
                                 <img
                                   style={{ width: '100%', objectFit: 'cover' }}
@@ -524,7 +523,7 @@ export default function PostComponent({ post, setRefresh }) {
                         <div className="swapImage">
                           <a
                             href={post.mediaPath}
-                            data-lightbox={`image-user-${post.user.id}`}
+                            data-lightbox={`image-user-${post.userdata.id}`}
                           >
                             <img
                               style={{ width: "100%", objectFit: "cover" }}
@@ -568,7 +567,7 @@ export default function PostComponent({ post, setRefresh }) {
                           <Carousel.Item>
                             <a
                               href={`${fileStorage.baseUrl}/user-post/${post.id}/${item}`}
-                              data-lightbox={`image-user-${post.user.id}`}
+                              data-lightbox={`image-user-${post.userdata.id}`}
                             >
                               {" "}
                               <img
@@ -591,7 +590,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                     //     (post.postImagePath.split(',')).map((item,key)=>(<div className="column">
                     //         <a href={`${storage.baseUrl}/user-post/${post.id}/${item}`}
-                    //     data-lightbox={`image-user-${post.user.id}`}>
+                    //     data-lightbox={`image-user-${post.userdata.id}`}>
                     //        <img src={`${storage.baseUrl}/user-post/${post.id}/${item}`} key={key}
                     //        style={{ width: '300px', height: '250px',padding:'2px', display:''}}/></a></div>))
 
@@ -617,7 +616,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.user.profilePicturePath}
+                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
                       alt=""
                       className="post-user-img"
                     />
@@ -631,14 +630,14 @@ export default function PostComponent({ post, setRefresh }) {
                     }}
                   >
                     <a
-                      href={`/profile/${post.user.email}`}
+                      href={`/profile/${post.userdata.email}`}
                       title="#"
                       style={{
                         textTransform: "capitalize",
                         fontWeight: "bold",
                       }}
                     >
-                      {`${post.user.firstName} ${post.user.lastName}`}
+                      {`${post.userdata.firstName} ${post.userdata.lastName}`}
 
                       {post.allPostsType === "share" ? (
                         <span
@@ -709,7 +708,7 @@ export default function PostComponent({ post, setRefresh }) {
                     aria-labelledby="dropdownMenuButton"
                   >
                     <ul>
-                      {post.user.id === user.id ? (
+                      {post.userdata.id === user.id ? (
                         <li onClick={() => handleEditPost(post.id)}>
                           <i class="las la-pencil-alt"></i>
                           <span>Edit Post</span>
@@ -721,7 +720,7 @@ export default function PostComponent({ post, setRefresh }) {
                         <i class="lar la-bookmark"></i>
                         <span>Save Post</span>
                       </li>
-                      {post.user.id === user.id ? (
+                      {post.userdata.id === user.id ? (
                         <li onClick={() => handleDeletePost(post)}>
                           <i class="las la-trash"></i>
                           <span>Delete</span>
@@ -834,7 +833,7 @@ export default function PostComponent({ post, setRefresh }) {
                       {/* trigger={ */}
                       <img
                         style={
-                          post.user.id == user.id
+                          post.userdata.id == user.id
                             ? { width: "100%", objectFit: "cover" }
                             : { borderRadius: "10px 10px 0 0" }
                         }
@@ -848,7 +847,7 @@ export default function PostComponent({ post, setRefresh }) {
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
-                      {post.user.id !== user.id && (
+                      {post.userdata.id !== user.id && (
                         <div className="swappost-cont">
                           <div className="">
                             <div
@@ -921,7 +920,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     <div style={{ display: "inline" }}>
                                       <span>
                                         {`${user.firstName} ${user.lastName}`}
-                                        {post.user ? (
+                                        {post.userdata ? (
                                           <>
                                             {" "}
                                             <span
@@ -932,7 +931,7 @@ export default function PostComponent({ post, setRefresh }) {
                                             >
                                               swap with
                                             </span>{" "}
-                                            {`${post.user.firstName} ${post.user.lastName}`}
+                                            {`${post.userdata.firstName} ${post.userdata.lastName}`}
                                           </>
                                         ) : null}
                                       </span>
@@ -972,7 +971,7 @@ export default function PostComponent({ post, setRefresh }) {
                                       // style={{fontSize:'14px'}}
                                       placeholder={
                                         "Share about swap with " +
-                                        post.user.firstName +
+                                        post.userdata.firstName +
                                         "?"
                                       }
                                       name="swap_content"
@@ -1042,7 +1041,7 @@ export default function PostComponent({ post, setRefresh }) {
                           {/* <div className='itemS3'> */}
                           {/* <>
                           <div className='swapImage'>
-                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.userdata.id}`}>
                               <img
                                 style={{ width: '100%', objectFit: 'cover' }}
                                 src={post.swapImagePath}
@@ -1115,7 +1114,7 @@ export default function PostComponent({ post, setRefresh }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            post.post.user.profilePicturePath
+                            post.post.userdata.profilePicturePath
                           }
                           alt=""
                           className="post-user-img"
@@ -1131,14 +1130,14 @@ export default function PostComponent({ post, setRefresh }) {
                         }}
                       >
                         <a
-                          href={`/profile/${post.post.user.email}`}
+                          href={`/profile/${post.post.userdata.email}`}
                           title="#"
                           style={{
                             textTransform: "capitalize",
                             fontWeight: "bold",
                           }}
                         >
-                          {`${post.post.user.firstName} ${post.post.user.lastName}`}
+                          {`${post.post.userdata.firstName} ${post.post.userdata.lastName}`}
                           {post.post.userTag ? (
                             <>
                               <span style={{ padding: "0 5px" }}>with</span>{" "}
@@ -1196,7 +1195,7 @@ export default function PostComponent({ post, setRefresh }) {
                         aria-labelledby="dropdownMenuButton"
                       >
                         <ul>
-                          {post.post.user.id === user.id ? (
+                          {post.post.userdata.id === user.id ? (
                             <li onClick={() => handleEditPost(post.id)}>
                               <i class="las la-pencil-alt"></i>
                               <span>Edit Post</span>
@@ -1208,7 +1207,7 @@ export default function PostComponent({ post, setRefresh }) {
                             <i class="lar la-bookmark"></i>
                             <span>Save Post</span>
                           </li>
-                          {post.post.user.id === user.id ? (
+                          {post.post.userdata.id === user.id ? (
                             <li onClick={() => handleDeletePost(post.post)}>
                               <i class="las la-trash"></i>
                               <span>Delete</span>
@@ -1325,7 +1324,7 @@ export default function PostComponent({ post, setRefresh }) {
                         {/* trigger={ */}
                         <img
                           style={
-                            post.user.id == user.id
+                            post.userdata.id == user.id
                               ? { width: "100%", objectFit: "cover" }
                               : { borderRadius: "10px 10px 0 0" }
                           }
@@ -1339,7 +1338,7 @@ export default function PostComponent({ post, setRefresh }) {
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
-                        {post.post.user.id !== user.id && (
+                        {post.post.userdata.id !== user.id && (
                           <div className="swappost-cont">
                             <div className="">
                               <div
@@ -1414,7 +1413,7 @@ export default function PostComponent({ post, setRefresh }) {
                                       <div style={{ display: "inline" }}>
                                         <span>
                                           {`${user.firstName} ${user.lastName}`}
-                                          {post.user ? (
+                                          {post.userdata ? (
                                             <>
                                               {" "}
                                               <span
@@ -1425,7 +1424,7 @@ export default function PostComponent({ post, setRefresh }) {
                                               >
                                                 swap with
                                               </span>{" "}
-                                              {`${post.user.firstName} ${post.user.lastName}`}
+                                              {`${post.userdata.firstName} ${post.userdata.lastName}`}
                                             </>
                                           ) : null}
                                         </span>
@@ -1465,7 +1464,7 @@ export default function PostComponent({ post, setRefresh }) {
                                         // style={{fontSize:'14px'}}
                                         placeholder={
                                           "Share about swap with " +
-                                          post.user.firstName +
+                                          post.userdata.firstName +
                                           "?"
                                         }
                                         name="swap_content"
@@ -1535,7 +1534,7 @@ export default function PostComponent({ post, setRefresh }) {
                             {/* <div className='itemS3'> */}
                             {/* <>
                           <div className='swapImage'>
-                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}>
+                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.userdata.id}`}>
                               <img
                                 style={{ width: '100%', objectFit: 'cover' }}
                                 src={post.swapImagePath}
@@ -1659,7 +1658,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </span>{" "}
                         <span>
                           {" "}
-                          {`${getCommentCounter(post.post.comments)}` + " "}
+                          {/* {`${getCommentCounter(post.post.comments)}` + " "} */}
                         </span>
                       </li>
                     </ul>
@@ -1737,7 +1736,7 @@ export default function PostComponent({ post, setRefresh }) {
                     >
                       {/* <img src='/assets/images/commentwhite.svg' alt='' /> */}
                     </span>{" "}
-                    <span> {`${getCommentCounter(post.comments)}` + " "}</span>
+                    {/* <span> {`${getCommentCounter(post.comments)}` + " "}</span> */}
                   </li>
                 </ul>
               </div>
@@ -1894,7 +1893,7 @@ export default function PostComponent({ post, setRefresh }) {
               <li className='head-drop'>
                 <h6>Post Options</h6>
               </li>
-              {post.user.id === user.id ? (
+              {post.userdata.id === user.id ? (
                 <li onClick={() => handleEditPost(post.id)}>
                   <i class='las la-pencil-alt'></i>
                   <span>Edit Post</span>
@@ -1906,7 +1905,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <i class='lar la-bookmark'></i>
                 <span>Save Post</span>
               </li>
-              {post.user.id === user.id ? (
+              {post.userdata.id === user.id ? (
                 <li onClick={() => handleDeletePost(post.id)}>
                   <i class='las la-trash'></i>
                   <span>Delete</span>

@@ -72,20 +72,21 @@ function App() {
   let history = useHistory();
 
   const [jwtUser, setJwtUser] = useState(AuthService.getCurrentUser())
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const userAuthenticator = async () => {
     await AuthService.setCurrentUser(jwtUser)
     let user = null
-    if (jwtUser) {
-      console.log("AHAAAAAAAAAAAAAAAAAAAHAAA")
-      user = await UserService.getUserByEmail(jwtUser.username).then(res => {
+    if (jwtUser) {  
+      setLoading(true);
+      UserService.getUserByEmail(jwtUser.username).then(res => {
         // console.log
-      return res.data
-     })
-     console.log(JSON.stringify(user) +  ' ah ahah')
+        setUser(res.data);
+     }).finally(_=> setLoading(false));
+    //  console.log(JSON.stringify(user) +  ' ah ahah')
     }
-    setUser(user)
+    
   }
 
   useEffect(() => {
@@ -105,7 +106,8 @@ Giphy();
 
   return (
     <UserContext.Provider value={{ user }}>
-      {console.log("Value of " + JSON.stringify(user))}
+    {
+      loading ? <div>Loading..</div>:(      
       <Router>
         <HeaderComponent />
           <Switch>
@@ -156,6 +158,8 @@ Giphy();
       {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
         </Switch>
       </Router>
+      )
+    }
     </UserContext.Provider>
   );
 }

@@ -8,6 +8,11 @@ import StoriesService from "../../services/StoriesService";
 import ShareupInsideHeaderComponent from "../dashboard/ShareupInsideHeaderComponent";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Popup from "reactjs-popup";
+import Form from "react-bootstrap/Form";
 // import './button.css';
 // import '../../css/SliderJava';
 
@@ -19,17 +24,73 @@ function DisplayComponent() {
   // const []
 
   // const inputRef = createRef();
-
+  const [hasTimeElapsed, setHasTimeElapsed] = React.useState(false);
   const [storiesForUser, setStoriesForUser] = useState([]);
+  const [storiesForUserFriends, setStoriesForUserFriends] = useState([]);
   const [stories, setStories] = useState([]);
+  const [FriendsStories, setFriendsStories] = useState([]);
+  const [uploadError, setUploadError] = useState("");
+  const [uploadErrorStory, setUploadErrorStory] = useState("");
   const [storiesS, setStoriesS] = useState([]);
   const [userR, setUserR] = useState([]);
+  const [filesStry, setFilesStry] = useState({});
+  const [showstoriesImage, setShowstoriesImage] = useState(false);
+  const [storiesImage, setStoriesImage] = useState([]);
 
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
-  console.log("ashiya beti", delay * index);
+
+  const uploadStories = (event) => {
+    event.preventDefault();
+    setUploadErrorStory("");
+    console.log("uploading stories working");
+    if (
+      Object.keys(filesStry).length === 0 &&
+      filesStry.constructor === Object
+    ) {
+      console.log("cant be null");
+      setUploadErrorStory("Please Add Image for Stories");
+      console.log(uploadErrorStory);
+      return;
+    }
+
+    const formData = new FormData();
+    console.log(" this is the files" + formData);
+    formData.append(`stryfiles`, filesStry);
+    StoriesService.createStories(user.id, formData).then((res) => {
+      console.log("jsonnn   ", JSON.stringify(res));
+      handleRemoveImageStry();
+      setStories(res.data);
+      setRefresh(res.data);
+    });
+  };
+  const handleFileStry = (event) => {
+    console.log(event.target.files[0]);
+    setFilesStry(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setStoriesImage(reader.result);
+      }
+    };
+    console.log(event.target.files[0]);
+    // if(event.target.files[0].type === blob){
+    reader.readAsDataURL(event.target.files[0]);
+    // }
+    setShowstoriesImage(true);
+  };
+
+  const handleEditeFileStry = (StoryImg) => {
+    setStoriesImage(StoryImg);
+    setShowstoriesImage(true);
+  };
+
+  const handleRemoveImageStry = () => {
+    setFilesStry({});
+    setShowstoriesImage(false);
+  };
 
   const resetTimeout = () => {
     if (timeoutRef.current) {
@@ -55,16 +116,25 @@ function DisplayComponent() {
       setStoriesForUser(uniqueStories);
     });
   };
+  const [refresh, setRefresh] = useState(null);
+
+  const handleEditStory = (id) => {};
+
+  const handleDeleteStory = (storyId) => {
+    StoriesService.deleteStories(storyId).then((res) => {
+      console.log("Story deleted");
+      setRefresh(res.data);
+    });
+  };
+
   const getUser = async () => {
     if (user === null) {
-      console.log("RUNNING");
       await UserService.getUserByEmail(
         AuthService.getCurrentUser().username
       ).then((res) => {
         setUserR(res.data);
       });
     } else {
-      console.log("WALKING" + JSON.stringify(user));
       setUserR(user);
     }
   };
@@ -76,10 +146,21 @@ function DisplayComponent() {
     getStoriesForUser();
     testScript();
   }, [stories]);
+
   useEffect(() => {
     resetTimeout();
     timeoutRef.current = setTimeout(
-      () => setIndex((prevIndex) => (prevIndex === storiesForUser.length-1 ? setTimeout(() => document.querySelector('.popup-overlay').style.display="none",200) : prevIndex + 1)),
+      () =>
+        setIndex((prevIndex) =>
+          prevIndex === storiesForUser.length - 1
+            ? setTimeout(
+                () =>
+                  (document.querySelector(".popup-overlay").style.display =
+                    "none"),
+                200
+              )
+            : prevIndex + 1
+        ),
       delay
     );
 
@@ -92,7 +173,6 @@ function DisplayComponent() {
     console.log("check slide check", a);
     // setIndex(a);
   };
-
 
   return (
     <>
@@ -107,9 +187,10 @@ function DisplayComponent() {
                 >
                   {storiesForUser.map((background, index) => (
                     <>
-                      {background.storiesImagePath ? (
+                      {background.image ? (
                         <div className="slide" key={index} id={index}>
-                          <div className="strydisplay-Profimg">
+                          <div className="strydisplay-Profimg"
+                          >
                             <img
                               src={
                                 fileStorage.baseUrl +
@@ -118,11 +199,145 @@ function DisplayComponent() {
                               alt=""
                             />
                             <span>{background.user.firstName}</span>
+
+                            <DropdownButton
+                              className={`bi bi-three-dots-vertical`}
+                              onClick={() =>
+                                window.clearTimeout(timeoutRef.current)
+                              }
+                            >
+                              <Dropdown.Item>
+                                <Popup
+                                  trigger={
+                                    <div>
+                                      <i class="las la-pencil-alt"></i>
+                                      <span>Edit Story</span>
+                                    </div>
+                                  }
+                                  modal
+                                >
+                                  {(close) => (
+                                    <Form className="popwidth">
+                                      <div className="headpop">
+                                        <div style={{ padding: "10px" }}>
+                                          <span>
+                                            {console.log(
+                                              "this is the image background" +
+                                                fileStorage.baseUrl +
+                                                background.image
+                                            )}
+                                            <a
+                                              href="#!"
+                                              style={{
+                                                padding: "10px 150px 10px 0",
+                                              }}
+                                              onClick={close}
+                                            >
+                                              <i class="las la-times"></i>
+                                            </a>
+                                          </span>
+                                          <span
+                                            style={{
+                                              color: "#000000",
+                                              fontSize: "14px",
+                                              fontWeight: "bold",
+                                            }}
+                                          >
+                                            Lets Add Stories
+                                          </span>
+
+                                          <span style={{ float: "right" }}>
+                                            {" "}
+                                            <button
+                                              style={{
+                                                float: "right",
+                                                borderRadius: "20px",
+                                                padding: "5px 20px",
+                                              }}
+                                              type="submit"
+                                              onClick={uploadStories}
+                                            >
+                                              Upload
+                                            </button>
+                                          </span>
+                                        </div>
+                                      </div>
+
+                                      <div
+                                        style={{ margin: "0 11px 10px 11px" }}
+                                      >
+                                        <span className="textPop">
+                                          {showstoriesImage ? (
+                                            <>
+                                              <img
+                                                id="preview"
+                                                src={storiesImage}
+                                                style={{ width: "100%" }}
+                                              />
+
+                                              <button
+                                                onClick={handleRemoveImageStry}
+                                                style={{
+                                                  right: "20px",
+                                                  position: "absolute",
+                                                  borderRadius: "100%",
+                                                  background: "#b7b7b738",
+                                                  padding: "10px 10px",
+                                                }}
+                                              >
+                                                <i class="las la-times"></i>
+                                              </button>
+                                            </>
+                                          ) : (
+                                            <div
+                                              style={{ textAlign: "center" }}
+                                            >
+                                              <label className="fileContainer">
+                                                <div
+                                                  className="storypic"
+                                                  type="submit"
+                                                >
+                                                  <input
+                                                    type="file"
+                                                    name="swap_image"
+                                                    accept="image/*"
+                                                    onChange={handleEditeFileStry(
+                                                      fileStorage.baseUrl + background.image
+                                                    )}
+                                                  ></input>
+                                                  Add Story
+                                                </div>
+                                              </label>
+                                            </div>
+                                          )}
+                                        </span>
+                                        <div className="storyErr">
+                                          {uploadErrorStory
+                                            ? `${uploadErrorStory}`
+                                            : null}
+                                        </div>
+                                      </div>
+                                    </Form>
+                                  )}
+                                </Popup>
+                              </Dropdown.Item>
+                              <Dropdown.Item
+                                type="button"
+                                onClick={() => {
+                                  handleDeleteStory(background.id);
+                                }}
+                              >
+                                <i class="las la-trash"></i>
+                                <span>Delete</span>
+                              </Dropdown.Item>
+                            </DropdownButton>
+                            
                           </div>
                           <img
+                          onClick={() => window.clearTimeout(timeoutRef.current)}
                             className="stryDsplyImg"
                             src={
-                              fileStorage.baseUrl + background.storiesImagePath
+                              fileStorage.baseUrl + background.image
                             }
                           />
                         </div>
@@ -130,7 +345,7 @@ function DisplayComponent() {
                     </>
                   ))}
                 </div>
-
+                
                 <div className="slideshowDots">
                   {storiesForUser.map((_, idx) => (
                     <div
@@ -148,29 +363,29 @@ function DisplayComponent() {
                 </div>
               </div>
             </div>
-            <div class="slide-buttons">
-            {index+1 < storiesForUser.length ? (
-            <span
-                    id="getnext"
-                    onClick={() => {
-                      setIndex(index + 1);
-                      console.log("looking for -1", index);
-                    }}
-                  >
-                    <i class="fas fa-arrow-right"></i>
-                    
-                  </span> 
-              ) :''}
+            <div className="slide-buttons">
+              {index + 1 < storiesForUser.length ? (
+                <span
+                  id="getnext"
+                  onClick={() => {
+                    setIndex(index + 1);
+                    console.log("looking for -1", index);
+                  }}
+                >
+                  <i className="fas fa-arrow-right"></i>
+                </span>
+              ) : (
+                ""
+              )}
 
               {index > 0 ? (
                 <span
                   id="getprev"
                   onClick={() => {
                     setIndex(index - 1);
-
                   }}
                 >
-                  <i class="fas fa-arrow-left"></i>
+                  <i className="fas fa-arrow-left"></i>
                 </span>
               ) : null}
             </div>

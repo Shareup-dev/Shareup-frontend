@@ -108,7 +108,7 @@ function ProfileComponent() {
       );
       let mypost = [];
       uniquePost.map((post) => {
-        if (post.user.email === AuthService.getCurrentUser().username) {
+        if (post.userdata.email === AuthService.getCurrentUser().username) {
           mypost.push(post);
         }
       });
@@ -278,7 +278,6 @@ function ProfileComponent() {
       setAllUser(res.data);
       setSearchedUser(res.data);
     });
-    console.log(user.email + " This is the users");
   };
 
   const getFriendsList = async () => {
