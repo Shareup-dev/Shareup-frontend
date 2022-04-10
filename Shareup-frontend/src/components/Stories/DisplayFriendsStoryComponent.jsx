@@ -118,7 +118,6 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                   className="slideshowSlider"
                   style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}  
                  >
-                  {/* {console.log("this is the stories list"+storiesForUserFriends)} */}
                   {story.map((background, index) => {
                   
                     return(
@@ -134,6 +133,10 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                               alt=""
                             />
                             <span>{background.user.firstName}</span>
+                            <div   style={{marginTop: "500px"}}>
+                          <span
+                              >{background.caption}</span>
+                          </div>
                           </div>
                           <img
                           onClick={() => window.clearTimeout(timeoutRef.current)}

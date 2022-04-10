@@ -107,7 +107,7 @@ const checkPop=()=>{
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
             {/* <span className='mb-4 text-light'>{storiesForUser.length}</span> */}
-            <span className='mb-4 text-light p-2' style={{fontSize:'0.7rem'}}>{story.user.firstName} {story.user.lastName}</span>
+            <span className='mb-4 text-light p-2' style={{fontSize:'0.8rem'}}>{story.user.firstName} {story.user.lastName}</span>
 
           </div>
         </div>

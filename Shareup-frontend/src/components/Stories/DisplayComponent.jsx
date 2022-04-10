@@ -36,38 +36,39 @@ function DisplayComponent() {
   const [filesStry, setFilesStry] = useState({});
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [storiesImage, setStoriesImage] = useState([]);
+  const [storyContent, setStoryContent] = useState("");
+
 
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
-  const uploadStories = (event) => {
+  const updateStories = (event) => {
     event.preventDefault();
     setUploadErrorStory("");
-    console.log("uploading stories working");
     if (
+      storyContent === "" &&
       Object.keys(filesStry).length === 0 &&
       filesStry.constructor === Object
     ) {
-      console.log("cant be null");
       setUploadErrorStory("Please Add Image for Stories");
       console.log(uploadErrorStory);
       return;
     }
 
     const formData = new FormData();
-    console.log(" this is the files" + formData);
+    handleFileStry()
+    handleStoryContent()
+    formData.append("caption", storyContent);
     formData.append(`stryfiles`, filesStry);
-    StoriesService.createStories(user.id, formData).then((res) => {
-      console.log("jsonnn   ", JSON.stringify(res));
+    StoriesService.updateStories(stories.id, formData).then((res) => {
       handleRemoveImageStry();
       setStories(res.data);
       setRefresh(res.data);
     });
   };
   const handleFileStry = (event) => {
-    console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
@@ -75,10 +76,7 @@ function DisplayComponent() {
         setStoriesImage(reader.result);
       }
     };
-    console.log(event.target.files[0]);
-    // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
-    // }
     setShowstoriesImage(true);
   };
 
@@ -91,7 +89,13 @@ function DisplayComponent() {
     setFilesStry({});
     setShowstoriesImage(false);
   };
-
+  const handleStoryContent = (event) => {
+    setStoryContent(event.target.value);
+  };
+  const handleEditStoryContent = (StoryCaption) => {
+    setStoryContent(StoryCaption);
+    
+  };
   const resetTimeout = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -105,7 +109,7 @@ function DisplayComponent() {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.date),
           dateB = new Date(b.date);
-        return dateB - dateA;
+        return dateA - dateB;
       });
       const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map(
         (id) => {
@@ -198,9 +202,11 @@ function DisplayComponent() {
                               }
                               alt=""
                             />
-                            <span>{background.user.firstName}</span>
-
+                            <span >{background.user.firstName}
+                            
+                            <div style={{ marginLeft: "380px"}}>
                             <DropdownButton
+                            // style={{marginLeft: "400px" }}
                               className={`bi bi-three-dots-vertical`}
                               onClick={() =>
                                 window.clearTimeout(timeoutRef.current)
@@ -255,9 +261,9 @@ function DisplayComponent() {
                                                 padding: "5px 20px",
                                               }}
                                               type="submit"
-                                              onClick={uploadStories}
+                                              onClick={updateStories}
                                             >
-                                              Upload
+                                              Update
                                             </button>
                                           </span>
                                         </div>
@@ -310,6 +316,18 @@ function DisplayComponent() {
                                               </label>
                                             </div>
                                           )}
+                                          <textarea
+                                              className="textpopup"
+                                              rows={2}
+                                              placeholder={
+                                              "Add text to your Story"
+                                              }
+                                              name="story_content"
+                                              value={storyContent}
+                                              onChange={handleEditStoryContent(
+                                                      background.caption
+                                                    )}
+                                            />
                                         </span>
                                         <div className="storyErr">
                                           {uploadErrorStory
@@ -331,8 +349,17 @@ function DisplayComponent() {
                                 <span>Delete</span>
                               </Dropdown.Item>
                             </DropdownButton>
+                              </div>
+                            </span>
                             
+                            
+                            
+                            <div   style={{marginTop: "500px"}}>
+                          <span
+                              >{background.caption}</span>
                           </div>
+                          </div>
+                          
                           <img
                           onClick={() => window.clearTimeout(timeoutRef.current)}
                             className="stryDsplyImg"

@@ -59,6 +59,7 @@ function NewsfeedComponent() {
 
   const [storiesForUserFriends, setStoriesForUserFriends] = useState([]);
   const [FriendsStories, setFriendsStories] = useState([]);
+  const [storyContent, setStoryContent] = useState("");
 
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
@@ -139,19 +140,17 @@ function NewsfeedComponent() {
   const uploadStories = (event) => {
     event.preventDefault();
     setUploadErrorStory("");
-    console.log("uploading stories working");
     if (
+      storyContent === "" &&
       Object.keys(filesStry).length === 0 &&
       filesStry.constructor === Object
     ) {
-      console.log("cant be null");
       setUploadErrorStory("Please Add Image for Stories");
-      console.log(uploadErrorStory);
       return;
     }
 
     const formData = new FormData();
-    console.log(" this is the files" + formData);
+    formData.append("caption", storyContent);
     formData.append(`stryfiles`, filesStry);
     StoriesService.createStories(user.id, formData).then((res) => {
       console.log("jsonnn   ", JSON.stringify(res));
@@ -189,7 +188,7 @@ function NewsfeedComponent() {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.date),
           dateB = new Date(b.date);
-        return dateB - dateA;
+        return dateA - dateB;
       });
       const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map(
         (id) => {
@@ -454,7 +453,9 @@ function NewsfeedComponent() {
       setRefresh(res.data);
     });
   };
-
+  const handleStoryContent = (event) => {
+    setStoryContent(event.target.value);
+  };
   const getCommentCounter = (comments) => {
     let counter = 0;
     comments.map((comment) => {
@@ -2714,6 +2715,16 @@ function NewsfeedComponent() {
                                 </label>
                               </div>
                             )}
+                            <textarea
+                                className="textpopup"
+                                rows={2}
+                                placeholder={
+                                 "Add text to your Story"
+                                }
+                                name="story_content"
+                                value={storyContent}
+                                onChange={handleStoryContent}
+                              />
                           </span>
                           <div className="storyErr">
                             {uploadErrorStory ? `${uploadErrorStory}` : null}
@@ -2831,14 +2842,14 @@ function NewsfeedComponent() {
                 </Popup>
               ))}
             </ul>
-            <div class="paddles">
+            {/* <div class="paddles">
               <button class="left-paddlestry paddle">
                 <i class="las la-chevron-circle-left"></i>
               </button>
               <button class="right-paddlestry paddle">
                 <i class="las la-chevron-circle-right"></i>
               </button>
-            </div>
+            </div> */}
           </div>
 
           <div className="central-meta newsfeed">

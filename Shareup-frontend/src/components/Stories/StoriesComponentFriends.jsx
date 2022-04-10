@@ -18,8 +18,6 @@ import fileStorage from "../../config/fileStorage";
 function StoriesComponentFriends({ story, setRefresh }) {
   let history = useHistory();
   const { user } = useContext(UserContext);
-  // const []
-  // const inputRef = createRef();
   const [index, setIndex] = useState(0);
   const [storiesForUserFriends, setStoriesForUserFriends] = useState([]);
   const [FriendsStories, setFriendsStories] = useState([]);
@@ -32,14 +30,6 @@ function StoriesComponentFriends({ story, setRefresh }) {
 
   const getStoriesForFriendsUser = async () => {
     await StoriesService.getStoriesForUserFriendsNew(user?.id).then((res) => {
-      // const sorting = res.data.sort(function (a, b) {
-      //   let dateA = new Date(a.date),
-      //     dateB = new Date(b.date);
-      //   return dateB - dateA;
-      // });
-      // const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
-      //   return res.data.find((a) => a.id === id);
-      // });
       setStoriesForUserFriends(res.data);
     });
   };
@@ -96,7 +86,7 @@ const checkPop=()=>{
 
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            <span className='mb-4 text-light p-2' style={{fontSize:'0.7rem'}}>{story.user.firstName} {story.user.lastName}</span>
+            <span className='mb-4 text-light p-2' style={{fontSize:'0.8rem'}}>{story.user.firstName} {story.user.lastName}</span>
 
           </div>
         </div>
