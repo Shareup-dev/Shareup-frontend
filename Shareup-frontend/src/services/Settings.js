@@ -1,6 +1,6 @@
 const settings = {
   dev: {
-    apiUrl: "http://192.168.100.244:8080",
+    apiUrl: "http://192.168.100.22:8080",
 
   },
   staging: {
@@ -13,7 +13,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.staging;
+  return settings.dev;
 };
 
 export default getCurrentSettings();
