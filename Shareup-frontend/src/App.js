@@ -81,10 +81,8 @@ function App() {
     if (jwtUser) {  
       setLoading(true);
       UserService.getUserByEmail(jwtUser.username).then(res => {
-        // console.log
         setUser(res.data);
      }).finally(_=> setLoading(false));
-    //  console.log(JSON.stringify(user) +  ' ah ahah')
     }
     
   }

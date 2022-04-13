@@ -87,7 +87,7 @@ function OtherProfileComponent() {
           })
           let mypost = []
           uniquePost.map(post => {
-            if(post.user.email === user_email) {
+            if(post.userdata.email === user_email) {
               mypost.push(post)
             }
           })
@@ -178,7 +178,6 @@ function OtherProfileComponent() {
 			setAllUser(res.data)
 			setSearchedUser(res.data)
 		})
-		console.log(user.email + " This is the users")
 	}
 
 	const getFriendsList = async () => {

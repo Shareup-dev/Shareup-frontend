@@ -498,8 +498,6 @@ function SwapFeedComponent() {
       }
 
       setSwapImage(tempImage);
-      console.log('url ' + swapImage[1]);
-
       setShowSwapImage(true);
     } else {
       alert('5 files are allowed');
@@ -649,12 +647,8 @@ function SwapFeedComponent() {
     for (let i = 0; i < swapfiles.length; i++) {
       formData.append(`files`, swapfiles[i]);
     }
-    console.log(formData.getAll(`files`));
-    console.log(' this is the files' + files[0]);
-    console.log(' this is the swapfiles' + swapfiles);
-    for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
-    }
+
+
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
@@ -1359,7 +1353,7 @@ function SwapFeedComponent() {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div style={{textAlign:"center"}}>No Swaps</div>
         }
 
       </div>
@@ -1457,7 +1451,6 @@ function SwapFeedComponent() {
       setAllUser(res.data)
       setSearchedUser(res.data)
     })
-    console.log(user.email + " This is the users")
   }
   const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
@@ -1486,13 +1479,13 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div class="center" style={{padding: "20px"}}>No Swaps</div>
         }
+
 
       </div>
     )
   }
-
 
   const MySwapsComponentFunction = () => {
     return (
@@ -1513,7 +1506,7 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div class="center" style={{padding: "20px"}}>No Swaps</div>
         }
 
       </div>
@@ -1527,11 +1520,6 @@ const AllswapscomponentFunction = () => {
 			return MySwapsComponentFunction()
 		}
 		}
-
-
-
-
-
 
   if (isLoading) {
     return <div>Loading... Please Wait</div>

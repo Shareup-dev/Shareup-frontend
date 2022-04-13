@@ -612,7 +612,7 @@ export default function PostComponent({ post, setRefresh }) {
                   alignItems: "center",
                   paddingBottom: "8px",
                 }}
-              >
+               >
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
@@ -735,7 +735,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </ul>
                   </div>
                 </div>
-              </div>
+                </div>
 
               {post.content && (
                 <p
@@ -813,14 +813,15 @@ export default function PostComponent({ post, setRefresh }) {
                     <React.Fragment>
                       <img
                         style={{ width: "100%", objectFit: "cover" }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${fileStorage.baseUrl}${postImage.media}`
+                        }
+                        alt={`${fileStorage.baseUrl}${postImage.media}`}
                         className="lightbox-popup"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                          mainSrc={fileStorage.baseUrl + postImage.media}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
@@ -837,17 +838,17 @@ export default function PostComponent({ post, setRefresh }) {
                             ? { width: "100%", objectFit: "cover" }
                             : { borderRadius: "10px 10px 0 0" }
                         }
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${fileStorage.baseUrl}${postImage.media}`}
+                        alt={`${fileStorage.baseUrl}${postImage.media}`}
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                          mainSrc={fileStorage.baseUrl + postImage.media}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
-                      {post.userdata.id !== user.id && (
+                      {/* {post.userdata.id !== user.id && (
                         <div className="swappost-cont">
                           <div className="">
                             <div
@@ -865,7 +866,6 @@ export default function PostComponent({ post, setRefresh }) {
                                 ? post.content
                                 : "Get swapped with your favourite things"}
                             </div>
-                            {/* <div style={{marginBottom:'2px', fontSize:'13px'}}>Get swapped with your favourite things</div> */}
                           </div>
                           <Popup
                             trigger={<button className="button">SWAP</button>}
@@ -949,16 +949,8 @@ export default function PostComponent({ post, setRefresh }) {
                                             listStyleType: "none",
                                           }}
                                         >
-                                          {/* {popAudience()} */}
                                         </li>
 
-                                        {/* <div className='dropdownnewsfeed'>
-                                        <select name='privacy' id='privacy' value={Privacy} onChange={handlePrivacy}>
-                                          <option value='Friends'>Friends</option>
-                                          <option value='Public'>Public</option>
-                                          <option value='Only Me'>Only Me</option>
-                                        </select>
-                                      </div>{' '} */}
                                       </span>
                                     </div>{" "}
                                   </div>{" "}
@@ -968,7 +960,6 @@ export default function PostComponent({ post, setRefresh }) {
                                     <textarea
                                       className="textpopup"
                                       rows={2}
-                                      // style={{fontSize:'14px'}}
                                       placeholder={
                                         "Share about swap with " +
                                         post.userdata.firstName +
@@ -994,7 +985,6 @@ export default function PostComponent({ post, setRefresh }) {
                                             />
                                           ))}
 
-                                          {/* <img id="preview" src={postImage} style={{ width: "100%",objectFit:'cover' }} /> */}
                                           <button
                                             onClick={handleRemoveImageSwap}
                                             style={{
@@ -1012,7 +1002,6 @@ export default function PostComponent({ post, setRefresh }) {
                                       </>
                                     ) : null}
                                   </span>
-                                  {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
                                 </div>
 
                                 {imageshowSwap()}
@@ -1038,20 +1027,9 @@ export default function PostComponent({ post, setRefresh }) {
                             )}
                           </Popup>
 
-                          {/* <div className='itemS3'> */}
-                          {/* <>
-                          <div className='swapImage'>
-                            <a href={post.swapImagePath} data-lightbox={`image-user-${post.userdata.id}`}>
-                              <img
-                                style={{ width: '100%', objectFit: 'cover' }}
-                                src={post.swapImagePath}
-                              />{' '}
-                            </a>
-                          </div>{' '}
-                        </> */}
-                          {/* </div> */}
+
                         </div>
-                      )}
+                      )} */}
                     </div>
                   ))
                 ) : post.allPostsType === "reel" && post.media ? (

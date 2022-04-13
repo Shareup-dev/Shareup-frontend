@@ -203,7 +203,8 @@ function DisplayComponent() {
                               alt=""
                             />
                             <span >{background.user.firstName}
-                            
+                             
+                              {/* Edit and delete stories 
                             <div style={{ marginLeft: "380px"}}>
                             <DropdownButton
                             // style={{marginLeft: "400px" }}
@@ -349,7 +350,7 @@ function DisplayComponent() {
                                 <span>Delete</span>
                               </Dropdown.Item>
                             </DropdownButton>
-                              </div>
+                              </div> */}
                             </span>
                             
                             

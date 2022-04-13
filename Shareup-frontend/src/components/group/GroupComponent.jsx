@@ -24,6 +24,7 @@ function GroupComponent({post}) {
 	let history = useHistory();
 
 	const { user } = useContext(UserContext)
+	console.log("this is the user data on Groups"+(user) )
 
 	// const []
 	const [refresh, setRefresh] = useState([]);
@@ -48,7 +49,7 @@ function GroupComponent({post}) {
 	}
 
 	const getMyGroups = async () => {
-		await GroupService.getGroupByCurrentUser(user.email).then(res => {
+		await GroupService.getGroupByCurrentUser(AuthService.getCurrentUser().username).then(res => {
 			const uniqueGroups = Array.from(new Set(res.data.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
