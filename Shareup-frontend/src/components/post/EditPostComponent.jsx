@@ -132,7 +132,7 @@ function EditPostComponent({ post, set }) {
 
     const formData = new FormData();
     formData.append('content', editContent);
-    formData.append(`files`, swapfiles);
+    // formData.append(`files`, swapfiles);
     // const content = { content: editContent };
     console.log("uploading "+ post.allPostsType)
     if (post.allPostsType === "swap"){

@@ -61,7 +61,6 @@ export default function PostComponent({ post, setRefresh }) {
 
   const something = (event) => {
     if (event.key === "Enter") {
-      console.log("enter");
     }
   };
   const handleEditPost = (id) => {
@@ -88,7 +87,6 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleSwapContent = (event) => {
-    console.log(event.target.value);
     setShareContent(event.target.value);
   };
   const checkIfLiked = (post) => {
@@ -104,7 +102,6 @@ export default function PostComponent({ post, setRefresh }) {
   };
   const handleFileSwap = (event) => {
     setSwapfiles(event.target.files);
-    console.log(swapfiles);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -114,7 +111,6 @@ export default function PostComponent({ post, setRefresh }) {
       }
 
       setSwapImage(tempImage);
-      console.log("url " + swapImage[1]);
 
       setShowSwapImage(true);
     } else {
@@ -126,10 +122,8 @@ export default function PostComponent({ post, setRefresh }) {
     if (post.savedByUsers) {
       const result = post.savedByUsers.filter((userz) => userz.id == user.id);
       if (result.length > 0) {
-        console.log(" FOUND");
         return true;
       }
-      console.log(" Not found");
       return false;
     }
   };
@@ -137,11 +131,9 @@ export default function PostComponent({ post, setRefresh }) {
   const handleLikePost = async (post_id) => {
     
      UserService.likeSwap(user.id, post_id).then((res) => {
-      console.log("Swap Like")
       setRefresh(res.data);
     }).catch((e) => {
        UserService.likePost(user.id, post_id).then((res) => {
-        console.log("Poste Like")
         setRefresh(res.data);
       });
     });
@@ -163,14 +155,12 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleDeletePost = (post) => {
     PostService.deletePost(post.id).then((res) => {
-      console.log("Delete Post");
       setRefresh(res.data);
     });
   };
 
   const handleDeleteSwap = (post) => {
     SwapService.deleteSwap(post.id).then((res) => {
-      console.log("Delete Swap");
       setRefresh(res.data);
     });
   };
@@ -252,7 +242,6 @@ export default function PostComponent({ post, setRefresh }) {
       let temps = [];
       for (let i = 0; i < str.length; i++)
         temps = [...temps, `/user-post/${post.id}/${str[i]}`];
-      console.log("img string" + imgString);
     }
   };
   const toggleShowMoreOptions = (e) => {
@@ -287,7 +276,6 @@ export default function PostComponent({ post, setRefresh }) {
   const openLightbox = (index) => {
     setIsopen(true);
     setPhotoindex(index);
-    console.log(index, "indexxxxxxxxx");
   };
 
   const [userF, setUserF] = useState(null);
@@ -295,20 +283,15 @@ export default function PostComponent({ post, setRefresh }) {
 
   const uploadShare = async (event) => {
     await event.preventDefault();
-    console.log("uploading share working");
 
     const formData = new FormData();
 
     await formData.append("content", shareContent);
 
-    console.log(" this is the sharecontentssssssss" + shareContent);
 
     if (userF === null) {
       await ShareService.createShare(user.id, post.id, formData, null).then(
         (res) => {
-          console.log(" jsonnnn" + JSON.stringify(res));
-          console.log(" res.data" + res.data);
-          console.log(" user.id " + user.id);
           // setCloseModal(false)
           // window.location.reload();
 
@@ -319,7 +302,6 @@ export default function PostComponent({ post, setRefresh }) {
       );
     } else
       await ShareService.createShare(user.id, post.id).then((res) => {
-        console.log(JSON.stringify(res));
         setShareContent("");
         setRefresh(res.data);
       });
@@ -445,7 +427,6 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   useEffect(() => {
-    console.log("postsssss ", post.userTag);
   }, []);
 
   return (
@@ -494,7 +475,6 @@ export default function PostComponent({ post, setRefresh }) {
                       ) : post.media.length > 0 ? (
                         <div className="postImage swap-image">
                           {post.media.map((postImage) => {
-                            console.log("sadsad", postImage, "swp");
                             return (
                               <React.Fragment>
                                 {/* <a
@@ -1032,46 +1012,6 @@ export default function PostComponent({ post, setRefresh }) {
                       )} */}
                     </div>
                   ))
-                ) : post.allPostsType === "reel" && post.media ? (
-                  post.media.map((postVideo) => (
-                    <React.Fragment>
-                      <video
-                        preload="none"
-                        loop
-                        controls
-                        autoPlay
-                        muted
-                        style={{
-                          width: "100%",
-                          maxHeight: "460px",
-                          objectFit: "fill",
-                          borderRadius: "10px",
-                        }}
-                        src={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
-                        type="video/mp4"
-                        alt={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
-                        onClick={() => setIsopen()}
-                      />
-
-                      <a href="/reelFeed">
-                        <button
-                          type="button"
-                          class="btn btn-default btn-sm reelbtn"
-                          onClick={() => setIsopen()}
-                        >
-                          <span class="glyphicon glyphicon-expand"></span> Watch
-                          more reels
-                        </button>
-                      </a>
-
-                      {isOpen && (
-                        <Lightbox
-                          mainSrc={fileStorage.baseUrl + postVideo.mediaPath}
-                          onCloseRequest={() => setIsopen(false)}
-                        />
-                      )}
-                    </React.Fragment>
-                  ))
                 ) : null}
               </div>
 
@@ -1524,41 +1464,6 @@ export default function PostComponent({ post, setRefresh }) {
                           </div>
                         )}
                       </div>
-                    ))
-                  ) : post.post.allPostsType === "reel" &&
-                    post.post.media &&
-                    post.post.media.length == 1 ? (
-                    post.post.media.map((postVideo) => (
-                      <React.Fragment>
-                        <video
-                          preload="none"
-                          loop
-                          controls
-                          autoPlay
-                          muted
-                          style={{
-                            width: "100%",
-                            maxHeight: "460px",
-                            objectFit: "fill",
-                            borderRadius: "10px",
-                          }}
-                          src={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
-                          type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${postVideo.mediaPath}`}
-                          onClick={() => setIsopen()}
-                        />
-                        <a href="/reelFeed">
-                          <button
-                            type="button"
-                            class="btn btn-default btn-sm reelbtn"
-                            style={{ right: "3%", top: "143px" }}
-                            onClick={() => setIsopen()}
-                          >
-                            <span class="glyphicon glyphicon-expand"></span>{" "}
-                            Watch more reels
-                          </button>
-                        </a>
-                      </React.Fragment>
                     ))
                   ) : null}
 

@@ -24,24 +24,37 @@ authenticate();
 class ReelsServices {
     
     createReels = async (userId, formdata) => {
-
-        console.log(formdata)
-
-        const result = await authAxios.post(`/reels/web/${userId}`,formdata)
+        const result = await authAxios.post(`/new_reel/${userId}`,formdata)
         return result
     }
 
+    
+    deleteReel = async (reelid) => {
+        const result = await authAxios.delete(`reels/${reelid}`)
+        return result
+    }
 
-
-    getReelForUser = async (email) => {
+    getReelForUser = async (userId) => {
         authenticate();
-        const result = await authAxios.get(`reel/user/${email}`)
+        const result = await authAxios.get(`reels/user/${userId}`)
+        return result;
+    }
+
+    getReelForUserFriends = async (userId) => {
+        authenticate();
+        const result = await authAxios.get(`Explore_myfriends_reels/${userId}`)
+        return result;
+    }
+
+    getExploreReels = async (userId) => {
+        authenticate();
+        const result = await authAxios.get(`Explore_reels/${userId}`)
         return result;
     }
 
     getPreviewReel = async () => {
         authenticate();
-        const result = await authAxios.get(`/last/reels`)
+        const result = await authAxios.get(`reels`)
         return result;
     }
 

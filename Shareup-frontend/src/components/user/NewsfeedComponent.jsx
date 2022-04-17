@@ -15,6 +15,11 @@ import StoriesService from "../../services/StoriesService";
 import EditPostComponent from "./EditPostComponent";
 import Modal from "react-modal";
 import Layout from "../LayoutComponent";
+import ReelVideo from "../LayoutComponent";
+import ShowReelVideo from "../LayoutComponent";
+import handleFileReel from "../LayoutComponent";
+import handleRemoveReelVideo from "../LayoutComponent";
+import uploadReels from "../LayoutComponent";
 import GuideComponent from "./GuideComponent";
 import PostComponent from "../post/PostComponent";
 
@@ -22,6 +27,8 @@ import DisplayComponent from "../Stories/DisplayComponent";
 import DisplayFriendsStoryComponent from "../Stories/DisplayFriendsStoryComponent";
 import StoriesComponent from "../Stories/StoriesComponent";
 import StoriesComponentFriends from "../Stories/StoriesComponentFriends";
+import ReelsComponentFriends from "../Reels/ReelsComponentFriends";
+
 import Popup from "reactjs-popup";
 import Carousel from "react-bootstrap/Carousel";
 import OwlCarousel from "react-owl-carousel";
@@ -34,6 +41,8 @@ import FriendsService from "../../services/FriendService";
 import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
+import ReelsServices from "../../services/ReelsServices";
+import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +68,11 @@ function NewsfeedComponent() {
 
   const [storiesForUserFriends, setStoriesForUserFriends] = useState([]);
   const [FriendsStories, setFriendsStories] = useState([]);
+  const [FriendsReels, setFriendsReels] = useState([]);
+
   const [storyContent, setStoryContent] = useState("");
+
+  const [rellsForUserFriends, setReelsForUserFriends] = useState([]);
 
   const [storiesForUser, setStoriesForUser] = useState([]);
   const [savedPost, setSavedPost] = useState([]);
@@ -153,7 +166,6 @@ function NewsfeedComponent() {
     formData.append("caption", storyContent);
     formData.append(`stryfiles`, filesStry);
     StoriesService.createStories(user.id, formData).then((res) => {
-      console.log("jsonnn   ", JSON.stringify(res));
       handleRemoveImageStry();
       setStories(res.data);
       setRefresh(res.data);
@@ -188,7 +200,7 @@ function NewsfeedComponent() {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.date),
           dateB = new Date(b.date);
-        return dateA - dateB;
+        return dateB - dateA;
       });
       const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map(
         (id) => {
@@ -196,6 +208,22 @@ function NewsfeedComponent() {
         }
       );
       setStoriesForUserFriends(uniqueStories);
+    });
+  };
+
+  const getReelForUserFriends = () => {
+    ReelsServices.getReelForUserFriends(user?.id).then((res) => {
+      const sorting = res.data.sort(function (a, b) {
+        let dateA = new Date(a.date),
+          dateB = new Date(b.date);
+        return dateB - dateA;
+      });
+      const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map(
+        (id) => {
+          return res.data.find((a) => a.id === id);
+        }
+      );
+      setReelsForUserFriends(uniqueStories);
     });
   };
 
@@ -2490,22 +2518,251 @@ function NewsfeedComponent() {
   const show = () => {
     return (
       <div className="loadMore">
-        {postsForUser.map((post) => (
+        {postsForUser.map((post, index) => (
           <div key={post.id}>
             {post.group ? (
               post.group.members.some(
                 (member) =>
                   member.email === AuthService.getCurrentUser().username
               ) ? (
-                <PostComponent
-                  post={post}
-                  setRefresh={setRefresh}
-                  user={user}
-                  userF={userF}
-                />
+                <>
+                  <PostComponent
+                    post={post}
+                    setRefresh={setRefresh}
+                    user={user}
+                    userF={userF}
+                  />
+                  {index == 4 ? (
+                    <div className="central-meta newsfeed">
+                      <div class="fw-bold">REELS</div>
+                      <div className="new-postbox">
+                        <div class="slide-wrapperstry">
+                          <ul class="slidestry">
+                            {rellsForUserFriends
+                              .slice(-5)
+                              .map((reel, index) => (
+                                <Popup
+                                  style={{ padding: "0px" }}
+                                  trigger={
+                                    <li
+                                      className="slideitemstry"
+                                      key={reel.id}
+                                      id={index}
+                                    >
+                                      <ReelsComponentFriends
+                                        reel={reel}
+                                        setRefresh={setRefresh}
+                                      />
+                                    </li>
+                                  }
+                                  modal
+                                >
+                                  {(close) => (
+                                    <Form className="stryp" >
+                                <div>
+                                  <div className="row">
+                                    <div style={{ width: "5%" }}>
+                                      <a href="#!" onClick={close}>
+                                        <i
+                                          style={{
+                                            color: "#fff",
+                                            padding: "10px",
+                                            fontSize: "30px",
+                                          }}
+                                          class="las la-times"
+                                        ></i>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
+                                  reel={ reel}
+                                  setRefresh={setRefresh}
+                                  index={index}
+                                />
+                              </Form> 
+                                  )}
+                                </Popup>
+                              ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                </>
               ) : null
             ) : (
-              <PostComponent post={post} setRefresh={setRefresh} />
+              <>
+                <PostComponent post={post} setRefresh={setRefresh} />
+                {index == 4 ? (
+                  <div className="central-meta newsfeed">
+                    <div class="fw-bold">REELS</div>
+                    <div className="new-postbox">
+                      <div class="slide-wrapperstry">
+                        <ul class="slidestry">
+                          {rellsForUserFriends.slice(0, 5).map((reel, index) => (
+                            <Popup
+                              style={{ padding: "0px" }}
+                              trigger={
+                                <li
+                                  className="slideitemreel"
+                                  key={reel.id}
+                                  id={index}
+                                >
+                                  <ReelsComponentFriends
+                                    reel={reel}
+                                    setRefresh={setRefresh}
+                                  />
+                                </li>
+                              }
+                              modal
+                             >
+                              {(close) => ( 
+                                <Form  >
+                                    <div style={{ width: "5%" }}>
+                                      <a href="#!" onClick={close}>
+                                        <i
+                                          style={{
+                                            color: "#fff",
+                                            padding: "10px",
+                                            fontSize: "30px",
+                                          }}
+                                          class="las la-times"
+                                        ></i>
+                                      </a>
+                                  </div>
+                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
+                                  reel={ reel}
+                                  setRefresh={setRefresh}
+                                  index={index}
+                                />
+                              </Form> 
+                              )}
+                            </Popup>
+                          ))}
+                        </ul>
+                      </div>
+                      <Popup
+                                  trigger={
+                                    <div className="add-reel"> Add Reel</div>
+                                  }
+                                  modal
+                                >
+                                  {(close) => (
+                                    <Form className="popwidth">
+                                      <div className="headpop">
+                                        <div style={{ padding: "10px" }}>
+                                          <span>
+                                            <a
+                                              href="#!"
+                                              style={{
+                                                padding: "10px 150px 10px 0",
+                                              }}
+                                              onClick={close}
+                                            >
+                                              <i class="las la-times"></i>
+                                            </a>
+                                          </span>
+                                          <span
+                                            style={{
+                                              color: "#000000",
+                                              fontSize: "14px",
+                                              fontWeight: "bold",
+                                            }}
+                                          >
+                                            Lets Add Reel Video
+                                          </span>
+
+                                          {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                          <span style={{ float: "right" }}>
+                                            {" "}
+                                            <button
+                                              style={{
+                                                float: "right",
+                                                borderRadius: "20px",
+                                                padding: "5px 20px",
+                                              }}
+                                              type="submit"
+                                              onClick={uploadReels}
+                                            >
+                                              Upload
+                                            </button>
+                                          </span>
+                                          {/* :null}  */}
+                                        </div>
+                                      </div>
+
+                                      <div
+                                        style={{ margin: "0 11px 10px 11px" }}
+                                      >
+                                        <span className="textPop">
+                                          {ShowReelVideo ? (
+                                            <>
+                                              <video
+                                                id="video"
+                                                width="100%"
+                                                height={"350px"}
+                                                controls="controls"
+                                              >
+                                                <source src={ReelVideo} />
+                                              </video>
+
+                                              <button
+                                                onClick={handleRemoveReelVideo}
+                                                style={{
+                                                  right: "20px",
+                                                  position: "absolute",
+                                                  borderRadius: "100%",
+                                                  background: "#b7b7b738",
+                                                  padding: "10px 10px",
+                                                }}
+                                              >
+                                                <i class="las la-times"></i>
+                                              </button>
+                                            </>
+                                          ) : (
+                                            <div
+                                              style={{ textAlign: "center" }}
+                                            >
+                                              <label className="fileContainer">
+                                                <div
+                                                  className="reelvideo"
+                                                  type="submit"
+                                                >
+                                                  <input
+                                                    type="file"
+                                                    name="reel_video"
+                                                    accept="video/*"
+                                                    onChange={handleFileReel}
+                                                  ></input>
+                                                  Add Reel Video
+                                                </div>
+                                              </label>
+                                            </div>
+                                          )}
+                                        </span>
+                                        {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                                      </div>
+                                      {/* </> 
+                                                   
+                                 )}  */}
+                                    </Form>
+                                  )}
+                                </Popup>
+
+                                <div className="add-reel">
+                                  <a
+                                    href="/reelFeed"
+                                    style={{ color: "white" }}
+                                  >
+                                    {" "}
+                                    Explore Reels{" "}
+                                  </a>
+                                </div>
+                    </div>
+                  </div>
+                ) : null}
+              </>
             )}
           </div>
         ))}
@@ -2596,12 +2853,14 @@ function NewsfeedComponent() {
       setIsLoading(false);
     });
     getPostForUser();
+    getReelForUserFriends();
     getSavedPost();
     testScript();
   }, [editPostId, refresh]);
 
   useEffect(() => {
     getPostForUser();
+    getReelForUserFriends();
     getSavedPost();
     testScript();
   }, [user]);
@@ -2609,9 +2868,13 @@ function NewsfeedComponent() {
   useEffect(async () => {
     await getStoriesForFriendsUser();
   }, [FriendsStories]);
+  useEffect(async () => {
+     getReelForUserFriends();
+  }, [FriendsReels]);
 
   useEffect(() => {
     getStoriesForUser();
+    getReelForUserFriends();
     testScript();
   }, [stories]);
   if (isLoading) {
@@ -2716,15 +2979,13 @@ function NewsfeedComponent() {
                               </div>
                             )}
                             <textarea
-                                className="textpopup"
-                                rows={2}
-                                placeholder={
-                                 "Add text to your Story"
-                                }
-                                name="story_content"
-                                value={storyContent}
-                                onChange={handleStoryContent}
-                              />
+                              className="textpopup"
+                              rows={2}
+                              placeholder={"Add text to your Story"}
+                              name="story_content"
+                              value={storyContent}
+                              onChange={handleStoryContent}
+                            />
                           </span>
                           <div className="storyErr">
                             {uploadErrorStory ? `${uploadErrorStory}` : null}
@@ -2770,7 +3031,7 @@ function NewsfeedComponent() {
                         modal
                       >
                         {(close) => (
-                          <Form className="stryp">
+                          <Form className="stryp" style={{marginRight: "100px"}}>
                             <div>
                               <div className="row">
                                 <div style={{ width: "5%" }}>
@@ -2814,7 +3075,7 @@ function NewsfeedComponent() {
                   modal
                 >
                   {(close) => (
-                    <Form className="stryp">
+                    <Form className="stryp" style={{marginRight: "100px"}}>
                       <div>
                         <div className="row">
                           <div style={{ width: "5%" }}>
@@ -2831,10 +3092,10 @@ function NewsfeedComponent() {
                           </div>
                         </div>
                       </div>
-                      <DisplayFriendsStoryComponent key={story.id} id={index} 
-                        story={
-                          storiesForUserFriends[index].stories_List
-                        }
+                      <DisplayFriendsStoryComponent
+                        key={story.id}
+                        id={index}
+                        story={storiesForUserFriends[index].stories_List}
                         setRefresh={setRefresh}
                       />
                     </Form>
@@ -2894,6 +3155,7 @@ function NewsfeedComponent() {
               </div>
             </div>
           </div>
+
           {/* <div>
                      {
                     postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))

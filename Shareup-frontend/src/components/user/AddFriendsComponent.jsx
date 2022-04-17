@@ -457,7 +457,6 @@ function AddFriendsComponent() {
 			setSearchedFollowers(res.data)
 
 		})
-		console.log(user.email + " This is the users")
 	}
 
 	const getFriendsList = async () => {

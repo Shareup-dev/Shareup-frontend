@@ -15,8 +15,6 @@ import StoriesService from '../../services/StoriesService';
 import settings from '../../services/Settings';
 import EditPostComponent from './EditPostComponent'
 import Modal from 'react-modal';
-
-
 import Layout from '../LayoutComponent';
 import GuideComponent from './GuideComponent';
 import SwapPostComponent from '../post/SwapPostComponent';
@@ -25,8 +23,12 @@ import Popup from 'reactjs-popup';
 import FriendsService from '../../services/FriendService';
 import ReelPostComponent from '../post/ReelPostComponent';
 import fileStorage from '../../config/fileStorage';
-
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
+import ReactPlayer from 'react-player';
+import { Player } from 'video-react';
+import ReelsComponentFriends from '../Reels/ReelsComponentFriends';
+import DisplayFriendsReelsComponent from '../Reels/DisplayFriendsReelsComponent';
+
 
 function ReelFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +85,7 @@ function ReelFeedComponent() {
   const [swapsForUser, setSwapsForUser] = useState([]);
 
   const [swapsForUserFriends, setSwapsForUserFriends] = useState([]);
+  const [reelContent, setReelContent] = useState("");
 
 
   const [uploadErrorReel, setUploadErrorReel] = useState('');
@@ -116,87 +119,58 @@ function ReelFeedComponent() {
 
 
   useEffect(() => {
-    getUser()
+    getUser().then(() => {
+      setIsLoading(false)
+    })
     getPost().then(() => {
       setIsLoading(false)
     })
-    getReelsForUser()
-    getAllReels()
+    getReelsForUser().then(() => {
+      setIsLoading(false)
+    })
+    getAllReels().then(() => {
+      setIsLoading(false)
+    })
     getSavedPost()
     testScript()
   }, [editPostId, refresh])
 
   useEffect(() => {
-    getReelsForUser()
-    getAllReels()
-    getSavedPost()
+    getReelsForUser().then(() => {
+      setIsLoading(false)
+    })
+    getAllReels().then(() => {
+      setIsLoading(false)
+    })
+    getSavedPost().then(() => {
+      setIsLoading(false)
+    })
     testScript()
   }, [user])
   
   useEffect(() => {
-    getStoriesForUser()
     testScript()
   }, [stories])
 
-  const uploadStories = (event) => {
-    event.preventDefault();
-    setUploadError("")
-    console.log("uploading stories working")
-
-
-    const formData = new FormData();
-    console.log(" this is the files" + filesStry)
-    formData.append(`stryfiles`, filesStry)
-    StoriesService.createStories(user.id, formData).then(res => {
-      console.log(JSON.stringify(res))
-      handleRemoveImageStry()
-      setStories(res.data)
-      setRefresh(res.data)
-
-    })
-  }
-
-
-  // const checkIfUserAlreadyPostStory = (story) => {
-  //   const found = story.some(el => el.id === user.id);
-  //   return found
-  // }
-
-  const getStoriesForUser = async () => {
-    await StoriesService.getStoriesForUser(AuthService.getCurrentUser().username).then(res => {
-      const sorting = res.data.sort(function (a, b) {
-        let dateA = new Date(a.date), dateB = new Date(b.date);
-        return dateB - dateA;
-      });
-      const uniqueStories = Array.from(new Set(sorting.map(a => a.id)))
-        .map(id => {
-          return res.data.find(a => a.id === id)
-        })
-      setStoriesForUser(uniqueStories)
-    })
-  }
-  
-  
   const getReelsForUser = async () => {
 
-    await ReelsServices.getReelForUser(AuthService.getCurrentUser().username).then(res => {
+    await ReelsServices.getReelForUser(user?.id).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
       });
+      
       const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
         })
       setSearchedReelforUser(uniquePost)
     })
-
-    console.log(user.id + " This is the users Iddddddddd" )
   }
 
   const getAllReels = async () => {
 
-    await ReelsServices.getAllReels(AuthService.getCurrentUser().username).then(res => {
+    await ReelsServices.getReelForUserFriends(user?.id).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
@@ -204,13 +178,15 @@ function ReelFeedComponent() {
       const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
         .map(id => {
           return res.data.find(a => a.id === id)
-        })
+        });
         
       setSearchedReel(uniquePost)
 
-    })
+    });
   }
-
+  const handleReelContent = (event) => {
+    setReelContent(event.target.value);
+  };
 
   const uploadReels = (event) => {
     event.preventDefault();
@@ -218,9 +194,7 @@ function ReelFeedComponent() {
     console.log('uploading reels working');
 
     if (Object.keys(filesReel).length === 0 && filesReel.constructor === Object) {
-      console.log('cant be null');
       setUploadErrorReel('Please Add reel video');
-      console.log(uploadErrorReel);
       return;
     }
 
@@ -232,24 +206,16 @@ function ReelFeedComponent() {
     // draw the video at that frame
     canvas.getContext('2d').drawImage(video, 10, 10);
     // convert it to a usable data URL
-    const dataURL = canvas.toDataURL();
-    var img = document.createElement("img");
-    img.src = fileStorage.baseUrl + "/user-stories/1643529794109/Picture.jpg";
+    // const dataURL = canvas.toDataURL();
+    // var img = document.createElement("img");
 
 
     const formData = new FormData();
-    var content = "test";
-
-    console.log("dataaaaaaaaaa", formData);
-    // console.log("thumbnails", thumbnails);
-    // console.log("content", content);
-
-    formData.append(`content`, content);
+    var content = "";
+    formData.append('content', reelContent);
     formData.append(`reelfiles`, filesReel);
-
-
+    formData.append(`thumbnail`, filesReel);
     ReelsServices.createReels(user.id, formData).then((res) => {
-      console.log("jsonnn", JSON.stringify(res));
       handleRemoveReelVideo();
       setReels(res.data);
       setRefresh(res.data);
@@ -740,12 +706,10 @@ function ReelFeedComponent() {
   }
   const getUser = async () => {
     if (user === null) {
-      console.log("RUNNING")
       await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
         setUserR(res.data);
       })
     } else {
-      console.log("WALKING" + JSON.stringify(user))
       setUserR(user)
     }
   }
@@ -1123,7 +1087,6 @@ function ReelFeedComponent() {
               <span style={{ color: '#000000', fontSize: '14px', fontWeight: 'bold' }}>
                 Lets Add Reel Video
               </span>
-
               {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
               <span style={{ float: 'right' }}>
                 {' '}
@@ -1177,6 +1140,14 @@ function ReelFeedComponent() {
                 </div>
               )}
             </span>
+            <textarea
+                              className="textpopup"
+                              rows={2}
+                              placeholder={"Add Caption to your Reel"}
+                              name="reel_content"
+                              value={reelContent}
+                              onChange={handleReelContent}
+                            />
             {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
           </div>
           {/* </> 
@@ -1304,22 +1275,55 @@ const AllReelscomponentFunction = () => {
     return (
       <div className="loadMore">
          <div class="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <input className="friend-search" type="text" placeholder="Search Swap" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
+              <input className="friend-search" type="text" placeholder="Search Reels" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
             </div>
         {searchedReel && searchedReel.length > 0
-          ? searchedReel.map(
-            post =>
-              <div style={{paddingBottom:'10px'}} key={post.id}>
-                {
-                  post.group ?
-                    post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
-                      testFanc(post) : null
-                    :
-                    testFanc(post)
-                }
-              </div>
+          ? (
+                        <ul class="slidesreel">
+                          {searchedReel.map((reel, index) => (
+                            <Popup
+                              style={{ padding: "0px" }}
+                              trigger={
+                                <li
+                                  className="slideitemreelcom"
+                                  key={reel.id}
+                                  id={index}
+                                >
+                                  <ReelsComponentFriends
+                                    reel={reel}
+                                    setRefresh={setRefresh}
+                                  />
+                                </li>
+                              }
+                              modal
+                             >
+                              {(close) => ( 
+                                <Form  >
+                                    <div style={{ width: "5%" }}>
+                                      <a href="#!" onClick={close}>
+                                        <i
+                                          style={{
+                                            color: "#fff",
+                                            padding: "10px",
+                                            fontSize: "30px",
+                                          }}
+                                          class="las la-times"
+                                        ></i>
+                                      </a>
+                                  </div>
+                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
+                                  reel={ reel}
+                                  setRefresh={setRefresh}
+                                  index={index}
+                                />
+                              </Form> 
+                              )}
+                            </Popup>
+                          ))}
+                        </ul>
+
           )
-          : <div>No Reels to show</div>
+          : <div class="center" style={{padding: "20px"}}>No Reels to show</div>
         }
 
       </div>
@@ -1334,19 +1338,52 @@ const AllReelscomponentFunction = () => {
               <input className="friend-search" type="text" placeholder="Search Swap" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
             </div>
         {searchedReelforUser && searchedReelforUser.length > 0
-          ? searchedReelforUser.map(
-            post =>
-              <div style={{paddingBottom:'10px'}} key={post.id}>
-                {
-                  post.group ?
-                    post.group.members.some(member => member.email === AuthService.getCurrentUser().username) ?
-                      testFanc(post) : null
-                    :
-                    testFanc(post)
-                }
-              </div>
+          ? (
+            <ul class="slidesreel">
+                          {searchedReelforUser.map((reel, index) => (
+                            <Popup
+                              style={{ padding: "0px" }}
+                              trigger={
+                                <li
+                                  className="slideitemreelcom"
+                                  key={reel.id}
+                                  id={index}
+                                >
+                                  <ReelsComponentFriends
+                                    reel={reel}
+                                    setRefresh={setRefresh}
+                                  />
+                                </li>
+                              }
+                              modal
+                             >
+                              {(close) => ( 
+                                <Form  >
+                                    <div style={{ width: "5%" }}>
+                                      <a href="#!" onClick={close}>
+                                        <i
+                                          style={{
+                                            color: "#fff",
+                                            padding: "10px",
+                                            fontSize: "30px",
+                                          }}
+                                          class="las la-times"
+                                        ></i>
+                                      </a>
+                                  </div>
+                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
+                                  reel={ reel}
+                                  setRefresh={setRefresh}
+                                  index={index}
+                                />
+                              </Form> 
+                              )}
+                            </Popup>
+                          ))}
+                        </ul>
+
           )
-          : <div>No Reels to show</div>
+          : <div class="center" style={{padding: "20px"}}>No Reels to show</div>
         }
 
       </div>

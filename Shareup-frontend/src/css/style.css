@@ -14588,7 +14588,7 @@ a.Hangin-btn:hover {
   text-align: center;
   width: 100%;
   background: #c4c4c4;
-  height: 190px;
+  height: 100%;
   position: relative;
 }
 
@@ -14658,6 +14658,7 @@ a.Hangin-btn:hover {
   border-radius: 100%;
   border: 3px solid blue;
 }
+
 .strydisplay-Profimg span {
   font-weight: bold;
   color: rgb(212, 212, 212);
@@ -14666,6 +14667,36 @@ a.Hangin-btn:hover {
 .strydisplay-Profimg img {
   margin-top: auto;
   margin-bottom: auto;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 100%;
+  vertical-align: middle;
+}
+.reeldisplay-Profimg {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 1.6rem;
+  margin: 5px;
+  border-radius: 100%;
+  border: 3px transparent;
+}
+.reeldisplay-Profimg  .dropdown {
+  background: none
+
+}
+.reeldisplay-Profimg  .dropdown .btn  {
+  background: none
+
+}
+.reeldisplay-Profimg span {
+  font-weight: bold;
+  color: rgb(212, 212, 212);
+  padding: 0 10px;
+}
+.reeldisplay-Profimg img {
+
   width: 55px;
   height: 55px;
   object-fit: cover;
@@ -14695,6 +14726,12 @@ a.Hangin-btn:hover {
   visibility: visible !important;
 }
 
+.slideitemreel:hover .strysggstion-Profimg1 {
+  visibility: visible !important;
+}
+.slideitemreelcom:hover .strysggstion-Profimg1 {
+  visibility: visible !important;
+}
 /*by najam*/
 
 .strysggstion ul li {
@@ -14771,12 +14808,11 @@ a.Hangin-btn:hover {
 }
 
 .slidestry {
-  height: 200px;
   /* background: #fff; */
   box-sizing: border-box;
   white-space: nowrap;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 .slideitemstry {
@@ -14785,6 +14821,90 @@ a.Hangin-btn:hover {
   height: 165px;
   margin: 0 5.5px 0 5.5px;
   box-sizing: border-box;
+}
+
+.slideitemreel {
+  display: inline-block;
+  width: 110px;
+  height: 165px;
+  margin: 0 2px 0 2px;
+  box-sizing: border-box;
+}
+.slideitemreelcom {
+  display: inline-block;
+  width: 175px;
+  height: 100%;
+  margin: 0  0px 0 19px;
+  box-sizing: border-box;
+}
+.slideitemreelside {
+  display: inline-block;
+  width: 114px;
+  height: 165px;
+  margin: 0 6px 0 10px;
+  box-sizing: border-box;
+}
+
+.slidesreel .strysggstion-card {
+  width: 170px;
+  height: 330px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgb(84 84 84 / 41%);
+  margin-bottom: 11px;
+}
+
+.slidesreel .strysggstion-card .strysggstion-by {
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background: #fff;
+  padding: 13px 15px;
+  font-size: 18px;
+  line-height: 25px;
+}
+.slidesreel .strysggstion-card .strysggstion-by h5 {
+  color: black;
+  margin: 8px;
+  font-size: 11px;
+  font-weight: 200;
+  text-align: center;
+}
+.slidesreel .strysggstion-card .add-strysggstion {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  margin: 90px 15px 15px 36px;
+  background: #033347;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+.slidesreel .strysggstion-card .add-strysggstion .avatar {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.slidesreel button {
+  border: none;
+  width: 40%;
+  margin: 5px;
+  border-radius: 7px;
+}
+
+.slidesreel {
+
 }
 
 .grpPaddle {
