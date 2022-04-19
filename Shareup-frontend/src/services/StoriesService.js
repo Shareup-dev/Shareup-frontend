@@ -34,7 +34,7 @@ class StoriesService {
     }
 
     createStories = async (userId, formdata) => {
-        const result = await authAxios.post(`Stories/${userId}`,formdata)
+        const result = await authAxios.post(`stories/${userId}`,formdata)
         return result
     }
     updateStories = async (storiesId, stories) => {
@@ -42,7 +42,32 @@ class StoriesService {
         return result;
     }
 
-    
+    deleteStories = async (storiesId) => {
+        const result = await authAxios.delete(`stories/${storiesId}`)
+        return result;
+    }
+
+    getStoriesForUserFriends =  (userId) => authAxios.get(`stories/friends_stories/${userId}`);
+    getStoriesForUserFriendsNew =  (userId) => authAxios.get(`stories/friends_stories_new/${userId}`);
+
+
+    getAllStoriesViewers = async (storyid) => {
+        authenticate();
+        const result = await authAxios.get(`stories/views/${storyid}`)
+        return result;
+    }
+
+    addViewrsToStories = async (storyid, userId) => {
+        const result = await authAxios.post(`stories/get_story_add_views/${storyid}/${userId}`)
+        return result
+    }
+
+    getAllStoriesViewers = async (storyid) => {
+        authenticate();
+        const result = await authAxios.get(`stories/views_count/${storyid}`)
+        return result;
+    }
+
 }
 
 export default new StoriesService();

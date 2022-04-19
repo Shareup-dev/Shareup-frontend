@@ -27,7 +27,14 @@ class GroupService {
         const result = await authAxios.post(`/${uid}/create`,formdata)
         return result;
     }
-
+    uploadGroupCoverImage = async (gid ,formdata) =>{
+        const result = await authAxios.post(`/upload_cover_image/${gid}`,formdata)
+        return result;
+    }
+    uploadGroupImage = async (gid ,formdata) =>{
+        const result = await authAxios.post(`/upload_image/${gid}`,formdata)
+        return result;
+    }
     getAllGroups = async () => {
         authenticate();
         const result = await authAxios.get('')
@@ -39,8 +46,8 @@ class GroupService {
         return result;
     }
 
-    getGroupByCurrentUser = async (email) => {
-        const result = await authAxios.get(`/email/${email}`)
+    getGroupByCurrentUser = async (uid) => {
+        const result = await authAxios.get(`/group_id/${uid}`)
         return result;
     }
 
@@ -58,6 +65,20 @@ class GroupService {
         const result = await authAxios.delete(`/${uid}/leave/${gid}`)
         return result
     }
+    deleteGroup = async (oid, gid) => {
+        const result = await authAxios.delete(`/${oid}/delete/${gid}`)
+        return result
+    }
+    addAdmin = async (gid,uid) => {
+        const result = await authAxios.delete(`/${gid}/add_admin/${uid}`)
+        return result
+
+    }
+    removeMember = async (aid,uid,gid) => {
+        const result = await authAxios.get(`${aid}/${gid}/delete/${uid}`)
+        return result;
+    }
+
 }
 
 export default new GroupService();

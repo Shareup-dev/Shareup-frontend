@@ -573,8 +573,8 @@ const handleCounterReaction = () => {
 										<aside className="sidebar static">
 											<div className="widget">
 												<div className="row"><img src="../assets/images/unnamed.png" /><p className="widget-title">User</p></div>
-												<div className="user"><img src={fileStorage.baseUrl+user.profilePicturePath} />
-													<a href="/profile"><p style={{ fontWeight: "bold" }}>{`${user.firstName} ${user.lastName}`}</p></a>
+												<div className="user"><img src={user&&user.profilePicturePath?fileStorage.baseUrl+user.profilePicturePath:''} />
+													<a href="/profile"><p style={{ fontWeight: "bold" }}>{`${user&&user.firstName} ${user&&	user.lastName}`}</p></a>
 												</div>
 											</div>
 											<MenuWidgetComponent/>

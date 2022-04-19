@@ -1,6 +1,9 @@
 import axios from "axios";
 import settings from "./Settings";
 
+const url = settings.apiUrl + '/api/v1';
+
+
 const my_api = `${settings.apiUrl}/api/v1/users`;
 let authAxios = null;
 
@@ -25,6 +28,60 @@ class AuthService {
         return response;
       });
   };
+
+
+  passwordResetOTP = username =>
+    axios({
+      method: 'PUT',
+      url: `${url}/send_otp/${username}`,
+    });
+
+  verifyPasswordResetOTP = (username, otp) =>
+    axios({
+      method: 'GET',
+      url: `${url}/verify_otp_reset_password/${username}`,
+      params: {
+        otp,
+      },
+    });
+
+  verifyEmailOTP = username =>
+    axios({
+      method: 'PUT',
+      url: `${url}/send_otp_verify_email/${username}`,
+    });
+  verifyEmailConfirmOTP = (username, otp) =>
+    axios({
+      method: 'GET',
+      url: `${url}/verify_otp_email_verify/${username}`,
+      params: {
+        otp,
+      },
+    });
+
+  resetPassword = (username, newPassword) =>
+    axios({
+      method: 'PUT',
+      url: `${url}/reset_password/${username}`,
+      params: {
+        password: newPassword,
+      },
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   logout() {
     localStorage.removeItem("user");

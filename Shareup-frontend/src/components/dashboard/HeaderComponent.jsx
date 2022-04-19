@@ -12,7 +12,7 @@ function HeaderComponent() {
 
     return (
       <div className="responsive-header">
-          <div className="mh-head first Sticky">
+          {/*<div className="mh-head first Sticky">
             <span className="mh-btns-left"> <a className="menu" href="#menu"><i className="fa fa-align-justify" /></a>
             </span> <span className="mh-text"> <a href="newsfeed.html" title="#"><img src='./assets/images/shareup.png' width={300} alt="" /></a>
             </span>
@@ -34,7 +34,7 @@ function HeaderComponent() {
                   <li><a href="forum-open-topic.html" title="#">Dutch</a></li>
                 </ul></li>
             </ul>
-          </nav>
+          </nav>*/}
         </div>
     );
 }

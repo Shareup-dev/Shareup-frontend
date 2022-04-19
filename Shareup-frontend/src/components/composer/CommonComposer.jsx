@@ -12,10 +12,10 @@ import SimpleReactLightbox from "simple-react-lightbox";
 import { testScript } from "../../js/script";
 import GroupService from "../../services/GroupService";
 import StoriesService from "../../services/StoriesService";
-import EditPostComponent from "./EditPostComponent";
+import EditPostComponent from "../post/EditPostComponent";
 import Modal from "react-modal";
 import Layout from "../LayoutComponent";
-import GuideComponent from "./GuideComponent";
+// import GuideComponent from "./GuideComponent";
 import PostComponent from "../post/PostComponent";
 
 import DisplayComponent from "../Stories/DisplayComponent";
@@ -29,13 +29,13 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import LocationComponent from "../AccountSettings/LocationComponent";
 import LocSearchComponent from "../AccountSettings/LocSearchComponent";
-import FriendSearchComponent from "./FriendSearchComponent";
+// import FriendSearchComponent from "./FriendSearchComponent";
 import FriendsService from "../../services/FriendService";
 import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
 
-function NewsfeedComponent() {
+function CommonComposer() {
   const [isLoading, setIsLoading] = useState(true);
 
   let history = useHistory();
@@ -2611,406 +2611,51 @@ function NewsfeedComponent() {
   }, [FriendsStories]);
 
   useEffect(() => {
-    getStoriesForUser();
+    // getStoriesForUser();
     testScript();
   }, [stories]);
   if (isLoading) {
     return <div>Loading... Please Wait</div>;
   }
 
-  if (user.newUser) {
-    return <GuideComponent />;
-  }
+//   if (user.newUser) {
+//     return <GuideComponent />;
+//   }
 
   return (
-    <Layout user={user ? user : userR}>
-      {user.newUser ? (
-        <GuideComponent />
-      ) : (
-        <div className="col-lg-6">
-          <div class="slide-wrapperstry">
-            <ul class="slidestry">
-              <li class="slideitemstry">
-                <div className="strysggstion-card">
-                  <div className="strysggstion-img">
-                    <img src="/assets/images/vector-34@2x.png" alt="img" />
-                  </div>
-                  <Popup trigger={<div className="add-stry"> +</div>} modal>
-                    {(close) => (
-                      <Form className="popwidth">
-                        <div className="headpop">
-                          <div style={{ padding: "10px" }}>
-                            <span>
-                              <a
-                                href="#!"
-                                style={{ padding: "10px 150px 10px 0" }}
-                                onClick={close}
-                              >
-                                <i class="las la-times"></i>
-                              </a>
-                            </span>
-                            <span
-                              style={{
-                                color: "#000000",
-                                fontSize: "14px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Lets Add Stories
-                            </span>
+        <div className="" >
+            <div class="slide-wrapperstry">              
+                <div className="central-meta newsfeed">
+                    <div className="new-postbox">
+                    <figure>
+                        <img
+                        src={
+                            user
+                            ? fileStorage.baseUrl + user.profilePicturePath
+                            : fileStorage.baseUrl + userR.profilePicturePath
+                        }
+                        alt=""
+                        />
+                    </figure>
 
-                            {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                            <span style={{ float: "right" }}>
-                              {" "}
-                              <button
-                                style={{
-                                  float: "right",
-                                  borderRadius: "20px",
-                                  padding: "5px 20px",
-                                }}
-                                type="submit"
-                                onClick={uploadStories}
-                              >
-                                Upload
-                              </button>
-                            </span>
-                            {/* :null}  */}
-                          </div>
-                        </div>
-
-                        <div style={{ margin: "0 11px 10px 11px" }}>
-                          <span className="textPop">
-                            {showstoriesImage ? (
-                              <>
-                                <img
-                                  id="preview"
-                                  src={storiesImage}
-                                  style={{ width: "100%" }}
-                                />
-                                <button
-                                  onClick={handleRemoveImageStry}
-                                  style={{
-                                    right: "20px",
-                                    position: "absolute",
-                                    borderRadius: "100%",
-                                    background: "#b7b7b738",
-                                    padding: "10px 10px",
-                                  }}
-                                >
-                                  <i class="las la-times"></i>
-                                </button>
-                              </>
-                            ) : (
-                              <div style={{ textAlign: "center" }}>
-                                <label className="fileContainer">
-                                  <div className="storypic" type="submit">
-                                    <input
-                                      type="file"
-                                      name="swap_image"
-                                      accept="image/*"
-                                      onChange={handleFileStry}
-                                    ></input>
-                                    Add Story
-                                  </div>
-                                </label>
-                              </div>
-                            )}
-                            <textarea
-                                className="textpopup"
-                                rows={2}
-                                placeholder={
-                                 "Add text to your Story"
-                                }
-                                name="story_content"
-                                value={storyContent}
-                                onChange={handleStoryContent}
-                              />
-                          </span>
-                          <div className="storyErr">
-                            {uploadErrorStory ? `${uploadErrorStory}` : null}
-                          </div>
-                        </div>
-                        {/* </> 
-                                                   
-                                 )}  */}
-                      </Form>
-                    )}
-                  </Popup>
-
-                  <label className="fileContainer">
-                    <input
-                      id="file-input"
-                      type="file"
-                      name="stories_image"
-                      accept="image/*"
-                      onChange={handleFileStry}
-                    ></input>
-                  </label>
-                  <div className="strysggstion-by">
-                    <h5>Create Story</h5>
-                  </div>
-                  {/* <button  onClick={uploadStories}>Post</button> */}
+                    <div className="newpst-input">
+                        <Form>
+                        {postUp()}
+                        </Form>
+                    </div>
+                    <div className="attachments">
+                        <ul>
+                            <li>{hangsharePopUp()}</li>
+                            <li>{shareUp()}</li>
+                            <li>{photos()}</li>
+                            <li>{popSwap()}</li>
+                        </ul>
+                    </div>
                 </div>
-              </li>
-
-              {storiesForUser.map((story, index) => (
-                <>
-                  {story.storiesImagePath && index === 0 ? (
-                    <>
-                      <Popup
-                        style={{ padding: "0px" }}
-                        trigger={
-                          <li class="slideitemstry" key={story.id}>
-                            <StoriesComponent
-                              story={story}
-                              setRefresh={setRefresh}
-                            />
-                          </li>
-                        }
-                        modal
-                      >
-                        {(close) => (
-                          <Form className="stryp">
-                            <div>
-                              <div className="row">
-                                <div style={{ width: "5%" }}>
-                                  <a href="#!" onClick={close}>
-                                    <i
-                                      style={{
-                                        color: "#fff",
-                                        padding: "10px",
-                                        fontSize: "30px",
-                                      }}
-                                      class="las la-times"
-                                    ></i>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <DisplayComponent />
-                          </Form>
-                        )}
-                      </Popup>
-                    </>
-                  ) : null}
-                </>
-              ))}
-
-              {storiesForUserFriends.map((story, index) => (
-                <Popup
-                  style={{ padding: "0px" }}
-                  trigger={
-                    <li className="slideitemstry" key={story.id} id={index}>
-                      <StoriesComponentFriends
-                        story={
-                          storiesForUserFriends[index].stories_List[
-                            storiesForUserFriends[index].stories_List.length - 1
-                          ]
-                        }
-                        setRefresh={setRefresh}
-                      />
-                    </li>
-                  }
-                  modal
-                >
-                  {(close) => (
-                    <Form className="stryp">
-                      <div>
-                        <div className="row">
-                          <div style={{ width: "5%" }}>
-                            <a href="#!" onClick={close}>
-                              <i
-                                style={{
-                                  color: "#fff",
-                                  padding: "10px",
-                                  fontSize: "30px",
-                                }}
-                                class="las la-times"
-                              ></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <DisplayFriendsStoryComponent key={story.id} id={index} 
-                        story={
-                          storiesForUserFriends[index].stories_List
-                        }
-                        setRefresh={setRefresh}
-                      />
-                    </Form>
-                  )}
-                </Popup>
-              ))}
-            </ul>
-            {/* <div class="paddles">
-              <button class="left-paddlestry paddle">
-                <i class="las la-chevron-circle-left"></i>
-              </button>
-              <button class="right-paddlestry paddle">
-                <i class="las la-chevron-circle-right"></i>
-              </button>
-            </div> */}
-          </div>
-
-          <div className="central-meta newsfeed">
-            <div className="new-postbox">
-              <figure>
-                <img
-                  src={
-                    user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
-                  }
-                  alt=""
-                />
-              </figure>
-
-              <div className="newpst-input">
-                <Form>
-                  {postUp()}
-                  {/* <textarea rows={2} placeholder={uploadError ? `${uploadError}` : "We share,do you?"} name="post_content" value={postContent} onChange={handlePostContent} />
-                    {showPostImage ?
-                      <>
-                        <img id="preview" src={postImage} style={{ width: "80%", border: "3px solid" }} />
-                        <button onClick={handleRemoveImage}>x</button>
-                      </>
-                      :
-                      null
-                    } */}
-                </Form>
-              </div>
-              <div className="attachments">
-                <ul>
-                  <li>{hangsharePopUp()}</li>
-
-                  {/* <label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
-                        </label> */}
-                  <li>{shareUp()}</li>
-                  <li>{photos()}</li>
-                  <li>{popSwap()}</li>
-                  {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
-                        </label></li> */}
-                </ul>
-              </div>
+                </div>
             </div>
-          </div>
-          {/* <div>
-                     {
-                    postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
-                     }
-                     </div> */}
-          {/* <div className='central-meta newsfeed grp-sugg-cont'>
-            <div style={{ fontSize: '18px', padding:'1rem 20px' , fontWeight: 'bold', marginTop: '10px' }}>Groups Suggestions</div>
-              <div class='slide-wrapper' style={{margin:'0'}}>            
-                <ul class='slide container-fluid'>
-                  <OwlCarousel items={3}  
-                    className="owl-theme grp-carousel"  
-                    nav  
-                    margin ={0}
-                    dots = {false}
-                    >  
-                      <li class='slideitem' style={{margin: 0}}>
-                        <a href='#'>
-                          <div className='groupsggstion-card'>
-                            <div className='groupsggstion-img'>
-                              <a href=''>
-                                <div>
-                                  {' '}
-                                  <img src={Grpicon} className="no-img"/>
-                                </div>
-                              </a>
-                            </div>
-
-                            <div className='groupsggstion-by'>
-                              <a href='/group/create'>
-                                <div class='add-group' aria-describedby='popup-2'>
-                                  {' '}
-
-                                </div>
-                              </a>
-
-                              <a href='/group/create'>
-                                <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
-                              </a>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      {searchedGroups.map((group) => (
-                        <li class='slideitem'>
-                          <a href={`/groups/${group.id}`} title={group.name}>
-                            <div className='groupsggstion-card'>
-                              <div className='groupsggstion-img'>
-                                <a href={`/groups/${group.id}`} title={group.name}>
-                                  {' '}
-                                  <img
-                                    src={
-                                      group.groupImagePath
-                                        ? fileStorage.baseUrl+group.groupImagePath
-                                        : Grpicon
-                                    }
-                                    className={group.groupImagePath
-                                      ? "img"
-                                      : "no-img"}
-                                    alt=''
-                                  />
-                                </a>
-                              </div>
-
-                              <div className='groupsggstion-by'>
-                                <div style={{ paddingLeft: '10px' , height:'20px' }}>
-
-                                    <span className='groupname'>
-
-                                      <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
-
-                                      </a>
-                                    </span>
-                                  </div>
-                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
-                                    {group.members.length > 1 ? (
-
-                                      <p className="grp-mem-text"> {group.members.length} Members</p>
-                                    ) : (
-                                      <p className="grp-mem-text">{group.members.length} Member</p>
-                                    )}
-                                  </div>
-                                  {checkIfInGroup(group.members) ? (
-                                    <a
-
-                                      href
-                                      class='buttonGrpFd mrgngrp mt-0'  
-                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
-                                      onClick={(e) => handleLeaveGroup(e,group.id)}
-                                    >
-                                      Leave Group
-                                    </a>
-                                  ) : (
-                                    <a
-                                      href
-                                      class='buttonGrpFd mrgngrp mt-0'
-                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
-                                      onClick={(e) => handleJoinGroup(e,group.id)}
-                                    >
-                                      Join Group
-                                    </a>
-
-                                  )}
-                              </div>
-                            </div>
-                          </a>
-                        </li>
-                      ))}
-                  </OwlCarousel>
-                </ul>
-            </div>
-          </div> */}
-          {/* add post new box */}
-          {/* <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>Newsfeed</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span>|<span onClick={() => setShowComp("saved")}>SharePosts</span>|<span onClick={() => setShowComp("saved")}>Swap Posts</span></p> */}
           {show()}
         </div>
-      )}
-    </Layout>
   );
 }
-export default NewsfeedComponent;
+export default CommonComposer;

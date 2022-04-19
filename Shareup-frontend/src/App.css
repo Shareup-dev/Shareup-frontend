@@ -95,7 +95,7 @@ html {
     border-bottom: 1px solid #ccc;
     border-radius: 0px;
     margin-bottom: 25px;
-    margin-top: 2px;
+    margin-top: 12px;
     width: 100%;
     box-sizing: border-box;
     font-family: montserrat;
@@ -115,7 +115,7 @@ html {
     box-shadow: none !important;
     border: none;
     font-weight: bold;
-    /* border-bottom: 2px solid #033347; */
+    border-bottom: 1px solid #033347;
     outline-width: 0
 }
 

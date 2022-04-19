@@ -30,7 +30,7 @@ class UserService {
     }
 
     createUser = async (user) => {
-        const result = await axios.post(`${my_api}/api/v1/users/`, user)
+        const result = await axios.post(`${my_api}/api/v1/register/`, user)
         return result;
     }
 

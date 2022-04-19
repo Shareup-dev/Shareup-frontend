@@ -31,10 +31,10 @@ function Telephone({setPhone, p_no, handlePhone,trigger}) {
         
         } 
 
-         onKeyUp={(e)=>{
-             handlePhone(e.target.value);
+        //  onKeyUp={(e)=>{
+        //      handlePhone(e.target.value);
 
-         }}
+        //  }}
        
         />
         {/* {value} */}

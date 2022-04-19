@@ -4,18 +4,19 @@ import UserContext from '../../contexts/UserContext';
 import GroupService from '../../services/GroupService';
 import Layout from '../LayoutComponent';
 import settings from '../../services/Settings';
-
-
+import { DropdownButton , Dropdown} from 'react-bootstrap'
+import $ from 'jquery'
+import Addimage from '../../images/addimage1.jpg'
 function CreateGroupComponentMain() {
     let history = useHistory();
 
     const { user } = useContext(UserContext)
 
     const [groupName, setGroupName] = useState("");
-    const handleGroupName = (e) => { setGroupName(e.target.value) }
+    const handleGroupName = (e) => { setGroupNameError(null);setGroupName(e.target.value) }
 
     const [groupDesc, setGroupDesc] = useState("");
-    const handleGroupDesc = (e) => { setGroupDesc(e.target.value) }
+    const handleGroupDesc = (e) => { setGroupDescError(null) ;setGroupDesc(e.target.value) }
 
     //For Validation
     const [allFieldFillError, setAllFieldFillError] = useState('');
@@ -92,19 +93,42 @@ function CreateGroupComponentMain() {
     }
 
     const handleCreateGroup = async () => {
+        let groupPrivacySettingValue = 1
+        if ( groupPrivacySetting === 'private' || groupPrivacySetting === 'hidden'){
+            groupPrivacySettingValue = 0
+        }
         let group = {
             name: groupName,
             description: groupDesc,
-            privacySetting: groupPrivacySetting,
+            privacySetting: groupPrivacySettingValue,
             groupInvitationSetting: groupInvitationSetting,
         }
-        const formData = new FormData();
-        formData.append('group', JSON.stringify(group))
-        formData.append('groupPicture', groupPicture)
-        formData.append('groupCover', groupCover)
-        await GroupService.createGroup(user.id, formData).then(res => {
+        const formData1 = new FormData();
+        const formData2 = new FormData();
+
+        // formData.append('group', JSON.stringify(group))
+        formData1.append('group_image', groupPicture)
+        formData2.append('group_cover_image', groupCover)
+        let groupId 
+        await GroupService.createGroup(user.id, group).then(res => {
             console.log(res.data)
+            groupId = res.data.id
+            if(groupCover){
+                GroupService.uploadGroupCoverImage(groupId,formData2).then(res => {
+                    // console.log(res.data)
+                })
+            }
+            if(groupPicture){
+                GroupService.uploadGroupImage(groupId,formData1).then(res => {
+                    // console.log(res.data)    
+                })
+            }
+            GroupService.joinGroup(user.id, groupId).then(res =>{
+                
+            })
+
         })
+        
         setTimeout(function () { history.push(`/groups`) }, 2000);
     }
 
@@ -114,17 +138,20 @@ function CreateGroupComponentMain() {
                 <fieldset>
                     <div className="form-card">
                         <h2 className="fs-title">Group Details</h2>
-                        {groupNameError &&
+                       
+                        <label htmlFor="group-desc">Group Name *</label>
+                        <input type="group_name" name="group_name" value={groupName} onChange={handleGroupName} className="group-name-textbox"/>
+                        {groupNameError && groupName!==''|| groupName!==null &&
                             <p style={{ fontSize: 15, color: 'red' }}>{groupNameError}</p>
                         }
-                        <input type="group_name" name="group_name" placeholder="Group Name" value={groupName} onChange={handleGroupName} />
-                        {groupDescError &&
+                       
+                        <label htmlFor="group-desc" className="group-desc-label">Group Description *</label>
+                        <textarea name="group-desc" id="group-desc" aria-required="true" value={groupDesc} onChange={handleGroupDesc} className="group-desc-textbox"/>
+                        {groupDescError && groupDesc!==''|| groupDesc!==null&&
                             <p style={{ fontSize: 15, color: 'red' }}>{groupDescError}</p>
                         }
-                        <label htmlFor="group-desc">Group Description (required)</label>
-                        <textarea name="group-desc" id="group-desc" aria-required="true" value={groupDesc} onChange={handleGroupDesc} />
                     </div>
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => validateStep(1)} />
+                    <input type="button" name="" className="action-button" defaultValue="Continue" onClick={() => validateStep(1)} />
                 </fieldset>
             )
         }
@@ -135,7 +162,18 @@ function CreateGroupComponentMain() {
                     <div className="form-card">
                         <div className="">
                             <h2 className="fs-title">Select Group Settings</h2>
-                            <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting} />
+                            <span id="description"></span>
+                            <label htmlFor="public">Choose privacy</label>
+                            <select class="form-control privacy-dropdown"  
+                                value={groupPrivacySetting} 
+                                onChange={handlePrivacySetting}>
+                                <option  value="public"> Public </option>
+                                <option value="private">Private</option>
+                                <option value="hidden">Hidden</option>
+
+                            </select>
+                            
+                            {/* <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting} />
                             <label htmlFor="public">This is a public group</label>
                             <ul id="public-group-description">
                                 <li>Any site member can join this group.</li>
@@ -155,18 +193,26 @@ function CreateGroupComponentMain() {
                                 <li>Only people who are invited can join the group.</li>
                                 <li>This group will not be listed in the groups directory or search results.</li>
                                 <li>Group content and activity will only be visible to members of the group.</li>
-                            </ul>
+                            </ul> */}
                             <br></br>
                         </div>
                         <div className="">
-                            <legend>Group Invitations</legend>
+                            {/* <legend>Group Invitations</legend> */}
                             <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
-                            <input type="radio" name="group-invite-status" id="group-invite-status-members" defaultValue="members" defaultChecked="checked" onChange={handleInviteSetting} />
+                            <select class="form-control privacy-dropdown"  
+                                value={groupPrivacySetting} 
+                                onChange={handleInviteSetting}>
+                                <option  value="members"> All Group Members </option>
+                                <option value="mods">Group admins and mods only</option>
+                                <option value="admins">Group admins only</option>
+
+                            </select>
+                            {/* <input type="radio" name="group-invite-status" id="group-invite-status-members" defaultValue="members" defaultChecked="checked" onChange={handleInviteSetting} />
                             <label htmlFor="other">All Group Members</label><br></br>
                             <input type="radio" name="group-invite-status" id="group-invite-status-mods" defaultValue="mods" onChange={handleInviteSetting} />
                             <label htmlFor="other">Group admins and mods only</label><br></br>
                             <input type="radio" name="group-invite-status" id="group-invite-status-admins" defaultValue="admins" onChange={handleInviteSetting} />
-                            <label htmlFor="other">Group admins only</label><br></br>
+                            <label htmlFor="other">Group admins only</label><br></br> */}
                         </div>
 
                     </div>
@@ -182,27 +228,76 @@ function CreateGroupComponentMain() {
                         <h2 className="fs-title">{`Upload Image and Cover Image`}</h2>
 
                         <div className="" style={{ textAlign: "center" }}>
-                            <legend>Group Image</legend>
-                            <div class="image-upload">
+                            <label className='mb-10'>Group Image</label>
+                            <div class="image-upload  pos-rel ">
                                 <label for="file-input">
                                     {
                                         showProfilePicture ?
                                             <img id="preview" src={profileRender} /> :
-                                            <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
+                                            <img src={Addimage} className="no-image-up"/>
                                     }
                                 </label>
 
                                 <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleGroupImage}></input>
                             </div>
                         </div>
+                        <br/>
+                        <br/>
                         <div className="" style={{ textAlign: "center" }}>
-                            <legend>Group Cover Image</legend>
-                            <div class="image-upload">
+                            <legend className='mb-10'>Group Cover Image</legend>
+                            <div class="image-upload pos-rel">
                                 <label for="file-input-cover">
+                                
                                     {
                                         showCoverPicture ?
                                             <img id="preview" src={coverRender} /> :
-                                            <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
+                                            <img src={Addimage} className="no-image-up"/>
+                                    }
+                                </label>
+
+                                <input id="file-input-cover" type="file" name="cover_image" accept="image/*" onChange={handleGroupCover}></input>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
+                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
+                        setStep(3)
+                        handleCreateGroup()
+                    }} />
+                </fieldset>
+            )
+        }
+        if (step === 3) {
+            return (
+<fieldset>
+                    <div className="form-card">
+                        <h2 className="fs-title">{`Upload Image and Cover Image`}</h2>
+
+                        <div className="" style={{ textAlign: "center" }}>
+                            <label className='mb-10'>Group Image</label>
+                            <div class="image-upload  pos-rel ">
+                                <label for="file-input">
+                                    {
+                                        showProfilePicture ?
+                                            <img id="preview" src={profileRender} /> :
+                                            <img src={Addimage} className="no-image-up"/>
+                                    }
+                                </label>
+
+                                <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleGroupImage}></input>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div className="" style={{ textAlign: "center" }}>
+                            <legend className='mb-10'>Group Cover Image</legend>
+                            <div class="image-upload pos-rel">
+                                <label for="file-input-cover">
+                                
+                                    {
+                                        showCoverPicture ?
+                                            <img id="preview" src={coverRender} /> :
+                                            <img src={Addimage} className="no-image-up"/>
                                     }
                                 </label>
 
@@ -277,27 +372,26 @@ function CreateGroupComponentMain() {
         <Layout user={user}>
             <div className="col-lg-6">
                 <div className="central-meta create-group">
-                                <div className="card px-0 pt-4 pb-0 mt-3 mb-3">
-                                    <div style={{contentAlign: 'center', textAlign: 'center'}}>
-                                    <h2><strong>Create Your Group</strong></h2>
-                                    <p>Fill all form field to go to next step</p>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12 mx-0">
-                                            <form id="msform">
-                                                {/* progressbar */}
-                                                <ul id="progressbar">
-                                                    <li id="account" className={activeOrNot(0)}><strong>{`Details`}</strong></li>
-                                                    <li id="personal" className={activeOrNot(1)}><strong>Settings</strong></li>
-                                                    <li id="payment" className={activeOrNot(2)}><strong>Photo</strong></li>
-                                                    <li id="confirm" className={activeOrNot(3)}><strong>Media</strong></li>
-                                                </ul> {/* fieldsets */}
-                                                {
-                                                    show()
-                                                }
-                                            </form>
-                                        </div>
-                                    </div>
+                    <div className="card px-0 pt-4 pb-0 mb-3">
+                        <div style={{contentAlign: 'center', textAlign: 'center'}}>
+                        <h2 style={{fontSize:'20px' , fontWeight:'800'}} className="media-date">Create Your Group</h2>
+                        {/* <p>Fill all form field to go to next step</p> */}
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12 mx-0">
+                                <form id="msform">
+                                    {/* <ul id="progressbar">
+                                        <li id="account" className={activeOrNot(0)}><strong>{`Details`}</strong></li>
+                                        <li id="personal" className={activeOrNot(1)}><strong>Settings</strong></li>
+                                        <li id="payment" className={activeOrNot(2)}><strong>Photo</strong></li>
+                                        <li id="confirm" className={activeOrNot(3)}><strong>Add Members</strong></li>
+                                    </ul> */}
+                                    {
+                                        show()
+                                    }
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

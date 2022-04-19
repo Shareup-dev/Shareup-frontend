@@ -101,28 +101,68 @@ We provide you most private and secure social media platform. Your data is our c
 
         <div className="product-screenshot" id="screenshot">
           <div className="container">
-		  <div style={{padding:'10px'}}><h2>Product Screenshots</h2></div>
+            <div style={{ padding: "10px" }}>
+              <h2>Product Screenshots</h2>
+            </div>
             <div className="row">
-			
-              <div className="col-lg-3 col-md-6">
-                <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                  <img width="200px" src="/assets/images/screen1.PNG" alt="img" />
-                </div>
-
-              </div>
-              <div className="col-lg-3 col-md-6">
-                <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                  <img width="200px" src="/assets/images/screen8.PNG" alt="img" />
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6">
-                <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                  <img width="200px" src='/assets/images/screen3.PNG' alt="img" />
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                  style={{
+                    height: "200px",
+                    textAlign: "center",
+                    marginTop: "25px",
+                  }}
+                >
+                  <img
+                    width="200px"
+                    src="/assets/images/screen1.PNG"
+                    alt="img"
+                  />
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6">
-                <div style={{ height: '200px', textAlign: 'center', paddingTop: '50px' }}>
-                  <img width="200px" src="/assets/images/Screen6.PNG" alt="img" />
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                  style={{
+                    height: "200px",
+                    textAlign: "center",
+                    marginTop: "25px",
+                  }}
+                >
+                  <img
+                    width="200px"
+                    src="/assets/images/screen8.PNG"
+                    alt="img"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                  style={{
+                    height: "200px",
+                    textAlign: "center",
+                    marginTop: "25px",
+                  }}
+                >
+                  <img
+                    width="200px"
+                    src="/assets/images/screen3.PNG"
+                    alt="img"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                  style={{
+                    height: "200px",
+                    textAlign: "center",
+                    marginTop: "25px",
+                  }}
+                >
+                  <img
+                    width="200px"
+                    src="/assets/images/Screen6.PNG"
+                    alt="img"
+                  />
                 </div>
               </div>
             </div>
@@ -134,70 +174,195 @@ We provide you most private and secure social media platform. Your data is our c
           <div className="row">
             <div className="widget">
               <ul className="list-style">
-                <li><a href="#" title>About</a></li>
-                <li><a href="#" title>FAQ</a></li>
-                <li><a href="#" title>Privacy</a></li>
-                <li><a href="#" title>English</a></li>
-                <li><a href="#" title>Help Centre</a></li>
+                <li>
+                  <a href="#" title>
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title>
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title>
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title>
+                    English
+                  </a>
+                </li>
+                <li>
+                  <a href="#" title>
+                    Help Centre
+                  </a>
+                </li>
               </ul>
               <ul className="list-style">
-                <li><a href="#">Afrikaans</a></li>
-                <li><a href="#">Shqip</a></li>
-                <li><a href="#">العربية</a></li>
-                <li><a href="#">Հայերեն</a></li>
-                <li><a href="#">Azərbaycan</a></li>
-                <li><a href="#">dili</a></li>
-                <li><a href="#">Euskara</a></li>
-                <li><a href="#">Беларуская</a></li>
-                <li><a href="#">мова</a></li>
-                <li><a href="#">বাংলা</a></li>
-                <li><a href="#">简体中文</a></li>
-                <li><a href="#">繁體中文</a></li>
-                <li><a href="#">Corsu</a></li>
-                <li><a href="#">Dansk</a></li>
-                <li><a href="#">Netherlands</a></li>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Filipino</a></li>
-                <li><a href="#">Suomi</a></li>
-                <li><a href="#">Français</a></li>
-                <li><a href="#">ქართული</a></li>
-                <li><a href="#">Deutsch</a></li>
-                <li><a href="#">Ελληνικά</a></li>
-                <li><a href="#">ગુજરાતી</a></li>
-                <li><a href="#">Kreyol</a></li>
-                <li><a href="#">ayisyen</a></li>
-                <li><a href="#">Harshen</a></li>
-                <li><a href="#">Hausa</a></li>
-                <li><a href="#">Ōlelo</a></li>
-                <li><a href="#">Hawaiʻi</a></li>
-                <li><a href="#">עִבְרִית</a></li>
-                <li><a href="#">हिन्दी</a></li>
-                <li><a href="#">Hmong</a></li>
-                <li><a href="#">Magyar</a></li>
-                <li><a href="#">Íslenska</a></li>
-                <li><a href="#">Igbo</a></li>
-                <li><a href="#">Bahasa Indonesia</a></li>
-                <li><a href="#">Gaelige</a></li>
-                <li><a href="#">Italiano</a></li>
-                <li><a href="#">日本語</a></li>
-                <li><a href="#">Basa Jawa</a></li>
-                <li><a href="#">ಕನ್ನಡ</a></li>
-                <li><a href="#">Қазақ</a></li>
-                <li><a href="#">тілі</a></li>
-                <li><a href="#">Slovenščina</a></li>
-                <li><a href="#">Afsoomaali</a></li>
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Basa Sunda</a></li>
-                <li><a href="#">Kiswahili</a></li>
-                <li><a href="#">Svenska</a></li>
-                <li><a href="#">Тоҷикӣ</a></li>
-                <li><a href="#">Српски </a></li>
-                <li><a href="#">Malagasy</a></li>
-                <li><a href="#">Samoan</a></li>
-                <li><a href="#">Türkçe</a></li>
-
-
-
+                <li>
+                  <a href="#">Afrikaans</a>
+                </li>
+                <li>
+                  <a href="#">Shqip</a>
+                </li>
+                <li>
+                  <a href="#">العربية</a>
+                </li>
+                <li>
+                  <a href="#">Հայերեն</a>
+                </li>
+                <li>
+                  <a href="#">Azərbaycan</a>
+                </li>
+                <li>
+                  <a href="#">dili</a>
+                </li>
+                <li>
+                  <a href="#">Euskara</a>
+                </li>
+                <li>
+                  <a href="#">Беларуская</a>
+                </li>
+                <li>
+                  <a href="#">мова</a>
+                </li>
+                <li>
+                  <a href="#">বাংলা</a>
+                </li>
+                <li>
+                  <a href="#">简体中文</a>
+                </li>
+                <li>
+                  <a href="#">繁體中文</a>
+                </li>
+                <li>
+                  <a href="#">Corsu</a>
+                </li>
+                <li>
+                  <a href="#">Dansk</a>
+                </li>
+                <li>
+                  <a href="#">Netherlands</a>
+                </li>
+                <li>
+                  <a href="#">English</a>
+                </li>
+                <li>
+                  <a href="#">Filipino</a>
+                </li>
+                <li>
+                  <a href="#">Suomi</a>
+                </li>
+                <li>
+                  <a href="#">Français</a>
+                </li>
+                <li>
+                  <a href="#">ქართული</a>
+                </li>
+                <li>
+                  <a href="#">Deutsch</a>
+                </li>
+                <li>
+                  <a href="#">Ελληνικά</a>
+                </li>
+                <li>
+                  <a href="#">ગુજરાતી</a>
+                </li>
+                <li>
+                  <a href="#">Kreyol</a>
+                </li>
+                <li>
+                  <a href="#">ayisyen</a>
+                </li>
+                <li>
+                  <a href="#">Harshen</a>
+                </li>
+                <li>
+                  <a href="#">Hausa</a>
+                </li>
+                <li>
+                  <a href="#">Ōlelo</a>
+                </li>
+                <li>
+                  <a href="#">Hawaiʻi</a>
+                </li>
+                <li>
+                  <a href="#">עִבְרִית</a>
+                </li>
+                <li>
+                  <a href="#">हिन्दी</a>
+                </li>
+                <li>
+                  <a href="#">Hmong</a>
+                </li>
+                <li>
+                  <a href="#">Magyar</a>
+                </li>
+                <li>
+                  <a href="#">Íslenska</a>
+                </li>
+                <li>
+                  <a href="#">Igbo</a>
+                </li>
+                <li>
+                  <a href="#">Bahasa Indonesia</a>
+                </li>
+                <li>
+                  <a href="#">Gaelige</a>
+                </li>
+                <li>
+                  <a href="#">Italiano</a>
+                </li>
+                <li>
+                  <a href="#">日本語</a>
+                </li>
+                <li>
+                  <a href="#">Basa Jawa</a>
+                </li>
+                <li>
+                  <a href="#">ಕನ್ನಡ</a>
+                </li>
+                <li>
+                  <a href="#">Қазақ</a>
+                </li>
+                <li>
+                  <a href="#">тілі</a>
+                </li>
+                <li>
+                  <a href="#">Slovenščina</a>
+                </li>
+                <li>
+                  <a href="#">Afsoomaali</a>
+                </li>
+                <li>
+                  <a href="#">Español</a>
+                </li>
+                <li>
+                  <a href="#">Basa Sunda</a>
+                </li>
+                <li>
+                  <a href="#">Kiswahili</a>
+                </li>
+                <li>
+                  <a href="#">Svenska</a>
+                </li>
+                <li>
+                  <a href="#">Тоҷикӣ</a>
+                </li>
+                <li>
+                  <a href="#">Српски </a>
+                </li>
+                <li>
+                  <a href="#">Malagasy</a>
+                </li>
+                <li>
+                  <a href="#">Samoan</a>
+                </li>
+                <li>
+                  <a href="#">Türkçe</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -205,6 +370,5 @@ We provide you most private and secure social media platform. Your data is our c
       </footer>
     </div>
   );
-
 }
 export default AboutComponent;

@@ -446,7 +446,7 @@ const getAllUser = async () => {
 			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
 		})
 	})
-	console.log(user.email + " This is the users")
+	// console.log(user.email + " This is the users")
 }
 
 const getFriendsList = async () => {

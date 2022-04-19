@@ -30,6 +30,8 @@ import UserContext from './contexts/UserContext';
 import GroupComponent from './components/group/GroupComponent';
 import ProfileComponent from './components/user/ProfileComponent';
 import ViewGroupComponent from './components/group/ViewGroupComponent';
+import ViewGroupComponent1 from './components/group/ViewGroupComponent1';
+
 import AboutComponent from './components/user/AboutComponent';
 import PrivacyPolicyComponent from './components/user/PrivacyPolicyComponent';
 import { testScript } from './js/script';
@@ -72,20 +74,21 @@ function App() {
   let history = useHistory();
 
   const [jwtUser, setJwtUser] = useState(AuthService.getCurrentUser())
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const userAuthenticator = async () => {
     await AuthService.setCurrentUser(jwtUser)
     let user = null
-    if (jwtUser) {
-      console.log("AHAAAAAAAAAAAAAAAAAAAHAAA")
-      user = await UserService.getUserByEmail(jwtUser.username).then(res => {
+    if (jwtUser) {  
+      setLoading(true);
+      UserService.getUserByEmail(jwtUser.username).then(res => {
         // console.log
-      return res.data
-     })
-     console.log(JSON.stringify(user) +  ' ah ahah')
+        setUser(res.data);
+     }).finally(_=> setLoading(false));
+    //  console.log(JSON.stringify(user) +  ' ah ahah')
     }
-    setUser(user)
+    
   }
 
   useEffect(() => {
@@ -105,7 +108,8 @@ Giphy();
 
   return (
     <UserContext.Provider value={{ user }}>
-      {console.log("Value of " + JSON.stringify(user))}
+    {
+      loading ? <div>Loading..</div>:(      
       <Router>
         <HeaderComponent />
           <Switch>
@@ -122,7 +126,7 @@ Giphy();
           <ProtectedRoute path="/new-user" component={GuideComponent}></ProtectedRoute>
           <ProtectedRoute path="/group/create" component={CreateGroupComponentMain}></ProtectedRoute>
           {/* <ProtectedRoute path="/group/create" component={CreateGroupComponent}></ProtectedRoute> */}
-          <ProtectedRoute path="/groups/:id" component={ViewGroupComponent}></ProtectedRoute>
+          <ProtectedRoute path="/groups/:id" component={ViewGroupComponent1}></ProtectedRoute>
           <ProtectedRoute path="/groups/" component={GroupComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile/:email" component={OtherProfileComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
@@ -156,6 +160,8 @@ Giphy();
       {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
         </Switch>
       </Router>
+      )
+    }
     </UserContext.Provider>
   );
 }
