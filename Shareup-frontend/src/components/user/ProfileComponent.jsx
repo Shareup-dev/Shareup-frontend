@@ -20,9 +20,9 @@ function ProfileComponent() {
   const { user } = useContext(UserContext);
 
   const [temp, setTemp] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
-  const [showProfilePicture, setShowProfilePicture] = useState(false);
+  const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
 
   const [coverPicture, setCoverPicture] = useState(null);
   // const [coverRender, setCoverRender] = useState(null)
@@ -174,7 +174,7 @@ function ProfileComponent() {
 
   const handleProfileImage = (event) => {
     let validated = false;
-    setProfilePicture(event.target.files[0]);
+    setprofilePicturePath(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -182,17 +182,17 @@ function ProfileComponent() {
       }
     };
     reader.readAsDataURL(event.target.files[0]);
-    setShowProfilePicture(true);
+    setShowprofilePicturePath(true);
   };
 
-  const uploadProfilePicture = async () => {
+  const uploadprofilePicturePath = async () => {
     if (profilePicture === "") {
       console.log("cant be null");
       return;
     }
     const formData = new FormData();
     formData.append("profilePicture", profilePicture);
-    await UserService.uploadProfilePicture(user.email, formData).then((res) => {
+    await UserService.uploadprofilePicturePath(user.email, formData).then((res) => {
       window.location.reload();
     });
   };
@@ -439,12 +439,12 @@ function ProfileComponent() {
           <div className="feature-photo">
             <div className="cover-photo pdng1">
               <div className="col-lg-6">
-                {showProfilePicture ? (
+                {showprofilePicturePath ? (
                   <img id="preview" src={profileRender} />
-                ) : userProfile.profilePicturePath ? (
+                ) : userProfile.profilePicture ? (
                   <img
                     className="border-gradient1"
-                    src={fileStorage.baseUrl + userProfile.profilePicturePath}
+                    src={fileStorage.baseUrl + userProfile.profilePicture}
                   ></img>
                 ) : (
                   <p> Edit Display Photo</p>
@@ -465,7 +465,7 @@ function ProfileComponent() {
                     href="#!"
                     id="submit"
                     name="submit"
-                    onClick={uploadProfilePicture}
+                    onClick={uploadprofilePicturePath}
                   ></a>
                 </form>
               </div>
@@ -575,12 +575,12 @@ function ProfileComponent() {
             <div className="container pdng1">
               <div className="row">
                 {/* <div className="col-lg-3">
-                  {showProfilePicture ? (
+                  {showprofilePicturePath ? (
                     <img id="preview" src={profileRender} />
-                  ) : userProfile.profilePicturePath ? (
+                  ) : userProfile.profilePicture ? (
                     <img
                       className="border-gradient"
-                      src={fileStorage.baseUrl + userProfile.profilePicturePath}
+                      src={fileStorage.baseUrl + userProfile.profilePicture}
                     ></img>
                   ) : (
                     <p> Edit Display Photo</p>
@@ -601,7 +601,7 @@ function ProfileComponent() {
                       href="#!"
                       id="submit"
                       name="submit"
-                      onClick={uploadProfilePicture}
+                      onClick={uploadprofilePicturePath}
                     >
                       Upload
                     </a>
@@ -664,9 +664,9 @@ function ProfileComponent() {
               {/* <div className="user-avatar">
                    
                       {
-                        showProfilePicture ?
+                        showprofilePicturePath ?
                           <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
+                          userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
                       }
                       <form className="edit-phto">
                         <i className="fa fa-camera-retro"></i>
@@ -675,7 +675,7 @@ function ProfileComponent() {
                         </label>
                       </form>
                     
-                    <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={uploadProfilePicture}>Upload</button>
+                    <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={uploadprofilePicturePath}>Upload</button>
                   </div> */}
               {/* <div>
                 <div className="stories">

@@ -40,6 +40,11 @@ class PostService {
         return result;
     }
 
+    getPostForUserById = async (userid) => {
+        authenticate();
+        const result = await authAxios.get(`user/posts/${userid}`)
+        return result;
+    }
     getSavedPostForUser = async (email) => {
         authenticate();
         const result = await authAxios.get(`posts/${email}/saved_posts`)
@@ -75,15 +80,12 @@ class PostService {
         console.log("This is conpass " +ConPass)
         console.log(password)
        const result = await authAxios.put(`/users/${email}/change_password/${ConPass}`,password)
-        // console.log("Pass updated "+password);
        return result
      }
      CheckOldPass = async (email,conpass) => {
         authenticate();
-        // console.log(pass)
         const result = await authAxios.get(`/users/${email}/${conpass}`)
         return result;
-        // console.log(result)
     }
 
 }

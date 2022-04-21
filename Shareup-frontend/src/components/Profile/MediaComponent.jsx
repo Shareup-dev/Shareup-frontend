@@ -15,12 +15,13 @@ import Modal from "react-modal";
 import Popup from "reactjs-popup";
 import fileStorage from "../../config/fileStorage";
 import ReelsServices from "../../services/ReelsServices";
+import PostService from "../../services/PostService";
 
-function ReelsComponentFriends({ reel, setRefresh }) {
+function MediaComponent({ post, setRefresh }) {
   let history = useHistory();
   const { user } = useContext(UserContext);
   const [index, setIndex] = useState(0);
-  const [reelsForUserFriends, setReelsForUserFriends] = useState([]);
+  const [postsForUserFriends, setPostsForUserFriends] = useState([]);
   const [FriendsStories, setFriendsStories] = useState([]);
 
   const [stories, setStories] = useState([]);
@@ -28,10 +29,9 @@ function ReelsComponentFriends({ reel, setRefresh }) {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
-
-  const getReelsForFriendsUser = async () => {
-    await ReelsServices.getReelForUserFriends(user?.id).then((res) => {
-      setReelsForUserFriends(res.data);
+  const getPostsForFriendsUser = async () => {
+    await PostService.getPostForUserById(user?.id).then((res) => {
+      setPostsForUserFriends(res.data);
     });
   };
 
@@ -53,15 +53,15 @@ const checkPop=()=>{
 
   useEffect(() => {
     getUser();
-    getReelsForFriendsUser();
+    getPostsForFriendsUser();
     testScript();
-  }, [FriendsStories]);
+  }, []);
 
 
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'transparent'}}>
-        <img src={fileStorage.baseUrl + reel.userdata.profilePicture} alt="" />
+        {/* <img src={fileStorage.baseUrl + post.userdata.profilePicture} alt="" /> */}
       </div>
       <div
         className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center"
@@ -74,35 +74,18 @@ const checkPop=()=>{
           boxShadow: " 0 3px 6px rgb(84 84 84 / 41%)",
         }}
       >
-        <span>{reelsForUserFriends.length}</span>
+        <span>{postsForUserFriends.length}</span>
       </div>
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
-          <a href="#!">
-          <>
-          <video
-                          preload="none"
-                          loop
-                          controls={false}
-                          autoPlay
-                          muted
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "fill",
-                          }}
-                          src={`${fileStorage.baseUrl}${reel.video_name}`}
-                          type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${reel.video_name}`}
-                        />
-                                              </>
-
+          <a >
+            <img src={fileStorage.baseUrl + post.media[0].media} alt="" className='zoom-post-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
 
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            <span className=' text-light p-2' style={{fontSize:'0.8rem'}}>{reel.userdata.firstName} {reel.userdata.lastName}</span>
+            {/* <span className='text-light p-2' style={{fontSize:'0.8rem'}}>{post.userdata.firstName} {post.userdata.lastName}</span> */}
 
           </div>
         </div>
@@ -110,4 +93,4 @@ const checkPop=()=>{
     </div>
   );
 }
-export default ReelsComponentFriends;
+export default MediaComponent;

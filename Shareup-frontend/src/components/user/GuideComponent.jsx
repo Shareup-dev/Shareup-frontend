@@ -175,7 +175,7 @@ function GuideComponent() {
                                 <li className="sendrqstli" key={userF.id}>
                                     <div className="grid-container" >
                                         <div class="item1" >
-                                            <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                            <img src={fileStorage.baseUrl + userF.profilePicture} alt="" />
                                             {/* <span className="status f-online" /> */}
                                         </div>
                                         <div class="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
@@ -249,7 +249,7 @@ function GuideComponent() {
                                             <div class="item1">
 
 
-                                                <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                                <img src={fileStorage.baseUrl + userF.profilePicture} alt="" />
                                                 {/* <span className="status f-online" /> */}
                                             </div>
                                             <div className="item2" style={{paddingTop: '15px', paddingLeft: '0px'}}>
@@ -379,7 +379,7 @@ function GuideComponent() {
                             style={{ gridTemplateColumns: 'max-content', textAlign: 'left', fontWeight: 'bold', paddingLeft: '13%', paddingRight: '13%', fontColor: '#000000' }}>
 
                             <div class="item1">
-                                <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
+                                <img src={fileStorage.baseUrl + user.profilePicture} alt="" />
                                 {/* <span className="status f-online" /> */}
                             </div>
                             <div class="item2" style={{ fontSize: '16px', fontWeight: 'bold', color: 'black', paddingTop: '22px' }}>

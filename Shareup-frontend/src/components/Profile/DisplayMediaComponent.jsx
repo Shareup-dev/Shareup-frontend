@@ -15,8 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PostService from "../../services/PostService";
 
-function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
+function DisplayMediaComponent({ post, setRefresh, indexs }) {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -59,7 +60,7 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
     setAnchorEl(event.currentTarget);
   };
   const handleDeleteReel = (post) => {
-    ReelsServices.deleteReel(post.id).then((res) => {
+    PostService.deletePost(post.id).then((res) => {
       setRefresh(res.data);
     });
   };
@@ -88,7 +89,7 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
               >
                 <>
-                  {reel.video_name ? (
+                  {post.media ? (
                     <div className="slide" key={index} id={index}>
                       <div
                         style={{ marginTop: "65px" }}
@@ -97,12 +98,12 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            reel.userdata.profilePicture
+                            post.userdata.profilePicture
                           }
                           alt=""
                         />
                         <span style={{ color: "black" }}>
-                          {reel.userdata.firstName}
+                          {post.userdata.firstName}
                         </span>
                         <div
                           className="dropdown"
@@ -141,12 +142,12 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                             <div>
                               <MenuItem>
                                 <i class="lar la-bookmark"></i>
-                                <span>Save Reel</span>
+                                <span>Save Post</span>
                               </MenuItem>
-                              {reel.userdata.id === user.id ? (
-                                <MenuItem onClick={handleDeleteReel(reel.id)}>
+                              {post.userdata.id === user.id ? (
+                                <MenuItem onClick={handleDeleteReel(post.id)}>
                                   <i class="las la-trash"></i>
-                                  <span>Delete Reel</span>
+                                  <span>Delete Post</span>
                                 </MenuItem>
                               ) : (
                                 <></>
@@ -158,25 +159,14 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                             </div>
                           </Menu>
                         </div>
-                        <div style={{ marginTop: "600px" }}>
-                          <span style={{ color: "black" }}>{reel.content}</span>
-                        </div>
                       </div>
                       <>
-                        <video
-                          preload="none"
-                          controls
-                          loop
-                          autoPlay
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "fill",
-                          }}
-                          src={`${fileStorage.baseUrl}${reel.video_name}`}
-                          type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${reel.video_name}`}
-                        />
+                      <img
+                            className="postDsplyImg"
+                            src={
+                              fileStorage.baseUrl + post.media[0].media
+                            }
+                          />
                       </>
                     </div>
                   ) : null}
@@ -213,4 +203,4 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
   );
 }
 
-export default DisplayFriendsReelsComponent;
+export default DisplayMediaComponent;

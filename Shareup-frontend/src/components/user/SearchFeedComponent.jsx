@@ -586,7 +586,7 @@ function SearchFeedComponent() {
                                                                     {/* <figure> */}
                                                                     <div class='item1'>
                                                                         <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                                                            <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                                                            <img style={{ objectFit: 'cover' }} src={userM.profilePicture} alt='' />
                                                                         </a>
                                                                         {/* </figure> */}
                                                                     </div>
@@ -680,7 +680,7 @@ function SearchFeedComponent() {
                                                     <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                                         {/* <figure> */}
                                                         <div class="item1">
-                                                            <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                                                            <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                                                             {/* </figure> */}
 
                                                         </div>
@@ -731,7 +731,7 @@ function SearchFeedComponent() {
                                                     <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                                         {/* <figure> */}
                                                         <div class="item1">
-                                                            <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                                                            <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                                                             {/* </figure> */}
 
                                                         </div>
@@ -825,7 +825,7 @@ function SearchFeedComponent() {
                                     <li className="sendrqstli" style={{ background: 'white' }} key={userF.id}>
                                         <div className="grid-container" >
                                             <div class="item1" >
-                                                <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                                <img src={fileStorage.baseUrl + userF.profilePicture} alt="" />
                                                 {/* <span className="status f-online" /> */}
                                             </div>
                                             <div class="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>
@@ -941,7 +941,7 @@ function SearchFeedComponent() {
                                         <li className="sendrqstli" style={{ background: 'white' }} key={userF.id}>
                                             <div className="grid-container" >
                                                 <div class="item1" >
-                                                    <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
+                                                    <img src={fileStorage.baseUrl + userF.profilePicture} alt="" />
                                                     {/* <span className="status f-online" /> */}
                                                 </div>
                                                 <div class="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>

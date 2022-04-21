@@ -500,7 +500,7 @@ const handleRemoveImageSwap = () => {
     </div></div>
 
     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+    <img src={user ? fileStorage.baseUrl+user.profilePicture : fileStorage.baseUrl+userR.profilePicture} alt="" /></div>
        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}</span>
        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -545,7 +545,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicture : fileStorage.baseUrl+userR.profilePicture} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -588,7 +588,7 @@ const handleRemoveImageSwap = () => {
                     </div></div>
                 
                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicture : fileStorage.baseUrl+userR.profilePicture} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -629,7 +629,7 @@ const handleRemoveImageSwap = () => {
                                     <span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span>
                                     </div></div>
                                     <div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
-                    <img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+                    <img src={user ? fileStorage.baseUrl+user.profilePicture : fileStorage.baseUrl+userR.profilePicture} alt="" /></div>
                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -645,7 +645,7 @@ const handleRemoveImageSwap = () => {
                                 
                                                                     </div>
                                     {/* <div className="popupimg"> 
-                                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                                    <img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
                                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >

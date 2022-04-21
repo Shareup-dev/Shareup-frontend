@@ -350,8 +350,8 @@ export default function PostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicture
+                      : fileStorage.baseUrl + userR.profilePicture
                   }
                   alt=""
                 />
@@ -596,7 +596,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
+                      src={fileStorage.baseUrl + post.userdata.profilePicture}
                       alt=""
                       className="post-user-img"
                     />
@@ -889,9 +889,9 @@ export default function PostComponent({ post, setRefresh }) {
                                       src={
                                         user
                                           ? fileStorage.baseUrl +
-                                            user.profilePicturePath
+                                            user.profilePicture
                                           : fileStorage.baseUrl +
-                                            userR.profilePicturePath
+                                            userR.profilePicture
                                       }
                                       alt=""
                                     />
@@ -1032,7 +1032,7 @@ export default function PostComponent({ post, setRefresh }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            post.post.userdata.profilePicturePath
+                            post.post.userdata.profilePicture
                           }
                           alt=""
                           className="post-user-img"
@@ -1320,9 +1320,9 @@ export default function PostComponent({ post, setRefresh }) {
                                         src={
                                           user
                                             ? fileStorage.baseUrl +
-                                              user.profilePicturePath
+                                              user.profilePicture
                                             : fileStorage.baseUrl +
-                                              userR.profilePicturePath
+                                              userR.profilePicture
                                         }
                                         alt=""
                                       />

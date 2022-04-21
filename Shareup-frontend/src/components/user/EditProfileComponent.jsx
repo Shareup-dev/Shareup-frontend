@@ -24,9 +24,9 @@ export default function EditProfileComponent() {
   const { user } = useContext(UserContext)
   const handleDescribeYourself = (event) => { setDescribeYourself(event.target.value) }
   const [temp, setTemp] = useState("")
-  const [profilePicture, setProfilePicture] = useState(null)
+  const [profilePicture, setprofilePicturePath] = useState(null)
   const [profileRender, setProfileRender] = useState(null)
-  const [showProfilePicture, setShowProfilePicture] = useState(false)
+  const [showprofilePicturePath, setShowprofilePicturePath] = useState(false)
   const [userProfile, setUserProfile] = useState([])
   const [refresh, setRefresh] = useState(null)
   const [firstName, setFirstName] = useState("")
@@ -52,7 +52,7 @@ export default function EditProfileComponent() {
   const [show, setShow] = useState('overview')
   const handleProfileImage = (event) => {
     let validated = false
-    setProfilePicture(event.target.files[0])
+    setprofilePicturePath(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -60,7 +60,7 @@ export default function EditProfileComponent() {
       }
     }
     reader.readAsDataURL(event.target.files[0])
-    setShowProfilePicture(true)
+    setShowprofilePicturePath(true)
   }
   const currentUserGet = async () => {
     await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
@@ -148,14 +148,14 @@ const clrAboutMe=()=>{
 }
 
 // By najam end here
-  const uploadProfilePicture = async () => {
+  const uploadprofilePicturePath = async () => {
     if (profilePicture === "") {
       console.log("cant be null")
       return
     }
     const formData = new FormData();
     formData.append('profilePicture', profilePicture)
-    await UserService.uploadProfilePicture(user.email, formData).then(res => {
+    await UserService.uploadprofilePicturePath(user.email, formData).then(res => {
       window.location.reload();
     })
   }
@@ -211,9 +211,9 @@ else
                      </label>
                      
             {
-                        showProfilePicture ?
-                          <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadProfilePicture}>Change Profile Picture</a></div> </> :
-                          <> <img src={userProfile.profilePicturePath ? fileStorage.baseUrl+userProfile.profilePicturePath: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
+                        showprofilePicturePath ?
+                          <><img id="preview profprvw"  src={profileRender} /><div><a style={{fontWeight:'bold'}}href="#!" id="submit" name="submit"  onClick={uploadprofilePicturePath}>Change Profile Picture</a></div> </> :
+                          <> <img src={userProfile.profilePicture ? fileStorage.baseUrl+userProfile.profilePicture: "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"}></img> </>
                       }
                      
 

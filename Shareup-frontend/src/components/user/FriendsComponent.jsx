@@ -171,7 +171,7 @@ function FriendsComponent() {
                             <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                     {/* </figure> */}
                                 </div>
                                 {/* <div className="  "> */}
@@ -273,7 +273,7 @@ const FollowingComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -322,7 +322,7 @@ const FollowersComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -446,7 +446,6 @@ const getAllUser = async () => {
 			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
 		})
 	})
-	console.log(user.email + " This is the users")
 }
 
 const getFriendsList = async () => {

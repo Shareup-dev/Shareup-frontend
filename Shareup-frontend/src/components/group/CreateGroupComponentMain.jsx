@@ -26,7 +26,7 @@ function CreateGroupComponentMain() {
 
     const [groupPicture, setGroupPicture] = useState(null)
     const [profileRender, setProfileRender] = useState(null)
-    const [showProfilePicture, setShowProfilePicture] = useState(false)
+    const [showprofilePicturePath, setShowprofilePicturePath] = useState(false)
 
     const [groupCover, setGroupCover] = useState(null)
     const [coverRender, setCoverRender] = useState(null)
@@ -65,7 +65,7 @@ function CreateGroupComponentMain() {
             }
         }
         reader.readAsDataURL(event.target.files[0])
-        setShowProfilePicture(true)
+        setShowprofilePicturePath(true)
     }
 
     const handleGroupCover = (event) => {
@@ -186,7 +186,7 @@ function CreateGroupComponentMain() {
                             <div class="image-upload">
                                 <label for="file-input">
                                     {
-                                        showProfilePicture ?
+                                        showprofilePicturePath ?
                                             <img id="preview" src={profileRender} /> :
                                             <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
                                     }

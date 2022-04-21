@@ -529,27 +529,7 @@ function ReelFeedComponent() {
     setSwapfiles({})
     setShowSwapImage(false)
   }
-  // const uploadSwap = (event) => {
-  //   event.preventDefault();
-  //   setUploadError("")
-  //   console.log("uploading post working")
-  //   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-  //     console.log("cant be null")
-  //     setUploadError("Please Insert A Text or an Image")
-  //     return
-  //   }
 
-  //   const formData = new FormData();
-  //   formData.append('content', swapContent)
-  //   console.log(" this is the files" + files)
-  //   formData.append(`files`, files)
-  //   SwapService.createSwap(user.id, formData).then(res => {
-  //     console.log(JSON.stringify(res))
-  //     setSwapContent("")
-  //     handleRemoveImage()
-  //     setRefresh(res.data)
-  //   })
-  // }
 
   const imageshowSwap = () => {
     return (
@@ -604,7 +584,7 @@ function ReelFeedComponent() {
                                   {/* <figure> */}
                                   <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicture} alt='' />
                                     </a>
                                     {/* </figure> */}
                                   </div>
@@ -737,7 +717,7 @@ function ReelFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -788,7 +768,7 @@ function ReelFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -830,7 +810,7 @@ function ReelFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -917,7 +897,7 @@ function ReelFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/publicicon.svg" style={{ width: '49%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -945,7 +925,7 @@ function ReelFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/friendsicon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -973,7 +953,7 @@ function ReelFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/friendexcepticon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -999,7 +979,7 @@ function ReelFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/groupicon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -1024,7 +1004,7 @@ function ReelFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/onlymeicon.svg" style={{ width: '39%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">

@@ -176,10 +176,10 @@ export default function Layout(props) {
                             <div className="user">
                               <img
                                 src={
-                                  fileStorage.baseUrl + user.profilePicturePath
+                                  fileStorage.baseUrl + user.profilePicture
                                 }
                               />
-                              <a href="/profile">
+                              <a href={`/profile/${AuthService.getCurrentUser().username}`}>
                                 <p
                                   style={{ fontWeight: "bold" }}
                                 >{`${props.user.firstName} ${props.user.lastName}`}</p>

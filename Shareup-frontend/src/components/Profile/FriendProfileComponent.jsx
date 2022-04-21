@@ -44,7 +44,7 @@ function FriendProfileComponent() {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicture} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -72,7 +72,7 @@ function FriendProfileComponent() {
                     <div className="col-lg-6" key={friend.id}>
 					<div className="bor">
                         <figure>
-                            <img className="imgFrnd1" src={friend.profilePicturePath} alt="" />
+                            <img className="imgFrnd1" src={friend.profilePicture} alt="" />
                             
                         </figure>
                         <div className="friendz-meta">

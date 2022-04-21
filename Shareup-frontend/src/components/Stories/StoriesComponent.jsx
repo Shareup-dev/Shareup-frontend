@@ -77,7 +77,7 @@ const checkPop=()=>{
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'blue'}}>
-        <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
+        <img src={fileStorage.baseUrl + story.user.profilePicture} alt="" />
       </div>
       
       <div
