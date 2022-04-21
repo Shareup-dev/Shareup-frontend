@@ -40,6 +40,11 @@ class GroupService {
         const result = await authAxios.get('')
         return result;
     }
+    getGroupMembers = async (gid) => {
+        authenticate();
+        const result = await authAxios.get(`/${gid}/members`)
+        return result;
+    }
 
     getGroupById = async (id) => {
         const result = await authAxios.get(`/id/${id}`)
@@ -69,13 +74,17 @@ class GroupService {
         const result = await authAxios.delete(`/${oid}/delete/${gid}`)
         return result
     }
-    addAdmin = async (gid,uid) => {
-        const result = await authAxios.delete(`/${gid}/add_admin/${uid}`)
+    addAdmin = async (uid ,gid) => {
+        const result = await authAxios.post(`/${gid}/add_admin/${uid}`)
         return result
 
     }
-    removeMember = async (aid,uid,gid) => {
-        const result = await authAxios.get(`${aid}/${gid}/delete/${uid}`)
+    inviteMember = async (gid,uid,fid) => {
+        const result = await authAxios.post(`/${gid}/${uid}/invite/${fid}`)
+        return result
+    }
+    removeMember = async (aid,gid,uid) => {
+        const result = await authAxios.delete(`${aid}/${gid}/delete/${uid}`)
         return result;
     }
 

@@ -11,6 +11,7 @@ import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
 import { ownerDocument } from '@mui/material';
 import $ from 'jquery'
+import MemberComponent from './MemberComponent'
 
 function MembersComponent(props) {
 	let history = useHistory();
@@ -20,6 +21,8 @@ function MembersComponent(props) {
 	const [refresh, setRefresh] = useState([]);
 
 	const [group, setGroup] = useState(props);
+	const [members, setMembers] = useState(props);
+
 
 	// const []
 
@@ -28,6 +31,7 @@ function MembersComponent(props) {
 	const [friendsCount, setFriendsCount] = useState();
 	const [moreFlag, setMoreFlag] = useState(false);
 
+	const [searchedMember, setSearchedMember] = useState([]);
     
 	const [searchedUser, setSearchedUser] = useState([]);
 
@@ -64,7 +68,7 @@ function MembersComponent(props) {
 
 	const handleSearchedMembers = (event) => {
 		if (event.target.value === "") {
-			setSearchedFollowing(group.members)
+			setMembers(members)
 		} else {
 			let temp = []
 			group.members.map(u => {
@@ -77,7 +81,7 @@ function MembersComponent(props) {
 					temp.push(u)
 				}
 			})
-			setSearchedFollowing(temp)
+			setMembers(temp)
 			console.log(temp)
 		}
 
@@ -86,7 +90,7 @@ function MembersComponent(props) {
 
 	const handleSearchedFollowers = (event) => {
 		if (event.target.value === "") {
-			setSearchedFollowers(followers)
+			// setMembers(followers)
 		} else {
 			let temp = []
 			followers.map(u => {
@@ -99,7 +103,7 @@ function MembersComponent(props) {
 					temp.push(u)
 				}
 			})
-			setSearchedFollowers(temp)
+			setMembers(temp)
 			console.log(temp)
 		}
 	}
@@ -146,24 +150,14 @@ function MembersComponent(props) {
 		return MembersComponentFunction()
 	}
 
-	$(document).mouseup(function(e) 
-{
-    var container = $(".moredrpdwn");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) 
-    {
-        setMoreFlag(false)
-        console.log(moreFlag)
-    }
-    }); 
+	
     const addAdmin = (memberId) =>{
         GroupService.addAdmin(group.id,memberId).then(res => {
 			setRefresh(res.data)
 		})
     }
     const leaveGroup = () =>{
-        GroupService.addAdmin(user.id, group.id).then(res => {
+        GroupService.leaveGroup(user.id, group.id).then(res => {
 			setTimeout(function () { history.push(`/groups`) }, 2000);
 		})
     }
@@ -183,60 +177,10 @@ function MembersComponent(props) {
                 </div>
                 <div className="tab-pane active fade show " id="following">
                     <ul className="nearby-contct" style={{marginTop:'15px'}}>
-                        {group.members&&group.members.length>0&&
-                        group.members.map(
+                        {members&&members.length>0&&
+                        members.map(
                             member =>
-                                <li key={member.id} className="friends-card grp">
-                                    <div className="grid-container">
-                                        {/* <div className="nearly-pepls"> */}
-                                        {/* <figure> */}
-                                        <div class="item1">
-                                            <a href={`/profile/${member.email}`} title={`${member.email}`}><img src={fileStorage.baseUrl+member.profilePicturePath} alt="" /></a>
-                                            {/* </figure> */}
-                                        </div>
-                                        {/* <div className="  "> */}
-                                        <div class="item2">
-                                            <p className="nameTag"><a href={`/profile/${member.email}`} title={`${member.email}`}>{`${member.firstName} ${member.lastName}`}</a></p>
-                                            <div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
-                                        </div>
-                                        <div className="item4">
-                                            {
-                                                friendsList.some(friend=>member.id!==friend.id)
-                                                ?<a href="#"  className="add-butn more-action" data-ripple onClick={() => addFriendsId(member.id)}>Add Friend </a>
-                                                : ''
-                                                    }
-                                            {/* <div>  <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i></div> */}
-                                        </div>
-                                        <div class="item4">
-                                            <div className="pos-rel">
-                                                <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
-                                                {moreFlag
-                                                ?   <ul className="moredrpdwn">
-                                                        {member.id===user.id?<li onClick={() => leaveGroup(member.id)}>Leave group</li>:null}
-                                                        {(group.owner.id===user.id)?<li onClick={() => removeMember(group.owner.id,member.id)}>Remove from group</li>:null}
-                                                        {(group.owner.id===user.id)
-                                                        ?(group.admins&&group.admins.length<1
-                                                            ?<li onClick={() => addAdmin(member.id)}>Add as admin</li>
-                                                            :group.admins.some(admin=>(admin.id!==member.id)
-                                                                ?<li onClick={() => addAdmin(member.id)}>Add Admin</li>
-                                                                :null))
-                                                        :(user===user.id)
-                                                        ?''
-                                                        :''}
-
-                                                    </ul>
-                                                :   null}
-                                            </div>  
-                                        </div>
-                                        {/* <div className="pepl-info">
-                                                <h4><a href={`/profile/${member.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
-                                                <p><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.email}`}</a></p>
-                                                <span>Engr</span>
-                                                <a href="#" title="#" className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
-                                            </div> */}
-                                        {/* </div> */}
-                                    </div>
-                                </li>
+                                <MemberComponent member={member} group={group}/>
                         )}
                     </ul>
                     <div className="lodmore"><button className="btn-view btn-load-more" /></div>
@@ -446,7 +390,8 @@ function MembersComponent(props) {
 
     useEffect(() => {
         setGroup(props.group)
-        getFriendsList()
+        setMembers(group.members)
+        // getFriendsList()
     }, [props])
 
     useEffect(() => {

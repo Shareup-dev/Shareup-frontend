@@ -23,6 +23,8 @@ import fileStorage from '../../config/fileStorage';
 import {Tab,Tabs} from 'react-bootstrap'
 import CommonComposer from '../composer/CommonComposer';
 import MembersComponent from './MembersComponent'
+import moment from 'moment';
+import InviteMembersComponent from './InviteMembersComponent'
 
 function ViewGroupComponent1({post}) {
 	const { id: stringId } = useParams();
@@ -69,8 +71,10 @@ function ViewGroupComponent1({post}) {
     //functions
 
     useEffect(() => {
+		getGroupMembers()
 		getGroupPosts()
 		getGroupById()
+		
 	}, [])
 
     const getGroupById = async () => {
@@ -82,7 +86,15 @@ function ViewGroupComponent1({post}) {
 			// console.log(JSON.stringify(res.data) + " helooo");
 		})
 	}
-
+	const getGroupMembers = async () => {
+		await GroupService.getGroupMembers(groupid).then(res => {
+			// setGroup(res.data)
+			setMembers(res.data)
+            // setOwner(res.owner)
+			// console.log("YOIASOIODA")
+			// console.log(JSON.stringify(res.data) + " helooo");
+		})
+	}
 	const getGroupPosts = async () => {
 		await GroupService.getGroupsPostsById(groupid).then(res => {
 			setGroupPosts(res.data)
@@ -291,54 +303,88 @@ const handleShowingReaction = () => {
                 <div className='pagetype-2 grp-det'>
                     <div>
                         <div className='grp-name'>{group.name}</div>
-                        <div className='mt-15'>{group.privacySetting&&group.privacySetting==true ?'Public':'Private'} <span className='pl-15 fw-6'>{group.members&&group.members.length} Members</span></div>      
+                        <div className='mt-15 d-flex'>{group.privacySetting&&group.privacySetting==true ?<div><i className="fa fa-globe pad-r-5" aria-hidden="true"></i>Public</div>
+						:<div><i className="fa fa-lock pad-r-5" aria-hidden="true"></i>Private</div>} <span className='pl-15 fw-6'>{group.members&&group.members.length} Members</span></div>      
                     </div>
-                    <div className='btns'>
+                    <div className='grp-det-btns'>
                  
-                            { 
-                                group.members&&group.members.length>0?
-                                group.members.map((member)=>{
-                                    if(member.id==user.id){
-                                        return(  
-                                            <div className="dropdown ">
-                                                <button className="drp-btn dropdown-toggle grp-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
-                                                {/* <span className="caret"></span> */}
-                                                </button>
-                                                <ul className="dropdown-menu">
-                                                    <li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
-                                                    <li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
+                            { members&&members.length>0 ?
+								members.some(member=>member.id===user.id)?
+									<div className="dropdown ">
+									<button className="drp-btn dropdown-toggle grp-page-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
+									{/* <span className="caret"></span> */}
+									</button>
+									<ul className="dropdown-menu">
+										<li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
+										<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
 
-                                                </ul>
-                                            </div>
-                                        )
-                                    }
-                                })
-                                :<button className="button drp-btn grp-btn join-grp-btn" onClick={handleJoinGroup}>Join</button>
-                                
-                            }
-                        <button className='button ft-14 grp-btn'>
-                        {
-                        group.members&&group.members.length>0?
-                            group.members.map((member)=>{
-                                if(member.id == user.id){
-                                    return('Invite')
-                                }
-                            })
-                        :'Invite'}
-                        </button>
+									</ul>
+								</div>
+								:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+								
+								:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+							}
+										                        
+                        {	group&& group.owner&&
+							user.id === group.owner.id
+							?<div className="dropdown ">
+								<button className="drp-btn dropdown-toggle grp-page-btn leave-grp-btn" type="button" data-toggle="dropdown">Invite
+								{/* <span className="caret"></span> */}
+								</button>
+								<ul className="dropdown-menu">
+									<li><a href="#" onClick={handleLeaveGroup}>Invite friends in shareup</a></li>
+									<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via email</a></li>
+									<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via link</a></li>
+
+
+								</ul>
+							</div>
+							:group.admins&&group.admins.length>0?
+								group.admins.some(admin=>admin.id===user.id?
+                                    <div className="dropdown ">
+											<button className="drp-btn dropdown-toggle grp-page-btn leave-grp-btn" type="button" data-toggle="dropdown">Invite
+											{/* <span className="caret"></span> */}
+											</button>
+											<ul className="dropdown-menu">
+												<li><a href="#" onClick={handleLeaveGroup}>Invite friends in shareup</a></li>
+												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via email</a></li>
+												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via link</a></li>
+
+
+											</ul>
+										</div>
+								:null)
+								:null
+							}
+                        
 
                     </div>
                 </div>
                 <div className=' grp-det-tabs'>
-                <Tabs defaultActiveKey={group.members&&group.members.length&&group.members.some(member=>user.id===member.id)?"discussion":"about"} id="uncontrolled-tab-example" className="mb-3 " >
+                <Tabs defaultActiveKey={group.privacySetting==true?"discussion":(group&&group.members&&group.members.some(member=>member.id==user.id))?"discussion":"about"} id="uncontrolled-tab-example" className="mb-3 " >
                     <Tab eventKey="about" title="About">
                         <div className='ab-1'>
                             <div className='fw-6 abt-title clr-blk'>About this group</div>
-                            <div className='d-flex mb-15'>
-                                <i className="fa fa-globe pr-15" aria-hidden="true"></i>{ group.privacySetting && group.privacySetting === true ?
-                                        <div><div className='fw-6 clr-blk'>Public</div><div className="ft-13 padtop-5">Anyone can see who's in the group and what they post.</div></div>:'Private'}</div>
-                            <div className='d-flex mb-15'><i className="fa fa-map-marker pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Doha ,Qatar</div></div>
-                            <div className='d-flex'><i className="fa fa-history pr-15 " aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created on March 04 2021</div></div>
+                            <div className='d-flex mb-30'>
+                                { group.privacySetting && group.privacySetting === true ?
+                                        <div className='d-flex'>
+											<i className="fa fa-globe pr-15" aria-hidden="true"></i>
+											<div>
+												<div className='fw-6 clr-blk'>Public</div>
+												<div className="ft-13 padtop-5">Anyone can see who's in the group and what they post.</div></div>
+											</div>
+										:<div className='d-flex'>
+										<i className="fa fa-lock pr-15" aria-hidden="true"></i>
+										<div>
+											<div className='fw-6 clr-blk'>Private</div>
+											<div className="ft-13 padtop-5">Only members can see who's in the group and what they post.</div></div>
+										</div>
+								}
+							</div>
+                            <div className='d-flex mb-30'><i className="fa fa-map-marker pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Doha ,Qatar</div></div>
+                            <div className='d-flex mb-30'><i className="fa fa-history pr-15 " aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created on {moment(group.created_at).format('MM/DD/YYYY')}</div></div>
+                            <div className='d-flex'><i class="fa fa-user pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created by {group&&group.owner&&group.owner.firstName+' '+group.owner.lastName}</div></div>
+							
                         </div>
                         <div className='ab-2'> 
                             <div className='clr-blk fw-6 br-bottom pb-15 mb-15'>Members</div>
@@ -349,45 +395,39 @@ const handleShowingReaction = () => {
                             <div> No Activities</div>
                         </div>
                     </Tab>
+                    {	group.privacySetting&&group.privacySetting==true|| group&&group.members&&group.members.length&&group.members.some(member=>member.id===user.id) ?
+							<Tab eventKey="discussion" title="Discussion">
+								<CommonComposer />
+							</Tab>
+                        :null}
                     {
-                        group.members&&group.members.length>0?
-                            group.members.map((member)=>{
-                                if(member.id == user.id){
-                                    return(
-                                        <Tab eventKey="discussion" title="Discussion">
-                                            <CommonComposer />
-                                        </Tab>
-                                    )
-                                }
-                            }):''}
-                    {
-                        group.members&&group.members.length>0?
-                            group.members.map((member)=>{
-                                if(member.id == user.id){
-                                    return(
-                                        <Tab eventKey="events" title="Events" >
-                                            <div className='ab-1'>
-                                                <div className='fw-6 abt-title clr-blk '>Events</div>
-                                                <div className='evnt'>
-                                                    <div className='no-evnt-text'>No Events yet</div> 
-                                                    <button className='ft-15 grp-btn leave-grp-btn'>Create Event</button>                     
-                                                </div>
-                                            </div>
-                                        </Tab>
-                                    )
-                                }
-                            }):''}
-                    {group.members&&group.members.length>0?
-                            group.members.map((member)=>{
-                                if(member.id == user.id){
-                                    return(
-                                        <Tab eventKey="members" title="Members" >
-                                               <MembersComponent group={group}/>  
-                                        </Tab>
-                                    )
-                                }
-                            })
-                        :''}
+                        group.privacySetting&&group.privacySetting==true|| group&&group.members&&group.members.length&&group.members.some(member=>member.id===user.id) ?
+						
+							<Tab eventKey="events" title="Events" >
+								<div className='ab-1'>
+									<div className='fw-6 abt-title clr-blk '>Events</div>
+									<div className='evnt'>
+										<div className='no-evnt-text'>No Events yet</div> 
+										<button className='ft-15 grp-page-btn leave-grp-btn'>Create Event</button>                     
+									</div>
+								</div>
+							</Tab>
+                                   
+						:null}
+                    { group.privacySetting&&group.privacySetting==true || members&&members.length>0&&members.some(member=>member.id===user.id)?
+                            
+							<Tab eventKey="members" title="Members" >
+								<MembersComponent group={group}/>  
+							</Tab>
+                               
+                        :null}
+						 {group.owner&&group.owner.id===user.id?
+                            
+							<Tab eventKey="people" title="People" >
+								<InviteMembersComponent group={group} members={members}/>  
+							</Tab>
+                               
+                        :null}
                 </Tabs>
                 </div>
             </div>
