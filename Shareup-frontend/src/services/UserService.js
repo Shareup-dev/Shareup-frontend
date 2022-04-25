@@ -89,6 +89,11 @@ class UserService {
         return result
     }
 
+    getFollowStatus = async (uid, fid) => {
+        const result = await authAxios.get(`/${uid}/follow_with/${fid}`)
+        return result
+    }
+
     uploadProfilePicture = async (email, formdata) => {
         const result = await authAxios.post(`users/${email}/upload_profile_picture`,formdata)
         return result

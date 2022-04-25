@@ -26,11 +26,18 @@ import ReelsComponentFriends from "../Reels/ReelsComponentFriends";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 import DisplayMediaComponent from "../Profile/DisplayMediaComponent";
 import MediaComponent from "../Profile/MediaComponent";
-import Nav from 'react-bootstrap/Nav'
+import Nav from "react-bootstrap/Nav";
 import { textAlign } from "@mui/system";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import { TabContext } from "@mui/lab";
+import { TabList } from "@mui/lab";
+import { TabPanel } from "@mui/lab";
+import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
+import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
-  
+
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -61,8 +68,13 @@ function OtherProfileComponent() {
   const [userPost, setUserPost] = useState([]);
   const [refresh, setRefresh] = useState(null);
   const [show, setShow] = useState("timeline");
+  const [value, setValue] = React.useState("1");
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const [myPost, setMyPost] = useState([]);
+  const [profileMedia, setProfileMedia] = useState([]);
 
   const handleFirstName = (event) => {
     setFirstName(event.target.value);
@@ -115,7 +127,6 @@ function OtherProfileComponent() {
     setStoryContent(event.target.value);
   };
   const handleFileStry = (event) => {
-    console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
@@ -123,7 +134,6 @@ function OtherProfileComponent() {
         setStoriesImage(reader.result);
       }
     };
-    console.log(event.target.files[0]);
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
     // }
@@ -177,6 +187,12 @@ function OtherProfileComponent() {
     });
   };
 
+  const getMediaForProfile = async () => {
+    await PostService.getMediaForProfile(userProfile?.id).then((res) => {
+      setProfileMedia(res.data);
+    });
+  };
+
   const handleProfileImage = (event) => {
     let validated = false;
     setprofilePicturePath(event.target.files[0]);
@@ -192,7 +208,6 @@ function OtherProfileComponent() {
 
   const uploadprofilePicturePath = async () => {
     if (profilePicture === "") {
-      console.log("cant be null");
       return;
     }
     const formData = new FormData();
@@ -202,10 +217,6 @@ function OtherProfileComponent() {
     });
   };
 
-  const handleOnChange = () => {
-    console.log("HEHE");
-  };
-
   const acceptFriendRequest = (uid, fid) => {
     FriendsService.acceptRequest(uid, fid).then((res) => {
       setRefresh(res.data);
@@ -213,7 +224,7 @@ function OtherProfileComponent() {
   };
 
   const getFriendStatus = () => {
-    FriendsService.getFriendStatus(user?.id,userProfile?.id).then((res) => {
+    FriendsService.getFriendStatus(user?.id, userProfile?.id).then((res) => {
       setFriendStatus(res.data);
     });
   };
@@ -223,7 +234,6 @@ function OtherProfileComponent() {
       setProfileCount(res.data);
     });
   };
-
 
   const declineFriendRequest = (uid, fid) => {
     FriendsService.declineRequest(uid, fid).then((res) => {
@@ -243,19 +253,18 @@ function OtherProfileComponent() {
     });
   };
   const removeFriend = (uid, fid) => {
-    console.log("uid: " + uid + " fid: " + fid);
     FriendsService.removeFriends(uid, fid).then((res) => {
       setRefresh(res.data);
     });
   };
   const handleFollow = (uid) => {
-    UserService.follow(user.email, uid).then((res) => {
+    UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
     });
   };
 
   const handleUnfollow = (uid) => {
-    UserService.unfollow(user.email, uid).then((res) => {
+    UserService.unfollow(user.id, uid).then((res) => {
       setRefresh(res.data);
     });
   };
@@ -307,22 +316,41 @@ function OtherProfileComponent() {
     });
   };
   const [searchedReelforUser, setSearchedReelforUser] = useState([]);
+  const [tagsMedia, setTagsMedia] = useState([]);
 
   const getReelsForUser = async () => {
-
-    await ReelsServices.getReelForUser(userProfile?.id).then(res => {
+    await ReelsServices.getReelForUser(userProfile?.id).then((res) => {
       const sorting = res.data.sort(function (a, b) {
-        let dateA = new Date(a.published), dateB = new Date(b.published);
+        let dateA = new Date(a.published),
+          dateB = new Date(b.published);
         return dateB - dateA;
       });
-      
-      const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
-        .map(id => {
-          return res.data.find(a => a.id === id)
-        })
-      setSearchedReelforUser(uniquePost)
-    })
-  }
+
+      const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
+        (id) => {
+          return res.data.find((a) => a.id === id);
+        }
+      );
+      setSearchedReelforUser(uniquePost);
+    });
+  };
+
+  const getTagMediaForUser = async () => {
+    await ReelsServices.getReelForUser(userProfile?.id).then((res) => {
+      const sorting = res.data.sort(function (a, b) {
+        let dateA = new Date(a.published),
+          dateB = new Date(b.published);
+        return dateB - dateA;
+      });
+
+      const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
+        (id) => {
+          return res.data.find((a) => a.id === id);
+        }
+      );
+      setSearchedReelforUser(uniquePost);
+    });
+  };
   const handleSearchedUser = (event) => {
     if (event.target.value === "") {
       setSearchedUser(allUser);
@@ -342,7 +370,6 @@ function OtherProfileComponent() {
         }
       });
       setSearchedUser(temp);
-      console.log(temp);
     }
   };
   useEffect(() => {
@@ -354,28 +381,200 @@ function OtherProfileComponent() {
     getAllFollowing();
     getReelsForUser();
     getAllFollowers();
+    getMediaForProfile();
     getAllFriendRequestSent();
     getAllFriendRequestRecieved();
     getPostForUser();
     getStoriesForUser();
-  }, [show,userProfile]);
+  }, [show, friendStatus]);
 
+  useEffect(() => {
+    getFriendStatus();
+    getFriendCount();
+    getPostForUser();
+  }, [userProfile, friendStatus]);
 
   const handleShow = () => {
     if (show === "timeline") {
       return <PostProfileComponent posts={myPost} setRefresh={setRefresh} />;
     }
     if (show === "photos") {
-      return MyPhotosComponentFunction();
+      return (
+        <div className="pb-5">
+          <Box sx={{ width: "100%", typography: "body1" }}>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList
+                  onChange={handleChange}
+                  aria-label="lab API tabs example"
+                >
+                  <Tab
+                    style={{ textTransform: "capitalize" }}
+                    label="Phots"
+                    value="1"
+                  />
+                  <Tab
+                    style={{ textTransform: "capitalize" }}
+                    label="Reels"
+                    value="2"
+                  />
+
+                  <Tab
+                    style={{ textTransform: "capitalize" }}
+                    label="Tags"
+                    value="3"
+                  />
+                </TabList>
+              </Box>
+              <TabPanel value="1">{MyPhotosComponentFunction()}</TabPanel>
+              <TabPanel value="2">{MyReelsComponentFunction()}</TabPanel>
+              <TabPanel value="3">{MyTagsComponentFunction()}</TabPanel>
+            </TabContext>
+          </Box>
+        </div>
+      );
     }
 
     if (show === "friends") {
-      return <FriendProfileComponent />;
-    } else {
-      return null;
+      return (
+        <div className="pb-5">
+          <Box sx={{ width: "100%", typography: "body1" }}>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList
+                  onChange={handleChange}
+                  aria-label="lab API tabs example"
+                >
+                  <Tab
+                    style={{ textTransform: "capitalize" }}
+                    label="Friends"
+                    value="1"
+                  />
+                  {user.id === userProfile?.id ? (
+                    <Tab
+                      style={{ textTransform: "capitalize" }}
+                      label="Friend Requests"
+                      value="2"
+                    />
+                  ) : (
+                    <></>
+                  )}
+                  <Tab
+                    style={{ textTransform: "capitalize" }}
+                    label="Follow"
+                    value="3"
+                  />
+                </TabList>
+              </Box>
+              <TabPanel value="1">
+                <FriendProfileComponent
+                  email={user_email}
+                  id={userProfile?.id}
+                />
+              </TabPanel>
+              <TabPanel value="2">
+                <FriendRequestProfileComponent
+                  email={user_email}
+                  id={userProfile?.id}
+                />
+              </TabPanel>
+
+              <TabPanel value="3">
+                <FriendFollowProfileComponent
+                  email={user_email}
+                  id={userProfile?.id}
+                />
+              </TabPanel>
+            </TabContext>
+          </Box>
+        </div>
+      );
     }
   };
 
+  function SwitchCase(props) {
+    switch (props.value) {
+      case "Friend":
+        return (
+          <div>
+            <a
+              onClick={() => removeFriend(user?.id, userProfile?.id)}
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                background: "#D6D6D6",
+                marginTop: "15px",
+              }}
+              className="button rounded-pill"
+            >
+              Unfriend
+            </a>
+          </div>
+        );
+      case "Unfriend":
+        return (
+          <div>
+            <a
+              onClick={() => sendFriendRequest(user?.id, userProfile?.id)}
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                background: "#D6D6D6",
+                marginTop: "15px",
+              }}
+              className="button rounded-pill"
+            >
+              Add Friend
+            </a>
+          </div>
+        );
+      case "FriendRequested":
+        return (
+          <div>
+            <a
+              onClick={() => unsendFriendRequest(user?.id, userProfile?.id)}
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                background: "#D6D6D6",
+                marginTop: "15px",
+              }}
+              className="button rounded-pill"
+            >
+              Cancel Request
+            </a>
+          </div>
+        );
+      case "FriendResponse":
+        return (
+          <div>
+            <a
+              onClick={() => acceptFriendRequest(user?.id, userProfile?.id)}
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                background: "#D6D6D6",
+                marginTop: "15px",
+              }}
+              className="button rounded-pill"
+            >
+              Accept
+            </a>
+            <a
+              onClick={() => declineFriendRequest(user?.id, userProfile?.id)}
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                background: "#D6D6D6",
+              }}
+              className="button rounded-pill"
+            >
+              Reject
+            </a>
+          </div>
+        );
+    }
+  }
   const updateProfile = async () => {
     let updateduser = {
       firstName: firstName,
@@ -391,28 +590,117 @@ function OtherProfileComponent() {
       setUserProfile(res.data);
     });
   };
-const MyPhotosComponentFunction = () => {
+  const MyPhotosComponentFunction = () => {
     return (
       <>
-      <div className="pb-5">
-      <Nav fill variant="tabs" defaultActiveKey="#">
-      <Nav.Item>
-        <Nav.Link href="#">Photos</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="#">Reels</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="#">Tags</Nav.Link>
-      </Nav.Item>
-    </Nav>
-    </div>
-      <div className="loadMore" style={{textAlign:"center"}}>
-        {myPost && myPost.length > 0
+        <div className="loadMore" style={{ textAlign: "center" }}>
+          {profileMedia && profileMedia.length > 0 ? (
+            <ul class="profilemedia">
+              {profileMedia.map((post, index) => (
+                <Popup
+                  style={{ padding: "0px" }}
+                  trigger={
+                    <li className="slideprofmedia" key={post.id} id={index}>
+                      <MediaComponent post={post} setRefresh={setRefresh} />
+                    </li>
+                  }
+                  modal
+                >
+                  {(close) => (
+                    <Form>
+                      <div style={{ width: "5%" }}>
+                        <a href="#!" onClick={close}>
+                          <i
+                            style={{
+                              color: "#fff",
+                              padding: "10px",
+                              fontSize: "30px",
+                            }}
+                            class="las la-times"
+                          ></i>
+                        </a>
+                      </div>
+                      <DisplayMediaComponent
+                        key={post.id}
+                        id={index}
+                        post={post}
+                        setRefresh={setRefresh}
+                        index={index}
+                      />
+                    </Form>
+                  )}
+                </Popup>
+              ))}
+            </ul>
+          ) : (
+            <div class="center" style={{ padding: "20px" }}>
+              No Post to show
+            </div>
+          )}
+        </div>
+      </>
+    );
+  };
+  const MyReelsComponentFunction = () => {
+    return (
+      <div className="loadMore">
+        {searchedReelforUser && searchedReelforUser.length > 0 ? (
+          <ul class="slidesreel">
+            {searchedReelforUser.map((reel, index) => (
+              <Popup
+                style={{ padding: "0px" }}
+                trigger={
+                  <li className="slideitemreelcom" key={reel.id} id={index}>
+                    <ReelsComponentFriends
+                      reel={reel}
+                      setRefresh={setRefresh}
+                    />
+                  </li>
+                }
+                modal
+              >
+                {(close) => (
+                  <Form>
+                    <div style={{ width: "5%" }}>
+                      <a href="#!" onClick={close}>
+                        <i
+                          style={{
+                            color: "#fff",
+                            padding: "10px",
+                            fontSize: "30px",
+                          }}
+                          class="las la-times"
+                        ></i>
+                      </a>
+                    </div>
+                    <DisplayFriendsReelsComponent
+                      key={reel.id}
+                      id={index}
+                      reel={reel}
+                      setRefresh={setRefresh}
+                      index={index}
+                    />
+                  </Form>
+                )}
+              </Popup>
+            ))}
+          </ul>
+        ) : (
+          <div class="center" style={{ padding: "20px" }}>
+            No Reels to show
+          </div>
+        )}
+      </div>
+    );
+  };
+  const MyTagsComponentFunction = () => {
+    return (
+      <>
+        <div className="loadMore" style={{ textAlign: "center" }}>
+          {/* {profileMedia && profileMedia.length > 0
           ? (
             <ul class="profilemedia" >
-                          {myPost.map((post, index) => (
-                            myPost.media !== [] ? (
+                          {profileMedia.map((post, index) => (
                             <Popup
                               style={{ padding: "0px" }}
                               trigger={
@@ -452,9 +740,7 @@ const MyPhotosComponentFunction = () => {
                               )}
                             </Popup>
 
-                            ) : (
-                        <></>
-                      )
+                        
                              )
                           
                           )
@@ -464,360 +750,13 @@ const MyPhotosComponentFunction = () => {
                         </ul>
 
           )
-          : <div class="center" style={{padding: "20px"}}>No Reels to show</div>
-        }
-
-      </div>
+          : */}
+          <div class="center" style={{ padding: "20px" }}>
+            No Tags Photo
+          </div>
+          {/* } */}
+        </div>
       </>
-    )
-  }
-  const profileAboutComponent = () => {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-4">
-            <div
-              style={{
-                background: "white",
-                border: "1px solid #ececec",
-                borderRadius: "10px",
-                boxShadow: "0 1px 3px rgb(0 0 0 / 20%)",
-                margin: "0 20px 20px 0",
-              }}
-
-            >
-              <div>
-                <span style={{ float: "right" }}>
-                  <i className="las la-ellipsis-v"></i>
-                </span>
-              </div>
-
-              <div className="admin-name">
-                <h5>{`${userProfile.firstName} ${userProfile.lastName}`}</h5>
-                <span>{`${userProfile.email}`}</span>
-              </div>
-
-              <div className="edit-area">
-                <div className="form-group2">
-                  <label htmlFor="firstName">First Name</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="fullName"
-                    placeholder="Click to add"
-                    value={firstName}
-                    onChange={handleFirstName}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Last Name</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="lastName"
-                    placeholder="Click to add"
-                    value={lastName}
-                    onChange={handleLastName}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">About Me</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="About"
-                    placeholder="Click to add"
-                    value={aboutme}
-                    onChange={handleAboutme}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Job</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="About"
-                    placeholder="Click to add"
-                    value={job}
-                    onChange={handleJob}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Email</label>
-                  <p>{userProfile.email} </p>
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Role</label>
-                  <input
-                    disabled={true}
-                    className="form-inpt"
-                    type="url"
-                    id="interests"
-                    placeholder="No Role"
-                    style={{ color: "red" }}
-                    value={userProfile.role}
-                    onChange={handleOnChange}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Home Town</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="About"
-                    placeholder="Click to add"
-                    value={homeTown}
-                    onChange={handleHomeTown}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Relationship Status</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="Relationship Status"
-                    placeholder="Click to add"
-                    value={relationshipStatus}
-                    onChange={handleRelationshipStatus}
-                  />
-                </div>
-
-                <div className="form-group2">
-                  <label htmlFor="firstName">Interests</label>
-                  <input
-                    type="text"
-                    className="form-inpt"
-                    id="Interests"
-                    placeholder="Click to add"
-                    value={interests}
-                    onChange={handleInterests}
-                  />
-                </div>
-
-                <br></br>
-
-                <div style={{ display: "inline", margin: "10px 0" }}>
-                  <button
-                    id="submit"
-                    name="submit"
-                    className="shareIn-btn2"
-                    type="button"
-                    onClick={temp}
-                  >
-                    <span>Cancel</span>
-                  </button>
-                  {/* <button type="button" id="submit" name="submit" className="btn btn-secondary" onClick={temp} >Cancel</button> */}
-                  <button
-                    id="submit"
-                    name="submit"
-                    className="shareIn-btn2"
-                    type="button"
-                    onClick={updateProfile}
-                  >
-                    <span>Save</span>
-                  </button>
-                  {/* <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={updateProfile}>Save</button> */}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4"></div>
-          <div className="col-lg-4">
-            <div className="widget-prof">
-              <ul>
-                <li className="head-widgt">Privacy</li>
-                <li>
-                  <div className="row">
-                    <input type="checkbox" />
-                    <p>Include my profile in ShareUp search</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="row">
-                    <input type="checkbox" />
-                    <p>Allow my contacts to see my contacts</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="row">
-                    <input type="checkbox" />
-                    <p>
-                      Allow my contacts to download photos I share to my
-                      ShareTime
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const profileFriendComponent = () => {
-    return (
-      <div className="container">
-        <div className="tab-pane active fade show " id="frends">
-          <ul className="nearby-contct">
-            {searchedUser.map((userM) => (
-              <li key={userM.id}>
-                <div className="nearly-pepls">
-                  <figure>
-                    <a
-                      href={`/profile/${userM.email}`}
-                      title={`${userM.email}`}
-                    >
-                      <img
-                        src={fileStorage.baseUrl + userM.profilePicture}
-                        alt=""
-                      />
-                    </a>
-                  </figure>
-                  <div className="pepl-info">
-                    <h4>
-                      <a
-                        href={`/profile/${userM.email}`}
-                        title={`${userM.email}`}
-                      >{`${userM.firstName} ${userM.lastName}`}</a>
-                    </h4>
-                    <p>
-                      <a
-                        href={`/profile/${userM.email}`}
-                        title={`${userM.email}`}
-                      >{`${userM.email}`}</a>
-                    </p>
-                    <span>Engr</span>
-                    {user.id !== userM.id ? (
-                      !friendsList.some((el) => el.id === userM.id) ? (
-                        friendRequestRecieved.some(
-                          (el) => el.id === userM.id
-                        ) ? (
-                          <>
-                            <a
-                              href="#!"
-                              title="#"
-                              className="add-butn"
-                              style={{ color: "#fff" }}
-                              data-ripple
-                              onClick={() =>
-                                acceptFriendRequest(user.id, userM.id)
-                              }
-                            >
-                              Accept Friend Request
-                            </a>
-                            <p>
-                              <a
-                                style={{
-                                  display: "block",
-                                  float: "right",
-                                  color: "gray",
-                                }}
-                                href="#"
-                                onClick={() =>
-                                  declineFriendRequest(user.id, userM.id)
-                                }
-                              >
-                                Decline Friend Request
-                              </a>
-                            </p>
-                            <br></br>
-                            <br></br>
-                          </>
-                        ) : friendRequestSent.some(
-                            (el) => el.id === userM.id
-                          ) ? (
-                          <p>
-                            <a
-                              href="#!"
-                              title="#"
-                              className="add-butn"
-                              style={{ color: "#fff" }}
-                              data-ripple
-                              onClick={() =>
-                                unsendFriendRequest(user.id, userM.id)
-                              }
-                            >
-                              Unsend Friend Request
-                            </a>
-                          </p>
-                        ) : (
-                          <p>
-                            <a
-                              href="#!"
-                              title="#"
-                              className="add-butn"
-                              style={{ color: "#fff" }}
-                              data-ripple
-                              onClick={() =>
-                                sendFriendRequest(user.id, userM.id)
-                              }
-                            >
-                              Send Friend Request
-                            </a>
-                          </p>
-                        )
-                      ) : (
-                        <>
-                          <a
-                            href="#"
-                            title="#!"
-                            className="add-butn more-action"
-                            data-ripple
-                            onClick={() => removeFriend(user.id, userM.id)}
-                          >
-                            unfriend
-                          </a>
-                          <p>Already a friend</p>
-                        </>
-                      )
-                    ) : (
-                      <p style={{ float: "right" }}>Your own profile</p>
-                    )}
-                    {user.id !== userM.id ? (
-                      !following.some((el) => el.id === userM.id) ? (
-                        <p>
-                          <a
-                            style={{ display: "block", float: "right" }}
-                            href="#!"
-                            onClick={() => handleFollow(userM.id)}
-                          >
-                            Follow
-                          </a>
-                        </p>
-                      ) : (
-                        <p>
-                          <a
-                            style={{
-                              display: "block",
-                              float: "right",
-                              color: "red",
-                            }}
-                            href="#!"
-                            onClick={() => handleUnfollow(userM.id)}
-                          >
-                            Unfollow
-                          </a>
-                        </p>
-                      )
-                    ) : null}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="lodmore">
-            <button className="btn-view btn-load-more" />
-          </div>
-        </div>
-      </div>
     );
   };
 
@@ -892,92 +831,87 @@ const MyPhotosComponentFunction = () => {
                             Edit Profile
                           </a>
                         </div>
-                      ) : friendStatus === "Friend" ? (
-                        <div>
-                          <a
-                            onClick={() =>
-                              removeFriend(user?.id, userProfile?.id)
-                            }
-                            style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
-                              marginTop: "15px",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Unfriend
-                          </a>
-                        </div>
-                      ) : friendStatus === "Unfriend" ? (
-                        <div>
-                          <a
-                            onClick={() =>
-                              sendFriendRequest(user?.id, userProfile?.id)
-                            }
-                            style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
-                              marginTop: "15px",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Add Friend
-                          </a>
-                        </div>
-                      ) : friendStatus === "FriendRequested" ? (
-                        <div>
-                          <a
-                            onClick={() =>
-                              unsendFriendRequest(user?.id, userProfile?.id)
-                            }
-                            style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
-                              marginTop: "15px",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Cancel Request
-                          </a>
-                        </div>
-                      ) : friendStatus === "FriendResponse" ? (
-                        <div>
-                          <a
-                            onClick={() =>
-                              acceptFriendRequest(user?.id, userProfile?.id)
-                            }
-                            style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
-                              marginTop: "15px",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Accept
-                          </a>
-                          <a
-                            onClick={() =>
-                              declineFriendRequest(user?.id, userProfile?.id)
-                            }
-                            style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Reject
-                          </a>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
+                        ) : user.id !== userProfile?.id ? (
+                  !friendsList.some((el) => el.id === userProfile?.id) ? (
+                    friendRequestRecieved.some((el) => el.id === userProfile?.id) ? (
+                      <>
+                        <button
+                          title=""
+                          className="button"
+                          style={{
+                            width: "15%",
+                            margin: "10px",
+                            padding: "0px 5px",
+                          }}
+                          onClick={() =>
+                            acceptFriendRequest(user.id, userProfile?.id)
+                          }
+                        >
+                          Accept
+                        </button>
+                        <button
+                          title=""
+                          className="button"
+                          style={{
+                            width: "15%",
+                            margin: "10px",
+                            padding: "0px 5px",
+                          }}
+                          onClick={() =>
+                            declineFriendRequest(user.id, userProfile?.id)
+                          }
+                        >
+                          Reject
+                        </button>
+                      </>
+                    ) : friendRequestSent.some((el) => el.id === userProfile?.id) ? (
+                      <button
+                        title=""
+                        className="button"
+                        style={{
+                          width: "25%",
+                          margin: "10px",
+                          padding: "0 5px",
+                        }}
+                        onClick={() => unsendFriendRequest(user.id, userProfile?.id)}
+                      >
+                        Cancel Request
+                      </button>
+                    ) : (
+                      <button
+                        title=""
+                        className="button"
+                        style={{
+                          width: "25%",
+                          margin: "10px",
+                          padding: "0 5px",
+                        }}
+                        onClick={() => sendFriendRequest(user.id, userProfile?.id)}
+                      >
+                        Add Friend
+                      </button>
+                    )
+                  ) : (
+                    <>
+                      <button
+                        title=""
+                        className="button"
+                        style={{
+                          width: "25%",
+                          margin: "10px",
+                          padding: "0 5px",
+                        }}
+                        onClick={() => removeFriend(user.id, userProfile?.id)}
+                      >
+                        Unfriend
+                      </button>
+                    </>
+                  )
+                ) : (
+                  <></>
+                )}
+
                     </div>
-                    {/* <span>{`${userProfile.email}`}</span> */}
                     <div className="profsts">
                       <ul>
                         <li>
@@ -1211,16 +1145,13 @@ const MyPhotosComponentFunction = () => {
                         </>
                       ))}
                     </ul>
-                    
                   </div>
                 </div>
                 <div className="timeline-info">
                   <div className="row">
                     <div className="col">
                       <a
-                        className={
-                          show === "timeline" ? "active " : ""
-                        }
+                        className={show === "timeline" ? "active " : ""}
                         style={{}}
                         title=""
                         data-ripple=""
@@ -1231,21 +1162,17 @@ const MyPhotosComponentFunction = () => {
                     </div>
                     <div className="col brdrmid">
                       <a
-                        className={
-                          show === "photos" ? "active " : ""
-                        }
+                        className={show === "photos" ? "active " : ""}
                         title=""
                         data-ripple=""
                         onClick={() => setShow("photos")}
                       >
                         <i className="las la-icons"></i>
                       </a>
-                    </div>  
+                    </div>
                     <div className="col">
                       <a
-                        className={
-                          show === "friends" ? "active " : ""
-                        }
+                        className={show === "friends" ? "active " : ""}
                         title=""
                         data-ripple=""
                         onClick={() => setShow("friends")}

@@ -42,14 +42,12 @@ function FriendsComponent() {
 
 
 	const addFriendsId = (uid, fid) => {
-		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.addFriends(uid, fid).then(res => {
 			window.location.reload();
 		})
 	}
 
 	const removeFriend = (uid, fid) => {
-		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.removeFriends(uid, fid).then(res => {
 			setRefresh(res.data)
 		})
@@ -71,7 +69,6 @@ function FriendsComponent() {
 				}
 			})
 			setSearchedFollowing(temp)
-			console.log(temp)
 		}
 
 	}
@@ -93,7 +90,6 @@ function FriendsComponent() {
 				}
 			})
 			setSearchedFollowers(temp)
-			console.log(temp)
 		}
 	}
 
@@ -124,13 +120,13 @@ function FriendsComponent() {
 
 
 	const handleFollow = (uid) => {
-		UserService.follow(user.email, uid).then(res => {
+		UserService.follow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}
 
 	const handleUnfollow = (uid) => {
-		UserService.unfollow(user.email, uid).then(res => {
+		UserService.unfollow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}
@@ -443,7 +439,6 @@ const getAllUser = async () => {
 				setFollowersCount(Auser.numberOfFollowers);
 
 			}
-			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
 		})
 	})
 }
@@ -498,7 +493,6 @@ const handleSearchedUser = (event) => {
 			}
 		})
 		setSearchedUser(temp)
-		console.log(temp)
 	}
 
 }
@@ -510,9 +504,6 @@ useEffect(() => {
 	getAllFollowers()
 	getAllFriendRequestSent()
 	getAllFriendRequestRecieved()
-
-	console.log("Users = " + allUser)
-	console.log("Friends = " + friendsList)
 }, [showComp, refresh])
 
 useEffect(() => {

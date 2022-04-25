@@ -129,13 +129,13 @@ function AddFriendsComponent() {
 
 
 	const handleFollow = (uid) => {
-		UserService.follow(user.email, uid).then(res => {
+		UserService.follow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}
 
 	const handleUnfollow = (uid) => {
-		UserService.unfollow(user.email, uid).then(res => {
+		UserService.unfollow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}

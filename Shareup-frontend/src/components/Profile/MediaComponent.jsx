@@ -48,7 +48,6 @@ function MediaComponent({ post, setRefresh }) {
   };
 
 const checkPop=()=>{
-  console.log('popup working');
 }
 
   useEffect(() => {
@@ -61,7 +60,6 @@ const checkPop=()=>{
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'transparent'}}>
-        {/* <img src={fileStorage.baseUrl + post.userdata.profilePicture} alt="" /> */}
       </div>
       <div
         className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center"
@@ -79,14 +77,12 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a >
-            <img src={fileStorage.baseUrl + post.media[0].media} alt="" className='zoom-post-img'/>
+            <img src={fileStorage.baseUrl + post.media} alt="" className='zoom-post-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
 
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            {/* <span className='text-light p-2' style={{fontSize:'0.8rem'}}>{post.userdata.firstName} {post.userdata.lastName}</span> */}
-
           </div>
         </div>
       </a>

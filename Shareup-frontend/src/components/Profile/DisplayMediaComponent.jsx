@@ -17,7 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PostService from "../../services/PostService";
 
-function DisplayMediaComponent({ post, setRefresh, indexs }) {
+function DisplayMediaComponent({ post,email,setRefresh, indexs }) {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -44,8 +44,7 @@ function DisplayMediaComponent({ post, setRefresh, indexs }) {
   };
   const getUser = async () => {
     if (user === null) {
-      await UserService.getUserByEmail(
-        AuthService.getCurrentUser().username
+      await UserService.getUserByEmail(email
       ).then((res) => {
         setUserR(res.data);
       });
@@ -89,21 +88,20 @@ function DisplayMediaComponent({ post, setRefresh, indexs }) {
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
               >
                 <>
-                  {post.media ? (
                     <div className="slide" key={index} id={index}>
                       <div
                         style={{ marginTop: "65px" }}
                         className="reeldisplay-Profimg"
-                      >
+                       >
                         <img
                           src={
                             fileStorage.baseUrl +
-                            post.userdata.profilePicture
+                            userR.profilePicture
                           }
                           alt=""
                         />
                         <span style={{ color: "black" }}>
-                          {post.userdata.firstName}
+                          {userR.firstName}
                         </span>
                         <div
                           className="dropdown"
@@ -144,14 +142,14 @@ function DisplayMediaComponent({ post, setRefresh, indexs }) {
                                 <i class="lar la-bookmark"></i>
                                 <span>Save Post</span>
                               </MenuItem>
-                              {post.userdata.id === user.id ? (
+                              {/* {post.userdata.id === userR.id ? ( */}
                                 <MenuItem onClick={handleDeleteReel(post.id)}>
                                   <i class="las la-trash"></i>
                                   <span>Delete Post</span>
                                 </MenuItem>
-                              ) : (
+                              {/* ) : (
                                 <></>
-                              )}
+                              )} */}
                               <MenuItem>
                                 <i class="las la-link"></i>
                                 <span>Copy Link</span>
@@ -164,12 +162,11 @@ function DisplayMediaComponent({ post, setRefresh, indexs }) {
                       <img
                             className="postDsplyImg"
                             src={
-                              fileStorage.baseUrl + post.media[0].media
+                              fileStorage.baseUrl + post.media
                             }
                           />
                       </>
                     </div>
-                  ) : null}
                 </>
               </div>
             </div>
@@ -179,7 +176,6 @@ function DisplayMediaComponent({ post, setRefresh, indexs }) {
                   id="getnext"
                   onClick={() => {
                     setIndex(index + 1);
-                    console.log("looking for -1", index);
                   }}
                 >
                   <i className="fas fa-arrow-right"></i>

@@ -120,7 +120,7 @@ function FriendsTestComponent() {
     }
 
     const handleUnfollow = (uid) => {
-        UserService.unfollow(user.email, uid).then(res => {
+        UserService.unfollow(user.id, uid).then(res => {
             setRefresh(res.data)
         })
     }

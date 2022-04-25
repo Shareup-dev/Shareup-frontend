@@ -45,6 +45,13 @@ class PostService {
         const result = await authAxios.get(`user/posts/${userid}`)
         return result;
     }
+
+    getMediaForProfile = async (userid) => {
+        authenticate();
+        const result = await authAxios.get(`user/media/${userid}`)
+        return result;
+    }
+
     getSavedPostForUser = async (email) => {
         authenticate();
         const result = await authAxios.get(`posts/${email}/saved_posts`)

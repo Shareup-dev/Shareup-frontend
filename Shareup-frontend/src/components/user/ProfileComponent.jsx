@@ -86,13 +86,13 @@ function ProfileComponent() {
     });
   };
   const handleFollow = (uid) => {
-    UserService.follow(user.email, uid).then((res) => {
+    UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
     });
   };
 
   const handleUnfollow = (uid) => {
-    UserService.unfollow(user.email, uid).then((res) => {
+    UserService.unfollow(user.id, uid).then((res) => {
       setRefresh(res.data);
     });
   };
@@ -268,7 +268,8 @@ function ProfileComponent() {
     }
 
     if (show === "friends") {
-      return <FriendProfileComponent />;
+      return <FriendProfileComponent
+      email={AuthService.getCurrentUser().username} />;
     } else {
       return null;
     }

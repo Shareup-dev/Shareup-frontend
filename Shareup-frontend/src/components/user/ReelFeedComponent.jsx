@@ -192,7 +192,6 @@ function ReelFeedComponent() {
     event.preventDefault();
     setUploadErrorReel('');
     console.log('uploading reels working');
-
     if (Object.keys(filesReel).length === 0 && filesReel.constructor === Object) {
       setUploadErrorReel('Please Add reel video');
       return;
@@ -200,14 +199,10 @@ function ReelFeedComponent() {
 
     var video = document.getElementById("video");
     const canvas = document.createElement("canvas");
-    // scale the canvas accordingly
     canvas.width = video.videoWidth / 10;
     canvas.height = video.videoHeight / 10;
-    // draw the video at that frame
     canvas.getContext('2d').drawImage(video, 10, 10);
-    // convert it to a usable data URL
-    // const dataURL = canvas.toDataURL();
-    // var img = document.createElement("img");
+
 
 
     const formData = new FormData();
@@ -219,8 +214,7 @@ function ReelFeedComponent() {
       handleRemoveReelVideo();
       setReels(res.data);
       setRefresh(res.data);
-
-      console.log("response", reels);
+      console.log("Reels Uploaded");
 
     });
 
@@ -243,10 +237,7 @@ function ReelFeedComponent() {
         setReelVideo(reader.result);
       }
     };
-    console.log(event.target.files[0]);
-    // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
-    // }
     setShowReelVideo(true);
 
 
@@ -257,7 +248,6 @@ function ReelFeedComponent() {
 
 
   const handleFileStry = (event) => {
-    console.log(event.target.files[0])
     setFilesStry(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
@@ -265,10 +255,7 @@ function ReelFeedComponent() {
         setStoriesImage(reader.result)
       }
     }
-    console.log(event.target.files[0])
-    // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0])
-    // }
     setShowstoriesImage(true)
   }
   const handleRemoveImageStry = () => {
@@ -276,7 +263,6 @@ function ReelFeedComponent() {
     setShowstoriesImage(false)
   }
   const handleLeaveGroup = (group_id) => {
-    console.log(group_id)
     GroupService.leaveGroup(user.id, group_id).then(res => {
       setRefresh(res.data)
       setGroup(res.data)
@@ -290,18 +276,8 @@ function ReelFeedComponent() {
   };
 
 
-  const handleJoinGroup = (group_id) => {
-    console.log(group_id)
-    GroupService.joinGroup(user.id, group_id).then(res => {
-      setRefresh(res.data)
-      setGroup(res.data)
-    })
-  }
 
-  const checkIfInGroup = (members) => {
-    const found = members.some(el => el.id === user.id);
-    return found
-  }
+
   const getAllGroups = async () => {
     await GroupService.getAllGroups().then(res => {
       setAllGroups(res.data)
@@ -326,20 +302,17 @@ function ReelFeedComponent() {
   }
 
   const handlePostContent = (event) => {
-    console.log(event.target.value)
     setPostContent(event.target.value)
   }
 
   const handleDeletePost = (postid) => {
     PostService.deletePost(postid).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
       // window.location.reload();
     })
   }
 
   const handleCommentContent = (event) => {
-    console.log(event.target.value)
     setCommentContent(event.target.value)
   }
 
@@ -349,7 +322,6 @@ function ReelFeedComponent() {
     }
     const comment = { content: commentContent }
     PostService.addComment(user.id, postid, comment).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
       setCommentContent("")
     })
@@ -357,7 +329,6 @@ function ReelFeedComponent() {
   const handleCount = (opertator) => {
     if (opertator === "+") {
       let counting = count + 1
-      console.log(counting + "hi count")
       setCount(counting)
 
     }
@@ -367,7 +338,6 @@ function ReelFeedComponent() {
   }
 
   const handleFile = (event) => {
-    console.log(event.target.files[0])
     setFiles(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
@@ -375,10 +345,7 @@ function ReelFeedComponent() {
         setPostImage(reader.result)
       }
     }
-    console.log(event.target.files[0])
-    // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0])
-    // }
     setShowPostImage(true)
   }
 
@@ -390,14 +357,12 @@ function ReelFeedComponent() {
 
   const handleEditingSave = (value) => {
     setEditPostId(value)
-    // console.log(res.status)
-    // window.location.reload();
+
   }
 
   const checkIfLiked = (post) => {
     // maybe this is more effecient
     // post.reactions.map(r => {
-    //   console.log(JSON.stringify(r.user))
     //   if(r.user.id === user.id){
     //     return true
     //   }else{
@@ -413,30 +378,23 @@ function ReelFeedComponent() {
   }
 
   const checkIfSaved = (post) => {
-    console.log(post.savedByUsers)
     // maybe this is more effecient
     // post.savedByUsers.map(r => {
-    //   console.log("runninggg")
-    //   console.log(JSON.stringify(r.user) + " i p pp p p")
     // if(r.user.id === user.id){
     //   return true
     // }else{
     //   return false
     // }
     // })
-    console.log(post.savedByUsers.length + " yaa")
     const result = post.savedByUsers.filter(userz => userz.id == user.id)
     if (result.length > 0) {
-      console.log(" FOUND")
       return true
     }
-    console.log(" Not found")
     return false
   }
 
   const handleDeleteComment = (commentid) => {
     PostService.deleteComment(commentid).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
     })
   }
@@ -449,36 +407,29 @@ function ReelFeedComponent() {
     return counter
   }
   const handlePrivacy = (event) => {
-    console.log(event.target.value)
     setPrivacy(event.target.value)
   }
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("")
-    console.log("uploading post working")
     if (postContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-      console.log("cant be null")
       setUploadError("Please Insert A Text or an Image")
       return
     }
 
     const formData = new FormData();
     formData.append('content', postContent)
-    console.log(" this is the files" + files)
-    console.log(" this is the swapfiles" + swapfiles)
     formData.append(`files`, files)
     formData.append(`swapfiles`, swapfiles)
     formData.append(`privacy`, Privacy)
     if (userF === null) {
       PostService.createPost(user.id, formData, null).then(res => {
-        console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
         setRefresh(res.data)
       })
     } else
       PostService.createPost(user.id, formData, userF.id).then(res => {
-        console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
         setRefresh(res.data)
@@ -502,12 +453,10 @@ function ReelFeedComponent() {
   }
   //swapcomponents
   const handleSwapContent = (event) => {
-    console.log(event.target.value)
     setSwapContent(event.target.value)
   }
   const handleFileSwap = (event) => {
     setSwapfiles(event.target.files);
-    console.log(swapfiles);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -517,7 +466,6 @@ function ReelFeedComponent() {
       }
 
       setSwapImage(tempImage);
-      console.log('url ' + swapImage[1]);
 
       setShowSwapImage(true);
     } else {
@@ -637,7 +585,6 @@ function ReelFeedComponent() {
     setUploadError('');
     console.log('uploading swap working');
     if (swapContent === '' && Object.keys(swapfiles).length === 0 && swapfiles.constructor === Object) {
-      console.log('cant be null');
       setUploadError('Please Insert A Text or an Image');
       return;
     }
@@ -648,31 +595,27 @@ function ReelFeedComponent() {
     for (let i = 0; i < swapfiles.length; i++) {
       formData.append(`files`, swapfiles[i]);
     }
-    console.log(formData.getAll(`files`));
-    console.log(' this is the files' + files[0]);
-    console.log(' this is the swapfiles' + swapfiles);
+
     for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
     }
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
       SwapService.createSwap(user.id, formData, null).then((res) => {
-        console.log(JSON.stringify(res));
-        console.log(res.data);
-        console.log(user.id);
+
         setSwapContent('');
         handleRemoveImageSwap();
         setRefresh(res.data);
-        console.log('ssssssssssrefersh', refresh)
+        console.log('Swap Uploaded' )
 
       });
     } else
       SwapService.createSwap(user.id, formData, userF.id).then((res) => {
-        console.log(JSON.stringify(res));
         setSwapContent('');
         handleRemoveImageSwap();
         setRefresh(res.data);
+        console.log('Swap Uploaded' )
+
       });
   };
 
@@ -1175,7 +1118,6 @@ function ReelFeedComponent() {
   
   const handleTag = (userM) => {
     setUserF(userM)
-    console.log(userM)
   }
   const handleSearchedUser = (event) => {
     if (event.target.value === "") {
@@ -1190,7 +1132,6 @@ function ReelFeedComponent() {
         }
       })
       setSearchedUser(temp)
-      console.log(temp)
     }
   }
   
@@ -1209,7 +1150,6 @@ function ReelFeedComponent() {
         }
       })
       setSearchedReelforUser(temp)
-      console.log(temp)
     }
   }
 
@@ -1231,7 +1171,6 @@ function ReelFeedComponent() {
         }
       })
       setSearchedReel(temp)
-      console.log(temp)
     }
   }
  
