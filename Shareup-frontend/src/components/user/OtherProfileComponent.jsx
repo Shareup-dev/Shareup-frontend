@@ -770,41 +770,47 @@ function OtherProfileComponent() {
             <div className="feature-photo">
               <div className="container pdng1">
                 <div className="row">
-                  <div className="col-lg-3">
-                    {showprofilePicturePath ? (
-                      <img id="preview" src={profileRender} />
-                    ) : userProfile.profilePicture ? (
-                      <img
-                        className="border-gradient"
-                        src={fileStorage.baseUrl + userProfile.profilePicture}
-                      ></img>
-                    ) : (
-                      <p> Edit Display Photo</p>
-                    )}
-                    {userProfile?.id === user?.id ? (
-                      <form className="edit-phto">
-                        <label className="fileContainer">
-                          <div className="add-profile mrgnFileCntnrVwProf">
-                            +
-                          </div>
-                          <input
-                            id="file-input"
-                            type="file"
-                            name="profile_image"
-                            accept="image/*"
-                            onChange={handleProfileImage}
-                          ></input>
-                        </label>
-                        <button
-                          href="#!"
-                          id="submit"
-                          name="submit"
-                          onClick={uploadprofilePicturePath}
-                        ></button>
-                      </form>
-                    ) : (
-                      <></>
-                    )}
+                  <div  className="col-lg-3">
+                    <div className="right-edit-profile-image-a">
+                      <label className="fileContainer ">
+                        <div className="add-prof mrgnFileCntnrVwProf">+</div>
+                        <input
+                          id="file-input"
+                          type="file"
+                          name="profile_image"
+                          accept="image/*"
+                          onChange={handleProfileImage}
+                        ></input>
+                      </label>
+
+                      {showprofilePicturePath ? (
+                        <>
+                          <img id="preview profprvw" src={profileRender} />
+                          <div>
+                            <button
+                            className="button"
+                              id="submit"
+                              name="submit"
+                              onClick={uploadprofilePicturePath}
+                            >
+                              Upload
+                            </button>
+                          </div>{" "}
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <img
+                            src={
+                              userProfile.profilePicture
+                                ? fileStorage.baseUrl +
+                                  userProfile.profilePicture
+                                : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
+                            }
+                          ></img>{" "}
+                        </>
+                      )}
+                    </div>
                   </div>
                   <div className="col-lg-9">
                     <div
@@ -831,86 +837,95 @@ function OtherProfileComponent() {
                             Edit Profile
                           </a>
                         </div>
-                        ) : user.id !== userProfile?.id ? (
-                  !friendsList.some((el) => el.id === userProfile?.id) ? (
-                    friendRequestRecieved.some((el) => el.id === userProfile?.id) ? (
-                      <>
-                        <button
-                          title=""
-                          className="button"
-                          style={{
-                            width: "15%",
-                            margin: "10px",
-                            padding: "0px 5px",
-                          }}
-                          onClick={() =>
-                            acceptFriendRequest(user.id, userProfile?.id)
-                          }
-                        >
-                          Accept
-                        </button>
-                        <button
-                          title=""
-                          className="button"
-                          style={{
-                            width: "15%",
-                            margin: "10px",
-                            padding: "0px 5px",
-                          }}
-                          onClick={() =>
-                            declineFriendRequest(user.id, userProfile?.id)
-                          }
-                        >
-                          Reject
-                        </button>
-                      </>
-                    ) : friendRequestSent.some((el) => el.id === userProfile?.id) ? (
-                      <button
-                        title=""
-                        className="button"
-                        style={{
-                          width: "25%",
-                          margin: "10px",
-                          padding: "0 5px",
-                        }}
-                        onClick={() => unsendFriendRequest(user.id, userProfile?.id)}
-                      >
-                        Cancel Request
-                      </button>
-                    ) : (
-                      <button
-                        title=""
-                        className="button"
-                        style={{
-                          width: "25%",
-                          margin: "10px",
-                          padding: "0 5px",
-                        }}
-                        onClick={() => sendFriendRequest(user.id, userProfile?.id)}
-                      >
-                        Add Friend
-                      </button>
-                    )
-                  ) : (
-                    <>
-                      <button
-                        title=""
-                        className="button"
-                        style={{
-                          width: "25%",
-                          margin: "10px",
-                          padding: "0 5px",
-                        }}
-                        onClick={() => removeFriend(user.id, userProfile?.id)}
-                      >
-                        Unfriend
-                      </button>
-                    </>
-                  )
-                ) : (
-                  <></>
-                )}
-
+                      ) : user.id !== userProfile?.id ? (
+                        !friendsList.some((el) => el.id === userProfile?.id) ? (
+                          friendRequestRecieved.some(
+                            (el) => el.id === userProfile?.id
+                          ) ? (
+                            <>
+                              <button
+                                title=""
+                                className="button"
+                                style={{
+                                  width: "15%",
+                                  margin: "10px",
+                                  padding: "0px 5px",
+                                }}
+                                onClick={() =>
+                                  acceptFriendRequest(user.id, userProfile?.id)
+                                }
+                              >
+                                Accept
+                              </button>
+                              <button
+                                title=""
+                                className="button"
+                                style={{
+                                  width: "15%",
+                                  margin: "10px",
+                                  padding: "0px 5px",
+                                }}
+                                onClick={() =>
+                                  declineFriendRequest(user.id, userProfile?.id)
+                                }
+                              >
+                                Reject
+                              </button>
+                            </>
+                          ) : friendRequestSent.some(
+                              (el) => el.id === userProfile?.id
+                            ) ? (
+                            <button
+                              title=""
+                              className="button"
+                              style={{
+                                width: "25%",
+                                margin: "10px",
+                                padding: "0 5px",
+                              }}
+                              onClick={() =>
+                                unsendFriendRequest(user.id, userProfile?.id)
+                              }
+                            >
+                              Cancel Request
+                            </button>
+                          ) : (
+                            <button
+                              title=""
+                              className="button"
+                              style={{
+                                width: "25%",
+                                margin: "10px",
+                                padding: "0 5px",
+                              }}
+                              onClick={() =>
+                                sendFriendRequest(user.id, userProfile?.id)
+                              }
+                            >
+                              Add Friend
+                            </button>
+                          )
+                        ) : (
+                          <>
+                            <button
+                              title=""
+                              className="button"
+                              style={{
+                                width: "25%",
+                                margin: "10px",
+                                padding: "0 5px",
+                              }}
+                              onClick={() =>
+                                removeFriend(user.id, userProfile?.id)
+                              }
+                            >
+                              Unfriend
+                            </button>
+                          </>
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     <div className="profsts">
                       <ul>

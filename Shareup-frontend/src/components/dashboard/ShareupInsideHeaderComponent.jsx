@@ -310,7 +310,7 @@ function ShareupInsideHeaderComponent() {
                   <a href="#!" title="notif"><span className="status f-online" />online</a>
                   <a href="#" title="notif"><span className="status f-away" />away</a>
                   <a href="#" title="notif"><span className="status f-off" />offline</a>
-                  <a href="/profile"><i className="ti-user" /> view profile</a>
+                  <a href={`/profile/${AuthService.getCurrentUser().username}`}><i className="ti-user" /> view profile</a>
                   <a href="/editprofile" title="notif"><i className="ti-pencil-alt" />edit profile</a>
                   <a href="Activity" title="notif"><i className="ti-target" />activity log</a>
                   <a href="Security" title="notif"><i className="ti-settings" />account setting</a>

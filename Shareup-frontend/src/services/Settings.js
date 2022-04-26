@@ -10,13 +10,16 @@ const settings = {
   prod: {
     apiUrl: "https://shareup.digital/backend",
   },
-  lokee: {
+  localRaouf: {
     apiUrl: "http://192.168.100.88:8080",
+  },
+  aws: {
+    apiUrl: "http://shareup-env.eba-dzqdjugb.us-west-2.elasticbeanstalk.com",
   },
 };
 
 const getCurrentSettings = () => {
-  return settings.lokee;
+  return settings.aws;
 };
 
 export default getCurrentSettings();

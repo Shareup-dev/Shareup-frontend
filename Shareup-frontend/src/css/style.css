@@ -14204,6 +14204,20 @@ a.openmap {
   width: 88px;
   border-radius: 50%;
 }
+
+.right-edit-profile-image-a {
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.2rem;
+}
+
+.right-edit-profile-image-a img {
+  object-fit: cover;
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+}
 .right-edit-profile-bio1 {
   border-bottom: 1px solid #e1dede;
   padding-top: 0.5rem;
@@ -15041,7 +15055,7 @@ a.Hangin-btn:hover {
 }
 
 .mrgnFileCntnrVwProf {
-  margin: 0 0 0 100px;
+  margin: 70px 0 0 100px;
 }
 .mrgnFileCntnrEdtProf {
   margin: 10px 0 0 20px;
