@@ -23,7 +23,7 @@ function EditPostComponent({ post, set }) {
   const [editImage, setEditImage] = useState([]);
   const [showSwapImage, setShowSwapImage] = useState(true);
   const [swapfiles, setSwapfiles] = useState({});
-  const [swapImage, setSwapImage] = useState(`${fileStorage.baseUrl}${post.media[0].media}`);
+  const [swapImage, setSwapImage] = useState(`${fileStorage.baseUrl}${post.media[0].mediaPath}`);
   const [userF, setUserF] = useState(null);
   const [searchedUser, setSearchedUser] = useState([]);
   const [allUser, setAllUser] = useState([]);
@@ -45,14 +45,12 @@ function EditPostComponent({ post, set }) {
       }
     };
 
-    console.log(event.target.files[0]);
     reader.readAsDataURL(event.target.files[0]);
     setShowSwapImage(true);
     };
 
     // const handleFileSwap = (event) => {
     //     setSwapfiles(event.target.files);
-    //     console.log(swapfiles);
     //     let filesAmount = event.target.files.length;
     //     if (filesAmount < 6) {
     //       let tempImage = [];
@@ -71,7 +69,6 @@ function EditPostComponent({ post, set }) {
 
   const handleTag = (userM) => {
     setUserF(userM);
-    console.log(userM);
   };
 
   const getAllUser = async () => {
@@ -104,7 +101,6 @@ function EditPostComponent({ post, set }) {
         }
       });
       setSearchedUser(temp);
-      console.log(temp);
     }
   };
 
@@ -114,13 +110,11 @@ function EditPostComponent({ post, set }) {
   };
 
   const handleEditContent = (event) => {
-    console.log(event.target.value);
     setEditContent(event.target.value);
   };
 
   const handleUpdatePost = async (event) => {
     event.preventDefault();
-    console.log(editContent + " HE " + post.content);
     if (editContent.length <= 0 || editContent === "" || editContent === null) {
       console.log("please make sure you made changes");
       return;
@@ -132,9 +126,7 @@ function EditPostComponent({ post, set }) {
 
     const formData = new FormData();
     formData.append('content', editContent);
-    // formData.append(`files`, swapfiles);
-    // const content = { content: editContent };
-    console.log("uploading "+ post.allPostsType)
+    formData.append(`files`, swapfiles);
     if (post.allPostsType === "swap"){
         console.log("uploading swap")
     await SwapService.updateSwap(post.id, formData).then((res) => {

@@ -162,7 +162,7 @@ function DisplayMediaComponent({ post,email,setRefresh, indexs }) {
                       <img
                             className="postDsplyImg"
                             src={
-                              fileStorage.baseUrl + post.media
+                              fileStorage.baseUrl + post.mediaPath
                             }
                           />
                       </>

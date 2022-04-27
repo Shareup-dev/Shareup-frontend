@@ -1108,7 +1108,7 @@ function PostTextBoxComponent() {
             <span style={{ cursor: "pointer" }}>
               <img
                 style={{ verticalAlign: "middle", padding: "5px" }}
-                src="assets/images/images.svg"
+                src="/assets/images/images.svg"
               />
               <span>Photos</span>
             </span>

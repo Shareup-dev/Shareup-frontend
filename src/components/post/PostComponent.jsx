@@ -793,15 +793,15 @@ export default function PostComponent({ post, setRefresh }) {
                     <React.Fragment>
                       <img
                         style={{ width: "100%", objectFit: "cover" }}
-                        src={`${fileStorage.baseUrl}${postImage.media}`
+                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`
                         }
-                        alt={`${fileStorage.baseUrl}${postImage.media}`}
+                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         className="lightbox-popup"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.media}
+                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
@@ -818,13 +818,13 @@ export default function PostComponent({ post, setRefresh }) {
                             ? { width: "100%", objectFit: "cover" }
                             : { borderRadius: "10px 10px 0 0" }
                         }
-                        src={`${fileStorage.baseUrl}${postImage.media}`}
-                        alt={`${fileStorage.baseUrl}${postImage.media}`}
+                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.media}
+                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}

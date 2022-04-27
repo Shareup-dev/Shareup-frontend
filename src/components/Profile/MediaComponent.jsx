@@ -77,7 +77,7 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a >
-            <img src={fileStorage.baseUrl + post.media} alt="" className='zoom-post-img'/>
+            <img src={fileStorage.baseUrl + post.mediaPath} alt="" className='zoom-post-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
 

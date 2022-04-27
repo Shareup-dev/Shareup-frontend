@@ -410,7 +410,7 @@ function OtherProfileComponent() {
                 >
                   <Tab
                     style={{ textTransform: "capitalize" }}
-                    label="Phots"
+                    label="Photos"
                     value="1"
                   />
                   <Tab
