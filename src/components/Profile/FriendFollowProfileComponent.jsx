@@ -100,10 +100,10 @@ function FriendFollowProfileComponent({email,id}) {
          {FollowingList.map(friend =>
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
-                                    <div class="item1">
+                                    <div className="item1">
                                         <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
 										
                                     </div>
@@ -127,7 +127,7 @@ function FriendFollowProfileComponent({email,id}) {
                                 </div>
                             </li>)}</ul>
               ) : (
-                <div class="center" style={{ padding: "20px" }}>
+                <div className="center" style={{ padding: "20px" }}>
                 No Following Friends
                 </div>
               )}
@@ -144,10 +144,10 @@ function FriendFollowProfileComponent({email,id}) {
          {followersList.map(friend =>
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
-                                    <div class="item1">
+                                    <div className="item1">
                                         <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
 										
                                     </div>
@@ -171,7 +171,7 @@ function FriendFollowProfileComponent({email,id}) {
                                 </div>
                             </li>)}</ul>
               ) : (
-                <div class="center" style={{ padding: "20px" }}>
+                <div className="center" style={{ padding: "20px" }}>
                 No Followers Friends
                 </div>
               )}

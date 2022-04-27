@@ -150,8 +150,8 @@ function FriendsComponent() {
 
 	const FcomponentFunction = () => {
     return (<div className="tab-content">
-        <div class="friends-search-container grp-search">
-            {/* <i class="las la-search"></i> */}
+        <div className="friends-search-container grp-search">
+            {/* <i className="las la-search"></i> */}
 			<input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} />
         </div>
         <div className="tab-pane active fade show " id="frends">
@@ -166,30 +166,30 @@ function FriendsComponent() {
                         <li key={userM.id} className="friends-card grp">
                             <div className="grid-container">
                                 {/* <figure> */}
-                                <div class="item1">
+                                <div className="item1">
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                 </div>
                                 {/* <div className="  "> */}
-                                <div class="item2">
+                                <div className="item2">
                                     <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 									<div style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
 
 									{/* <button className="friends-button" onClick={() => unsendFriendRequest(user.id, userM.id)}>Request Sent</button> */}
 									
 								</div>
-                                <div class="item4">
+                                <div className="item4">
 								{
                                     (user.id !== userM.id) ?
                                         (!friendsList.some(el => el.id === userM.id)) ?
                                             friendRequestRecieved.some(el => el.id === userM.id)
                                                 ?
                                                 <>
-                                                     <div class="">
+                                                     <div className="">
                                                             <a href="#!" title="#" className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept Request</a>
 														
                                                         </div>
-                                                        {/* <div class="item3">
+                                                        {/* <div className="item3">
                                                             <p><a style={{ display: "block", float: "right", color: "#fff",background:'#033347',fontSize:'12px' }} href="#" onClick={() => declineFriendRequest(user.id, userM.id)}>Decline Friend Request</a></p>
                                                             <br></br>
                                                             <br></br>
@@ -222,19 +222,19 @@ function FriendsComponent() {
 								
                                 </div>
                                
-								{/* <div class="item6">
+								{/* <div className="item6">
                                      <span>Engr</span> 
-                                    <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
+                                    <i style={{ float: "right", fontSize: 35 }} className="las la-ellipsis-v"></i>
                                 </div> */}
                                
                                 {
                                     (user.id !== userM.id) ?
                                         (!following.some(el => el.id === userM.id)) ?
-                                            <div class="item7">
+                                            <div className="item7">
                                                 {/* <p><a className="button3" style={{ backgroundColor: "#0009b7", color: "#ffffff"}} href="#!" onClick={() => handleFollow(userM.id)} >Follow</a></p> */}
                                             </div>
                                             :
-                                            <div class="item7">
+                                            <div className="item7">
                                                 {/* <p><a className="button3" style={{ backgroundColor: "#e25555", color: "#ffffff"}} href="#!" onClick={() => handleUnfollow(userM.id)}>Unfollow</a></p> */}
                                             </div>
                                         :
@@ -256,8 +256,8 @@ function FriendsComponent() {
 const FollowingComponentFunction = () => {
     return (
         <div className="tab-content">
-            <div class="friends-search-container grp-search">
-                {/* <i class="las la-search"></i> */}
+            <div className="friends-search-container grp-search">
+                {/* <i className="las la-search"></i> */}
 				<input className="friend-search" type="text" id="header-search" placeholder="Search Following" name="s" onChange={handleSearchedFollowing} />
             </div>
             <div className="tab-pane active fade show " id="following">
@@ -268,21 +268,21 @@ const FollowingComponentFunction = () => {
                                 <div className="grid-container">
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
-                                    <div class="item1">
+                                    <div className="item1">
                                         <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 										<div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
 									</div>
                                     <div className="item4">
 										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 									</div>
-                                    {/* <div class="item6">
+                                    {/* <div className="item6">
                                         {/* <span>Engr</span> 
-                                        <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i>
+                                        <i style={{ float: "right", fontSize: 35 }} className="las la-ellipsis-v"></i>
                                     </div> */}
                                     {/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
@@ -304,8 +304,8 @@ const FollowingComponentFunction = () => {
 const FollowersComponentFunction = () => {
     return (
         <div className="tab-content">
-            <div class="friends-search-container grp-search">
-                {/* <i class="las la-search"></i> */}
+            <div className="friends-search-container grp-search">
+                {/* <i className="las la-search"></i> */}
 				<input className="friend-search" type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} />
             </div>
             {/* <input type="text" id="header-search" placeholder="Search Followers" name="s" onChange={handleSearchedFollowers} /> */}
@@ -317,12 +317,12 @@ const FollowersComponentFunction = () => {
                                 <div className="grid-container">
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
-                                    <div class="item1">
+                                    <div className="item1">
                                         <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></p>
 										{/* <button className="friends-button">Request Sent</button> */}
 										<div style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
@@ -519,18 +519,18 @@ return (
 					{/* <ul className="nav nav-tabs"> */}
 					<div >
 						<p className="Friends-Title">Friends</p>
-						<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+						<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 					</div>
-					<div class="navContent">
+					<div className="navContent">
 
-						<ul class="nav nav-pills swap-page-nav" role="tablist">
+						<ul className="nav nav-pills swap-page-nav" role="tablist">
 							
 							
-							<li class="nav-item"style={{justifyContent:'flex-start'}} >
+							<li className="nav-item"style={{justifyContent:'flex-start'}} >
                   				<div className="all" onClick={() => setShowComp("members")}>
 									<span style={{ cursor: 'pointer' }}  >
 										<span style={{  padding: '5px' }}> 
-											<i class="las la-user" style={{fontSize:'20px'}}></i>
+											<i className="las la-user" style={{fontSize:'20px'}}></i>
 										</span>
 										Friends 
 										<a className='numberCircle'>{`${friendsList&&friendsList.length!=='undefined'?friendsList.length:''}`}</a>
@@ -540,11 +540,11 @@ return (
 							</li>
 
 
-							<li class="nav-item" style={{justifyContent:'center'}}>
+							<li className="nav-item" style={{justifyContent:'center'}}>
                   				<div className="my" onClick={() => setShowComp("following")}>
 									<span style={{ cursor: 'pointer' }} > 
 										<span style={{  padding: '5px' }}> 
-											<i class="las la-user-cog" style={{fontSize:'20px'}}></i> 
+											<i className="las la-user-cog" style={{fontSize:'20px'}}></i> 
 										</span>
 										Following <a className='numberCircle'>{`${following&&following.length?following.length:'0'}`}</a>
 									</span>
@@ -553,11 +553,11 @@ return (
 							</li>
 
 							
-							<li class="nav-item" style={{justifyContent:'flex-end'}}>
+							<li className="nav-item" style={{justifyContent:'flex-end'}}>
                   				<div className="new" onClick={() => setShowComp("followers")}>
 									<span style={{ cursor: 'pointer' }} >
 										<span style={{  padding: '5px' }}> 
-											<i class="las la-user-tag" style={{fontSize:'20px'}}></i> 
+											<i className="las la-user-tag" style={{fontSize:'20px'}}></i> 
 										</span>
 										Followers
 											<a className='numberCircle'>{`${followers&&followers.length?followers.length:'0'}`}</a>

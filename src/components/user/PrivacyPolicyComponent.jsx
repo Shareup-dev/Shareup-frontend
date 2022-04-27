@@ -66,10 +66,10 @@ function PrivacyPolicyComponent() {
                       letterSpacing: "normal",
                       lineHeight: "100%",
                     }}
-                    class="text-justify"
+                    className="text-justify"
                   >
                     Thank you for choosing to be part of our community at{" "}
-                    <b class="font-weight-bold"> Shareup</b>. We are committed
+                    <b className="font-weight-bold"> Shareup</b>. We are committed
                     to protecting your personal information and your right to
                     privacy. If you have any questions or concerns about our
                     policy, or our practices with regards to your personal
@@ -152,7 +152,7 @@ function PrivacyPolicyComponent() {
                         letterSpacing: "normal",
                         lineHeight: "100%",
                       }}
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                     >
                       Please read this privacy policy carefully as it will help
                       you make informed decisions about sharing your personal
@@ -162,7 +162,7 @@ function PrivacyPolicyComponent() {
                     <br />
                     <br />
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         color: "white",
                         fontSize: "16",
@@ -183,7 +183,7 @@ function PrivacyPolicyComponent() {
                         lineHeight: "100%",
                         color: "white",
                       }}
-                      class="text-justify"
+                      className="text-justify"
                     >
                       We collect personal information that you voluntarily
                       provide to us when registering at
@@ -211,21 +211,21 @@ function PrivacyPolicyComponent() {
                       <br />
                     </p>
                     <ul className="unorderedlist">
-                      <li class="font-weight-bold">Name and Contact Data</li>
+                      <li className="font-weight-bold">Name and Contact Data</li>
                       <br />
                       We collect your first and last name, email address, phone
                       number, national ID number and other similar contact data.
                       <br />
                       <br />
                       <br />
-                      <li class="font-weight-bold">Credentials</li>
+                      <li className="font-weight-bold">Credentials</li>
                       <br />
                       We collect passwords, password hints, and similar security
                       information used for authentication and account access.
                       <br />
                       <br />
                       <br />
-                      <li class="font-weight-bold">Social Media Login Data</li>
+                      <li className="font-weight-bold">Social Media Login Data</li>
                       <br />
                       We provide you with the option to register using social
                       media account details, like your Facebook, Twitter or
@@ -252,10 +252,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -272,28 +272,28 @@ function PrivacyPolicyComponent() {
                     <br />
                     <br />
                     <ul className="unorderedlist">
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         To facilitate account creation and logon process
                       </li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         To send you marketing and promotional communications
                       </li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         To send administrative information to you
                       </li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         Fulfill and manage your orders.
                       </li>
-                      <li class="font-weight-bold">To post testimonials</li>
-                      <li class="font-weight-bold">Request Feedback</li>
-                      <li class="font-weight-bold">To protect our Services</li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">To post testimonials</li>
+                      <li className="font-weight-bold">Request Feedback</li>
+                      <li className="font-weight-bold">To protect our Services</li>
+                      <li className="font-weight-bold">
                         To enable user-to-user communications
                       </li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         To deliver services to the user.{" "}
                       </li>
-                      <li class="font-weight-bold">
+                      <li className="font-weight-bold">
                         For other Business Purposes
                       </li>
                       <br />
@@ -309,10 +309,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -347,10 +347,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -364,17 +364,17 @@ function PrivacyPolicyComponent() {
                     <br />A privacy breach occurs when there is unauthorized
                     access to or collection, use, disclosure, or disposal of
                     personal information. You will be notified about data
-                    breaches when <b class="font-weight-bold">“Shareup”</b>{" "}
+                    breaches when <b className="font-weight-bold">“Shareup”</b>{" "}
                     believes you are likely to be at risk of serious harm. For
                     example, a data breach may be likely to result in serious
                     financial harm or harm to your mental or physical
                     well-being.
                     <br />
                     <br />
-                    In the event that <b class="font-weight-bold">“Shareup”</b>
+                    In the event that <b className="font-weight-bold">“Shareup”</b>
                     becomes aware of a security breach which has resulted or may
                     result in unauthorized access, use or disclosure of personal
-                    information. <b class="font-weight-bold">“Shareup”</b>
+                    information. <b className="font-weight-bold">“Shareup”</b>
                     will promptly investigate the matter and notify the
                     applicable Supervisory Authority not later than 72 hours
                     after having become aware of it unless the personal data
@@ -393,10 +393,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -433,10 +433,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -481,10 +481,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -523,10 +523,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -560,10 +560,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -592,10 +592,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -659,10 +659,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -747,7 +747,7 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     For more information, please contact your local data
                     protection authority in the ‘European Economic Area’ (EEA).
@@ -850,7 +850,7 @@ function PrivacyPolicyComponent() {
                       certain personally identifiable information that can be
                       used to contact or identify you
                       <b
-                        class="font-weight-bold text-justify"
+                        className="font-weight-bold text-justify"
                         style={{ fontSize: "12" }}
                       >
                         {" "}
@@ -885,7 +885,7 @@ function PrivacyPolicyComponent() {
                       <br />
                       <br />
                       <b
-                        class="font-weight-bold text-justify"
+                        className="font-weight-bold text-justify"
                         style={{ fontSize: "12" }}
                       >
                         {" "}
@@ -907,10 +907,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -978,10 +978,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -1009,13 +1009,13 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <br />
                     <br />
                     <br />
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -1057,13 +1057,13 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <br />
                     <br />
                     <br />
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{ fontSize: "16" }}
                     >
                       Rights of Individuals
@@ -1137,10 +1137,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{ fontSize: "16" }}
                     >
                       Consequences of non-compliance
@@ -1166,10 +1166,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -1195,7 +1195,7 @@ function PrivacyPolicyComponent() {
                       Penalties go further than the GDPR by including provisions
                       for
                       <b
-                        class="font-weight-bold text-justify"
+                        className="font-weight-bold text-justify"
                         style={{ fontSize: "12" }}
                       >
                         {" "}
@@ -1221,10 +1221,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -1251,7 +1251,7 @@ function PrivacyPolicyComponent() {
                     administrative fines and criminal penalties for
                     non-compliance which could be up to a maximum of
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{ fontSize: "12" }}
                     >
                       {" "}
@@ -1259,7 +1259,7 @@ function PrivacyPolicyComponent() {
                     </b>{" "}
                     or a potential sentence of
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{ fontSize: "16" }}
                     >
                       {" "}
@@ -1278,10 +1278,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",
@@ -1322,10 +1322,10 @@ function PrivacyPolicyComponent() {
                       lineHeight: "100%",
                       color: "white",
                     }}
-                    class=" text-justify"
+                    className=" text-justify"
                   >
                     <b
-                      class="font-weight-bold text-justify"
+                      className="font-weight-bold text-justify"
                       style={{
                         fontSize: "16",
                         textDecorationLine: "underline",

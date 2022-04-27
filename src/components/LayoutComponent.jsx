@@ -73,7 +73,7 @@ export default function Layout(props) {
 
     const formData = new FormData();
     var content = "";
-    formData.append('content', reelContent);
+    formData.append("content", reelContent);
     formData.append(`reelfiles`, filesReel);
     formData.append(`thumbnail`, filesReel);
 
@@ -90,7 +90,7 @@ export default function Layout(props) {
   useEffect(() => {
     // getPreviewReel()
     // getExploreReels();
-    getReelForUserFriends()
+    getReelForUserFriends();
   }, [refresh]);
 
   const getReelForUserFriends = async () => {
@@ -179,7 +179,11 @@ export default function Layout(props) {
                                   fileStorage.baseUrl + user.profilePicturePath
                                 }
                               />
-                              <a href={`/profile/${AuthService.getCurrentUser().username}`}>
+                              <a
+                                href={`/profile/${
+                                  AuthService.getCurrentUser().username
+                                }`}
+                              >
                                 <p
                                   style={{ fontWeight: "bold" }}
                                 >{`${props.user.firstName} ${props.user.lastName}`}</p>
@@ -351,7 +355,7 @@ export default function Layout(props) {
                             }}
                           >
                             <div className="sidebar-news">
-                              <div class="media-date">What's trending</div>
+                              <div className="media-date">What's trending</div>
                               <div style={{}}>
                                 <ul>
                                   <li>
@@ -477,14 +481,14 @@ export default function Layout(props) {
                           </div>
 
                           <div className="sidebar-news" style={{}}>
-                            <div class="media-date">REELS</div>
+                            <div className="media-date">REELS</div>
                             <div style={{}}>
                               <ul>
                                 <li>
-                                  <div >
-                                    {reelPreviewPath && reelPreviewPath.length > 0  ? (
-                                      
-                                      <ul class="slidestry">
+                                  <div>
+                                    {reelPreviewPath &&
+                                    reelPreviewPath.length > 0 ? (
+                                      <ul className="slidestry">
                                         {reelPreviewPath
                                           .slice(0, 2)
                                           .map((reel, index) => (
@@ -504,31 +508,41 @@ export default function Layout(props) {
                                               modal
                                             >
                                               {(close) => (
-                                                <Form >
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          class="las la-times"
-                                        ></i>
-                                      </a>
-                                    </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form>
+                                                <Form>
+                                                  <div style={{ width: "5%" }}>
+                                                    <a
+                                                      href="#!"
+                                                      onClick={close}
+                                                    >
+                                                      <i
+                                                        style={{
+                                                          color: "#fff",
+                                                          padding: "10px",
+                                                          fontSize: "30px",
+                                                        }}
+                                                        className="las la-times"
+                                                      ></i>
+                                                    </a>
+                                                  </div>
+                                                  <DisplayFriendsReelsComponent
+                                                    key={reel.id}
+                                                    id={index}
+                                                    reel={reel}
+                                                    setRefresh={setRefresh}
+                                                    index={index}
+                                                  />
+                                                </Form>
                                               )}
                                             </Popup>
                                           ))}
                                       </ul>
                                     ) : (
-                                      <div className="center"  style={{padding: "20px"}}>No Reels to show</div>
+                                      <div
+                                        className="center"
+                                        style={{ padding: "20px" }}
+                                      >
+                                        No Reels to show
+                                      </div>
                                     )}
                                   </div>
                                 </li>
@@ -551,7 +565,7 @@ export default function Layout(props) {
                                               }}
                                               onClick={close}
                                             >
-                                              <i class="las la-times"></i>
+                                              <i className="las la-times"></i>
                                             </a>
                                           </span>
                                           <span
@@ -608,7 +622,7 @@ export default function Layout(props) {
                                                   padding: "10px 10px",
                                                 }}
                                               >
-                                                <i class="las la-times"></i>
+                                                <i className="las la-times"></i>
                                               </button>
                                             </>
                                           ) : (
@@ -633,13 +647,15 @@ export default function Layout(props) {
                                           )}
                                         </span>
                                         <textarea
-                              className="textpopup"
-                              rows={2}
-                              placeholder={"Add Caption to your Reel"}
-                              name="reel_content"
-                              value={reelContent}
-                              onChange={handleReelContent}
-                            />
+                                          className="textpopup"
+                                          rows={2}
+                                          placeholder={
+                                            "Add Caption to your Reel"
+                                          }
+                                          name="reel_content"
+                                          value={reelContent}
+                                          onChange={handleReelContent}
+                                        />
                                         {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
                                       </div>
                                       {/* </> 

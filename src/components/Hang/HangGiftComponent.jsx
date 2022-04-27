@@ -125,7 +125,7 @@ const handleshowMeals = () => {
  <div className="arrow">  
  
      
-     <a href="#" onClick={() => setShowBrands("Gifts")} ><i class="las la-angle-down"></i></a>
+     <a href="#" onClick={() => setShowBrands("Gifts")} ><i className="las la-angle-down"></i></a>
      
   </div>
   
@@ -148,7 +148,7 @@ const handleshowMeals = () => {
    <div className="arrow">  
  
      
-     <a href="#" onClick={() => setShowBrands("Meals")}  ><i class="las la-angle-down"></i></a>
+     <a href="#" onClick={() => setShowBrands("Meals")}  ><i className="las la-angle-down"></i></a>
      
    </div>
 </div></div>
@@ -169,7 +169,7 @@ const handleshowMeals = () => {
    </div>
    <div className="arrow">  
  
-     <a href="#" onClick={() => setShowBrands("Outfits")}><i class="las la-angle-down"></i></a>
+     <a href="#" onClick={() => setShowBrands("Outfits")}><i className="las la-angle-down"></i></a>
      
    </div>
 </div></div>
@@ -197,7 +197,7 @@ const handleshowMeals = () => {
 //   <div style={{display:'inline',width:'20%',float:'right'}}>  
 //   <div style={{float:'right',marginTop:'30px',padding:'5px 10px',borderRadius:'5px'}}>
       
-//       <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i class="las la-angle-down"></i></a>
+//       <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i className="las la-angle-down"></i></a>
       
 //     </div></div>
 // </div></div>
@@ -231,10 +231,10 @@ const handleshowMeals = () => {
      <h1 style={{textAlign:'center',padding:'10px', fontSize:'18px',fontWeight:'bold'}}>Today to me, tomorrow to you</h1>
      <div className="containerHang"> <div className="row rowalin">
     
-   <div className="col-lg-3 padg"><div className="flow"> <a className={(showHang === "hangGifts" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangGifts")} ><i class="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Gifts</div></a></div></div>
-   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangMeals" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangMeals")} ><i class="las la-utensils" style={{fontSize:'32px'}}></i><div >Hang Meals</div></a></div></div>
-   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangOutfits" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangOutfits")} ><i class="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Outfits</div></a></div></div>
-   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangAccessories" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangAccessories")} ><i class="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Accessories</div></a></div></div>
+   <div className="col-lg-3 padg"><div className="flow"> <a className={(showHang === "hangGifts" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangGifts")} ><i className="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Gifts</div></a></div></div>
+   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangMeals" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangMeals")} ><i className="las la-utensils" style={{fontSize:'32px'}}></i><div >Hang Meals</div></a></div></div>
+   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangOutfits" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangOutfits")} ><i className="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Outfits</div></a></div></div>
+   <div className="col-lg-3 padg"> <div className="flow"><a className={(showHang === "hangAccessories" ? "active" : "")}  title="" data-ripple="" onClick={() => setShowHang("hangAccessories")} ><i className="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Accessories</div></a></div></div>
    </div></div>
   <div style={{borderBottom:'1px solid #e2e2e2'}}></div>
   <div className="contentArea">

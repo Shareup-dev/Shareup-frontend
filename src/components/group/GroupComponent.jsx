@@ -129,7 +129,7 @@ function GroupComponent({post}) {
 		return (
 			
 			<div className="tab-content">
-					<div class="friends-search-container grp-search" >
+					<div className="friends-search-container grp-search" >
 							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} style={{width:'100%',marginLeft:'0'}}/>
 						</div>
 				<div className="tab-pane active fade show " id="">
@@ -141,7 +141,7 @@ function GroupComponent({post}) {
 
 										<div className="group-li-item">
 											{/* <figure> */}
-											<div class="item12">
+											<div className="item12">
 												<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 												{/* </figure> */}
 												{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
@@ -161,9 +161,9 @@ function GroupComponent({post}) {
 												</div>
 											</div>
 											
-											{/* <div class="item6">
+											{/* <div className="item6">
 												{/* <span>Engr</span> */}
-												{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
+												{/* <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v"></i> */}
 											{/* </div> */}
 											
 
@@ -184,7 +184,7 @@ function GroupComponent({post}) {
 	const showMyGroupsComponent = () => {
 		return (
 			<div className="tab-content">
-			<div class="friends-search-container grp-search" >
+			<div className="friends-search-container grp-search" >
 							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
 						</div>
 			<div className="tab-pane active fade show " id="">
@@ -197,7 +197,7 @@ function GroupComponent({post}) {
 
 									<div className="group-li-item">
 										{/* <figure> */}
-										<div class="item12">
+										<div className="item12">
 											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
@@ -219,9 +219,9 @@ function GroupComponent({post}) {
 											
 										</div>
 										
-										{/* <div class="item6">
+										{/* <div className="item6">
 											{/* <span>Engr</span> */}
-											{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
+											{/* <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v"></i> */}
 										{/* </div> */}
 										
 
@@ -255,40 +255,40 @@ function GroupComponent({post}) {
 					<div className="frnds">
 						<div>
 							<p className="Friends-Title">Groups</p>
-							<i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+							<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 						</div>
 						
 							
 						</div>
-						<div class="navContent">
-							<ul class="nav nav-pills swap-page-nav " role="tablist">
-								<li class="nav-item" style={{justifyContent:'flex-start'}}>
+						<div className="navContent">
+							<ul className="nav nav-pills swap-page-nav " role="tablist">
+								<li className="nav-item" style={{justifyContent:'flex-start'}}>
 									<div className="all">
 										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("allgroups")}>
 											<span style={{  padding: '5px' }}> 
-											<i class="las la-users" style={{fontSize:'20px'}}></i>
+											<i className="las la-users" style={{fontSize:'20px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 										All Groups
 										</span>
 									</div>	
 								</li> 
-								<li class="nav-item" style={{justifyContent:'center'}}>
+								<li className="nav-item" style={{justifyContent:'center'}}>
 									<div className="my">
 										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("mygroups")}>
 											<span style={{  padding: '5px' }}> 
-											<i class="las la-user-friends" style={{fontSize:'20px'}}></i>
+											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											My Groups 
 										</span>
 									</div>
 								</li>
-								<li class="nav-item" style={{justifyContent:'flex-end'}}>
+								<li className="nav-item" style={{justifyContent:'flex-end'}}>
 									<div className="new">
 										<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
 											<span style={{  padding: '5px' }}> 
-											<i class="las la-user-friends" style={{fontSize:'20px'}}></i>
+											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											Create group

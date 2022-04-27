@@ -159,10 +159,10 @@ function EditPostComponent({ post, set }) {
               <button onClick={handleCancelEdit} className="buttonClosePrvw rtbtn" 
               style={{ display: "flex", margin: "-32px -10px",fontSize:"12px" }}>
               
-              <i class="las la-times"></i></button>
+              <i className="las la-times"></i></button>
               </div>
               
-              <span class="border-bottom"></span>
+              <span className="border-bottom"></span>
               </div>
               <div style={{ display: "flex", marginTop: "10px" }}>
                   <figure>
@@ -226,14 +226,14 @@ function EditPostComponent({ post, set }) {
                         post.published,
                         "DD MMMM YYYY hh:mm:ss"
                       ).fromNow()}
-                      {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                      {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>
                   </div>
 
                   
         <textarea
-          class="md-textarea form-control" 
+          className="md-textarea form-control" 
           rows={4}
           placeholder="write something"
           name="post_content"
@@ -249,7 +249,7 @@ function EditPostComponent({ post, set }) {
                   <>
                   <div style={{padding: "5px"}}>
                     <img id="preview" src={swapImage} />
-                    <button style={{  margin: "20px -10px", fontSize:"5px" }} onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn "><i class="las la-times "></i></button>
+                    <button style={{  margin: "20px -10px", fontSize:"5px" }} onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn "><i className="las la-times "></i></button>
                     </div>
                   </>
                   :
@@ -276,7 +276,7 @@ function EditPostComponent({ post, set }) {
                     accept="image/*"
                     onChange={handleFileSwap}
                   ></input>
-                  <i class="lar la-file-image"></i>
+                  <i className="lar la-file-image"></i>
                 </label>
               </div>
               <div
@@ -286,7 +286,7 @@ function EditPostComponent({ post, set }) {
                 <Popup
                   trigger={
                     <a href="#!">
-                      <i class="las la-user-tag"></i>
+                      <i className="las la-user-tag"></i>
                     </a>
                   }
                   modal
@@ -294,8 +294,8 @@ function EditPostComponent({ post, set }) {
                 >
                   {(close) => (
                     <Form style={{ margin: "5px" }} className="popwidth">
-                      <div class="search-container">
-                        <i class="las la-search"></i>
+                      <div className="search-container">
+                        <i className="las la-search"></i>
                         <input
                           className="friend-search"
                           type="text"
@@ -327,7 +327,7 @@ function EditPostComponent({ post, set }) {
                                       {" "}
                                       <div className="grid-container">
                                         {/* <figure> */}
-                                        <div class="item1">
+                                        <div className="item1">
                                           <a
                                             href={`/profile/${userM.email}`}
                                             title={`${userM.email}`}
@@ -340,7 +340,7 @@ function EditPostComponent({ post, set }) {
                                           </a>
                                           {/* </figure> */}
                                         </div>
-                                        <div class="item2">
+                                        <div className="item2">
                                           <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                         </div>
                                         {/* <div className="  "> */}
@@ -367,7 +367,7 @@ function EditPostComponent({ post, set }) {
                 <Popup
                   trigger={
                     <a href="#!">
-                      <i class="las la-map-marker-alt"></i>
+                      <i className="las la-map-marker-alt"></i>
                     </a>
                   }
                   nested
@@ -383,7 +383,7 @@ function EditPostComponent({ post, set }) {
 
               {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
        </label></li></ul>*/}
             </div>
       </figure>

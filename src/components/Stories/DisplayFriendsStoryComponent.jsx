@@ -165,7 +165,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                 </div>
               </div>
             </div>
-            <div class="slide-buttons">
+            <div className="slide-buttons">
               {index + 1 < story.length ? (
                 <span
                   id="getnext"
@@ -174,7 +174,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                     console.log("looking for -1", index);
                   }}
                 >
-                  <i class="fas fa-arrow-right"></i>
+                  <i className="fas fa-arrow-right"></i>
                 </span>
               ) : (
                 ""
@@ -187,7 +187,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                     setIndex(index - 1);
                   }}
                 >
-                  <i class="fas fa-arrow-left"></i>
+                  <i className="fas fa-arrow-left"></i>
                 </span>
               ) : null}
             </div>

@@ -19,7 +19,6 @@ const [data, setData]= useState([])
                     }
                 }
                 );
-                console.log(results);
                 setData(results.data.data);
 
         };

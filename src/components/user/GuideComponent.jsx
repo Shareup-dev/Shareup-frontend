@@ -176,7 +176,7 @@ function GuideComponent() {
               {allUser.slice(0, 8).map((userF) => (
                 <li className="sendrqstli" key={userF.id}>
                   <div className="grid-container">
-                    <div class="item1">
+                    <div className="item1">
                       <img
                         src={fileStorage.baseUrl + userF.profilePicturePath}
                         alt=""
@@ -184,7 +184,7 @@ function GuideComponent() {
                       {/* <span className="status f-online" /> */}
                     </div>
                     <div
-                      class="item2"
+                      className="item2"
                       style={{ paddingTop: "15px", paddingLeft: "0px" }}
                     >
                       <p className="nameTag">
@@ -290,13 +290,13 @@ function GuideComponent() {
                           </>
                         )
                       ) : (
-                        <div class="item5">
+                        <div className="item5">
                           <p style={{ float: "right" }}>Your own profile</p>
                         </div>
                       )}
 
                       <i
-                        class="las la-times"
+                        className="las la-times"
                         style={{
                           fontSize: "13px",
                           padding: "6px",
@@ -330,7 +330,7 @@ function GuideComponent() {
               {allUser.slice(0, 8).map((userF) => (
                 <li className="sendrqstli" key={userF.id}>
                   <div className="grid-container">
-                    <div class="item1">
+                    <div className="item1">
                       <img
                         src={fileStorage.baseUrl + userF.profilePicturePath}
                         alt=""
@@ -388,7 +388,7 @@ function GuideComponent() {
                       ) : null}
 
                       <i
-                        class="las la-times"
+                        className="las la-times"
                         style={{
                           fontSize: "13px",
                           padding: "6px",
@@ -426,7 +426,7 @@ function GuideComponent() {
               {allGroups.slice(0, 8).map((group) => (
                 <li key={group.id} className="sendrqstli">
                   <div className="grid-container">
-                    <div class="item1">
+                    <div className="item1">
                       <img
                         src={
                           group.groupImagePath
@@ -438,7 +438,7 @@ function GuideComponent() {
                     </div>
 
                     <div
-                      class="item2"
+                      className="item2"
                       style={{ paddingTop: "15px", paddingLeft: "0px" }}
                     >
                       <p className="nameTag">
@@ -455,7 +455,7 @@ function GuideComponent() {
                       {group.members.some((el) => el.id === user.id) ? (
                         <a
                           href="#!"
-                          class="button"
+                          className="button"
                           style={{
                             color: "#fff",
                             background: "#033347",
@@ -468,7 +468,7 @@ function GuideComponent() {
                       ) : (
                         <a
                           href="#!"
-                          class="button"
+                          className="button"
                           style={{
                             color: "#000000",
                             background: "#EAEAEA",
@@ -481,7 +481,7 @@ function GuideComponent() {
                       )}
 
                       <i
-                        class="las la-times"
+                        className="las la-times"
                         style={{
                           fontSize: "13px",
                           padding: "6px",
@@ -572,12 +572,12 @@ function GuideComponent() {
                 fontColor: "#000000",
               }}
             >
-              <div class="item1">
+              <div className="item1">
                 <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
                 {/* <span className="status f-online" /> */}
               </div>
               <div
-                class="item2"
+                className="item2"
                 style={{
                   fontSize: "16px",
                   fontWeight: "bold",

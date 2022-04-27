@@ -595,7 +595,7 @@ function OtherProfileComponent() {
       <>
         <div className="loadMore" style={{ textAlign: "center" }}>
           {profileMedia && profileMedia.length > 0 ? (
-            <ul class="profilemedia">
+            <ul className="profilemedia">
               {profileMedia.map((post, index) => (
                 <Popup
                   style={{ padding: "0px" }}
@@ -616,7 +616,7 @@ function OtherProfileComponent() {
                               padding: "10px",
                               fontSize: "30px",
                             }}
-                            class="las la-times"
+                            className="las la-times"
                           ></i>
                         </a>
                       </div>
@@ -633,7 +633,7 @@ function OtherProfileComponent() {
               ))}
             </ul>
           ) : (
-            <div class="center" style={{ padding: "20px" }}>
+            <div className="center" style={{ padding: "20px" }}>
               No Post to show
             </div>
           )}
@@ -645,7 +645,7 @@ function OtherProfileComponent() {
     return (
       <div className="loadMore">
         {searchedReelforUser && searchedReelforUser.length > 0 ? (
-          <ul class="slidesreel">
+          <ul className="slidesreel">
             {searchedReelforUser.map((reel, index) => (
               <Popup
                 style={{ padding: "0px" }}
@@ -669,7 +669,7 @@ function OtherProfileComponent() {
                             padding: "10px",
                             fontSize: "30px",
                           }}
-                          class="las la-times"
+                          className="las la-times"
                         ></i>
                       </a>
                     </div>
@@ -686,7 +686,7 @@ function OtherProfileComponent() {
             ))}
           </ul>
         ) : (
-          <div class="center" style={{ padding: "20px" }}>
+          <div className="center" style={{ padding: "20px" }}>
             No Reels to show
           </div>
         )}
@@ -699,7 +699,7 @@ function OtherProfileComponent() {
         <div className="loadMore" style={{ textAlign: "center" }}>
           {/* {profileMedia && profileMedia.length > 0
           ? (
-            <ul class="profilemedia" >
+            <ul className="profilemedia" >
                           {profileMedia.map((post, index) => (
                             <Popup
                               style={{ padding: "0px" }}
@@ -727,7 +727,7 @@ function OtherProfileComponent() {
                                             padding: "10px",
                                             fontSize: "30px",
                                           }}
-                                          class="las la-times"
+                                          className="las la-times"
                                         ></i>
                                       </a>
                                   </div>
@@ -751,7 +751,7 @@ function OtherProfileComponent() {
 
           )
           : */}
-          <div class="center" style={{ padding: "20px" }}>
+          <div className="center" style={{ padding: "20px" }}>
             No Tags Photo
           </div>
           {/* } */}

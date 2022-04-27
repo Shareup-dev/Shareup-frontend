@@ -91,7 +91,7 @@ function FriendProfileComponent({ email, id }) {
           {friendsList.map((friend) => (
             <li key={friend.id} className="friends-card bckclr grp">
               <div className="grid-container">
-                <div class="item1">
+                <div className="item1">
                   <a
                     href={`/profile/${friend.email}`}
                     title={`${friend.email}`}
@@ -102,7 +102,7 @@ function FriendProfileComponent({ email, id }) {
                     />
                   </a>
                 </div>
-                <div class="item2">
+                <div className="item2">
                   <p className="nameTag">
                     <a
                       href={`/profile/${friend.email}`}

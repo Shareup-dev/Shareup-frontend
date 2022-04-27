@@ -134,7 +134,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
                                     <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`} /> </a></div> : null
                                 }
 </div>                              
-<div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>
+<div className="itemS2"><div className="swapbtnfeed"><i className="las la-sync"></i></div></div>
 <div className="itemS3">
 <>
                                 
@@ -178,7 +178,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
 
                                     <a href={`/profile/${post.user.email}`} title="#" style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${post.user.firstName} ${post.user.lastName}`}</a>
 
-                                    <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on {`${post.published}`} {checkIfSaved(post) && <i class="las la-bookmark"></i>}</span>
+                                    <span style={{ display: 'block', fontSize: '12px',paddingTop:'5px' }}>on {`${post.published}`} {checkIfSaved(post) && <i className="las la-bookmark"></i>}</span>
                                     {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null}</div> <div style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }} >
                                     
 
@@ -247,23 +247,23 @@ export default function SwapPostComponent({ post, setRefresh }) {
                         <EditPostComponent post={post} set={handleEditingSave} />
                 }
 <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
-                                        <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
+                                        <span title="add icon" ><i className="las la-ellipsis-h"></i></span>
                                     </div>
                                     {
                                         showMoreOptions && <div className="drop-options active">
                                             <ul><li className="head-drop"><h6>Post Options</h6></li>
                                                 {(post.user.id === user.id) ? <li onClick={() => handleEditPost(post.id)}>
-                                                    <i class="las la-pencil-alt"></i><span>Edit Post</span></li>
+                                                    <i className="las la-pencil-alt"></i><span>Edit Post</span></li>
                                                     :
                                                     <></>
                                                 }
-                                                <li onClick={() => handleSavePost(post.id)}><i class="lar la-bookmark"></i><span>Save Post</span></li>
+                                                <li onClick={() => handleSavePost(post.id)}><i className="lar la-bookmark"></i><span>Save Post</span></li>
                                                 {(post.user.id === user.id) ? <li onClick={() => handleDeletePost(post.id)}>
-                                                    <i class="las la-trash" ></i><span>Delete</span></li>
+                                                    <i className="las la-trash" ></i><span>Delete</span></li>
                                                     :
                                                     <></>
                                                 }
-                                                <li><i class="las la-link"></i><span>Copy Link</span></li>
+                                                <li><i className="las la-link"></i><span>Copy Link</span></li>
                                             </ul>
                                         </div>
                                     }

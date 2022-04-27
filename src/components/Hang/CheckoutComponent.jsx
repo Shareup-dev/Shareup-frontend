@@ -419,7 +419,7 @@ function CheckoutComponent({ data }) {
                   <div style={{ padding: '5px 0 0 5px', fontSize: '12px' }}>QR {amount}</div>
                 </div>
                 <div style={{ display: 'inline', width: '33%', float: 'right', padding: '0 5px' }}>
-                  <div style={{ float: 'right', marginTop: '5%' }}><a href="/HangGift"><i class="las la-times"></i></a></div>
+                  <div style={{ float: 'right', marginTop: '5%' }}><a href="/HangGift"><i className="las la-times"></i></a></div>
                   <div style={{ float: 'right', marginTop: '25%', padding: '5px 10px', background: 'rgb(3, 51, 71)', color: '#fff', borderRadius: '5px' }}>
                   <a style={{ color: '#fff', padding: '5px', fontSize: '12px' }} href="#" onClick={() => handleCountAndTotal("-")}>-</a>
                     <span style={{ color: '#fff', padding: '5px', fontSize: '12px' }}>{count}</span>

@@ -134,7 +134,7 @@ const [postsForUser, setPostsForUser] = useState([]);
  <div className="arrow">  
  
      
-     {/* <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i class="las la-angle-down"></i></a> */}
+     {/* <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i className="las la-angle-down"></i></a> */}
      
   </div>
 </div>
@@ -155,7 +155,7 @@ const [postsForUser, setPostsForUser] = useState([]);
    <div className="arrow">  
  
      
-     {/* <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i class="las la-angle-down"></i></a> */}
+     {/* <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i className="las la-angle-down"></i></a> */}
      
    </div>
 </div></div>
@@ -175,7 +175,7 @@ const [postsForUser, setPostsForUser] = useState([]);
    </div>
    <div className="arrow">  
  
-     <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i class="las la-angle-down"></i></a>
+     <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i className="las la-angle-down"></i></a>
      
    </div>
 </div></div>
@@ -202,7 +202,7 @@ const [postsForUser, setPostsForUser] = useState([]);
 //   <div style={{display:'inline',width:'20%',float:'right'}}>  
 //   <div style={{float:'right',marginTop:'30px',padding:'5px 10px',borderRadius:'5px'}}>
       
-//       <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i class="las la-angle-down"></i></a>
+//       <a style={{ color:'#000000',padding:'5px',fontSize:'18px'}} href="#"  ><i className="las la-angle-down"></i></a>
       
 //     </div></div>
 // </div></div>
@@ -236,9 +236,9 @@ const [postsForUser, setPostsForUser] = useState([]);
      <h1 style={{textAlign:'center',padding:'10px', fontSize:'18px',fontWeight:'bold'}}>Let's Swap</h1>
      <div className="containerHang"> <div className="row rowalin">
      <h1 style={{textAlign:'center',padding:'10px', fontSize:'18px',fontWeight:'lighter'}}>To Swap You will have to Provide clear image of the object you want to swap</h1>
-   {/* <div className="col-lg-3 flow"> <a className={(showHang === "hangGifts" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangGifts")} ><i class="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Gifts</div></a></div>
-   <div className="col-lg-3 flow"> <a className={(showHang === "hangMeals" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangMeals")} ><i class="las la-utensils" style={{fontSize:'32px'}}></i><div >Hang Meals</div></a></div>
-   <div className="col-lg-3 flow"> <a className={(showHang === "hangOutfits" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangOutfits")} ><i class="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Outfits</div></a></div> */}
+   {/* <div className="col-lg-3 flow"> <a className={(showHang === "hangGifts" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangGifts")} ><i className="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Gifts</div></a></div>
+   <div className="col-lg-3 flow"> <a className={(showHang === "hangMeals" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangMeals")} ><i className="las la-utensils" style={{fontSize:'32px'}}></i><div >Hang Meals</div></a></div>
+   <div className="col-lg-3 flow"> <a className={(showHang === "hangOutfits" ? "active" : "")} style={{}} title="" data-ripple="" onClick={() => setShowHang("hangOutfits")} ><i className="las la-gift"style={{fontSize:'32px'}}></i><div >Hang Outfits</div></a></div> */}
    </div></div>
   <div style={{borderBottom:'1px solid #e2e2e2',marginTop:'20px'}}></div>
   <div className="contentArea">

@@ -181,8 +181,8 @@ export default function ChatTestComponent() {
         return (<>
                   
                   <li className="bckgrnd"> <div className="buttnScrty">Choose the friend you trust to help you when you have trouble in logging</div></li>
-                  <li className="bckgrnd">  <div className="buttnScrty"><div class="friends-search-container-Scrty">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
+                  <li className="bckgrnd">  <div className="buttnScrty"><div className="friends-search-container-Scrty">
+            <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
         </div></div></li>
                  
 
@@ -649,19 +649,19 @@ and other profile info? Friends<br/></p><p className="secrtyEdt"> Friends</p></l
 
           </div>
         </div>
-        <div class="owl-carousel owl-theme">
-    <div class="item"><h4>1kllklkl</h4></div>
-    <div class="item"><h4>2klklklk</h4></div>
-    <div class="item"><h4>3lklkl</h4></div>
-    <div class="item"><h4>4lk</h4></div>
-    <div class="item"><h4>5klkk</h4></div>
-    <div class="item"><h4>6</h4></div>
-    <div class="item"><h4>7</h4></div>
-    <div class="item"><h4>8</h4></div>
-    <div class="item"><h4>9</h4></div>
-    <div class="item"><h4>10</h4></div>
-    <div class="item"><h4>11</h4></div>
-    <div class="item"><h4>12</h4></div>
+        <div className="owl-carousel owl-theme">
+    <div className="item"><h4>1kllklkl</h4></div>
+    <div className="item"><h4>2klklklk</h4></div>
+    <div className="item"><h4>3lklkl</h4></div>
+    <div className="item"><h4>4lk</h4></div>
+    <div className="item"><h4>5klkk</h4></div>
+    <div className="item"><h4>6</h4></div>
+    <div className="item"><h4>7</h4></div>
+    <div className="item"><h4>8</h4></div>
+    <div className="item"><h4>9</h4></div>
+    <div className="item"><h4>10</h4></div>
+    <div className="item"><h4>11</h4></div>
+    <div className="item"><h4>12</h4></div>
 </div>
         {
           changeView()

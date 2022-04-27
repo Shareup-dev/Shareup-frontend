@@ -209,7 +209,7 @@ function DisplayComponent() {
                                 <Popup
                                   trigger={
                                     <div>
-                                      <i class="las la-pencil-alt"></i>
+                                      <i className="las la-pencil-alt"></i>
                                       <span>Edit Story</span>
                                     </div>
                                   }
@@ -232,7 +232,7 @@ function DisplayComponent() {
                                               }}
                                               onClick={close}
                                             >
-                                              <i class="las la-times"></i>
+                                              <i className="las la-times"></i>
                                             </a>
                                           </span>
                                           <span
@@ -284,7 +284,7 @@ function DisplayComponent() {
                                                   padding: "10px 10px",
                                                 }}
                                               >
-                                                <i class="las la-times"></i>
+                                                <i className="las la-times"></i>
                                               </button>
                                             </>
                                           ) : (
@@ -338,7 +338,7 @@ function DisplayComponent() {
                                   handleDeleteStory(background.id);
                                 }}
                               >
-                                <i class="las la-trash"></i>
+                                <i className="las la-trash"></i>
                                 <span>Delete</span>
                               </Dropdown.Item>
                             </DropdownButton>

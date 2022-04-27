@@ -38,9 +38,9 @@ function PrivacyPolicyComponent() {
 <div className='scrollbar-privacy-terms'>
 
       
-          <p style={{fontFamily: 'Trebuchet MS (sans-serif)' , fontWeight:'normal' , fontSize:'12' }} class="text-justify"> 
+          <p style={{fontFamily: 'Trebuchet MS (sans-serif)' , fontWeight:'normal' , fontSize:'12' }} className="text-justify"> 
 
-          Thank you for choosing to be part of our community at <b  class="font-weight-bold">Shareup</b>. We are committed to protecting your personal information 
+          Thank you for choosing to be part of our community at <b  className="font-weight-bold">Shareup</b>. We are committed to protecting your personal information 
           and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your
            personal information, please send a mail to <a style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }} href=" info@shareup.qa">info@shareup.qa</a>.
             When you visit our  <a  href="https://www.shareup.qa" style={{color:"#a7dee5", fontSize:"20px",  textDecoration:"none" , textDecorationLine: 'underline' }}>website </a> and use our
@@ -52,7 +52,7 @@ function PrivacyPolicyComponent() {
           <br/>
           <br/>
           
-<p style={{fontFamily: 'Trebuchet MS (sans-serif)' , fontWeight:'normal', fontSize:'12'}} class="text-justify">
+<p style={{fontFamily: 'Trebuchet MS (sans-serif)' , fontWeight:'normal', fontSize:'12'}} className="text-justify">
           We take your privacy very seriously. We seek to explain to you in the clearest way possible what information we collect, 
           how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. 
           If there are any terms in this privacy policy that you do not agree with, please discontinue use of our sites and our services. 
@@ -65,7 +65,7 @@ function PrivacyPolicyComponent() {
           <br/>
           <br/>
 
-          <p style={{fontFamily: 'Trebuchet MS (sans-serif)', fontSize:'12'}} class="font-weight-bold text-justify">
+          <p style={{fontFamily: 'Trebuchet MS (sans-serif)', fontSize:'12'}} className="font-weight-bold text-justify">
           
           Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us
           </p>
@@ -75,11 +75,11 @@ function PrivacyPolicyComponent() {
              <br/>
              <br/>
 
-             <b class="font-weight-bold text-justify"> WHAT INFORMATION DO WE COLLECT?  </b>
+             <b className="font-weight-bold text-justify"> WHAT INFORMATION DO WE COLLECT?  </b>
 
              <br/>
              <br/>
-             <p style={{fontFamily: 'Trebuchet MS (sans-serif)',fontWeight:'normal', fontSize:'12'}} class="text-justify">
+             <p style={{fontFamily: 'Trebuchet MS (sans-serif)',fontWeight:'normal', fontSize:'12'}} className="text-justify">
 
              We collect personal information that you voluntarily provide to us when registering at <a href="https://www.shareup.qa"  style={{color:"#a7dee5", fontSize:"20px", fontWeight:"bold", textDecoration:"none" }}>Shareup </a> 
               expressing an
@@ -90,14 +90,14 @@ function PrivacyPolicyComponent() {
                <br/>
 
                <ul className="unorderedlist">
-                 <li class="font-weight-bold">Name and Contact Data</li>
+                 <li className="font-weight-bold">Name and Contact Data</li>
                  <br/>
                  
                  We collect your first and last name, email address, phone number, national ID number and other similar contact data.
                  <br/>
                  <br/>
                  <br/>
-                 <li class="font-weight-bold">Credentials</li>
+                 <li className="font-weight-bold">Credentials</li>
                  
                  <br/>
                  We collect passwords, password hints, and similar security information used for authentication and account access.
@@ -105,7 +105,7 @@ function PrivacyPolicyComponent() {
                  <br/>
                  <br/>
                  <br/>
-                 <li class="font-weight-bold">Social Media Login Data</li>
+                 <li className="font-weight-bold">Social Media Login Data</li>
                  <br/>
                  
                  We provide you with the option to register using social media account details, like your Facebook, Twitter or other social media account.

@@ -124,7 +124,7 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                           </IconButton>
                           <Menu
                             id="long-menu"
-                            class="btn dropdown-toggle"
+                            className="btn dropdown-toggle"
                             MenuListProps={{
                               "aria-labelledby": "long-button",
                             }}
@@ -140,19 +140,19 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                           >
                             <div>
                               <MenuItem>
-                                <i class="lar la-bookmark"></i>
+                                <i className="lar la-bookmark"></i>
                                 <span>Save Reel</span>
                               </MenuItem>
                               {reel.userdata.id === user.id ? (
                                 <MenuItem onClick={handleDeleteReel(reel.id)}>
-                                  <i class="las la-trash"></i>
+                                  <i className="las la-trash"></i>
                                   <span>Delete Reel</span>
                                 </MenuItem>
                               ) : (
                                 <></>
                               )}
                               <MenuItem>
-                                <i class="las la-link"></i>
+                                <i className="las la-link"></i>
                                 <span>Copy Link</span>
                               </MenuItem>
                             </div>

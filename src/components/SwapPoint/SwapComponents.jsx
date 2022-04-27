@@ -396,7 +396,7 @@ export default function SwapComponents(props) {
 
         <div className="add-smilespopup">
           <label className="fileContainer">
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
             <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
           </label></div>
 
@@ -405,14 +405,14 @@ export default function SwapComponents(props) {
 
           <Popup trigger={
             <a href="#!">
-              <i class="las la-user-tag"></i></a>}
+              <i className="las la-user-tag"></i></a>}
             nested modal>
             {
               close => (
                 <Form style={{ margin: '5px' }}
                   className="popwidth">
-                  <div class="search-container">
-                    <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+                  <div className="search-container">
+                    <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
                   </div>
                   {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
                   <div>
@@ -424,12 +424,12 @@ export default function SwapComponents(props) {
                               <li key={userM.id} className="friends-card">
                                 <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
 
                                   </div>
-                                  <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div></a>
@@ -442,14 +442,14 @@ export default function SwapComponents(props) {
           </Popup></div>
         <div className="campopup">
           <label className="fileContainer">
-            <i class="las la-map-marker-alt"></i>
+            <i className="las la-map-marker-alt"></i>
             <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
           </label></div>
 
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}</div>
     )
 
@@ -461,12 +461,12 @@ export default function SwapComponents(props) {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>Add More</div>
 
-        <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
         </label></div>
-        <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+        <div className="gifpopup"><Popup trigger={<a href="#!"><i className="las la-user-tag"></i></a>} nested modal>
           {close => (<Form style={{ margin: '5px' }} className="popwidth">
-            <div class="search-container">
-              <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            <div className="search-container">
+              <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
             </div>
             {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
             <div>
@@ -478,12 +478,12 @@ export default function SwapComponents(props) {
                         <li key={userM.id} className="friends-card">
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
-                            <div class="item1">
+                            <div className="item1">
                               <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
-                            <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                            <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                             </div>
                             {/* <div className="  "> */}
                           </div></a>
@@ -494,7 +494,7 @@ export default function SwapComponents(props) {
           </Form>
           )}
         </Popup></div>
-        <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
         </label></div>
 
 
@@ -586,7 +586,7 @@ export default function SwapComponents(props) {
                     <div className="popupimg">
                       <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" />
                     </div>
-                      <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
+                      <div className="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
                         <span style={{ textTransform: 'capitalize', fontWeight: 'bold' , fontSize: '1rem'}}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
                         <span style={{ display: 'block', fontSize: '12px' }}>
                           <div className="dropdown" style={{display: 'flex' , alignItems: 'center'}}>
@@ -627,14 +627,14 @@ export default function SwapComponents(props) {
                     {showPostImage ?
                       <div className="swap-img-container">
                         <img id="preview" src={postImage}  />
-                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i class="las la-times"></i></button>
+                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i className="las la-times"></i></button>
                       </div>
                       :
                       <div style={{ textAlign: 'center' }}>
                         <label className="fileContainer" >
                           <div className="swappic" type="submit">
                             <input type="file" name="swap_image" accept="image/*" onChange={handleFile}></input>
-                            <div style={{display: 'flex' , flexDirection:'column'}}><i class="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div></div>
+                            <div style={{display: 'flex' , flexDirection:'column'}}><i className="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div></div>
                           </div>
                         </label>
                       </div>
@@ -649,12 +649,12 @@ export default function SwapComponents(props) {
                     {showSwapImage ?
                       <div className="swap-img-container">
                         <img id="preview" src={swapImage}  />
-                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i class="las la-times"></i></button>
+                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i className="las la-times"></i></button>
                       </div>
                       :
                       <div style={{ textAlign: 'center' }}><label className="fileContainer" >
                         <div className="swappic" type="submit">
-                          <input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i class="lar la-file-image"></i>
+                          <input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i className="lar la-file-image"></i>
                           <div style={{ fontSize: '12px' }}>Add Image to be swapped</div> </div>
                       </label></div>
                     }</div>

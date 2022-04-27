@@ -123,7 +123,7 @@ function DisplayMediaComponent({ post,email,setRefresh, indexs }) {
                           </IconButton>
                           <Menu
                             id="long-menu"
-                            class="btn dropdown-toggle"
+                            className="btn dropdown-toggle"
                             MenuListProps={{
                               "aria-labelledby": "long-button",
                             }}
@@ -139,19 +139,19 @@ function DisplayMediaComponent({ post,email,setRefresh, indexs }) {
                           >
                             <div>
                               <MenuItem>
-                                <i class="lar la-bookmark"></i>
+                                <i className="lar la-bookmark"></i>
                                 <span>Save Post</span>
                               </MenuItem>
                               {/* {post.userdata.id === userR.id ? ( */}
                                 <MenuItem onClick={handleDeleteReel(post.id)}>
-                                  <i class="las la-trash"></i>
+                                  <i className="las la-trash"></i>
                                   <span>Delete Post</span>
                                 </MenuItem>
                               {/* ) : (
                                 <></>
                               )} */}
                               <MenuItem>
-                                <i class="las la-link"></i>
+                                <i className="las la-link"></i>
                                 <span>Copy Link</span>
                               </MenuItem>
                             </div>

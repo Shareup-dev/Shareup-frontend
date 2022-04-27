@@ -541,14 +541,14 @@ function SearchFeedComponent() {
                 <div className='add-smilespopup'>
                     <label className='fileContainer'>
                         <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
-                        <i class='lar la-file-image'></i>
+                        <i className='lar la-file-image'></i>
                     </label>
                 </div>
                 <div className='gifpopup' style={{ fontSize: '28px', paddingBottom: '14px' }}>
                     <Popup
                         trigger={
                             <a href='#!'>
-                                <i class='las la-user-tag' ></i>
+                                <i className='las la-user-tag' ></i>
                             </a>
                         }
                         modal
@@ -556,8 +556,8 @@ function SearchFeedComponent() {
                     >
                         {(close) => (
                             <Form style={{ margin: '5px' }} className='popwidth'>
-                                <div class='search-container'>
-                                    <i class='las la-search'></i>
+                                <div className='search-container'>
+                                    <i className='las la-search'></i>
                                     <input
                                         className='friend-search'
                                         type='text'
@@ -584,13 +584,13 @@ function SearchFeedComponent() {
                                                                 {' '}
                                                                 <div className='grid-container'>
                                                                     {/* <figure> */}
-                                                                    <div class='item1'>
+                                                                    <div className='item1'>
                                                                         <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
                                                                             <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
                                                                         </a>
                                                                         {/* </figure> */}
                                                                     </div>
-                                                                    <div class='item2'>
+                                                                    <div className='item2'>
                                                                         <p className='nameTagMsg'>{`${userM.firstName} ${userM.lastName}`}</p>
                                                                     </div>
                                                                     {/* <div className="  "> */}
@@ -613,7 +613,7 @@ function SearchFeedComponent() {
                     <Popup
                         trigger={
                             <a href='#!'>
-                                <i class='las la-map-marker-alt'></i>
+                                <i className='las la-map-marker-alt'></i>
                             </a>
                         }
                         nested
@@ -629,7 +629,7 @@ function SearchFeedComponent() {
 
                 {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}
             </div>
         );
@@ -661,12 +661,12 @@ function SearchFeedComponent() {
             <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
                 <div style={{ display: 'inline' }}>What's in hang?</div>
 
-                <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+                <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                 </label></div>
-                <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+                <div className="gifpopup"><Popup trigger={<a href="#!"><i className="las la-user-tag"></i></a>} nested modal>
                     {close => (<Form style={{ margin: '5px' }} className="popwidth">
-                        <div class="search-container">
-                            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search"
+                        <div className="search-container">
+                            <i className="las la-search"></i><input className="friend-search" type="text" id="header-search"
                                 placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
                         </div>
                         {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
@@ -679,12 +679,12 @@ function SearchFeedComponent() {
                                                 <li key={userM.id} className="friends-card">
                                                     <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                                         {/* <figure> */}
-                                                        <div class="item1">
+                                                        <div className="item1">
                                                             <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
                                                             {/* </figure> */}
 
                                                         </div>
-                                                        <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                                        <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                                         </div>
                                                         {/* <div className="  "> */}
                                                     </div></a>
@@ -695,13 +695,13 @@ function SearchFeedComponent() {
                     </Form>
                     )}
                 </Popup></div>
-                <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+                <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                 </label></div>
 
 
                 {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}</div>
         )
 
@@ -713,12 +713,12 @@ function SearchFeedComponent() {
             <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
                 <div style={{ display: 'inline' }}>Add More</div>
 
-                <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+                <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                 </label></div>
-                <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+                <div className="gifpopup"><Popup trigger={<a href="#!"><i className="las la-user-tag"></i></a>} nested modal>
                     {close => (<Form style={{ margin: '5px' }} className="popwidth">
-                        <div class="search-container">
-                            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+                        <div className="search-container">
+                            <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
                         </div>
                         {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
                         <div>
@@ -730,12 +730,12 @@ function SearchFeedComponent() {
                                                 <li key={userM.id} className="friends-card">
                                                     <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                                         {/* <figure> */}
-                                                        <div class="item1">
+                                                        <div className="item1">
                                                             <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
                                                             {/* </figure> */}
 
                                                         </div>
-                                                        <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                                        <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                                         </div>
                                                         {/* <div className="  "> */}
                                                     </div></a>
@@ -746,13 +746,13 @@ function SearchFeedComponent() {
                     </Form>
                     )}
                 </Popup></div>
-                <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+                <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                 </label></div>
 
 
                 {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}</div>
         )
 
@@ -824,11 +824,11 @@ function SearchFeedComponent() {
                                 Searchbyuser.map(userF =>
                                     <li className="sendrqstli" style={{ background: 'white' }} key={userF.id}>
                                         <div className="grid-container" >
-                                            <div class="item1" >
+                                            <div className="item1" >
                                                 <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
                                                 {/* <span className="status f-online" /> */}
                                             </div>
-                                            <div class="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>
+                                            <div className="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>
                                                 <p className="nameTag">
                                                     <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
                                                 <p2>
@@ -861,7 +861,7 @@ function SearchFeedComponent() {
 
                                                             </>
                                                         :
-                                                        <div class="item5">
+                                                        <div className="item5">
                                                             <p style={{ float: "right" }}>Your own profile</p>
 
                                                         </div>
@@ -869,7 +869,7 @@ function SearchFeedComponent() {
 
                                                 }
 
-                                                <i class="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
+                                                <i className="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
 
                                                 </i>
 
@@ -940,11 +940,11 @@ function SearchFeedComponent() {
                                     Searchbyuser.slice(0, 4).map(userF =>
                                         <li className="sendrqstli" style={{ background: 'white' }} key={userF.id}>
                                             <div className="grid-container" >
-                                                <div class="item1" >
+                                                <div className="item1" >
                                                     <img src={fileStorage.baseUrl + userF.profilePicturePath} alt="" />
                                                     {/* <span className="status f-online" /> */}
                                                 </div>
-                                                <div class="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>
+                                                <div className="item2" style={{ paddingTop: '15px', paddingLeft: '0px' }}>
                                                     <p className="nameTag">
                                                         <a href={`/profile/${userF.email}`}>{`${userF.firstName} ${userF.lastName}`}</a></p>
                                                     <p2>
@@ -977,7 +977,7 @@ function SearchFeedComponent() {
 
                                                                 </>
                                                             :
-                                                            <div class="item5">
+                                                            <div className="item5">
                                                                 <p style={{ float: "right" }}>Your own profile</p>
 
                                                             </div>
@@ -985,7 +985,7 @@ function SearchFeedComponent() {
 
                                                     }
 
-                                                    <i class="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
+                                                    <i className="las la-times" style={{ fontSize: '13px', padding: '6px', color: 'black' }}>
 
                                                     </i>
 
@@ -1069,7 +1069,7 @@ function SearchFeedComponent() {
 
                                             <div className="group-li-item">
                                                 {/* <figure> */}
-                                                <div class="item12">
+                                                <div className="item12">
                                                     <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
                                                     {/* </figure> */}
                                                     {/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
@@ -1167,40 +1167,40 @@ function SearchFeedComponent() {
                     <div className="frnds">
                         <div>
                             <p className="Friends-Title">Search</p>
-                            <i style={{ float: "right", fontSize: 20 }} class="fas fa-ellipsis-v"></i>
+                            <i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
                         </div>
-                        <div class="navContent">
+                        <div className="navContent">
 
-                            <ul class="nav nav-pills swap-page-nav" role="tablist">
-                                <li class="nav-item" style={{ justifyContent: 'flex-start' }}>
+                            <ul className="nav nav-pills swap-page-nav" role="tablist">
+                                <li className="nav-item" style={{ justifyContent: 'flex-start' }}>
                                     <div className="all">
                                         <span style={{ cursor: 'pointer' }}
 
                                             onClick={() => allSearch()}>
                                             <span style={{ marginRight: '5px', padding: '5px' }}>
-                                                <i class="fas fa-retweet" style={{ fontSize: '20px' }}></i>
+                                                <i className="fas fa-retweet" style={{ fontSize: '20px' }}></i>
                                                 {/* <span>{`${following.length}`}</span> */}
                                             </span>
                                             Search All
                                         </span>
                                     </div>
                                 </li>
-                                <li class="nav-item" style={{ justifyContent: 'center' }}>
+                                <li className="nav-item" style={{ justifyContent: 'center' }}>
                                     <div className="my">
                                         <span style={{ cursor: 'pointer' }} onClick={() => SearchByPeople()}>
                                             <span style={{ marginRight: '5px', padding: '5px' }}>
-                                                <i class="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
+                                                <i className="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
                                                 {/* <span>{`${following.length}`}</span> */}
                                             </span>
                                             By people
                                         </span>
                                     </div>
                                 </li>
-                                <li class="nav-item" style={{ justifyContent: 'flex-end' }}>
+                                <li className="nav-item" style={{ justifyContent: 'flex-end' }}>
                                     <div className="new">
                                         <span style={{ cursor: 'pointer' }} onClick={() => SearchByPosts()}>
                                             <span style={{ marginRight: '5px', padding: '5px' }}>
-                                                <i class="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
+                                                <i className="ti-control-shuffle" style={{ fontSize: '20px' }}></i>
                                                 {/* <span>{`${following.length}`}</span> */}
                                             </span>
                                             By posts
@@ -1209,10 +1209,10 @@ function SearchFeedComponent() {
                                         {/* {postSwap()} */}
                                     </div>
                                 </li>
-                                {/* <li class="nav-item">
+                                {/* <li className="nav-item">
                   <span style={{ cursor: 'pointer' }}>
                     <span style={{ marginRight: '5px', padding: '5px' }}>
-                      <i class="fas fa-bell" style={{fontSize:'25px'}}></i>
+                      <i className="fas fa-bell" style={{fontSize:'25px'}}></i>
                     </span>
                     Notifications
                   </span>
@@ -1221,7 +1221,7 @@ function SearchFeedComponent() {
                             </ul>
 
                         </div>
-                        <div class="friends-search-container"
+                        <div className="friends-search-container"
                             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <input className="friend-search" type="text" placeholder="Search" name="search"
 
