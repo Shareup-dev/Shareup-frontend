@@ -566,9 +566,9 @@ export default function ReelPostComponent({ post, setRefresh }) {
                             maxHeight: "460px",
                             objectFit: "fill",
                           }}
-                          src={`${fileStorage.baseUrl}${post.video_name}`}
+                          src={`${fileStorage.baseUrl}${post.video_namePath}`}
                           type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${post.video_name}`}
+                          alt={`${fileStorage.baseUrl}${post.video_namePath}`}
                           onClick={() => setIsopen()}
                         />
                       </React.Fragment>

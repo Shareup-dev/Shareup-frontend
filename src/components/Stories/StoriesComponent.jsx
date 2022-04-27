@@ -100,10 +100,9 @@ const checkPop=()=>{
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
             {/* <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" /> */}
-            <img src={fileStorage.baseUrl + story.image} alt="" className='zoom-story-img'/>
+            <img src={fileStorage.baseUrl + story.imagePath} alt="" className='zoom-story-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
-
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
             {/* <span className='mb-4 text-light'>{storiesForUser.length}</span> */}
