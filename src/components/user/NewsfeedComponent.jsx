@@ -246,7 +246,6 @@ function NewsfeedComponent() {
   };
 
   const handleFileStry = (event) => {
-    console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
@@ -254,7 +253,6 @@ function NewsfeedComponent() {
         setStoriesImage(reader.result);
       }
     };
-    console.log(event.target.files[0]);
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
     // }
@@ -266,7 +264,6 @@ function NewsfeedComponent() {
   };
   const handleLeaveGroup = (e, group_id) => {
     e.preventDefault();
-    console.log(group_id);
     GroupService.leaveGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
       setGroup(res.data);
@@ -274,7 +271,6 @@ function NewsfeedComponent() {
   };
   const handleJoinGroup = (e, group_id) => {
     e.preventDefault();
-    console.log(group_id);
     GroupService.joinGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
       setGroup(res.data);
@@ -303,36 +299,30 @@ function NewsfeedComponent() {
   };
 
   useEffect(() => {
-    console.log("@GET ALL POSTS UPDATE", posts);
   }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
       AuthService.getCurrentUser().username
     ).then((res) => {
-      console.log("get saved post" + res.data);
       setSavedPost(res.data);
     });
   };
 
   const handlePostContent = (event) => {
-    console.log("handlepostcontent" + event.target.value);
     setPostContent(event.target.value);
   };
   const handleHangshareContent = (event) => {
-    // console.log('handlepostcontent' + event.target.value);
     setHangshareContent(event.target.value);
   };
   const handleDeletePost = (postid) => {
     PostService.deletePost(postid).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
       // window.location.reload();
     });
   };
 
   const handleCommentContent = (event) => {
-    console.log(event.target.value);
     setCommentContent(event.target.value);
   };
 
@@ -342,7 +332,6 @@ function NewsfeedComponent() {
     }
     const comment = { content: commentContent };
     PostService.addComment(user.id, postid, comment).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
       setCommentContent("");
     });
@@ -350,7 +339,6 @@ function NewsfeedComponent() {
   const handleCount = (opertator) => {
     if (opertator === "+") {
       let counting = count + 1;
-      console.log(counting + "hi count");
       setCount(counting);
     }
   };
@@ -361,7 +349,6 @@ function NewsfeedComponent() {
   //single image
   const handleFile = (event) => {
     setFiles(event.target.files);
-    console.log(files);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -371,7 +358,6 @@ function NewsfeedComponent() {
       }
 
       setPostImage(tempImage);
-      console.log("url " + postImage[1]);
 
       setShowPostImage(true);
     } else {
@@ -384,7 +370,6 @@ function NewsfeedComponent() {
     //create file array
     //const handleFile = (event) => {
     let tempImage = [];
-    console.log(event.target.files);
     if (event.target.files) {
       let filesAmount = event.target.files.length;
       let i;
@@ -397,7 +382,6 @@ function NewsfeedComponent() {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-    console.log(tempImage);
     setPostImage(tempImage);
     setShowPostImage(true);
   };
@@ -429,14 +413,12 @@ function NewsfeedComponent() {
   };
   const handleEditingSave = (value) => {
     setEditPostId(value);
-    // console.log(res.status)
     // window.location.reload();
   };
 
   const checkIfLiked = (post) => {
     // maybe this is more effecient
     // post.reactions.map(r => {
-    //   console.log(JSON.stringify(r.user))
     //   if(r.user.id === user.id){
     //     return true
     //   }else{
@@ -454,30 +436,23 @@ function NewsfeedComponent() {
   };
 
   const checkIfSaved = (post) => {
-    console.log(post.savedByUsers);
     // maybe this is more effecient
     // post.savedByUsers.map(r => {
-    //   console.log("runninggg")
-    //   console.log(JSON.stringify(r.user) + " i p pp p p")
     // if(r.user.id === user.id){
     //   return true
     // }else{
     //   return false
     // }
     // })
-    console.log(post.savedByUsers.length + " yaa");
     const result = post.savedByUsers.filter((userz) => userz.id == user.id);
     if (result.length > 0) {
-      console.log(" FOUND");
       return true;
     }
-    console.log(" Not found");
     return false;
   };
 
   const handleDeleteComment = (commentid) => {
     PostService.deleteComment(commentid).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
     });
   };
@@ -492,19 +467,16 @@ function NewsfeedComponent() {
     return counter;
   };
   const handlePrivacy = (event) => {
-    console.log(event.target.value);
     setPrivacy(event.target.value);
   };
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("");
-    console.log(postContent, Object.keys(files).length, files.constructor);
     if (
       postContent === "" &&
       Object.keys(files).length === 0 &&
       files.constructor === Object
     ) {
-      console.log("cant be null");
       setUploadError("Please Insert A Text or an Image");
       return;
     } else {
@@ -514,27 +486,20 @@ function NewsfeedComponent() {
       for (let i = 0; i < files.length; i++) {
         formData.append(`files`, files[i]);
       }
-      console.log(formData.getAll(`files`));
-      console.log(" this is the files" + files[0]);
-      console.log(" this is the swapfiles" + swapfiles);
+
       for (let i = 0; i < `files`.length; i++) {
-        console.log(files);
       }
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
         PostService.createPost(user.id, formData, null).then((res) => {
-          console.log(JSON.stringify(res));
-          console.log(res.data);
-          console.log(user.id);
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log("ssssssssssrefersh", refresh);
+          console.log(refresh);
         });
       } else
         PostService.createPost(user.id, formData, userF.id).then((res) => {
-          console.log(JSON.stringify(res));
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
@@ -561,7 +526,6 @@ function NewsfeedComponent() {
   }
   //handle photos content function
   const handlePhotosContent = (event) => {
-    console.log("handlephotoscontent" + event.target.value);
     setPhotosContent(event.target.value);
   };
   // show images in photos popup
@@ -698,13 +662,11 @@ function NewsfeedComponent() {
   };
   //swap content function
   const handleSwapContent = (event) => {
-    console.log(event.target.value);
     setSwapContent(event.target.value);
   };
   // swap files function
   const handleFileSwap = (event) => {
     setSwapfiles(event.target.files);
-    console.log(swapfiles);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -714,7 +676,6 @@ function NewsfeedComponent() {
       }
 
       setSwapImage(tempImage);
-      console.log("url " + swapImage[1]);
 
       setShowSwapImage(true);
     } else {
@@ -732,37 +693,30 @@ function NewsfeedComponent() {
   //swap upload function
   const uploadSwap = async (event) => {
     await event.preventDefault();
-    await setUploadError("");
+    setUploadError("");
     console.log("uploading swap working");
     if (
       swapContent === "" &&
       Object.keys(swapfiles).length === 0 &&
       swapfiles.constructor === Object
     ) {
-      console.log("cant be null");
-      await setUploadError("Please Insert A Text or an Image");
+      setUploadError("Please Insert A Text or an Image");
       return;
     }
 
     const formData = new FormData();
 
-    await formData.append("content", swapContent);
+    formData.append("content", swapContent);
     for (let i = 0; i < swapfiles.length; i++) {
       await formData.append(`files`, swapfiles[i]);
     }
-    console.log(formData.getAll(`files`));
-    console.log(" this is the files" + files[0]);
-    console.log(" this is the swapfiles" + swapfiles);
+
     for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
     }
-    await formData.append(`swapfiles`, swapfiles);
-    await formData.append(`privacy`, Privacy);
+     formData.append(`swapfiles`, swapfiles);
+     formData.append(`privacy`, Privacy);
     if (userF === null) {
       await SwapService.createSwap(user.id, formData, null).then((res) => {
-        console.log(JSON.stringify(res));
-        console.log(res.data);
-        console.log(user.id);
         // setCloseModal(false)
         // window.location.reload();
 
@@ -770,11 +724,10 @@ function NewsfeedComponent() {
         handleRemoveImageSwap();
         setRefresh(res.data);
         // window.location.reload();
-        console.log("ssssssssssrefersh", refresh);
+        console.log(refresh);
       });
     } else
       await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
-        console.log(JSON.stringify(res));
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
@@ -791,14 +744,12 @@ function NewsfeedComponent() {
   // }
   const getUser = async () => {
     if (user === null) {
-      console.log("RUNNING");
       await UserService.getUserByEmail(
         AuthService.getCurrentUser().username
       ).then((res) => {
         setUserR(res.data);
       });
     } else {
-      console.log("User Info : ========." + JSON.stringify(user));
       setUserR(user);
     }
   };
@@ -1644,9 +1595,9 @@ function NewsfeedComponent() {
                   name="post_content"
                   value={hangshareContent}
                   onChange={handleHangshareContent}
-                />
+                  />
 
-                {/*showPostImage ? (
+                  {/*showPostImage ? (
                   <>
                     <div>
                       {postImage.map((item, key) => (
@@ -1682,10 +1633,15 @@ function NewsfeedComponent() {
               {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
             </div>
 
-            {imageshow()}
-            <div type="submit" value="Submit" className="popsbmt-btn">
-              POST
-            </div>
+            {imageshowPost()}
+              <button
+                type="submit"
+                value="Submit"
+                className="popsbmt-btn"
+                // onClick={uploadPost}
+              >
+                POST
+              </button>
           </Form>
         )}
       </Popup>
@@ -2795,7 +2751,6 @@ function NewsfeedComponent() {
 
   const handleTag = (userM) => {
     setUserF(userM);
-    console.log(userM);
   };
 
   const handleSearchedUser = (event) => {
@@ -2817,7 +2772,6 @@ function NewsfeedComponent() {
         }
       });
       setSearchedUser(temp);
-      console.log(temp);
     }
   };
   const getAllUser = async () => {
