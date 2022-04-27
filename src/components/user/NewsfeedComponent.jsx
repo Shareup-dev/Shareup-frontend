@@ -298,8 +298,7 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => {
-  }, [posts]);
+  useEffect(() => {}, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -487,8 +486,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) {
-      }
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
@@ -711,10 +709,9 @@ function NewsfeedComponent() {
       await formData.append(`files`, swapfiles[i]);
     }
 
-    for (let i = 0; i < `swapfiles`.length; i++) {
-    }
-     formData.append(`swapfiles`, swapfiles);
-     formData.append(`privacy`, Privacy);
+    for (let i = 0; i < `swapfiles`.length; i++) {}
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
     if (userF === null) {
       await SwapService.createSwap(user.id, formData, null).then((res) => {
         // setCloseModal(false)
@@ -1593,55 +1590,38 @@ function NewsfeedComponent() {
                     uploadError ? `${uploadError}` : "We share,do you?"
                   }
                   name="post_content"
-                  value={hangshareContent}
-                  onChange={handleHangshareContent}
-                  />
+                  value={postContent}
+                  onChange={handlePostContent}
+                />
 
-                  {/*showPostImage ? (
+                {showPostImage ? (
                   <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
-                    </div>
-
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '25px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i className="las la-times"></i>
                     </button>
                   </>
-                    ) : null*/}
+                ) : null}
               </span>
-              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
             </div>
 
             {imageshowPost()}
-              <button
-                type="submit"
-                value="Submit"
-                className="popsbmt-btn"
-                // onClick={uploadPost}
-              >
-                POST
-              </button>
+            <button className="popsbmt-btn" onClick={uploadPost}>
+              POST
+            </button>
           </Form>
         )}
       </Popup>
@@ -1949,14 +1929,36 @@ function NewsfeedComponent() {
                     uploadError ? `${uploadError}` : "We share,do you?"
                   }
                   name="post_content"
-                  value={shareupContent}
-                  onChange={handleShareupContent}
+                  value={postContent}
+                  onChange={handlePostContent}
                 />
+
+                {showPostImage ? (
+                  <>
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
+                    <button
+                      onClick={handleRemoveImage}
+                      style={{
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
+                      }}
+                    >
+                      <i className="las la-times"></i>
+                    </button>
+                  </>
+                ) : null}
               </span>
             </div>
 
-            {imageshowShareup()}
-            <button type="submit" value="Submit" className="popsbmt-btn">
+            {imageshowPost()}
+            <button className="popsbmt-btn" onClick={uploadPost}>
               POST
             </button>
           </Form>
@@ -2514,29 +2516,31 @@ function NewsfeedComponent() {
                                   modal
                                 >
                                   {(close) => (
-                                    <Form className="stryp" >
-                                <div>
-                                  <div className="row">
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          class="las la-times"
-                                        ></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form> 
+                                    <Form className="stryp">
+                                      <div>
+                                        <div className="row">
+                                          <div style={{ width: "5%" }}>
+                                            <a href="#!" onClick={close}>
+                                              <i
+                                                style={{
+                                                  color: "#fff",
+                                                  padding: "10px",
+                                                  fontSize: "30px",
+                                                }}
+                                                class="las la-times"
+                                              ></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <DisplayFriendsReelsComponent
+                                        key={reel.id}
+                                        id={index}
+                                        reel={reel}
+                                        setRefresh={setRefresh}
+                                        index={index}
+                                      />
+                                    </Form>
                                   )}
                                 </Popup>
                               ))}
@@ -2556,25 +2560,27 @@ function NewsfeedComponent() {
                     <div className="new-postbox">
                       <div class="slide-wrapperstry">
                         <ul class="slidestry">
-                          {rellsForUserFriends.slice(0, 5).map((reel, index) => (
-                            <Popup
-                              style={{ padding: "0px" }}
-                              trigger={
-                                <li
-                                  className="slideitemreel"
-                                  key={reel.id}
-                                  id={index}
-                                >
-                                  <ReelsComponentFriends
-                                    reel={reel}
-                                    setRefresh={setRefresh}
-                                  />
-                                </li>
-                              }
-                              modal
-                             >
-                              {(close) => ( 
-                                <Form  >
+                          {rellsForUserFriends
+                            .slice(0, 5)
+                            .map((reel, index) => (
+                              <Popup
+                                style={{ padding: "0px" }}
+                                trigger={
+                                  <li
+                                    className="slideitemreel"
+                                    key={reel.id}
+                                    id={index}
+                                  >
+                                    <ReelsComponentFriends
+                                      reel={reel}
+                                      setRefresh={setRefresh}
+                                    />
+                                  </li>
+                                }
+                                modal
+                              >
+                                {(close) => (
+                                  <Form>
                                     <div style={{ width: "5%" }}>
                                       <a href="#!" onClick={close}>
                                         <i
@@ -2586,135 +2592,125 @@ function NewsfeedComponent() {
                                           class="las la-times"
                                         ></i>
                                       </a>
-                                  </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form> 
-                              )}
-                            </Popup>
-                          ))}
+                                    </div>
+                                    <DisplayFriendsReelsComponent
+                                      key={reel.id}
+                                      id={index}
+                                      reel={reel}
+                                      setRefresh={setRefresh}
+                                      index={index}
+                                    />
+                                  </Form>
+                                )}
+                              </Popup>
+                            ))}
                         </ul>
                       </div>
                       <Popup
-                                  trigger={
-                                    <div className="add-reel"> Add Reel</div>
-                                  }
-                                  modal
+                        trigger={<div className="add-reel"> Add Reel</div>}
+                        modal
+                      >
+                        {(close) => (
+                          <Form className="popwidth">
+                            <div className="headpop">
+                              <div style={{ padding: "10px" }}>
+                                <span>
+                                  <a
+                                    href="#!"
+                                    style={{
+                                      padding: "10px 150px 10px 0",
+                                    }}
+                                    onClick={close}
+                                  >
+                                    <i class="las la-times"></i>
+                                  </a>
+                                </span>
+                                <span
+                                  style={{
+                                    color: "#000000",
+                                    fontSize: "14px",
+                                    fontWeight: "bold",
+                                  }}
                                 >
-                                  {(close) => (
-                                    <Form className="popwidth">
-                                      <div className="headpop">
-                                        <div style={{ padding: "10px" }}>
-                                          <span>
-                                            <a
-                                              href="#!"
-                                              style={{
-                                                padding: "10px 150px 10px 0",
-                                              }}
-                                              onClick={close}
-                                            >
-                                              <i class="las la-times"></i>
-                                            </a>
-                                          </span>
-                                          <span
-                                            style={{
-                                              color: "#000000",
-                                              fontSize: "14px",
-                                              fontWeight: "bold",
-                                            }}
-                                          >
-                                            Lets Add Reel Video
-                                          </span>
+                                  Lets Add Reel Video
+                                </span>
 
-                                          {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                          <span style={{ float: "right" }}>
-                                            {" "}
-                                            <button
-                                              style={{
-                                                float: "right",
-                                                borderRadius: "20px",
-                                                padding: "5px 20px",
-                                              }}
-                                              type="submit"
-                                              onClick={uploadReels}
-                                            >
-                                              Upload
-                                            </button>
-                                          </span>
-                                          {/* :null}  */}
-                                        </div>
+                                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                <span style={{ float: "right" }}>
+                                  {" "}
+                                  <button
+                                    style={{
+                                      float: "right",
+                                      borderRadius: "20px",
+                                      padding: "5px 20px",
+                                    }}
+                                    type="submit"
+                                    onClick={uploadReels}
+                                  >
+                                    Upload
+                                  </button>
+                                </span>
+                                {/* :null}  */}
+                              </div>
+                            </div>
+
+                            <div style={{ margin: "0 11px 10px 11px" }}>
+                              <span className="textPop">
+                                {ShowReelVideo ? (
+                                  <>
+                                    <video
+                                      id="video"
+                                      width="100%"
+                                      height={"350px"}
+                                      controls="controls"
+                                    >
+                                      <source src={ReelVideo} />
+                                    </video>
+
+                                    <button
+                                      onClick={handleRemoveReelVideo}
+                                      style={{
+                                        right: "20px",
+                                        position: "absolute",
+                                        borderRadius: "100%",
+                                        background: "#b7b7b738",
+                                        padding: "10px 10px",
+                                      }}
+                                    >
+                                      <i class="las la-times"></i>
+                                    </button>
+                                  </>
+                                ) : (
+                                  <div style={{ textAlign: "center" }}>
+                                    <label className="fileContainer">
+                                      <div className="reelvideo" type="submit">
+                                        <input
+                                          type="file"
+                                          name="reel_video"
+                                          accept="video/*"
+                                          onChange={handleFileReel}
+                                        ></input>
+                                        Add Reel Video
                                       </div>
-
-                                      <div
-                                        style={{ margin: "0 11px 10px 11px" }}
-                                      >
-                                        <span className="textPop">
-                                          {ShowReelVideo ? (
-                                            <>
-                                              <video
-                                                id="video"
-                                                width="100%"
-                                                height={"350px"}
-                                                controls="controls"
-                                              >
-                                                <source src={ReelVideo} />
-                                              </video>
-
-                                              <button
-                                                onClick={handleRemoveReelVideo}
-                                                style={{
-                                                  right: "20px",
-                                                  position: "absolute",
-                                                  borderRadius: "100%",
-                                                  background: "#b7b7b738",
-                                                  padding: "10px 10px",
-                                                }}
-                                              >
-                                                <i class="las la-times"></i>
-                                              </button>
-                                            </>
-                                          ) : (
-                                            <div
-                                              style={{ textAlign: "center" }}
-                                            >
-                                              <label className="fileContainer">
-                                                <div
-                                                  className="reelvideo"
-                                                  type="submit"
-                                                >
-                                                  <input
-                                                    type="file"
-                                                    name="reel_video"
-                                                    accept="video/*"
-                                                    onChange={handleFileReel}
-                                                  ></input>
-                                                  Add Reel Video
-                                                </div>
-                                              </label>
-                                            </div>
-                                          )}
-                                        </span>
-                                        {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-                                      </div>
-                                      {/* </> 
+                                    </label>
+                                  </div>
+                                )}
+                              </span>
+                              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                            </div>
+                            {/* </> 
                                                    
                                  )}  */}
-                                    </Form>
-                                  )}
-                                </Popup>
+                          </Form>
+                        )}
+                      </Popup>
 
-                                <div className="add-reel">
-                                  <a
-                                    href="/reelFeed"
-                                    style={{ color: "white" }}
-                                  >
-                                    {" "}
-                                    Explore Reels{" "}
-                                  </a>
-                                </div>
+                      <div className="add-reel">
+                        <a href="/reelFeed" style={{ color: "white" }}>
+                          {" "}
+                          Explore Reels{" "}
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ) : null}
@@ -2823,7 +2819,7 @@ function NewsfeedComponent() {
     await getStoriesForFriendsUser();
   }, [FriendsStories]);
   useEffect(async () => {
-     getReelForUserFriends();
+    getReelForUserFriends();
   }, [FriendsReels]);
 
   useEffect(() => {
@@ -2985,7 +2981,10 @@ function NewsfeedComponent() {
                         modal
                       >
                         {(close) => (
-                          <Form className="stryp" style={{marginRight: "100px"}}>
+                          <Form
+                            className="stryp"
+                            style={{ marginRight: "100px" }}
+                          >
                             <div>
                               <div className="row">
                                 <div style={{ width: "5%" }}>
@@ -3029,7 +3028,7 @@ function NewsfeedComponent() {
                   modal
                 >
                   {(close) => (
-                    <Form className="stryp" style={{marginRight: "100px"}}>
+                    <Form className="stryp" style={{ marginRight: "100px" }}>
                       <div>
                         <div className="row">
                           <div style={{ width: "5%" }}>
