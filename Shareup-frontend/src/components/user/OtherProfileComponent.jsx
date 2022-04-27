@@ -824,18 +824,16 @@ function OtherProfileComponent() {
                       </div>
                       {userProfile?.id === user?.id ? (
                         <div>
-                          <a
+                          <button
                             href="/editprofile"
                             style={{
-                              color: "#000000",
-                              fontWeight: "bold",
-                              background: "#D6D6D6",
+
                               marginTop: "15px",
                             }}
                             className="button rounded-pill"
                           >
                             Edit Profile
-                          </a>
+                          </button>
                         </div>
                       ) : user.id !== userProfile?.id ? (
                         !friendsList.some((el) => el.id === userProfile?.id) ? (
