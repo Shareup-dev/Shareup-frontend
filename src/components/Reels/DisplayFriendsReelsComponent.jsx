@@ -173,9 +173,9 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                             height: "100%",
                             objectFit: "fill",
                           }}
-                          src={`${fileStorage.baseUrl}${reel.video_namePath}`}
+                          src={`${fileStorage.baseUrl}${reel.video_url}`}
                           type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${reel.video_namePath}`}
+                          alt={`${fileStorage.baseUrl}${reel.video_url}`}
                         />
                       </>
                     </div>
