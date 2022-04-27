@@ -96,7 +96,7 @@ function DisplayMediaComponent({ post,email,setRefresh, indexs }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            userR.profilePicture
+                            userR.profilePicturePath
                           }
                           alt=""
                         />

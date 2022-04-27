@@ -190,7 +190,7 @@ function DisplayComponent() {
                             <img
                               src={
                                 fileStorage.baseUrl +
-                                background.user.profilePicture
+                                background.user.profilePicturePath
                               }
                               alt=""
                             />

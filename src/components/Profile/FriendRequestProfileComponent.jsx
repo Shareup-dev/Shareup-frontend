@@ -76,7 +76,7 @@ function FriendRequestProfileComponent({email,id}) {
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
                                     <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicture} alt="" /></a>
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
@@ -114,7 +114,7 @@ function FriendRequestProfileComponent({email,id}) {
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
                                     <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicture} alt="" /></a>
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
                                     <div class="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>

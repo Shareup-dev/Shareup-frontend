@@ -97,7 +97,7 @@ function FriendProfileComponent({ email, id }) {
                     title={`${friend.email}`}
                   >
                     <img
-                      src={fileStorage.baseUrl + friend.profilePicture}
+                      src={fileStorage.baseUrl + friend.profilePicturePath}
                       alt=""
                     />
                   </a>

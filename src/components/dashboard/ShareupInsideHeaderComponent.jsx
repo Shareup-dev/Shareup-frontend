@@ -121,7 +121,7 @@ function ShareupInsideHeaderComponent() {
                 {searchedFriendsList.slice(0, 4).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img src={friend.profilePicture} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
+                            <img src={friend.profilePicturePath} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
                             {/* <span className="status f-online" />
                         </figure>
                         <div className="friendz-meta">
@@ -302,7 +302,7 @@ function ShareupInsideHeaderComponent() {
           </li> */}
           </ul>
           <div className="user-img">
-            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicture ? fileStorage.baseUrl + user.profilePicture : "../assets/images/resources/admin.jpg"} style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
+            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicturePath ? fileStorage.baseUrl + user.profilePicturePath : "../assets/images/resources/admin.jpg"} style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
             <span className="status f-online" />
             {
               showUserSettings && (

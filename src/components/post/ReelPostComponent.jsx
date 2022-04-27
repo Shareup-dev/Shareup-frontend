@@ -335,8 +335,8 @@ export default function ReelPostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -446,7 +446,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                   <figure>
                     <img
                       src={
-                        fileStorage.baseUrl + post.userdata.profilePicture
+                        fileStorage.baseUrl + post.userdata.profilePicturePath
                       }
                       alt=""
                       className="post-user-img"
@@ -595,7 +595,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            post.post.userdata.profilePicture
+                            post.post.userdata.profilePicturePath
                           }
                           alt=""
                           className="post-user-img"
@@ -874,9 +874,9 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                         src={
                                           user
                                             ? fileStorage.baseUrl +
-                                              user.profilePicture
+                                              user.profilePicturePath
                                             : fileStorage.baseUrl +
-                                              userR.profilePicture
+                                              userR.profilePicturePath
                                         }
                                         alt=""
                                       />

@@ -178,7 +178,7 @@ function GuideComponent() {
                   <div className="grid-container">
                     <div class="item1">
                       <img
-                        src={fileStorage.baseUrl + userF.profilePicture}
+                        src={fileStorage.baseUrl + userF.profilePicturePath}
                         alt=""
                       />
                       {/* <span className="status f-online" /> */}
@@ -220,7 +220,7 @@ function GuideComponent() {
                                   acceptFriendRequest(user.id, userF.id)
                                 }
                               >
-                                Accept Request
+                                Accept
                               </a>
                               <a
                                 href="#"
@@ -234,7 +234,7 @@ function GuideComponent() {
                                   declineFriendRequest(user.id, userF.id)
                                 }
                               >
-                                Decline Friend Request
+                                Decline
                               </a>
                               {/* <br></br>
                                                         <br></br> */}
@@ -332,7 +332,7 @@ function GuideComponent() {
                   <div className="grid-container">
                     <div class="item1">
                       <img
-                        src={fileStorage.baseUrl + userF.profilePicture}
+                        src={fileStorage.baseUrl + userF.profilePicturePath}
                         alt=""
                       />
                       {/* <span className="status f-online" /> */}
@@ -573,7 +573,7 @@ function GuideComponent() {
               }}
             >
               <div class="item1">
-                <img src={fileStorage.baseUrl + user.profilePicture} alt="" />
+                <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
                 {/* <span className="status f-online" /> */}
               </div>
               <div

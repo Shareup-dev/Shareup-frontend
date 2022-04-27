@@ -40,7 +40,7 @@ function FriendProfWidgtComponent() {
                 {friendsList.slice(0, 8).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicture} alt="" />
+                            <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicturePath} alt="" />
                             
                         </figure>
                         <div className="friendz-meta">

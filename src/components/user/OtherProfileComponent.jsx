@@ -43,7 +43,7 @@ function OtherProfileComponent() {
   const { user } = useContext(UserContext);
 
   const [temp, setTemp] = useState("");
-  const [profilePicture, setprofilePicturePath] = useState(null);
+  const [profilePicturePath, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
   const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
   const [showstoriesImage, setShowstoriesImage] = useState(false);
@@ -207,11 +207,11 @@ function OtherProfileComponent() {
   };
 
   const uploadprofilePicturePath = async () => {
-    if (profilePicture === "") {
+    if (profilePicturePath === "") {
       return;
     }
     const formData = new FormData();
-    formData.append("profilePicture", profilePicture);
+    formData.append("profilePicture", profilePicturePath);
     await UserService.uploadProfilePicture(user_email, formData).then((res) => {
       window.location.reload();
     });
@@ -802,9 +802,9 @@ function OtherProfileComponent() {
                           {" "}
                           <img
                             src={
-                              userProfile.profilePicture
+                              userProfile.profilePicturePath
                                 ? fileStorage.baseUrl +
-                                  userProfile.profilePicture
+                                  userProfile.profilePicturePath
                                 : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                             }
                           ></img>{" "}
@@ -974,7 +974,7 @@ function OtherProfileComponent() {
                           {
                             showprofilePicturePath ?
                               <img id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           <form className="edit-phto">
                             <i className="fa fa-camera-retro"></i>
@@ -1236,7 +1236,7 @@ function OtherProfileComponent() {
                 <div className="user-avatar">{
                             showprofilePicturePath ?
                               <img  id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img className="border-gradient" src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img className="border-gradient" src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           
                           
@@ -1252,7 +1252,7 @@ function OtherProfileComponent() {
                           {
                             showprofilePicturePath ?
                               <img id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           <form className="edit-phto">
                             <i className="fa fa-camera-retro"></i>

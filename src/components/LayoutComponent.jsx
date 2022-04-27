@@ -176,7 +176,7 @@ export default function Layout(props) {
                             <div className="user">
                               <img
                                 src={
-                                  fileStorage.baseUrl + user.profilePicture
+                                  fileStorage.baseUrl + user.profilePicturePath
                                 }
                               />
                               <a href={`/profile/${AuthService.getCurrentUser().username}`}>

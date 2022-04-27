@@ -77,7 +77,7 @@ export default function CommentPostComponent({post, setRefresh}) {
             return(
               <li key={comment.id}>
                 <div className="comet-avatar">
-                  <img src={fileStorage.baseUrl+comment.user.profilePicture} alt="" />
+                  <img src={fileStorage.baseUrl+comment.user.profilePicturePath} alt="" />
                 </div>
                 <div style={{width: '65%'}}>
                   <div className="we-comment-cont">
@@ -110,7 +110,7 @@ export default function CommentPostComponent({post, setRefresh}) {
                     {comment.replies.map(reply =>
                       <li key={reply.id}>
                         <div className="comet-avatar">
-                          <img src={fileStorage.baseUrl+reply.user.profilePicture} style={{ width: 50 }} alt="" />
+                          <img src={fileStorage.baseUrl+reply.user.profilePicturePath} style={{ width: 50 }} alt="" />
                         </div>
                         <div className="we-comment">
                           <div className="coment-head">

@@ -75,7 +75,7 @@ function FriendSearchComponent() {
                         <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
                                     
                                 </div>

@@ -84,7 +84,7 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
     post &&
     <li className="post-comment">
       <div className="comet-avatar">
-        <img src={fileStorage.baseUrl + user.profilePicture} alt="" />
+        <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
       </div>
       <div className="post-comt-box">
         <Form>

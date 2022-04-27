@@ -97,7 +97,7 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                         <img
                           src={
                             fileStorage.baseUrl +
-                            reel.userdata.profilePicture
+                            reel.userdata.profilePicturePath
                           }
                           alt=""
                         />

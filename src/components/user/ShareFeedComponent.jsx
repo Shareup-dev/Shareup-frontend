@@ -477,7 +477,7 @@ function ShareFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -529,7 +529,7 @@ function ShareFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -573,7 +573,7 @@ function ShareFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -618,7 +618,7 @@ function ShareFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -661,7 +661,7 @@ function ShareFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}>  <div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -703,7 +703,7 @@ function ShareFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >

@@ -444,7 +444,7 @@ function ShippingComponent(props)  {
     <span style={{float:'right'}}><a className="popup-btn" href="#!" >Keep Hang</a></span>
     </div></div>
     <div className="popupimg"> 
-    <img src={user ? user.profilePicture : userR.profilePicture} alt="" /><span>{`${user.firstName} ${user.lastName}`}</span>
+    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /><span>{`${user.firstName} ${user.lastName}`}</span>
                             </div>
   </Popup> </li>
 

@@ -28,7 +28,7 @@ export default function EditProfileComponent() {
     setDescribeYourself(event.target.value);
   };
   const [temp, setTemp] = useState("");
-  const [profilePicture, setprofilePicturePath] = useState(null);
+  const [profilePicturePath, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
   const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
   const [userProfile, setUserProfile] = useState([]);
@@ -175,12 +175,12 @@ export default function EditProfileComponent() {
 
   // By najam end here
   const uploadprofilePicturePath = async () => {
-    if (profilePicture === "") {
+    if (profilePicturePath === "") {
       console.log("cant be null");
       return;
     }
     const formData = new FormData();
-    formData.append("profilePicture", profilePicture);
+    formData.append("profilePicture", profilePicturePath);
     await UserService.uploadProfilePicture(user.email, formData).then((res) => {
       window.location.reload();
     });
@@ -245,8 +245,8 @@ export default function EditProfileComponent() {
                   {" "}
                   <img
                     src={
-                      userProfile.profilePicture
-                        ? fileStorage.baseUrl + userProfile.profilePicture
+                      userProfile.profilePicturePath
+                        ? fileStorage.baseUrl + userProfile.profilePicturePath
                         : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                     }
                   ></img>{" "}

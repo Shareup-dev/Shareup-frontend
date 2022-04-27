@@ -640,7 +640,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -873,7 +873,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1000,7 +1000,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1131,7 +1131,7 @@ function NewsfeedComponent() {
                                         style={{ objectFit: "cover" }}
                                         src={
                                           fileStorage.baseUrl +
-                                          userM.profilePicture
+                                          userM.profilePicturePath
                                         }
                                         alt=""
                                       />
@@ -1306,7 +1306,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1429,8 +1429,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1591,8 +1591,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1747,8 +1747,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1942,8 +1942,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -2068,8 +2068,8 @@ function NewsfeedComponent() {
                   <img
                     src={
                       user
-                        ? fileStorage.baseUrl + user.profilePicture
-                        : fileStorage.baseUrl + userR.profilePicture
+                        ? fileStorage.baseUrl + user.profilePicturePath
+                        : fileStorage.baseUrl + userR.profilePicturePath
                     }
                     alt=""
                   />
@@ -2295,7 +2295,7 @@ function NewsfeedComponent() {
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2334,7 +2334,7 @@ function NewsfeedComponent() {
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2379,7 +2379,7 @@ function NewsfeedComponent() {
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2423,7 +2423,7 @@ function NewsfeedComponent() {
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2467,7 +2467,7 @@ function NewsfeedComponent() {
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -3119,8 +3119,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />

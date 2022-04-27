@@ -175,7 +175,7 @@ function EditPostComponent({ post, set }) {
               <div style={{ display: "flex", marginTop: "10px" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicture}
+                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
                       alt=""
                       className="post-user-img"
                     />
@@ -342,7 +342,7 @@ function EditPostComponent({ post, set }) {
                                           >
                                             <img
                                               style={{ objectFit: "cover" }}
-                                              src={userM.profilePicture}
+                                              src={userM.profilePicturePath}
                                               alt=""
                                             />
                                           </a>

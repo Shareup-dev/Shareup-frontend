@@ -179,7 +179,7 @@ function AddFriendsComponent() {
 										{/* <figure> */}
 										<div class="item1">
 										<a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-												<img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
+												<img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
@@ -280,7 +280,7 @@ function AddFriendsComponent() {
 										{/* <div className="nearly-pepls"> */}
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
+											<a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
@@ -335,7 +335,7 @@ function AddFriendsComponent() {
 										{/* <div className="nearly-pepls"> */}
 										{/* <figure> */}
 										<div class="item1">
-											<a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
+											<a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
 											{/* </figure> */}
 										</div>
 										{/* <div className="  "> */}
