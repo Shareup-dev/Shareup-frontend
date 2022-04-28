@@ -131,7 +131,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
 <div className="itemS1">
 {post.postImagePath ?
                                 <div className="postImage">
-                                    <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${fileStorage.baseUrl}/user-post/${post.id}/${post.imagePath}`} /> </a></div> : null
+                                    <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${post.imagePath}`} /> </a></div> : null
                                 }
 </div>                              
 <div className="itemS2"><div className="swapbtnfeed"><i class="las la-sync"></i></div></div>

@@ -57,7 +57,7 @@ function GroupsWidgetComponent() {
                     <div className="nearly-pepls" style={{display:'flex' ,background:'white' ,padding:'10px'}}>
                         <figure>
                             {console.log(group.groupImagePath)}
-                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" /></a>
+                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : Grpicon} alt="" /></a>
                         </figure>
                         <div className="pepl-info">
                             <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>

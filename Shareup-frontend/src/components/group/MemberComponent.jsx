@@ -85,6 +85,7 @@ function MembersComponent(props) {
     const addAdmin = (memberId) =>{
         GroupService.addAdmin( memberId ,group.id ).then(res => {
 			setRefresh(res.data)
+            setMoreFlag(false)
 		})
     }
     const leaveGroup = () =>{
@@ -104,7 +105,7 @@ function MembersComponent(props) {
                 {/* <div className="nearly-pepls"> */}
                 {/* <figure> */}
                 <div class="item1">
-                    <a href={`/profile/${member.email}`} title={`${member.email}`}><img src={fileStorage.baseUrl+member.profilePicturePath} alt="" /></a>
+                    <a href={`/profile/${member.email}`} title={`${member.email}`}><img src={member.profilePicturePath} alt="" /></a>
                     {/* </figure> */}
                 </div>
                 {/* <div className="  "> */}

@@ -27,7 +27,7 @@ import ChatComponent from './components/chat/ChatComponent';
 import Index from './components/user/Index';
 import UserService from './services/UserService';
 import UserContext from './contexts/UserContext';
-import GroupComponent from './components/group/GroupComponent';
+import GroupListComponent from './components/group/GroupListComponent';
 import ProfileComponent from './components/user/ProfileComponent';
 import ViewGroupComponent from './components/group/ViewGroupComponent';
 import ViewGroupComponent1 from './components/group/ViewGroupComponent1';
@@ -60,7 +60,7 @@ import DisplayComponent from './components/Stories/DisplayComponent';
 import MessagesComponent from './components/Messages/MessagesComponent';
 import LocationComponent from './components/AccountSettings/LocationComponent';
 import SearchFeedComponent from './components/user/SearchFeedComponent';
-
+import EditGroupComponent from './components/group/EditGroupComponent';
 
 
 
@@ -125,9 +125,9 @@ Giphy();
           <ProtectedRoute path="/notifications" component={NotificationChatComponent}></ProtectedRoute>
           <ProtectedRoute path="/new-user" component={GuideComponent}></ProtectedRoute>
           <ProtectedRoute path="/group/create" component={CreateGroupComponentMain}></ProtectedRoute>
-          {/* <ProtectedRoute path="/group/create" component={CreateGroupComponent}></ProtectedRoute> */}
+          <ProtectedRoute path="/groups/:id/edit" component={EditGroupComponent}></ProtectedRoute>
           <ProtectedRoute path="/groups/:id" component={ViewGroupComponent1}></ProtectedRoute>
-          <ProtectedRoute path="/groups/" component={GroupComponent}></ProtectedRoute>
+          <ProtectedRoute path="/groups/" component={GroupListComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile/:email" component={OtherProfileComponent}></ProtectedRoute>
           <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
           <ProtectedRoute path="/Addfriends" component={AddFriendsComponent}></ProtectedRoute>

@@ -177,7 +177,7 @@ export default function Layout(props) {
                         <div className="widget" style={{ borderBottom: '1px solid #75757530' }}>
                           {/* <div className="row"><img src="../assets/images/unnamed.png"/><p className="widget-title">User</p></div>   */}
                           <div className="user" >
-                            <img src={fileStorage.baseUrl + user.profilePicturePath} />
+                            <img src={user.profilePicturePath} />
                             <a href="/profile" ><p style={{ fontWeight: "bold" }}>{`${props.user.firstName} ${props.user.lastName}`}</p></a>
                           </div>
                         </div>

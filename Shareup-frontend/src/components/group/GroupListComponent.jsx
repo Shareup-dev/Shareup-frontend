@@ -16,8 +16,10 @@ import MenuWidgetComponent from '../widgets/MenuWidgetComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
 import Grpicon from '../../images/grpicon.png'
+import GroupViewComponent from './GroupViewComponent';
 
-function GroupComponent({post}) {
+
+function GroupListComponent({post}) {
 	const { id: stringId } = useParams();
 	const groupid = 1 * stringId
 	testScript()
@@ -36,6 +38,8 @@ function GroupComponent({post}) {
 	const [searchedGroups, setSearchedGroups] = useState([]);
 
 	const [myGroups, setMyGroups] = useState([]);
+	const [requestFlag, setRequestFlag] = useState(false);
+
 	const [searchedMyGroups, setSearchedMyGroups] = useState([]);
 
 	const [showComp, setShowComp] = useState("allgroups");
@@ -59,7 +63,20 @@ function GroupComponent({post}) {
 			})
 		}
 	}
-
+	const getMyMemberGroups = async () => {
+		if(user){
+			console.log(user)
+			// await GroupService.getMyGroups(user.id).then(res => {
+			// 	const uniqueGroups = Array.from(new Set(res.data.map(a => a.id)))
+			// .map(id => {
+			// return res.data.find(a => a.id === id)
+			// })
+			// 	setMyGroups(uniqueGroups)
+			// 	setSearchedMyGroups(uniqueGroups)
+			// })
+		}
+	}
+	
 	const handleSearchGroup = (event) => {
 		if (event.target.value === "") {
 			setSearchedGroups(allGroups)
@@ -108,22 +125,37 @@ function GroupComponent({post}) {
 		})
 	}
 
-	const handleJoinGroup = (e,group_id) => {
+	const handleJoinGroup = (e,group) => {
 		e.preventDefault();
-		console.log(group_id)
-		GroupService.joinGroup(user.id, group_id).then(res => {
-			setRefresh(res.data)
-			setGroup(res.data)
-		})
+		console.log(group.id)
+		if(group.privacySetting===true){
+			GroupService.joinGroup(user.id, group.id).then(res => {
+				setRefresh(res.data)
+				setGroup(res.data)
+
+			})
+		}else{
+			GroupService.joinRequestGroup(user.id, group.id).then(res => {
+				setRefresh(res.data)
+				setGroup(res.data)
+			})
+		}
+
 	}
 
 	const checkIfInGroup = (members) => {
 		const found = members.some(el => el.id === user.id);
 		return found
 	}
-
-
-
+	// const handleJoinRequestGroup = (e,gid) => {
+	// 	e.preventDefault();
+	// 	console.log(user.id,gid)
+	// 	GroupService.joinRequestGroup(user.id,gid).then(res => {
+	// 		setRequestFlag(true)
+	// 		setGroup(res.data)
+	// 		console.log(group)
+	// 	})
+	// }
 
 	const showAllGroupsComponent = () => {
 		// console.log(group)
@@ -136,47 +168,10 @@ function GroupComponent({post}) {
 				<div className="tab-pane active fade show " id="">
 					<ul className="nearby-contct" style={{marginTop:'15px'}}>
 						
-						{searchedGroups.map((group) =>{
-								return(
-									<li key={group.id} className="friends-card groupalign" >
-										<a href={`/groups/${group.id}`}>
-
-											<div className="group-li-item">
-												{/* <figure> */}
-												<div class="item12">
-													<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
-													{/* </figure> */}
-													{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
-												</div>
-												{/* <div className="  "> */}
-												<div className="item23">
-													<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
-													<p className="grp-mem-text">{group.members.length} Members</p>
-													<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
-														{
-																checkIfInGroup(group.members) ?
-																	<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e,group.id)}>Leave Group</a>
-																	:
-																	<a href className="button grp-btn join-grp-btn"  onClick={(e) => handleJoinGroup(e,group.id)}>Join Group</a>
-															}
-														{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
-													</div>
-												</div>
-												
-												{/* <div class="item6">
-													{/* <span>Engr</span> */}
-													{/* <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v"></i> */}
-												{/* </div> */}
-												
-
-
-												{/* </div> */}
-
-											</div>
-										</a>
-									</li>
+						{searchedGroups.map((group) =>
 								
-						)})}
+							<GroupViewComponent key={group.id} group={group} handleLeaveGroup={handleLeaveGroup} handleJoinGroup={handleJoinGroup} checkIfInGroup={checkIfInGroup}/>
+						)}
 					</ul>
 					<div className="lodmore"><button className="btn-view btn-load-more" /></div>
 				</div>
@@ -188,20 +183,18 @@ function GroupComponent({post}) {
 		return (
 			<div className="tab-content">
 			<div class="friends-search-container grp-search" >
-							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
-						</div>
+				<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
+			</div>
 			<div className="tab-pane active fade show " id="">
+				{/* <div>Groups You Manage</div> */}
 				<ul className="nearby-contct" style={{marginTop:'15px'}}>
-					
 					{searchedMyGroups.map((group,index) =>
 							<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
 								<a href={`/groups/${group.id}`}>
-
-
 									<div className="group-li-item">
 										{/* <figure> */}
 										<div class="item12">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.image ? group.image : Grpicon} alt="" className={group.image ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
 										</div>
@@ -242,6 +235,17 @@ function GroupComponent({post}) {
 		)
 	}
 
+	const didJoinRequestSent = (gid) => {
+		// console.log(gid)
+        GroupService.joinRequestSent(user.id,gid).then(res => {
+			// setRefresh(res.data);
+			console.log('yes',res.data)
+			setRequestFlag(true)
+		})
+    }
+	const cancelRequestGroup = (members) => {
+
+	}
 	useEffect(() => {
 		getAllGroups()
 		getMyGroups()
@@ -250,6 +254,7 @@ function GroupComponent({post}) {
 	useEffect(() => {
 		testScript()
 	}, [])
+
 
 	return (
 		<Layout user={user}>
@@ -308,4 +313,4 @@ function GroupComponent({post}) {
 		</Layout>
 	);
 }
-export default GroupComponent;
+export default GroupListComponent;

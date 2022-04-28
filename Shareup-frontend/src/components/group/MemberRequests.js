@@ -12,8 +12,9 @@ import fileStorage from '../../config/fileStorage';
 import { ownerDocument } from '@mui/material';
 import $ from 'jquery'
 import MemberComponent from './MemberComponent'
+import { Pending } from '@mui/icons-material';
 
-function InviteMembersComponent(props) {
+function MemberRequests(props) {
     let history = useHistory();
 
 	const { user } = useContext(UserContext)
@@ -22,6 +23,7 @@ function InviteMembersComponent(props) {
 
 	const [group, setGroup] = useState(props);
 	const [members, setMembers] = useState(props);
+	const [memberRequests, setMemberRequests] = useState([]);
 
 
 	// const []
@@ -54,12 +56,11 @@ function InviteMembersComponent(props) {
 
     
     useEffect(() => {
-        setMembers(props.members)
         setGroup(props.group)
-        getFriendsList()
+        getAllRequests()
     }, [props])
     $(document).mouseup(function(e) 
-{
+    {
     var container = $(".moredrpdwn");
 
     // if the target of the click isn't the container nor a descendant of the container
@@ -76,7 +77,11 @@ function InviteMembersComponent(props) {
         })
     }
 
-    
+    const getAllRequests = async() => {
+        await GroupService.getAllMemberRequests(group.id).then(res=>{
+            setMemberRequests(res.data)
+        })
+    }
 	const addFriendsId = (uid, fid) => {
 		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.addFriends(uid, fid).then(res => {
@@ -124,44 +129,45 @@ function InviteMembersComponent(props) {
 			console.log(temp)
 		}
 	}
-    console.log(friendsList)
+    
     return(
         <div className="">
             <div className="">
 			    <div className="central-meta swap-pg-cont grp-pg-invite-cont">
 				    <div className="frnds">
-                        <div className='fw-6  abt-title no-brdr-btm  clr-blk'>Invite people</div>
                         <div class="friends-search-container grp-search">
                             {/* <i class="las la-search"></i> */}
-                            <input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedFriends} />
+                            <input className="friend-search" type="text" id="header-search" placeholder="Search requests" name="s" onChange={handleSearchedFriends} />
                         </div>
                         <div className="tab-pane active fade show " id="following">
                             <ul className="nearby-contct" style={{marginTop:'15px'}}>
                             {
-                                friendsList&&friendsList.length>0?
-                                // friendsList.map((friend)=>{
-                                    friendsList.map(friend=> 
-                                        members.map(member=> 
-                                           friend.id !== member.id?
-                                                <li key={friend.id} className="friends-card grp">
+                                memberRequests&&memberRequests.length>0?
+                                // memberRequests.map((friend)=>{
+                                    memberRequests.map(memberRequest=> 
+                                        memberRequest.requestStatus&&memberRequest.requestStatus==="Pending"?
+                                                <li key={memberRequest.id} className="friends-card grp">
                                                     <div className="grid-container">
                                                         {/* <div className="nearly-pepls"> */}
                                                         {/* <figure> */}
                                                         <div class="item1">
-                                                            <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={friend.profilePicturePath} alt="" /></a>
+                                                            <a href={`/profile/${memberRequest.user.email}`} title={`${memberRequest.user.email}`}><img src={memberRequest.user.profilePicturePath} alt="" /></a>
                                                             {/* </figure> */}
                                                         </div>
                                                         {/* <div className="  "> */}
                                                         <div class="item2">
-                                                            <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
-                                                            <div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
+                                                            <p className="nameTag"><a href={`/profile/${memberRequest.user.email}`} title={`${memberRequest.user.email}`}>{`${memberRequest.user.firstName} ${memberRequest.user.lastName}`}</a></p>
+                                                            <div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual Friends</div>
                                                         </div>
                                                         <div className="item4">
-                                                            {
-                                                                friendsList.some(friend=>user.id!==friend.id)
-                                                                ?<a href="#"  className="add-butn more-action" data-ripple onClick={() => inviteMember(friend.id)}>Invite </a>
+                                                            <button className='button mb-0' onClick={()=>props.acceptRequest(memberRequest.id)}>Accept</button>
+                                                            <button className='button mb-0' onClick={()=>props.rejectRequest(memberRequest.id)}>Reject</button>
+
+                                                            {/* {
+                                                                memberRequestsList.some(memberRequest=>user.id!==memberRequest.id)
+                                                                ?<a href="#"  className="add-butn more-action" data-ripple onClick={() => inviteMember(memberRequest.user.id)}>Invite </a>
                                                                 : user.id!==user.id&&<a href="#"  className="add-butn more-action" data-ripple >Invited </a>
-                                                                    }
+                                                                    } */}
                                                             {/* <div>  <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i></div> */}
                                                         </div>
                                                         {/* <div className="pepl-info">
@@ -173,11 +179,10 @@ function InviteMembersComponent(props) {
                                                         {/* </div> */}
                                                     </div>
                                                 </li>
-                                                :null
-                                            )
-                                        )
+                                            
+                                        :null)
                                 
-                            : <div>No user found</div>
+                            : <div>No Requests</div>
                             }
                             </ul>
                         </div>
@@ -190,4 +195,4 @@ function InviteMembersComponent(props) {
         
     )
 }
-export default InviteMembersComponent;
+export default MemberRequests;

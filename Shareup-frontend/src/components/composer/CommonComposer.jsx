@@ -34,8 +34,9 @@ import FriendsService from "../../services/FriendService";
 import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
+import { FourGMobiledataRounded } from "@mui/icons-material";
 
-function CommonComposer() {
+function CommonComposer(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   let history = useHistory();
@@ -200,21 +201,43 @@ function CommonComposer() {
   };
 
   const getPostForUser = async () => {
-    await NewsFeedService.getFeed(AuthService.getCurrentUser().username).then(
-      (res) => {
-        const sorting = res.data.sort(function (a, b) {
-          let dateA = new Date(a.published),
-            dateB = new Date(b.published);
-          return dateB - dateA;
-        });
-        const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
-          (id) => {
-            return res.data.find((a) => a.id === id);
-          }
-        );
-        setPostsForUser(uniquePost);
-      }
-    );
+    if(props.group){
+      await GroupService.getGroupNewsFeed(props.group.id).then(
+        
+        (res) => {
+          // console.log(res.data,'fffffffffffffffffffffffffffff')
+          const sorting = res.data.sort(function (a, b) {
+            let dateA = new Date(a.published),
+              dateB = new Date(b.published);
+            return dateB - dateA;
+          });
+          const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
+            (id) => {
+              return res.data.find((a) => a.id === id);
+            }
+          );
+          setPostsForUser(uniquePost);
+        }
+      );
+      // console.log('fffffffffffffffffffffffffffffff')
+    }else{
+      await NewsFeedService.getFeed(AuthService.getCurrentUser().username).then(
+        (res) => {
+          const sorting = res.data.sort(function (a, b) {
+            let dateA = new Date(a.published),
+              dateB = new Date(b.published);
+            return dateB - dateA;
+          });
+          const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
+            (id) => {
+              return res.data.find((a) => a.id === id);
+            }
+          );
+          setPostsForUser(uniquePost);
+        }
+      );
+    }
+    
   };
 
   const handleFileStry = (event) => {
@@ -486,9 +509,12 @@ function CommonComposer() {
       for (let i = 0; i < files.length; i++) {
         formData.append(`files`, files[i]);
       }
-      console.log(formData.getAll(`files`));
-      console.log(" this is the files" + files[0]);
-      console.log(" this is the swapfiles" + swapfiles);
+      if(props.group){
+        formData.append('groupid',props.group.id)
+      }
+      console.log(formData);
+      // console.log(" this is the files" + files[0]);
+      // console.log(" this is the swapfiles" + swapfiles);
       for (let i = 0; i < `files`.length; i++) {
         console.log(files);
       }
@@ -1102,7 +1128,7 @@ function CommonComposer() {
                                       <img
                                         style={{ objectFit: "cover" }}
                                         src={
-                                          fileStorage.baseUrl +
+                                          
                                           userM.profilePicturePath
                                         }
                                         alt=""
@@ -1401,8 +1427,8 @@ function CommonComposer() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1563,8 +1589,8 @@ function CommonComposer() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1719,8 +1745,8 @@ function CommonComposer() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1914,8 +1940,8 @@ function CommonComposer() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -2040,8 +2066,8 @@ function CommonComposer() {
                   <img
                     src={
                       user
-                        ? fileStorage.baseUrl + user.profilePicturePath
-                        : fileStorage.baseUrl + userR.profilePicturePath
+                        ?  user.profilePicturePath
+                        :  userR.profilePicturePath
                     }
                     alt=""
                   />
@@ -2267,7 +2293,7 @@ function CommonComposer() {
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2306,7 +2332,7 @@ function CommonComposer() {
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2351,7 +2377,7 @@ function CommonComposer() {
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2395,7 +2421,7 @@ function CommonComposer() {
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2439,7 +2465,7 @@ function CommonComposer() {
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2631,8 +2657,8 @@ function CommonComposer() {
                         <img
                         src={
                             user
-                            ? fileStorage.baseUrl + user.profilePicturePath
-                            : fileStorage.baseUrl + userR.profilePicturePath
+                            ?  user.profilePicturePath
+                            : userR.profilePicturePath
                         }
                         alt=""
                         />

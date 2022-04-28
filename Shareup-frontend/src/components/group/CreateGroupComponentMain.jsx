@@ -22,7 +22,7 @@ function CreateGroupComponentMain() {
     const [allFieldFillError, setAllFieldFillError] = useState('');
     const [groupNameError, setGroupNameError] = useState('');
     const [groupDescError, setGroupDescError] = useState('');
-    const [groupPrivacySetting, setGroupPrivacySetting] = useState('public');
+    const [groupPrivacySetting, setGroupPrivacySetting] = useState('Public');
     const [groupInvitationSetting, setGroupInvitationSetting] = useState('members');
 
     const [groupPicture, setGroupPicture] = useState(null)
@@ -30,6 +30,8 @@ function CreateGroupComponentMain() {
     const [showProfilePicture, setShowProfilePicture] = useState(false)
 
     const [groupCover, setGroupCover] = useState(null)
+    const [btnValue, setBtnValue] = useState('sssss')
+
     const [coverRender, setCoverRender] = useState(null)
     const [showCoverPicture, setShowCoverPicture] = useState(false)
 
@@ -94,7 +96,7 @@ function CreateGroupComponentMain() {
 
     const handleCreateGroup = async () => {
         let groupPrivacySettingValue = 1
-        if ( groupPrivacySetting === 'private' || groupPrivacySetting === 'hidden'){
+        if ( groupPrivacySetting === 'Private' || groupPrivacySetting === 'Hidden'){
             groupPrivacySettingValue = 0
         }
         let group = {
@@ -110,26 +112,33 @@ function CreateGroupComponentMain() {
         formData1.append('group_image', groupPicture)
         formData2.append('group_cover_image', groupCover)
         let groupId 
-        await GroupService.createGroup(user.id, group).then(res => {
+        await GroupService.createGroup(user.id, group).then(async (res) => {
             console.log(res.data)
             groupId = res.data.id
             if(groupCover){
-                GroupService.uploadGroupCoverImage(groupId,formData2).then(res => {
+                await GroupService.uploadGroupCoverImage(groupId,formData2).then(res => {
                     // console.log(res.data)
                 })
             }
             if(groupPicture){
-                GroupService.uploadGroupImage(groupId,formData1).then(res => {
+                await GroupService.uploadGroupImage(groupId,formData1).then(res => {
                     // console.log(res.data)    
                 })
             }
-            GroupService.joinGroup(user.id, groupId).then(res =>{
+            await GroupService.joinGroup(user.id, groupId).then(res =>{
                 
             })
+            
+            await setStep(4)
 
         })
         
         setTimeout(function () { history.push(`/groups`) }, 2000);
+    }
+    const BtnValue = (e,value) =>{
+        e.preventDefault();
+        // set
+        setBtnValue(value)
     }
 
     const show = () => {
@@ -164,14 +173,56 @@ function CreateGroupComponentMain() {
                             <h2 className="fs-title">Select Group Settings</h2>
                             <span id="description"></span>
                             <label htmlFor="public">Choose privacy</label>
-                            <select class="form-control privacy-dropdown"  
+                            {/* <select class="form-control privacy-dropdown"  
                                 value={groupPrivacySetting} 
                                 onChange={handlePrivacySetting}>
-                                <option  value="public"> Public </option>
+                                <option  value="public" data-icon="glyphicon glyphicon-eye-open" data-subtext="petrification"> Publica </option>
                                 <option value="private">Private</option>
                                 <option value="hidden">Hidden</option>
 
-                            </select>
+                            </select> */}
+                            <div class="dropdown privacy-drop-cont">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   {groupPrivacySetting}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Public')}}>
+                                        <div className='d-flex'>
+                                            <div>
+                                                <i className="fa fa-globe pr-15" aria-hidden="true"></i>
+                                                
+
+                                            </div>
+                                            <div>
+                                                <div className='mb-5p'>Public</div>
+                                                <div style={{fontSize:'13px'}}>Anyone can see who's in the group and what they post.</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Private')}}>
+                                        <div className='d-flex'>
+                                            <div>
+                                                <i className="fa fa-lock pr-15" aria-hidden="true"></i>
+                                            </div>
+                                            <div>
+                                                <div className='mb-5p'>Private</div>
+                                                <div style={{fontSize:'13px'}}>Only members can see who's in the group and what they post.</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Hidden')}}>
+                                        <div className='d-flex'>
+                                            <div>
+                                                <i className="fa fa-eye-slash pr-15" aria-hidden="true"></i>
+                                            </div>
+                                            <div>
+                                                <div className='mb-5p'>Hidden</div>
+                                                <div style={{fontSize:'13px'}}>The group will be hidden for others.</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                             
                             {/* <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting} />
                             <label htmlFor="public">This is a public group</label>
@@ -261,7 +312,6 @@ function CreateGroupComponentMain() {
                     </div>
                     <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
                     <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
-                        setStep(3)
                         handleCreateGroup()
                     }} />
                 </fieldset>
@@ -269,7 +319,7 @@ function CreateGroupComponentMain() {
         }
         if (step === 3) {
             return (
-<fieldset>
+                <fieldset>
                     <div className="form-card">
                         <h2 className="fs-title">{`Upload Image and Cover Image`}</h2>
 
@@ -307,13 +357,13 @@ function CreateGroupComponentMain() {
                     </div>
                     <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
                     <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
-                        setStep(3)
+                        // setStep(4)
                         handleCreateGroup()
                     }} />
                 </fieldset>
             )
         }
-        if (step === 3) {
+        if (step === 4) {
             return (
                 <fieldset>
                     <div className="form-card">

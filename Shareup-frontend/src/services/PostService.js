@@ -47,7 +47,7 @@ class PostService {
     }
 
     createPost = async (userId, formdata, userTagId) => {
-        const result = await authAxios.post(`posts/${userId}`,formdata, { params: { userTagId }}
+        const result = await authAxios.post(`new_post/${userId}`,formdata, { params: { userTagId }}
     )
         return result
     }

@@ -27,6 +27,10 @@ class GroupService {
         const result = await authAxios.post(`/${uid}/create`,formdata)
         return result;
     }
+    editGroup = async (gid, formdata) => {
+        const result = await authAxios.put(`/${gid}/edit_group`,formdata)
+        return result;
+    }
     uploadGroupCoverImage = async (gid ,formdata) =>{
         const result = await authAxios.post(`/upload_cover_image/${gid}`,formdata)
         return result;
@@ -45,7 +49,16 @@ class GroupService {
         const result = await authAxios.get(`/${gid}/members`)
         return result;
     }
-
+    getMyGroups = async (email) => {
+        // authenticate();
+        const result = await authAxios.get(`/my_groups/${email}`)
+        return result;
+    }
+    getAdmins = async (gid) => {
+        // authenticate();
+        const result = await authAxios.get(`/${gid}/list_admins`)
+        return result;
+    }
     getGroupById = async (id) => {
         const result = await authAxios.get(`/id/${id}`)
         return result;
@@ -60,9 +73,24 @@ class GroupService {
         const result = await authAxios.get(`/posts/${id}`)
         return result;
     }
-
+    getAllMemberRequests = async (gid) => {
+        const result = await authAxios.get(`/${gid}/member_requests`)
+        return result;
+    }
+    getGroupNewsFeed = async (gid) =>{
+        const result = await authAxios.get(`/group_feed/${gid}`)
+        return result;
+    }
+    joinRequestSent = async (uid,gid) => {
+        const result = await authAxios.get(`/${uid}/did_request_join/${gid}`)
+        return result;
+    }
     joinGroup = async (uid, gid) => {
         const result = await authAxios.post(`/${uid}/join/${gid}`)
+        return result
+    }
+    joinRequestGroup = async (uid, gid) => {
+        const result = await authAxios.post(`/${uid}/Join_group/${gid}`)
         return result
     }
 
@@ -79,6 +107,7 @@ class GroupService {
         return result
 
     }
+
     inviteMember = async (gid,uid,fid) => {
         const result = await authAxios.post(`/${gid}/${uid}/invite/${fid}`)
         return result
@@ -87,6 +116,17 @@ class GroupService {
         const result = await authAxios.delete(`${aid}/${gid}/delete/${uid}`)
         return result;
     }
+    acceptMemberRequest = async (rid) =>{
+        const result =await  authAxios.put(`/accept_member_requests/${rid}`)
+        return result;
+
+    }
+    rejectMemberRequest = async (rid) =>{
+        const result =await  authAxios.put(`/reject_member_requests/${rid}`)
+        return result;
+
+    }
+    
 
 }
 

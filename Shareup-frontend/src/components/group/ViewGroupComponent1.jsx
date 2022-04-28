@@ -25,6 +25,11 @@ import CommonComposer from '../composer/CommonComposer';
 import MembersComponent from './MembersComponent'
 import moment from 'moment';
 import InviteMembersComponent from './InviteMembersComponent'
+import MemberRequests from './MemberRequests'
+import {Modal} from 'react-bootstrap';
+import $ from 'jquery';
+import { getInputAdornmentUtilityClass } from '@mui/material';
+import { fontSize } from '@mui/system';
 
 function ViewGroupComponent1({post}) {
 	const { id: stringId } = useParams();
@@ -47,6 +52,8 @@ function ViewGroupComponent1({post}) {
 
 	//
 	const [refresh, setRefresh] = useState(null)
+	const [requestFlag, setRequestFlag] = useState(false)
+	const [moreFlag, setMoreFlag] = useState(false)
 
 	const [postContent, setPostContent] = useState("");
 	const [commentContent, setCommentContent] = useState("");
@@ -59,6 +66,7 @@ function ViewGroupComponent1({post}) {
 
 	const [uploadError, setUploadError] = useState("");
 
+    const [showInviteModal, setShowInviteModal] = useState(false);
 
 
 	const [editPostId, setEditPostId] = useState(null)
@@ -66,26 +74,40 @@ function ViewGroupComponent1({post}) {
 	const [img, setImage] = useState("");
     const [postsForUser, setPostsForUser] = useState([]);
     const [userF, setUserF] = useState(null);
-    
+    const [admins,setAdmins] = useState([]);
 
     //functions
 
-    useEffect(() => {
-		getGroupMembers()
-		getGroupPosts()
-		getGroupById()
+    useEffect(async() => {
+		await getGroupById()
+		await getGroupMembers()
+		await getGroupPosts()
+		console.log(user)
+		if(user&&groupid){
+			console.log(user.id)
+			didJoinRequestSent(groupid)
+		}
 		
 	}, [])
 
     const getGroupById = async () => {
 		await GroupService.getGroupById(groupid).then(res => {
 			setGroup(res.data)
+			
 			setMembers(res.data.members)
             // setOwner(res.owner)
 			// console.log("YOIASOIODA")
 			// console.log(JSON.stringify(res.data) + " helooo");
 		})
 	}
+	// const getAdmins = async() =>{
+	// 	await GroupService.getAdmins(groupid).then(res => {
+	// 		setAdmins(res.data)
+    //         // setOwner(res.owner)
+	// 		// console.log("YOIASOIODA")
+	// 		// console.log(JSON.stringify(res.data) + " helooo");
+	// 	})
+	// }
 	const getGroupMembers = async () => {
 		await GroupService.getGroupMembers(groupid).then(res => {
 			// setGroup(res.data)
@@ -93,6 +115,7 @@ function ViewGroupComponent1({post}) {
             // setOwner(res.owner)
 			// console.log("YOIASOIODA")
 			// console.log(JSON.stringify(res.data) + " helooo");
+			
 		})
 	}
 	const getGroupPosts = async () => {
@@ -262,8 +285,25 @@ function ViewGroupComponent1({post}) {
 			setRefresh(res.data)
 		})
 	}
-
-const handleShowingReaction = () => {
+	const didJoinRequestSent = (gid) => {
+		// console.log(gid)
+        GroupService.joinRequestSent(user.id,gid).then(res => {
+			// setRefresh(res.data);
+			console.log('yes',res.data)
+			setRequestFlag(res.data)
+		})
+    }
+	const acceptRequest = (rid) => {
+        GroupService.acceptMemberRequest(rid).then(res => {
+			setRefresh(res.data);
+		})
+    }
+    const rejectRequest = (rid) => {
+		GroupService.rejectMemberRequest(rid).then(res => {
+			setRefresh(res.data);
+		})
+    }
+	const handleShowingReaction = () => {
         setTimeout(function () { setShowReactions(true) }, 200);
     }
 
@@ -290,40 +330,78 @@ const handleShowingReaction = () => {
         }
         return (<i class="las la-star"></i>)
     }
-   
-    
+	const checkIfInGroup = (members) => {
+		const found = members.some(el => el.id === user.id);
+		return found
+	}
+	const cancelRequestGroup = (members) => {
+
+	}
+	const handleCloseInviteModal = () => {setShowInviteModal(false);}
+	const handleShowInviteModal = () => {setShowInviteModal(true);}
+	// $(".invitefrienddrp").click(function(){
+	// 	$("#uncontrolled-tab-example-tab-people").addClass("active nav-link nav-item"); 
+	// 	$("#uncontrolled-tab-example-tabpane-people").addClass("active"); 
+	// 	return false;
+	// });
+	const handleSearchedAdmins = () =>{}
+	const removeAdmin = () =>{}
     return(
         <div id="group-page">
             <ShareupInsideHeaderComponent />
             <div className='feature-photo'>
+				<div style={{height:'15px'}}></div>
                 <div className='gp-cov-img'>
                     {/* <div className='gp-pf-img'></div> */}
-                    <img src={group.groupCoverPath ? fileStorage.baseUrl+group.groupCoverPath : ''} alt=""  />
+                    <img src={group.groupCoverPath} alt=""  className='cover-img'/>
                 </div>
                 <div className='pagetype-2 grp-det'>
                     <div>
                         <div className='grp-name'>{group.name}</div>
+                        <div className='grp-desc'>{group.description}</div>
                         <div className='mt-15 d-flex'>{group.privacySetting&&group.privacySetting==true ?<div><i className="fa fa-globe pad-r-5" aria-hidden="true"></i>Public</div>
 						:<div><i className="fa fa-lock pad-r-5" aria-hidden="true"></i>Private</div>} <span className='pl-15 fw-6'>{group.members&&group.members.length} Members</span></div>      
                     </div>
                     <div className='grp-det-btns'>
-                 
-                            { members&&members.length>0 ?
-								members.some(member=>member.id===user.id)?
-									<div className="dropdown ">
-									<button className="drp-btn dropdown-toggle grp-page-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
-									{/* <span className="caret"></span> */}
-									</button>
-									<ul className="dropdown-menu">
-										<li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
-										<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
+								{
+                                    members&&checkIfInGroup(members) ?
+										<div className="dropdown ">
+											<button className="drp-btn dropdown-toggle grp-page-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
+											{/* <span className="caret"></span> */}
+											</button>
+											<ul className="dropdown-menu">
+												<li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
+												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
 
-									</ul>
-								</div>
-								:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+											</ul>
+										</div>
+                                    : requestFlag
+                                           ? <button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Cancel Request</button>
+
+                                    	   : <button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+                                          
+                                }
+                 
+                            {/* { members&&members.length>0 
+								?members.some(member=>member.id===user.id)
+									?
+									<div className="dropdown ">
+										<button className="drp-btn dropdown-toggle grp-page-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
+										</button>
+										<ul className="dropdown-menu">
+											<li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
+											<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
+
+										</ul>
+									</div>
+									:requestFlag?
+									<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Cancel Request</button>
+									:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
 								
-								:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
-							}
+								:requestFlag?
+									<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Cancel Request</button>
+									:<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+							} */}
 										                        
                         {	group&& group.owner&&
 							user.id === group.owner.id
@@ -332,7 +410,7 @@ const handleShowingReaction = () => {
 								{/* <span className="caret"></span> */}
 								</button>
 								<ul className="dropdown-menu">
-									<li><a href="#" onClick={handleLeaveGroup}>Invite friends in shareup</a></li>
+									<li> <a  className='invitefrienddrp'> Invite friends in shareup</a></li>
 									<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via email</a></li>
 									<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via link</a></li>
 
@@ -346,9 +424,9 @@ const handleShowingReaction = () => {
 											{/* <span className="caret"></span> */}
 											</button>
 											<ul className="dropdown-menu">
-												<li><a href="#" onClick={handleLeaveGroup}>Invite friends in shareup</a></li>
-												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via email</a></li>
-												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Invite via link</a></li>
+												<li><a className='invitefrienddrp'>Invite friends in shareup</a></li>
+												<li><a href="javascript:void(0)" >Invite via email</a></li>
+												<li><a href="javascript:void(0)" >Invite via link</a></li>
 
 
 											</ul>
@@ -357,11 +435,22 @@ const handleShowingReaction = () => {
 								:null
 							}
                         
-
+							{ group.owner&&group.owner.id===user.id?
+								<div className="dropdown more-btn">
+								<button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{background:"transparent",border:"none"}}>
+									<i style={{ float: "right", fontSize: 30 ,height:'30px',color:"black" }} className="las la-ellipsis-v" ></i>
+								{/* <span className="caret"></span> */}
+								</button>
+								<ul className="dropdown-menu">
+									{group&&<li ><a href={"/groups/"+group.id+"/edit"} >Edit group</a></li>}
+								</ul>
+							</div>
+							:null
+							}
                     </div>
                 </div>
                 <div className=' grp-det-tabs'>
-                <Tabs defaultActiveKey={group.privacySetting==true?"discussion":(group&&group.members&&group.members.some(member=>member.id==user.id))?"discussion":"about"} id="uncontrolled-tab-example" className="mb-3 " >
+                <Tabs defaultActiveKey={group.privacySetting==true?"discussion":(group&&(group.members&&group.members.some(member=>member.id===user.id)||group.owner&&group.owner.id===user.id))?"discussion":"about"} id="uncontrolled-tab-example" className="mb-3 " >
                     <Tab eventKey="about" title="About">
                         <div className='ab-1'>
                             <div className='fw-6 abt-title clr-blk'>About this group</div>
@@ -397,7 +486,7 @@ const handleShowingReaction = () => {
                     </Tab>
                     {	group.privacySetting&&group.privacySetting==true|| group&&group.members&&group.members.length&&group.members.some(member=>member.id===user.id) ?
 							<Tab eventKey="discussion" title="Discussion">
-								<CommonComposer />
+								<CommonComposer group={group}/>
 							</Tab>
                         :null}
                     {
@@ -417,20 +506,105 @@ const handleShowingReaction = () => {
                     { group.privacySetting&&group.privacySetting==true || members&&members.length>0&&members.some(member=>member.id===user.id)?
                             
 							<Tab eventKey="members" title="Members" >
-								<MembersComponent group={group}/>  
+								{
+									group&&group.owner.id === user.id || group.admins&&group.admins.length>0&&group.admins.some(admin=>admin.id===user.id)?
+									<Tabs>
+										<Tab eventKey='member1' title={'Members '+members.length}>
+											<MembersComponent group={group}/>  
+										</Tab>
+										
+											<Tab eventKey="member2" title="Member Requests" >
+												<MemberRequests group={group} acceptRequest={acceptRequest} rejectRequest={rejectRequest} /> 
+											</Tab>
+									</Tabs>
+										: 
+											<MembersComponent group={group}/>  
+								}
+
 							</Tab>
                                
                         :null}
 						 {group.owner&&group.owner.id===user.id?
                             
 							<Tab eventKey="people" title="People" >
-								<InviteMembersComponent group={group} members={members}/>  
+								<InviteMembersComponent group={group} members={members}/> 
+							</Tab>
+                               
+                        :null}
+						{group.owner&&group.owner.id===user.id?
+                            
+							<Tab eventKey="admins" title="Admins" >
+								 <div className="central-meta swap-pg-cont grp-pg-invite-cont">
+									<div className="frnds">
+										<div className='fw-6  abt-title no-brdr-btm  clr-blk'>Admins</div>
+										<div class="friends-search-container grp-search">
+											{/* <i class="las la-search"></i> */}
+											<input className="friend-search" type="text" id="header-search" placeholder="Search Admins" name="s" onChange={handleSearchedAdmins} />
+										</div>
+										<div className="tab-pane active fade show " id="following">
+											<ul className="nearby-contct" style={{marginTop:'15px'}}>
+											{
+												group.admins&&group.admins.length>0?
+												// friendsList.map((friend)=>{
+													group.admins.map(admin=> 
+														<li key={admin.id} className="friends-card grp">
+															<div className="grid-container">
+																<div class="item1">
+																	<a href={`/profile/${admin.email}`} title={`${admin.email}`}><img src={admin.profilePicturePath} alt="" /></a>
+																</div>
+																<div class="item2">
+																	<p className="nameTag"><a href={`/profile/${admin.email}`} title={`${admin.email}`}>{`${admin.firstName} ${admin.lastName}`}</a></p>
+																	<div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual admins</div>
+																</div>
+																
+																<div className="item5">
+																	<div className="dropdown ">
+																		<button className="drp-btn dropdown-toggle admin-more" type="button" data-toggle="dropdown">
+																		<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
+																		{/* <span className="caret"></span> */}
+																		</button>
+																		<ul className="dropdown-menu">
+																			<li><a onClick={removeAdmin} style={{fontSize:'13px'}}>Remove Admin</a></li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</li>
+													)
+												
+											: <div>No user found</div>
+											}
+											</ul>
+										</div>
+									
+									</div>
+								</div>
 							</Tab>
                                
                         :null}
                 </Tabs>
                 </div>
             </div>
-        </div>)
+			{
+			showInviteModal?
+			<Modal show={showInviteModal} onHide={handleCloseInviteModal}>
+			<Modal.Header closeButton>
+			</Modal.Header>
+			<Modal.Body>
+					
+			</Modal.Body>
+			<Modal.Footer>
+			{/* <Button variant="secondary" onClick={handleClose}>
+				Close
+			</Button> */}
+			<Button variant="primary" >
+				Save 
+			</Button>
+			</Modal.Footer>
+			</Modal>:''
+		}
+        </div>
+
+		)
 }
 export default ViewGroupComponent1;

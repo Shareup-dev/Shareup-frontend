@@ -15,6 +15,8 @@ import Carousel from "react-bootstrap/Carousel";
 import fileStorage from "../../config/fileStorage";
 import ShareService from "../../services/ShareService";
 
+import GroupService from '../../services/GroupService'
+
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -472,10 +474,12 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className="itemS1">
                       {post.media.length > 0 ? (
                         <div className="postImage">
-                          {post.media.map((postImage) => (
+                          {post.media.map((postImage) => {
+                            console.log(postImage,'postimagess')
+                            return(
                             <React.Fragment>
                               <a
-                                href={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                                href={`${postImage.mediaPath}`}
                                 data-lightbox={`image-user-${post.userdata.id}`}
                               >
                                 <img
@@ -484,32 +488,13 @@ export default function PostComponent({ post, setRefresh }) {
                                     maxHeight: "550px",
                                     objectFit: "unset",
                                   }}
-                                  src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                                  alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                                  src={`${postImage.media}`}
+                                  alt={`${postImage.media}`}
                                 />
                               </a>
                             </React.Fragment>
-                          ))}
-                        </div>
-                      ) : post.media.length > 0 ? (
-                        <div className="postImage swap-image">
-                          {post.media.map((postImage) => {
-                            console.log("sadsad", postImage, "swp");
-                            return (
-                              <React.Fragment>
-                                {/* <a
-                                href={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                data-lightbox={`image-user-${post.userdata.id}`}
-                              >
-                                <img
-                                  style={{ width: '100%', objectFit: 'cover' }}
-                                  src={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                  alt={`${fileStorage.baseUrl}${postImage.imagePath}`}
-                                />
-                              </a> */}
-                              </React.Fragment>
-                            );
-                          })}
+                          
+                          )})}
                         </div>
                       ) : null}
                     </div>
@@ -616,7 +601,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
+                      src={post.userdata.profilePicturePath}
                       alt=""
                       className="post-user-img"
                     />
@@ -771,8 +756,8 @@ export default function PostComponent({ post, setRefresh }) {
                               width: "100%",
                               objectFit: "cover",
                             }}
-                            src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                            alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            src={`${postImage.mediaPath}`}
+                            alt={`${postImage.mediaPath}`}
                             className="lightbox-popup"
                             onClick={() => openLightbox(index)}
                           />
@@ -813,14 +798,14 @@ export default function PostComponent({ post, setRefresh }) {
                     <React.Fragment>
                       <img
                         style={{ width: "100%", objectFit: "cover" }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${postImage.mediaPath}`}
+                        alt={`${postImage.mediaPath}`}
                         className="lightbox-popup"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                          mainSrc={ postImage.mediaPath}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
@@ -837,13 +822,13 @@ export default function PostComponent({ post, setRefresh }) {
                             ? { width: "100%", objectFit: "cover" }
                             : { borderRadius: "10px 10px 0 0" }
                         }
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        src={`${postImage.mediaPath}`}
+                        alt={`${postImage.mediaPath}`}
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                          mainSrc={ postImage.mediaPath}
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
@@ -1257,8 +1242,8 @@ export default function PostComponent({ post, setRefresh }) {
                                 width: "100%",
                                 objectFit: "cover",
                               }}
-                              src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                              alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                              src={`${fileStorage.baseUrl}${postImage.media}`}
+                              alt={`${fileStorage.baseUrl}${postImage.media}`}
                               className="lightbox-popup"
                               onClick={() => openLightbox(index)}
                             />
@@ -1304,8 +1289,8 @@ export default function PostComponent({ post, setRefresh }) {
                       <React.Fragment>
                         <img
                           style={{ width: "100%", objectFit: "cover" }}
-                          src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                          alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                          src={`${fileStorage.baseUrl}${postImage.media}`}
+                          alt={`${fileStorage.baseUrl}${postImage.media}`}
                           className="lightbox-popup"
                           onClick={() => setIsopen(true)}
                         />

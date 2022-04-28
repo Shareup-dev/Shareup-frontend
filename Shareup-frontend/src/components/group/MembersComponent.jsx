@@ -170,7 +170,7 @@ function MembersComponent(props) {
     const MembersComponentFunction = () => {
         return (
             <div className="">
-                <div className='fw-6  abt-title no-brdr-btm  clr-blk'>Members<span>{group.members&&group.members.length?' '+ group.members.length:''}</span></div>
+                {/* <div className='fw-6  abt-title no-brdr-btm  clr-blk'>Members<span>{group.members&&group.members.length?' '+ group.members.length:''}</span></div> */}
                 <div class="friends-search-container grp-search">
                     {/* <i class="las la-search"></i> */}
                     <input className="friend-search" type="text" id="header-search" placeholder="Search Members" name="s" onChange={handleSearchedMembers} />
@@ -206,7 +206,7 @@ function MembersComponent(props) {
                                         {/* <div className="nearly-pepls"> */}
                                         {/* <figure> */}
                                         <div class="item1">
-                                            <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                            <a href={`/profile/${userM.email}`} title="#"><img src={userM.profilePicturePath} alt="" /></a>
                                             {/* </figure> */}
                                         </div>
                                         {/* <div className="  "> */}

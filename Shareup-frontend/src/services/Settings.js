@@ -1,6 +1,6 @@
 const settings = {
   dev: {
-    apiUrl: "http://192.168.100.22:8080",
+    apiUrl: "http://34.212.75.111",
 
   },
   staging: {
