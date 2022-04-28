@@ -18,7 +18,7 @@ function Layout(props){
                         <aside className="sidebar static">
                         <div className="widget">
                             <h4 className="widget-title">User</h4>
-                            <img src={fileStorage.baseUrl+user.profilePicturePath} style={{width: 80, float:"left"}}></img>
+                            <img src={fileStorage.baseUrl+user.profilePicture} style={{width: 80, float:"left"}}></img>
                             <a href={`/profile`}><p style={{fontWeight: "bold"}}>{`${user.firstName} ${user.lastName}`}</p></a>
     
                           </div>

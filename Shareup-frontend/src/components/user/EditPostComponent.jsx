@@ -45,7 +45,7 @@ function EditPostComponent({ post, set }) {
     return (
         <div className="friend-info">
             <figure>
-                <img src={fileStorage.baseUrl+post.user.profilePicturePath} width={50} alt="" />
+                <img src={fileStorage.baseUrl+post.user.profilePicture} width={50} alt="" />
             </figure>
             <div className="friend-name">
 

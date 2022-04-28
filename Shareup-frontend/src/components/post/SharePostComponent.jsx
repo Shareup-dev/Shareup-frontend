@@ -340,8 +340,8 @@ export default function PostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicture
+                      : fileStorage.baseUrl + userR.profilePicture
                   }
                   alt=''
                 />
@@ -575,7 +575,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div style={{ display: 'flex' }}>
 
                   <figure>
-                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img" />
+                    <img src={fileStorage.baseUrl + post.user.profilePicture} alt='' className="post-user-img" />
                   </figure>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                     <a
@@ -773,8 +773,8 @@ export default function PostComponent({ post, setRefresh }) {
                                       <img
                                         src={
                                           user
-                                            ? fileStorage.baseUrl + user.profilePicturePath
-                                            : fileStorage.baseUrl + userR.profilePicturePath
+                                            ? fileStorage.baseUrl + user.profilePicture
+                                            : fileStorage.baseUrl + userR.profilePicture
                                         }
                                         alt=''
                                       />
@@ -901,7 +901,7 @@ export default function PostComponent({ post, setRefresh }) {
                   <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px' }}>
                     <div style={{ display: 'flex' }}>
                       <figure>
-                        <img src={fileStorage.baseUrl + post.post.user.profilePicturePath} alt='' className="post-user-img" style={{borderRadius: '100%'}} />
+                        <img src={fileStorage.baseUrl + post.post.user.profilePicture} alt='' className="post-user-img" style={{borderRadius: '100%'}} />
                       </figure>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                         <a
@@ -1093,8 +1093,8 @@ export default function PostComponent({ post, setRefresh }) {
                                           <img
                                             src={
                                               user
-                                                ? fileStorage.baseUrl + user.profilePicturePath
-                                                : fileStorage.baseUrl + userR.profilePicturePath
+                                                ? fileStorage.baseUrl + user.profilePicture
+                                                : fileStorage.baseUrl + userR.profilePicture
                                             }
                                             alt=''
                                           />

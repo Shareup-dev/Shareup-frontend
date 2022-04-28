@@ -417,7 +417,7 @@ const staticpost=()=>{
 
                     
 <figure>
-                    <img src={fileStorage.baseUrl+user.profilePicturePath} alt="" />
+                    <img src={fileStorage.baseUrl+user.profilePicture} alt="" />
                 </figure>
                 
                 <div className="friend-name">
@@ -493,7 +493,7 @@ const staticpost=()=>{
         <ul className="we-comet">
         <li className="post-comment">
                 <div className="comet-avatar">
-                  <img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
+                  <img src={fileStorage.baseUrl+user.profilePicture}  alt="" />
                 </div>
                 <div className="post-comt-box">
                   <Form>

@@ -29,6 +29,17 @@ class FriendService {
         return result
     }
 
+
+    getFriendStatus = async (uid, fid) => {
+        const result = await authAxios.get(`/${uid}/friend_with/${fid}`)
+        return result
+    }
+
+    getFriendCount = async (uid) => {
+        const result = await authAxios.get(`/users/${uid}/get_counters`)
+        return result
+    }
+
     addFriends = async (uid, fid) => {
         const result = await authAxios.post(`/friends/${uid}/${fid}`)
         return result

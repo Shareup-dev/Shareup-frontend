@@ -63,7 +63,7 @@ class SwapService {
     }
 
     updateSwap = async (swapId, swap) => {
-        const result = await authAxios.put(`swaps/${swapId}`, swap)
+        const result = await authAxios.put(`swaps/update/${swapId}`, swap)
         return result;
     }
 

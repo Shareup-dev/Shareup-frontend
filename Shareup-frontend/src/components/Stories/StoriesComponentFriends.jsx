@@ -61,7 +61,7 @@ const checkPop=()=>{
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'yellowgreen'}}>
-        <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
+        <img src={fileStorage.baseUrl + story.user.profilePicture} alt="" />
       </div>
    
       <div
@@ -86,7 +86,7 @@ const checkPop=()=>{
 
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            <span className='mb-4 text-light p-2' style={{fontSize:'0.8rem'}}>{story.user.firstName} {story.user.lastName}</span>
+            <span className='text-light p-2' style={{fontSize:'0.8rem'}}>{story.user.firstName} {story.user.lastName}</span>
 
           </div>
         </div>

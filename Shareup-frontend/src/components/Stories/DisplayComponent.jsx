@@ -13,16 +13,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Popup from "reactjs-popup";
 import Form from "react-bootstrap/Form";
-// import './button.css';
-// import '../../css/SliderJava';
+
 
 function DisplayComponent() {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
-
-  // const []
-
   // const inputRef = createRef();
   const [hasTimeElapsed, setHasTimeElapsed] = React.useState(false);
   const [storiesForUser, setStoriesForUser] = useState([]);
@@ -172,11 +168,7 @@ function DisplayComponent() {
       resetTimeout();
     };
   }, [index]);
-  const nextSlide = (a) => {
-    // a.preventDefault();
-    console.log("check slide check", a);
-    // setIndex(a);
-  };
+
 
   return (
     <>
@@ -198,12 +190,13 @@ function DisplayComponent() {
                             <img
                               src={
                                 fileStorage.baseUrl +
-                                background.user.profilePicturePath
+                                background.user.profilePicture
                               }
                               alt=""
                             />
                             <span >{background.user.firstName}
-                            
+                             
+                              {/* Edit and delete stories 
                             <div style={{ marginLeft: "380px"}}>
                             <DropdownButton
                             // style={{marginLeft: "400px" }}
@@ -349,7 +342,7 @@ function DisplayComponent() {
                                 <span>Delete</span>
                               </Dropdown.Item>
                             </DropdownButton>
-                              </div>
+                              </div> */}
                             </span>
                             
                             

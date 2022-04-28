@@ -26,6 +26,7 @@ function GroupListComponent({post}) {
 	let history = useHistory();
 
 	const { user } = useContext(UserContext)
+	console.log("this is the user data on Groups"+(user) )
 
 	// const []
 	const [refresh, setRefresh] = useState([]);

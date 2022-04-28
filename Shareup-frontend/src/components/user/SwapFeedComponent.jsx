@@ -498,8 +498,6 @@ function SwapFeedComponent() {
       }
 
       setSwapImage(tempImage);
-      console.log('url ' + swapImage[1]);
-
       setShowSwapImage(true);
     } else {
       alert('5 files are allowed');
@@ -585,7 +583,7 @@ function SwapFeedComponent() {
                                   {/* <figure> */}
                                   <div class='item1'>
                                     <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt='' />
+                                      <img style={{ objectFit: 'cover' }} src={userM.profilePicture} alt='' />
                                     </a>
                                     {/* </figure> */}
                                   </div>
@@ -649,12 +647,8 @@ function SwapFeedComponent() {
     for (let i = 0; i < swapfiles.length; i++) {
       formData.append(`files`, swapfiles[i]);
     }
-    console.log(formData.getAll(`files`));
-    console.log(' this is the files' + files[0]);
-    console.log(' this is the swapfiles' + swapfiles);
-    for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
-    }
+
+
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
@@ -720,7 +714,7 @@ function SwapFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -771,7 +765,7 @@ function SwapFeedComponent() {
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
                             <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
@@ -813,7 +807,7 @@ function SwapFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -900,7 +894,7 @@ function SwapFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/publicicon.svg" style={{ width: '49%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -928,7 +922,7 @@ function SwapFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/friendsicon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -956,7 +950,7 @@ function SwapFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/friendexcepticon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -982,7 +976,7 @@ function SwapFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/groupicon.svg" style={{ width: '46%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -1007,7 +1001,7 @@ function SwapFeedComponent() {
                           <div class="item11">
 
                             <img src="assets/images/onlymeicon.svg" style={{ width: '39%' }} />
-                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -1087,8 +1081,8 @@ function SwapFeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicture
+                      : fileStorage.baseUrl + userR.profilePicture
                   }
                   alt=''
                 />
@@ -1192,7 +1186,7 @@ function SwapFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}><div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -1235,7 +1229,7 @@ function SwapFeedComponent() {
             </div></div>
 
           <div style={{ padding: '0 11px 11px 11px' }}>  <div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -1276,7 +1270,7 @@ function SwapFeedComponent() {
               <div style={{ width: '10%', textAlign: 'center' }}><span style={{ float: 'right' }}>  <button style={{ float: 'right', borderRadius: '20px' }} type="submit" onClick={uploadPost}>Post</button></span></div>
             </div></div>
           <div style={{ padding: '0 11px 11px 11px' }}>  <div className="popupimg">
-            <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" /></div>
+            <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" /></div>
             <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}><span style={{ textTransform: 'capitalize', fontWeight: 'bold' }}>{`${user.firstName} ${user.lastName}`}</span>
               <span style={{ display: 'block', fontSize: '12px' }}><div className="dropdown">
                 <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -1292,7 +1286,7 @@ function SwapFeedComponent() {
 
           </div>
           {/* <div className="popupimg"> 
-                                    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /></div>
+                                    <img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
                                        <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
                                        <span style={{display: 'block', fontSize: '12px'}}><div className="dropdown">
                                   <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
@@ -1359,7 +1353,7 @@ function SwapFeedComponent() {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div style={{textAlign:"center"}}>No Swaps</div>
         }
 
       </div>
@@ -1457,7 +1451,6 @@ function SwapFeedComponent() {
       setAllUser(res.data)
       setSearchedUser(res.data)
     })
-    console.log(user.email + " This is the users")
   }
   const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
@@ -1486,13 +1479,13 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div class="center" style={{padding: "20px"}}>No Swaps</div>
         }
+
 
       </div>
     )
   }
-
 
   const MySwapsComponentFunction = () => {
     return (
@@ -1513,7 +1506,7 @@ const AllswapscomponentFunction = () => {
                 }
               </div>
           )
-          : <div>No Swaps</div>
+          : <div class="center" style={{padding: "20px"}}>No Swaps</div>
         }
 
       </div>
@@ -1527,11 +1520,6 @@ const AllswapscomponentFunction = () => {
 			return MySwapsComponentFunction()
 		}
 		}
-
-
-
-
-
 
   if (isLoading) {
     return <div>Loading... Please Wait</div>

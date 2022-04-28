@@ -120,7 +120,7 @@ function FriendsTestComponent() {
     }
 
     const handleUnfollow = (uid) => {
-        UserService.unfollow(user.email, uid).then(res => {
+        UserService.unfollow(user.id, uid).then(res => {
             setRefresh(res.data)
         })
     }
@@ -158,7 +158,7 @@ function FriendsTestComponent() {
                                 <div className="cardprofile">
                                     <figure className="snip1336"><img src={userM.coverPicturePath ? fileStorage.baseUrl+userM.coverPicturePath : "https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample69.jpg"} style={{height:'218px'}}  alt="sample69" />
                                         <figcaption>
-                                            <img src={fileStorage.baseUrl+userM.profilePicturePath} alt="profile-sample5" className="profile" />
+                                            <img src={fileStorage.baseUrl+userM.profilePicture} alt="profile-sample5" className="profile" />
                                             <h2>{`${userM.firstName} ${userM.lastName}`}<span>{userM.job ? userM.job : `No Job`}</span> <ul className="social-icons">
                                                 <li><a href="#"><i className="fa fa-instagram" /></a></li>
                                                 <li><a href="#"><i className="fa fa-twitter" /></a></li>

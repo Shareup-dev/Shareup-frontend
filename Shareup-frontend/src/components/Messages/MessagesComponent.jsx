@@ -77,7 +77,7 @@ function MessagesComponent() {
                 <div className="msgHead">
 
                     <a href={`/profile/${user.email}`} title={`${user.email}`}>
-                        <img className="msgprof" style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + user.profilePicturePath} alt="" /><span style={{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '15px' }}>{`${user.firstName} ${user.lastName}`}</span>
+                        <img className="msgprof" style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + user.profilePicture} alt="" /><span style={{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '15px' }}>{`${user.firstName} ${user.lastName}`}</span>
                         <span style={{ paddingLeft: '20px', fontWeight: '900' }}><img src="/assets/images/msgarrw.svg" /></span></a>
                 </div>
                 <div class="search-container" style={{ paddingBottom: '16px', borderBottom: '1px solid #cecece' }} >
@@ -97,7 +97,7 @@ function MessagesComponent() {
                                             {/* <figure> */}
                                             <div class="item1">
                                                 <a href={`/profile/${userM.email}`} title={`${userM.email}`}>
-                                                    <img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicturePath} alt="" /></a>
+                                                    <img style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userM.profilePicture} alt="" /></a>
                                                 {/* </figure> */}
 
                                             </div>
@@ -119,7 +119,7 @@ function MessagesComponent() {
             <div className="right-message ">
                 <div style={{ height: '10%' }}><div className="msgTop">
                     {userR ?
-                        <a href={`/profile/${userR.email}`} title={`${userR.email}`}><img className="msgprof" style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userR.profilePicturePath} alt="" /><span style={{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '15px' }}>{`${userR.firstName} ${userR.lastName}`}</span>
+                        <a href={`/profile/${userR.email}`} title={`${userR.email}`}><img className="msgprof" style={{ objectFit: 'cover' }} src={fileStorage.baseUrl + userR.profilePicture} alt="" /><span style={{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '15px' }}>{`${userR.firstName} ${userR.lastName}`}</span>
                         </a> : <a href="#" title="user"><img className="msgprof" style={{ objectFit: 'cover' }} src="https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png" alt="" /><span style={{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '15px' }}>User</span>
                         </a>}
                     <div className="msgic">

@@ -170,7 +170,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
 
                                 
 <figure>
-                                <img src={fileStorage.baseUrl+post.user.profilePicturePath} alt="" />
+                                <img src={fileStorage.baseUrl+post.user.profilePicture} alt="" />
                             </figure>
                             
                             <div className="friend-name">

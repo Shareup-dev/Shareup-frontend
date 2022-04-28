@@ -42,14 +42,12 @@ function FriendsComponent() {
 
 
 	const addFriendsId = (uid, fid) => {
-		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.addFriends(uid, fid).then(res => {
 			window.location.reload();
 		})
 	}
 
 	const removeFriend = (uid, fid) => {
-		console.log("uid: " + uid + " fid: " + fid)
 		FriendsService.removeFriends(uid, fid).then(res => {
 			setRefresh(res.data)
 		})
@@ -71,7 +69,6 @@ function FriendsComponent() {
 				}
 			})
 			setSearchedFollowing(temp)
-			console.log(temp)
 		}
 
 	}
@@ -93,7 +90,6 @@ function FriendsComponent() {
 				}
 			})
 			setSearchedFollowers(temp)
-			console.log(temp)
 		}
 	}
 
@@ -124,13 +120,13 @@ function FriendsComponent() {
 
 
 	const handleFollow = (uid) => {
-		UserService.follow(user.email, uid).then(res => {
+		UserService.follow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}
 
 	const handleUnfollow = (uid) => {
-		UserService.unfollow(user.email, uid).then(res => {
+		UserService.unfollow(user.id, uid).then(res => {
 			setRefresh(res.data)
 		})
 	}
@@ -171,7 +167,7 @@ function FriendsComponent() {
                             <div className="grid-container">
                                 {/* <figure> */}
                                 <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{objectFit:'cover'}} src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                     {/* </figure> */}
                                 </div>
                                 {/* <div className="  "> */}
@@ -273,7 +269,7 @@ const FollowingComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -322,7 +318,7 @@ const FollowersComponentFunction = () => {
                                     {/* <div className="nearly-pepls"> */}
                                     {/* <figure> */}
                                     <div class="item1">
-                                        <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicturePath} alt="" /></a>
+                                        <a href={`/profile/${userM.email}`} title="#"><img src={fileStorage.baseUrl+userM.profilePicture} alt="" /></a>
                                         {/* </figure> */}
                                     </div>
                                     {/* <div className="  "> */}
@@ -443,7 +439,6 @@ const getAllUser = async () => {
 				setFollowersCount(Auser.numberOfFollowers);
 
 			}
-			console.log(friendsCount,'useeeeeeeeeeeeeeeeeeeeeerrr')
 		})
 	})
 	// console.log(user.email + " This is the users")
@@ -499,7 +494,6 @@ const handleSearchedUser = (event) => {
 			}
 		})
 		setSearchedUser(temp)
-		console.log(temp)
 	}
 
 }
@@ -511,9 +505,6 @@ useEffect(() => {
 	getAllFollowers()
 	getAllFriendRequestSent()
 	getAllFriendRequestRecieved()
-
-	console.log("Users = " + allUser)
-	console.log("Friends = " + friendsList)
 }, [showComp, refresh])
 
 useEffect(() => {

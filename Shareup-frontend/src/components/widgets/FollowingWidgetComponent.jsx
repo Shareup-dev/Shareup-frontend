@@ -39,7 +39,7 @@ function FollowingWidgetComponent() {
                         followers.slice(0, 4).map((follower_user) =>
                             <li key={follower_user.id} style={{display:'flex', width:'100%' ,padding:'10px',alignItems:'center'}}>
                                 <figure style={{width:'20%'}}>
-                                    <img src={ fileStorage.baseUrl+follower_user.profilePicturePath} alt="" />
+                                    <img src={ fileStorage.baseUrl+follower_user.profilePicture} alt="" />
                                 </figure>
                                 <div className="" style={{width:'55%',textAlign: 'left' ,paddingLeft:'10px',display:'flex',flexDirection:'column'}}>
                                     <h4>

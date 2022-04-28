@@ -100,11 +100,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
       resetTimeout();
     };
   }, [index]);
-  const nextSlide = (a) => {
-    // a.preventDefault();
-    console.log("check slide check", a);
-    // setIndex(a);
-  };
+
 
 
   return (
@@ -128,7 +124,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                             <img
                               src={
                                 fileStorage.baseUrl +
-                                background.user.profilePicturePath
+                                background.user.profilePicture
                               }
                               alt=""
                             />

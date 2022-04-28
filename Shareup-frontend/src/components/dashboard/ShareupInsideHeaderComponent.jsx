@@ -80,7 +80,6 @@ function ShareupInsideHeaderComponent() {
   }, [])
 
   const onUnfocus = () => {
-    console.log("hello")
     if (showUserSettings === true) {
       setShowUserSettings(false)
     }
@@ -122,7 +121,7 @@ function ShareupInsideHeaderComponent() {
                 {searchedFriendsList.slice(0, 4).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img src={friend.profilePicturePath} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
+                            <img src={friend.profilePicture} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
                             {/* <span className="status f-online" />
                         </figure>
                         <div className="friendz-meta">
@@ -303,7 +302,7 @@ function ShareupInsideHeaderComponent() {
           </li> */}
           </ul>
           <div className="user-img">
-            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicturePath ? fileStorage.baseUrl + user.profilePicturePath : "../assets/images/resources/admin.jpg"} style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
+            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicture ? fileStorage.baseUrl + user.profilePicture : "../assets/images/resources/admin.jpg"} style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
             <span className="status f-online" />
             {
               showUserSettings && (
@@ -311,7 +310,7 @@ function ShareupInsideHeaderComponent() {
                   <a href="#!" title="notif"><span className="status f-online" />online</a>
                   <a href="#" title="notif"><span className="status f-away" />away</a>
                   <a href="#" title="notif"><span className="status f-off" />offline</a>
-                  <a href="/profile"><i className="ti-user" /> view profile</a>
+                  <a href={`/profile/${AuthService.getCurrentUser().username}`}><i className="ti-user" /> view profile</a>
                   <a href="/editprofile" title="notif"><i className="ti-pencil-alt" />edit profile</a>
                   <a href="Activity" title="notif"><i className="ti-target" />activity log</a>
                   <a href="Security" title="notif"><i className="ti-settings" />account setting</a>
