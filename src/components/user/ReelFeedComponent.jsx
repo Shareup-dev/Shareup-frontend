@@ -1254,7 +1254,7 @@ const AllReelscomponentFunction = () => {
     return (
       <div className="loadMore">
          <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <input className="friend-search" type="text" placeholder="Search Swap" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
+              <input className="friend-search" type="text" placeholder="Search Reel" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
             </div>
         {searchedReelforUser && searchedReelforUser.length > 0
           ? (

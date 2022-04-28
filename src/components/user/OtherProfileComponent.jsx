@@ -386,13 +386,13 @@ function OtherProfileComponent() {
     getAllFriendRequestRecieved();
     getPostForUser();
     getStoriesForUser();
-  }, [show, friendStatus]);
+  }, [show, friendStatus,refresh]);
 
   useEffect(() => {
     getFriendStatus();
     getFriendCount();
     getPostForUser();
-  }, [userProfile, friendStatus]);
+  }, [userProfile, friendStatus,refresh]);
 
   const handleShow = () => {
     if (show === "timeline") {
@@ -595,7 +595,7 @@ function OtherProfileComponent() {
       <>
         <div className="loadMore" style={{ textAlign: "center" }}>
           {profileMedia && profileMedia.length > 0 ? (
-            <ul className="profilemedia">
+            <ul class="profilemedia">
               {profileMedia.map((post, index) => (
                 <Popup
                   style={{ padding: "0px" }}
@@ -616,7 +616,7 @@ function OtherProfileComponent() {
                               padding: "10px",
                               fontSize: "30px",
                             }}
-                            className="las la-times"
+                            class="las la-times"
                           ></i>
                         </a>
                       </div>
@@ -633,7 +633,7 @@ function OtherProfileComponent() {
               ))}
             </ul>
           ) : (
-            <div className="center" style={{ padding: "20px" }}>
+            <div class="center" style={{ padding: "20px" }}>
               No Post to show
             </div>
           )}
@@ -645,7 +645,7 @@ function OtherProfileComponent() {
     return (
       <div className="loadMore">
         {searchedReelforUser && searchedReelforUser.length > 0 ? (
-          <ul className="slidesreel">
+          <ul class="slidesreel">
             {searchedReelforUser.map((reel, index) => (
               <Popup
                 style={{ padding: "0px" }}
@@ -669,7 +669,7 @@ function OtherProfileComponent() {
                             padding: "10px",
                             fontSize: "30px",
                           }}
-                          className="las la-times"
+                          class="las la-times"
                         ></i>
                       </a>
                     </div>
@@ -686,7 +686,7 @@ function OtherProfileComponent() {
             ))}
           </ul>
         ) : (
-          <div className="center" style={{ padding: "20px" }}>
+          <div class="center" style={{ padding: "20px" }}>
             No Reels to show
           </div>
         )}
@@ -699,7 +699,7 @@ function OtherProfileComponent() {
         <div className="loadMore" style={{ textAlign: "center" }}>
           {/* {profileMedia && profileMedia.length > 0
           ? (
-            <ul className="profilemedia" >
+            <ul class="profilemedia" >
                           {profileMedia.map((post, index) => (
                             <Popup
                               style={{ padding: "0px" }}
@@ -727,7 +727,7 @@ function OtherProfileComponent() {
                                             padding: "10px",
                                             fontSize: "30px",
                                           }}
-                                          className="las la-times"
+                                          class="las la-times"
                                         ></i>
                                       </a>
                                   </div>
@@ -751,7 +751,7 @@ function OtherProfileComponent() {
 
           )
           : */}
-          <div className="center" style={{ padding: "20px" }}>
+          <div class="center" style={{ padding: "20px" }}>
             No Tags Photo
           </div>
           {/* } */}
@@ -772,6 +772,7 @@ function OtherProfileComponent() {
                 <div className="row">
                   <div  className="col-lg-3">
                     <div className="right-edit-profile-image-a">
+                    {user?.id === userProfile?.id ? (
                       <label className="fileContainer ">
                         <div className="add-prof mrgnFileCntnrVwProf">+</div>
                         <input
@@ -782,6 +783,7 @@ function OtherProfileComponent() {
                           onChange={handleProfileImage}
                         ></input>
                       </label>
+                    ):null}
 
                       {showprofilePicturePath ? (
                         <>
@@ -811,6 +813,21 @@ function OtherProfileComponent() {
                         </>
                       )}
                     </div>
+                    {user?.id !== userProfile?.id ? (
+                        !following.some((el) => el.id === userProfile?.id) ? (
+                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
+                            onClick={() => handleFollow(userProfile?.id)}
+                          >
+                            Follow
+                          </button>
+                        ) : (
+                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
+                            onClick={() => handleUnfollow(userProfile?.id)}
+                          >
+                            Unfollow
+                          </button>
+                        )
+                      ) : null}
                   </div>
                   <div className="col-lg-9">
                     <div
