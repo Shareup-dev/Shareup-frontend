@@ -80,7 +80,7 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
-            <img src={fileStorage.baseUrl + story.imagePath} alt="" className='zoom-story-img'/>
+            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
 

@@ -138,7 +138,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                           onClick={() => window.clearTimeout(timeoutRef.current)}
                             className="stryDsplyImg"
                             src={
-                              fileStorage.baseUrl + background.imagePath
+                              fileStorage.baseUrl + background.storiesImagePath
                             }
                           />
                         </div>
