@@ -194,7 +194,7 @@ function GroupListComponent({post}) {
 									<div className="group-li-item">
 										{/* <figure> */}
 										<div class="item12">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.image ? group.image : Grpicon} alt="" className={group.image ? "img" : "no-img"} /></a>
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
 										</div>

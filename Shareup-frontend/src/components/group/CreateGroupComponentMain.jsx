@@ -7,6 +7,7 @@ import settings from '../../services/Settings';
 import { DropdownButton , Dropdown} from 'react-bootstrap'
 import $ from 'jquery'
 import Addimage from '../../images/addimage1.jpg'
+
 function CreateGroupComponentMain() {
     let history = useHistory();
 
@@ -74,6 +75,8 @@ function CreateGroupComponentMain() {
     const handleGroupCover = (event) => {
         let validated = false
         setGroupCover(event.target.files[0])
+        console.log(groupCover,'groupcover')
+
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
@@ -81,6 +84,7 @@ function CreateGroupComponentMain() {
             }
         }
         reader.readAsDataURL(event.target.files[0])
+        console.log(groupCover,'groupcover')
         setShowCoverPicture(true)
     }
 
@@ -95,6 +99,7 @@ function CreateGroupComponentMain() {
     }
 
     const handleCreateGroup = async () => {
+        console.log(groupCover,'createeeeee')
         let groupPrivacySettingValue = 1
         if ( groupPrivacySetting === 'Private' || groupPrivacySetting === 'Hidden'){
             groupPrivacySettingValue = 0
@@ -183,7 +188,10 @@ function CreateGroupComponentMain() {
                             </select> */}
                             <div class="dropdown privacy-drop-cont">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   {groupPrivacySetting}
+                                   {groupPrivacySetting==='Public'?
+                                    <span><i className="fa fa-globe pr-5p" aria-hidden="true"></i>Public</span>
+                                    : groupPrivacySetting==='Private'? <span><i className="fa fa-lock pr-5p" aria-hidden="true"></i>Private</span>
+                                    :<span><i className="fa fa-eye-slash pr-5p" aria-hidden="true"></i>Hidden</span>}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Public')}}>

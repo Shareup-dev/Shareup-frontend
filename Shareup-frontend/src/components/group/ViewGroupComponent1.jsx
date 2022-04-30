@@ -70,11 +70,16 @@ function ViewGroupComponent1({post}) {
 
 
 	const [editPostId, setEditPostId] = useState(null)
+	const [groupCover, setGroupCover] = useState(null)
+	
+	
+    const [coverRender, setCoverRender] = useState(null)
 
 	const [img, setImage] = useState("");
     const [postsForUser, setPostsForUser] = useState([]);
     const [userF, setUserF] = useState(null);
     const [admins,setAdmins] = useState([]);
+
 
     //functions
 
@@ -82,21 +87,24 @@ function ViewGroupComponent1({post}) {
 		await getGroupById()
 		await getGroupMembers()
 		await getGroupPosts()
-		console.log(user)
+		// console.log(user)
 		if(user&&groupid){
 			console.log(user.id)
 			didJoinRequestSent(groupid)
 		}
 		
 	}, [])
-
-    const getGroupById = async () => {
-		await GroupService.getGroupById(groupid).then(res => {
-			setGroup(res.data)
+	const setGroupData = async (data) =>{
+		await setCoverRender(data.groupCoverPath)
+		await setGroup(data)
+		await console.log(coverRender,"YOIASOIODA")
 			
-			setMembers(res.data.members)
+	}
+    const getGroupById = async () => {
+		await GroupService.getGroupById(groupid).then(async(res) => {
+			await setGroupData(res.data)
+			// await setMembers(res.data.members)
             // setOwner(res.owner)
-			// console.log("YOIASOIODA")
 			// console.log(JSON.stringify(res.data) + " helooo");
 		})
 	}
@@ -346,14 +354,56 @@ function ViewGroupComponent1({post}) {
 	// });
 	const handleSearchedAdmins = () =>{}
 	const removeAdmin = () =>{}
+
+
+	const changeCover = async (event) =>{
+		console.log(event.target.files[0])
+		await setGroupCover(event.target.files[0])
+        const reader = new FileReader();
+		console.log(groupCover)
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setCoverRender(reader.result)
+            }
+        }
+        reader.readAsDataURL(event.target.files[0])
+		const formData = await new FormData();
+		await formData.append('group_cover_image', groupCover)
+		if(groupCover!==null){
+			await GroupService.uploadGroupCoverImage(groupid,formData).then(res => {
+				console.log(res.data)
+			})
+		}
+        // // setShowCoverPicture(true)
+	}
+	// const handleGroupCover = (event) => {
+    //     let validated = false
+    //     setGroupCover(event.target.files[0])
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //             setCoverRender(reader.result)
+    //         }
+    //     }
+    //     reader.readAsDataURL(event.target.files[0])
+    //     setShowCoverPicture(true)
+    // }
     return(
         <div id="group-page">
             <ShareupInsideHeaderComponent />
             <div className='feature-photo'>
-				<div style={{height:'15px'}}></div>
+				<div style={{height:'20px'}}></div>
                 <div className='gp-cov-img'>
-                    {/* <div className='gp-pf-img'></div> */}
-                    <img src={group.groupCoverPath} alt=""  className='cover-img'/>
+                    <div  className='cover-img' style={coverRender&&{backgroundImage: `url(${coverRender})`,backgroundColor:'#c4c4c4',backgroundSize:'cover'}}></div>
+					{group&& group.owner&&
+							user.id === group.owner.id
+							?
+						<>
+							<label for="file-input" className='change-cvr-opt'><i className="fas fa-edit" style={{fontSize:'20px'}} ></i></label>
+							<input id="file-input" type="file" name="cover_image" accept="image/*" onChange={changeCover}></input>
+						</>
+						:null
+					}
                 </div>
                 <div className='pagetype-2 grp-det'>
                     <div>
@@ -543,7 +593,7 @@ function ViewGroupComponent1({post}) {
 										</div>
 										<div className="tab-pane active fade show " id="following">
 											<ul className="nearby-contct" style={{marginTop:'15px'}}>
-											{
+											{ 
 												group.admins&&group.admins.length>0?
 												// friendsList.map((friend)=>{
 													group.admins.map(admin=> 
@@ -582,6 +632,9 @@ function ViewGroupComponent1({post}) {
 							</Tab>
                                
                         :null}
+						<Tab eventKey="photos" title="Photos">
+
+						</Tab>
                 </Tabs>
                 </div>
             </div>

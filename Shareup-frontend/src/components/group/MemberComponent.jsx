@@ -65,7 +65,7 @@ function MembersComponent(props) {
     if (!container.is(e.target) && container.has(e.target).length === 0) 
     {
         setMoreFlag(false)
-        console.log(moreFlag)
+        // console.log(moreFlag)
     }
     }); 
     const getFriendsList = async () => {

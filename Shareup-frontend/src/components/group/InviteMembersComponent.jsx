@@ -66,7 +66,7 @@ function InviteMembersComponent(props) {
     if (!container.is(e.target) && container.has(e.target).length === 0) 
     {
         setMoreFlag(false)
-        console.log(moreFlag)
+        // console.log(moreFlag)
     }
     }); 
     const getFriendsList = async () => {
@@ -124,7 +124,7 @@ function InviteMembersComponent(props) {
 			console.log(temp)
 		}
 	}
-    console.log(friendsList)
+    // console.log(friendsList)
     return(
         <div className="">
             <div className="">
