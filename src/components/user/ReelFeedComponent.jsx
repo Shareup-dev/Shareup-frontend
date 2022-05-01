@@ -1198,13 +1198,13 @@ const AllReelscomponentFunction = () => {
             </div>
         {searchedReel && searchedReel.length > 0
           ? (
-                        <ul className="slidesreel">
+                        <ul className="slidesreel center">
                           {searchedReel.map((reel, index) => (
                             <Popup
                               style={{ padding: "0px" }}
                               trigger={
                                 <li
-                                  className="slideitemreelcom"
+                                  className="slideitemreelcom center"
                                   key={reel.id}
                                   id={index}
                                 >

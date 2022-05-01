@@ -56,7 +56,7 @@ function OtherProfileComponent() {
   const [job, setJob] = useState("");
   const [homeTown, setHomeTown] = useState("");
   const [friendStatus, setFriendStatus] = useState("");
-  const [ProfileCount, setProfileCount] = useState("");
+  const [ProfileCount, setProfileCount] = useState();
   const [relationshipStatus, setRelationshipStatus] = useState("");
   const [interests, setInterests] = useState("");
   const [storiesForUser, setStoriesForUser] = useState([]);
@@ -837,7 +837,7 @@ function OtherProfileComponent() {
                       }}
                     >
                       <div>
-                        <h5>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h5>
+                        <h5>{`${userProfile?userProfile.firstName:'0'} ${userProfile?userProfile.lastName:'0'}`}</h5>
                       </div>
                       {userProfile?.id === user?.id ? (
                         <div>
@@ -949,19 +949,19 @@ function OtherProfileComponent() {
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.posts_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.posts_count:'0'}`}</span>
                           <span>Posts</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.followers_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.followers_count:'0'}`}</span>
                           <span>Followers</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.followings_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.followings_count:'0'}`}</span>
                           <span>Following</span>
                         </li>
                       </ul>

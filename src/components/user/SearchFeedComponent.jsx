@@ -1140,7 +1140,6 @@ function SearchFeedComponent() {
             setAllUser(res.data)
             setSearchedUser(res.data)
         })
-        console.log(user.email + " This is the users")
     }
     const getFriendsList = async () => {
         await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
