@@ -1910,8 +1910,8 @@ function PostTextBoxComponent() {
           <img
             src={
               user
-                ?  user.profilePicture
-                :  userR.profilePicture
+                ?  user.profilePicturePath
+                :  userR.profilePicturePath
             }
             alt=""
           />

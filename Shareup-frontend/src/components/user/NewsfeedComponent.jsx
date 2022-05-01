@@ -542,7 +542,7 @@ function NewsfeedComponent() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -1525,7 +1525,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={}
+            // onClick={}
             >
               SWAP
             </button>
@@ -1876,7 +1876,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={uploadPost}
+            // onClick={uploadPost}
             >
               POST
             </button>
@@ -2188,7 +2188,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-                // onClick={uploadPost}
+              // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2513,7 +2513,7 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => {}, [postsForUser]);
+  useEffect(() => { }, [postsForUser]);
 
   const show = () => {
     return (
@@ -2896,7 +2896,7 @@ function NewsfeedComponent() {
               <li class="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src="/assets/images/vector-34@2x.png" alt="img" />
+                    <img src={user.profilePicturePath} alt="img" />
                   </div>
                   <Popup trigger={<div className="add-stry"> +</div>} modal>
                     {(close) => (
@@ -2981,7 +2981,9 @@ function NewsfeedComponent() {
                             <textarea
                               className="textpopup"
                               rows={2}
-                              placeholder={"Add text to your Story"}
+                              placeholder={
+                                "Add text to your Story"
+                              }
                               name="story_content"
                               value={storyContent}
                               onChange={handleStoryContent}
@@ -3065,7 +3067,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                            storiesForUserFriends[index].stories_List.length - 1
+                          storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -3092,10 +3094,10 @@ function NewsfeedComponent() {
                           </div>
                         </div>
                       </div>
-                      <DisplayFriendsStoryComponent
-                        key={story.id}
-                        id={index}
-                        story={storiesForUserFriends[index].stories_List}
+                      <DisplayFriendsStoryComponent key={story.id} id={index}
+                        story={
+                          storiesForUserFriends[index].stories_List
+                        }
                         setRefresh={setRefresh}
                       />
                     </Form>
@@ -3119,8 +3121,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ?  user.profilePicture
-                      :  userR.profilePicture
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />
