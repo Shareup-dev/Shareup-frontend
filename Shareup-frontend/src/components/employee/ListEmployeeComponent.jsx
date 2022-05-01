@@ -274,7 +274,7 @@ class ListEmployeeComponent extends Component {
                         <div className="central-meta">
                           <div className="new-postbox">
                             <figure>
-                              <img src="images/resources/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" alt="" />
+                              <img src={user.profilePicturePath} alt="" />
                             </figure>
                             <div className="newpst-input">
                               <form method="post" action="uploadPost" encType="multipart/form-data">

@@ -3119,8 +3119,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicture
+                      :  userR.profilePicture
                   }
                   alt=""
                 />
