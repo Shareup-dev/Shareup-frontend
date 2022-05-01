@@ -744,8 +744,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -888,8 +888,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1025,8 +1025,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1156,8 +1156,8 @@ function PostTextBoxComponent() {
                   <img
                     src={
                       user
-                        ? fileStorage.baseUrl + user.profilePicture
-                        : fileStorage.baseUrl + userR.profilePicture
+                        ? user.profilePicturePath
+                        : userR.profilePicturePath
                     }
                     alt=""
                   />
@@ -1620,7 +1620,7 @@ function PostTextBoxComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1739,8 +1739,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />

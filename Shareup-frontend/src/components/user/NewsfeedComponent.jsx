@@ -303,20 +303,20 @@ function NewsfeedComponent() {
   };
 
   useEffect(() => {
-    console.log("@GET ALL POSTS UPDATE", posts);
+    // console.log("@GET ALL POSTS UPDATE", posts);
   }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
       AuthService.getCurrentUser().username
     ).then((res) => {
-      console.log("get saved post" + res.data);
+      // console.log("get saved post" + res.data);
       setSavedPost(res.data);
     });
   };
 
   const handlePostContent = (event) => {
-    console.log("handlepostcontent" + event.target.value);
+    // console.log("handlepostcontent" + event.target.value);
     setPostContent(event.target.value);
   };
   const handleHangshareContent = (event) => {
@@ -640,7 +640,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -798,7 +798,7 @@ function NewsfeedComponent() {
         setUserR(res.data);
       });
     } else {
-      console.log("User Info : ========." + JSON.stringify(user));
+      // console.log("User Info : ========." + JSON.stringify(user));
       setUserR(user);
     }
   };
@@ -873,7 +873,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1000,7 +1000,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1130,8 +1130,8 @@ function NewsfeedComponent() {
                                       <img
                                         style={{ objectFit: "cover" }}
                                         src={
-                                          fileStorage.baseUrl +
-                                          userM.profilePicture
+                                          
+                                          userM.profilePicturePath
                                         }
                                         alt=""
                                       />
@@ -1306,7 +1306,7 @@ function NewsfeedComponent() {
                                     >
                                       <img
                                         style={{ objectFit: "cover" }}
-                                        src={userM.profilePicture}
+                                        src={userM.profilePicturePath}
                                         alt=""
                                       />
                                     </a>
@@ -1429,8 +1429,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1591,8 +1591,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1747,8 +1747,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1942,8 +1942,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -2068,8 +2068,8 @@ function NewsfeedComponent() {
                   <img
                     src={
                       user
-                        ? fileStorage.baseUrl + user.profilePicture
-                        : fileStorage.baseUrl + userR.profilePicture
+                        ?  user.profilePicturePath
+                        :  userR.profilePicturePath
                     }
                     alt=""
                   />
@@ -2295,7 +2295,7 @@ function NewsfeedComponent() {
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2334,7 +2334,7 @@ function NewsfeedComponent() {
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2379,7 +2379,7 @@ function NewsfeedComponent() {
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2423,7 +2423,7 @@ function NewsfeedComponent() {
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">
@@ -2467,7 +2467,7 @@ function NewsfeedComponent() {
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={profilePicture} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div class="item22">

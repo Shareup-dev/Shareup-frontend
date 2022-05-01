@@ -335,8 +335,8 @@ export default function ReelPostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicture
+                      :  userR.profilePicture
                   }
                   alt=""
                 />
@@ -446,7 +446,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                   <figure>
                     <img
                       src={
-                        fileStorage.baseUrl + post.userdata.profilePicture
+                         post.userdata.profilePicture
                       }
                       alt=""
                       className="post-user-img"
@@ -594,7 +594,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       <figure>
                         <img
                           src={
-                            fileStorage.baseUrl +
+                            
                             post.post.userdata.profilePicture
                           }
                           alt=""
@@ -740,7 +740,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       {isOpen && (
                         <Lightbox
                           mainSrc={
-                            fileStorage.baseUrl +
+                            
                             post.post.media[photoIndex].mediaPath
                           }
                           nextSrc={
@@ -783,7 +783,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                            mainSrc={ postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -806,7 +806,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                            mainSrc={ postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -873,9 +873,9 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                       <img
                                         src={
                                           user
-                                            ? fileStorage.baseUrl +
+                                            ? 
                                               user.profilePicture
-                                            : fileStorage.baseUrl +
+                                            : 
                                               userR.profilePicture
                                         }
                                         alt=""

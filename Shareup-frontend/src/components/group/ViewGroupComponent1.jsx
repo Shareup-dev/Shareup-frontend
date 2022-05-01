@@ -54,6 +54,8 @@ function ViewGroupComponent1({post}) {
 	const [refresh, setRefresh] = useState(null)
 	const [requestFlag, setRequestFlag] = useState(false)
 	const [moreFlag, setMoreFlag] = useState(false)
+	let [joinedFlag, setJoinedFlag] = useState(false)
+
 
 	const [postContent, setPostContent] = useState("");
 	const [commentContent, setCommentContent] = useState("");
@@ -65,6 +67,7 @@ function ViewGroupComponent1({post}) {
 	 const [likeReaction, setLikeReaction] = useState(null)
 
 	const [uploadError, setUploadError] = useState("");
+	
 
     const [showInviteModal, setShowInviteModal] = useState(false);
 
@@ -90,10 +93,20 @@ function ViewGroupComponent1({post}) {
 		// console.log(user)
 		if(user&&groupid){
 			console.log(user.id)
+			// if()
 			didJoinRequestSent(groupid)
 		}
 		
-	}, [])
+	}, [joinedFlag])
+
+	const photos =[{
+		id:1,
+		img:'https://iso.500px.com/wp-content/uploads/2014/07/big-one.jpg'
+		
+	}, {
+		id:2,
+		img:'https://images.ctfassets.net/u0haasspfa6q/2sMNoIuT9uGQjKd7UQ2SMQ/1bb98e383745b240920678ea2daa32e5/sell_landscape_photography_online'
+	}]
 	const setGroupData = async (data) =>{
 		await setCoverRender(data.groupCoverPath)
 		await setGroup(data)
@@ -120,6 +133,10 @@ function ViewGroupComponent1({post}) {
 		await GroupService.getGroupMembers(groupid).then(res => {
 			// setGroup(res.data)
 			setMembers(res.data)
+			console.log(res.data)
+			if(user&&res.data.some(member=>member.id===user.id)){
+				setJoinedFlag(true)
+			}
             // setOwner(res.owner)
 			// console.log("YOIASOIODA")
 			// console.log(JSON.stringify(res.data) + " helooo");
@@ -281,10 +298,12 @@ function ViewGroupComponent1({post}) {
         }
 
 	}
-	const handleJoinGroup = () => {
-		GroupService.joinGroup(user.id, group.id).then(res => {
+	const handleJoinGroup = async () => {
+		await GroupService.joinGroup(user.id, group.id).then(res => {
+			setJoinedFlag(true)
 			setGroupState(res.data)
 			setGroup(res.data)
+			console.log(joinedFlag)
 		})
 	}
 
@@ -414,7 +433,7 @@ function ViewGroupComponent1({post}) {
                     </div>
                     <div className='grp-det-btns'>
 								{
-                                    members&&checkIfInGroup(members) ?
+                                    members&&checkIfInGroup(members)&& joinedFlag ?
 										<div className="dropdown ">
 											<button className="drp-btn dropdown-toggle grp-page-btn join-grp-btn" type="button" data-toggle="dropdown">Joined
 											{/* <span className="caret"></span> */}
@@ -557,7 +576,7 @@ function ViewGroupComponent1({post}) {
                             
 							<Tab eventKey="members" title="Members" >
 								{
-									group&&group.owner.id === user.id || group.admins&&group.admins.length>0&&group.admins.some(admin=>admin.id===user.id)?
+									(group&&group.owner.id === user.id) || (group.admins&&group.admins.length>0&&group.admins.some(admin=>admin.id===user.id))?
 									<Tabs>
 										<Tab eventKey='member1' title={'Members '+members.length}>
 											<MembersComponent group={group}/>  
@@ -632,9 +651,32 @@ function ViewGroupComponent1({post}) {
 							</Tab>
                                
                         :null}
-						<Tab eventKey="photos" title="Photos">
-
+						{ group.privacySetting===true?
+							<Tab eventKey="media" title="Media">
+							<div style={{background:'white'}}>
+								<Tabs>
+									<Tab eventKey="photos" title="Photos">
+									<div className='d-flex photos-cont'>
+										{
+											photos.map(photo=>
+												<div className="mr-10"><img src={photo.img} width='185px' height='185px'/></div>
+											)
+										}
+									</div>
+									</Tab>
+								
+									<Tab eventKey="videos" title="Videos">
+										<div style={{minHeight:'100px', display:'flex',alignItems:'center',justifyContent:'center'}}>
+											No videos
+										</div>
+									</Tab>
+								</Tabs>
+							</div>
+							
+				
 						</Tab>
+						:null
+						}	
                 </Tabs>
                 </div>
             </div>

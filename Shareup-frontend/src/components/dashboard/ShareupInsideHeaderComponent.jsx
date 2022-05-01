@@ -302,7 +302,7 @@ function ShareupInsideHeaderComponent() {
           </li> */}
           </ul>
           <div className="user-img">
-            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicture ? fileStorage.baseUrl + user.profilePicture : "../assets/images/resources/admin.jpg"} style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
+            <img onClick={() => setShowUserSettings(!showUserSettings)} src={user.profilePicturePath } style={{ maxWidth: '51.5px', maxHeight: '51.5px', width: '51.5px', height: '51.5px' }} alt="" />
             <span className="status f-online" />
             {
               showUserSettings && (

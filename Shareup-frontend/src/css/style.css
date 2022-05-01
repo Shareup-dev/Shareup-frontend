@@ -1973,8 +1973,8 @@ img#preview {
   align-items: center;
   /* margin-bottom: 10px; */
 
-  padding-top: 15px;
-  padding-bottom: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 .sidebar .widget .row img {
   width: 10%;
@@ -2033,8 +2033,8 @@ img#preview {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: #0b2984;
   display: inline;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 800;
   margin-bottom: 0px;
   /* padding: 10px 0px 0px 10px; */
   position: relative;
@@ -4807,7 +4807,7 @@ nav.breadcrumb {
 }
 .nearby-contct > li:hover {
   box-shadow: 0 8px 8px #8b8b8b;
-  border-color: none;
+  /* border-color: none; */
 }
 
 .nearby-contct > yi {
@@ -14598,7 +14598,7 @@ a.Hangin-btn:hover {
   /* padding: 25px 30px 0 30px; */
   text-align: center;
   width: 100%;
-  background: #c4c4c4;
+  /* background: #c4c4c4; */
   height: 190px;
 }
 .strysggstion-imgStry {
@@ -15986,7 +15986,7 @@ input.chat-text {
   width: 100%;
 }
 .groupalign .grp-btn {
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   padding: 5px;
   font-weight: 600;
@@ -16700,6 +16700,9 @@ hr.new1 {
 .mb-5p{
   margin-bottom: 5px;
 }
+.mr-10{
+  margin-right:10px;
+}
 .clr-blk{
   color: black;
 }
@@ -16861,4 +16864,25 @@ hr.new1 {
 }
 .gp-cov-img  input{
   display: none;
+}
+#group-page .photos-cont{
+  background-color: white;
+  min-height: 100px;
+  border-radius: 10px;
+  display: flex;
+  align-items: left;
+  justify-content: flex-start;
+  padding: 10px;
+}
+#uncontrolled-tab-example-tabpane-media .nav{
+  border-top: none;
+  width: 100%;
+  justify-content: space-around !important;
+  border-radius: 10px;
+}
+#uncontrolled-tab-example-tabpane-media .tab-content>.active{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+
 }

@@ -37,7 +37,7 @@ function GroupsWidgetComponent() {
 
     useEffect(() => {
         const abortCtrl = new AbortController();
-        const opts = {signal: abortCtrl.signal };
+        const opts = { signal: abortCtrl.signal };
         getAllGroups()
         return () => abortCtrl.abort()
     }, [])
@@ -51,22 +51,21 @@ function GroupsWidgetComponent() {
                 <p className="widget-title" >Groups</p></div>
             {/* <div id="searchDir" /> */}
             <ul className="nearby-contct sidebar-grp">
-                {searchedGroups.slice(0,4).map(
+                {searchedGroups.slice(0, 4).map(
                     group =>
-                    <li key={group.id}>
-                    <div className="nearly-pepls" style={{display:'flex' ,background:'white' ,padding:'10px'}}>
-                        <figure>
-                            {console.log(group.groupImagePath)}
-                            <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : Grpicon} alt="" /></a>
-                        </figure>
-                        <div className="pepl-info">
-                            <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
-                            <span>{`${group.description}`}</span>
+                        <li key={group.id}>
+                            <div className="nearly-pepls" style={{ display: 'flex', background: 'white', padding: '10px' }}>
+                                <figure>
+                                    <a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? group.groupImagePath : Grpicon} alt="" /></a>
+                                </figure>
+                                <div className="pepl-info">
+                                    <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
+                                    <span>{`${group.description}`}</span>
 
-                        </div>
-                        <button className="button" style={{width:'60px',margin:'10px',padding:'0 5px'}}>Join</button>
-                    </div>
-                </li>
+                                </div>
+                                <button className="button" style={{ width: '60px', margin: '10px', padding: '0 5px', fontSize: '14px', fontSize: '600' }}>Join</button>
+                            </div>
+                        </li>
                 )}
             </ul>
         </div>

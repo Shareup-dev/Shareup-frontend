@@ -352,8 +352,8 @@ export default function PostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ?  user.profilePicturePath
+                      :  userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -749,7 +749,7 @@ export default function PostComponent({ post, setRefresh }) {
                     {isOpen && (
                       <Lightbox
                         mainSrc={
-                          fileStorage.baseUrl + post.media[photoIndex].mediaPath
+                           post.media[photoIndex].mediaPath
                         }
                         nextSrc={
                           post.media[(photoIndex + 1) % post.media.length]
@@ -874,9 +874,9 @@ export default function PostComponent({ post, setRefresh }) {
                                     <img
                                       src={
                                         user
-                                          ? fileStorage.baseUrl +
+                                          ? 
                                             user.profilePicture
-                                          : fileStorage.baseUrl +
+                                          : 
                                             userR.profilePicture
                                       }
                                       alt=""
@@ -1017,8 +1017,8 @@ export default function PostComponent({ post, setRefresh }) {
                       <figure>
                         <img
                           src={
-                            fileStorage.baseUrl +
-                            post.post.userdata.profilePicture
+                            
+                            post.post.userdata.profilePicturePath
                           }
                           alt=""
                           className="post-user-img"
@@ -1172,7 +1172,7 @@ export default function PostComponent({ post, setRefresh }) {
                       {isOpen && (
                         <Lightbox
                           mainSrc={
-                            fileStorage.baseUrl +
+                            
                             post.post.media[photoIndex].mediaPath
                           }
                           nextSrc={
@@ -1215,7 +1215,7 @@ export default function PostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                            mainSrc={ postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -1238,7 +1238,7 @@ export default function PostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
+                            mainSrc={ postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -1305,10 +1305,10 @@ export default function PostComponent({ post, setRefresh }) {
                                       <img
                                         src={
                                           user
-                                            ? fileStorage.baseUrl +
-                                            user.profilePicture
-                                            : fileStorage.baseUrl +
-                                            userR.profilePicture
+                                            ? 
+                                            user.profilePicturePath
+                                            : 
+                                            userR.profilePicturePath
                                         }
                                         alt=""
                                       />

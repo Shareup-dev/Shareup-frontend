@@ -327,7 +327,7 @@ export default function Layout(props) {
                       <div className="col-lg-3">
                         <aside
                           className="sidebar static "
-                          style={{ paddingTop: "10px" }}
+                          style={{ paddingTop: "22px" }}
                         >
                           {/* <div className="widget friend-list stick-widget">
                         <div className="row"><img src="../assets/images/1865023.png"/><p className="widget-title">Ads</p></div>
