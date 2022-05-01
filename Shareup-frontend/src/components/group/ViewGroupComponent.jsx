@@ -266,7 +266,7 @@ const handleCounterReaction = () => {
 				<div className="central-meta">
 					<div className="new-postbox">
 						<figure>
-							<img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
+							<img src={user.profilePicturePath}  alt="" />
 						</figure>
 						<div className="newpst-input">
                   <Form>

@@ -34,6 +34,7 @@ import FriendsService from "../../services/FriendService";
 import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
+import UserIcon from '../../images/usericon.png';
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -514,7 +515,7 @@ function NewsfeedComponent() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -1497,7 +1498,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={}
+            // onClick={}
             >
               SWAP
             </button>
@@ -1848,7 +1849,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={uploadPost}
+            // onClick={uploadPost}
             >
               POST
             </button>
@@ -2160,7 +2161,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-                // onClick={uploadPost}
+              // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2485,7 +2486,7 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => {}, [postsForUser]);
+  useEffect(() => { }, [postsForUser]);
 
   const show = () => {
     return (
@@ -2633,7 +2634,7 @@ function NewsfeedComponent() {
               <li class="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src="/assets/images/vector-34@2x.png" alt="img" />
+                    <img src={user.profilePicturePath} alt="img" />
                   </div>
                   <Popup trigger={<div className="add-stry"> +</div>} modal>
                     {(close) => (
@@ -2716,15 +2717,15 @@ function NewsfeedComponent() {
                               </div>
                             )}
                             <textarea
-                                className="textpopup"
-                                rows={2}
-                                placeholder={
-                                 "Add text to your Story"
-                                }
-                                name="story_content"
-                                value={storyContent}
-                                onChange={handleStoryContent}
-                              />
+                              className="textpopup"
+                              rows={2}
+                              placeholder={
+                                "Add text to your Story"
+                              }
+                              name="story_content"
+                              value={storyContent}
+                              onChange={handleStoryContent}
+                            />
                           </span>
                           <div className="storyErr">
                             {uploadErrorStory ? `${uploadErrorStory}` : null}
@@ -2804,7 +2805,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                            storiesForUserFriends[index].stories_List.length - 1
+                          storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -2831,7 +2832,7 @@ function NewsfeedComponent() {
                           </div>
                         </div>
                       </div>
-                      <DisplayFriendsStoryComponent key={story.id} id={index} 
+                      <DisplayFriendsStoryComponent key={story.id} id={index}
                         story={
                           storiesForUserFriends[index].stories_List
                         }
@@ -2858,8 +2859,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      ? user.profilePicturePath
+                      : userR.profilePicturePath
                   }
                   alt=""
                 />

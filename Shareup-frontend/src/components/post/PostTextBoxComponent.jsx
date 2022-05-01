@@ -1912,8 +1912,8 @@ function PostTextBoxComponent() {
           <img
             src={
               user
-                ? fileStorage.baseUrl + user.profilePicturePath
-                : fileStorage.baseUrl + userR.profilePicturePath
+                ?  user.profilePicturePath
+                :  userR.profilePicturePath
             }
             alt=""
           />
