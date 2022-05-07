@@ -288,7 +288,7 @@ function CreateGroupComponentMain() {
 
                         <div className="" style={{ textAlign: "center" }}>
                             <label className='mb-10'>Group Image</label>
-                            <div class="image-upload  pos-rel ">
+                            <div class="image-upload  pos-rel " style={showprofilePicturePath?{border:'none'}:{border: '1px solid #ccc'}}>
                                 <label for="file-input">
                                     {
                                         showprofilePicturePath ?
@@ -304,7 +304,7 @@ function CreateGroupComponentMain() {
                         <br/>
                         <div className="" style={{ textAlign: "center" }}>
                             <legend className='mb-10'>Group Cover Image</legend>
-                            <div class="image-upload pos-rel">
+                            <div class="image-upload pos-rel" style={showCoverPicture?{border:'none'}:{border: '1px solid #ccc'}}>
                                 <label for="file-input-cover">
                                 
                                     {

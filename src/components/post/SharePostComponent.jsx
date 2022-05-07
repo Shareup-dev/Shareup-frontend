@@ -211,10 +211,10 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return (<i class="fas fa-star" style={{ fontSize: '12px' }}></i>)
+      return (<i className="fas fa-star" style={{ fontSize: '12px' }}></i>)
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
-    return (<i class="fas fa-star" style={{ fontSize: '12px', color: '#d83535' }}></i>)
+    return (<i className="fas fa-star" style={{ fontSize: '12px', color: '#d83535' }}></i>)
   }
 
   const handleSettingReactions = (reaction) => {
@@ -250,7 +250,7 @@ export default function PostComponent({ post, setRefresh }) {
         <div className='' style={{ width: '100%' }}>
           <label className='fileContainer' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <input type='file' name='swap_image' accept='image/*' onChange={handleFileSwap}></input>
-            Upload swap images<i class='lar la-file-image'></i>
+            Upload swap images<i className='lar la-file-image'></i>
           </label>
         </div>
       </div>
@@ -326,7 +326,7 @@ export default function PostComponent({ post, setRefresh }) {
               <div className='row'>
                 <div style={{ width: '20%' }}>
                   <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                    <i class='las la-times'></i>
+                    <i className='las la-times'></i>
                   </a>
                 </div>
 
@@ -340,13 +340,13 @@ export default function PostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ? fileStorage.baseUrl + user.profilePicture
-                      : fileStorage.baseUrl + userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=''
                 />
               </div>
-              <div class='popupuser-name'>
+              <div className='popupuser-name'>
 
                 <div style={{ display: 'inline' }}>
                   <span>
@@ -488,7 +488,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </div>
                     <div className='itemS2'>
                       <div className='swapbtnfeed'>
-                        <i class='las la-sync'></i>
+                        <i className='las la-sync'></i>
                       </div>
                     </div>
                     <div className='itemS3'>
@@ -575,7 +575,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <div style={{ display: 'flex' }}>
 
                   <figure>
-                    <img src={fileStorage.baseUrl + post.user.profilePicture} alt='' className="post-user-img" />
+                    <img src={fileStorage.baseUrl + post.user.profilePicturePath} alt='' className="post-user-img" />
                   </figure>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                     <a
@@ -608,7 +608,7 @@ export default function PostComponent({ post, setRefresh }) {
                     </a>
                     <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
                       on {moment(post.published, "DD MMMM YYYY hh:mm:ss").fromNow()}
-                      {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                      {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>
 
@@ -619,37 +619,37 @@ export default function PostComponent({ post, setRefresh }) {
                 ></div> */}
                 {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
                       <span title='add icon'>
-                        <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
+                        <i className='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
                     </div> */}
-                <div class="dropdown add-dropdown">
-                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
+                <div className="dropdown add-dropdown">
+                  <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i className='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
                   </button>
-                  <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                  <div className="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
                     <ul>
                       {post.user.id === user.id ? (
                         <li onClick={() => handleEditPost(post.id)}>
-                          <i class='las la-pencil-alt'></i>
+                          <i className='las la-pencil-alt'></i>
                           <span>Edit Post</span>
                         </li>
                       ) : (
                         <></>
                       )}
                       <li onClick={() => handleSavePost(post.id)}>
-                        <i class='lar la-bookmark'></i>
+                        <i className='lar la-bookmark'></i>
                         <span>Save Post</span>
                       </li>
                       {post.user.id === user.id ? (
                         <li onClick={() => handleDeletePost(post)}>
-                          <i class='las la-trash'></i>
+                          <i className='las la-trash'></i>
                           <span>Delete</span>
                         </li>
                       ) : (
                         <></>
                       )}
                       <li>
-                        <i class='las la-link'></i>
+                        <i className='las la-link'></i>
                         <span>Copy Link</span>
                       </li>
                     </ul>
@@ -671,7 +671,7 @@ export default function PostComponent({ post, setRefresh }) {
                       className="owl-theme grp-carousel post-carousel"
                       dots
                       nav
-                      navText={"<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"}
+                      navText={"<i className='fa fa-chevron-left'></i>", "<i className='fa fa-chevron-right'></i>"}
                       margin={10}>
                       {post.media.map((postImage, index) => (
                         <React.Fragment>
@@ -756,7 +756,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     <div className='row'>
                                       <div style={{ width: '20%' }}>
                                         <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                                          <i class='las la-times'></i>
+                                          <i className='las la-times'></i>
                                         </a>
                                       </div>
                                       <div
@@ -773,13 +773,13 @@ export default function PostComponent({ post, setRefresh }) {
                                       <img
                                         src={
                                           user
-                                            ? fileStorage.baseUrl + user.profilePicture
-                                            : fileStorage.baseUrl + userR.profilePicture
+                                            ? fileStorage.baseUrl + user.profilePicturePath
+                                            : fileStorage.baseUrl + userR.profilePicturePath
                                         }
                                         alt=''
                                       />
                                     </div>
-                                    <div class='popupuser-name'>
+                                    <div className='popupuser-name'>
                                       <div style={{ display: 'inline' }}>
                                         <span>
                                           {`${user.firstName} ${user.lastName}`}
@@ -840,7 +840,7 @@ export default function PostComponent({ post, setRefresh }) {
                                                 padding: '10px 10px',
                                               }}
                                             >
-                                              <i class='las la-times'></i>
+                                              <i className='las la-times'></i>
                                             </button>
                                           </div>
 
@@ -901,7 +901,7 @@ export default function PostComponent({ post, setRefresh }) {
                   <div className='friend-name' style={{ width: "100%", display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '8px' }}>
                     <div style={{ display: 'flex' }}>
                       <figure>
-                        <img src={fileStorage.baseUrl + post.post.user.profilePicture} alt='' className="post-user-img" style={{borderRadius: '100%'}} />
+                        <img src={fileStorage.baseUrl + post.post.user.profilePicturePath} alt='' className="post-user-img" style={{borderRadius: '100%'}} />
                       </figure>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: '10px' }}>
                         <a
@@ -920,7 +920,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </a>
                         <span style={{ display: 'block', fontSize: '12px', paddingTop: '5px' }}>
                           on {moment(post.post.published, "DD MMMM YYYY hh:mm:ss").fromNow()}
-                          {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                          {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                         </span>
                       </div>
 
@@ -931,37 +931,37 @@ export default function PostComponent({ post, setRefresh }) {
                 ></div> */}
                     {/* <div className='add-dropdown' onClick={toggleShowMoreOptions}>
                       <span title='add icon'>
-                        <i class='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
+                        <i className='las la-ellipsis-h' style={{  fontSize: '30px' }}></i>
                       </span>
                     </div> */}
-                    <div class="dropdown add-dropdown">
-                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
+                    <div className="dropdown add-dropdown">
+                      <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className='fas fa-ellipsis-h' style={{ fontSize: '20px' }}></i>
                       </button>
-                      <div class="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
+                      <div className="dropdown-menu drop-options" aria-labelledby="dropdownMenuButton">
                         <ul>
                           {post.post.user.id === user.id ? (
                             <li onClick={() => handleEditPost(post.id)}>
-                              <i class='las la-pencil-alt'></i>
+                              <i className='las la-pencil-alt'></i>
                               <span>Edit Post</span>
                             </li>
                           ) : (
                             <></>
                           )}
                           <li onClick={() => handleSavePost(post.id)}>
-                            <i class='lar la-bookmark'></i>
+                            <i className='lar la-bookmark'></i>
                             <span>Save Post</span>
                           </li>
                           {post.post.user.id === user.id ? (
                             <li onClick={() => handleDeletePost(post.post)}>
-                              <i class='las la-trash'></i>
+                              <i className='las la-trash'></i>
                               <span>Delete</span>
                             </li>
                           ) : (
                             <></>
                           )}
                           <li>
-                            <i class='las la-link'></i>
+                            <i className='las la-link'></i>
                             <span>Copy Link</span>
                           </li>
                         </ul>
@@ -991,7 +991,7 @@ export default function PostComponent({ post, setRefresh }) {
                           className="owl-theme grp-carousel post-carousel"
                           dots
                           nav
-                          navText={"<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"}
+                          navText={"<i className='fa fa-chevron-left'></i>", "<i className='fa fa-chevron-right'></i>"}
                           margin={10}>
                           {post.post.media.map((postImage, index) => (
                             <React.Fragment>
@@ -1076,7 +1076,7 @@ export default function PostComponent({ post, setRefresh }) {
                                         <div className='row'>
                                           <div style={{ width: '20%' }}>
                                             <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
-                                              <i class='las la-times'></i>
+                                              <i className='las la-times'></i>
                                             </a>
                                           </div>
                                           <div
@@ -1093,13 +1093,13 @@ export default function PostComponent({ post, setRefresh }) {
                                           <img
                                             src={
                                               user
-                                                ? fileStorage.baseUrl + user.profilePicture
-                                                : fileStorage.baseUrl + userR.profilePicture
+                                                ? fileStorage.baseUrl + user.profilePicturePath
+                                                : fileStorage.baseUrl + userR.profilePicturePath
                                             }
                                             alt=''
                                           />
                                         </div>
-                                        <div class='popupuser-name'>
+                                        <div className='popupuser-name'>
                                           <div style={{ display: 'inline' }}>
                                             <span>
                                               {`${user.firstName} ${user.lastName}`}
@@ -1160,7 +1160,7 @@ export default function PostComponent({ post, setRefresh }) {
                                                     padding: '10px 10px',
                                                   }}
                                                 >
-                                                  <i class='las la-times'></i>
+                                                  <i className='las la-times'></i>
                                                 </button>
                                               </div>
 
@@ -1237,7 +1237,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                                 {/* <img src='/assets/images/Star.svg' alt='' /> */}
                                 {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                                <i class="far fa-star" ></i>
+                                <i className="far fa-star" ></i>
 
                                 {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
 
@@ -1323,7 +1323,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i class="far fa-star" ></i>
+                            <i className="far fa-star" ></i>
 
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
 
@@ -1412,7 +1412,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i class="far fa-star" style={{ paddingRight: '5px' }}></i>
+                            <i className="far fa-star" style={{ paddingRight: '5px' }}></i>
                             Star
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
 
@@ -1446,7 +1446,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                         {/* <img src='/assets/images/comment.svg' /> */}
                         {/* <span style={{ paddingLeft: '2px' }}>Comment</span> */}
-                        <i class="far fa-comment"></i>
+                        <i className="far fa-comment"></i>
                         <span style={{ paddingLeft: '5px' }}>
                           Comments
 
@@ -1459,7 +1459,7 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className='btncmn'>
                       <span className='views' data-toggle='tooltip' title='Share' >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
-                        <i class="fas fa-share" style={{ paddingRight: '5px' }}></i>
+                        <i className="fas fa-share" style={{ paddingRight: '5px' }}></i>
                         {sharepopup()}
 
                       </span>
@@ -1467,7 +1467,7 @@ export default function PostComponent({ post, setRefresh }) {
                     {/* <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         
-                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
+                        {checkIfSaved(post)==true?<i className="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i className="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
                     {/* </span>
                     </div> */}
@@ -1488,26 +1488,26 @@ export default function PostComponent({ post, setRefresh }) {
               </li>
               {post.user.id === user.id ? (
                 <li onClick={() => handleEditPost(post.id)}>
-                  <i class='las la-pencil-alt'></i>
+                  <i className='las la-pencil-alt'></i>
                   <span>Edit Post</span>
                 </li>
               ) : (
                 <></>
               )}
               <li onClick={() => handleSavePost(post.id)}>
-                <i class='lar la-bookmark'></i>
+                <i className='lar la-bookmark'></i>
                 <span>Save Post</span>
               </li>
               {post.user.id === user.id ? (
                 <li onClick={() => handleDeletePost(post.id)}>
-                  <i class='las la-trash'></i>
+                  <i className='las la-trash'></i>
                   <span>Delete</span>
                 </li>
               ) : (
                 <></>
               )}
               <li>
-                <i class='las la-link'></i>
+                <i className='las la-link'></i>
                 <span>Copy Link</span>
               </li>
             </ul>

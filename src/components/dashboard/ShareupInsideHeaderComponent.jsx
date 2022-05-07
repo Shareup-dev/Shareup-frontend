@@ -121,7 +121,7 @@ function ShareupInsideHeaderComponent() {
                 {searchedFriendsList.slice(0, 4).map(friend =>
                     <li key={friend.id}>
                         <figure>
-                            <img src={friend.profilePicture} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
+                            <img src={friend.profilePicturePath} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
                             {/* <span className="status f-online" />
                         </figure>
                         <div className="friendz-meta">

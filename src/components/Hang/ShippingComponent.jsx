@@ -407,8 +407,8 @@ function ShippingComponent(props)  {
  <Popup  trigger={<a href="#" className="buttonShip">Let's Care it</a>} modal>
                        {close => ( 
                <div>  
-   <div><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
-    <div style={{ color:'#000000',textAlign:'center',fontSize:'14px',fontWeight:'bold',marginTop:'30px'}}><div style={{fontSize:'42px',fontWeight:'bold'}}><i class="las la-shipping-fast"></i></div>Your have successfully done
+   <div><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i className="las la-times"></i></a></div>
+    <div style={{ color:'#000000',textAlign:'center',fontSize:'14px',fontWeight:'bold',marginTop:'30px'}}><div style={{fontSize:'42px',fontWeight:'bold'}}><i className="las la-shipping-fast"></i></div>Your have successfully done
     <p style={{ color:'#9AAAAE',padding:'20px 0 30px 0'}}>Your item is successfully booked</p>
     
     
@@ -439,20 +439,20 @@ function ShippingComponent(props)  {
                       
                         <li><Popup trigger={<span>Hang Share</span>} position="right center">
     <div className="headpop">
-    <div style={{padding:'10px'}}><span><a href="#!" style={{padding:'10px'}} ><i class="las la-times"></i></a></span>
+    <div style={{padding:'10px'}}><span><a href="#!" style={{padding:'10px'}} ><i className="las la-times"></i></a></span>
     <span style={{ color:'#000000',fontSize:'14px'}}>Today to me, Tomorrow to you</span>
     <span style={{float:'right'}}><a className="popup-btn" href="#!" >Keep Hang</a></span>
     </div></div>
     <div className="popupimg"> 
-    <img src={user ? user.profilePicture : userR.profilePicture} alt="" /><span>{`${user.firstName} ${user.lastName}`}</span>
+    <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" /><span>{`${user.firstName} ${user.lastName}`}</span>
                             </div>
   </Popup> </li>
 
                         <li><label className="fileContainer"><img src="/assets/images/share-2.png" alt="img" /><span>Share Up</span> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
                         </label></li>
-                        <li><label className="fileContainer"><i class="las la-sync"></i><span>Swap</span> <input type="file" name="post_video" />
+                        <li><label className="fileContainer"><i className="las la-sync"></i><span>Swap</span> <input type="file" name="post_video" />
                         </label></li>
-                        {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
+                        {/* <li><i className="las la-camera"></i> <label className="fileContainer"> <input type="file" />
                         </label></li> 
                         
                           

@@ -43,7 +43,7 @@ function OtherProfileComponent() {
   const { user } = useContext(UserContext);
 
   const [temp, setTemp] = useState("");
-  const [profilePicture, setprofilePicturePath] = useState(null);
+  const [profilePicturePath, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
   const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
   const [showstoriesImage, setShowstoriesImage] = useState(false);
@@ -56,7 +56,7 @@ function OtherProfileComponent() {
   const [job, setJob] = useState("");
   const [homeTown, setHomeTown] = useState("");
   const [friendStatus, setFriendStatus] = useState("");
-  const [ProfileCount, setProfileCount] = useState("");
+  const [ProfileCount, setProfileCount] = useState();
   const [relationshipStatus, setRelationshipStatus] = useState("");
   const [interests, setInterests] = useState("");
   const [storiesForUser, setStoriesForUser] = useState([]);
@@ -207,11 +207,11 @@ function OtherProfileComponent() {
   };
 
   const uploadprofilePicturePath = async () => {
-    if (profilePicture === "") {
+    if (profilePicturePath === "") {
       return;
     }
     const formData = new FormData();
-    formData.append("profilePicture", profilePicture);
+    formData.append("profilePicture", profilePicturePath);
     await UserService.uploadProfilePicture(user_email, formData).then((res) => {
       window.location.reload();
     });
@@ -386,13 +386,13 @@ function OtherProfileComponent() {
     getAllFriendRequestRecieved();
     getPostForUser();
     getStoriesForUser();
-  }, [show, friendStatus]);
+  }, [show, friendStatus,refresh]);
 
   useEffect(() => {
     getFriendStatus();
     getFriendCount();
     getPostForUser();
-  }, [userProfile, friendStatus]);
+  }, [userProfile, friendStatus,refresh]);
 
   const handleShow = () => {
     if (show === "timeline") {
@@ -410,7 +410,7 @@ function OtherProfileComponent() {
                 >
                   <Tab
                     style={{ textTransform: "capitalize" }}
-                    label="Phots"
+                    label="Photos"
                     value="1"
                   />
                   <Tab
@@ -772,6 +772,7 @@ function OtherProfileComponent() {
                 <div className="row">
                   <div  className="col-lg-3">
                     <div className="right-edit-profile-image-a">
+                    {user?.id === userProfile?.id ? (
                       <label className="fileContainer ">
                         <div className="add-prof mrgnFileCntnrVwProf">+</div>
                         <input
@@ -782,6 +783,7 @@ function OtherProfileComponent() {
                           onChange={handleProfileImage}
                         ></input>
                       </label>
+                    ):null}
 
                       {showprofilePicturePath ? (
                         <>
@@ -802,15 +804,30 @@ function OtherProfileComponent() {
                           {" "}
                           <img
                             src={
-                              userProfile.profilePicture
+                              userProfile.profilePicturePath
                                 ? fileStorage.baseUrl +
-                                  userProfile.profilePicture
+                                  userProfile.profilePicturePath
                                 : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                             }
                           ></img>{" "}
                         </>
                       )}
                     </div>
+                    {user?.id !== userProfile?.id ? (
+                        !following.some((el) => el.id === userProfile?.id) ? (
+                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
+                            onClick={() => handleFollow(userProfile?.id)}
+                          >
+                            Follow
+                          </button>
+                        ) : (
+                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
+                            onClick={() => handleUnfollow(userProfile?.id)}
+                          >
+                            Unfollow
+                          </button>
+                        )
+                      ) : null}
                   </div>
                   <div className="col-lg-9">
                     <div
@@ -820,7 +837,7 @@ function OtherProfileComponent() {
                       }}
                     >
                       <div>
-                        <h5>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h5>
+                        <h5>{`${userProfile?userProfile.firstName:'0'} ${userProfile?userProfile.lastName:'0'}`}</h5>
                       </div>
                       {userProfile?.id === user?.id ? (
                         <div>
@@ -930,19 +947,19 @@ function OtherProfileComponent() {
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.posts_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.posts_count:'0'}`}</span>
                           <span>Posts</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.followers_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.followers_count:'0'}`}</span>
                           <span>Followers</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?.followings_count}`}</span>
+                          >{`${ProfileCount?ProfileCount.followings_count:'0'}`}</span>
                           <span>Following</span>
                         </li>
                       </ul>
@@ -972,7 +989,7 @@ function OtherProfileComponent() {
                           {
                             showprofilePicturePath ?
                               <img id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           <form className="edit-phto">
                             <i className="fa fa-camera-retro"></i>
@@ -1234,7 +1251,7 @@ function OtherProfileComponent() {
                 <div className="user-avatar">{
                             showprofilePicturePath ?
                               <img  id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img className="border-gradient" src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img className="border-gradient" src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           
                           
@@ -1250,7 +1267,7 @@ function OtherProfileComponent() {
                           {
                             showprofilePicturePath ?
                               <img id="preview" src={profileRender} /> :
-                              userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                              userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                           }
                           <form className="edit-phto">
                             <i className="fa fa-camera-retro"></i>

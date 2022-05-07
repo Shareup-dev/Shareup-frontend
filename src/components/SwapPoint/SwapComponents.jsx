@@ -114,7 +114,6 @@ export default function SwapComponents(props) {
     })
   }
   const handleFileStry = (event) => {
-    console.log(event.target.files[0])
     setFilesStry(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
@@ -122,7 +121,6 @@ export default function SwapComponents(props) {
         setStoriesImage(reader.result)
       }
     }
-    console.log(event.target.files[0])
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0])
     // }
@@ -133,7 +131,6 @@ export default function SwapComponents(props) {
     setShowstoriesImage(false)
   }
   const handleLeaveGroup = (group_id) => {
-    console.log(group_id)
     GroupService.leaveGroup(user.id, group_id).then(res => {
       setRefresh(res.data)
       setGroup(res.data)
@@ -141,7 +138,6 @@ export default function SwapComponents(props) {
   }
 
   const handleJoinGroup = (group_id) => {
-    console.log(group_id)
     GroupService.joinGroup(user.id, group_id).then(res => {
       setRefresh(res.data)
       setGroup(res.data)
@@ -176,20 +172,17 @@ export default function SwapComponents(props) {
   }
 
   const handlePostContent = (event) => {
-    console.log(event.target.value)
     setPostContent(event.target.value)
   }
 
   const handleDeletePost = (postid) => {
     PostService.deletePost(postid).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
       // window.location.reload();
     })
   }
 
   const handleCommentContent = (event) => {
-    console.log(event.target.value)
     setCommentContent(event.target.value)
   }
 
@@ -199,7 +192,6 @@ export default function SwapComponents(props) {
     }
     const comment = { content: commentContent }
     PostService.addComment(user.id, postid, comment).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
       setCommentContent("")
     })
@@ -207,7 +199,6 @@ export default function SwapComponents(props) {
   const handleCount = (opertator) => {
     if (opertator === "+") {
       let counting = count + 1
-      console.log(counting + "hi count")
       setCount(counting)
 
     }
@@ -217,7 +208,6 @@ export default function SwapComponents(props) {
   }
 
   const handleFile = (event) => {
-    console.log(event.target.files[0])
     setFiles(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
@@ -225,7 +215,6 @@ export default function SwapComponents(props) {
         setPostImage(reader.result)
       }
     }
-    console.log(event.target.files[0])
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0])
     // }
@@ -240,14 +229,12 @@ export default function SwapComponents(props) {
 
   const handleEditingSave = (value) => {
     setEditPostId(value)
-    // console.log(res.status)
     // window.location.reload();
   }
 
   const checkIfLiked = (post) => {
     // maybe this is more effecient
     // post.reactions.map(r => {
-    //   console.log(JSON.stringify(r.user))
     //   if(r.user.id === user.id){
     //     return true
     //   }else{
@@ -263,30 +250,24 @@ export default function SwapComponents(props) {
   }
 
   const checkIfSaved = (post) => {
-    console.log(post.savedByUsers)
     // maybe this is more effecient
     // post.savedByUsers.map(r => {
-    //   console.log("runninggg")
-    //   console.log(JSON.stringify(r.user) + " i p pp p p")
+
     // if(r.user.id === user.id){
     //   return true
     // }else{
     //   return false
     // }
     // })
-    console.log(post.savedByUsers.length + " yaa")
     const result = post.savedByUsers.filter(userz => userz.id == user.id)
     if (result.length > 0) {
-      console.log(" FOUND")
       return true
     }
-    console.log(" Not found")
     return false
   }
 
   const handleDeleteComment = (commentid) => {
     PostService.deleteComment(commentid).then(res => {
-      console.log(res.status)
       setRefresh(res.data)
     })
   }
@@ -299,29 +280,23 @@ export default function SwapComponents(props) {
     return counter
   }
   const handlePrivacy = (event) => {
-    console.log(event.target.value)
     setPrivacy(event.target.value)
   }
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("")
-    console.log("uploading post working")
     if (postContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-      console.log("cant be null")
       setUploadError("Please Insert A Text or an Image")
       return
     }
 
     const formData = new FormData();
     formData.append('content', postContent)
-    console.log(" this is the files" + files)
-    console.log(" this is the swapfiles" + swapfiles)
     formData.append(`files`, files)
     formData.append(`swapfiles`, swapfiles)
     formData.append(`privacy`, Privacy)
     if (userF === null) {
       SwapService.createSwap(user.id, formData, null).then(res => {
-        console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
         handleRemoveImageSwap()
@@ -330,7 +305,6 @@ export default function SwapComponents(props) {
       })
     } else
       SwapService.createSwap(user.id, formData, userF.id).then(res => {
-        console.log(JSON.stringify(res))
         setPostContent("")
         handleRemoveImage()
         handleRemoveImageSwap()
@@ -357,11 +331,9 @@ export default function SwapComponents(props) {
   }
   //swapcomponents
   const handleSwapContent = (event) => {
-    console.log(event.target.value)
     setSwapContent(event.target.value)
   }
   const handleFileSwap = (event) => {
-    console.log(event.target.files[0])
     setSwapfiles(event.target.files[0])
     const reader = new FileReader();
     reader.onload = () => {
@@ -369,7 +341,6 @@ export default function SwapComponents(props) {
         setSwapImage(reader.result)
       }
     }
-    console.log(event.target.files[0])
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0])
     // }
@@ -382,19 +353,15 @@ export default function SwapComponents(props) {
   // const uploadSwap = (event) => {
   //   event.preventDefault();
   //   setUploadError("")
-  //   console.log("uploading post working")
   //   if (swapContent === "" && (Object.keys(files).length === 0 && files.constructor === Object)) {
-  //     console.log("cant be null")
   //     setUploadError("Please Insert A Text or an Image")
   //     return
   //   }
 
   //   const formData = new FormData();
   //   formData.append('content', swapContent)
-  //   console.log(" this is the files" + files)
   //   formData.append(`files`, files)
   //   SwapService.createSwap(user.id, formData).then(res => {
-  //     console.log(JSON.stringify(res))
   //     setSwapContent("")
   //     handleRemoveImage()
   //     setRefresh(res.data)
@@ -414,12 +381,10 @@ export default function SwapComponents(props) {
   }
   const getUser = async () => {
     if (user === null) {
-      console.log("RUNNING")
       await UserService.getUserByEmail(AuthService.getCurrentUser().username).then(res => {
         setUserR(res.data);
       })
     } else {
-      console.log("WALKING" + JSON.stringify(user))
       setUserR(user)
     }
   }
@@ -431,7 +396,7 @@ export default function SwapComponents(props) {
 
         <div className="add-smilespopup">
           <label className="fileContainer">
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
             <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
           </label></div>
 
@@ -440,14 +405,14 @@ export default function SwapComponents(props) {
 
           <Popup trigger={
             <a href="#!">
-              <i class="las la-user-tag"></i></a>}
+              <i className="las la-user-tag"></i></a>}
             nested modal>
             {
               close => (
                 <Form style={{ margin: '5px' }}
                   className="popwidth">
-                  <div class="search-container">
-                    <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+                  <div className="search-container">
+                    <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
                   </div>
                   {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
                   <div>
@@ -459,12 +424,12 @@ export default function SwapComponents(props) {
                               <li key={userM.id} className="friends-card">
                                 <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
-                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicture} alt="" /></a>
+                                  <div className="item1">
+                                    <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
                                     {/* </figure> */}
 
                                   </div>
-                                  <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                  <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
                                 </div></a>
@@ -477,14 +442,14 @@ export default function SwapComponents(props) {
           </Popup></div>
         <div className="campopup">
           <label className="fileContainer">
-            <i class="las la-map-marker-alt"></i>
+            <i className="las la-map-marker-alt"></i>
             <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
           </label></div>
 
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}</div>
     )
 
@@ -496,12 +461,12 @@ export default function SwapComponents(props) {
       <div style={{ margin: '0 11px', padding: '15px', boxShadow: '0 0 3px rgb(0 0 0 / 16%)', borderRadius: '5px' }}>
         <div style={{ display: 'inline' }}>Add More</div>
 
-        <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
         </label></div>
-        <div className="gifpopup"><Popup trigger={<a href="#!"><i class="las la-user-tag"></i></a>} nested modal>
+        <div className="gifpopup"><Popup trigger={<a href="#!"><i className="las la-user-tag"></i></a>} nested modal>
           {close => (<Form style={{ margin: '5px' }} className="popwidth">
-            <div class="search-container">
-              <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
+            <div className="search-container">
+              <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedUser} /><span onClick={close}>Done</span>
             </div>
             {(userF) ? <><div className="Tag">Tagged:{`${userF.firstName} ${userF.lastName}`}</div></> : null}
             <div>
@@ -513,12 +478,12 @@ export default function SwapComponents(props) {
                         <li key={userM.id} className="friends-card">
                           <a href="#!" onClick={() => handleTag(userM)}> <div className="grid-container">
                             {/* <figure> */}
-                            <div class="item1">
-                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicture} alt="" /></a>
+                            <div className="item1">
+                              <a href={`/profile/${userM.email}`} title={`${userM.email}`}><img style={{ objectFit: 'cover' }} src={userM.profilePicturePath} alt="" /></a>
                               {/* </figure> */}
 
                             </div>
-                            <div class="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                            <div className="item2"><p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                             </div>
                             {/* <div className="  "> */}
                           </div></a>
@@ -529,7 +494,7 @@ export default function SwapComponents(props) {
           </Form>
           )}
         </Popup></div>
-        <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
         </label></div>
 
 
@@ -540,7 +505,6 @@ export default function SwapComponents(props) {
   }
   const handleTag = (userM) => {
     setUserF(userM)
-    console.log(userM)
   }
   const handleSearchedUser = (event) => {
     if (event.target.value === "") {
@@ -557,7 +521,6 @@ export default function SwapComponents(props) {
         }
       })
       setSearchedUser(temp)
-      console.log(temp)
     }
   }
   const getAllUser = async () => {
@@ -565,7 +528,6 @@ export default function SwapComponents(props) {
       setAllUser(res.data)
       setSearchedUser(res.data)
     })
-    console.log(user.email + " This is the users")
   }
   const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
@@ -622,9 +584,9 @@ export default function SwapComponents(props) {
                 <div style={{ float: 'left', width: '50%', textAlign: 'left' }}>
                   <div style={{display: 'flex'}}>
                     <div className="popupimg">
-                      <img src={user ? fileStorage.baseUrl + user.profilePicture : fileStorage.baseUrl + userR.profilePicture} alt="" />
+                      <img src={user ? fileStorage.baseUrl + user.profilePicturePath : fileStorage.baseUrl + userR.profilePicturePath} alt="" />
                     </div>
-                      <div class="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
+                      <div className="popupuser-name"><div style={{ float: 'left', display: 'inline' }}>
                         <span style={{ textTransform: 'capitalize', fontWeight: 'bold' , fontSize: '1rem'}}>{`${user.firstName} ${user.lastName}`}{(userF) ? <> with {`${userF.firstName} ${userF.lastName}`}</> : null}</span>
                         <span style={{ display: 'block', fontSize: '12px' }}>
                           <div className="dropdown" style={{display: 'flex' , alignItems: 'center'}}>
@@ -665,14 +627,14 @@ export default function SwapComponents(props) {
                     {showPostImage ?
                       <div className="swap-img-container">
                         <img id="preview" src={postImage}  />
-                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i class="las la-times"></i></button>
+                        <button onClick={handleRemoveImage} className="buttonClosePrvw lftbtn"><i className="las la-times"></i></button>
                       </div>
                       :
                       <div style={{ textAlign: 'center' }}>
                         <label className="fileContainer" >
                           <div className="swappic" type="submit">
                             <input type="file" name="swap_image" accept="image/*" onChange={handleFile}></input>
-                            <div style={{display: 'flex' , flexDirection:'column'}}><i class="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div></div>
+                            <div style={{display: 'flex' , flexDirection:'column'}}><i className="lar la-file-image"></i><div style={{ fontSize: '12px' }}>Add Swap Image</div></div>
                           </div>
                         </label>
                       </div>
@@ -687,12 +649,12 @@ export default function SwapComponents(props) {
                     {showSwapImage ?
                       <div className="swap-img-container">
                         <img id="preview" src={swapImage}  />
-                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i class="las la-times"></i></button>
+                        <button onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn"><i className="las la-times"></i></button>
                       </div>
                       :
                       <div style={{ textAlign: 'center' }}><label className="fileContainer" >
                         <div className="swappic" type="submit">
-                          <input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i class="lar la-file-image"></i>
+                          <input type="file" name="swap_image" accept="image/*" onChange={handleFileSwap}></input><i className="lar la-file-image"></i>
                           <div style={{ fontSize: '12px' }}>Add Image to be swapped</div> </div>
                       </label></div>
                     }</div>

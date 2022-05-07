@@ -180,11 +180,11 @@ export default function ReelPostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return <i class="fas fa-star" style={{ fontSize: "12px" }}></i>;
+      return <i className="fas fa-star" style={{ fontSize: "12px" }}></i>;
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
     return (
-      <i class="fas fa-star" style={{ fontSize: "12px", color: "#d83535" }}></i>
+      <i className="fas fa-star" style={{ fontSize: "12px", color: "#d83535" }}></i>
     );
   };
 
@@ -250,7 +250,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
               accept="image/*"
               onChange={handleFileSwap}
             ></input>
-            Upload swap images<i class="lar la-file-image"></i>
+            Upload swap images<i className="lar la-file-image"></i>
           </label>
         </div>
       </div>
@@ -321,7 +321,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
 
@@ -335,13 +335,13 @@ export default function ReelPostComponent({ post, setRefresh }) {
                 <img
                   src={
                     user
-                      ?  user.profilePicture
-                      :  userR.profilePicture
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -446,7 +446,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                   <figure>
                     <img
                       src={
-                         post.userdata.profilePicture
+                        fileStorage.baseUrl + post.userdata.profilePicturePath
                       }
                       alt=""
                       className="post-user-img"
@@ -510,9 +510,9 @@ export default function ReelPostComponent({ post, setRefresh }) {
                   </div>
                 </div>
 
-                <div class="dropdown add-dropdown">
+                <div className="dropdown add-dropdown">
                   <button
-                    class="btn dropdown-toggle"
+                    className="btn dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"
                     data-toggle="dropdown"
@@ -520,29 +520,29 @@ export default function ReelPostComponent({ post, setRefresh }) {
                     aria-expanded="false"
                   >
                     <i
-                      class="fas fa-ellipsis-h"
+                      className="fas fa-ellipsis-h"
                       style={{ fontSize: "20px" }}
                     ></i>
                   </button>
                   <div
-                    class="dropdown-menu drop-options"
+                    className="dropdown-menu drop-options"
                     aria-labelledby="dropdownMenuButton"
                   >
                     <ul>
                       <li onClick={() => handleSavePost(post.id)}>
-                        <i class="lar la-bookmark"></i>
+                        <i className="lar la-bookmark"></i>
                         <span>Save Reel</span>
                       </li>
                       {post.userdata.id === user.id ? (
                         <li onClick={() => handleDeletePost(post)}>
-                          <i class="las la-trash"></i>
+                          <i className="las la-trash"></i>
                           <span>Delete</span>
                         </li>
                       ) : (
                         <></>
                       )}
                       <li>
-                        <i class="las la-link"></i>
+                        <i className="las la-link"></i>
                         <span>Copy Link</span>
                       </li>
                     </ul>
@@ -566,9 +566,9 @@ export default function ReelPostComponent({ post, setRefresh }) {
                             maxHeight: "460px",
                             objectFit: "fill",
                           }}
-                          src={`${fileStorage.baseUrl}${post.video_name}`}
+                          src={`${fileStorage.baseUrl}${post.video_url}`}
                           type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${post.video_name}`}
+                          alt={`${fileStorage.baseUrl}${post.video_url}`}
                           onClick={() => setIsopen()}
                         />
                       </React.Fragment>
@@ -594,8 +594,8 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       <figure>
                         <img
                           src={
-                            
-                            post.post.userdata.profilePicture
+                            fileStorage.baseUrl +
+                            post.post.userdata.profilePicturePath
                           }
                           alt=""
                           className="post-user-img"
@@ -643,14 +643,14 @@ export default function ReelPostComponent({ post, setRefresh }) {
                             post.post.published,
                             "DD MMMM YYYY hh:mm:ss"
                           ).fromNow()}
-                          {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                          {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                         </span>
                       </div>
                     </div>
 
-                    <div class="dropdown add-dropdown">
+                    <div className="dropdown add-dropdown">
                       <button
-                        class="btn dropdown-toggle"
+                        className="btn dropdown-toggle"
                         type="button"
                         id="dropdownMenuButton"
                         data-toggle="dropdown"
@@ -658,37 +658,37 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         aria-expanded="false"
                       >
                         <i
-                          class="fas fa-ellipsis-h"
+                          className="fas fa-ellipsis-h"
                           style={{ fontSize: "20px" }}
                         ></i>
                       </button>
                       <div
-                        class="dropdown-menu drop-options"
+                        className="dropdown-menu drop-options"
                         aria-labelledby="dropdownMenuButton"
                       >
                         <ul>
                           {post.post.userdata.id === user.id ? (
                             <li onClick={() => handleEditPost(post.id)}>
-                              <i class="las la-pencil-alt"></i>
+                              <i className="las la-pencil-alt"></i>
                               <span>Edit Post</span>
                             </li>
                           ) : (
                             <></>
                           )}
                           <li onClick={() => handleSavePost(post.id)}>
-                            <i class="lar la-bookmark"></i>
+                            <i className="lar la-bookmark"></i>
                             <span>Save Post</span>
                           </li>
                           {post.post.userdata.id === user.id ? (
                             <li onClick={() => handleDeletePost(post.post)}>
-                              <i class="las la-trash"></i>
+                              <i className="las la-trash"></i>
                               <span>Delete</span>
                             </li>
                           ) : (
                             <></>
                           )}
                           <li>
-                            <i class="las la-link"></i>
+                            <i className="las la-link"></i>
                             <span>Copy Link</span>
                           </li>
                         </ul>
@@ -716,8 +716,8 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         dots
                         nav
                         navText={
-                          ("<i class='fa fa-chevron-left'></i>",
-                          "<i class='fa fa-chevron-right'></i>")
+                          ("<i className='fa fa-chevron-left'></i>",
+                          "<i className='fa fa-chevron-right'></i>")
                         }
                         margin={10}
                       >
@@ -740,7 +740,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       {isOpen && (
                         <Lightbox
                           mainSrc={
-                            
+                            fileStorage.baseUrl +
                             post.post.media[photoIndex].mediaPath
                           }
                           nextSrc={
@@ -783,7 +783,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={ postImage.mediaPath}
+                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -806,7 +806,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                         />
                         {isOpen && (
                           <Lightbox
-                            mainSrc={ postImage.mediaPath}
+                            mainSrc={fileStorage.baseUrl + postImage.mediaPath}
                             onCloseRequest={() => setIsopen(false)}
                           />
                         )}
@@ -851,7 +851,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                           }}
                                           onClick={close}
                                         >
-                                          <i class="las la-times"></i>
+                                          <i className="las la-times"></i>
                                         </a>
                                       </div>
                                       <div
@@ -873,15 +873,15 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                       <img
                                         src={
                                           user
-                                            ? 
-                                              user.profilePicture
-                                            : 
-                                              userR.profilePicture
+                                            ? fileStorage.baseUrl +
+                                              user.profilePicturePath
+                                            : fileStorage.baseUrl +
+                                              userR.profilePicturePath
                                         }
                                         alt=""
                                       />
                                     </div>
-                                    <div class="popupuser-name">
+                                    <div className="popupuser-name">
                                       <div style={{ display: "inline" }}>
                                         <span>
                                           {`${user.firstName} ${user.lastName}`}
@@ -971,7 +971,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                                                 padding: "10px 10px",
                                               }}
                                             >
-                                              <i class="las la-times"></i>
+                                              <i className="las la-times"></i>
                                             </button>
                                           </div>
                                         </>
@@ -1051,7 +1051,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                               >
                                 {/* <img src='/assets/images/Star.svg' alt='' /> */}
                                 {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                                <i class="far fa-star"></i>
+                                <i className="far fa-star"></i>
 
                                 {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                               </span>
@@ -1133,7 +1133,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                           >
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i class="far fa-star"></i>
+                            <i className="far fa-star"></i>
 
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                           </span>
@@ -1219,7 +1219,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i
-                              class="far fa-star"
+                              className="far fa-star"
                               style={{ paddingRight: "5px" }}
                             ></i>
                             Star
@@ -1257,7 +1257,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       >
                         {/* <img src='/assets/images/comment.svg' /> */}
                         {/* <span style={{ paddingLeft: '2px' }}>Comment</span> */}
-                        <i class="far fa-comment"></i>
+                        <i className="far fa-comment"></i>
                         <span style={{ paddingLeft: "5px" }}>
                           Comments
                           {/* {getCommentCounter(post.comments)} */}
@@ -1273,7 +1273,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                       >
                         {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i
-                          class="fas fa-share"
+                          className="fas fa-share"
                           style={{ paddingRight: "5px" }}
                         ></i>
                         {sharepopup()}
@@ -1282,7 +1282,7 @@ export default function ReelPostComponent({ post, setRefresh }) {
                     {/* <div className='btncmn'>
                       <span className='views' data-toggle='tooltip'>
                         
-                        {checkIfSaved(post)==true?<i class="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i class="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
+                        {checkIfSaved(post)==true?<i className="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i className="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
                         {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
                     {/* </span>
                     </div> */}

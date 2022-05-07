@@ -61,7 +61,7 @@ const checkPop=()=>{
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'transparent'}}>
-        <img src={fileStorage.baseUrl + reel.userdata.profilePicture} alt="" />
+        <img src={fileStorage.baseUrl + reel.userdata.profilePicturePath} alt="" />
       </div>
       <div
         className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center"
@@ -91,9 +91,9 @@ const checkPop=()=>{
                             height: "100%",
                             objectFit: "fill",
                           }}
-                          src={`${fileStorage.baseUrl}${reel.video_name}`}
+                          src={`${fileStorage.baseUrl}${reel.video_url}`}
                           type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${reel.video_name}`}
+                          alt={`${fileStorage.baseUrl}${reel.video_url}`}
                         />
                                               </>
 

@@ -28,7 +28,7 @@ export default function EditProfileComponent() {
     setDescribeYourself(event.target.value);
   };
   const [temp, setTemp] = useState("");
-  const [profilePicture, setprofilePicturePath] = useState(null);
+  const [profilePicturePath, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
   const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
   const [userProfile, setUserProfile] = useState([]);
@@ -96,7 +96,7 @@ export default function EditProfileComponent() {
       lastName: lastName,
       email: user.email,
       optional_email: optional_email,
-      email: birthday_date,
+      birthday_date: birthday_date,
       aboutme: aboutme,
       job: job,
       gender: gender,
@@ -147,7 +147,7 @@ export default function EditProfileComponent() {
     setPhone(event.target.value);
   };
   const handleDate = (event) => {
-    setDob(event.target.value);
+    setBirthdayDate(event.target.value);
   };
 
   const addP = () => {
@@ -175,12 +175,12 @@ export default function EditProfileComponent() {
 
   // By najam end here
   const uploadprofilePicturePath = async () => {
-    if (profilePicture === "") {
+    if (profilePicturePath === "") {
       console.log("cant be null");
       return;
     }
     const formData = new FormData();
-    formData.append("profilePicture", profilePicture);
+    formData.append("profilePicture", profilePicturePath);
     await UserService.uploadProfilePicture(user.email, formData).then((res) => {
       window.location.reload();
     });
@@ -245,8 +245,8 @@ export default function EditProfileComponent() {
                   {" "}
                   <img
                     src={
-                      userProfile.profilePicture
-                        ? fileStorage.baseUrl + userProfile.profilePicture
+                      userProfile.profilePicturePath
+                        ? fileStorage.baseUrl + userProfile.profilePicturePath
                         : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                     }
                   ></img>{" "}
@@ -324,59 +324,18 @@ export default function EditProfileComponent() {
                     />
                   )}
                 </p>
-                {/*modal ends */}
               </div>
               <div className="right-edit-profile-details">
-                <ul>
-                  {/* <span className="text-color-2">Current town / city</span> */}
-                  <li>
-                    <p>
-                      <i
-                        className="las la-home"
-                        aria-hidden="true"
-                        style={{ fontSize: "1.1rem" }}
-                      >
-                        <span className="text-color-2">       Current Country : </span>
-                        <span className="text-color-2">
-                          {" "}
-                          {currentTown ? currentTown : "Add current country"}
-                        </span>
-                      </i>
-                    </p>
-                  </li>
-
-                  <li>
-                    <p>
-                      <i class="las la-map-marker" style={{ fontSize: "1.1rem" }}>
-                        <span className="text-color-2">       Current Home town :
-                        </span>
-
-                        <span className="text-color-2">
-                          {homeTown ? homeTown : "Add current city"}
-                        </span>
-                      </i>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <i class="lab la-gratipay" style={{ fontSize: "1.1rem" }}>
-                        <span className="text-color-2">       Relationship status :
-                        </span>
-                        <span className="text-color-2">
-                          {relationshipStatus
-                            ? relationshipStatus
-                            : "Add Relationship status"}
-                        </span>{" "}
-                      </i>
-                    </p>
-                  </li>
+ <ul>
+                <li><p><i className="las la-home" aria-hidden="true" style={{fontSize:'1.8rem'}} /> {currentTown ?'Current country '+': '+ currentTown : 'Add current country'}</p></li>
+                  <li><p><i class="las la-map-marker" style={{fontSize:'1.8rem'}}></i>{homeTown ?'Current city '+': '+  homeTown : 'Add current city'}</p></li>
+                  <li><p><i class="lab la-gratipay"style={{fontSize:'1.8rem'}} ></i>{relationshipStatus ?'Relationship status '+': '+  relationshipStatus : 'Add Relationship status'}</p></li>
                 </ul>
               </div>
             </div>
             <div className="right-edit-profile-bio">
               <div className="right-edit-profile-bio-top">
                 <p>Hobbies</p>
-                {/*modal start here */}
                 <p className="">
                   <a
                     href="#"
@@ -465,17 +424,30 @@ export default function EditProfileComponent() {
                         textAlign: "left",
                       }}
                     >
-                      <p>Phone Number</p>
+                      <p>Secondary Email  </p>
                     </div>
                     <div className="right-edit-details-input d-flex">
                       <input type="tel" value={p_no} onChange={handlePhone} />
                     </div>
                     <div>
-                      {/* <PhoneInput
-          country={'qa'}
-          value={this.state.phone}
-          onChange={handlePhone}
-        /> */}
+
+                    </div>
+                  </li>
+                  <li className="border-bottom">
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flex: 1,
+                        textAlign: "left",
+                      }}
+                    >
+                      <p>Phone Number</p>
+                    </div>
+                    <div className="right-edit-details-input d-flex">
+                      <input type="tel" value={optional_email} onChange={handleOptionalEmail} />
+                    </div>
+                    <div>
                     </div>
                   </li>
                   <li className="border-bottom">
@@ -521,7 +493,7 @@ export default function EditProfileComponent() {
                       <p>Date of Birth</p>
                     </div>
                     <div className="right-edit-details-input">
-                      <input type="date" value={dob} onChange={handleDate} />
+                      <input type="date" value={birthday_date} onChange={handleBirthdayDate} />
                     </div>
                   </li>
                 </ul>

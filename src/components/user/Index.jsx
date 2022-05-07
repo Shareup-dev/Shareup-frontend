@@ -537,7 +537,7 @@ function Index({ set, setUser }) {
             onSubmit={handleSubmit(onSubmit)}
             style={{ color: "white", padding: "1rem 0" }}
           >
-            <div class="d-flex justify-content-center align-items-center ">
+            <div className="d-flex justify-content-center align-items-center ">
               {registerError && (
                 <Toast
                   className={"bg-transparent text-danger rounded"}
@@ -741,7 +741,7 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area" style={{ textAlign: "center" }}>
           <h2 className="log-title">Login</h2>
-          <div class="d-flex justify-content-center align-items-center ">
+          <div className="d-flex justify-content-center align-items-center ">
             {loginError && (
               <Toast
                 className={"bg-transparent text-danger rounded"}
@@ -832,7 +832,7 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area">
           <h2 className="log-title">Account Verification</h2>
-          <div class="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             <div className="py-3 ">
               {otpError && (
                 <Toast
@@ -928,7 +928,7 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area">
           <h2 className="log-title">Changing Account password</h2>
-          <div class="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             <div className="py-3 ">
               {otpError && (
                 <Toast
@@ -994,7 +994,7 @@ function Index({ set, setUser }) {
       return (
         <div className="log-reg-area reg">
           <h2 className="log-title">Changing Password</h2>
-          <div class="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center">
             {passwordError && (
               <Toast
                   className={"bg-transparent text-danger rounded"}
@@ -1089,7 +1089,7 @@ function Index({ set, setUser }) {
             >
               Forgot Your Password ?
             </h2>
-            <div class="d-flex justify-content-center align-items-center py-3">
+            <div className="d-flex justify-content-center align-items-center py-3">
               {emailError && (
                 <Toast
                   className={"bg-transparent text-danger rounded"}

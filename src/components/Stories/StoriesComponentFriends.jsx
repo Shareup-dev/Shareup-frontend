@@ -61,7 +61,7 @@ const checkPop=()=>{
   return (
     <div className="strysggstion-card">
       <div className="strysggstion-Profimg" style={{borderColor:'yellowgreen'}}>
-        <img src={fileStorage.baseUrl + story.user.profilePicture} alt="" />
+        <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
       </div>
    
       <div
@@ -80,7 +80,7 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
-            <img src={fileStorage.baseUrl + story.image} alt="" className='zoom-story-img'/>
+            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
           </a>
           <div className="strysggstion-imgStry-overlay">
 

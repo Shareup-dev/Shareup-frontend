@@ -519,7 +519,7 @@ function PostTextBoxComponent() {
                                         style={{ objectFit: "cover" }}
                                         src={
                                           fileStorage.baseUrl +
-                                          userM.profilePicture
+                                          userM.profilePicturePath
                                         }
                                         alt=""
                                       />
@@ -640,7 +640,7 @@ function PostTextBoxComponent() {
                                         style={{ objectFit: "cover" }}
                                         src={
                                           fileStorage.baseUrl +
-                                          userM.profilePicture
+                                          userM.profilePicturePath
                                         }
                                         alt=""
                                       />
@@ -744,8 +744,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? user.profilePicturePath
-                      : userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -888,8 +888,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? user.profilePicturePath
-                      : userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1025,8 +1025,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? user.profilePicturePath
-                      : userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1108,7 +1108,7 @@ function PostTextBoxComponent() {
             <span style={{ cursor: "pointer" }}>
               <img
                 style={{ verticalAlign: "middle", padding: "5px" }}
-                src="assets/images/images.svg"
+                src="/assets/images/images.svg"
               />
               <span>Photos</span>
             </span>
@@ -1156,8 +1156,8 @@ function PostTextBoxComponent() {
                   <img
                     src={
                       user
-                        ? user.profilePicturePath
-                        : userR.profilePicturePath
+                        ? fileStorage.baseUrl + user.profilePicturePath
+                        : fileStorage.baseUrl + userR.profilePicturePath
                     }
                     alt=""
                   />
@@ -1328,7 +1328,7 @@ function PostTextBoxComponent() {
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div className="item22">
@@ -1367,7 +1367,7 @@ function PostTextBoxComponent() {
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div className="item22">
@@ -1412,7 +1412,7 @@ function PostTextBoxComponent() {
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div className="item22">
@@ -1456,7 +1456,7 @@ function PostTextBoxComponent() {
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div className="item22">
@@ -1500,7 +1500,7 @@ function PostTextBoxComponent() {
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
                             />
-                            {/* <img src={fileStorage.baseUrl +profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
                           <div className="item22">
@@ -1739,8 +1739,8 @@ function PostTextBoxComponent() {
                 <img
                   src={
                     user
-                      ? user.profilePicturePath
-                      : userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -1872,7 +1872,7 @@ function PostTextBoxComponent() {
     <div className="central-meta newsfeed">
       {/* <div className="new-postbox">
                 <figure>
-                  <img src={user ? user.profilePicture : userR.profilePicture} alt="" />
+                  <img src={user ? user.profilePicturePath : userR.profilePicturePath} alt="" />
                 </figure>
                 <div className="newpst-input">
                   <Form>
@@ -1910,8 +1910,8 @@ function PostTextBoxComponent() {
           <img
             src={
               user
-                ?  user.profilePicturePath
-                :  userR.profilePicturePath
+                ? fileStorage.baseUrl + user.profilePicturePath
+                : fileStorage.baseUrl + userR.profilePicturePath
             }
             alt=""
           />

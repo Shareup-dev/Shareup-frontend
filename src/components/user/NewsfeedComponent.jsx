@@ -246,7 +246,6 @@ function NewsfeedComponent() {
   };
 
   const handleFileStry = (event) => {
-    console.log(event.target.files[0]);
     setFilesStry(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = () => {
@@ -254,7 +253,6 @@ function NewsfeedComponent() {
         setStoriesImage(reader.result);
       }
     };
-    console.log(event.target.files[0]);
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
     // }
@@ -266,7 +264,6 @@ function NewsfeedComponent() {
   };
   const handleLeaveGroup = (e, group_id) => {
     e.preventDefault();
-    console.log(group_id);
     GroupService.leaveGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
       setGroup(res.data);
@@ -274,7 +271,6 @@ function NewsfeedComponent() {
   };
   const handleJoinGroup = (e, group_id) => {
     e.preventDefault();
-    console.log(group_id);
     GroupService.joinGroup(user.id, group_id).then((res) => {
       setRefresh(res.data);
       setGroup(res.data);
@@ -302,37 +298,30 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => {
-    // console.log("@GET ALL POSTS UPDATE", posts);
-  }, [posts]);
+  useEffect(() => {}, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
       AuthService.getCurrentUser().username
     ).then((res) => {
-      // console.log("get saved post" + res.data);
       setSavedPost(res.data);
     });
   };
 
   const handlePostContent = (event) => {
-    // console.log("handlepostcontent" + event.target.value);
     setPostContent(event.target.value);
   };
   const handleHangshareContent = (event) => {
-    // console.log('handlepostcontent' + event.target.value);
     setHangshareContent(event.target.value);
   };
   const handleDeletePost = (postid) => {
     PostService.deletePost(postid).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
       // window.location.reload();
     });
   };
 
   const handleCommentContent = (event) => {
-    console.log(event.target.value);
     setCommentContent(event.target.value);
   };
 
@@ -342,7 +331,6 @@ function NewsfeedComponent() {
     }
     const comment = { content: commentContent };
     PostService.addComment(user.id, postid, comment).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
       setCommentContent("");
     });
@@ -350,7 +338,6 @@ function NewsfeedComponent() {
   const handleCount = (opertator) => {
     if (opertator === "+") {
       let counting = count + 1;
-      console.log(counting + "hi count");
       setCount(counting);
     }
   };
@@ -361,7 +348,6 @@ function NewsfeedComponent() {
   //single image
   const handleFile = (event) => {
     setFiles(event.target.files);
-    console.log(files);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -371,7 +357,6 @@ function NewsfeedComponent() {
       }
 
       setPostImage(tempImage);
-      console.log("url " + postImage[1]);
 
       setShowPostImage(true);
     } else {
@@ -384,7 +369,6 @@ function NewsfeedComponent() {
     //create file array
     //const handleFile = (event) => {
     let tempImage = [];
-    console.log(event.target.files);
     if (event.target.files) {
       let filesAmount = event.target.files.length;
       let i;
@@ -397,7 +381,6 @@ function NewsfeedComponent() {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-    console.log(tempImage);
     setPostImage(tempImage);
     setShowPostImage(true);
   };
@@ -429,14 +412,12 @@ function NewsfeedComponent() {
   };
   const handleEditingSave = (value) => {
     setEditPostId(value);
-    // console.log(res.status)
     // window.location.reload();
   };
 
   const checkIfLiked = (post) => {
     // maybe this is more effecient
     // post.reactions.map(r => {
-    //   console.log(JSON.stringify(r.user))
     //   if(r.user.id === user.id){
     //     return true
     //   }else{
@@ -454,30 +435,23 @@ function NewsfeedComponent() {
   };
 
   const checkIfSaved = (post) => {
-    console.log(post.savedByUsers);
     // maybe this is more effecient
     // post.savedByUsers.map(r => {
-    //   console.log("runninggg")
-    //   console.log(JSON.stringify(r.user) + " i p pp p p")
     // if(r.user.id === user.id){
     //   return true
     // }else{
     //   return false
     // }
     // })
-    console.log(post.savedByUsers.length + " yaa");
     const result = post.savedByUsers.filter((userz) => userz.id == user.id);
     if (result.length > 0) {
-      console.log(" FOUND");
       return true;
     }
-    console.log(" Not found");
     return false;
   };
 
   const handleDeleteComment = (commentid) => {
     PostService.deleteComment(commentid).then((res) => {
-      console.log(res.status);
       setRefresh(res.data);
     });
   };
@@ -492,19 +466,16 @@ function NewsfeedComponent() {
     return counter;
   };
   const handlePrivacy = (event) => {
-    console.log(event.target.value);
     setPrivacy(event.target.value);
   };
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("");
-    console.log(postContent, Object.keys(files).length, files.constructor);
     if (
       postContent === "" &&
       Object.keys(files).length === 0 &&
       files.constructor === Object
     ) {
-      console.log("cant be null");
       setUploadError("Please Insert A Text or an Image");
       return;
     } else {
@@ -514,27 +485,19 @@ function NewsfeedComponent() {
       for (let i = 0; i < files.length; i++) {
         formData.append(`files`, files[i]);
       }
-      console.log(formData.getAll(`files`));
-      console.log(" this is the files" + files[0]);
-      console.log(" this is the swapfiles" + swapfiles);
-      for (let i = 0; i < `files`.length; i++) {
-        console.log(files);
-      }
+
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
         PostService.createPost(user.id, formData, null).then((res) => {
-          console.log(JSON.stringify(res));
-          console.log(res.data);
-          console.log(user.id);
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log("ssssssssssrefersh", refresh);
+          console.log(refresh);
         });
       } else
         PostService.createPost(user.id, formData, userF.id).then((res) => {
-          console.log(JSON.stringify(res));
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
@@ -542,7 +505,7 @@ function NewsfeedComponent() {
     }
   };
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -561,7 +524,6 @@ function NewsfeedComponent() {
   }
   //handle photos content function
   const handlePhotosContent = (event) => {
-    console.log("handlephotoscontent" + event.target.value);
     setPhotosContent(event.target.value);
   };
   // show images in photos popup
@@ -585,7 +547,7 @@ function NewsfeedComponent() {
               accept="image/*"
               multiple
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -593,7 +555,7 @@ function NewsfeedComponent() {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -603,8 +565,8 @@ function NewsfeedComponent() {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -633,7 +595,7 @@ function NewsfeedComponent() {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -646,7 +608,7 @@ function NewsfeedComponent() {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -672,7 +634,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -691,20 +653,18 @@ function NewsfeedComponent() {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
   };
   //swap content function
   const handleSwapContent = (event) => {
-    console.log(event.target.value);
     setSwapContent(event.target.value);
   };
   // swap files function
   const handleFileSwap = (event) => {
     setSwapfiles(event.target.files);
-    console.log(swapfiles);
     let filesAmount = event.target.files.length;
     if (filesAmount < 6) {
       let tempImage = [];
@@ -714,7 +674,6 @@ function NewsfeedComponent() {
       }
 
       setSwapImage(tempImage);
-      console.log("url " + swapImage[1]);
 
       setShowSwapImage(true);
     } else {
@@ -732,37 +691,29 @@ function NewsfeedComponent() {
   //swap upload function
   const uploadSwap = async (event) => {
     await event.preventDefault();
-    await setUploadError("");
+    setUploadError("");
     console.log("uploading swap working");
     if (
       swapContent === "" &&
       Object.keys(swapfiles).length === 0 &&
       swapfiles.constructor === Object
     ) {
-      console.log("cant be null");
-      await setUploadError("Please Insert A Text or an Image");
+      setUploadError("Please Insert A Text or an Image");
       return;
     }
 
     const formData = new FormData();
 
-    await formData.append("content", swapContent);
+    formData.append("content", swapContent);
     for (let i = 0; i < swapfiles.length; i++) {
       await formData.append(`files`, swapfiles[i]);
     }
-    console.log(formData.getAll(`files`));
-    console.log(" this is the files" + files[0]);
-    console.log(" this is the swapfiles" + swapfiles);
-    for (let i = 0; i < `swapfiles`.length; i++) {
-      console.log(swapfiles);
-    }
-    await formData.append(`swapfiles`, swapfiles);
-    await formData.append(`privacy`, Privacy);
+
+    for (let i = 0; i < `swapfiles`.length; i++) {}
+    formData.append(`swapfiles`, swapfiles);
+    formData.append(`privacy`, Privacy);
     if (userF === null) {
       await SwapService.createSwap(user.id, formData, null).then((res) => {
-        console.log(JSON.stringify(res));
-        console.log(res.data);
-        console.log(user.id);
         // setCloseModal(false)
         // window.location.reload();
 
@@ -770,11 +721,10 @@ function NewsfeedComponent() {
         handleRemoveImageSwap();
         setRefresh(res.data);
         // window.location.reload();
-        console.log("ssssssssssrefersh", refresh);
+        console.log(refresh);
       });
     } else
       await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
-        console.log(JSON.stringify(res));
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
@@ -791,14 +741,12 @@ function NewsfeedComponent() {
   // }
   const getUser = async () => {
     if (user === null) {
-      console.log("RUNNING");
       await UserService.getUserByEmail(
         AuthService.getCurrentUser().username
       ).then((res) => {
         setUserR(res.data);
       });
     } else {
-      // console.log("User Info : ========." + JSON.stringify(user));
       setUserR(user);
     }
   };
@@ -818,7 +766,7 @@ function NewsfeedComponent() {
         <div className="add-smilespopup">
           <label className="fileContainer">
             <input type="file" name="swap_image" accept="image/*"></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div
@@ -828,7 +776,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-user-tag"></i>
+                <i className="las la-user-tag"></i>
               </a>
             }
             modal
@@ -836,8 +784,8 @@ function NewsfeedComponent() {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -866,7 +814,7 @@ function NewsfeedComponent() {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -879,7 +827,7 @@ function NewsfeedComponent() {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -904,7 +852,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -920,7 +868,7 @@ function NewsfeedComponent() {
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}
       </div>
     );
@@ -945,7 +893,7 @@ function NewsfeedComponent() {
               accept="image/*"
               onChange={handleFileSwap}
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div
@@ -955,7 +903,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-user-tag"></i>
+                <i className="las la-user-tag"></i>
               </a>
             }
             modal
@@ -963,8 +911,8 @@ function NewsfeedComponent() {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -993,7 +941,7 @@ function NewsfeedComponent() {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1006,7 +954,7 @@ function NewsfeedComponent() {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -1031,7 +979,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1047,7 +995,7 @@ function NewsfeedComponent() {
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}
       </div>
     );
@@ -1073,7 +1021,7 @@ function NewsfeedComponent() {
               multiple
               onChange={handleFile}
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -1082,7 +1030,7 @@ function NewsfeedComponent() {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -1092,8 +1040,8 @@ function NewsfeedComponent() {
           >
             {(close) => (
               <Form className="popwidth poptag">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -1122,7 +1070,7 @@ function NewsfeedComponent() {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1130,7 +1078,7 @@ function NewsfeedComponent() {
                                       <img
                                         style={{ objectFit: "cover" }}
                                         src={
-                                          
+                                          fileStorage.baseUrl +
                                           userM.profilePicturePath
                                         }
                                         alt=""
@@ -1138,7 +1086,7 @@ function NewsfeedComponent() {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTag">
                                       <a
                                         href={`/profile/${userM.email}`}
@@ -1178,7 +1126,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1197,7 +1145,7 @@ function NewsfeedComponent() {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
@@ -1208,7 +1156,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <a href="#!">
-            <i class="las la-map-marker-alt"></i>
+            <i className="las la-map-marker-alt"></i>
           </a>
         }
         nested
@@ -1251,7 +1199,7 @@ function NewsfeedComponent() {
               accept="image/*"
               multiple
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -1259,7 +1207,7 @@ function NewsfeedComponent() {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -1269,8 +1217,8 @@ function NewsfeedComponent() {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -1299,7 +1247,7 @@ function NewsfeedComponent() {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1312,7 +1260,7 @@ function NewsfeedComponent() {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -1338,7 +1286,7 @@ function NewsfeedComponent() {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1357,7 +1305,7 @@ function NewsfeedComponent() {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
@@ -1398,7 +1346,7 @@ function NewsfeedComponent() {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1429,13 +1377,13 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ?  user.profilePicturePath
-                      :  userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1511,7 +1459,7 @@ function NewsfeedComponent() {
                           padding: "10px 10px",
                         }}
                       >
-                        <i class="las la-times"></i>
+                        <i className="las la-times"></i>
                       </button>
                     </div>
                   </>
@@ -1525,7 +1473,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-            // onClick={}
+              // onClick={}
             >
               SWAP
             </button>
@@ -1563,7 +1511,7 @@ function NewsfeedComponent() {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1591,13 +1539,13 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ?  user.profilePicturePath
-                      :  userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1642,50 +1590,38 @@ function NewsfeedComponent() {
                     uploadError ? `${uploadError}` : "We share,do you?"
                   }
                   name="post_content"
-                  value={hangshareContent}
-                  onChange={handleHangshareContent}
+                  value={postContent}
+                  onChange={handlePostContent}
                 />
 
-                {/*showPostImage ? (
+                {showPostImage ? (
                   <>
-                    <div>
-                      {postImage.map((item, key) => (
-                        <img
-                          src={item}
-                          key={key}
-                          style={{
-                            maxWidth: '150px',
-                            maxHeight: '150px',
-                            padding: '10px',
-                            display: 'inline-block',
-                            verticalAlign: 'middle',
-                          }}
-                        />
-                      ))}
-                    </div>
-
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
                     <button
                       onClick={handleRemoveImage}
                       style={{
-                        right: '25px',
-                        position: 'absolute',
-                        borderRadius: '100%',
-                        background: '#b7b7b738',
-                        padding: '10px 10px',
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
                       }}
                     >
-                      <i class='las la-times'></i>
+                      <i className="las la-times"></i>
                     </button>
                   </>
-                    ) : null*/}
+                ) : null}
               </span>
-              {/* <a href="#!" onClick={() => setShowCompont("image")}><span style={{float:'right',padding:'5px',margin:'5px',background:'#033347',padding: '2px 5px',color:'#fff',borderRadius:'5px'}}>+</span></a>*/}
             </div>
 
-            {imageshow()}
-            <div type="submit" value="Submit" className="popsbmt-btn">
+            {imageshowPost()}
+            <button className="popsbmt-btn" onClick={uploadPost}>
               POST
-            </div>
+            </button>
           </Form>
         )}
       </Popup>
@@ -1721,7 +1657,7 @@ function NewsfeedComponent() {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1747,13 +1683,13 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ?  user.profilePicturePath
-                      :  userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1862,7 +1798,7 @@ function NewsfeedComponent() {
                             zIndex: "99",
                           }}
                         >
-                          <i class="las la-times"></i>
+                          <i className="las la-times"></i>
                         </button>
                       </div>
                     </>
@@ -1876,7 +1812,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-            // onClick={uploadPost}
+              // onClick={uploadPost}
             >
               POST
             </button>
@@ -1914,7 +1850,7 @@ function NewsfeedComponent() {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1942,13 +1878,13 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ?  user.profilePicturePath
-                      :  userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1993,14 +1929,36 @@ function NewsfeedComponent() {
                     uploadError ? `${uploadError}` : "We share,do you?"
                   }
                   name="post_content"
-                  value={shareupContent}
-                  onChange={handleShareupContent}
+                  value={postContent}
+                  onChange={handlePostContent}
                 />
+
+                {showPostImage ? (
+                  <>
+                    <img
+                      id="preview"
+                      src={postImage}
+                      style={{ width: "100%" }}
+                    />
+                    <button
+                      onClick={handleRemoveImage}
+                      style={{
+                        right: "20px",
+                        position: "absolute",
+                        borderRadius: "100%",
+                        background: "#b7b7b738",
+                        padding: "10px 10px",
+                      }}
+                    >
+                      <i className="las la-times"></i>
+                    </button>
+                  </>
+                ) : null}
               </span>
             </div>
 
-            {imageshowShareup()}
-            <button type="submit" value="Submit" className="popsbmt-btn">
+            {imageshowPost()}
+            <button className="popsbmt-btn" onClick={uploadPost}>
               POST
             </button>
           </Form>
@@ -2042,7 +2000,7 @@ function NewsfeedComponent() {
                       style={{ padding: "10px 80px 10px 0" }}
                       onClick={close}
                     >
-                      <i class="las la-times"></i>
+                      <i className="las la-times"></i>
                     </a>
                   </div>
                   <div
@@ -2068,13 +2026,13 @@ function NewsfeedComponent() {
                   <img
                     src={
                       user
-                        ?  user.profilePicturePath
-                        :  userR.profilePicturePath
+                        ? fileStorage.baseUrl + user.profilePicturePath
+                        : fileStorage.baseUrl + userR.profilePicturePath
                     }
                     alt=""
                   />
                 </div>
-                <div class="popupuser-name">
+                <div className="popupuser-name">
                   <div style={{ display: "inline" }}>
                     <span>
                       {`${user.firstName} ${user.lastName}`}
@@ -2174,7 +2132,7 @@ function NewsfeedComponent() {
                               zIndex: "99",
                             }}
                           >
-                            <i class="las la-times"></i>
+                            <i className="las la-times"></i>
                           </button>
                         </div>
                       </>
@@ -2188,7 +2146,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-              // onClick={uploadPost}
+                // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2248,7 +2206,7 @@ function NewsfeedComponent() {
                     onClick={close}
                   >
                     <i
-                      class="las la-times"
+                      className="las la-times"
                       style={{
                         fontSize: "20px",
                         background: "#C4C4C4",
@@ -2290,15 +2248,15 @@ function NewsfeedComponent() {
                     <ul className="nearby-contct">
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
                             />
-                            {/* <img src={profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2329,15 +2287,15 @@ function NewsfeedComponent() {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2374,15 +2332,15 @@ function NewsfeedComponent() {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2418,15 +2376,15 @@ function NewsfeedComponent() {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
                             />
-                            {/* <img src={profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2462,15 +2420,15 @@ function NewsfeedComponent() {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
                             />
-                            {/* <img src={profilePicture} alt="" /> */}
+                            {/* <img src={fileStorage.baseUrl +profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2513,7 +2471,7 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => { }, [postsForUser]);
+  useEffect(() => {}, [postsForUser]);
 
   const show = () => {
     return (
@@ -2534,10 +2492,10 @@ function NewsfeedComponent() {
                   />
                   {index == 4 ? (
                     <div className="central-meta newsfeed">
-                      <div class="fw-bold">REELS</div>
+                      <div className="fw-bold">REELS</div>
                       <div className="new-postbox">
-                        <div class="slide-wrapperstry">
-                          <ul class="slidestry">
+                        <div className="slide-wrapperstry">
+                          <ul className="slidestry">
                             {rellsForUserFriends
                               .slice(-5)
                               .map((reel, index) => (
@@ -2558,29 +2516,31 @@ function NewsfeedComponent() {
                                   modal
                                 >
                                   {(close) => (
-                                    <Form className="stryp" >
-                                <div>
-                                  <div className="row">
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          class="las la-times"
-                                        ></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form> 
+                                    <Form className="stryp">
+                                      <div>
+                                        <div className="row">
+                                          <div style={{ width: "5%" }}>
+                                            <a href="#!" onClick={close}>
+                                              <i
+                                                style={{
+                                                  color: "#fff",
+                                                  padding: "10px",
+                                                  fontSize: "30px",
+                                                }}
+                                                className="las la-times"
+                                              ></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <DisplayFriendsReelsComponent
+                                        key={reel.id}
+                                        id={index}
+                                        reel={reel}
+                                        setRefresh={setRefresh}
+                                        index={index}
+                                      />
+                                    </Form>
                                   )}
                                 </Popup>
                               ))}
@@ -2596,29 +2556,33 @@ function NewsfeedComponent() {
                 <PostComponent post={post} setRefresh={setRefresh} />
                 {index == 4 ? (
                   <div className="central-meta newsfeed">
-                    <div class="fw-bold">REELS</div>
+                    <div className="fw-bold">REELS</div>
                     <div className="new-postbox">
-                      <div class="slide-wrapperstry">
-                        <ul class="slidestry">
-                          {rellsForUserFriends.slice(0, 5).map((reel, index) => (
-                            <Popup
-                              style={{ padding: "0px" }}
-                              trigger={
-                                <li
-                                  className="slideitemreel"
-                                  key={reel.id}
-                                  id={index}
-                                >
-                                  <ReelsComponentFriends
-                                    reel={reel}
-                                    setRefresh={setRefresh}
-                                  />
-                                </li>
-                              }
-                              modal
-                             >
-                              {(close) => ( 
-                                <Form  >
+                      <div className="slide-wrapperstry">
+                      {rellsForUserFriends &&
+                        rellsForUserFriends.length > 0 ? (
+                        <ul className="slidestry">
+                          {rellsForUserFriends
+                            .slice(0, 5)
+                            .map((reel, index) => (
+                              <Popup
+                                style={{ padding: "0px" }}
+                                trigger={
+                                  <li
+                                    className="slideitemreel"
+                                    key={reel.id}
+                                    id={index}
+                                  >
+                                    <ReelsComponentFriends
+                                      reel={reel}
+                                      setRefresh={setRefresh}
+                                    />
+                                  </li>
+                                }
+                                modal
+                              >
+                                {(close) => (
+                                  <Form>
                                     <div style={{ width: "5%" }}>
                                       <a href="#!" onClick={close}>
                                         <i
@@ -2627,138 +2591,136 @@ function NewsfeedComponent() {
                                             padding: "10px",
                                             fontSize: "30px",
                                           }}
-                                          class="las la-times"
+                                          className="las la-times"
                                         ></i>
                                       </a>
-                                  </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form> 
-                              )}
-                            </Popup>
-                          ))}
+                                    </div>
+                                    <DisplayFriendsReelsComponent
+                                      key={reel.id}
+                                      id={index}
+                                      reel={reel}
+                                      setRefresh={setRefresh}
+                                      index={index}
+                                    />
+                                  </Form>
+                                )}
+                              </Popup>
+                            ))}
                         </ul>
+                        ) : (
+                                      <div
+                                        className="center"
+                                        style={{ padding: "50px" }}
+                                      >
+                                        No Reels to show
+                                      </div>
+                                    )}
                       </div>
                       <Popup
-                                  trigger={
-                                    <div className="add-reel"> Add Reel</div>
-                                  }
-                                  modal
+                        trigger={<div className="add-reel"> Add Reel</div>}
+                        modal
+                      >
+                        {(close) => (
+                          <Form className="popwidth">
+                            <div className="headpop">
+                              <div style={{ padding: "10px" }}>
+                                <span>
+                                  <a
+                                    href="#!"
+                                    style={{
+                                      padding: "10px 150px 10px 0",
+                                    }}
+                                    onClick={close}
+                                  >
+                                    <i className="las la-times"></i>
+                                  </a>
+                                </span>
+                                <span
+                                  style={{
+                                    color: "#000000",
+                                    fontSize: "14px",
+                                    fontWeight: "bold",
+                                  }}
                                 >
-                                  {(close) => (
-                                    <Form className="popwidth">
-                                      <div className="headpop">
-                                        <div style={{ padding: "10px" }}>
-                                          <span>
-                                            <a
-                                              href="#!"
-                                              style={{
-                                                padding: "10px 150px 10px 0",
-                                              }}
-                                              onClick={close}
-                                            >
-                                              <i class="las la-times"></i>
-                                            </a>
-                                          </span>
-                                          <span
-                                            style={{
-                                              color: "#000000",
-                                              fontSize: "14px",
-                                              fontWeight: "bold",
-                                            }}
-                                          >
-                                            Lets Add Reel Video
-                                          </span>
+                                  Lets Add Reel Video
+                                </span>
 
-                                          {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                          <span style={{ float: "right" }}>
-                                            {" "}
-                                            <button
-                                              style={{
-                                                float: "right",
-                                                borderRadius: "20px",
-                                                padding: "5px 20px",
-                                              }}
-                                              type="submit"
-                                              onClick={uploadReels}
-                                            >
-                                              Upload
-                                            </button>
-                                          </span>
-                                          {/* :null}  */}
-                                        </div>
+                                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                <span style={{ float: "right" }}>
+                                  {" "}
+                                  <button
+                                    style={{
+                                      float: "right",
+                                      borderRadius: "20px",
+                                      padding: "5px 20px",
+                                    }}
+                                    type="submit"
+                                    onClick={uploadReels}
+                                  >
+                                    Upload
+                                  </button>
+                                </span>
+                                {/* :null}  */}
+                              </div>
+                            </div>
+
+                            <div style={{ margin: "0 11px 10px 11px" }}>
+                              <span className="textPop">
+                                {ShowReelVideo ? (
+                                  <>
+                                    <video
+                                      id="video"
+                                      width="100%"
+                                      height={"350px"}
+                                      controls="controls"
+                                    >
+                                      <source src={ReelVideo} />
+                                    </video>
+
+                                    <button
+                                      onClick={handleRemoveReelVideo}
+                                      style={{
+                                        right: "20px",
+                                        position: "absolute",
+                                        borderRadius: "100%",
+                                        background: "#b7b7b738",
+                                        padding: "10px 10px",
+                                      }}
+                                    >
+                                      <i className="las la-times"></i>
+                                    </button>
+                                  </>
+                                ) : (
+                                  <div style={{ textAlign: "center" }}>
+                                    <label className="fileContainer">
+                                      <div className="reelvideo" type="submit">
+                                        <input
+                                          type="file"
+                                          name="reel_video"
+                                          accept="video/*"
+                                          onChange={handleFileReel}
+                                        ></input>
+                                        Add Reel Video
                                       </div>
-
-                                      <div
-                                        style={{ margin: "0 11px 10px 11px" }}
-                                      >
-                                        <span className="textPop">
-                                          {ShowReelVideo ? (
-                                            <>
-                                              <video
-                                                id="video"
-                                                width="100%"
-                                                height={"350px"}
-                                                controls="controls"
-                                              >
-                                                <source src={ReelVideo} />
-                                              </video>
-
-                                              <button
-                                                onClick={handleRemoveReelVideo}
-                                                style={{
-                                                  right: "20px",
-                                                  position: "absolute",
-                                                  borderRadius: "100%",
-                                                  background: "#b7b7b738",
-                                                  padding: "10px 10px",
-                                                }}
-                                              >
-                                                <i class="las la-times"></i>
-                                              </button>
-                                            </>
-                                          ) : (
-                                            <div
-                                              style={{ textAlign: "center" }}
-                                            >
-                                              <label className="fileContainer">
-                                                <div
-                                                  className="reelvideo"
-                                                  type="submit"
-                                                >
-                                                  <input
-                                                    type="file"
-                                                    name="reel_video"
-                                                    accept="video/*"
-                                                    onChange={handleFileReel}
-                                                  ></input>
-                                                  Add Reel Video
-                                                </div>
-                                              </label>
-                                            </div>
-                                          )}
-                                        </span>
-                                        {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-                                      </div>
-                                      {/* </> 
+                                    </label>
+                                  </div>
+                                )}
+                              </span>
+                              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                            </div>
+                            {/* </> 
                                                    
                                  )}  */}
-                                    </Form>
-                                  )}
-                                </Popup>
+                          </Form>
+                        )}
+                      </Popup>
 
-                                <div className="add-reel">
-                                  <a
-                                    href="/reelFeed"
-                                    style={{ color: "white" }}
-                                  >
-                                    {" "}
-                                    Explore Reels{" "}
-                                  </a>
-                                </div>
+                      <div className="add-reel">
+                        <a href="/reelFeed" style={{ color: "white" }}>
+                          {" "}
+                          Explore Reels{" "}
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ) : null}
@@ -2795,7 +2757,6 @@ function NewsfeedComponent() {
 
   const handleTag = (userM) => {
     setUserF(userM);
-    console.log(userM);
   };
 
   const handleSearchedUser = (event) => {
@@ -2817,7 +2778,6 @@ function NewsfeedComponent() {
         }
       });
       setSearchedUser(temp);
-      console.log(temp);
     }
   };
   const getAllUser = async () => {
@@ -2869,7 +2829,7 @@ function NewsfeedComponent() {
     await getStoriesForFriendsUser();
   }, [FriendsStories]);
   useEffect(async () => {
-     getReelForUserFriends();
+    getReelForUserFriends();
   }, [FriendsReels]);
 
   useEffect(() => {
@@ -2891,12 +2851,12 @@ function NewsfeedComponent() {
         <GuideComponent />
       ) : (
         <div className="col-lg-6">
-          <div class="slide-wrapperstry">
-            <ul class="slidestry">
-              <li class="slideitemstry">
+          <div className="slide-wrapperstry">
+            <ul className="slidestry">
+              <li className="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src={user.profilePicturePath} alt="img" />
+                    <img src="/assets/images/vector-34@2x.png" alt="img" />
                   </div>
                   <Popup trigger={<div className="add-stry"> +</div>} modal>
                     {(close) => (
@@ -2909,7 +2869,7 @@ function NewsfeedComponent() {
                                 style={{ padding: "10px 150px 10px 0" }}
                                 onClick={close}
                               >
-                                <i class="las la-times"></i>
+                                <i className="las la-times"></i>
                               </a>
                             </span>
                             <span
@@ -2960,7 +2920,7 @@ function NewsfeedComponent() {
                                     padding: "10px 10px",
                                   }}
                                 >
-                                  <i class="las la-times"></i>
+                                  <i className="las la-times"></i>
                                 </button>
                               </>
                             ) : (
@@ -2981,9 +2941,7 @@ function NewsfeedComponent() {
                             <textarea
                               className="textpopup"
                               rows={2}
-                              placeholder={
-                                "Add text to your Story"
-                              }
+                              placeholder={"Add text to your Story"}
                               name="story_content"
                               value={storyContent}
                               onChange={handleStoryContent}
@@ -3023,7 +2981,7 @@ function NewsfeedComponent() {
                       <Popup
                         style={{ padding: "0px" }}
                         trigger={
-                          <li class="slideitemstry" key={story.id}>
+                          <li className="slideitemstry" key={story.id}>
                             <StoriesComponent
                               story={story}
                               setRefresh={setRefresh}
@@ -3033,7 +2991,10 @@ function NewsfeedComponent() {
                         modal
                       >
                         {(close) => (
-                          <Form className="stryp" style={{marginRight: "100px"}}>
+                          <Form
+                            className="stryp"
+                            style={{ marginRight: "100px" }}
+                          >
                             <div>
                               <div className="row">
                                 <div style={{ width: "5%" }}>
@@ -3044,7 +3005,7 @@ function NewsfeedComponent() {
                                         padding: "10px",
                                         fontSize: "30px",
                                       }}
-                                      class="las la-times"
+                                      className="las la-times"
                                     ></i>
                                   </a>
                                 </div>
@@ -3067,7 +3028,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                          storiesForUserFriends[index].stories_List.length - 1
+                            storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -3077,7 +3038,7 @@ function NewsfeedComponent() {
                   modal
                 >
                   {(close) => (
-                    <Form className="stryp" style={{marginRight: "100px"}}>
+                    <Form className="stryp" style={{ marginRight: "100px" }}>
                       <div>
                         <div className="row">
                           <div style={{ width: "5%" }}>
@@ -3088,16 +3049,16 @@ function NewsfeedComponent() {
                                   padding: "10px",
                                   fontSize: "30px",
                                 }}
-                                class="las la-times"
+                                className="las la-times"
                               ></i>
                             </a>
                           </div>
                         </div>
                       </div>
-                      <DisplayFriendsStoryComponent key={story.id} id={index}
-                        story={
-                          storiesForUserFriends[index].stories_List
-                        }
+                      <DisplayFriendsStoryComponent
+                        key={story.id}
+                        id={index}
+                        story={storiesForUserFriends[index].stories_List}
                         setRefresh={setRefresh}
                       />
                     </Form>
@@ -3105,12 +3066,12 @@ function NewsfeedComponent() {
                 </Popup>
               ))}
             </ul>
-            {/* <div class="paddles">
-              <button class="left-paddlestry paddle">
-                <i class="las la-chevron-circle-left"></i>
+            {/* <div className="paddles">
+              <button className="left-paddlestry paddle">
+                <i className="las la-chevron-circle-left"></i>
               </button>
-              <button class="right-paddlestry paddle">
-                <i class="las la-chevron-circle-right"></i>
+              <button className="right-paddlestry paddle">
+                <i className="las la-chevron-circle-right"></i>
               </button>
             </div> */}
           </div>
@@ -3121,8 +3082,8 @@ function NewsfeedComponent() {
                 <img
                   src={
                     user
-                      ? user.profilePicturePath
-                      : userR.profilePicturePath
+                      ? fileStorage.baseUrl + user.profilePicturePath
+                      : fileStorage.baseUrl + userR.profilePicturePath
                   }
                   alt=""
                 />
@@ -3151,7 +3112,7 @@ function NewsfeedComponent() {
                   <li>{shareUp()}</li>
                   <li>{photos()}</li>
                   <li>{popSwap()}</li>
-                  {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
+                  {/* <li><i className="las la-camera"></i> <label className="fileContainer"> <input type="file" />
                         </label></li> */}
                 </ul>
               </div>
@@ -3165,15 +3126,15 @@ function NewsfeedComponent() {
                      </div> */}
           {/* <div className='central-meta newsfeed grp-sugg-cont'>
             <div style={{ fontSize: '18px', padding:'1rem 20px' , fontWeight: 'bold', marginTop: '10px' }}>Groups Suggestions</div>
-              <div class='slide-wrapper' style={{margin:'0'}}>            
-                <ul class='slide container-fluid'>
+              <div className='slide-wrapper' style={{margin:'0'}}>            
+                <ul className='slide container-fluid'>
                   <OwlCarousel items={3}  
                     className="owl-theme grp-carousel"  
                     nav  
                     margin ={0}
                     dots = {false}
                     >  
-                      <li class='slideitem' style={{margin: 0}}>
+                      <li className='slideitem' style={{margin: 0}}>
                         <a href='#'>
                           <div className='groupsggstion-card'>
                             <div className='groupsggstion-img'>
@@ -3187,21 +3148,21 @@ function NewsfeedComponent() {
 
                             <div className='groupsggstion-by'>
                               <a href='/group/create'>
-                                <div class='add-group' aria-describedby='popup-2'>
+                                <div className='add-group' aria-describedby='popup-2'>
                                   {' '}
 
                                 </div>
                               </a>
 
                               <a href='/group/create'>
-                                <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i class="fas fa-plus"></i> &nbsp;Create Group</h5>
+                                <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i className="fas fa-plus"></i> &nbsp;Create Group</h5>
                               </a>
                             </div>
                           </div>
                         </a>
                       </li>
                       {searchedGroups.map((group) => (
-                        <li class='slideitem'>
+                        <li className='slideitem'>
                           <a href={`/groups/${group.id}`} title={group.name}>
                             <div className='groupsggstion-card'>
                               <div className='groupsggstion-img'>
@@ -3243,7 +3204,7 @@ function NewsfeedComponent() {
                                     <a
 
                                       href
-                                      class='buttonGrpFd mrgngrp mt-0'  
+                                      className='buttonGrpFd mrgngrp mt-0'  
                                       style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
                                       onClick={(e) => handleLeaveGroup(e,group.id)}
                                     >
@@ -3252,7 +3213,7 @@ function NewsfeedComponent() {
                                   ) : (
                                     <a
                                       href
-                                      class='buttonGrpFd mrgngrp mt-0'
+                                      className='buttonGrpFd mrgngrp mt-0'
                                       style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
                                       onClick={(e) => handleJoinGroup(e,group.id)}
                                     >

@@ -16,20 +16,20 @@ function RegisterSuccessfulComponent({closeModal}) {
   let history = useHistory();
 
   return (
-    <div class="modal-dialog modal-confirm">
-    <div class="modal-content">
-        <div class="modal-header">
-            <div class="icon-box">
-            <i class="fa fa-check" aria-hidden="true"></i>
+    <div className="modal-dialog modal-confirm">
+    <div className="modal-content">
+        <div className="modal-header">
+            <div className="icon-box">
+            <i className="fa fa-check" aria-hidden="true"></i>
             </div>				
-            <h4 class="modal-title">Awesome!</h4>	
+            <h4 className="modal-title">Awesome!</h4>	
         </div>
-        <div class="modal-body">
-            <p class="text-center">Your registration was successful.</p>
+        <div className="modal-body">
+            <p className="text-center">Your registration was successful.</p>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-success btn-block" data-dismiss="modal" onClick={() => history.push("/newsfeed")}>Go To Newsfeed</button>
-            <button class="btn " data-dismiss="modal" onClick={closeModal} style={{marginRight: '35%', backgroundColor: '#e25b5b'}}>Close</button>
+        <div className="modal-footer">
+            <button className="btn btn-success btn-block" data-dismiss="modal" onClick={() => history.push("/newsfeed")}>Go To Newsfeed</button>
+            <button className="btn " data-dismiss="modal" onClick={closeModal} style={{marginRight: '35%', backgroundColor: '#e25b5b'}}>Close</button>
         </div>
     </div>
 </div>

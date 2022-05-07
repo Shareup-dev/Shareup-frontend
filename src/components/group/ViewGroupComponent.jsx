@@ -241,7 +241,7 @@ const handleShowingReaction = () => {
         if(likeReaction) {
             return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
         }
-        return (<i class="far fa-star"></i>)
+        return (<i className="far fa-star"></i>)
     }
 
     const handleSettingReactions = (reaction) => {
@@ -254,7 +254,7 @@ const handleCounterReaction = () => {
         if(likeReaction) {
             return (<img width={20} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
         }
-        return (<i class="las la-star"></i>)
+        return (<i className="las la-star"></i>)
     }
 
 	const showOrNot = () => {
@@ -266,7 +266,7 @@ const handleCounterReaction = () => {
 				<div className="central-meta">
 					<div className="new-postbox">
 						<figure>
-							<img src={user.profilePicturePath}  alt="" />
+							<img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
 						</figure>
 						<div className="newpst-input">
                   <Form>
@@ -291,7 +291,7 @@ const handleCounterReaction = () => {
                         </label> */}
                         <li>{shareUp()}</li>
                         <li>{photos()}</li>
-                        {/* <li><i class="las la-camera"></i> <label className="fileContainer"> <input type="file" />
+                        {/* <li><i className="las la-camera"></i> <label className="fileContainer"> <input type="file" />
                         </label></li> */}
                         
                           
@@ -326,17 +326,17 @@ const handleCounterReaction = () => {
 		  <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
 		  <div style={{display:'inline'}}>Add More</div>
 	   
-		   <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+		   <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 		  </label></div>
-		  <div className="gifpopup"><label className="fileContainer"><i class="las la-user-tag"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+		  <div className="gifpopup"><label className="fileContainer"><i className="las la-user-tag"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 		  </label></div>
-		  <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+		  <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 		  </label></div>
 			
 		 
 		  {/* <ul style={{marginLeft:'10px'}}>
 			<li style={{fontSize:'12px'}}>What's in hang?</li>
-			<li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+			<li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 		  </label></li></ul>*/}</div> 
 		)
 		  
@@ -349,17 +349,17 @@ const handleCounterReaction = () => {
 			  <div style={{margin:'0 11px', padding:'15px',boxShadow: '0 0 3px rgb(0 0 0 / 16%)',borderRadius:'5px'}}> 
 			  <div style={{display:'inline'}}>What's in hang?</div>
 		   
-			   <div className="add-smilespopup"><label className="fileContainer"><i class="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+			   <div className="add-smilespopup"><label className="fileContainer"><i className="lar la-file-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 			  </label></div>
-			  <div className="gifpopup"><label className="fileContainer"><i class="las la-user-tag"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+			  <div className="gifpopup"><label className="fileContainer"><i className="las la-user-tag"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 			  </label></div>
-			  <div className="campopup"><label className="fileContainer"><i class="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+			  <div className="campopup"><label className="fileContainer"><i className="las la-map-marker-alt"></i><input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 			  </label></div>
 				
 			 
 			  {/* <ul style={{marginLeft:'10px'}}>
 				<li style={{fontSize:'12px'}}>What's in hang?</li>
-				<li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+				<li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
 			  </label></li></ul>*/}</div> 
 			)
 			  
@@ -373,14 +373,14 @@ const handleCounterReaction = () => {
 						
 		<div className="headpop">
 		  
-		<div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i class="las la-times"></i></a></div>
+		<div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i className="las la-times"></i></a></div>
 		<div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'70%',textAlign: 'center'}}> <span>Today to me, Tomorrow to you</span></div>
 		<div style={{width:'25%',textAlign:'right'}}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
 		</div></div>
 	
 		<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
-		<img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
-		   <div class="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}</span>
+		<img src={user ? fileStorage.baseUrl+user.profilePicturePath : fileStorage.baseUrl+userR.profilePicturePath} alt="" /></div>
+		   <div className="popupuser-name"><div style={{ display: 'inline'}}><span>{`${user.firstName} ${user.lastName}`}</span>
 		   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 	  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
 		<option value="Friends">Friends</option>
@@ -391,7 +391,7 @@ const handleCounterReaction = () => {
 						{showPostImage ?
 						  <>
 							<img id="preview" src={postImage} style={{ width: "30%",objectFit:'cover' }} />
-															<button onClick={handleRemoveImage} style={{ right: '25px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+															<button onClick={handleRemoveImage} style={{ right: '25px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i className="las la-times"></i></button>
 						  </>
 						  :
 						  null
@@ -418,7 +418,7 @@ const handleCounterReaction = () => {
 										   {close => (<Form className="popform popwidth">
 										
 						<div className="headpop">
-						<div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
+						<div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i className="las la-times"></i></a></div>
 						<div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}><span>We share, do you?</span></div>
 						<div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
 						</div></div>
@@ -436,7 +436,7 @@ const handleCounterReaction = () => {
 										{showPostImage ?
 										  <>
 											<img id="preview" src={postImage} style={{ width: "30%" }} />
-															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i className="las la-times"></i></button>
 										  </>
 										  :
 										  null
@@ -462,7 +462,7 @@ const handleCounterReaction = () => {
 										
 						<div className="headpop">
 						<div className="row">
-						<div style={{width:'5%'}}><a href="#!" style={{padding:'10px 150px 10px 0'}} onClick={close} ><i class="las la-times"></i></a></div>
+						<div style={{width:'5%'}}><a href="#!" style={{padding:'10px 150px 10px 0'}} onClick={close} ><i className="las la-times"></i></a></div>
 						<div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}>Share up</div>
 						<div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}> <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
 						</div></div>
@@ -480,7 +480,7 @@ const handleCounterReaction = () => {
 										{showPostImage ?
 										  <>
 											<img id="preview" src={postImage} style={{ width: "30%" }} />
-															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i className="las la-times"></i></button>
 										  </>
 										  :
 										  null
@@ -504,7 +504,7 @@ const handleCounterReaction = () => {
 													   {close =>(     <Form className="popform popwidth">
 														
 														<div className="headpop">
-						<div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i class="las la-times"></i></a></div>
+						<div className="row"><div style={{width:'5%'}}><a href="#!"  onClick={close}><i className="las la-times"></i></a></div>
 						<div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'85%',textAlign: 'center'}}><span>We share, do you?</span></div>
 						<div style={{ width:'10%',textAlign: 'center'}}><span style={{float:'right'}}>  <button style={{float: 'right', borderRadius:'20px'}} type="submit" onClick={uploadPost}>Post</button></span></div>
 						</div></div>
@@ -522,7 +522,7 @@ const handleCounterReaction = () => {
 										{showPostImage ?
 										  <>
 											<img id="preview" src={postImage} style={{ width: "30%" }} />
-															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i class="las la-times"></i></button>
+															<button onClick={handleRemoveImage} style={{ right: '20px',position: 'absolute',borderRadius:'100%',background:'#b7b7b738',padding:'10px 10px'}}><i className="las la-times"></i></button>
 										  </>
 										  :
 										  null

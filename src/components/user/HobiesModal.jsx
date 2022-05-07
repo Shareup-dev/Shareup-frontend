@@ -23,18 +23,18 @@ function HobiesModal({ setHobiesModalOpen , updateProfile,interests, setInterest
           </button>
         </div>
         <div className="title">
-          <h1>Update Your relationship! </h1>
+          <h1>Update Your Hobies! </h1>
 
 
         </div>
         <div className="body d-flex flex-column align-items-start">
-        <p>Relationship status?</p>
+        <p>Select Your Hobies</p>
+        <p>{interests}</p>
+
 
                     <select className=" mb-3 text-dark" style={{width:'90%', height:'40px', borderColor:'#033347'}} aria-label=".form-select-lg example"  onChange={(e) =>
                         {const selectedInterest = e.target.value;
-                            setInterest(selectedInterest);
-                            console.log("SET HOME TOWN WORKING", interests)
-                        
+                            setInterest(selectedInterest);                        
                         }}>
                             {interests ? 
                     <option selected value={interests}>{interests}</option>

@@ -415,8 +415,8 @@ const hideFunction=()=>{
         return (<>
                   
                   <li className="bckgrnd"> <div className="buttnScrty">Choose the friend you trust to help you when you have trouble in logging</div></li>
-                  <li className="bckgrnd">  <div className="buttnScrty"><div class="friends-search-container-Scrty">
-            <i class="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
+                  <li className="bckgrnd">  <div className="buttnScrty"><div className="friends-search-container-Scrty">
+            <i className="las la-search"></i><input className="friend-search" type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
         </div></div></li>
                  
 

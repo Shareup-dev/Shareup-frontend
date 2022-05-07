@@ -75,10 +75,10 @@ function FriendRequestProfileComponent({email,id}) {
          {friendsList.map(friend =>
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
-                                    <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicture} alt="" /></a>
+                                    <div className="item1">
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
 										
                                     </div>
@@ -92,7 +92,7 @@ function FriendRequestProfileComponent({email,id}) {
                                 </div>
                             </li>)}</ul>
               ) : (
-                <div class="center" style={{ padding: "20px" }}>
+                <div className="center" style={{ padding: "20px" }}>
                 No Friend Requests Sent
                 </div>
               )}
@@ -113,10 +113,10 @@ function FriendRequestProfileComponent({email,id}) {
          {RecievedfriendsList.map(friend =>
         <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
-                                    <div class="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicture} alt="" /></a>
+                                    <div className="item1">
+                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
                                     </div>
-                                    <div class="item2">
+                                    <div className="item2">
                                         <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
 										
                                     </div>
@@ -133,7 +133,7 @@ function FriendRequestProfileComponent({email,id}) {
                                 </div>
                             </li>)}</ul>
               ) : (
-                <div class="center" style={{ padding: "20px" }}>
+                <div className="center" style={{ padding: "20px" }}>
                 No Friend Requests Received
                 </div>
               )}

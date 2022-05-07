@@ -97,9 +97,9 @@ html {
     margin-top: 12px;
     width: 100%;
     box-sizing: border-box;
-    font-family: montserrat;
+    /* font-family: montserrat; */
     color: #2C3E50;
-    font-size: 16px;
+    font-size: 14px;
     letter-spacing: 1px
 }
 
@@ -119,15 +119,17 @@ html {
 }
 
 #msform .action-button {
-    width: 100px;
-    background: #033347;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 20px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px
+  width: 100px;
+  background: #033347;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 0;
+  margin: 10px 5px;
+  height: 37px;
+  line-height: 33px;
 }
 
 #msform .action-button:hover,
@@ -141,10 +143,12 @@ html {
     font-weight: bold;
     color: rgb(51, 50, 50);
     border: 0 none;
-    border-radius: 20px;
+    border-radius: 7px;
     cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px
+    padding: 0;
+    margin: 10px 5px;
+    height: 37px;
+    line-height: 33px;
 }
 
 #msform .action-button-previous:hover,

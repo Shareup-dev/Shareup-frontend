@@ -20,7 +20,7 @@ function ProfileComponent() {
   const { user } = useContext(UserContext);
 
   const [temp, setTemp] = useState("");
-  const [profilePicture, setprofilePicturePath] = useState(null);
+  const [profilePicturePath, setprofilePicturePath] = useState(null);
   const [profileRender, setProfileRender] = useState(null);
   const [showprofilePicturePath, setShowprofilePicturePath] = useState(false);
 
@@ -186,12 +186,12 @@ function ProfileComponent() {
   };
 
   const uploadprofilePicturePath = async () => {
-    if (profilePicture === "") {
+    if (profilePicturePath === "") {
       console.log("cant be null");
       return;
     }
     const formData = new FormData();
-    formData.append("profilePicture", profilePicture);
+    formData.append("profilePicturePath", profilePicturePath);
     await UserService.uploadprofilePicturePath(user.email, formData).then((res) => {
       window.location.reload();
     });
@@ -389,14 +389,14 @@ function ProfileComponent() {
                 {/* <span className="text-color-2">Home town</span> */}
                 <li>
                   <p>
-                    <i class="las la-map-marker"></i>
+                    <i className="las la-map-marker"></i>
                     <span className="bio">{homeTown}</span>
                   </p>
                 </li>
                 {/* <span className="text-color-2">Relationship status</span> */}
                 <li>
                   <p>
-                    <i class="lab la-gratipay"></i>{" "}
+                    <i className="lab la-gratipay"></i>{" "}
                     <span className="bio">{relationshipStatus}</span>
                   </p>
                 </li>
@@ -442,10 +442,10 @@ function ProfileComponent() {
               <div className="col-lg-6">
                 {showprofilePicturePath ? (
                   <img id="preview" src={profileRender} />
-                ) : userProfile.profilePicture ? (
+                ) : userProfile.profilePicturePath ? (
                   <img
                     className="border-gradient1"
-                    src={fileStorage.baseUrl + userProfile.profilePicture}
+                    src={fileStorage.baseUrl + userProfile.profilePicturePath}
                   ></img>
                 ) : (
                   <p> Edit Display Photo</p>
@@ -498,7 +498,7 @@ function ProfileComponent() {
               <p>{`${userProfile.firstName} ${userProfile.lastName}`}</p>
               {/* <a href="/editprofile" title="Update you details">Add Bio</a> */}
             </div>
-            <hr class="new1"></hr>
+            <hr className="new1"></hr>
             <div
               className="row pdng1 person-details"
               style={{
@@ -578,10 +578,10 @@ function ProfileComponent() {
                 {/* <div className="col-lg-3">
                   {showprofilePicturePath ? (
                     <img id="preview" src={profileRender} />
-                  ) : userProfile.profilePicture ? (
+                  ) : userProfile.profilePicturePath ? (
                     <img
                       className="border-gradient"
-                      src={fileStorage.baseUrl + userProfile.profilePicture}
+                      src={fileStorage.baseUrl + userProfile.profilePicturePath}
                     ></img>
                   ) : (
                     <p> Edit Display Photo</p>
@@ -667,7 +667,7 @@ function ProfileComponent() {
                       {
                         showprofilePicturePath ?
                           <img id="preview" src={profileRender} /> :
-                          userProfile.profilePicture ? <img src={userProfile.profilePicture}></img> : <p>	Edit Display Photo</p>
+                          userProfile.profilePicturePath ? <img src={userProfile.profilePicturePath}></img> : <p>	Edit Display Photo</p>
                       }
                       <form className="edit-phto">
                         <i className="fa fa-camera-retro"></i>
@@ -713,7 +713,7 @@ function ProfileComponent() {
                       data-ripple=""
                       onClick={() => setShow("timeline")}
                     >
-                      <i class="las la-rss"></i>
+                      <i className="las la-rss"></i>
                     </a>
                   </div>
                   <div className="col brdrmid">
@@ -735,7 +735,7 @@ function ProfileComponent() {
                       data-ripple=""
                       onClick={() => setShow("friends")}
                     >
-                      <i class="las la-user-friends"></i>
+                      <i className="las la-user-friends"></i>
                     </a>
                   </div>
                 

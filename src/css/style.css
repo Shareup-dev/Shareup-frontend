@@ -14856,10 +14856,10 @@ a.Hangin-btn:hover {
   box-sizing: border-box;
 }
 .slideitemreelcom {
+  text-align: center;
   display: inline-block;
-  width: 175px;
-  height: 100%;
-  margin: 0  0px 0 19px;
+  margin: 4px 4px 4px 4px  ;
+
   box-sizing: border-box;
 }
 .slideitemreelside {
@@ -14879,8 +14879,8 @@ a.Hangin-btn:hover {
   box-sizing: border-box;
 }
 .slidesreel .strysggstion-card {
-  width: 170px;
-  height: 330px;
+  width: 175px;
+  height: 251px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -14937,6 +14937,7 @@ a.Hangin-btn:hover {
 }
 
 .slidesreel {
+text-align: center;
 
 }
 
@@ -16518,8 +16519,8 @@ hr.new1 {
 .ht-200{
   height: 200px;
 }
-.create-group .image-upload{
-  border: 1px solid #ccc;
+.create-group .image-upload img#preview , .create-group .image-upload{
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
 }
 .mb-10{

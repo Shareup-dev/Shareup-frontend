@@ -23,7 +23,7 @@ function EditPostComponent({ post, set }) {
   const [editImage, setEditImage] = useState([]);
   const [showSwapImage, setShowSwapImage] = useState(true);
   const [swapfiles, setSwapfiles] = useState({});
-  const [swapImage, setSwapImage] = useState(`${fileStorage.baseUrl}${post.media[0].media}`);
+  const [swapImage, setSwapImage] = useState(`${fileStorage.baseUrl}${post.media[0].mediaPath}`);
   const [userF, setUserF] = useState(null);
   const [searchedUser, setSearchedUser] = useState([]);
   const [allUser, setAllUser] = useState([]);
@@ -45,14 +45,12 @@ function EditPostComponent({ post, set }) {
       }
     };
 
-    console.log(event.target.files[0]);
     reader.readAsDataURL(event.target.files[0]);
     setShowSwapImage(true);
     };
 
     // const handleFileSwap = (event) => {
     //     setSwapfiles(event.target.files);
-    //     console.log(swapfiles);
     //     let filesAmount = event.target.files.length;
     //     if (filesAmount < 6) {
     //       let tempImage = [];
@@ -71,7 +69,6 @@ function EditPostComponent({ post, set }) {
 
   const handleTag = (userM) => {
     setUserF(userM);
-    console.log(userM);
   };
 
   const getAllUser = async () => {
@@ -104,7 +101,6 @@ function EditPostComponent({ post, set }) {
         }
       });
       setSearchedUser(temp);
-      console.log(temp);
     }
   };
 
@@ -114,13 +110,11 @@ function EditPostComponent({ post, set }) {
   };
 
   const handleEditContent = (event) => {
-    console.log(event.target.value);
     setEditContent(event.target.value);
   };
 
   const handleUpdatePost = async (event) => {
     event.preventDefault();
-    console.log(editContent + " HE " + post.content);
     if (editContent.length <= 0 || editContent === "" || editContent === null) {
       console.log("please make sure you made changes");
       return;
@@ -132,9 +126,7 @@ function EditPostComponent({ post, set }) {
 
     const formData = new FormData();
     formData.append('content', editContent);
-    // formData.append(`files`, swapfiles);
-    // const content = { content: editContent };
-    console.log("uploading "+ post.allPostsType)
+    formData.append(`files`, swapfiles);
     if (post.allPostsType === "swap"){
         console.log("uploading swap")
     await SwapService.updateSwap(post.id, formData).then((res) => {
@@ -167,15 +159,15 @@ function EditPostComponent({ post, set }) {
               <button onClick={handleCancelEdit} className="buttonClosePrvw rtbtn" 
               style={{ display: "flex", margin: "-32px -10px",fontSize:"12px" }}>
               
-              <i class="las la-times"></i></button>
+              <i className="las la-times"></i></button>
               </div>
               
-              <span class="border-bottom"></span>
+              <span className="border-bottom"></span>
               </div>
               <div style={{ display: "flex", marginTop: "10px" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicture}
+                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
                       alt=""
                       className="post-user-img"
                     />
@@ -234,14 +226,14 @@ function EditPostComponent({ post, set }) {
                         post.published,
                         "DD MMMM YYYY hh:mm:ss"
                       ).fromNow()}
-                      {/* {checkIfSaved(post) && <i class='las la-bookmark szbkmrk'></i>} */}
+                      {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>
                   </div>
 
                   
         <textarea
-          class="md-textarea form-control" 
+          className="md-textarea form-control" 
           rows={4}
           placeholder="write something"
           name="post_content"
@@ -257,7 +249,7 @@ function EditPostComponent({ post, set }) {
                   <>
                   <div style={{padding: "5px"}}>
                     <img id="preview" src={swapImage} />
-                    <button style={{  margin: "20px -10px", fontSize:"5px" }} onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn "><i class="las la-times "></i></button>
+                    <button style={{  margin: "20px -10px", fontSize:"5px" }} onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn "><i className="las la-times "></i></button>
                     </div>
                   </>
                   :
@@ -284,7 +276,7 @@ function EditPostComponent({ post, set }) {
                     accept="image/*"
                     onChange={handleFileSwap}
                   ></input>
-                  <i class="lar la-file-image"></i>
+                  <i className="lar la-file-image"></i>
                 </label>
               </div>
               <div
@@ -294,7 +286,7 @@ function EditPostComponent({ post, set }) {
                 <Popup
                   trigger={
                     <a href="#!">
-                      <i class="las la-user-tag"></i>
+                      <i className="las la-user-tag"></i>
                     </a>
                   }
                   modal
@@ -302,8 +294,8 @@ function EditPostComponent({ post, set }) {
                 >
                   {(close) => (
                     <Form style={{ margin: "5px" }} className="popwidth">
-                      <div class="search-container">
-                        <i class="las la-search"></i>
+                      <div className="search-container">
+                        <i className="las la-search"></i>
                         <input
                           className="friend-search"
                           type="text"
@@ -335,20 +327,20 @@ function EditPostComponent({ post, set }) {
                                       {" "}
                                       <div className="grid-container">
                                         {/* <figure> */}
-                                        <div class="item1">
+                                        <div className="item1">
                                           <a
                                             href={`/profile/${userM.email}`}
                                             title={`${userM.email}`}
                                           >
                                             <img
                                               style={{ objectFit: "cover" }}
-                                              src={userM.profilePicture}
+                                              src={userM.profilePicturePath}
                                               alt=""
                                             />
                                           </a>
                                           {/* </figure> */}
                                         </div>
-                                        <div class="item2">
+                                        <div className="item2">
                                           <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                         </div>
                                         {/* <div className="  "> */}
@@ -375,7 +367,7 @@ function EditPostComponent({ post, set }) {
                 <Popup
                   trigger={
                     <a href="#!">
-                      <i class="las la-map-marker-alt"></i>
+                      <i className="las la-map-marker-alt"></i>
                     </a>
                   }
                   nested
@@ -391,7 +383,7 @@ function EditPostComponent({ post, set }) {
 
               {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
        </label></li></ul>*/}
             </div>
       </figure>

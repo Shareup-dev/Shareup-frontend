@@ -417,7 +417,7 @@ const staticpost=()=>{
 
                     
 <figure>
-                    <img src={fileStorage.baseUrl+user.profilePicture} alt="" />
+                    <img src={fileStorage.baseUrl+user.profilePicturePath} alt="" />
                 </figure>
                 
                 <div className="friend-name">
@@ -493,7 +493,7 @@ const staticpost=()=>{
         <ul className="we-comet">
         <li className="post-comment">
                 <div className="comet-avatar">
-                  <img src={fileStorage.baseUrl+user.profilePicture}  alt="" />
+                  <img src={fileStorage.baseUrl+user.profilePicturePath}  alt="" />
                 </div>
                 <div className="post-comt-box">
                   <Form>
@@ -503,29 +503,29 @@ const staticpost=()=>{
                     
                     <div className="add-smiles">
 
-                      <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i class="lar la-laugh"></i></span>
+                      <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i className="lar la-laugh"></i></span>
                     </div>
                     {
                       showEmojis && <div className="smiles-bunch active">
-                         <i class="em em---1"></i>
-																<i class="em em-smiley"></i>
-																<i class="em em-anguished"></i>
-																<i class="em em-laughing"></i>
-																<i class="em em-angry"></i>
-																<i class="em em-astonished"></i>
-																<i class="em em-blush"></i>
-																<i class="em em-disappointed"></i>
-																<i class="em em-worried"></i>
-																<i class="em em-kissing_heart"></i>
-																<i class="em em-rage"></i>
-																<i class="em em-stuck_out_tongue"></i>
+                         <i className="em em---1"></i>
+																<i className="em em-smiley"></i>
+																<i className="em em-anguished"></i>
+																<i className="em em-laughing"></i>
+																<i className="em em-angry"></i>
+																<i className="em em-astonished"></i>
+																<i className="em em-blush"></i>
+																<i className="em em-disappointed"></i>
+																<i className="em em-worried"></i>
+																<i className="em em-kissing_heart"></i>
+																<i className="em em-rage"></i>
+																<i className="em em-stuck_out_tongue"></i>
                       {/* <Picker onEmojiClick={onEmojiClick} /> */}
                       {/* <h1>hi</h1> */}
                       </div>
                     }
                       <div className="gif"><img style={{objectFit:'cover'}} src="/assets/images/sticker.png" alt="" /></div>
                       <div className="cam"><img  src="/assets/images/Group.png" alt="" /></div>
-                      {/* <div className="sticker"><i class="lar la-sticky-note"></i></div> */}
+                      {/* <div className="sticker"><i className="lar la-sticky-note"></i></div> */}
 
                    
                   </Form></div>
@@ -536,13 +536,13 @@ const staticpost=()=>{
         </ul>
     </div>
     <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
-                            <span title="add icon" ><i class="las la-ellipsis-h"></i></span>
+                            <span title="add icon" ><i className="las la-ellipsis-h"></i></span>
                         </div>
                         {
                             showMoreOptions && <div className="drop-options active">
                                 <ul><li className="head-drop"><h6>Post Options</h6></li>
                                    
-                                    <li><i class="las la-link"></i><span>Copy Link</span></li>
+                                    <li><i className="las la-link"></i><span>Copy Link</span></li>
                                 </ul>
                             </div>
                         }

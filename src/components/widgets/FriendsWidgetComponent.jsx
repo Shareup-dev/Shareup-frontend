@@ -46,7 +46,7 @@ function FriendsWidgetComponent() {
                         <li key={friend.id}  >
                             <div className="nearly-pepls" style={{display:'flex', width:'100%' ,padding:'10px',alignItems:'center'}}>
                             <figure style={{width:'20%'}}>
-                                <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicture} alt="" />
+                                <img className="imgFrnd" src={fileStorage.baseUrl+friend.profilePicturePath} alt="" />
                                 <span className="status f-online" />
                             </figure>
                             <div className="" style={{width:'55%',textAlign: 'left' ,paddingLeft:'10px',display:'flex',flexDirection:'column'}}>
