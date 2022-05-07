@@ -2569,7 +2569,7 @@ function NewsfeedComponent() {
                                 style={{ padding: "0px" }}
                                 trigger={
                                   <li
-                                    className="slideitemreel"
+                                    className="slideitemreelfeed"
                                     key={reel.id}
                                     id={index}
                                   >
@@ -2616,8 +2616,11 @@ function NewsfeedComponent() {
                                       </div>
                                     )}
                       </div>
+                      <div className="center" style={{ padding: "10px 0px 0px 0px" }}>
+
                       <Popup
-                        trigger={<div className="add-reel"> Add Reel</div>}
+                        trigger={<div className="add-reel"
+                        > Add Reel</div>}
                         modal
                       >
                         {(close) => (
@@ -2715,11 +2718,12 @@ function NewsfeedComponent() {
                         )}
                       </Popup>
 
-                      <div className="add-reel">
+                      <div className="add-reel" >
                         <a href="/reelFeed" style={{ color: "white" }}>
                           {" "}
                           Explore Reels{" "}
                         </a>
+                      </div>
                       </div>
                     </div>
                   </div>

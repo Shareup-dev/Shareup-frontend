@@ -480,76 +480,87 @@ export default function Layout(props) {
                             </div>
                           </div>
 
-                          <div className="sidebar-news" style={{}}>
-                            <div className="media-date">REELS</div>
-                            <div style={{}}>
-                              <ul>
-                                <li>
-                                  <div>
-                                    {reelPreviewPath &&
-                                    reelPreviewPath.length > 0 ? (
-                                      <ul className="slidestry">
-                                        {reelPreviewPath
-                                          .slice(0, 2)
-                                          .map((reel, index) => (
-                                            <Popup
-                                              trigger={
-                                                <li
-                                                  className="slideitemreelside"
-                                                  key={reel.id}
-                                                  id={index}
-                                                >
-                                                  <ReelsComponentFriends
-                                                    reel={reel}
-                                                    setRefresh={setRefresh}
-                                                  />
-                                                </li>
-                                              }
-                                              modal
+                          <div className="central-meta newsfeed">
+                            <div
+                              className="fw-bold"
+                              style={{
+                                fontFamily: "Open Sans",
+                                color: "#0b2984",
+                                fontSize: "20px",
+                                fontWeight: "800",
+                              }}
+                            >
+                              REELS
+                            </div>
+                            <div className="new-postbox">
+                              <div className="slide-wrapperstry">
+                                {reelPreviewPath &&
+                                reelPreviewPath.length > 0 ? (
+                                  <ul className="slidestryside center">
+                                    {reelPreviewPath
+                                      .slice(0, 2)
+                                      .map((reel, index) => (
+                                        <Popup
+                                          style={{ padding: "0px" }}
+                                          trigger={
+                                            <li
+                                              className="slideitemreel center"
+                                              key={reel.id}
+                                              id={index}
                                             >
-                                              {(close) => (
-                                                <Form>
-                                                  <div style={{ width: "5%" }}>
-                                                    <a
-                                                      href="#!"
-                                                      onClick={close}
-                                                    >
-                                                      <i
-                                                        style={{
-                                                          color: "#fff",
-                                                          padding: "10px",
-                                                          fontSize: "30px",
-                                                        }}
-                                                        className="las la-times"
-                                                      ></i>
-                                                    </a>
-                                                  </div>
-                                                  <DisplayFriendsReelsComponent
-                                                    key={reel.id}
-                                                    id={index}
-                                                    reel={reel}
-                                                    setRefresh={setRefresh}
-                                                    index={index}
-                                                  />
-                                                </Form>
-                                              )}
-                                            </Popup>
-                                          ))}
-                                      </ul>
-                                    ) : (
-                                      <div
-                                        className="center"
-                                        style={{ padding: "20px" }}
-                                      >
-                                        No Reels to show
-                                      </div>
-                                    )}
+                                              <ReelsComponentFriends
+                                                reel={reel}
+                                                setRefresh={setRefresh}
+                                              />
+                                            </li>
+                                          }
+                                          modal
+                                        >
+                                          {(close) => (
+                                            <Form>
+                                              <div style={{ width: "5%" }}>
+                                                <a href="#!" onClick={close}>
+                                                  <i
+                                                    style={{
+                                                      color: "#fff",
+                                                      padding: "10px",
+                                                      fontSize: "30px",
+                                                    }}
+                                                    className="las la-times"
+                                                  ></i>
+                                                </a>
+                                              </div>
+                                              <DisplayFriendsReelsComponent
+                                                key={reel.id}
+                                                id={index}
+                                                reel={reel}
+                                                setRefresh={setRefresh}
+                                                index={index}
+                                              />
+                                            </Form>
+                                          )}
+                                        </Popup>
+                                      ))}
+                                  </ul>
+                                ) : (
+                                  <div
+                                    className="center"
+                                    style={{ padding: "50px" }}
+                                  >
+                                    No Reels to show
                                   </div>
-                                </li>
-
+                                )}
+                              </div>
+                              <div style={{ padding: "10px 0px 0px 0px" }}>
                                 <Popup
                                   trigger={
-                                    <div className="add-reel"> Add Reel</div>
+                                    <div
+                                      className="add-reel"
+                                      style={{ width: "135px" }}
+                                    >
+                                      {" "}
+                                      Add Reel
+                                    </div>
                                   }
                                   modal
                                 >
@@ -646,16 +657,6 @@ export default function Layout(props) {
                                             </div>
                                           )}
                                         </span>
-                                        <textarea
-                                          className="textpopup"
-                                          rows={2}
-                                          placeholder={
-                                            "Add Caption to your Reel"
-                                          }
-                                          name="reel_content"
-                                          value={reelContent}
-                                          onChange={handleReelContent}
-                                        />
                                         {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
                                       </div>
                                       {/* </> 
@@ -665,7 +666,10 @@ export default function Layout(props) {
                                   )}
                                 </Popup>
 
-                                <div className="add-reel">
+                                <div
+                                  className="add-reel"
+                                  style={{ width: "135px", marginLeft: "16px" }}
+                                >
                                   <a
                                     href="/reelFeed"
                                     style={{ color: "white" }}
@@ -674,10 +678,9 @@ export default function Layout(props) {
                                     Explore Reels{" "}
                                   </a>
                                 </div>
-                              </ul>
+                              </div>
                             </div>
                           </div>
-
                           <FriendsWidgetComponent />
                           <FollowingWidgetComponent />
                           <GroupsWidgetComponent />
