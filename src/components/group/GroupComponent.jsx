@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Redirect, useHistory,useParams } from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
@@ -19,14 +19,14 @@ import Grpicon from '../../images/grpicon.png'
 import GroupViewComponent from './GroupViewComponent';
 
 
-function GroupListComponent({post}) {
+function GroupListComponent({ post }) {
 	const { id: stringId } = useParams();
 	const groupid = 1 * stringId
 	testScript()
 	let history = useHistory();
 
 	const { user } = useContext(UserContext)
-	console.log("this is the user data on Groups"+(user) )
+	console.log("this is the user data on Groups" + (user))
 
 	// const []
 	const [refresh, setRefresh] = useState([]);
@@ -53,19 +53,19 @@ function GroupListComponent({post}) {
 	}
 
 	const getMyGroups = async () => {
-		if(user){
+		if (user) {
 			await GroupService.getGroupByCurrentUser(user.id).then(res => {
 				const uniqueGroups = Array.from(new Set(res.data.map(a => a.id)))
-			.map(id => {
-			return res.data.find(a => a.id === id)
-			})
+					.map(id => {
+						return res.data.find(a => a.id === id)
+					})
 				setMyGroups(uniqueGroups)
 				setSearchedMyGroups(uniqueGroups)
 			})
 		}
 	}
 	const getMyMemberGroups = async () => {
-		if(user){
+		if (user) {
 			console.log(user)
 			// await GroupService.getMyGroups(user.id).then(res => {
 			// 	const uniqueGroups = Array.from(new Set(res.data.map(a => a.id)))
@@ -77,7 +77,7 @@ function GroupListComponent({post}) {
 			// })
 		}
 	}
-	
+
 	const handleSearchGroup = (event) => {
 		if (event.target.value === "") {
 			setSearchedGroups(allGroups)
@@ -87,7 +87,7 @@ function GroupListComponent({post}) {
 				if (u.name.includes(event.target.value)) {
 					temp.push(u)
 				}
-				
+
 			})
 			setSearchedGroups(temp)
 			console.log(temp)
@@ -117,7 +117,7 @@ function GroupListComponent({post}) {
 			return showMyGroupsComponent()
 		}
 	}
-	const handleLeaveGroup = (e,group_id) => {
+	const handleLeaveGroup = (e, group_id) => {
 		e.preventDefault();
 		console.log(group_id)
 		GroupService.leaveGroup(user.id, group_id).then(res => {
@@ -126,16 +126,16 @@ function GroupListComponent({post}) {
 		})
 	}
 
-	const handleJoinGroup = (e,group) => {
+	const handleJoinGroup = (e, group) => {
 		e.preventDefault();
 		console.log(group.id)
-		if(group.privacySetting===true){
+		if (group.privacySetting === true) {
 			GroupService.joinGroup(user.id, group.id).then(res => {
 				setRefresh(res.data)
 				setGroup(res.data)
 
 			})
-		}else{
+		} else {
 			GroupService.joinRequestGroup(user.id, group.id).then(res => {
 				setRefresh(res.data)
 				setGroup(res.data)
@@ -161,57 +161,17 @@ function GroupListComponent({post}) {
 	const showAllGroupsComponent = () => {
 		// console.log(group)
 		return (
-			
+
 			<div className="tab-content">
-					<div className="friends-search-container grp-search" >
-							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} style={{width:'100%',marginLeft:'0'}}/>
-						</div>
+				<div className="friends-search-container grp-search" >
+					<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchGroup} style={{ width: '100%', marginLeft: '0' }} />
+				</div>
 				<div className="tab-pane active fade show " id="">
-					<ul className="nearby-contct" style={{marginTop:'15px'}}>
-						
+					<ul className="nearby-contct" style={{ marginTop: '15px' }}>
+
 						{searchedGroups.map((group) =>
-<<<<<<<< HEAD:src/components/group/GroupListComponent.jsx
-								
-							<GroupViewComponent key={group.id} group={group} handleLeaveGroup={handleLeaveGroup} handleJoinGroup={handleJoinGroup} checkIfInGroup={checkIfInGroup}/>
-========
-								<li key={group.id} className="friends-card groupalign" >
-		                            <a href={`/groups/${group.id}`}>
 
-										<div className="group-li-item">
-											{/* <figure> */}
-											<div className="item12">
-												<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
-												{/* </figure> */}
-												{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
-											</div>
-											{/* <div className="  "> */}
-											<div className="item23">
-												<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
-												<p className="grp-mem-text">2.7K Members</p>
-												<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
-													{
-															checkIfInGroup(group.members) ?
-																<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e,group.id)}>Leave Group</a>
-																:
-																<a href className="button grp-btn join-grp-btn"  onClick={(e) => handleJoinGroup(e,group.id)}>Join Group</a>
-														}
-													{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
-												</div>
-											</div>
-											
-											{/* <div className="item6">
-												{/* <span>Engr</span> */}
-												{/* <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v"></i> */}
-											{/* </div> */}
-											
-
-
-											{/* </div> */}
-
-										</div>
-									</a>
-								</li>
->>>>>>>> 45dc587e22d1e56727f86dc9717e149bd698d0fd:src/components/group/GroupComponent.jsx
+							<GroupViewComponent key={group.id} group={group} handleLeaveGroup={handleLeaveGroup} handleJoinGroup={handleJoinGroup} checkIfInGroup={checkIfInGroup} />
 						)}
 					</ul>
 					<div className="lodmore"><button className="btn-view btn-load-more" /></div>
@@ -223,55 +183,46 @@ function GroupListComponent({post}) {
 	const showMyGroupsComponent = () => {
 		return (
 			<div className="tab-content">
-<<<<<<<< HEAD:src/components/group/GroupListComponent.jsx
-			<div class="friends-search-container grp-search" >
-				<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
-			</div>
-========
-			<div className="friends-search-container grp-search" >
-							<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{width:'100%',marginLeft:'0'}}/>
-						</div>
->>>>>>>> 45dc587e22d1e56727f86dc9717e149bd698d0fd:src/components/group/GroupComponent.jsx
-			<div className="tab-pane active fade show " id="">
-				{/* <div>Groups You Manage</div> */}
-				<ul className="nearby-contct" style={{marginTop:'15px'}}>
-					{searchedMyGroups.map((group,index) =>
-							<li key={group.id} className="friends-card groupalign" style={((index+1)/3==0)?{marginRight:'0px'}:{marginRight:'10px'}}>
+				<div class="friends-search-container grp-search" >
+					<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{ width: '100%', marginLeft: '0' }} />
+				</div>
+
+				<div className="tab-pane active fade show " id="">
+					{/* <div>Groups You Manage</div> */}
+					<ul className="nearby-contct" style={{ marginTop: '15px' }}>
+						{searchedMyGroups.map((group, index) =>
+							<li key={group.id} className="friends-card groupalign" style={((index + 1) / 3 == 0) ? { marginRight: '0px' } : { marginRight: '10px' }}>
 								<a href={`/groups/${group.id}`}>
 									<div className="group-li-item">
 										{/* <figure> */}
-<<<<<<<< HEAD:src/components/group/GroupListComponent.jsx
-										<div class="item12">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
-========
+
 										<div className="item12">
-											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl+group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
->>>>>>>> 45dc587e22d1e56727f86dc9717e149bd698d0fd:src/components/group/GroupComponent.jsx
+											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath ? fileStorage.baseUrl + group.groupImagePath : Grpicon} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 											{/* </figure> */}
 											{/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}
 										</div>
 										{/* <div className="  "> */}
 										<div className="item23">
-											<p className="grpnametag" style={{ height: '20px', fontWeight: '600'}}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
+											<p className="grpnametag" style={{ height: '20px', fontWeight: '600' }}><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></p>
 											<p className="grp-mem-text">{group.members.length} Members</p>
-											<div style={{width: '100%' , display: 'flex' , alignItems: 'center' , justifyContent: 'center'}}>
+											<div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 												{
-														checkIfInGroup(group.members) ?
-															<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e,group.id)}>Leave Group</a>
-															:
-															<a href className="button grp-btn join-grp-btn"  onClick={(e) => handleJoinGroup(e,group.id)}>Join Group</a>
-													}
+													checkIfInGroup(group.members) ?
+														<a href className="button grp-btn leave-grp-btn" onClick={(e) => handleLeaveGroup(e, group.id)}>Leave Group</a>
+														:
+														<a href className="button grp-btn join-grp-btn" onClick={(e) => handleJoinGroup(e, group.id)}>Join Group</a>
+												}
 												{/* <div className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px', width: '45%' , padding: '5px' , fontWeight: '600' }}>Preview</div>	 */}
 											</div>
 
-											
+
 										</div>
-										
+
 										{/* <div className="item6">
 											{/* <span>Engr</span> */}
-											{/* <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v"></i> */}
+										{/* <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v"></i> */}
 										{/* </div> */}
-										
+
 
 
 										{/* </div> */}
@@ -279,22 +230,22 @@ function GroupListComponent({post}) {
 									</div>
 								</a>
 							</li>
-					)}
-				</ul>
-				<div className="lodmore"><button className="btn-view btn-load-more" /></div>
+						)}
+					</ul>
+					<div className="lodmore"><button className="btn-view btn-load-more" /></div>
+				</div>
 			</div>
-		</div>
 		)
 	}
 
 	const didJoinRequestSent = (gid) => {
 		// console.log(gid)
-        GroupService.joinRequestSent(user.id,gid).then(res => {
+		GroupService.joinRequestSent(user.id, gid).then(res => {
 			// setRefresh(res.data);
-			console.log('yes',res.data)
+			console.log('yes', res.data)
 			setRequestFlag(true)
 		})
-    }
+	}
 	const cancelRequestGroup = (members) => {
 
 	}
@@ -317,52 +268,52 @@ function GroupListComponent({post}) {
 							<p className="Friends-Title">Groups</p>
 							<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 						</div>
-						
-							
-						</div>
-						<div className="navContent">
-							<ul className="nav nav-pills swap-page-nav " role="tablist">
-								<li className="nav-item" style={{justifyContent:'flex-start'}}>
-									<div className="all">
-										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("allgroups")}>
-											<span style={{  padding: '5px' }}> 
-											<i className="las la-users" style={{fontSize:'20px'}}></i>
+
+
+					</div>
+					<div className="navContent">
+						<ul className="nav nav-pills swap-page-nav " role="tablist">
+							<li className="nav-item" style={{ justifyContent: 'flex-start' }}>
+								<div className="all">
+									<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("allgroups")}>
+										<span style={{ padding: '5px' }}>
+											<i className="las la-users" style={{ fontSize: '20px' }}></i>
 											{/* <span>{`${following.length}`}</span> */}
-											</span>
+										</span>
 										All Groups
-										</span>
-									</div>	
-								</li> 
-								<li className="nav-item" style={{justifyContent:'center'}}>
-									<div className="my">
-										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("mygroups")}>
-											<span style={{  padding: '5px' }}> 
-											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
+									</span>
+								</div>
+							</li>
+							<li className="nav-item" style={{ justifyContent: 'center' }}>
+								<div className="my">
+									<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("mygroups")}>
+										<span style={{ padding: '5px' }}>
+											<i className="las la-user-friends" style={{ fontSize: '20px' }}></i>
 											{/* <span>{`${following.length}`}</span> */}
-											</span>
-											My Groups 
 										</span>
-									</div>
-								</li>
-								<li className="nav-item" style={{justifyContent:'flex-end'}}>
-									<div className="new">
-										<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
-											<span style={{  padding: '5px' }}> 
+										My Groups
+									</span>
+								</div>
+							</li>
+							<li className="nav-item" style={{ justifyContent: 'flex-end' }}>
+								<div className="new">
+									<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
+										<span style={{ padding: '5px' }}>
 											{/* <i class="las la-plus" style={{fontSize:'20px'}}></i> */}
-											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
+											<i className="las la-user-friends" style={{ fontSize: '20px' }}></i>
 
 											{/* <span>{`${following.length}`}</span> */}
-											</span>
-											Create group
 										</span>
-									</div>
-								</li>
-							</ul>
-												
-						</div>
-					
-						{handleShowComp()}
+										Create group
+									</span>
+								</div>
+							</li>
+						</ul>
+
 					</div>
+
+					{handleShowComp()}
+				</div>
 			</div>
 		</Layout>
 	);
