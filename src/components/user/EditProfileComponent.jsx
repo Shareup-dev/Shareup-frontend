@@ -99,7 +99,6 @@ export default function EditProfileComponent() {
       firstName: firstName,
       lastName: lastName,
       email: user.email,
-      optional_email: optionalEmail,
       birthday_date: birthdayDate,
       aboutme: aboutme,
       job: job,
@@ -150,9 +149,7 @@ export default function EditProfileComponent() {
   const handlePhone = (event) => {
     setPhone(event.target.value);
   };
-  const handleDate = (event) => {
-    setBirthdayDate(event.target.value);
-  };
+
 
   const addP = () => {
     localStorage.setItem("phone", JSON.stringify([{ myid, p_no }]));
@@ -476,7 +473,7 @@ export default function EditProfileComponent() {
                       style={{ marginLeft: "10px" }}
                       className="right-edit-details-input d-block p-3"
                     >
-                      {optionalEmail ? optionalEmail : "Add Secondary Email"}
+                      {optionalEmail ? optionalEmail : "Add Email"}
                     </div>
                     <a
                       href="#"
@@ -484,7 +481,7 @@ export default function EditProfileComponent() {
                       className="text-color d-block p-3"
                       onClick={ChangePrimaryEmail}
                     >
-                      Make Primary
+                    {optionalEmail ? "Make Primary" : ""}
                     </a>
                     <a
                       style={{ marginLeft: "10px" }}
