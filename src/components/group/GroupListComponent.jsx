@@ -17,6 +17,7 @@ import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
 import Grpicon from '../../images/grpicon.png'
 import GroupViewComponent from './GroupViewComponent';
+import { set } from 'nprogress';
 
 
 function GroupListComponent({post}) {
@@ -26,7 +27,7 @@ function GroupListComponent({post}) {
 	let history = useHistory();
 
 	const { user } = useContext(UserContext)
-	console.log("this is the user data on Groups"+(user) )
+	// console.log("this is the user data on Groups"+(user) )
 
 	// const []
 	const [refresh, setRefresh] = useState([]);
@@ -42,6 +43,8 @@ function GroupListComponent({post}) {
 	const [requestFlag, setRequestFlag] = useState(false);
 
 	const [searchedMyGroups, setSearchedMyGroups] = useState([]);
+	const [joinRequests, setJoinRequests] = useState([]);
+
 
 	const [showComp, setShowComp] = useState("allgroups");
 
@@ -66,7 +69,7 @@ function GroupListComponent({post}) {
 	}
 	const getMyMemberGroups = async () => {
 		if(user){
-			console.log(user)
+			// console.log(user)
 			// await GroupService.getMyGroups(user.id).then(res => {
 			// 	const uniqueGroups = Array.from(new Set(res.data.map(a => a.id)))
 			// .map(id => {
@@ -90,7 +93,7 @@ function GroupListComponent({post}) {
 				
 			})
 			setSearchedGroups(temp)
-			console.log(temp)
+			// console.log(temp)
 		}
 	}
 
@@ -105,7 +108,7 @@ function GroupListComponent({post}) {
 				}
 			})
 			setSearchedMyGroups(temp)
-			console.log(temp)
+			// console.log(temp)
 		}
 	}
 
@@ -119,7 +122,7 @@ function GroupListComponent({post}) {
 	}
 	const handleLeaveGroup = (e,group_id) => {
 		e.preventDefault();
-		console.log(group_id)
+		// console.log(group_id)
 		GroupService.leaveGroup(user.id, group_id).then(res => {
 			setRefresh(res.data)
 			setGroup(res.data)
@@ -128,7 +131,7 @@ function GroupListComponent({post}) {
 
 	const handleJoinGroup = (e,group) => {
 		e.preventDefault();
-		console.log(group.id)
+		// console.log(group.id)
 		if(group.privacySetting===true){
 			GroupService.joinGroup(user.id, group.id).then(res => {
 				setRefresh(res.data)
@@ -157,7 +160,9 @@ function GroupListComponent({post}) {
 	// 		console.log(group)
 	// 	})
 	// }
+	// const cancelRequestGroup = () =>{
 
+	// }
 	const showAllGroupsComponent = () => {
 		// console.log(group)
 		return (
@@ -171,7 +176,7 @@ function GroupListComponent({post}) {
 						
 						{searchedGroups.map((group) =>
 								
-							<GroupViewComponent key={group.id} group={group} handleLeaveGroup={handleLeaveGroup} handleJoinGroup={handleJoinGroup} checkIfInGroup={checkIfInGroup}/>
+							<GroupViewComponent key={group.id} group={group} cancelRequestGroup = {cancelRequestGroup } handleLeaveGroup={handleLeaveGroup} handleJoinGroup={handleJoinGroup} checkIfInGroup={checkIfInGroup} joinRequests={joinRequests}/>
 
 						)}
 					</ul>
@@ -239,20 +244,36 @@ function GroupListComponent({post}) {
 		)
 	}
 
-	const didJoinRequestSent = (gid) => {
+	const getMyJoinRequests = () => {
 		// console.log(gid)
-        GroupService.joinRequestSent(user.id,gid).then(res => {
-			// setRefresh(res.data);
-			console.log('yes',res.data)
-			setRequestFlag(true)
-		})
+		if(user&&user.id){
+			GroupService.getMyJoinRequests(user.id).then(res => {
+				// console.log('yes',res.data)
+				setJoinRequests(res.data)
+				// setRefresh(res.data);
+				// setRequestFlag(true)
+			})
+		}
     }
-	const cancelRequestGroup = (members) => {
-
+	const cancelRequestGroup = (e,gid) => {
+		e.preventDefault();
+		// console.log(gid)
+		let reqId ;
+		if(joinRequests&&joinRequests.length>0){
+			joinRequests.some(req=>req.group_id===gid?reqId=req.id:null)
+			// console.log(reqId)
+			GroupService.cancelRequestGroup(reqId).then(res => {
+				// console.log('done delete')
+				setRefresh(res.data);
+				// setRequestFlag(true)
+			})
+		}
+		
 	}
 	useEffect(() => {
 		getAllGroups()
 		getMyGroups()
+		getMyJoinRequests()
 	}, [showComp, refresh])
 
 	useEffect(() => {
@@ -266,7 +287,7 @@ function GroupListComponent({post}) {
 				<div className="central-meta swap-pg-cont">
 					<div className="frnds">
 						<div>
-							<p className="Friends-Title">Groups</p>
+							<p className="Friends-Title common-title">Groups</p>
 							<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 						</div>
 						
@@ -277,8 +298,8 @@ function GroupListComponent({post}) {
 								<li className="nav-item" style={{justifyContent:'flex-start'}}>
 									<div className="all">
 										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("allgroups")}>
-											<span style={{  padding: '5px' }}> 
-											<i className="las la-users" style={{fontSize:'20px'}}></i>
+											<span style={{  padding: '5px',marginRight:'5px' }}> 
+											<i className="fa fa-users" style={{fontSize:'18px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 										All Groups
@@ -288,8 +309,8 @@ function GroupListComponent({post}) {
 								<li className="nav-item" style={{justifyContent:'center'}}>
 									<div className="my">
 										<span style={{ cursor: 'pointer' }} onClick={() => setShowComp("mygroups")}>
-											<span style={{  padding: '5px' }}> 
-											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
+											<span style={{  padding: '5px',marginRight:'5px' }}> 
+											<i className="fa fa-user-friends" style={{fontSize:'18px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											My Groups 
@@ -299,8 +320,8 @@ function GroupListComponent({post}) {
 								<li className="nav-item" style={{justifyContent:'flex-end'}}>
 									<div className="new">
 										<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
-											<span style={{  padding: '5px' }}> 
-											<i class="las la-plus" style={{fontSize:'20px'}}></i>
+											<span style={{  padding: '5px',marginRight:'5px' }}> 
+											<i class="fa fa-plus" style={{fontSize:'18px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											Create group

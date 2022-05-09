@@ -29,8 +29,9 @@ function InviteMembersComponent(props) {
 	const [allUser, setAllUser] = useState([]);
 	const [friendsList, setFriendsList] = useState([]);
 	const [friendsCount, setFriendsCount] = useState();
+    const [invitations, setInvitations] = useState();
 	const [moreFlag, setMoreFlag] = useState(false);
-	const [invite, setInvite] = useState();
+	const [inviteFlag, setInviteFlag] = useState();
 
     
 	const [searchedUser, setSearchedUser] = useState([]);
@@ -57,6 +58,7 @@ function InviteMembersComponent(props) {
         setMembers(props.members)
         setGroup(props.group)
         getFriendsList()
+        getAllGroupInvitations()
     }, [props])
     $(document).mouseup(function(e) 
 {
@@ -100,8 +102,8 @@ function InviteMembersComponent(props) {
     }
     const inviteMember = (fId) =>{
         GroupService.inviteMember(group.id,user.id,fId).then(res => {
-			setInvite(res.data.requestStatus)
-            setRefresh(res.data);
+			setInviteFlag(res.data.requestStatus)
+            // setRefresh(res.data);
             
 		})
     }
@@ -124,6 +126,11 @@ function InviteMembersComponent(props) {
 			console.log(temp)
 		}
 	}
+    const getAllGroupInvitations = ()   =>  {
+        GroupService.getAllGroupInvitations(props.group.id).then((res)=>{
+            setInvitations(res.data)
+        })
+    }
     // console.log(friendsList)
     return(
         <div className="">
@@ -158,9 +165,9 @@ function InviteMembersComponent(props) {
                                                         </div>
                                                         <div className="item4">
                                                             {
-                                                                friendsList.some(friend=>user.id!==friend.id)
-                                                                ?<a href="#"  className="add-butn more-action" data-ripple onClick={() => inviteMember(friend.id)}>Invite </a>
-                                                                : user.id!==user.id&&<a href="#"  className="add-butn more-action" data-ripple >Invited </a>
+                                                                (invitations&&invitations.length>0&&invitations.some(invite=>invite.userdata.id===friend.id))||(inviteFlag&&inviteFlag==='Invited')?
+                                                                <a href="#"  className="button common-trans-btn1" data-ripple style={{margin:'10px'}}>Invited </a>
+                                                                :<a href="#"  className="button common-theme-btn1" data-ripple onClick={() => inviteMember(friend.id)} style={{margin:'10px'}}>Invite </a>
                                                                     }
                                                             {/* <div>  <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i></div> */}
                                                         </div>

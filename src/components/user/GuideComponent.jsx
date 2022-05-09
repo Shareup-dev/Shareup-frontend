@@ -215,6 +215,7 @@ function GuideComponent() {
                                 style={{
                                   background: "#033347",
                                   fontSize: "12px",
+                                  width:'50%'
                                 }}
                                 onClick={() =>
                                   acceptFriendRequest(user.id, userF.id)
@@ -244,11 +245,12 @@ function GuideComponent() {
                             ) ? (
                             <a
                               href="#"
-                              className="button"
+                              className="button common-trans-btn"
                               style={{
                                 color: "#fff",
                                 background: "#033347",
                                 fontSize: "12px",
+                                
                               }}
                               onClick={() =>
                                 unsendFriendRequest(user.id, userF.id)
@@ -259,7 +261,7 @@ function GuideComponent() {
                           ) : (
                             <a
                               href="#"
-                              className="button"
+                              className="button  common-trans-btn"
                               style={{
                                 color: "#000000",
                                 background: "#EAEAEA",

@@ -77,8 +77,16 @@ class GroupService {
         const result = await authAxios.get(`/${gid}/member_requests`)
         return result;
     }
+    getAllGroupInvitations = async (gid) => {
+        const result = await authAxios.get(`/${gid}/group_invitations`)
+        return result;
+    }
     getGroupNewsFeed = async (gid) =>{
         const result = await authAxios.get(`/group_feed/${gid}`)
+        return result;
+    }
+    getMyJoinRequests = async (uid) => {
+        const result = await authAxios.get(`/${uid}/my_requests`)
         return result;
     }
     joinRequestSent = async (uid,gid) => {
@@ -91,6 +99,10 @@ class GroupService {
     }
     joinRequestGroup = async (uid, gid) => {
         const result = await authAxios.post(`/${uid}/Join_group/${gid}`)
+        return result
+    }
+    cancelRequestGroup = async (rid) => {
+        const result = await authAxios.delete(`/delete_request/${rid}`)
         return result
     }
 

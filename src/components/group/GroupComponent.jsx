@@ -348,11 +348,9 @@ function GroupListComponent({post}) {
 									<div className="new">
 										<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
 											<span style={{  padding: '5px' }}> 
-<<<<<<<< HEAD:src/components/group/GroupListComponent.jsx
-											<i class="las la-plus" style={{fontSize:'20px'}}></i>
-========
+											{/* <i class="las la-plus" style={{fontSize:'20px'}}></i> */}
 											<i className="las la-user-friends" style={{fontSize:'20px'}}></i>
->>>>>>>> 45dc587e22d1e56727f86dc9717e149bd698d0fd:src/components/group/GroupComponent.jsx
+
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											Create group

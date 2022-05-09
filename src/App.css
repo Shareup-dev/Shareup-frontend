@@ -99,7 +99,7 @@ html {
     box-sizing: border-box;
     /* font-family: montserrat; */
     color: #2C3E50;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 1px
 }
 
@@ -910,7 +910,7 @@ position: absolute;
   background-size: cover;
   background-position: center;
   z-index: 1;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 
 }

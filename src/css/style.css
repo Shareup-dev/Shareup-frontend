@@ -5161,8 +5161,8 @@ a.nav-link:hover {
 a.add-butn {
   color: #fff;
   font-size: 13px;
-  line-height: initial;
-  padding: 5px 10px;
+  /* line-height: initial; */
+  /* padding: 5px 10px; */
   right: 0;
   border-radius: 5px;
   text-transform: capitalize;
@@ -15889,6 +15889,7 @@ input.chat-text {
   /* margin-top: 5px; */
   padding: 15px;
   padding-bottom: 0;
+  text-transform: uppercase;
 }
 .media-body {
   position: absolute;
@@ -15980,6 +15981,7 @@ input.chat-text {
 }
 .groupalign:hover {
   box-shadow: 0 6px 15px rgb(84 84 84 / 55%) !important;
+  /* border: none; */
 }
 .groupalign .groupsggstion-by {
   position: absolute;
@@ -15987,7 +15989,7 @@ input.chat-text {
   width: 100%;
 }
 .groupalign .grp-btn {
-  font-size: 14px;
+  font-size: 13px;
   width: 100%;
   padding: 5px;
   font-weight: 600;
@@ -16177,6 +16179,7 @@ input.chat-text {
   /* border: 1px solid #9a9a9a7a; */
   /* padding: 5px 15px; */
   transition: 0.3s;
+  height: 40px;
 }
 
 .swap-pg-cont .swap-page-nav li div {
@@ -16886,4 +16889,70 @@ hr.new1 {
   background-color: #fff;
   border-radius: 10px;
 
+}
+.common-title{
+  font-family: "Open Sans", sans-serif;
+  color: #0b2984;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  /* margin-top: 5px; */
+  /* padding: 15px; */
+  padding-bottom: 0;
+}
+.loader{
+  width:100%;
+  height:90vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  /* background:rgba(0,0,0,0.1); */
+}
+.loader-img {
+  animation: fadeIn ease 8s;
+  -webkit-animation: fadeIn ease 8s;
+  -moz-animation: fadeIn ease 8s;
+  -o-animation: fadeIn ease 8s;
+  -ms-animation: fadeIn ease 8s;
+}
+@keyframes loader-img {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes loader-img {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes loader-img {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes loader-img {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes loader-img {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+.common-theme-btn1{
+  height:32px;
+  /* color: #033347; */
+  font-size: 13px !important;
+  font-weight: 600;
+  color: white !important;
+  line-height: 33px;
+}
+.common-trans-btn1{
+  height:32px;
+  background-color: #eaeaea;
+  font-size: 13px !important;
+  font-weight: 600;
+  line-height: 33px;
+  color:#000 !important;
 }

@@ -1165,7 +1165,7 @@ function SearchFeedComponent() {
                 <div className="central-meta swap-pg-cont">
                     <div className="frnds">
                         <div>
-                            <p className="Friends-Title">Search</p>
+                            <p className="Friends-Title common-title">Search</p>
                             <i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
                         </div>
                         <div className="navContent">

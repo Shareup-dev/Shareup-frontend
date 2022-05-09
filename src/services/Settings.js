@@ -1,7 +1,8 @@
 const settings = {
   dev: {
     // apiUrl: "http://34.212.75.111",
-    apiUrl:"http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com"
+    // apiUrl:"http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com"
+    apiUrl:"http://192.168.100.22:8080"
 
   },
   staging: {

@@ -26,13 +26,17 @@ function GroupViewComponent(props) {
 
     useEffect(() => {
         setGroup(props.group)
-		if(user&&group){
-            if(group.members&&group.members.length>0&&group.members.some(member=>member.id!==user.id)){
+		if(props.joinRequests&&props.joinRequests.length>0&&group){
+            if(props.joinRequests.some(req=>req.group_id===group.id)){
+    			setRequestFlag(true)
 
-                didJoinRequestSent(group.id)}
+                // didJoinRequestSent(group.id)
             }
+        }else{
+            setRequestFlag(false)
+        }
 		
-	}, [props])
+	}, [props,requestFlag])
     const didJoinRequestSent = (gid) => {
 		// console.log(gid)
         GroupService.joinRequestSent(user.id,gid).then(res => {

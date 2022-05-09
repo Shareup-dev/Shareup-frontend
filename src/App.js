@@ -62,7 +62,7 @@ import LocationComponent from './components/AccountSettings/LocationComponent';
 import SearchFeedComponent from './components/user/SearchFeedComponent';
 import EditGroupComponent from './components/group/EditGroupComponent';
 
-
+import Loader from './components/loader/loader'
 
 
 import Giphy from './components/Giphy';
@@ -107,7 +107,7 @@ Giphy();
   return (
     <UserContext.Provider value={{ user }}>
     {
-      loading ? <div>Loading..</div>:(      
+      loading ? <Loader />:(      
       <Router>
         <HeaderComponent />
           <Switch>

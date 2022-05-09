@@ -1535,7 +1535,7 @@ const AllswapscomponentFunction = () => {
         <div className="central-meta swap-pg-cont">
           <div className="frnds">
             <div>
-              <p className="Friends-Title">Swaps</p>
+              <p className="Friends-Title common-title">Swaps</p>
               <i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
             </div>
             <div className="navContent">

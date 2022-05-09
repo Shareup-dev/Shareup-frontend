@@ -38,8 +38,8 @@ function FriendsWidgetComponent() {
         friendsList.length>0?
             <div className="widget friend-widget stick-widget">
                 <div className="row" style={{paddingTop:'20px'}}>  
-                    <img src="../assets/images/Graphicloads-Colorful-Long-Shadow-User-group.ico" style={{width:'13%'}}/>
-                <p className="widget-title" style={{position:'absolute', left: '50px',}}>Friends</p></div>
+                    {/* <img src="../assets/images/Graphicloads-Colorful-Long-Shadow-User-group.ico" style={{width:'13%'}}/> */}
+                <p className="widget-title" >Friends</p></div>
                 {/* <div id="searchDir" /> */}
                 <ul id="people-list" className="nearby-contct" style={{marginTop:'0'}}>
                     {friendsList.slice(0, 4).map(friend =>
@@ -53,7 +53,7 @@ function FriendsWidgetComponent() {
                                 <a href={`/profile/${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a>
                                 <p style={{fontSize:'12px',paddingTop:'5px'}}>{friend.numberOfFriends} Friends</p>
                             </div>
-                            <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}>Unfriend</button>
+                            <button title="" className="button common-theme-btn1" style={{margin:'10px'}}>Unfriend</button>
                             </div>
                         </li>
                     )}

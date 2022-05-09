@@ -130,9 +130,7 @@ function CreateGroupComponentMain() {
                     // console.log(res.data)    
                 })
             }
-            await GroupService.joinGroup(user.id, groupId).then(res =>{
-                
-            })
+            
             
             await setStep(4)
 
@@ -432,7 +430,7 @@ function CreateGroupComponentMain() {
                 <div className="central-meta create-group">
                     <div className="card px-0 pt-4 pb-0 mb-3">
                         <div style={{contentAlign: 'center', textAlign: 'center'}}>
-                        <h2 style={{fontSize:'20px' , fontWeight:'800'}} className="media-date">Create Your Group</h2>
+                        <h2  className="media-date">Create Your Group</h2>
                         {/* <p>Fill all form field to go to next step</p> */}
                         </div>
                         <div className="row">

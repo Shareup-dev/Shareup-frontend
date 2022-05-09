@@ -199,18 +199,18 @@ function FriendsComponent() {
                                                 friendRequestSent.some(el => el.id === userM.id)
                                                     ?
                                                     
-                                                       <a href="#!"  className="button" style={{ color: "#fff",background:'#033347',fontSize:'12px' }} data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Request</a> 
+                                                       <a href="#!"  className="button common-theme-btn1" style={{ color: "#fff",background:'#033347',fontSize:'12px' }} data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Request</a> 
                                                    
                                                     :
                                                    
-                                                         <a href="#!"  className="button" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Request</a> 
+                                                         <a href="#!"  className="button common-theme-btn1" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Request</a> 
                                                     
                                             :
                                             <>
                                                 
-                                                     <a href="#"  style={{ color: "#fff",background:'#033347' }}
+                                                     <a href="#"  
 													 
-													 className="add-butn more-action" data-ripple onClick={() => removeFriend(user.id, userM.id)}>Unfriend</a> 
+													 className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => removeFriend(user.id, userM.id)}>Unfriend</a> 
                                                 
                                                 
                                             </>
@@ -519,7 +519,7 @@ return (
 				<div className="frnds">
 					{/* <ul className="nav nav-tabs"> */}
 					<div >
-						<p className="Friends-Title">Friends</p>
+						<p className="Friends-Title common-title">Friends</p>
 						<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 					</div>
 					<div className="navContent">

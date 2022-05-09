@@ -43,6 +43,7 @@ import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
 import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
+import Loader from '../loader/loader'
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -2838,7 +2839,7 @@ function NewsfeedComponent() {
     testScript();
   }, [stories]);
   if (isLoading) {
-    return <div>Loading... Please Wait</div>;
+    return <Loader />;
   }
 
   if (user.newUser) {

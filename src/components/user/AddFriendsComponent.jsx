@@ -293,7 +293,7 @@ function AddFriendsComponent() {
 										</div>
 										<div className="item4">
 
-											<a href="#" className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+											<a href="#" className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 
 										</div>
 
@@ -350,7 +350,7 @@ function AddFriendsComponent() {
 
 										<div className="item4">
 											{/* <span>Engr</span> */}
-											<a href="#" className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+											<a href="#" className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 										</div>
 										{/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>

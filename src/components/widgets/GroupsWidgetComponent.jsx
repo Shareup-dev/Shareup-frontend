@@ -44,7 +44,7 @@ function GroupsWidgetComponent() {
 
 
     return (
-
+        searchedGroups&&searchedGroups.length>0?
         <div className="widget friend-list stick-widget" >
             <div className="row">
                 {/* <img src="../assets/images/b76706b9814f347e841ff15b89a5d170-instagram-discover-people-icon-by-vexels.png" style={{width:'14%'}}/> */}
@@ -60,15 +60,16 @@ function GroupsWidgetComponent() {
                                 </figure>
                                 <div className="pepl-info">
                                     <h4><a href={`/groups/${group.id}`} title="#">{`${group.name}`}</a></h4>
-                                    <span>{`${group.description}`}</span>
+                                    <span>{`${group.members && group.members.length}`} Members</span>
 
                                 </div>
-                                <button className="button" style={{ width: '60px', margin: '10px', padding: '0 5px', fontSize: '14px', fontSize: '600' }}>Join</button>
+                                <button style={{  margin: '10px'}} className="button common-theme-btn1" >Join</button>
                             </div>
                         </li>
                 )}
             </ul>
         </div>
+        :null
     );
 }
 export default GroupsWidgetComponent;
