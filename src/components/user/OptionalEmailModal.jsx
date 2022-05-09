@@ -63,9 +63,6 @@ function OptionalEmailModal({ setOpenModal, handleOptionalEmail, Fvalue }) {
     }
   };
 
-
-
-
   const SendOptinalEmailOtp = () => {
     if (Fvalue == "") {
       setError("Please enter Email");
@@ -117,54 +114,53 @@ function OptionalEmailModal({ setOpenModal, handleOptionalEmail, Fvalue }) {
       <div className="body d-flex flex-column align-items-start">
         <p>Add Your Email</p>
         <div>
-        <input
-        className="d-inline p-2 m-1"
-        placeholder="Secendery Email"
-
-          name="textf"
-          style={{
-            border: "1px solid #033347",
-            borderRadius: "2%",
-            height: "30px",
-            width: "250px",
-            fontSize: "1.2rem",
-            fontWeight: "600",
-          }}
-          onChange={handleOptionalEmail}
-          value={Fvalue}
-        ></input>
-        <button 
-                className="d-inline p-1 m-1"
-        onClick={SendOptinalEmailOtp}>Send OTP</button>
-</div>
+          <input
+            className="d-inline p-2 m-1"
+            placeholder="Secendery Email"
+            name="textf"
+            style={{
+              border: "1px solid #033347",
+              borderRadius: "2%",
+              height: "30px",
+              width: "250px",
+              fontSize: "1.2rem",
+              fontWeight: "600",
+            }}
+            onChange={handleOptionalEmail}
+            value={Fvalue}
+          ></input>
+          <button className="d-inline p-1 m-1" onClick={SendOptinalEmailOtp}>
+            Send OTP
+          </button>
+        </div>
         <p>Enter OTP </p>
 
-<div>
-        <input
-                className="d-inline p-2 m-1"
-                placeholder="OTP"
-          name="textf"
-          style={{
-            border: "1px solid #033347",
-            borderRadius: "2%",
-            height: "30px",
-            width: "100px",
-            fontSize: "1.2rem",
-            fontWeight: "600",
-            textAlign: "center",
-          }}
-          onChange={handleOTP}
-          value={OTP}
-        ></input>
-        <button
-                className="d-inline p-1 m-1"
-
-          onChange={handleOTP}
-          value={OTP}
-          onClick={verifyOtpOptionalEmail}
-        >
-          Verify
-        </button></div>
+        <div>
+          <input
+            className="d-inline p-2 m-1"
+            placeholder="OTP"
+            name="textf"
+            style={{
+              border: "1px solid #033347",
+              borderRadius: "2%",
+              height: "30px",
+              width: "100px",
+              fontSize: "1.2rem",
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+            onChange={handleOTP}
+            value={OTP}
+          ></input>
+          <button
+            className="d-inline p-1 m-1"
+            onChange={handleOTP}
+            value={OTP}
+            onClick={verifyOtpOptionalEmail}
+          >
+            Verify
+          </button>
+        </div>
       </div>
       <small
         style={{ color: "red", fontSize: "1.2rem", fontWeight: "600" }}
