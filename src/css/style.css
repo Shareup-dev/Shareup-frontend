@@ -13683,6 +13683,12 @@ a.popup-btn:hover {
   height: 50px;
   border-radius: 0;
 }
+
+.textpopup-share {
+  background: transparent;
+  height: 50px;
+  border-radius: 2;
+}
 .postpopup-carousel .owl-stage {
   display: flex;
   justify-content: center;

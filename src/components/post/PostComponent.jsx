@@ -24,7 +24,8 @@ import "react-image-lightbox/style.css";
 
 import Form from "react-bootstrap/Form";
 import moment from "moment";
-
+import NewsfeedComponent from "../user/NewsfeedComponent";
+import Card from "react-bootstrap/Card";
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh }) {
@@ -129,15 +130,15 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleLikePost = async (post_id) => {
-    
-     UserService.likeSwap(user.id, post_id).then((res) => {
-      setRefresh(res.data);
-    }).catch((e) => {
-       UserService.likePost(user.id, post_id).then((res) => {
+    UserService.likeSwap(user.id, post_id)
+      .then((res) => {
         setRefresh(res.data);
+      })
+      .catch((e) => {
+        UserService.likePost(user.id, post_id).then((res) => {
+          setRefresh(res.data);
+        });
       });
-    });
-
   };
 
   const handleSwapPost = async (post_id) => {
@@ -201,7 +202,10 @@ export default function PostComponent({ post, setRefresh }) {
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
     return (
-      <i className="fas fa-star" style={{ fontSize: "12px", color: "#d83535" }}></i>
+      <i
+        className="fas fa-star"
+        style={{ fontSize: "12px", color: "#d83535" }}
+      ></i>
     );
   };
 
@@ -285,26 +289,36 @@ export default function PostComponent({ post, setRefresh }) {
     await event.preventDefault();
 
     const formData = new FormData();
+    formData.append("content", shareContent);
 
-    await formData.append("content", shareContent);
 
-
-    if (userF === null) {
-      await ShareService.createShare(user.id, post.id, formData, null).then(
-        (res) => {
-          // setCloseModal(false)
-          // window.location.reload();
-
+    if (post.allPostsType === "share") {
+      if (userF === null) {
+        await ShareService.createShare(user.id, post.post.id, formData, null).then(
+          (res) => {
+            setShareContent("");
+            setRefresh(res.data);
+          }
+        );
+      } else
+        await ShareService.createShare(user.id, post.post.id).then((res) => {
           setShareContent("");
           setRefresh(res.data);
-          // window.location.reload();
-        }
-      );
-    } else
-      await ShareService.createShare(user.id, post.id).then((res) => {
-        setShareContent("");
-        setRefresh(res.data);
-      });
+        });    }else{
+      if (userF === null) {
+        await ShareService.createShare(user.id, post.id, formData, null).then(
+          (res) => {
+            setShareContent("");
+            setRefresh(res.data);
+          }
+        );
+      } else
+        await ShareService.createShare(user.id, post.id).then((res) => {
+          setShareContent("");
+          setRefresh(res.data);
+        });    }
+      
+
   };
 
   const sharepopup = () => {
@@ -339,10 +353,19 @@ export default function PostComponent({ post, setRefresh }) {
                     <i className="las la-times"></i>
                   </a>
                 </div>
-
                 <div
-                  style={{ width: "20%", textAlign: "right", padding: "0" }}
-                ></div>
+                  style={{
+                    color: "#000000",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                    width: "60%",
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  <span>Share This Post</span>
+                </div>
+                <div style={{ width: "20%", textAlign: "right" }}></div>
               </div>
             </div>
             <div style={{ padding: "0 11px 11px 11px" }}>
@@ -351,7 +374,7 @@ export default function PostComponent({ post, setRefresh }) {
                   src={
                     user
                       ? fileStorage.baseUrl + user.profilePicturePath
-                      : fileStorage.baseUrl + userR.profilePicturePath
+                      : fileStorage.baseUrl + user.profilePicturePath
                   }
                   alt=""
                 />
@@ -361,7 +384,13 @@ export default function PostComponent({ post, setRefresh }) {
                   <span>
                     {`${user.firstName} ${user.lastName}`}
                     {userF ? (
-                      <> with {`${userF.firstName} ${userF.lastName}`}</>
+                      <>
+                        <span style={{ fontWeight: "100", fontSize: "14px" }}>
+                          {" "}
+                          with{" "}
+                        </span>
+                        {`${userF.firstName} ${userF.lastName}`}
+                      </>
                     ) : null}
                   </span>
                   <span
@@ -370,15 +399,7 @@ export default function PostComponent({ post, setRefresh }) {
                       display: "block",
                       fontSize: "10px",
                     }}
-                  >
-                    <li
-                      style={{
-                        paddingLeft: "0%",
-                        paddingTop: "1%",
-                        listStyleType: "none",
-                      }}
-                    ></li>
-                  </span>
+                  ></span>
                 </div>{" "}
               </div>{" "}
             </div>
@@ -387,37 +408,118 @@ export default function PostComponent({ post, setRefresh }) {
                 <textarea
                   className="textpopup"
                   rows={2}
+                  placeholder="Sharing is Caring"
                   name="swap_content"
                   value={shareContent}
                   onChange={handleSwapContent}
                 />
-
-                {showSwapImage ? (
-                  <>
-                    <div style={{ position: "relative" }}>
-                      {swapImage.map((item, key) => (
+                 {post.allPostsType === "share" ? (
+                <>
+                  <div className="postShared">
+                  <div style={{ padding: "0 11px 11px 11px" }}>
+                    {post.post.media && post.post.media.length == 1 ? (
+                      <>
                         <img
-                          src={item}
-                          key={key}
-                          style={{
-                            padding: "10px",
-                            display: "inline-block",
-                            verticalAlign: "middle",
-                          }}
+                          style={{ width: "100%", objectFit: "cover" }}
+                          src={`${fileStorage.baseUrl}${post.post.media[0].mediaPath}`}
+                          alt={`${fileStorage.baseUrl}${post.post.media[0].mediaPath}`}
+                          className="lightbox-popup"
                         />
-                      ))}
+                      </>
+                    ) : null}
+                    <div className="p-1 popupuser-name">
+                      <div style={{ display: "inline" }}>
+                        <span>
+                          {`${post.post.userdata.firstName} ${post.post.userdata.lastName}`}
+                          {userF ? (
+                            <> with {`${userF.firstName} ${userF.lastName}`}</>
+                          ) : null}
+                        </span>
+                        <span
+                          className="text-muted"
+                          style={{
+                            display: "block",
+                            fontSize: "9px",
+                            paddingTop: "0px",
+                          }}
+                        >
+                          {moment(
+                            post.published,
+                            "DD MMMM YYYY hh:mm:ss"
+                          ).fromNow()}
+                        </span>
+                      </div>
                     </div>
-                  </>
-                ) : null}
+                    {post.post.content && (
+                      <p
+                        id={`post-content-${post.post.id}`}
+                        style={{
+                          marginLeft: "4px",
+                          fontSize: "14px",
+                          color: "black",
+                        }}
+                      >
+                        {`${post.post.content}`}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                </>
+                      ) :( 
+                <div className="postShared">
+                  <div style={{ padding: "0 11px 11px 11px" }}>
+                    {post.media && post.media.length == 1 ? (
+                      <>
+                        <img
+                          style={{ width: "100%", objectFit: "cover" }}
+                          src={`${fileStorage.baseUrl}${post.media[0].mediaPath}`}
+                          alt={`${fileStorage.baseUrl}${post.media[0].mediaPath}`}
+                          className="lightbox-popup"
+                        />
+                      </>
+                    ) : null}
+                    <div className="p-1 popupuser-name">
+                      <div style={{ display: "inline" }}>
+                        <span>
+                          {`${post.userdata.firstName} ${post.userdata.lastName}`}
+                          {userF ? (
+                            <> with {`${userF.firstName} ${userF.lastName}`}</>
+                          ) : null}
+                        </span>
+                        <span
+                          className="text-muted"
+                          style={{
+                            display: "block",
+                            fontSize: "9px",
+                            paddingTop: "0px",
+                          }}
+                        >
+                          {moment(
+                            post.published,
+                            "DD MMMM YYYY hh:mm:ss"
+                          ).fromNow()}
+                        </span>
+                      </div>
+                    </div>
+                    {post.content && (
+                      <p
+                        id={`post-content-${post.id}`}
+                        style={{
+                          marginLeft: "4px",
+                          fontSize: "14px",
+                          color: "black",
+                        }}
+                      >
+                        {`${post.content}`}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                      )}
               </span>
             </div>
 
-            <button
-              type="submit"
-              value="Submit"
-              className="popsbmt-btn"
-              // onClick={}
-            >
+            <button type="submit" value="Submit" className="popsbmt-btn">
               Share
             </button>
           </Form>
@@ -426,8 +528,7 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -592,11 +693,13 @@ export default function PostComponent({ post, setRefresh }) {
                   alignItems: "center",
                   paddingBottom: "8px",
                 }}
-               >
+              >
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
+                      src={
+                        fileStorage.baseUrl + post.userdata.profilePicturePath
+                      }
                       alt=""
                       className="post-user-img"
                     />
@@ -628,7 +731,7 @@ export default function PostComponent({ post, setRefresh }) {
                             fontSize: "14px",
                           }}
                         >
-                          shared a post{" "}
+                          shared post{" "}
                         </span>
                       ) : null}
                       {post.userTag ? (
@@ -715,15 +818,18 @@ export default function PostComponent({ post, setRefresh }) {
                     </ul>
                   </div>
                 </div>
-                </div>
+              </div>
 
               {post.content && (
                 <p
                   id={`post-content-${post.id}`}
-                  style={{ fontSize: "14px", color: "black" }}
+                  style={{
+                    marginBottom: "5px",
+                    fontSize: "14px",
+                    color: "black",
+                  }}
                 >
                   {`${post.content}`}
-                  <br></br>
                 </p>
               )}
 
@@ -793,8 +899,7 @@ export default function PostComponent({ post, setRefresh }) {
                     <React.Fragment>
                       <img
                         style={{ width: "100%", objectFit: "cover" }}
-                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`
-                        }
+                        src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         className="lightbox-popup"
                         onClick={() => setIsopen(true)}
@@ -1145,7 +1250,11 @@ export default function PostComponent({ post, setRefresh }) {
                   {post.post.content && (
                     <p
                       id={`post-content-${post.id}`}
-                      style={{ fontSize: "14px", color: "black" }}
+                      style={{
+                        marginBottom: "5px",
+                        fontSize: "14px",
+                        color: "black",
+                      }}
                     >
                       {`${post.post.content}`}
                       <br></br>
