@@ -1120,7 +1120,8 @@ export default function PostComponent({ post, setRefresh }) {
                 ) : null}
               </div>
 
-              {post.allPostsType === "share" && post.post.id !== null ? (
+              {post.allPostsType === "share" ? (
+                post.post.id !== null ? (
                 <div className="postShared">
                   <div
                     className="friend-name"
@@ -1656,10 +1657,13 @@ export default function PostComponent({ post, setRefresh }) {
                     </ul>
                   </div>
                 </div>
-              ) : 
+                ) : (
               <div className="postShared">
               Unavailable Post
               </div>
+              )
+              ) : null
+              
               }
               
               <div className="counter">
