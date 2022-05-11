@@ -47,7 +47,7 @@ function FollowingWidgetComponent() {
                                     </h4>
                                     <p style={{fontSize:'12px',paddingTop:'5px'}}>{follower_user.numberOfFollowers} Followers</p>
                                 </div>
-                                <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}>Unfollow</button>
+                                <button title="" className="button common-theme-btn1" style={{margin:'10px',padding:'0 5px'}}>Unfollow</button>
 
                             </li>
                         )

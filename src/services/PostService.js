@@ -51,6 +51,12 @@ class PostService {
         const result = await authAxios.get(`user/media/${userid}`)
         return result;
     }
+    
+    getCommentsForPosts = async (uid,pid) => {
+        authenticate();
+        const result = await authAxios.get(`comment/${uid}/get_comments/${pid}`)
+        return result;
+    }
 
     getSavedPostForUser = async (email) => {
         authenticate();
@@ -82,6 +88,11 @@ class PostService {
     deleteComment = async (commentid) => {
         const result = await authAxios.delete(`comment/${commentid}`)
         return result
+    }
+    LikeComment = async (uid,cid,params) => {
+        authenticate();
+        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,params)
+        return result;
     }
     updateuserPassword = async(email,ConPass,password)=>{
         console.log("This is conpass " +ConPass)
