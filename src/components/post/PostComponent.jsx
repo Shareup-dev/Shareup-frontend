@@ -1187,7 +1187,6 @@ export default function PostComponent({ post, setRefresh }) {
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
-                      {post.userdata.id !== user.id && (
                         <div className="swappost-cont">
                           <div className="">
                             <div
@@ -1206,6 +1205,9 @@ export default function PostComponent({ post, setRefresh }) {
                               {post.content ? post.content : ""}
                             </div>
                           </div>
+                          {post.userdata.id === user.id ? (
+                            <button className="button">Close</button>
+                          ):(
                           <Popup
                             trigger={<button className="button">Accept</button>}
                             modal
@@ -1359,8 +1361,8 @@ export default function PostComponent({ post, setRefresh }) {
                               </Form>
                             )}
                           </Popup>
-                        </div>
                       )}
+                      </div>
                     </div>
                   ))
                 ) : null}
