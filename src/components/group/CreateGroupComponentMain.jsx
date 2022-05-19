@@ -316,10 +316,15 @@ function CreateGroupComponentMain() {
                             </div>
                         </div>
                     </div>
-                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
-                        handleCreateGroup()
-                    }} />
+                    <div style={{position:'relative'}}>
+                        <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
+                        <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
+                            handleCreateGroup()
+                        }} />
+                        <a  className="skip-crt-grp" onClick={() => {
+                            handleCreateGroup()
+                        }} > Skip >> </a>
+                    </div>
                 </fieldset>
             )
         }

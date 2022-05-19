@@ -312,7 +312,6 @@ export default function PostComponent({ post, setRefresh }) {
       <Popup
         trigger={
           <span style={{ cursor: "pointer" }}>
-            <span style={{ marginRight: "5px" }}></span>
             Share
           </span>
         }
@@ -1617,9 +1616,8 @@ export default function PostComponent({ post, setRefresh }) {
                       style={{ marginRight: "5px" }}
                       onClick={() => setShowComment(!showComment)}
                     >
-                      {/* <img src='/assets/images/commentwhite.svg' alt='' /> */}
+                      {post.numberOfComments} Comments
                     </span>{" "}
-                    {/* <span> {`${getCommentCounter(post.comments)}` + " "}</span> */}
                   </li>
                 </ul>
               </div>

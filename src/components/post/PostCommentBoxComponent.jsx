@@ -10,33 +10,16 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from 'jquery'
 
-
-
-
-
-
-
-export default function PostComponentBoxComponent({ post, setRefresh }) {
-
-
-
-
+export default function PostComponentBoxComponent({ post, setRefresh ,editComment,checkEditComment}) {
   const { user } = useContext(UserContext)
   const ref = useRef(null);
-
-  const [commentContent, setCommentContent] = useState("");
+  const [commentContent, setCommentContent] = useState(editComment?editComment.content:"");
   const [showEmojis, setShowEmojis] = useState(false)
   const [showGifs, setShowGifs] = useState(false)
-
-
-
-
-
-
   const [showSticker, setShowSticker] = useState(false)
-
   const [chosenEmoji, setChosenEmoji] = useState(null);
-
+  const [chosenGif, setChosenGif] = useState(null);
+  const [chosenSticker, setSticker] = useState(null);
 
   const onEmojiClick = (event, emojiObject) => {
     const cursor = ref.current.selectionStart;
@@ -48,15 +31,6 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
     setCommentContent(text);
     ref.current.focus();
   };
-
-  const [chosenGif, setChosenGif] = useState(null);
-
-
-  const [chosenSticker, setSticker] = useState(null);
-
-
-
-
   const handleCommentContent = (event) => {
     console.log(event.target.value)
     setCommentContent(event.target.value)
@@ -65,20 +39,26 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
   const handlePostingComment = (postid) => {
     if (commentContent === "") {
       return null;
+    }else{
+      let comment = {}
+      comment.content = commentContent;
+      console.log(typeof(comment.content),'gggg')
+      if(editComment){
+        PostService.editCommentForPosts(editComment.id,comment).then(res=>{
+          checkEditComment(false)
+          console.log(res.status)
+          setRefresh(res.data)
+          setCommentContent("")
+        })
+      }else{
+        PostService.addComment(user.id, postid, comment).then(res => {
+          console.log(res.status)
+          setRefresh(res.data)
+          setCommentContent("")
+        })
+      }
     }
-    const comment = { content: commentContent }
-    PostService.addComment(user.id, postid, comment).then(res => {
-      console.log(res.status)
-      setRefresh(res.data)
-      setCommentContent("")
-    })
   }
-
-
-
-
-
-
 
   return (
     post &&
@@ -88,15 +68,10 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
       </div>
       <div className="post-comt-box">
         <Form>
-
-          <textarea rows={2} placeholder="Write a comment.." name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(post.id)} onChange={handleCommentContent} />
-
-
+          <textarea rows={2} placeholder={"Write a comment.."} name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(post.id)} onChange={handleCommentContent} autofocus/>
           <div className="add-smiles">
-
             <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i className="lar la-laugh"></i></span>
           </div>
-
           {showEmojis &&
             <div className="smiles-bunch active">
               <div >
@@ -110,12 +85,7 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
               </div>
             </div>
           }
-
-
-
-
-
-          <div className="stickers" style={{ zIndex: '999' }}>
+          <div className="stickers" style={{ zIndex: '1' }}>
             <img src="/assets/images/sticker-svgrepo-com.svg" style={{ height: '19px' }} alt="" onClick={() => setShowSticker(!showSticker)} /></div>
           {showSticker &&
             <div className="stickers-bunch active">
@@ -127,28 +97,9 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                 )}
                 <Stickers />
                 {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
-
-
-
-
-
-
-
-
               </div>
             </div>
           }
-
-
-
-
-
-
-
-
-
-
-
           <div className="gifs">
             <img src="/assets/images/gif.svg" alt="" onClick={() => setShowGifs(!showGifs)} /></div>
           {showGifs &&
@@ -161,22 +112,10 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                 )}
                 <Giphy />
                 {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
-
-
-
-
-
               </div>
             </div>
           }
-
-
-
-
-
-
           <div className="btncmnt">
-
             <button type="button" onClick={() => handlePostingComment(post.id)} style={{ color: 'blue', padding: '1px', }}>
 
               <img src="/assets/images/ei_camera.svg" alt="" style={{ padding: "3px", marginTop: "6px", borderStyle: "2px solid black" , paddingRight: "0px"}} />
@@ -186,7 +125,8 @@ export default function PostComponentBoxComponent({ post, setRefresh }) {
                         </svg> */}
             </button>
           </div>
-        </Form></div>
+        </Form>
+        </div>
     </li>
   );
 }

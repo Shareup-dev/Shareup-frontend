@@ -58,6 +58,12 @@ class PostService {
         return result;
     }
 
+    editCommentForPosts = async (cid , data) => {
+        // authenticate();
+        const result = await authAxios.put(`comment/Edit_comment/${cid}`,data)
+        return result;
+    }
+
     getSavedPostForUser = async (email) => {
         authenticate();
         const result = await authAxios.get(`posts/${email}/saved_posts`)
@@ -84,16 +90,37 @@ class PostService {
         const result = await authAxios.post(`comment/${userid}/${postid}`, comment)
         return result
     }
-
-    deleteComment = async (commentid) => {
-        const result = await authAxios.delete(`comment/${commentid}`)
+    replyComment = async (userId, commentId,comment) => {
+        const result = await authAxios.post(`comment/reply/${userId}/${commentId}`, comment)
         return result
     }
-    LikeComment = async (uid,cid,params) => {
-        authenticate();
-        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,params)
+    getReplies = async (commentId) => {
+        const result = await authAxios.get(`comment/get_replies/${commentId}`)
+        return result
+    }
+    LikeReply = async (uid,rid,data) => {
+        const result = await authAxios.put(`reply/${uid}/like-unlike/${rid}`,data)
         return result;
     }
+    editReplyForComment = async (rid , data) => {
+        // authenticate();
+        const result = await authAxios.put(`reply/edit/${rid}`,data)
+        return result;
+    }
+    deleteReply = async (rid) => {
+        const result = await authAxios.delete(`reply/delete/${rid}`)
+        return result
+    }
+    deleteComment = async (commentid) => {
+        const result = await authAxios.delete(`comment/delete/${commentid}`)
+        return result
+    }
+    LikeComment = async (uid,cid,data) => {
+        authenticate();
+        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,data)
+        return result;
+    }
+    
     updateuserPassword = async(email,ConPass,password)=>{
         console.log("This is conpass " +ConPass)
         console.log(password)
