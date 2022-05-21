@@ -20,19 +20,16 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
 
   // const inputRef = createRef();
 
-  const [storiesForUser, setStoriesForUser] = useState([]);
   const [storiesForUserFriends, setStoriesForUserFriends] = useState([]);
   const [stories, setStories] = useState([]);
   const [FriendsStories, setFriendsStories] = useState([]);
 
-  const [storiesS, setStoriesS] = useState([]);
   const [userR, setUserR] = useState([]);
 
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
-  console.log("ashiya beti", delay * index);
 
   const resetTimeout = () => {
     if (timeoutRef.current) {
@@ -40,22 +37,12 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
     }
   };
 
-
-
-
-  const getStoriesForFriendsUser = async () => {
-    await StoriesService.getStoriesForUserFriendsNew(user?.id).then((res) => {
-      // const sorting = res.data.sort(function (a, b) {
-      //   let dateA = new Date(a.date),
-      //     dateB = new Date(b.date);
-      //   return dateB - dateA;
-      // });
-      // const uniqueStories = Array.from(new Set(sorting.map((a) => a.id))).map((id) => {
-      //   return res.data.find((a) => a.id === id);
-      // });
-      setStoriesForUserFriends(res.data);
+  const addViewrsToStories = async (sid) => {
+    await StoriesService.addViewrsToStories(sid, user?.id).then((res) => {
+      console.log("viewing story working");
     });
   };
+
   const getUser = async () => {
     if (user === null) {
       await UserService.getUserByEmail(
@@ -71,13 +58,10 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
     testScript();
   }, []);
 
-
   useEffect(() => {
     getUser();
-    getStoriesForFriendsUser();
     testScript();
   }, [FriendsStories]);
-
 
   useEffect(() => {
     resetTimeout();
@@ -101,8 +85,6 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
     };
   }, [index]);
 
-
-
   return (
     <>
       <div className="stryDsply">
@@ -112,40 +94,44 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
               <div className="slideshow">
                 <div
                   className="slideshowSlider"
-                  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}  
-                 >
+                  style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+                >
                   {story.map((background, index) => {
-                  
-                    return(
+                    return (
                       <>
-                      {background.image ? (
-                        <div className="slide" key={index} id={index}>
-                          <div className="strydisplay-Profimg">
+                        {background.image ? (
+                          <div className="slide" key={index} id={index}>
+                            <div className="strydisplay-Profimg">
+                              <img
+                                src={
+                                  fileStorage.baseUrl +
+                                  background.user.profilePicturePath
+                                }
+                                alt=""
+                              />
+                              <span>{background.user.firstName}</span>
+                              <div style={{ marginTop: "500px" }}>
+                                <span>
+                                  {background.caption}{" "}
+                                </span>
+                              </div>
+                            </div>
                             <img
+                              onClick={() =>(
+                                window.clearTimeout(timeoutRef.current),
+                                addViewrsToStories(background.id)
+                              )}
+                              className="stryDsplyImg"
                               src={
                                 fileStorage.baseUrl +
-                                background.user.profilePicturePath
+                                background.storiesImagePath
                               }
-                              alt=""
                             />
-                            <span>{background.user.firstName}</span>
-                            <div   style={{marginTop: "500px"}}>
-                          <span
-                              >{background.caption}</span>
                           </div>
-                          </div>
-                          <img
-                          onClick={() => window.clearTimeout(timeoutRef.current)}
-                            className="stryDsplyImg"
-                            src={
-                              fileStorage.baseUrl + background.storiesImagePath
-                            }
-                          />
-                        </div>
-                      ) : null}
-                  
-                    </>
-                  )})}
+                        ) : null}
+                      </>
+                    );
+                  })}
                 </div>
 
                 <div className="slideshowDots">
@@ -171,7 +157,6 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                   id="getnext"
                   onClick={() => {
                     setIndex(index + 1);
-                    console.log("looking for -1", index);
                   }}
                 >
                   <i className="fas fa-arrow-right"></i>
@@ -191,7 +176,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                 </span>
               ) : null}
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     </>

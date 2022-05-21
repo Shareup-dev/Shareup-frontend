@@ -21,7 +21,6 @@ function FriendsWidgetComponent() {
 
     const getFriendsList = async () => {
         await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
-            console.log(res.data)
             setFriendsList(res.data)
         })
     }

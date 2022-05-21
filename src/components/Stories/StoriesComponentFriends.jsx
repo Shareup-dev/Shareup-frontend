@@ -47,7 +47,6 @@ function StoriesComponentFriends({ story, setRefresh }) {
   };
 
 const checkPop=()=>{
-  console.log('popup working');
 }
 
 
