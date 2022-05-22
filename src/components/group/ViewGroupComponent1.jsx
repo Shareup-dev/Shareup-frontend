@@ -82,7 +82,7 @@ function ViewGroupComponent1({post}) {
     const [postsForUser, setPostsForUser] = useState([]);
     const [userF, setUserF] = useState(null);
     const [admins,setAdmins] = useState([]);
-
+	const [inviteDetails,setInviteDetails] = useState([]);
 
     //functions
 
@@ -94,10 +94,19 @@ function ViewGroupComponent1({post}) {
 		if(user&&groupid){
 			console.log(user.id)
 			// if()
-			didJoinRequestSent(groupid)
+			await didJoinRequestSent(groupid);
+			await getGroupJoinInvites();
 		}
 		
 	}, [joinedFlag])
+
+	const getGroupJoinInvites = () =>{
+		GroupService.getGroupInvitedOrNot(user.id,groupid).then((res)=>{
+			console.log(res.data)
+			setInviteDetails(res.data)
+			inviteDetails.some(invite=>invite.group_id ===groupid?console.log('fff'):console.log('ddddddddddddddd'))
+		})
+	}
 
 	const photos =[{
 		id:1,
@@ -317,7 +326,7 @@ function ViewGroupComponent1({post}) {
         GroupService.joinRequestSent(user.id,gid).then(res => {
 			// setRefresh(res.data);
 			console.log('yes',res.data)
-			setRequestFlag(res.data)
+			// setRequestFlag(res.data)
 		})
     }
 	const acceptRequest = (rid) => {
@@ -399,6 +408,7 @@ function ViewGroupComponent1({post}) {
     //     let validated = false
     //     setGroupCover(event.target.files[0])
     //     const reader = new FileReader();
+
     //     reader.onload = () => {
     //         if (reader.readyState === 2) {
     //             setCoverRender(reader.result)
@@ -407,6 +417,20 @@ function ViewGroupComponent1({post}) {
     //     reader.readAsDataURL(event.target.files[0])
     //     setShowCoverPicture(true)
     // }
+	const acceptInvite = () =>{
+		let inviteId;
+		inviteDetails.map((invite)=>{
+			if(invite.group_id === groupid && invite.inviteAccepted === false){
+				inviteId = invite.id
+			}
+		})
+		GroupService.acceptInvite(inviteId).then((res)=>{
+			if(res.data&&res.data.inviteAccepted===true){
+				setJoinedFlag(true)
+				getGroupMembers()
+			}			
+		})
+	} 
     return(
         <div id="group-page">
             <ShareupInsideHeaderComponent />
@@ -440,14 +464,16 @@ function ViewGroupComponent1({post}) {
 											</button>
 											<ul className="dropdown-menu">
 												<li><a href="#" onClick={handleLeaveGroup}>Leave group</a></li>
-												<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>
+												{group.owner.id===user.id?<li><a href="javascript:void(0)" onClick={handleDeleteGroup}>Delete group</a></li>:null}
 
 											</ul>
 										</div>
                                     : requestFlag
                                            ? <button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Cancel Request</button>
 
-                                    	   : <button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>
+                                    	   : (inviteDetails.some(invite=>invite.group_id===groupid)?
+										   	<button className="button drp-btn grp-page-btn join-grp-btn" onClick={acceptInvite}>Accept Request</button>
+											   :<button className="button drp-btn grp-page-btn join-grp-btn" onClick={handleJoinGroup}>Join Group</button>)
                                           
                                 }
                  

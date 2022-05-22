@@ -122,10 +122,12 @@ function MembersComponent(props) {
                 </div>
                 <div className="item4">
                     {
-                        (group&&group.owner&&group.owner.id!==user.id)
-                        ?friendsList.some(friend=>member.id!==friend.id)?
-                            <a href="#"  className="add-butn more-action" data-ripple onClick={() => addFriendsId(member.id)}>Add Friend </a>
-                            : member.id!==user.id&&<a href="#"  className="add-butn more-action" data-ripple >Message </a>
+                        (group&&group.owner&&(group.owner.id!==user.id))
+                        ?friendsList.some(friend=>member.id!==friend.id)
+                            ?member.id===user.id
+                                ?null
+                                :<a href="#"  className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => addFriendsId(member.id)}>Add Friend </a>
+                            : member.id!==user.id&&<a href="#"  className="button add-butn more-action common-theme-btn1" data-ripple >Message </a>
                         :null    }
                     {/* <div>  <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i></div> */}
                 </div>

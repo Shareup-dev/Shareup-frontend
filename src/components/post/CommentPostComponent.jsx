@@ -16,6 +16,8 @@ export default function CommentPostComponent({ post, setRefresh }) {
 
   const [comments, setComments] = useState([])
   const [likedCommentId, setLikedCommentId] = useState()
+  const [likedCommentIdArr, setLikedCommentIdArr] = useState([])
+
   const [replyCommentFlag, setReplyCommentFlag] = useState(false)
   const [replyCommentId, setReplyCommentId] = useState(false)
   const [replies, setReplies] = useState([])
@@ -40,23 +42,22 @@ export default function CommentPostComponent({ post, setRefresh }) {
     })
   }
   const sortComment = () => {
-    console.log(user.id, post.id)
+    // console.log(user.id, post.id)
     PostService.getCommentsForPosts(user.id, post.id).then((res) => {
 
       setComments(res.data)
+      // console.log(showComment , comments)
     })
 
-    if (comments) {
+    if (comments && comments.length>0) {
+      console.log(showComment , comments)
 
       // const comments = [...comments]
       comments.sort(function (a, b) {
         var dateA = new Date(a.published), dateB = new Date(b.published);
         return dateA - dateB;
       });
-
       setComments(comments)
-      console.log(comments)
-
     }
   }
   const checkEditComment = (e)=>{
@@ -69,23 +70,49 @@ export default function CommentPostComponent({ post, setRefresh }) {
     setEditReplyFlag(e)
     console.log(editCommentFlag,'edit')
   }
-  useEffect(() => {
-    sortComment()
+  const getLikedComments = async ()=>{
+    console.log(comments)
+    if(comments){
+      await comments.map((comment)=>{
+        if(comment.reactions.length>0){
+          comment.reactions.map((rea)=>{
+            console.log(rea.user.id,user.id,'userrrrrrrrrrrrrrr')
+            if(rea.user.id === user.id){
+              if(likedCommentIdArr.indexOf(comment.id)!== -1){
+
+              }else{
+                likedCommentIdArr.push(comment.id)
+                setLikedCommentIdArr(likedCommentIdArr);
+                setLikedFlag(true);
+
+                console.log(showComment , likedCommentIdArr)
+              }
+            }
+          })
+        }else{
+          // setLikedCommentIdArr([])
+        }
+      })
+    }
+  }
+  useEffect( async() => {
+    await sortComment()
+    await getLikedComments()
     // if(comments) {getReplies();}
   }, [post])
 
-  const date1 = (comment) => {
-    let date = new Date(comment.published);
-    let today = new Date();
-    var Difference_In_Time = today.getTime() - date.getTime();
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-    if ((Difference_In_Days % 1) > 0.5) {
-      let d = (Difference_In_Days % 1) > 0.5
-      console.log(Difference_In_Days, d, Math.round(Difference_In_Days - 1))
+  // const date1 = (comment) => {
+  //   let date = new Date(comment.published);
+  //   let today = new Date();
+  //   var Difference_In_Time = today.getTime() - date.getTime();
+  //   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  //   if ((Difference_In_Days % 1) > 0.5) {
+  //     let d = (Difference_In_Days % 1) > 0.5
+  //     console.log(Difference_In_Days, d, Math.round(Difference_In_Days - 1))
 
-    }
-    // const month = date.toLocaleString('default', { month: 'long' })
-  }
+  //   }
+  //   // const month = date.toLocaleString('default', { month: 'long' })
+  // }
   // const likeComment = async (e, cid) => {
   //   await e.preventDefault();
   //   await setLikedFlag(!likedFlag)
@@ -104,11 +131,13 @@ export default function CommentPostComponent({ post, setRefresh }) {
   //     console.log(res.data)
   //   })
   // }
-  const getReplies = (commentId) => {
-    PostService.getReplies(commentId).then((res) => {
-      console.log(res.data)
+  const getReplies = async (commentId) => {
+    await PostService.getReplies(commentId).then((res) => {
       setReplies(res.data)
+      // console.log(res.data.reactions)
+      
     })
+    await console.log(likedCommentIdArr)
   }
   const checkIfLiked = (comment) => {
     if (comment.reactions) {
@@ -123,23 +152,41 @@ export default function CommentPostComponent({ post, setRefresh }) {
     }
   }
   const likeComment = async (comment) => {
+    console.log(likedCommentIdArr)
+
       await PostService.LikeComment(user.id, comment.id,{}).then((res) => {
         console.log(res.data)
         if(res.data.reactions&&res.data.reactions.length>0){
            res.data.reactions.map((rea)=>{
             if(rea.user.id===user.id){
-              setLikedCommentId(comment.id)
-              console.log('hiiiii')
+              likedCommentIdArr.push(comment.id)
+              setLikedCommentIdArr(likedCommentIdArr)
+              setLikedFlag(true)
+              console.log(likedCommentIdArr,likedFlag,'hiiiii')
+            }else{
+              if(likedCommentIdArr.length>0){
+                if(likedCommentIdArr.indexOf(comment.id)!==-1){
+
+                  likedCommentIdArr.splice(likedCommentIdArr.indexOf(comment.id), 1);
+                }
+                setLikedCommentIdArr(likedCommentIdArr)
+              }
+              
             }
           })
         }else{
-          setLikedCommentId(null)
-          console.log('id')
+          likedCommentIdArr.splice(likedCommentIdArr.indexOf(comment.id), 1);
+          setLikedCommentIdArr(likedCommentIdArr)
+          setLikedFlag(false)
+          // setLikedCommentIdArr([])
+          console.log(likedCommentIdArr)
 
         }
         // getReplies(res.data)
         // checkIfLiked(comment)
       })
+      console.log(likedCommentIdArr)
+
   }
   const likeReply = async (reply) => {
     // console.log(checkIfLiked(reply))
@@ -185,6 +232,7 @@ export default function CommentPostComponent({ post, setRefresh }) {
   }
   const commentDisplay = (comment) => {
     let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
+    console.log(likedCommentIdArr.indexOf(comment.id))
     return (
       editCommentId===comment.id&&editCommentFlag?
       <PostComponentBoxComponent post={post} setRefresh={setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
@@ -206,7 +254,7 @@ export default function CommentPostComponent({ post, setRefresh }) {
                 </div>
                 <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={checkIfLiked(comment)||(likedCommentId===comment.id)?{color:'red'}:{}}>Like</a>
+                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={(likedCommentIdArr.indexOf(comment.id)!==-1)&&likedFlag?{color:'red'}:{}}>Like</a>
                     <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a>
                   </div>
                   {(comment.user.id === user.id) ?

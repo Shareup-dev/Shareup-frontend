@@ -44,6 +44,7 @@ function GroupListComponent({post}) {
 
 	const [searchedMyGroups, setSearchedMyGroups] = useState([]);
 	const [joinRequests, setJoinRequests] = useState([]);
+	const [inviteDetails, setInviteDetails] = useState([]);
 
 
 	const [showComp, setShowComp] = useState("allgroups");
@@ -270,10 +271,12 @@ function GroupListComponent({post}) {
 		}
 		
 	}
+	
 	useEffect(() => {
 		getAllGroups()
 		getMyGroups()
 		getMyJoinRequests()
+		// getGroupJoinInvites()
 	}, [showComp, refresh])
 
 	useEffect(() => {
