@@ -21,7 +21,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.aws;
+  return settings.dev;
 };
 
 export default getCurrentSettings();
