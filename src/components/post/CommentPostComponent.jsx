@@ -41,24 +41,24 @@ export default function CommentPostComponent({ post, setRefresh }) {
       getReplies(commentId)
     })
   }
-  const sortComment = () => {
+  const sortComment = async () => {
     // console.log(user.id, post.id)
-    PostService.getCommentsForPosts(user.id, post.id).then((res) => {
+    await PostService.getCommentsForPosts(user.id, post.id).then((res) => {
 
       setComments(res.data)
       // console.log(showComment , comments)
+      if (comments && comments.length>0) {
+        console.log(showComment , comments)
+  
+        // const comments = [...comments]
+        comments.sort(function (a, b) {
+          var dateA = new Date(a.published), dateB = new Date(b.published);
+          return dateA - dateB;
+        });
+        setComments(comments)
+      }
     })
 
-    if (comments && comments.length>0) {
-      console.log(showComment , comments)
-
-      // const comments = [...comments]
-      comments.sort(function (a, b) {
-        var dateA = new Date(a.published), dateB = new Date(b.published);
-        return dateA - dateB;
-      });
-      setComments(comments)
-    }
   }
   const checkEditComment = (e)=>{
     console.log(e)
@@ -78,16 +78,14 @@ export default function CommentPostComponent({ post, setRefresh }) {
           comment.reactions.map((rea)=>{
             console.log(rea.user.id,user.id,'userrrrrrrrrrrrrrr')
             if(rea.user.id === user.id){
-              if(likedCommentIdArr.indexOf(comment.id)!== -1){
-
-              }else{
+              
                 likedCommentIdArr.push(comment.id)
                 setLikedCommentIdArr(likedCommentIdArr);
                 setLikedFlag(true);
 
                 console.log(showComment , likedCommentIdArr)
               }
-            }
+            
           })
         }else{
           // setLikedCommentIdArr([])
