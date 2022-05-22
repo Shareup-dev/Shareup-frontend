@@ -39,6 +39,18 @@ class UserService {
         return result
     }
 
+    SetoptinalEmail = async (uid, optional_email) => {
+        const result = await authAxios.put(`users/${uid}/contact_info/set_optional_email`,optional_email)
+        return result
+    }
+    SendOptinalEmailOtp = async (uid) => {
+        const result = await authAxios.put(`contact_info/send_otp_verify_optional_email/${uid}`)
+        return result
+    }
+    verifyOtpOptionalEmail = async (uid,otp) => {
+        const result = await authAxios.get(`contact_info/verify_otp_email_verify/${uid}`,{ params: { otp }})
+        return result
+    }
     // handleLogin = async (user) => {
     //     const result = await authAxios.post
     //     return axios.post(USER_API_BASE_URL+'/authenticate', user , {withCredentials: true})
@@ -48,6 +60,11 @@ class UserService {
         authenticate();
         const result = await authAxios.get('users/email/' + email)
         return result;
+    }
+
+    ChangePrimaryEmail = async (uid) => {
+        const result = await authAxios.put(`users/${uid}/contact_info/make_optional_email_primary_email`)
+        return result
     }
 
     // addFriends = asyny (uid, fid) => {

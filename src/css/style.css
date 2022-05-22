@@ -13683,6 +13683,12 @@ a.popup-btn:hover {
   height: 50px;
   border-radius: 0;
 }
+
+.textpopup-share {
+  background: transparent;
+  height: 50px;
+  border-radius: 2;
+}
 .postpopup-carousel .owl-stage {
   display: flex;
   justify-content: center;
@@ -14742,6 +14748,9 @@ a.Hangin-btn:hover {
 .slideitemreel:hover .strysggstion-Profimg1 {
   visibility: visible !important;
 }
+.slideitemreelfeed:hover .strysggstion-Profimg1 {
+  visibility: visible !important;
+}
 .slideitemreelcom:hover .strysggstion-Profimg1 {
   visibility: visible !important;
 }
@@ -14836,6 +14845,77 @@ a.Hangin-btn:hover {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+.slidestryside .strysggstion-card {
+  width: 130px;
+  height: 165px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgb(84 84 84 / 41%);
+  margin-bottom: 11px;
+}
+
+.slidestryside .strysggstion-card .strysggstion-by {
+  width: 108px;
+  height: 56px;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background: #fff;
+  padding: 13px 15px;
+  font-size: 18px;
+  line-height: 25px;
+}
+.slidestryside .strysggstion-card .strysggstion-by h5 {
+  color: black;
+  margin: 8px;
+  font-size: 11px;
+  font-weight: 200;
+  text-align: center;
+}
+.slidestryside .strysggstion-card .add-strysggstion {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  margin: 90px 15px 15px 36px;
+  background: #033347;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+.slidestryside .strysggstion-card .add-strysggstion .avatar {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.slidestryside button {
+  border: none;
+  width: 40%;
+  margin: 5px;
+  border-radius: 7px;
+}
+.slidestryside {
+  /* background: #fff; */
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+
+
+
 .slideitemstry {
   display: inline-block;
   width: 114px;
@@ -14846,9 +14926,16 @@ a.Hangin-btn:hover {
 
 .slideitemreel {
   display: inline-block;
+  width: 130px;
+  height: 165px;
+  margin: 0 10px 0 10px;
+  box-sizing: border-box;
+}
+.slideitemreelfeed {
+  display: inline-block;
   width: 110px;
   height: 165px;
-  margin: 0 2px 0 2px;
+  margin: 0 4px 0 4px;
   box-sizing: border-box;
 }
 .slideitemreelcom {
