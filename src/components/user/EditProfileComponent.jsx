@@ -20,6 +20,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./Modal.css";
 import "./NaajApp.css";
+import OptionalEmailModal from "./OptionalEmailModal";
 export default function EditProfileComponent() {
   let history = useHistory();
   const [DescribeYourself, setDescribeYourself] = useState("");
@@ -39,8 +40,8 @@ export default function EditProfileComponent() {
   const [role, setRole] = useState("");
   const [aboutme, setAboutme] = useState("");
   const [job, setJob] = useState("");
-  const [birthday_date, setBirthdayDate] = useState("");
-  const [optional_email, setOptionalEmail] = useState("");
+  const [birthdayDate, setBirthdayDate] = useState("");
+  const [optionalEmail, setOptionalEmail] = useState("");
   const [homeTown, setHomeTown] = useState("");
   const [gender, setGender] = useState("");
   const [currentTown, setCurrentTown] = useState("");
@@ -72,7 +73,6 @@ export default function EditProfileComponent() {
     await UserService.getUserByEmail(
       AuthService.getCurrentUser().username
     ).then((res) => {
-      console.log(JSON.stringify(res.data));
       setUserProfile(res.data);
       setId(res.data.id);
       setFirstName(res.data.firstName);
@@ -90,13 +90,16 @@ export default function EditProfileComponent() {
       setOptionalEmail(res.data.optional_email);
     });
   };
+  const ChangePrimaryEmail = () => {
+    UserService.ChangePrimaryEmail(user?.id).then((res) => {});
+  };
+
   const updateProfile = async () => {
     let updateduser = {
       firstName: firstName,
       lastName: lastName,
       email: user.email,
-      optional_email: optional_email,
-      birthday_date: birthday_date,
+      birthday_date: birthdayDate,
       aboutme: aboutme,
       job: job,
       gender: gender,
@@ -146,9 +149,7 @@ export default function EditProfileComponent() {
   const handlePhone = (event) => {
     setPhone(event.target.value);
   };
-  const handleDate = (event) => {
-    setBirthdayDate(event.target.value);
-  };
+
 
   const addP = () => {
     localStorage.setItem("phone", JSON.stringify([{ myid, p_no }]));
@@ -160,7 +161,6 @@ export default function EditProfileComponent() {
   const callPhone = () => {
     const getPhone1 = JSON.parse(localStorage.getItem("phone"));
     const getDate1 = JSON.parse(localStorage.getItem("Datebaba"));
-    console.log("getatsk baba", getPhone1[0].p_no);
     setPhone(getPhone1[0].p_no);
     setDob(getDate1[0].dob);
   };
@@ -171,6 +171,10 @@ export default function EditProfileComponent() {
 
   const clrAboutMe = () => {
     setAboutme("");
+  };
+
+  const clrOptionalEmail = () => {
+    setOptionalEmail("");
   };
 
   // By najam end here
@@ -320,16 +324,47 @@ export default function EditProfileComponent() {
                       setRelationshipStatus={setRelationshipStatus}
                       setCurrentTown={setCurrentTown}
                       setHomeTown={setHomeTown}
-                      clrAboutMe={clrAboutMe}
+                      clr={clrAboutMe}
                     />
                   )}
                 </p>
               </div>
               <div className="right-edit-profile-details">
- <ul>
-                <li><p><i className="las la-home" aria-hidden="true" style={{fontSize:'1.8rem'}} /> {currentTown ?'Current country '+': '+ currentTown : 'Add current country'}</p></li>
-                  <li><p><i class="las la-map-marker" style={{fontSize:'1.8rem'}}></i>{homeTown ?'Current city '+': '+  homeTown : 'Add current city'}</p></li>
-                  <li><p><i class="lab la-gratipay"style={{fontSize:'1.8rem'}} ></i>{relationshipStatus ?'Relationship status '+': '+  relationshipStatus : 'Add Relationship status'}</p></li>
+                <ul>
+                  <li>
+                    <p>
+                      <i
+                        className="las la-home"
+                        aria-hidden="true"
+                        style={{ fontSize: "1.8rem" }}
+                      />{" "}
+                      {currentTown
+                        ? "Current country " + ": " + currentTown
+                        : "Add current country"}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <i
+                        class="las la-map-marker"
+                        style={{ fontSize: "1.8rem" }}
+                      ></i>
+                      {homeTown
+                        ? "Current city " + ": " + homeTown
+                        : "Add current city"}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <i
+                        class="lab la-gratipay"
+                        style={{ fontSize: "1.8rem" }}
+                      ></i>
+                      {relationshipStatus
+                        ? "Relationship status " + ": " + relationshipStatus
+                        : "Add Relationship status"}
+                    </p>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -415,7 +450,7 @@ export default function EditProfileComponent() {
                       {userProfile.email}
                     </div>
                   </li>
-                  <li className="border-bottom">
+                  <li className="border-bottom" style={{ marginTop: "15px" }}>
                     <div
                       style={{
                         display: "flex",
@@ -424,14 +459,40 @@ export default function EditProfileComponent() {
                         textAlign: "left",
                       }}
                     >
-                      <p>Secondary Email  </p>
+                      <p>Secondary Email</p>
                     </div>
-                    <div className="right-edit-details-input d-flex">
-                      <input type="tel" value={p_no} onChange={handlePhone} />
-                    </div>
-                    <div>
 
+                    {modalOpen && (
+                      <OptionalEmailModal
+                        setOpenModal={setModalOpen}
+                        handleOptionalEmail={handleOptionalEmail}
+                        Fvalue={optionalEmail}
+                      />
+                    )}
+                    <div
+                      style={{ marginLeft: "10px" }}
+                      className="right-edit-details-input d-block p-3"
+                    >
+                      {optionalEmail ? optionalEmail : "Add Email"}
                     </div>
+                    <a
+                      href="#"
+                      style={{ marginLeft: "10px" }}
+                      className="text-color d-block p-3"
+                      onClick={ChangePrimaryEmail}
+                    >
+                    {optionalEmail ? "Make Primary" : ""}
+                    </a>
+                    <a
+                      style={{ marginLeft: "10px" }}
+                      href="#"
+                      className="text-color d-block p-3"
+                      onClick={() => {
+                        setModalOpen(true);
+                      }}
+                    >
+                      {optionalEmail ? "Edit" : "Add"}
+                    </a>
                   </li>
                   <li className="border-bottom">
                     <div
@@ -445,10 +506,9 @@ export default function EditProfileComponent() {
                       <p>Phone Number</p>
                     </div>
                     <div className="right-edit-details-input d-flex">
-                      <input type="tel" value={optional_email} onChange={handleOptionalEmail} />
+                      <input type="phone" value={p_no} onChange={handlePhone} />
                     </div>
-                    <div>
-                    </div>
+                    <div></div>
                   </li>
                   <li className="border-bottom">
                     <div
@@ -493,7 +553,11 @@ export default function EditProfileComponent() {
                       <p>Date of Birth</p>
                     </div>
                     <div className="right-edit-details-input">
-                      <input type="date" value={birthday_date} onChange={handleBirthdayDate} />
+                      <input
+                        type="date"
+                        value={birthdayDate}
+                        onChange={handleBirthdayDate}
+                      />
                     </div>
                   </li>
                 </ul>

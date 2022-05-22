@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/services/Settings.js
+.vscode/launch.json
+src/services/Settings.js

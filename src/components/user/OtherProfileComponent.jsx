@@ -840,8 +840,7 @@ function OtherProfileComponent() {
                         <h5>{`${userProfile?userProfile.firstName:'0'} ${userProfile?userProfile.lastName:'0'}`}</h5>
                       </div>
                       {userProfile?.id === user?.id ? (
-                        <div>
-                          <button
+                          <a
                             href="/editprofile"
                             style={{
 
@@ -850,8 +849,7 @@ function OtherProfileComponent() {
                             className="button rounded-pill"
                           >
                             Edit Profile
-                          </button>
-                        </div>
+                          </a>
                       ) : user.id !== userProfile?.id ? (
                         !friendsList.some((el) => el.id === userProfile?.id) ? (
                           friendRequestRecieved.some(
