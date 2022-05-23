@@ -1103,6 +1103,21 @@ header.sticky {
   position: relative;
   z-index: 10;
 }
+.counter{
+  top: -5px;
+  right: -5px;
+  justify-content:center;
+  display: flex;
+  padding: 5px;
+  background-color: red;
+  font-size: 12px;
+  align-items: center;
+  border-radius:50%;
+  position: absolute;
+}
+.read{
+  background-color: rgb(177, 173, 173);
+}
 .topbar > form {
   display: inline-block;
   vertical-align: sub;
@@ -1837,7 +1852,6 @@ img#preview {
   vertical-align: middle;
   width: 81%;
 }
-
 .mesg-meta > h6 {
   font-size: 13.5px;
   font-weight: 600;
@@ -1864,7 +1878,9 @@ img#preview {
 }
 
 .drops-menu > li > a:hover {
-  background: #fafafa none repeat scroll 0 0;
+  
+  background: grey none repeat scroll 0 0;
+
 }
 
 .dropdowns > span {
@@ -6558,10 +6574,24 @@ canvas {
   font-size: 12px;
 }
 
-.top-area > ul.setting-area div.noti,
+.top-area > ul.setting-area div.noti{
+position: relative;
+}
+.top-area > ul.setting-area div.counter{
+  background-color:red;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  font-size: 11px;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  top: -9px;
+  right: -9px;
+}
 .top-area > ul.setting-area div.mssg {
-  vertical-align: middle;
-  padding-top: 3px;
+  position: relative;
 }
 
 /*--- side chat message box ---*/
