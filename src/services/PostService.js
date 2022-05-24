@@ -46,6 +46,12 @@ class PostService {
         return result;
     }
 
+    getPostById = async (postid) => {
+        authenticate();
+        const result = await authAxios.get(`posts/post-by-id/${postid}`)
+        return result;
+    }
+
     getMediaForProfile = async (userid) => {
         authenticate();
         const result = await authAxios.get(`user/media/${userid}`)
