@@ -142,7 +142,7 @@ let counter =0;
   }
 
  const initListener = () => {
-    const eventSource = new EventSource("http://localhost:8080/subscription");
+    const eventSource = new EventSource("https://cors-everywhere.herokuapp.com/http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com/subscription");
 
     eventSource.onopen = (e) => console.log("open connection ");
 
