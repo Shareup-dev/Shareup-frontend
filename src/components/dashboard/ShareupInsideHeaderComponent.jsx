@@ -153,7 +153,7 @@ let counter =0;
       } else {
         console.log("listner",e);
       }
-      this.initListener();
+      initListener();
     };
    // eventSource.onmessage = e => getRealtimeData(JSON.parse(e.data));
     eventSource.addEventListener(
