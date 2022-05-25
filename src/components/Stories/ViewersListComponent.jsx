@@ -53,105 +53,108 @@ function ViewersListComponent({ storyID }) {
 
   return (
     <>
-      <div>
-        <>
-          <div className="loadMore p-5">
-            {Array.isArray(AllViewersList) && AllViewersList.length > 0 ? (
-              <>
-                {AllViewersList && AllViewersList.length > 0
-                  ? AllViewersList.map((post) => (
-                      <div style={{ paddingBottom: "10px" }}>
-                        <>
-                          <Paper
-                            className="hover-shadow"
-                            sx={{
-                              p: 2,
-                              margin: "auto",
-                              maxWidth: 500,
-                              flexGrow: 1,
-                              backgroundColor: (theme) =>
-                                theme.palette.mode === "dark"
-                                  ? "#1A2027"
-                                  : "#fff",
-                            }}
-                          >
-                            <Grid
-                              container
-                              spacing={1}
-                              sx={{ cursor: "pointer" }}
+      <div className="loadMore" style={{paddingBottom: '10px'}}>
+        {Array.isArray(AllViewersList) && AllViewersList.length > 0 ? (
+          <>
+            {AllViewersList && AllViewersList.length > 0
+              ? <>
+                <div className="viewer-head common-title">Viewers List</div>
+                {AllViewersList.map((post) => (
+                  <div style={{ padding: "5px 30px" }}>
+                    <>
+                      <Paper
+                        className="hover-shadow"
+                        sx={{
+                          p: 2,
+                          margin: "auto",
+                          border:"1px solid #e7e7e7",
+                          maxWidth: 500,
+                          flexGrow: 1,
+                          borderRadius: 3,
+                          boxShadow: "none",
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "#1A2027"
+                              : "#fff",
+                        }}
+                      >
+                        <Grid
+                          container
+                          spacing={1}
+                          sx={{ cursor: "pointer" }}
+                        >
+                          <Grid item>
+                            <ButtonBase
+                              sx={{
+                                width: 40,
+                                height: 40,
+                              }}
                             >
-                              <Grid item>
-                                <ButtonBase
-                                  sx={{
-                                    width: 40,
-                                    height: 40,
-                                  }}
+                              <Img
+                                className="rounded-circle"
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                }}
+                                alt=""
+                                src={`${fileStorage.baseUrl}${post.profilePicture}`}
+                              />
+                            </ButtonBase>
+                          </Grid>
+                          <Grid item xs={12} sm container>
+                            <Grid
+                              item
+                              xs
+                              container
+                              direction="column"
+                              spacing={2}
+                            >
+                              <Grid item xs>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
                                 >
-                                  <Img
-                                    className="rounded-circle"
-                                    sx={{
-                                      width: 40,
-                                      height: 40,
-                                    }}
-                                    alt=""
-                                    src={`${fileStorage.baseUrl}${post.profilePicture}`}
-                                  />
-                                </ButtonBase>
-                              </Grid>
-                              <Grid item xs={12} sm container>
-                                <Grid
-                                  item
-                                  xs
-                                  container
-                                  direction="column"
-                                  spacing={2}
-                                >
-                                  <Grid item xs>
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                    >
-                                      {post.firstName + " " + post.lastName}
-                                    </Typography>
-                                  </Grid>
-                                </Grid>
+                                  {post.firstName + " " + post.lastName}
+                                </Typography>
                               </Grid>
                             </Grid>
-                          </Paper>
-                        </>
-                      </div>
-                    ))
-                  : null}
-              </>
-            ) : (
-              <>
-                <Paper
-                  className="hover-shadow"
-                  sx={{
-                    p: 2,
-                    margin: "auto",
-                    maxWidth: 500,
-                    flexGrow: 1,
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-                  }}
-                >
-                  <Grid container spacing={1} sx={{ cursor: "pointer" }}>
-                    <Grid item xs={12} sm container>
-                      <Grid item xs container direction="column" spacing={2}>
-                        <Grid item xs>
-                          <Typography variant="body2" color="red">
-                            No viewers yet
-                          </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
+                      </Paper>
+                    </>
+                  </div>
+
+                ))}
+                </>
+              : null}
+          </>
+        ) : (
+          <>
+            {/* <Paper
+              className="hover-shadow"
+              sx={{
+                p: 2,
+                margin: "auto",
+                maxWidth: 500,
+                flexGrow: 1,
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+              }}
+            > */}
+              <Grid container  sx={{ cursor: "pointer",minHeight:'100px',alignItems:'center' }} >
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography variant="body2" sx={{textAlign:'center'}}>
+                        No viewers yet
+                      </Typography>
                     </Grid>
                   </Grid>
-                </Paper>
-              </>
-            )}
-          </div>
-        </>
+                </Grid>
+              </Grid>
+            {/* </Paper> */}
+          </>
+        )}
       </div>
     </>
   );

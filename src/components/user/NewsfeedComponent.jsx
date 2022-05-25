@@ -157,22 +157,24 @@ function NewsfeedComponent() {
     event.preventDefault();
     setUploadErrorStory("");
     if (
-      storyContent === "" &&
+      
       Object.keys(filesStry).length === 0 &&
       filesStry.constructor === Object
     ) {
       setUploadErrorStory("Please Add Image for Stories");
       return;
+    }else{
+      const formData = new FormData();
+      formData.append("caption", storyContent);
+      formData.append(`stryfiles`, filesStry);
+      StoriesService.createStories(user.id, formData).then((res) => {
+        handleRemoveImageStry();
+        setStories(res.data);
+        setRefresh(res.data);
+      });
     }
 
-    const formData = new FormData();
-    formData.append("caption", storyContent);
-    formData.append(`stryfiles`, filesStry);
-    StoriesService.createStories(user.id, formData).then((res) => {
-      handleRemoveImageStry();
-      setStories(res.data);
-      setRefresh(res.data);
-    });
+    
   };
 
   // const checkIfUserAlreadyPostStory = (story) => {
@@ -301,7 +303,7 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => {}, [posts]);
+  useEffect(() => { }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -490,7 +492,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) {}
+      for (let i = 0; i < `files`.length; i++) { }
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
@@ -527,7 +529,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) {}
+      for (let i = 0; i < `files`.length; i++) { }
       formData.append(`privacy`, Privacy);
       formData.append(`category`, categoryHS);
 
@@ -547,7 +549,7 @@ function NewsfeedComponent() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -751,7 +753,7 @@ function NewsfeedComponent() {
       await formData.append(`files`, swapfiles[i]);
     }
 
-    for (let i = 0; i < `swapfiles`.length; i++) {}
+    for (let i = 0; i < `swapfiles`.length; i++) { }
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
@@ -1515,7 +1517,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={}
+            // onClick={}
             >
               SWAP
             </button>
@@ -1635,20 +1637,20 @@ function NewsfeedComponent() {
                   value={postContent}
                   onChange={handlePostContent}
                 />
-                              <select
-                      className="form-select"
-                      aria-label="Default select example"
-                      onChange={(e) => {
-                        const selectedCat = e.target.value;
-                        setCategoryHS(selectedCat);
-                      }}
-                    >
-                      <option selected>
-                        {categoryHS ? categoryHS : "Select Category"}
-                      </option>
-                      <option value="meals">Meal</option>
-                      <option value="gifts">Gift</option>
-                    </select>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    const selectedCat = e.target.value;
+                    setCategoryHS(selectedCat);
+                  }}
+                >
+                  <option selected>
+                    {categoryHS ? categoryHS : "Select Category"}
+                  </option>
+                  <option value="meals">Meal</option>
+                  <option value="gifts">Gift</option>
+                </select>
 
                 {showPostImage ? (
                   <>
@@ -1868,7 +1870,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={uploadPost}
+            // onClick={uploadPost}
             >
               POST
             </button>
@@ -2202,7 +2204,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-                // onClick={uploadPost}
+              // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2527,7 +2529,7 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => {}, [postsForUser]);
+  useEffect(() => { }, [postsForUser]);
 
   const show = () => {
     return (
@@ -2547,8 +2549,8 @@ function NewsfeedComponent() {
                     userF={userF}
                   />
                   {index == 4 ? (
-                    <div className="central-meta newsfeed">
-                      <div className="fw-bold">REELS</div>
+                    <div className="central-meta newsfeed reels-cont">
+                      <div className="common-title">REELS</div>
                       <div className="new-postbox">
                         <div className="slide-wrapperstry">
                           <ul className="slidestry">
@@ -2611,171 +2613,173 @@ function NewsfeedComponent() {
               <>
                 <PostComponent post={post} setRefresh={setRefresh} />
                 {index == 4 ? (
-                  <div className="central-meta newsfeed">
-                    <div className="fw-bold">REELS</div>
+                  <div className="central-meta newsfeed reels-cont">
+                    <div className="common-title">REELS</div>
                     <div className="new-postbox">
                       <div className="slide-wrapperstry">
-                      {rellsForUserFriends &&
-                        rellsForUserFriends.length > 0 ? (
-                        <ul className="slidestry">
-                          {rellsForUserFriends
-                            .slice(0, 5)
-                            .map((reel, index) => (
-                              <Popup
-                                style={{ padding: "0px" }}
-                                trigger={
-                                  <li
-                                    className="slideitemreel"
-                                    key={reel.id}
-                                    id={index}
-                                  >
-                                    <ReelsComponentFriends
-                                      reel={reel}
-                                      setRefresh={setRefresh}
-                                    />
-                                  </li>
-                                }
-                                modal
-                              >
-                                {(close) => (
-                                  <Form>
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          className="las la-times"
-                                        ></i>
-                                      </a>
-                                    </div>
-                                    <DisplayFriendsReelsComponent
+                        {rellsForUserFriends &&
+                          rellsForUserFriends.length > 0 ? (
+                          <ul className="slidestry">
+                            {rellsForUserFriends
+                              .slice(0, 5)
+                              .map((reel, index) => (
+                                <Popup
+                                  style={{ padding: "0px" }}
+                                  trigger={
+                                    <li
+                                      className="slideitemreel"
                                       key={reel.id}
                                       id={index}
-                                      reel={reel}
-                                      setRefresh={setRefresh}
-                                      index={index}
-                                    />
-                                  </Form>
-                                )}
-                              </Popup>
-                            ))}
-                        </ul>
-                        ) : (
-                                      <div
-                                        className="center"
-                                        style={{ padding: "50px" }}
-                                      >
-                                        No Reels to show
-                                      </div>
-                                    )}
-                      </div>
-                      <Popup
-                        trigger={<div className="add-reel"> Add Reel</div>}
-                        modal
-                      >
-                        {(close) => (
-                          <Form className="popwidth">
-                            <div className="headpop">
-                              <div style={{ padding: "10px" }}>
-                                <span>
-                                  <a
-                                    href="#!"
-                                    style={{
-                                      padding: "10px 150px 10px 0",
-                                    }}
-                                    onClick={close}
-                                  >
-                                    <i className="las la-times"></i>
-                                  </a>
-                                </span>
-                                <span
-                                  style={{
-                                    color: "#000000",
-                                    fontSize: "14px",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  Lets Add Reel Video
-                                </span>
-
-                                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                <span style={{ float: "right" }}>
-                                  {" "}
-                                  <button
-                                    style={{
-                                      float: "right",
-                                      borderRadius: "20px",
-                                      padding: "5px 20px",
-                                    }}
-                                    type="submit"
-                                    onClick={uploadReels}
-                                  >
-                                    Upload
-                                  </button>
-                                </span>
-                                {/* :null}  */}
-                              </div>
-                            </div>
-
-                            <div style={{ margin: "0 11px 10px 11px" }}>
-                              <span className="textPop">
-                                {ShowReelVideo ? (
-                                  <>
-                                    <video
-                                      id="video"
-                                      width="100%"
-                                      height={"350px"}
-                                      controls="controls"
                                     >
-                                      <source src={ReelVideo} />
-                                    </video>
-
-                                    <button
-                                      onClick={handleRemoveReelVideo}
+                                      <ReelsComponentFriends
+                                        reel={reel}
+                                        setRefresh={setRefresh}
+                                      />
+                                    </li>
+                                  }
+                                  modal
+                                >
+                                  {(close) => (
+                                    <Form>
+                                      <div style={{ width: "5%" }}>
+                                        <a href="#!" onClick={close}>
+                                          <i
+                                            style={{
+                                              color: "#fff",
+                                              padding: "10px",
+                                              fontSize: "30px",
+                                            }}
+                                            className="las la-times"
+                                          ></i>
+                                        </a>
+                                      </div>
+                                      <DisplayFriendsReelsComponent
+                                        key={reel.id}
+                                        id={index}
+                                        reel={reel}
+                                        setRefresh={setRefresh}
+                                        index={index}
+                                      />
+                                    </Form>
+                                  )}
+                                </Popup>
+                              ))}
+                          </ul>
+                        ) : (
+                          <div
+                            className="center"
+                            style={{ padding: "50px" }}
+                          >
+                            No Reels to show
+                          </div>
+                        )}
+                      </div>
+                      <div className="d-flex justify-content-between pt-10 ">  
+                        <Popup
+                          trigger={<div className="add-reel"> Add Reel</div>}
+                          modal
+                        >
+                          {(close) => (
+                            <Form className="popwidth">
+                              <div className="headpop">
+                                <div style={{ padding: "10px" }}>
+                                  <span>
+                                    <a
+                                      href="#!"
                                       style={{
-                                        right: "20px",
-                                        position: "absolute",
-                                        borderRadius: "100%",
-                                        background: "#b7b7b738",
-                                        padding: "10px 10px",
+                                        padding: "10px 150px 10px 0",
                                       }}
+                                      onClick={close}
                                     >
                                       <i className="las la-times"></i>
-                                    </button>
-                                  </>
-                                ) : (
-                                  <div style={{ textAlign: "center" }}>
-                                    <label className="fileContainer">
-                                      <div className="reelvideo" type="submit">
-                                        <input
-                                          type="file"
-                                          name="reel_video"
-                                          accept="video/*"
-                                          onChange={handleFileReel}
-                                        ></input>
-                                        Add Reel Video
-                                      </div>
-                                    </label>
-                                  </div>
-                                )}
-                              </span>
-                              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-                            </div>
-                            {/* </> 
-                                                   
-                                 )}  */}
-                          </Form>
-                        )}
-                      </Popup>
+                                    </a>
+                                  </span>
+                                  <span
+                                    style={{
+                                      color: "#000000",
+                                      fontSize: "14px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Lets Add Reel Video
+                                  </span>
 
-                      <div className="add-reel">
-                        <a href="/reelFeed" style={{ color: "white" }}>
-                          {" "}
-                          Explore Reels{" "}
-                        </a>
+                                  {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                  <span style={{ float: "right" }}>
+                                    {" "}
+                                    <button
+                                      style={{
+                                        float: "right",
+                                        borderRadius: "20px",
+                                        padding: "5px 20px",
+                                      }}
+                                      type="submit"
+                                      onClick={uploadReels}
+                                    >
+                                      Upload
+                                    </button>
+                                  </span>
+                                  {/* :null}  */}
+                                </div>
+                              </div>
+
+                              <div style={{ margin: "0 11px 10px 11px" }}>
+                                <span className="textPop">
+                                  {ShowReelVideo ? (
+                                    <>
+                                      <video
+                                        id="video"
+                                        width="100%"
+                                        height={"350px"}
+                                        controls="controls"
+                                      >
+                                        <source src={ReelVideo} />
+                                      </video>
+
+                                      <button
+                                        onClick={handleRemoveReelVideo}
+                                        style={{
+                                          right: "20px",
+                                          position: "absolute",
+                                          borderRadius: "100%",
+                                          background: "#b7b7b738",
+                                          padding: "10px 10px",
+                                        }}
+                                      >
+                                        <i className="las la-times"></i>
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <div style={{ textAlign: "center" }}>
+                                      <label className="fileContainer">
+                                        <div className="reelvideo" type="submit">
+                                          <input
+                                            type="file"
+                                            name="reel_video"
+                                            accept="video/*"
+                                            onChange={handleFileReel}
+                                          ></input>
+                                          Add Reel Video
+                                        </div>
+                                      </label>
+                                    </div>
+                                  )}
+                                </span>
+                                {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                              </div>
+                              {/* </> 
+                                                    
+                                  )}  */}
+                            </Form>
+                          )}
+                        </Popup>
+
+                        <div className="add-reel">
+                          <a href="/reelFeed" style={{ color: "white" }}>
+                            {" "}
+                            Explore Reels{" "}
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2912,28 +2916,22 @@ function NewsfeedComponent() {
               <li className="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src="/assets/images/vector-34@2x.png" alt="img" />
+                    <img src={user.profilePicturePath} alt="img" style={user.profilePicture==="default.png"?{padding:'16px'}:{}}/>
                   </div>
-                  <Popup trigger={<div className="add-stry"> +</div>} modal>
+                  <Popup trigger={<div className="add-stry"> +</div>} modal className="addStory-popup">
                     {(close) => (
                       <Form className="popwidth">
                         <div className="headpop">
-                          <div style={{ padding: "10px" }}>
                             <span>
                               <a
                                 href="#!"
-                                style={{ padding: "10px 150px 10px 0" }}
                                 onClick={close}
                               >
                                 <i className="las la-times"></i>
                               </a>
                             </span>
                             <span
-                              style={{
-                                color: "#000000",
-                                fontSize: "14px",
-                                fontWeight: "bold",
-                              }}
+                              className="poptitle"
                             >
                               Lets Add Stories
                             </span>
@@ -2953,11 +2951,9 @@ function NewsfeedComponent() {
                                 Upload
                               </button>
                             </span>
-                            {/* :null}  */}
-                          </div>
                         </div>
 
-                        <div style={{ margin: "0 11px 10px 11px" }}>
+                        <div >
                           <span className="textPop">
                             {showstoriesImage ? (
                               <>
@@ -2997,15 +2993,20 @@ function NewsfeedComponent() {
                             <textarea
                               className="textpopup"
                               rows={2}
+                              style={{marginTop:'10px'}}
                               placeholder={"Add text to your Story"}
                               name="story_content"
                               value={storyContent}
                               onChange={handleStoryContent}
                             />
                           </span>
-                          <div className="storyErr">
-                            {uploadErrorStory ? `${uploadErrorStory}` : null}
-                          </div>
+                          
+                          {uploadErrorStory
+                            ? <div className="storyErr">{uploadErrorStory}</div>
+                            : null}
+                        
+                          <button  class="popsbmt-btn" type="submit"
+                              onClick={uploadStories}>SHARE STORY</button>
                         </div>
                         {/* </> 
                                                    
@@ -3036,6 +3037,7 @@ function NewsfeedComponent() {
                     <>
                       <Popup
                         style={{ padding: "0px" }}
+                        className="story-popup"
                         trigger={
                           <li className="slideitemstry" key={story.id}>
                             <StoriesComponent
@@ -3049,7 +3051,7 @@ function NewsfeedComponent() {
                         {(close) => (
                           <Form
                             className="stryp"
-                            style={{ marginRight: "100px" }}
+                            
                           >
                             <div>
                               <div className="row">
@@ -3079,12 +3081,13 @@ function NewsfeedComponent() {
               {storiesForUserFriends.map((story, index) => (
                 <Popup
                   style={{ padding: "0px" }}
+                  className="story-popup"
                   trigger={
                     <li className="slideitemstry" key={story.id} id={index}>
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                            storiesForUserFriends[index].stories_List.length - 1
+                          storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -3094,7 +3097,7 @@ function NewsfeedComponent() {
                   modal
                 >
                   {(close) => (
-                    <Form className="stryp" style={{ marginRight: "100px" }}>
+                    <Form className="stryp" >
                       <div>
                         <div className="row">
                           <div style={{ width: "5%" }}>

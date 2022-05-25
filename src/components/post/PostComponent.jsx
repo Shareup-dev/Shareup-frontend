@@ -572,7 +572,7 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <div
@@ -675,7 +675,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                 <>
                   {post.swapImagePath &&
-                  post.swapImagePath.split(",").length > 1 ? (
+                    post.swapImagePath.split(",").length > 1 ? (
                     <div>
                       <Carousel
                         height="200px"
@@ -736,6 +736,7 @@ export default function PostComponent({ post, setRefresh }) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   paddingBottom: "8px",
+                  paddingLeft: '0px'
                 }}
               >
                 <div style={{ display: "flex" }}>
@@ -797,11 +798,12 @@ export default function PostComponent({ post, setRefresh }) {
                         paddingTop: "5px",
                       }}
                     >
-                      on{" "}
+                      {/* on{" "} */}
                       {moment(
                         post.published,
                         "DD MMMM YYYY hh:mm:ss"
                       ).fromNow()}
+
                       {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>
@@ -883,8 +885,8 @@ export default function PostComponent({ post, setRefresh }) {
 
               <div className="postImage">
                 {post.allPostsType === "post" &&
-                post.media &&
-                post.media.length > 1 ? (
+                  post.media &&
+                  post.media.length > 1 ? (
                   <>
                     <OwlCarousel
                       items={1}
@@ -893,7 +895,7 @@ export default function PostComponent({ post, setRefresh }) {
                       nav
                       navText={
                         ("<i className='fa fa-chevron-left'></i>",
-                        "<i className='fa fa-chevron-right'></i>")
+                          "<i className='fa fa-chevron-right'></i>")
                       }
                       margin={10}
                     >
@@ -923,15 +925,15 @@ export default function PostComponent({ post, setRefresh }) {
                         }
                         prevSrc={
                           post.media[
-                            (photoIndex + post.media.length - 1) %
-                              post.media.length
+                          (photoIndex + post.media.length - 1) %
+                          post.media.length
                           ]
                         }
                         onCloseRequest={() => setIsopen(false)}
                         onMovePrevRequest={() =>
                           setPhotoindex(
                             (photoIndex + post.media.length - 1) %
-                              post.media.length
+                            post.media.length
                           )
                         }
                         onMoveNextRequest={() =>
@@ -1194,7 +1196,9 @@ export default function PostComponent({ post, setRefresh }) {
                               color: "#050505",
                             }}
                           >
-                            {post.hangsharetype ? post.hangsharetype : "Other"}
+                            {post.hangsharetype
+                              ? post.hangsharetype
+                              : "Other"}
                           </div>
                           <div style={{ fontSize: "14px" }}>
                             {post.content ? post.content : ""}
@@ -1245,9 +1249,9 @@ export default function PostComponent({ post, setRefresh }) {
                                       src={
                                         user
                                           ? fileStorage.baseUrl +
-                                            user.profilePicturePath
+                                          user.profilePicturePath
                                           : fileStorage.baseUrl +
-                                            userR.profilePicturePath
+                                          userR.profilePicturePath
                                       }
                                       alt=""
                                     />
@@ -1506,8 +1510,8 @@ export default function PostComponent({ post, setRefresh }) {
                     )}
 
                     {post.allPostsType === "share" &&
-                    post.post.allPostsType === "post" &&
-                    post.post.media.length > 1 ? (
+                      post.post.allPostsType === "post" &&
+                      post.post.media.length > 1 ? (
                       <>
                         <OwlCarousel
                           items={1}
@@ -1516,7 +1520,7 @@ export default function PostComponent({ post, setRefresh }) {
                           nav
                           navText={
                             ("<i className='fa fa-chevron-left'></i>",
-                            "<i className='fa fa-chevron-right'></i>")
+                              "<i className='fa fa-chevron-right'></i>")
                           }
                           margin={10}
                         >
@@ -1544,20 +1548,20 @@ export default function PostComponent({ post, setRefresh }) {
                             }
                             nextSrc={
                               post.post.media[
-                                (photoIndex + 1) % post.post.media.length
+                              (photoIndex + 1) % post.post.media.length
                               ]
                             }
                             prevSrc={
                               post.post.media[
-                                (photoIndex + post.post.media.length - 1) %
-                                  post.post.media.length
+                              (photoIndex + post.post.media.length - 1) %
+                              post.post.media.length
                               ]
                             }
                             onCloseRequest={() => setIsopen(false)}
                             onMovePrevRequest={() =>
                               setPhotoindex(
                                 (photoIndex + post.post.media.length - 1) %
-                                  post.post.media.length
+                                post.post.media.length
                               )
                             }
                             onMoveNextRequest={() =>
@@ -1681,9 +1685,9 @@ export default function PostComponent({ post, setRefresh }) {
                                           src={
                                             user
                                               ? fileStorage.baseUrl +
-                                                user.profilePicturePath
+                                              user.profilePicturePath
                                               : fileStorage.baseUrl +
-                                                userR.profilePicturePath
+                                              userR.profilePicturePath
                                           }
                                           alt=""
                                         />
@@ -1872,9 +1876,7 @@ export default function PostComponent({ post, setRefresh }) {
                                 </div>
                               </div>
                               <Popup
-                                trigger={
-                                  <button className="button">Accept</button>
-                                }
+                                trigger={<button className="button">Accept</button>}
                                 modal
                                 nested
                               >
@@ -1889,9 +1891,7 @@ export default function PostComponent({ post, setRefresh }) {
                                         <div style={{ width: "20%" }}>
                                           <a
                                             href="#!"
-                                            style={{
-                                              padding: "10px 80px 10px 0",
-                                            }}
+                                            style={{ padding: "10px 80px 10px 0" }}
                                             onClick={close}
                                           >
                                             <i className="las la-times"></i>
@@ -1911,17 +1911,15 @@ export default function PostComponent({ post, setRefresh }) {
                                         </div>
                                       </div>
                                     </div>
-                                    <div
-                                      style={{ padding: "0 11px 11px 11px" }}
-                                    >
+                                    <div style={{ padding: "0 11px 11px 11px" }}>
                                       <div className="popupimg">
                                         <img
                                           src={
                                             user
                                               ? fileStorage.baseUrl +
-                                                user.profilePicturePath
+                                              user.profilePicturePath
                                               : fileStorage.baseUrl +
-                                                userR.profilePicturePath
+                                              userR.profilePicturePath
                                           }
                                           alt=""
                                         />
@@ -2027,7 +2025,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     </div>
                                   </Form>
                                 )}
-                              </Popup>{" "}
+                              </Popup>
                             </div>
                           )}
                         </div>

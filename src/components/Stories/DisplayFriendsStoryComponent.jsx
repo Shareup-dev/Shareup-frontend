@@ -8,6 +8,8 @@ import StoriesService from "../../services/StoriesService";
 import ShareupInsideHeaderComponent from "../dashboard/ShareupInsideHeaderComponent";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
+import moment from 'moment';
+
 // import './button.css';
 // import '../../css/SliderJava';
 
@@ -70,11 +72,11 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
         setIndex((prevIndex) =>
           prevIndex === storiesForUserFriends.length - 1
             ? setTimeout(
-                () =>
-                  (document.querySelector(".popup-overlay").style.display =
-                    "none"),
-                200
-              )
+              () =>
+              (document.querySelector(".popup-overlay").style.display =
+                "none"),
+              200
+            )
             : prevIndex + 1
         ),
       delay
@@ -102,22 +104,26 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                         {background.image ? (
                           <div className="slide" key={index} id={index}>
                             <div className="strydisplay-Profimg">
-                              <img
-                                src={
-                                  fileStorage.baseUrl +
-                                  background.user.profilePicturePath
-                                }
-                                alt=""
-                              />
-                              <span>{background.user.firstName}</span>
-                              <div style={{ marginTop: "500px" }}>
-                                <span>
-                                  {background.caption}{" "}
-                                </span>
+                              <div>
+                                <img
+                                  src={
+                                    fileStorage.baseUrl +
+                                    background.user.profilePicturePath
+                                  }
+                                  alt=""
+                                />
+                                <span>{background.user.firstName}</span>
+                                <span style={{ fontWeight: '500', fontSize: '14px' }}>{moment(background.date, "DD MMMM YYYY hh:mm:ss").fromNow(true)}</span>
                               </div>
+
+                            </div>
+                            <div className="story-caption-cont">
+                              <span style={{ padding: '10px', color: 'white' }}>
+                                {background.caption}{" "}
+                              </span>
                             </div>
                             <img
-                              onClick={() =>(
+                              onClick={() => (
                                 window.clearTimeout(timeoutRef.current),
                                 addViewrsToStories(background.id)
                               )}
@@ -138,9 +144,8 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                   {story.map((_, idx) => (
                     <div
                       key={idx}
-                      className={`slideshowDot${
-                        index === idx ? " active" : ""
-                      }`}
+                      className={`slideshowDot${index === idx ? " active" : ""
+                        }`}
                       onClick={() => {
                         setIndex(idx);
                       }}
