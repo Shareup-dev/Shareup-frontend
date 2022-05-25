@@ -38,15 +38,18 @@ function DisplayComponent() {
   const [storyContent, setStoryContent] = useState("");
   const [editStory,setEditStory] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [refresh, setRefresh] = useState(null);
 
-  const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => {setShowModal(false)};
+  const handleShowModal = () => {setShowModal(true)};
+
+
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
-  const updateStories = (event) => {
+  const updateStories = (event,story) => {
     event.preventDefault();
     setUploadErrorStory("");
     if (
@@ -60,12 +63,13 @@ function DisplayComponent() {
     }
 
     const formData = new FormData();
-    handleFileStry();
-    handleStoryContent();
+    // handleFileStry();
+    // handleStoryContent();
     formData.append("caption", storyContent);
     formData.append(`stryfiles`, filesStry);
-    StoriesService.updateStories(stories.id, formData).then((res) => {
+    StoriesService.updateStories(story.id, formData).then((res) => {
       handleRemoveImageStry();
+      handleCloseModal()
       setStories(res.data);
       setRefresh(res.data);
     });
@@ -122,7 +126,6 @@ function DisplayComponent() {
       setStoriesForUser(uniqueStories);
     });
   };
-  const [refresh, setRefresh] = useState(null);
 
   const handleEditStory = (id) => { };
 
@@ -150,7 +153,7 @@ function DisplayComponent() {
     getUser();
     getStoriesForUser();
     testScript();
-    $(".bi-three-dots-vertical .dropdown-menu").addClass("drop-options");
+    // $(".bi-three-dots-vertical .dropdown-menu").addClass("drop-options");
   }, [stories]);
 
   useEffect(() => {
@@ -175,13 +178,10 @@ function DisplayComponent() {
     };
 
   }, [index]);
-  const editCaptionClicked = (e) =>{
-     e.preventDefault();e.stopPropagation(); 
-  }
-
+ 
   const editStoryModal = () => {
+    // console.log(editStory)
     let background = editStory;
-    console.log(background)
     return(
     <Form className="popwidth">
       <div className ="headpop">
@@ -205,7 +205,7 @@ function DisplayComponent() {
               fontWeight: "bold",
             }}
           >
-            Lets update Stories
+            Update Story
           </span>
 
           <span style={{ float: "right" }}>
@@ -217,7 +217,7 @@ function DisplayComponent() {
                 padding: "5px 20px",
               }}
               type="submit"
-              onClick={updateStories}
+              onClick={(e)=>updateStories(e,editStory)}
             >
               Update
             </button>
@@ -289,10 +289,8 @@ function DisplayComponent() {
               "Add text to your Story"
             }
             name="story_content"
-            value={storyContent}
-            onChange={() => {
-              handleEditStoryContent(background.caption)
-            }}
+            value={storyContent?storyContent:background.caption}
+            onChange={(e)=>handleStoryContent(e,background.caption)}
           />
         </span>
         <div className="storyErr">
@@ -304,9 +302,11 @@ function DisplayComponent() {
     </Form>
     )
   }
-  const editClicked = async (story)=>{
-    await setEditStory(story)
-    await handleShowModal()
+  const editClicked = async (e,story)=>{
+    e.preventDefault();
+    console.log(story);
+    await setEditStory(story);
+    await setShowModal(true);
   }
   return (
     <>
@@ -352,10 +352,10 @@ function DisplayComponent() {
                                   }
                                 >
                                   <Dropdown.Item
-                                  type="button" 
-                                  onClick={()=>editClicked(background)}>
-                                          <i className="las la-pencil-alt"></i>
-                                          <span>Edit Story</span>
+                                    type="button" 
+                                    onClick={(e)=>editClicked(e,background)}>
+                                        <i className="las la-pencil-alt"></i>
+                                        <span>Edit Story</span>
                                   </Dropdown.Item>
                                   <Dropdown.Item
                                     type="button"
@@ -412,11 +412,13 @@ function DisplayComponent() {
                           />
                           
                         </div>
+                        
                       ) : null}
+                       
                     </>
                   ))}
                 </div>
-
+                            
                 <div className="slideshowDots">
                   {storiesForUser.map((_, idx) => (
                     <div
@@ -458,17 +460,20 @@ function DisplayComponent() {
                 </span>
               ) : null}
             </div>
-            { showModal?
-                <div style={{position:'absolute',top:0,left:'30%',background:'white'}}>
-              
-                {editStoryModal()}
-                
-              </div>:null
-              }
+            {
+                        // editStory.id===background.id?
+                showModal===true?
+                <div style={{position:'absolute',top:0,left:'10%',maxWidth:'70%',background:'white'}}>
+                  {editStoryModal()}
+
+                </div>
+              :null
+            }     
           </div>
         </div>
-       
+              
       </div>
+      
     </>
   );
 }
