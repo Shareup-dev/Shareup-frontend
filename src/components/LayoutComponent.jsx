@@ -480,11 +480,9 @@ export default function Layout(props) {
                             </div>
                           </div>
 
-                          <div className="sidebar-news" style={{}}>
+                          <div className="sidebar-news sidebar-reel" style={{}}>
                             <div className="media-date">REELS</div>
-                            <div style={{}}>
-                              <ul>
-                                <li>
+                              <div style={{}}>
                                   <div>
                                     {reelPreviewPath &&
                                     reelPreviewPath.length > 0 ? (
@@ -544,137 +542,137 @@ export default function Layout(props) {
                                         No Reels to show
                                       </div>
                                     )}
-                                  </div>
-                                </li>
-
-                                <Popup
-                                  trigger={
-                                    <div className="add-reel"> Add Reel</div>
-                                  }
-                                  modal
-                                >
-                                  {(close) => (
-                                    <Form className="popwidth">
-                                      <div className="headpop">
-                                        <div style={{ padding: "10px" }}>
-                                          <span>
-                                            <a
-                                              href="#!"
-                                              style={{
-                                                padding: "10px 150px 10px 0",
-                                              }}
-                                              onClick={close}
-                                            >
-                                              <i className="las la-times"></i>
-                                            </a>
-                                          </span>
-                                          <span
-                                            style={{
-                                              color: "#000000",
-                                              fontSize: "14px",
-                                              fontWeight: "bold",
-                                            }}
-                                          >
-                                            Lets Add Reel Video
-                                          </span>
-
-                                          {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                          <span style={{ float: "right" }}>
-                                            {" "}
-                                            <button
-                                              style={{
-                                                float: "right",
-                                                borderRadius: "20px",
-                                                padding: "5px 20px",
-                                              }}
-                                              type="submit"
-                                              onClick={uploadReels}
-                                            >
-                                              Upload
-                                            </button>
-                                          </span>
-                                          {/* :null}  */}
-                                        </div>
-                                      </div>
-
-                                      <div
-                                        style={{ margin: "0 11px 10px 11px" }}
+                                    <div className="d-flex justify-content-between pl-15 pr-15 pt-10 pb-5p">        
+                                      <Popup
+                                        trigger={
+                                          <div className="add-reel"> Add Reel</div>
+                                        }
+                                        modal
                                       >
-                                        <span className="textPop">
-                                          {ShowReelVideo ? (
-                                            <>
-                                              <video
-                                                id="video"
-                                                width="100%"
-                                                height={"350px"}
-                                                controls="controls"
-                                              >
-                                                <source src={ReelVideo} />
-                                              </video>
-
-                                              <button
-                                                onClick={handleRemoveReelVideo}
-                                                style={{
-                                                  right: "20px",
-                                                  position: "absolute",
-                                                  borderRadius: "100%",
-                                                  background: "#b7b7b738",
-                                                  padding: "10px 10px",
-                                                }}
-                                              >
-                                                <i className="las la-times"></i>
-                                              </button>
-                                            </>
-                                          ) : (
-                                            <div
-                                              style={{ textAlign: "center" }}
-                                            >
-                                              <label className="fileContainer">
-                                                <div
-                                                  className="reelvideo"
-                                                  type="submit"
+                                        {(close) => (
+                                          <Form className="popwidth">
+                                            <div className="headpop">
+                                              <div style={{ padding: "10px" }}>
+                                                <span>
+                                                  <a
+                                                    href="#!"
+                                                    style={{
+                                                      padding: "10px 150px 10px 0",
+                                                    }}
+                                                    onClick={close}
+                                                  >
+                                                    <i className="las la-times"></i>
+                                                  </a>
+                                                </span>
+                                                <span
+                                                  style={{
+                                                    color: "#000000",
+                                                    fontSize: "14px",
+                                                    fontWeight: "bold",
+                                                  }}
                                                 >
-                                                  <input
-                                                    type="file"
-                                                    name="reel_video"
-                                                    accept="video/*"
-                                                    onChange={handleFileReel}
-                                                  ></input>
-                                                  Add Reel Video
-                                                </div>
-                                              </label>
-                                            </div>
-                                          )}
-                                        </span>
-                                        <textarea
-                                          className="textpopup"
-                                          rows={2}
-                                          placeholder={
-                                            "Add Caption to your Reel"
-                                          }
-                                          name="reel_content"
-                                          value={reelContent}
-                                          onChange={handleReelContent}
-                                        />
-                                        {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-                                      </div>
-                                      {/* </> 
-                                                   
-                                 )}  */}
-                                    </Form>
-                                  )}
-                                </Popup>
+                                                  Lets Add Reel Video
+                                                </span>
 
-                                <div className="add-reel">
-                                  <a
-                                    href="/reelFeed"
-                                    style={{ color: "white" }}
-                                  >
-                                    {" "}
-                                    Explore Reels{" "}
-                                  </a>
-                                </div>
-                              </ul>
+                                                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                                <span style={{ float: "right" }}>
+                                                  {" "}
+                                                  <button
+                                                    style={{
+                                                      float: "right",
+                                                      borderRadius: "20px",
+                                                      padding: "5px 20px",
+                                                    }}
+                                                    type="submit"
+                                                    onClick={uploadReels}
+                                                  >
+                                                    Upload
+                                                  </button>
+                                                </span>
+                                                {/* :null}  */}
+                                              </div>
+                                            </div>
+
+                                            <div
+                                              style={{ margin: "0 11px 10px 11px" }}
+                                            >
+                                              <span className="textPop">
+                                                {ShowReelVideo ? (
+                                                  <>
+                                                    <video
+                                                      id="video"
+                                                      width="100%"
+                                                      height={"350px"}
+                                                      controls="controls"
+                                                    >
+                                                      <source src={ReelVideo} />
+                                                    </video>
+
+                                                    <button
+                                                      onClick={handleRemoveReelVideo}
+                                                      style={{
+                                                        right: "20px",
+                                                        position: "absolute",
+                                                        borderRadius: "100%",
+                                                        background: "#b7b7b738",
+                                                        padding: "10px 10px",
+                                                      }}
+                                                    >
+                                                      <i className="las la-times"></i>
+                                                    </button>
+                                                  </>
+                                                ) : (
+                                                  <div
+                                                    style={{ textAlign: "center" }}
+                                                  >
+                                                    <label className="fileContainer">
+                                                      <div
+                                                        className="reelvideo"
+                                                        type="submit"
+                                                      >
+                                                        <input
+                                                          type="file"
+                                                          name="reel_video"
+                                                          accept="video/*"
+                                                          onChange={handleFileReel}
+                                                        ></input>
+                                                        Add Reel Video
+                                                      </div>
+                                                    </label>
+                                                  </div>
+                                                )}
+                                              </span>
+                                              <textarea
+                                                className="textpopup"
+                                                rows={2}
+                                                placeholder={
+                                                  "Add Caption to your Reel"
+                                                }
+                                                name="reel_content"
+                                                value={reelContent}
+                                                onChange={handleReelContent}
+                                              />
+                                              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+                                            </div>
+                                            {/* </> 
+                                                        
+                                      )}  */}
+                                          </Form>
+                                        )}
+                                      </Popup>
+
+                                      <div className="add-reel">
+                                        <a
+                                          href="/reelFeed"
+                                          style={{ color: "white" }}
+                                        >
+                                          {" "}
+                                          Explore Reels{" "}
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                              
                             </div>
                           </div>
 

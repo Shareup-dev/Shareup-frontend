@@ -14,6 +14,9 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Popup from "reactjs-popup";
 import Form from "react-bootstrap/Form";
 import ViewersListComponent from "./ViewersListComponent";
+import moment from 'moment';
+import $ from 'jquery';
+import {Modal} from 'react-bootstrap'
 
 function DisplayComponent() {
   let history = useHistory();
@@ -33,7 +36,11 @@ function DisplayComponent() {
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [storiesImage, setStoriesImage] = useState([]);
   const [storyContent, setStoryContent] = useState("");
+  const [editStory,setEditStory] = useState();
+  const [showModal, setShowModal] = useState(false);
 
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
@@ -88,6 +95,7 @@ function DisplayComponent() {
     setStoryContent(event.target.value);
   };
   const handleEditStoryContent = (StoryCaption) => {
+    // e.preventDefault()
     setStoryContent(StoryCaption);
   };
   const resetTimeout = () => {
@@ -116,12 +124,12 @@ function DisplayComponent() {
   };
   const [refresh, setRefresh] = useState(null);
 
-  const handleEditStory = (id) => {};
+  const handleEditStory = (id) => { };
 
   const handleDeleteStory = (storyId) => {
     StoriesService.deleteStories(storyId).then((res) => {
       console.log("Story deleted");
-      setRefresh(res.data);
+      window.location.reload()
     });
   };
   const getUser = async () => {
@@ -142,6 +150,7 @@ function DisplayComponent() {
     getUser();
     getStoriesForUser();
     testScript();
+    $(".bi-three-dots-vertical .dropdown-menu").addClass("drop-options");
   }, [stories]);
 
   useEffect(() => {
@@ -151,11 +160,11 @@ function DisplayComponent() {
         setIndex((prevIndex) =>
           prevIndex === storiesForUser.length - 1
             ? setTimeout(
-                () =>
-                  (document.querySelector(".popup-overlay").style.display =
-                    "none"),
-                200
-              )
+              () =>
+              (document.querySelector(".popup-overlay").style.display =
+                "none"),
+              200
+            )
             : prevIndex + 1
         ),
       delay
@@ -164,8 +173,141 @@ function DisplayComponent() {
     return () => {
       resetTimeout();
     };
-  }, [index]);
 
+  }, [index]);
+  const editCaptionClicked = (e) =>{
+     e.preventDefault();e.stopPropagation(); 
+  }
+
+  const editStoryModal = () => {
+    let background = editStory;
+    console.log(background)
+    return(
+    <Form className="popwidth">
+      <div className ="headpop">
+        <div style={{ padding: "10px" }}>
+          <span>
+            <a
+              href="#!"
+              style={{
+                padding:
+                  "10px 150px 10px 0",
+              }}
+              onClick={handleCloseModal}
+            >
+              <i className="las la-times"></i>
+            </a>
+          </span>
+          <span
+            style={{
+              color: "#000000",
+              fontSize: "14px",
+              fontWeight: "bold",
+            }}
+          >
+            Lets update Stories
+          </span>
+
+          <span style={{ float: "right" }}>
+            {" "}
+            <button
+              style={{
+                float: "right",
+                borderRadius: "20px",
+                padding: "5px 20px",
+              }}
+              type="submit"
+              onClick={updateStories}
+            >
+              Update
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div
+        style={{
+          margin: "0 11px 10px 11px",
+        }}
+      >
+        <span className="textPop">
+          {showstoriesImage ? (
+            <>
+              <img
+                id="preview"
+                src={
+                  fileStorage.baseUrl +
+                  background.storiesImagePath
+                }
+                style={{ width: "100%" }}
+              />
+
+              <button
+                onClick={
+                  handleRemoveImageStry
+                }
+                style={{
+                  right: "20px",
+                  position: "absolute",
+                  borderRadius: "100%",
+                  background: "#b7b7b738",
+                  padding: "10px 10px",
+                }}
+              >
+                <i className="las la-times"></i>
+              </button>
+            </>
+          ) : (
+            <div
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <label className="fileContainer">
+                <div
+                  className="storypic"
+                  type="submit"
+                >
+                  <input
+                    type="file"
+                    name="swap_image"
+                    accept="image/*"
+                    onChange={handleEditeFileStry(
+                      fileStorage.baseUrl +
+                      background.image
+                    )}
+                  ></input>
+                  Add Story
+                </div>
+              </label>
+            </div>
+          )}
+          <textarea
+            className="textpopup"
+            rows={2}
+            placeholder={
+              "Add text to your Story"
+            }
+            name="story_content"
+            value={storyContent}
+            onChange={() => {
+              handleEditStoryContent(background.caption)
+            }}
+          />
+        </span>
+        <div className="storyErr">
+          {uploadErrorStory
+            ? `${uploadErrorStory}`
+            : null}
+        </div>
+      </div>
+    </Form>
+    )
+  }
+  const editClicked = async (story)=>{
+    await setEditStory(story)
+    await handleShowModal()
+  }
   return (
     <>
       <div className="stryDsply">
@@ -182,156 +324,38 @@ function DisplayComponent() {
                       {background.image ? (
                         <div className="slide" key={index} id={index}>
                           <div className="strydisplay-Profimg">
-                            <img
-                              src={
-                                fileStorage.baseUrl +
-                                background.user.profilePicturePath
-                              }
-                              alt=""
-                            />
-                            <span>
-                              {background.user.firstName}
+                            <div className="d-flex justify-content-between">
+                              <div>
 
-                              <div style={{ marginLeft: "380px" }}>
+                                <img
+                                  src={
+                                    fileStorage.baseUrl +
+                                    background.user.profilePicturePath
+                                  }
+                                  alt=""
+                                />
+                                <span style={{ color: 'white' }}>Your story</span>
+                                <span className="story-date">{moment(background.date, "DD MMMM YYYY hh:mm:ss").fromNow(true)}</span>
+                              </div>
+
+                              <div>
                                 <DropdownButton
                                   // style={{marginLeft: "400px" }}
                                   className={`bi bi-three-dots-vertical`}
+                                  title={
+
+                                    <i className='las la-ellipsis-v'></i>
+
+                                  }
                                   onClick={() =>
                                     window.clearTimeout(timeoutRef.current)
                                   }
                                 >
-                                  <Dropdown.Item>
-                                    <Popup
-                                      trigger={
-                                        <div>
+                                  <Dropdown.Item
+                                  type="button" 
+                                  onClick={()=>editClicked(background)}>
                                           <i className="las la-pencil-alt"></i>
                                           <span>Edit Story</span>
-                                        </div>
-                                      }
-                                      modal
-                                    >
-                                      {(close) => (
-                                        <Form className="popwidth">
-                                          <div className="headpop">
-                                            <div style={{ padding: "10px" }}>
-                                              <span>
-                                                <a
-                                                  href="#!"
-                                                  style={{
-                                                    padding:
-                                                      "10px 150px 10px 0",
-                                                  }}
-                                                  onClick={close}
-                                                >
-                                                  <i className="las la-times"></i>
-                                                </a>
-                                              </span>
-                                              <span
-                                                style={{
-                                                  color: "#000000",
-                                                  fontSize: "14px",
-                                                  fontWeight: "bold",
-                                                }}
-                                              >
-                                                Lets update Stories
-                                              </span>
-
-                                              <span style={{ float: "right" }}>
-                                                {" "}
-                                                <button
-                                                  style={{
-                                                    float: "right",
-                                                    borderRadius: "20px",
-                                                    padding: "5px 20px",
-                                                  }}
-                                                  type="submit"
-                                                  onClick={updateStories}
-                                                >
-                                                  Update
-                                                </button>
-                                              </span>
-                                            </div>
-                                          </div>
-
-                                          <div
-                                            style={{
-                                              margin: "0 11px 10px 11px",
-                                            }}
-                                          >
-                                            <span className="textPop">
-                                              {showstoriesImage ? (
-                                                <>
-                                                  <img
-                                                    id="preview"
-                                                    src={
-                                                      fileStorage.baseUrl +
-                                                      background.storiesImagePath
-                                                    }
-                                                    style={{ width: "100%" }}
-                                                  />
-
-                                                  <button
-                                                    onClick={
-                                                      handleRemoveImageStry
-                                                    }
-                                                    style={{
-                                                      right: "20px",
-                                                      position: "absolute",
-                                                      borderRadius: "100%",
-                                                      background: "#b7b7b738",
-                                                      padding: "10px 10px",
-                                                    }}
-                                                  >
-                                                    <i className="las la-times"></i>
-                                                  </button>
-                                                </>
-                                              ) : (
-                                                <div
-                                                  style={{
-                                                    textAlign: "center",
-                                                  }}
-                                                >
-                                                  <label className="fileContainer">
-                                                    <div
-                                                      className="storypic"
-                                                      type="submit"
-                                                    >
-                                                      <input
-                                                        type="file"
-                                                        name="swap_image"
-                                                        accept="image/*"
-                                                        onChange={handleEditeFileStry(
-                                                          fileStorage.baseUrl +
-                                                            background.image
-                                                        )}
-                                                      ></input>
-                                                      Add Story
-                                                    </div>
-                                                  </label>
-                                                </div>
-                                              )}
-                                              <textarea
-                                                className="textpopup"
-                                                rows={2}
-                                                placeholder={
-                                                  "Add text to your Story"
-                                                }
-                                                name="story_content"
-                                                value={storyContent}
-                                                onChange={handleEditStoryContent(
-                                                  background.caption
-                                                )}
-                                              />
-                                            </span>
-                                            <div className="storyErr">
-                                              {uploadErrorStory
-                                                ? `${uploadErrorStory}`
-                                                : null}
-                                            </div>
-                                          </div>
-                                        </Form>
-                                      )}
-                                    </Popup>
                                   </Dropdown.Item>
                                   <Dropdown.Item
                                     type="button"
@@ -344,53 +368,39 @@ function DisplayComponent() {
                                   </Dropdown.Item>
                                 </DropdownButton>
                               </div>
-                            </span>
-
-                            <div style={{ marginTop: "500px" }}>
-                              <span>{background.caption}</span>
                             </div>
+                          </div>
+                          <div className="story-caption-cont">
+                            <span style={{ padding: '10px', color: 'white' }}>{background.caption}</span>
                             <Popup
-                              style={{ padding: "0px" }}
+                              style={{ padding: "10px" }}
                               trigger={
                                 <a
-                                onClick={
-                              window.clearTimeout(timeoutRef.current)
-                            }
+                                  onClick={
+                                    window.clearTimeout(timeoutRef.current)
+                                  }
                                   className={"far fa-eye"}
-                                  style={{ color: "GrayText" }}
+                                  style={{ color: "GrayText", paddingBottom: '10px', color: 'white' }}
                                 >
-                                  {" Seen:" + background.views}
+                                  &nbsp;&nbsp;{background.views}
                                 </a>
                               }
                               modal
                             >
                               {(close) => (
-<>
-                                  <div>
-                                    <div className="row">
-                                      <div style={{ width: "5%" }}>
-                                        <a  onClick={close}>
-                                          <i
-                                            style={{
-                                              color: "#fff",
-                                              padding: "10px",
-                                              fontSize: "30px",
-                                            }}
-                                            className="las la-times"
-                                          ></i>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <>
                                   <ViewersListComponent
                                     key={background.id}
                                     storyID={
                                       background.id}
-                                  /></>
+                                  />
+                                  <a className="close" onClick={close}>
+                                    &times;
+                                  </a>
+                                </>
                               )}
                             </Popup>
                           </div>
-
                           <img
                             onClick={() =>
                               window.clearTimeout(timeoutRef.current)
@@ -400,6 +410,7 @@ function DisplayComponent() {
                               fileStorage.baseUrl + background.storiesImagePath
                             }
                           />
+                          
                         </div>
                       ) : null}
                     </>
@@ -410,9 +421,8 @@ function DisplayComponent() {
                   {storiesForUser.map((_, idx) => (
                     <div
                       key={idx}
-                      className={`slideshowDot${
-                        index === idx ? " active" : ""
-                      }`}
+                      className={`slideshowDot${index === idx ? " active" : ""
+                        }`}
                       onClick={() => {
                         setIndex(idx);
                       }}
@@ -448,8 +458,16 @@ function DisplayComponent() {
                 </span>
               ) : null}
             </div>
+            { showModal?
+                <div style={{position:'absolute',top:0,left:'30%',background:'white'}}>
+              
+                {editStoryModal()}
+                
+              </div>:null
+              }
           </div>
         </div>
+       
       </div>
     </>
   );

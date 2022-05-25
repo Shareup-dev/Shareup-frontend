@@ -221,7 +221,7 @@ export default function PostComponent({ post, setRefresh }) {
     }, 200);
   };
 
-  const acceptHangShare = (hsid,uid) => {
+  const acceptHangShare = (hsid, uid) => {
     if (UserPhone === "") {
       setStatus("Please Insert Your Phone number");
       return;
@@ -578,7 +578,7 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <div
@@ -681,7 +681,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                 <>
                   {post.swapImagePath &&
-                  post.swapImagePath.split(",").length > 1 ? (
+                    post.swapImagePath.split(",").length > 1 ? (
                     <div>
                       <Carousel
                         height="200px"
@@ -742,6 +742,7 @@ export default function PostComponent({ post, setRefresh }) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   paddingBottom: "8px",
+                  paddingLeft: '0px'
                 }}
               >
                 <div style={{ display: "flex" }}>
@@ -803,11 +804,12 @@ export default function PostComponent({ post, setRefresh }) {
                         paddingTop: "5px",
                       }}
                     >
-                      on{" "}
+                      {/* on{" "} */}
                       {moment(
                         post.published,
                         "DD MMMM YYYY hh:mm:ss"
                       ).fromNow()}
+                      
                       {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
                     </span>
                   </div>
@@ -885,8 +887,8 @@ export default function PostComponent({ post, setRefresh }) {
 
               <div className="postImage">
                 {post.allPostsType === "post" &&
-                post.media &&
-                post.media.length > 1 ? (
+                  post.media &&
+                  post.media.length > 1 ? (
                   <>
                     <OwlCarousel
                       items={1}
@@ -895,7 +897,7 @@ export default function PostComponent({ post, setRefresh }) {
                       nav
                       navText={
                         ("<i className='fa fa-chevron-left'></i>",
-                        "<i className='fa fa-chevron-right'></i>")
+                          "<i className='fa fa-chevron-right'></i>")
                       }
                       margin={10}
                     >
@@ -925,15 +927,15 @@ export default function PostComponent({ post, setRefresh }) {
                         }
                         prevSrc={
                           post.media[
-                            (photoIndex + post.media.length - 1) %
-                              post.media.length
+                          (photoIndex + post.media.length - 1) %
+                          post.media.length
                           ]
                         }
                         onCloseRequest={() => setIsopen(false)}
                         onMovePrevRequest={() =>
                           setPhotoindex(
                             (photoIndex + post.media.length - 1) %
-                              post.media.length
+                            post.media.length
                           )
                         }
                         onMoveNextRequest={() =>
@@ -1186,27 +1188,27 @@ export default function PostComponent({ post, setRefresh }) {
                           onCloseRequest={() => setIsopen(false)}
                         />
                       )}
-                        <div className="swappost-cont">
-                          <div className="">
-                            <div
-                              className="bold "
-                              style={{
-                                marginBottom: "5px",
-                                marginTop: "10px",
-                                color: "#050505",
-                              }}
-                            >
-                              {post.hangsharetype
-                                ? post.hangsharetype
-                                : "Other"}
-                            </div>
-                            <div style={{ fontSize: "14px" }}>
-                              {post.content ? post.content : ""}
-                            </div>
+                      <div className="swappost-cont">
+                        <div className="">
+                          <div
+                            className="bold "
+                            style={{
+                              marginBottom: "5px",
+                              marginTop: "10px",
+                              color: "#050505",
+                            }}
+                          >
+                            {post.hangsharetype
+                              ? post.hangsharetype
+                              : "Other"}
                           </div>
-                          {post.userdata.id === user.id ? (
-                            <button className="button">Close</button>
-                          ):(
+                          <div style={{ fontSize: "14px" }}>
+                            {post.content ? post.content : ""}
+                          </div>
+                        </div>
+                        {post.userdata.id === user.id ? (
+                          <button className="button">Close</button>
+                        ) : (
                           <Popup
                             trigger={<button className="button">Accept</button>}
                             modal
@@ -1249,9 +1251,9 @@ export default function PostComponent({ post, setRefresh }) {
                                       src={
                                         user
                                           ? fileStorage.baseUrl +
-                                            user.profilePicturePath
+                                          user.profilePicturePath
                                           : fileStorage.baseUrl +
-                                            userR.profilePicturePath
+                                          userR.profilePicturePath
                                       }
                                       alt=""
                                     />
@@ -1351,7 +1353,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     cursor: "pointer",
                                   }}
                                   onClick={() => {
-                                    acceptHangShare(post.id,user.id); 
+                                    acceptHangShare(post.id, user.id);
                                     close();
                                   }}
                                 >
@@ -1360,7 +1362,7 @@ export default function PostComponent({ post, setRefresh }) {
                               </Form>
                             )}
                           </Popup>
-                      )}
+                        )}
                       </div>
                     </div>
                   ))
@@ -1510,8 +1512,8 @@ export default function PostComponent({ post, setRefresh }) {
                     )}
 
                     {post.allPostsType === "share" &&
-                    post.post.allPostsType === "post" &&
-                    post.post.media.length > 1 ? (
+                      post.post.allPostsType === "post" &&
+                      post.post.media.length > 1 ? (
                       <>
                         <OwlCarousel
                           items={1}
@@ -1520,7 +1522,7 @@ export default function PostComponent({ post, setRefresh }) {
                           nav
                           navText={
                             ("<i className='fa fa-chevron-left'></i>",
-                            "<i className='fa fa-chevron-right'></i>")
+                              "<i className='fa fa-chevron-right'></i>")
                           }
                           margin={10}
                         >
@@ -1548,20 +1550,20 @@ export default function PostComponent({ post, setRefresh }) {
                             }
                             nextSrc={
                               post.post.media[
-                                (photoIndex + 1) % post.post.media.length
+                              (photoIndex + 1) % post.post.media.length
                               ]
                             }
                             prevSrc={
                               post.post.media[
-                                (photoIndex + post.post.media.length - 1) %
-                                  post.post.media.length
+                              (photoIndex + post.post.media.length - 1) %
+                              post.post.media.length
                               ]
                             }
                             onCloseRequest={() => setIsopen(false)}
                             onMovePrevRequest={() =>
                               setPhotoindex(
                                 (photoIndex + post.post.media.length - 1) %
-                                  post.post.media.length
+                                post.post.media.length
                               )
                             }
                             onMoveNextRequest={() =>
@@ -1685,9 +1687,9 @@ export default function PostComponent({ post, setRefresh }) {
                                           src={
                                             user
                                               ? fileStorage.baseUrl +
-                                                user.profilePicturePath
+                                              user.profilePicturePath
                                               : fileStorage.baseUrl +
-                                                userR.profilePicturePath
+                                              userR.profilePicturePath
                                           }
                                           alt=""
                                         />
@@ -1876,157 +1878,157 @@ export default function PostComponent({ post, setRefresh }) {
                                 </div>
                               </div>
                               <Popup
-                            trigger={<button className="button">Accept</button>}
-                            modal
-                            nested
-                          >
-                            {(close) => (
-                              <Form
-                                style={{ margin: "5px" }}
-                                className="popwidth rqst-swap-form"
-                                onSubmit={close}
+                                trigger={<button className="button">Accept</button>}
+                                modal
+                                nested
                               >
-                                <div className="headpop">
-                                  <div className="row">
-                                    <div style={{ width: "20%" }}>
-                                      <a
-                                        href="#!"
-                                        style={{ padding: "10px 80px 10px 0" }}
-                                        onClick={close}
-                                      >
-                                        <i className="las la-times"></i>
-                                      </a>
+                                {(close) => (
+                                  <Form
+                                    style={{ margin: "5px" }}
+                                    className="popwidth rqst-swap-form"
+                                    onSubmit={close}
+                                  >
+                                    <div className="headpop">
+                                      <div className="row">
+                                        <div style={{ width: "20%" }}>
+                                          <a
+                                            href="#!"
+                                            style={{ padding: "10px 80px 10px 0" }}
+                                            onClick={close}
+                                          >
+                                            <i className="las la-times"></i>
+                                          </a>
+                                        </div>
+                                        <div
+                                          style={{
+                                            color: "#000000",
+                                            fontSize: "18px",
+                                            fontWeight: "bold",
+                                            width: "60%",
+                                            textAlign: "center",
+                                          }}
+                                        >
+                                          {" "}
+                                          <span>Accepting Hang Share</span>
+                                        </div>
+                                      </div>
                                     </div>
+                                    <div style={{ padding: "0 11px 11px 11px" }}>
+                                      <div className="popupimg">
+                                        <img
+                                          src={
+                                            user
+                                              ? fileStorage.baseUrl +
+                                              user.profilePicturePath
+                                              : fileStorage.baseUrl +
+                                              userR.profilePicturePath
+                                          }
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="popupuser-name">
+                                        <div style={{ display: "inline" }}>
+                                          <span>
+                                            {`${user.firstName} ${user.lastName}`}
+                                            {post.post.userdata ? (
+                                              <>
+                                                {" "}
+                                                <span
+                                                  style={{
+                                                    color: "rgb(100 166 194)",
+                                                    fontWeight: "500",
+                                                  }}
+                                                >
+                                                  Accept this Hang Share From
+                                                </span>{" "}
+                                                {`${post.post.userdata.firstName} ${post.post.userdata.lastName}`}
+                                              </>
+                                            ) : null}
+                                          </span>
+                                          <span
+                                            style={{
+                                              marginTop: "4px ",
+                                              display: "block",
+                                              fontSize: "10px",
+                                            }}
+                                          >
+                                            <li
+                                              style={{
+                                                paddingLeft: "0%",
+                                                paddingTop: "1%",
+                                                listStyleType: "none",
+                                              }}
+                                            ></li>
+                                          </span>
+                                        </div>{" "}
+                                      </div>{" "}
+                                    </div>
+                                    <div style={{ minHeight: "150px" }}>
+                                      <span className="textPop">
+                                        <div class="input-group mb-3">
+                                          <div class="input-group-prepend">
+                                            <span
+                                              class="input-group-text"
+                                              id="basic-addon1"
+                                            >
+                                              Phone Number
+                                            </span>
+                                          </div>
+                                          <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Enter you Phone"
+                                            value={UserPhone}
+                                            onChange={handleUserPhone}
+                                          />
+                                        </div>
+                                        <div>
+                                          <div
+                                            onClick={getLocation}
+                                            style={{
+                                              textAlign: "center",
+                                              background: "#033347",
+                                              fontWeight: "bold",
+                                              color: "white",
+                                              padding: "15px",
+                                              borderRadius: "5px",
+                                              fontSize: "14px",
+                                              cursor: "pointer",
+                                            }}
+                                          >
+                                            {"Get Location"}
+                                          </div>
+                                          <h1>Coordinates</h1>
+                                          <p>{status}</p>
+                                          {lat && <p>Latitude: {lat}</p>}
+                                          {lng && <p>Longitude: {lng}</p>}
+                                        </div>
+                                      </span>
+                                    </div>
+
                                     <div
+
                                       style={{
-                                        color: "#000000",
-                                        fontSize: "18px",
-                                        fontWeight: "bold",
-                                        width: "60%",
                                         textAlign: "center",
+                                        background: "#033347",
+                                        fontWeight: "bold",
+                                        color: "white",
+                                        margin: "11px 11px",
+                                        padding: "15px",
+                                        borderRadius: "5px",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() => {
+                                        acceptHangShare(post.post.id, user.id);
+                                        // close();
                                       }}
                                     >
-                                      {" "}
-                                      <span>Accepting Hang Share</span>
+                                      Accept this Hang Share
                                     </div>
-                                  </div>
-                                </div>
-                                <div style={{ padding: "0 11px 11px 11px" }}>
-                                  <div className="popupimg">
-                                    <img
-                                      src={
-                                        user
-                                          ? fileStorage.baseUrl +
-                                            user.profilePicturePath
-                                          : fileStorage.baseUrl +
-                                            userR.profilePicturePath
-                                      }
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="popupuser-name">
-                                    <div style={{ display: "inline" }}>
-                                      <span>
-                                        {`${user.firstName} ${user.lastName}`}
-                                        {post.post.userdata ? (
-                                          <>
-                                            {" "}
-                                            <span
-                                              style={{
-                                                color: "rgb(100 166 194)",
-                                                fontWeight: "500",
-                                              }}
-                                            >
-                                              Accept this Hang Share From
-                                            </span>{" "}
-                                            {`${post.post.userdata.firstName} ${post.post.userdata.lastName}`}
-                                          </>
-                                        ) : null}
-                                      </span>
-                                      <span
-                                        style={{
-                                          marginTop: "4px ",
-                                          display: "block",
-                                          fontSize: "10px",
-                                        }}
-                                      >
-                                        <li
-                                          style={{
-                                            paddingLeft: "0%",
-                                            paddingTop: "1%",
-                                            listStyleType: "none",
-                                          }}
-                                        ></li>
-                                      </span>
-                                    </div>{" "}
-                                  </div>{" "}
-                                </div>
-                                <div style={{ minHeight: "150px" }}>
-                                  <span className="textPop">
-                                    <div class="input-group mb-3">
-                                      <div class="input-group-prepend">
-                                        <span
-                                          class="input-group-text"
-                                          id="basic-addon1"
-                                        >
-                                          Phone Number
-                                        </span>
-                                      </div>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Enter you Phone"
-                                        value={UserPhone}
-                                        onChange={handleUserPhone}
-                                      />
-                                    </div>
-                                    <div>
-                                      <div
-                                        onClick={getLocation}
-                                        style={{
-                                          textAlign: "center",
-                                          background: "#033347",
-                                          fontWeight: "bold",
-                                          color: "white",
-                                          padding: "15px",
-                                          borderRadius: "5px",
-                                          fontSize: "14px",
-                                          cursor: "pointer",
-                                        }}
-                                      >
-                                        {"Get Location"}
-                                      </div>
-                                      <h1>Coordinates</h1>
-                                      <p>{status}</p>
-                                      {lat && <p>Latitude: {lat}</p>}
-                                      {lng && <p>Longitude: {lng}</p>}
-                                    </div>
-                                  </span>
-                                </div>
-
-                                <div
-
-                                  style={{
-                                    textAlign: "center",
-                                    background: "#033347",
-                                    fontWeight: "bold",
-                                    color: "white",
-                                    margin: "11px 11px",
-                                    padding: "15px",
-                                    borderRadius: "5px",
-                                    fontSize: "14px",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() => {
-                                    acceptHangShare(post.post.id,user.id); 
-                                    // close();
-                                  }}
-                                >
-                                  Accept this Hang Share
-                                </div>
-                              </Form>
-                            )}
-                          </Popup>                            </div>
+                                  </Form>
+                                )}
+                              </Popup>                            </div>
                           )}
                         </div>
                       ))

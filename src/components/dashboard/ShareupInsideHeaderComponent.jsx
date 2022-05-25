@@ -106,7 +106,7 @@ function ShareupInsideHeaderComponent() {
         </ul></div>
         <div className="logo-inside">
           {/* <a title="notif" href="/newsfeed"><img src="../assets/images/shareup.png" alt="" style={{marginTop: '13px'}}/></a> */}
-          <a title="notif" href="/newsfeed"><img src="../assets/images/Mainlogo.png" alt="" style={{ marginTop: '5px' }} /></a>
+          <a title="shareup" href="/newsfeed"><img src="../assets/images/Mainlogo.png" alt="" style={{ marginTop: '5px' }} /></a>
           {/* <a title="notif" href="/newsfeed"><img src="../assets/images/shareup_logo2.png" width="50" alt="" /></a> */}
         </div>
         <div className="top-area">
