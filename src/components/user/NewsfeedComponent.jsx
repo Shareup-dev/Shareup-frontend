@@ -88,7 +88,8 @@ function NewsfeedComponent() {
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
-
+  const [showStoryButton, setShowStoryButton] = useState(true);
+  const [showStoryButtonVdo, setShowStoryButtonVdo] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState([]);
@@ -2976,20 +2977,50 @@ function NewsfeedComponent() {
                                 </button>
                               </>
                             ) : (
-                              <div style={{ textAlign: "center" }}>
-                                <label className="fileContainer">
-                                  <div className="storypic" type="submit">
-                                    <input
-                                      type="file"
-                                      name="swap_image"
-                                      accept="image/*"
-                                      onChange={handleFileStry}
-                                    ></input>
-                                    Add Story
-                                  </div>
-                                </label>
-                              </div>
-                            )}
+
+<>
+{
+showStoryButtonVdo ? (
+    <div style={{ textAlign: "center" }}>
+    <button
+    onClick={() =>{setShowStoryButtonVdo(false)
+    setShowStoryButton(true)}}
+    >Add Image</button>
+      <label className="fileContainer">
+        <div className="reelvideo" type="submit">
+          <input
+            type="file"
+            name="reel_video"
+            accept="video/*"
+            onChange={handleFileStry}
+          ></input>
+          Add Video Story
+        </div>
+      </label>
+    </div>
+):null}
+{
+showStoryButton ? (
+  <div style={{ textAlign: "center" }}>
+<button
+    onClick={() =>{setShowStoryButtonVdo(true)
+    setShowStoryButton(false)}}
+    >Add Video</button>
+  <label className="fileContainer">
+    <div className="storypic" type="submit">
+      <input
+        type="file"
+        name="swap_image"
+        accept="image/*"
+        onChange={handleFileStry}
+      ></input>
+      Add Image Story
+    </div>
+  </label>
+</div>
+):null}
+</>
+)}
                             <textarea
                               className="textpopup"
                               rows={2}
