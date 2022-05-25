@@ -66,6 +66,9 @@ import Loader from './components/loader/loader'
 
 
 import Giphy from './components/Giphy';
+import NotificationFeedComponent from './components/Notification/NotificationFeedComponent';
+import URLpostComponent from './components/post/URLPostComponent';
+import URLPostComponent from './components/post/URLPostComponent';
 
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
@@ -151,6 +154,8 @@ Giphy();
       <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
       <ProtectedRoute path="/searchFeed" component={SearchFeedComponent}></ProtectedRoute>
       <ProtectedRoute path="/reelFeed" component={ReelFeedComponent}></ProtectedRoute>
+      <ProtectedRoute path="/notificationsNew" component={NotificationFeedComponent}></ProtectedRoute>
+      <ProtectedRoute path="/post/:postID" component={URLPostComponent}></ProtectedRoute>
 
 
     

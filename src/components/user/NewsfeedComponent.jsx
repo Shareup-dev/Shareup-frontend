@@ -44,6 +44,7 @@ import Grpicon from "../../images/grpicon.png";
 import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 import Loader from '../loader/loader'
+import HangShareService from "../../services/HangShareService";
 
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -119,6 +120,7 @@ function NewsfeedComponent() {
   const [privacy, setprivacy] = useState("privacy");
 
   const [closeModal, setCloseModal] = useState(false);
+  const [categoryHS, setCategoryHS] = useState("");
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -469,6 +471,7 @@ function NewsfeedComponent() {
   const handlePrivacy = (event) => {
     setPrivacy(event.target.value);
   };
+
   const uploadPost = (event) => {
     event.preventDefault();
     setUploadError("");
@@ -499,6 +502,44 @@ function NewsfeedComponent() {
         });
       } else
         PostService.createPost(user.id, formData, userF.id).then((res) => {
+          setPostContent("");
+          handleRemoveImage();
+          setRefresh(res.data);
+        });
+    }
+  };
+
+
+  const uploadHangShare = (event) => {
+    event.preventDefault();
+    setUploadError("");
+    if (
+      postContent === "" &&
+      Object.keys(files).length === 0 &&
+      files.constructor === Object
+    ) {
+      setUploadError("Please Insert A Text or an Image");
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("content", postContent);
+      for (let i = 0; i < files.length; i++) {
+        formData.append(`files`, files[i]);
+      }
+
+      for (let i = 0; i < `files`.length; i++) {}
+      formData.append(`privacy`, Privacy);
+      formData.append(`category`, categoryHS);
+
+      if (userF === null) {
+        HangShareService.createHangShare(user.id, formData).then((res) => {
+          setPostContent("");
+          handleRemoveImage();
+          setRefresh(res.data);
+          console.log(refresh);
+        });
+      } else
+        HangShareService.createHangShare(user.id, formData, userF.id).then((res) => {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
@@ -1594,6 +1635,20 @@ function NewsfeedComponent() {
                   value={postContent}
                   onChange={handlePostContent}
                 />
+                              <select
+                      className="form-select"
+                      aria-label="Default select example"
+                      onChange={(e) => {
+                        const selectedCat = e.target.value;
+                        setCategoryHS(selectedCat);
+                      }}
+                    >
+                      <option selected>
+                        {categoryHS ? categoryHS : "Select Category"}
+                      </option>
+                      <option value="meals">Meal</option>
+                      <option value="gifts">Gift</option>
+                    </select>
 
                 {showPostImage ? (
                   <>
@@ -1620,7 +1675,7 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
-            <button className="popsbmt-btn" onClick={uploadPost}>
+            <button className="popsbmt-btn" onClick={uploadHangShare}>
               POST
             </button>
           </Form>

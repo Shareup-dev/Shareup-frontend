@@ -222,7 +222,7 @@ function ShareupInsideHeaderComponent() {
                       <span className="tag">New</span>
                     </li>
                   </ul>
-                  <a href="/notifications" title="notif" className="more-mesg">view more</a>
+                  <a href="/notificationsnew" title="notif" className="more-mesg">view All</a>
                 </div>
               </div>
             </li>
