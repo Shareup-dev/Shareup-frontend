@@ -135,6 +135,13 @@ function DisplayComponent() {
       setUserR(user);
     }
   };
+
+  function getFileExtension(filename){
+    const extension = filename.split('.').pop();
+    return extension;
+}
+
+
   useEffect(() => {
     testScript();
   }, []);
@@ -353,9 +360,9 @@ function DisplayComponent() {
                               style={{ padding: "0px" }}
                               trigger={
                                 <a
-                                onClick={
-                              window.clearTimeout(timeoutRef.current)
-                            }
+                                  onClick={window.clearTimeout(
+                                    timeoutRef.current
+                                  )}
                                   className={"far fa-eye"}
                                   style={{ color: "GrayText" }}
                                 >
@@ -365,11 +372,11 @@ function DisplayComponent() {
                               modal
                             >
                               {(close) => (
-<>
+                                <>
                                   <div>
                                     <div className="row">
                                       <div style={{ width: "5%" }}>
-                                        <a  onClick={close}>
+                                        <a onClick={close}>
                                           <i
                                             style={{
                                               color: "#fff",
@@ -384,22 +391,42 @@ function DisplayComponent() {
                                   </div>
                                   <ViewersListComponent
                                     key={background.id}
-                                    storyID={
-                                      background.id}
-                                  /></>
+                                    storyID={background.id}
+                                  />
+                                </>
                               )}
                             </Popup>
-                          </div>
+                          </div>                          
 
-                          <img
-                            onClick={() =>
-                              window.clearTimeout(timeoutRef.current)
-                            }
-                            className="stryDsplyImg"
-                            src={
-                              fileStorage.baseUrl + background.storiesImagePath
-                            }
-                          />
+                          {getFileExtension(background.image) !== "mp4" ? (
+                            <img
+                              onClick={() =>
+                                window.clearTimeout(timeoutRef.current)
+                              }
+                              className="stryDsplyImg"
+                              src={
+                                fileStorage.baseUrl +
+                                background.storiesImagePath
+                              }
+                            />
+                          ) : (
+                            <>
+                              <video
+                                preload="none"
+                                controls
+                                loop
+                                autoPlay
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "fill",
+                                }}
+                                src={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                type="video/mp4"
+                                alt={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                              />
+                            </>
+                          )}
                         </div>
                       ) : null}
                     </>

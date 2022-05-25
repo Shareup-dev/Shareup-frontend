@@ -88,7 +88,10 @@ function NewsfeedComponent() {
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
+  const [showStoryButton, setShowStoryButton] = useState(true);
+  const [showStoryButtonVdo, setShowStoryButtonVdo] = useState(false);
 
+  
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState([]);
@@ -2961,11 +2964,26 @@ function NewsfeedComponent() {
                           <span className="textPop">
                             {showstoriesImage ? (
                               <>
+                              {
+                              showStoryButton ? (
                                 <img
                                   id="preview"
                                   src={storiesImage}
                                   style={{ width: "100%" }}
                                 />
+                              ):null}
+
+                              {
+                              showStoryButtonVdo ? (
+                                    <video
+                                      id="video"
+                                      width="100%"
+                                      height={"350px"}
+                                      controls="controls"
+                                    >
+                                      <source src={storiesImage} />
+                                    </video>
+                                    ):null}
                                 <button
                                   onClick={handleRemoveImageStry}
                                   style={{
@@ -2980,7 +2998,35 @@ function NewsfeedComponent() {
                                 </button>
                               </>
                             ) : (
-                              <div style={{ textAlign: "center" }}>
+
+                              <>
+                              {
+                              showStoryButtonVdo ? (
+                                  <div style={{ textAlign: "center" }}>
+                                  <button
+                                  onClick={() =>{setShowStoryButtonVdo(false)
+                                  setShowStoryButton(true)}}
+                                  >Add Image</button>
+                                    <label className="fileContainer">
+                                      <div className="reelvideo" type="submit">
+                                        <input
+                                          type="file"
+                                          name="reel_video"
+                                          accept="video/*"
+                                          onChange={handleFileStry}
+                                        ></input>
+                                        Add Video Story
+                                      </div>
+                                    </label>
+                                  </div>
+                             ):null}
+                             {
+                              showStoryButton ? (
+                                <div style={{ textAlign: "center" }}>
+                             <button
+                                  onClick={() =>{setShowStoryButtonVdo(true)
+                                  setShowStoryButton(false)}}
+                                  >Add Video</button>
                                 <label className="fileContainer">
                                   <div className="storypic" type="submit">
                                     <input
@@ -2989,10 +3035,12 @@ function NewsfeedComponent() {
                                       accept="image/*"
                                       onChange={handleFileStry}
                                     ></input>
-                                    Add Story
+                                    Add Image Story
                                   </div>
                                 </label>
                               </div>
+                              ):null}
+                              </>
                             )}
                             <textarea
                               className="textpopup"
@@ -3007,9 +3055,7 @@ function NewsfeedComponent() {
                             {uploadErrorStory ? `${uploadErrorStory}` : null}
                           </div>
                         </div>
-                        {/* </> 
-                                                   
-                                 )}  */}
+
                       </Form>
                     )}
                   </Popup>

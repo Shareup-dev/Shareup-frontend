@@ -46,23 +46,26 @@ function StoriesComponentFriends({ story, setRefresh }) {
     }
   };
 
-const checkPop=()=>{
+  const checkPop = () => {};
+  function getFileExtension(filename){
+    const extension = filename.split('.').pop();
+    return extension;
 }
-
-
   useEffect(() => {
     getUser();
     getStoriesForFriendsUser();
     testScript();
   }, [FriendsStories]);
 
-
   return (
     <div className="strysggstion-card">
-      <div className="strysggstion-Profimg" style={{borderColor:'yellowgreen'}}>
+      <div
+        className="strysggstion-Profimg"
+        style={{ borderColor: "yellowgreen" }}
+      >
         <img src={fileStorage.baseUrl + story.user.profilePicturePath} alt="" />
       </div>
-   
+
       <div
         className="strysggstion-Profimg1 text-light text-center font-weight-bold d-flex align-items-center justify-content-center"
         style={{
@@ -79,14 +82,39 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
-            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
+            {getFileExtension(story.image) !== "mp4" ? (
+              <img
+                src={fileStorage.baseUrl + story.storiesImagePath}
+                alt=""
+                className="zoom-story-img"
+              />
+            ) : (
+              <video
+                preload="none"
+                loop
+                controls={false}
+                autoPlay
+                muted
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "fill",
+                }}
+                src={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+                type="video/mp4"
+                alt={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+              />
+            )}
           </a>
-          <div className="strysggstion-imgStry-overlay">
 
-          </div>
-          <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            <span className='text-light p-2' style={{fontSize:'0.8rem'}}>{story.user.firstName} {story.user.lastName}</span>
-
+          <div className="strysggstion-imgStry-overlay"></div>
+          <div
+            className="strysggstion-imgStry-number d-flex align-items-end"
+            onClick={checkPop}
+          >
+            <span className="text-light p-2" style={{ fontSize: "0.8rem" }}>
+              {story.user.firstName} {story.user.lastName}
+            </span>
           </div>
         </div>
       </a>
