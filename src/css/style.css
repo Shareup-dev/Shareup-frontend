@@ -193,13 +193,13 @@ textarea {
 .slide-buttons span#getnext {
   position: absolute;
   top: 40%;
-  right: 34%;
+  right: 28%;
 }
 
 .slide-buttons span#getprev {
   position: absolute;
   top: 40%;
-  left: 34%;
+  left: 28%;
 }
 
 .slide-buttons span {
@@ -14802,7 +14802,7 @@ a.Hangin-btn:hover {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  border: 1px solid #ede9e9;
+  border: 1px solid #dfdfdf;
   /* box-shadow: 0 3px 6px rgb(84 84 84 / 41%); */
   /* margin-bottom: 11px; */
 }
@@ -17225,4 +17225,35 @@ code {
   /* color: #fff; */
   background-color: transparent !important;
   border-color: transparent !important;
+}
+.editStry-cont{
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.strydivcontnr .headpop ,.addStory-popup-content .headpop{
+
+  border-bottom: 1px solid #eaeaea;
+  padding: 15px 15px;
+  padding-bottom: 26px;
+  vertical-align: middle;
+  margin: 0 0 11px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.strydivcontnr .headpop span , .addStory-popup-content .headpop span{
+  width: 33%;
+}
+.strydivcontnr .headpop .poptitle , .addStory-popup-content .headpop .poptitle{
+
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }

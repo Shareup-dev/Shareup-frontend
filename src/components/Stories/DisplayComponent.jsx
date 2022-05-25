@@ -185,7 +185,6 @@ function DisplayComponent() {
     return(
     <Form className="popwidth">
       <div className ="headpop">
-        <div style={{ padding: "10px" }}>
           <span>
             <a
               href="#!"
@@ -198,13 +197,7 @@ function DisplayComponent() {
               <i className="las la-times"></i>
             </a>
           </span>
-          <span
-            style={{
-              color: "#000000",
-              fontSize: "14px",
-              fontWeight: "bold",
-            }}
-          >
+          <span className="poptitle">
             Update Story
           </span>
 
@@ -222,7 +215,6 @@ function DisplayComponent() {
               Update
             </button>
           </span>
-        </div>
       </div>
 
       <div
@@ -232,14 +224,14 @@ function DisplayComponent() {
       >
         <span className="textPop">
           {showstoriesImage ? (
-            <>
+            <div style={{position:'relative'}}>
               <img
                 id="preview"
                 src={
                   fileStorage.baseUrl +
                   background.storiesImagePath
                 }
-                style={{ width: "100%" }}
+                style={{ width: "100%" ,borderRadius:'10px'}}
               />
 
               <button
@@ -247,7 +239,7 @@ function DisplayComponent() {
                   handleRemoveImageStry
                 }
                 style={{
-                  right: "20px",
+                  right: 0,
                   position: "absolute",
                   borderRadius: "100%",
                   background: "#b7b7b738",
@@ -256,7 +248,7 @@ function DisplayComponent() {
               >
                 <i className="las la-times"></i>
               </button>
-            </>
+            </div>
           ) : (
             <div
               style={{
@@ -293,12 +285,14 @@ function DisplayComponent() {
             onChange={(e)=>handleStoryContent(e,background.caption)}
           />
         </span>
-        <div className="storyErr">
+        
           {uploadErrorStory
-            ? `${uploadErrorStory}`
+            ? <div className="storyErr">`${uploadErrorStory}`</div>
             : null}
-        </div>
+        
       </div>
+      <button  class="popsbmt-btn" type="submit"
+              onClick={(e)=>updateStories(e,editStory)}>UPDATE</button>
     </Form>
     )
   }
@@ -463,10 +457,13 @@ function DisplayComponent() {
             {
                         // editStory.id===background.id?
                 showModal===true?
-                <div style={{position:'absolute',top:0,left:'10%',maxWidth:'70%',background:'white'}}>
-                  {editStoryModal()}
+                <div className="editStry-cont">
+                  <div style={{width:'38%',background:'white',borderRadius:'10px'}}>
+                    {editStoryModal()}
 
+                  </div>
                 </div>
+
               :null
             }     
           </div>

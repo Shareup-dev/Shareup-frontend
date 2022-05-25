@@ -157,22 +157,24 @@ function NewsfeedComponent() {
     event.preventDefault();
     setUploadErrorStory("");
     if (
-      storyContent === "" &&
+      
       Object.keys(filesStry).length === 0 &&
       filesStry.constructor === Object
     ) {
       setUploadErrorStory("Please Add Image for Stories");
       return;
+    }else{
+      const formData = new FormData();
+      formData.append("caption", storyContent);
+      formData.append(`stryfiles`, filesStry);
+      StoriesService.createStories(user.id, formData).then((res) => {
+        handleRemoveImageStry();
+        setStories(res.data);
+        setRefresh(res.data);
+      });
     }
 
-    const formData = new FormData();
-    formData.append("caption", storyContent);
-    formData.append(`stryfiles`, filesStry);
-    StoriesService.createStories(user.id, formData).then((res) => {
-      handleRemoveImageStry();
-      setStories(res.data);
-      setRefresh(res.data);
-    });
+    
   };
 
   // const checkIfUserAlreadyPostStory = (story) => {
@@ -2914,28 +2916,22 @@ function NewsfeedComponent() {
               <li className="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src="/assets/images/vector-34@2x.png" alt="img" />
+                    <img src={user.profilePicturePath} alt="img" style={user.profilePicture==="default.png"?{padding:'16px'}:{}}/>
                   </div>
-                  <Popup trigger={<div className="add-stry"> +</div>} modal>
+                  <Popup trigger={<div className="add-stry"> +</div>} modal className="addStory-popup">
                     {(close) => (
                       <Form className="popwidth">
                         <div className="headpop">
-                          <div style={{ padding: "10px" }}>
                             <span>
                               <a
                                 href="#!"
-                                style={{ padding: "10px 150px 10px 0" }}
                                 onClick={close}
                               >
                                 <i className="las la-times"></i>
                               </a>
                             </span>
                             <span
-                              style={{
-                                color: "#000000",
-                                fontSize: "14px",
-                                fontWeight: "bold",
-                              }}
+                              className="poptitle"
                             >
                               Lets Add Stories
                             </span>
@@ -2955,11 +2951,9 @@ function NewsfeedComponent() {
                                 Upload
                               </button>
                             </span>
-                            {/* :null}  */}
-                          </div>
                         </div>
 
-                        <div style={{ margin: "0 11px 10px 11px" }}>
+                        <div >
                           <span className="textPop">
                             {showstoriesImage ? (
                               <>
@@ -2999,15 +2993,20 @@ function NewsfeedComponent() {
                             <textarea
                               className="textpopup"
                               rows={2}
+                              style={{marginTop:'10px'}}
                               placeholder={"Add text to your Story"}
                               name="story_content"
                               value={storyContent}
                               onChange={handleStoryContent}
                             />
                           </span>
-                          <div className="storyErr">
-                            {uploadErrorStory ? `${uploadErrorStory}` : null}
-                          </div>
+                          
+                          {uploadErrorStory
+                            ? <div className="storyErr">{uploadErrorStory}</div>
+                            : null}
+                        
+                          <button  class="popsbmt-btn" type="submit"
+                              onClick={uploadStories}>SHARE STORY</button>
                         </div>
                         {/* </> 
                                                    
