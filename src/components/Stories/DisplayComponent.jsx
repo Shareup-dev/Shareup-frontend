@@ -14,9 +14,9 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Popup from "reactjs-popup";
 import Form from "react-bootstrap/Form";
 import ViewersListComponent from "./ViewersListComponent";
-import moment from 'moment';
-import $ from 'jquery';
-import {Modal} from 'react-bootstrap'
+import moment from "moment";
+import $ from "jquery";
+import { Modal } from "react-bootstrap";
 
 function DisplayComponent() {
   let history = useHistory();
@@ -36,20 +36,23 @@ function DisplayComponent() {
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [storiesImage, setStoriesImage] = useState([]);
   const [storyContent, setStoryContent] = useState("");
-  const [editStory,setEditStory] = useState();
+  const [editStory, setEditStory] = useState();
   const [showModal, setShowModal] = useState(false);
   const [refresh, setRefresh] = useState(null);
 
-  const handleCloseModal = () => {setShowModal(false)};
-  const handleShowModal = () => {setShowModal(true)};
-
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
-  const updateStories = (event,story) => {
+  const updateStories = (event, story) => {
     event.preventDefault();
     setUploadErrorStory("");
     if (
@@ -69,7 +72,7 @@ function DisplayComponent() {
     formData.append(`stryfiles`, filesStry);
     StoriesService.updateStories(story.id, formData).then((res) => {
       handleRemoveImageStry();
-      handleCloseModal()
+      handleCloseModal();
       setStories(res.data);
       setRefresh(res.data);
     });
@@ -122,17 +125,16 @@ function DisplayComponent() {
           return res.data.find((a) => a.id === id);
         }
       );
-
       setStoriesForUser(uniqueStories);
     });
   };
 
-  const handleEditStory = (id) => { };
+  const handleEditStory = (id) => {};
 
   const handleDeleteStory = (storyId) => {
     StoriesService.deleteStories(storyId).then((res) => {
       console.log("Story deleted");
-      window.location.reload()
+      window.location.reload();
     });
   };
   const getUser = async () => {
@@ -147,19 +149,16 @@ function DisplayComponent() {
     }
   };
 
-  function getFileExtension(filename){
-    const extension = filename.split('.').pop();
+  function getFileExtension(filename) {
+    const extension = filename.split(".").pop();
     return extension;
-}
-  useEffect(() => {
-    testScript();
-  }, []);
+  }
+
   useEffect(() => {
     getUser();
     getStoriesForUser();
     testScript();
-    // $(".bi-three-dots-vertical .dropdown-menu").addClass("drop-options");
-  }, [stories]);
+  }, []);
 
   useEffect(() => {
     resetTimeout();
@@ -168,11 +167,11 @@ function DisplayComponent() {
         setIndex((prevIndex) =>
           prevIndex === storiesForUser.length - 1
             ? setTimeout(
-              () =>
-              (document.querySelector(".popup-overlay").style.display =
-                "none"),
-              200
-            )
+                () =>
+                  (document.querySelector(".popup-overlay").style.display =
+                    "none"),
+                200
+              )
             : prevIndex + 1
         ),
       delay
@@ -181,30 +180,30 @@ function DisplayComponent() {
     return () => {
       resetTimeout();
     };
-
   }, [index]);
- 
+  const nextSlide = (a) => {
+    // a.preventDefault();
+    // setIndex(a);
+  };
+
   const editStoryModal = () => {
     // console.log(editStory)
     let background = editStory;
-    return(
-    <Form className="popwidth">
-      <div className ="headpop">
+    return (
+      <Form className="popwidth">
+        <div className="headpop">
           <span>
             <a
               href="#!"
               style={{
-                padding:
-                  "10px 150px 10px 0",
+                padding: "10px 150px 10px 0",
               }}
               onClick={handleCloseModal}
             >
               <i className="las la-times"></i>
             </a>
           </span>
-          <span className="poptitle">
-            Update Story
-          </span>
+          <span className="poptitle">Update Story</span>
 
           <span style={{ float: "right" }}>
             {" "}
@@ -215,98 +214,91 @@ function DisplayComponent() {
                 padding: "5px 20px",
               }}
               type="submit"
-              onClick={(e)=>updateStories(e,editStory)}
+              onClick={(e) => updateStories(e, editStory)}
             >
               Update
             </button>
           </span>
-      </div>
+        </div>
 
-      <div
-        style={{
-          margin: "0 11px 10px 11px",
-        }}
-      >
-        <span className="textPop">
-          {showstoriesImage ? (
-            <div style={{position:'relative'}}>
-              <img
-                id="preview"
-                src={
-                  fileStorage.baseUrl +
-                  background.storiesImagePath
-                }
-                style={{ width: "100%" ,borderRadius:'10px'}}
-              />
+        <div
+          style={{
+            margin: "0 11px 10px 11px",
+          }}
+        >
+          <span className="textPop">
+            {showstoriesImage ? (
+              <div style={{ position: "relative" }}>
+                <img
+                  id="preview"
+                  src={fileStorage.baseUrl + background.storiesImagePath}
+                  style={{ width: "100%", borderRadius: "10px" }}
+                />
 
-              <button
-                onClick={
-                  handleRemoveImageStry
-                }
+                <button
+                  onClick={handleRemoveImageStry}
+                  style={{
+                    right: 0,
+                    position: "absolute",
+                    borderRadius: "100%",
+                    background: "#b7b7b738",
+                    padding: "10px 10px",
+                  }}
+                >
+                  <i className="las la-times"></i>
+                </button>
+              </div>
+            ) : (
+              <div
                 style={{
-                  right: 0,
-                  position: "absolute",
-                  borderRadius: "100%",
-                  background: "#b7b7b738",
-                  padding: "10px 10px",
+                  textAlign: "center",
                 }}
               >
-                <i className="las la-times"></i>
-              </button>
-            </div>
-          ) : (
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <label className="fileContainer">
-                <div
-                  className="storypic"
-                  type="submit"
-                >
-                  <input
-                    type="file"
-                    name="swap_image"
-                    accept="image/*"
-                    onChange={handleEditeFileStry(
-                      fileStorage.baseUrl +
-                      background.image
-                    )}
-                  ></input>
-                  Add Story
-                </div>
-              </label>
-            </div>
-          )}
-          <textarea
-            className="textpopup"
-            rows={2}
-            placeholder={
-              "Add text to your Story"
-            }
-            name="story_content"
-            value={storyContent?storyContent:background.caption}
-            onChange={(e)=>handleStoryContent(e,background.caption)}
-          />
-        </span>
-        
-          {uploadErrorStory
-            ? <div className="storyErr">`${uploadErrorStory}`</div>
-            : null}
-        
-      </div>
-      <button  class="popsbmt-btn" type="submit"
-              onClick={(e)=>updateStories(e,editStory)}>UPDATE</button>
-    </Form>
-    )
-  }
-  const editClicked = async (e,story)=>{
+                <label className="fileContainer">
+                  <div className="storypic" type="submit">
+                    <input
+                      type="file"
+                      name="swap_image"
+                      accept="image/*"
+                      onChange={handleEditeFileStry(
+                        fileStorage.baseUrl + background.image
+                      )}
+                    ></input>
+                    Add Story
+                  </div>
+                </label>
+              </div>
+            )}
+            <textarea
+              className="textpopup"
+              rows={2}
+              placeholder={"Add text to your Story"}
+              name="story_content"
+              value={storyContent ? storyContent : background.caption}
+              onChange={(e) => handleStoryContent(e, background.caption)}
+            />
+          </span>
+
+          {uploadErrorStory ? (
+            <div className="storyErr">`${uploadErrorStory}`</div>
+          ) : null}
+        </div>
+        <button
+          class="popsbmt-btn"
+          type="submit"
+          onClick={(e) => updateStories(e, editStory)}
+        >
+          UPDATE
+        </button>
+      </Form>
+    );
+  };
+  const editClicked = async (e, story) => {
     e.preventDefault();
     console.log(story);
     await setEditStory(story);
     await setShowModal(true);
-  }
+  };
   return (
     <>
       <div className="stryDsply">
@@ -325,7 +317,6 @@ function DisplayComponent() {
                           <div className="strydisplay-Profimg">
                             <div className="d-flex justify-content-between">
                               <div>
-
                                 <img
                                   src={
                                     fileStorage.baseUrl +
@@ -333,28 +324,32 @@ function DisplayComponent() {
                                   }
                                   alt=""
                                 />
-                                <span style={{ color: 'white' }}>Your story</span>
-                                <span className="story-date">{moment(background.date, "DD MMMM YYYY hh:mm:ss").fromNow(true)}</span>
+                                <span style={{ color: "white" }}>
+                                  My story
+                                </span>
+                                <span className="story-date">
+                                  {moment(
+                                    background.date,
+                                    "DD MMMM YYYY hh:mm:ss"
+                                  ).fromNow(true)}
+                                </span>
                               </div>
 
                               <div>
                                 <DropdownButton
                                   // style={{marginLeft: "400px" }}
                                   className={`bi bi-three-dots-vertical`}
-                                  title={
-
-                                    <i className='las la-ellipsis-v'></i>
-
-                                  }
+                                  title={<i className="las la-ellipsis-v"></i>}
                                   onClick={() =>
                                     window.clearTimeout(timeoutRef.current)
                                   }
                                 >
                                   <Dropdown.Item
-                                    type="button" 
-                                    onClick={(e)=>editClicked(e,background)}>
-                                        <i className="las la-pencil-alt"></i>
-                                        <span>Edit Story</span>
+                                    type="button"
+                                    onClick={(e) => editClicked(e, background)}
+                                  >
+                                    <i className="las la-pencil-alt"></i>
+                                    <span>Edit Story</span>
                                   </Dropdown.Item>
                                   <Dropdown.Item
                                     type="button"
@@ -370,16 +365,22 @@ function DisplayComponent() {
                             </div>
                           </div>
                           <div className="story-caption-cont">
-                            <span style={{ padding: '10px', color: 'white' }}>{background.caption}</span>
+                            <span style={{ padding: "10px", color: "white" }}>
+                              {background.caption}
+                            </span>
                             <Popup
                               style={{ padding: "10px" }}
                               trigger={
                                 <a
-                                  onClick={
-                                    window.clearTimeout(timeoutRef.current)
-                                  }
+                                // onClick={window.clearTimeout(
+                                //     timeoutRef.current
+                                //   )}
                                   className={"far fa-eye"}
-                                  style={{ color: "GrayText", paddingBottom: '10px', color: 'white' }}
+                                  style={{
+                                    color: "GrayText",
+                                    paddingBottom: "10px",
+                                    color: "white",
+                                  }}
                                 >
                                   &nbsp;&nbsp;{background.views}
                                 </a>
@@ -390,8 +391,7 @@ function DisplayComponent() {
                                 <>
                                   <ViewersListComponent
                                     key={background.id}
-                                    storyID={
-                                      background.id}
+                                    storyID={background.id}
                                   />
                                   <a className="close" onClick={close}>
                                     &times;
@@ -430,19 +430,18 @@ function DisplayComponent() {
                             </>
                           )}
                         </div>
-                        
                       ) : null}
-                       
                     </>
                   ))}
                 </div>
-                            
+
                 <div className="slideshowDots">
                   {storiesForUser.map((_, idx) => (
                     <div
                       key={idx}
-                      className={`slideshowDot${index === idx ? " active" : ""
-                        }`}
+                      className={`slideshowDot${
+                        index === idx ? " active" : ""
+                      }`}
                       onClick={() => {
                         setIndex(idx);
                       }}
@@ -453,7 +452,7 @@ function DisplayComponent() {
                 </div>
               </div>
             </div>
-            <div className="slide-buttons">
+            <div class="slide-buttons">
               {index + 1 < storiesForUser.length ? (
                 <span
                   id="getnext"
@@ -461,7 +460,7 @@ function DisplayComponent() {
                     setIndex(index + 1);
                   }}
                 >
-                  <i className="fas fa-arrow-right"></i>
+                  <i class="fas fa-arrow-right"></i>
                 </span>
               ) : (
                 ""
@@ -474,27 +473,29 @@ function DisplayComponent() {
                     setIndex(index - 1);
                   }}
                 >
-                  <i className="fas fa-arrow-left"></i>
+                  <i class="fas fa-arrow-left"></i>
                 </span>
               ) : null}
             </div>
             {
-                        // editStory.id===background.id?
-                showModal===true?
+              // editStory.id===background.id?
+              showModal === true ? (
                 <div className="editStry-cont">
-                  <div style={{width:'38%',background:'white',borderRadius:'10px'}}>
+                  <div
+                    style={{
+                      width: "38%",
+                      background: "white",
+                      borderRadius: "10px",
+                    }}
+                  >
                     {editStoryModal()}
-
                   </div>
                 </div>
-
-              :null
-            }     
+              ) : null
+            }
           </div>
         </div>
-              
       </div>
-      
     </>
   );
 }

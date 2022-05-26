@@ -15706,10 +15706,10 @@ a.Hangin-btn:hover {
   /* opacity: 0.5; */
 }
 /* commented bcz it effects other classes */
-.active span {
-  /* height: 5px; */
-  /* float: left; */
-  /* background-color: white; */
+.slideshowDot.active span {
+  height: 5px;
+  float: left;
+  background-color: white;
 }
 /* commented bcz it effects other classes */
 
