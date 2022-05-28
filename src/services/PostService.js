@@ -100,8 +100,8 @@ class PostService {
         const result = await authAxios.post(`comment/reply/${userId}/${commentId}`, comment)
         return result
     }
-    getReplies = async (commentId) => {
-        const result = await authAxios.get(`comment/get_replies/${commentId}`)
+    getReplies = async (uid,commentId) => {
+        const result = await authAxios.get(`comment/${uid}/get_replies/${commentId}`)
         return result
     }
     LikeReply = async (uid,rid,data) => {

@@ -605,7 +605,7 @@ function testScript(){
 			} else if (slidePositionstry >= slideEndOffsetstry) {
 				$(leftPaddlestry).removeClass('hidden');
 				$(rightPaddlestry).addClass('hidden');
-		}
+			}
 		
 			// print important values
 			$('#print-wrapper-size span').text(slideWrapperSizestry);

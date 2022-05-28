@@ -480,7 +480,7 @@ export default function Layout(props) {
                             </div>
                           </div>
 
-                          <div className="sidebar-news sidebar-reel" style={{}}>
+                          <div className="sidebar-news sidebar-reel">
                             <div className="media-date">REELS</div>
                               <div style={{}}>
                                   <div>
@@ -533,6 +533,13 @@ export default function Layout(props) {
                                               )}
                                             </Popup>
                                           ))}
+                                          {
+                                            reelPreviewPath.length>2?
+                                            <li className="more-reels" >
+                                              <a href="/reelFeed"><i className="fas fa-arrow-right"></i></a>
+                                            </li>
+                                            :null
+                                          }
                                       </ul>
                                     ) : (
                                       <div
@@ -542,7 +549,7 @@ export default function Layout(props) {
                                         No Reels to show
                                       </div>
                                     )}
-                                    <div className="d-flex justify-content-between pl-15 pr-15 pt-10 pb-5p">        
+                                    <div className="d-flex justify-content-between pl-15 pr-15 pt-10 pb-10">        
                                       <Popup
                                         trigger={
                                           <div className="add-reel"> Add Reel</div>
@@ -671,8 +678,7 @@ export default function Layout(props) {
                                         </a>
                                       </div>
                                     </div>
-                                  </div>
-                              
+                                  </div>    
                             </div>
                           </div>
 

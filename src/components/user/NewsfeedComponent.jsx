@@ -549,7 +549,6 @@ function NewsfeedComponent() {
     }
   };
 
-  useEffect(() => { }, []);
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -2533,7 +2532,7 @@ function NewsfeedComponent() {
 
   const show = () => {
     return (
-      <div className="loadMore">
+      <div className="">
         {postsForUser.map((post, index) => (
           <div key={post.id}>
             {post.group ? (
@@ -2864,10 +2863,6 @@ function NewsfeedComponent() {
   }, [showComp, group]);
 
   useEffect(() => {
-    testScript();
-  }, []);
-
-  useEffect(() => {
     getUser();
     getPost().then(() => {
       setIsLoading(false);
@@ -3078,7 +3073,7 @@ function NewsfeedComponent() {
                 </>
               ))}
 
-              {storiesForUserFriends.map((story, index) => (
+              {storiesForUserFriends.slice(0,3).map((story, index) => (
                 <Popup
                   style={{ padding: "0px" }}
                   className="story-popup"
@@ -3124,6 +3119,12 @@ function NewsfeedComponent() {
                   )}
                 </Popup>
               ))}
+              { storiesForUserFriends.length>3?
+                <li className="more-reels" >
+                  <a href="/reelFeed"><i className="fas fa-arrow-right"></i></a>
+                </li>
+                :null
+              }
             </ul>
             {/* <div className="paddles">
               <button className="left-paddlestry paddle">
