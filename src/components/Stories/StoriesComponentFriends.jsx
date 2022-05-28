@@ -48,7 +48,10 @@ function StoriesComponentFriends({ story, setRefresh }) {
 
 const checkPop=()=>{
 }
-
+function getFileExtension(filename){
+  const extension = filename.split('.').pop();
+  return extension;
+}
 
   useEffect(() => {
     getUser();
@@ -78,8 +81,30 @@ const checkPop=()=>{
       </div>
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
-          <a href="#!">
-            <img src={fileStorage.baseUrl + story.storiesImagePath} alt="" className='zoom-story-img'/>
+        <a href="#!">
+            {getFileExtension(story.image) !== "mp4" ? (
+              <img
+                src={fileStorage.baseUrl + story.storiesImagePath}
+                alt=""
+                className="zoom-story-img"
+              />
+            ) : (
+              <video
+                preload="none"
+                loop
+                controls={false}
+                autoPlay
+                muted
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "fill",
+                }}
+                src={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+                type="video/mp4"
+                alt={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+              />
+            )}
           </a>
           <div className="strysggstion-imgStry-overlay">
 
