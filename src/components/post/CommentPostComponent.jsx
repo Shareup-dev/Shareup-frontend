@@ -4,20 +4,23 @@ import PostService from '../../services/PostService';
 import ReplyCommentComponent from './ReplyCommentComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-import moment from 'moment'
+import moment from 'moment';
 import PostComponentBoxComponent from "./PostCommentBoxComponent";
 import { TramRounded } from '@mui/icons-material';
 
-export default function CommentPostComponent({ post, setRefresh }) {
+export default function CommentPostComponent(props) {
   const { user } = useContext(UserContext)
 
-  const [showComment, setShowComment] = useState(true);
   const [likedFlag, setLikedFlag] = useState(false);
 
   const [comments, setComments] = useState([])
+  const [activeCommentId, setActiveCommentId] = useState()
+
   const [likedCommentId, setLikedCommentId] = useState()
   const [likedCommentIdArr, setLikedCommentIdArr] = useState([])
+  const [replyListShowFlag, setReplyListShowFlag] = useState(false)
 
+  
   const [replyCommentFlag, setReplyCommentFlag] = useState(false)
   const [replyCommentId, setReplyCommentId] = useState(false)
   const [replies, setReplies] = useState([])
@@ -31,35 +34,29 @@ export default function CommentPostComponent({ post, setRefresh }) {
   const handleDeleteComment = (commentid) => {
     PostService.deleteComment(commentid).then(res => {
       console.log(res.status)
-      setRefresh(res.data)
+      // props.setRefresh(res.data)
     })
   }
-  const handleDeleteReply = (rid,commentId) => {
-    PostService.deleteReply(rid).then(res => {
-      console.log(res.status)
-      setRefresh(res.data)
-      getReplies(commentId)
-    })
-  }
-  const sortComment = async () => {
-    // console.log(user.id, post.id)
-    await PostService.getCommentsForPosts(user.id, post.id).then((res) => {
+ 
+  // const sortComment = async () => {
+  //   // console.log(user.id, post.id)
+  //   await PostService.getCommentsForPosts(user.id, post.id).then((res) => {
 
-      setComments(res.data)
-      // console.log(showComment , comments)
-      if (comments && comments.length>0) {
-        console.log(showComment , comments)
+  //     setComments(res.data)
+  //     // console.log(showComment , comments)
+  //     if (comments && comments.length>0) {
+  //       console.log(showComment , comments)
   
-        // const comments = [...comments]
-        comments.sort(function (a, b) {
-          var dateA = new Date(a.published), dateB = new Date(b.published);
-          return dateA - dateB;
-        });
-        setComments(comments)
-      }
-    })
+  //       // const comments = [...comments]
+  //       comments.sort(function (a, b) {
+  //         var dateA = new Date(a.published), dateB = new Date(b.published);
+  //         return dateA - dateB;
+  //       });
+  //       setComments(comments)
+  //     }
+  //   })
 
-  }
+  // }
   const checkEditComment = (e)=>{
     console.log(e)
     setEditCommentFlag(e)
@@ -70,35 +67,15 @@ export default function CommentPostComponent({ post, setRefresh }) {
     setEditReplyFlag(e)
     console.log(editCommentFlag,'edit')
   }
-  const getLikedComments = async ()=>{
+  useEffect( () => {
+    // console.log(props.comments)
+    setComments(props.comments)
     console.log(comments)
-    if(comments){
-      await comments.map((comment)=>{
-        if(comment.reactions.length>0){
-          comment.reactions.map((rea)=>{
-            console.log(rea.user.id,user.id,'userrrrrrrrrrrrrrr')
-            if(rea.user.id === user.id){
-              
-                likedCommentIdArr.push(comment.id)
-                setLikedCommentIdArr(likedCommentIdArr);
-                setLikedFlag(true);
-
-                console.log(showComment , likedCommentIdArr)
-              }
-            
-          })
-        }else{
-          // setLikedCommentIdArr([])
-        }
-      })
-    }
-  }
-  useEffect( async() => {
-    await sortComment()
-    await getLikedComments()
+    // await sortComment()
+    // await getLikedComments()
     // if(comments) {getReplies();}
-  }, [post])
-
+  }, [props.comments])
+ 
   // const date1 = (comment) => {
   //   let date = new Date(comment.published);
   //   let today = new Date();
@@ -130,12 +107,12 @@ export default function CommentPostComponent({ post, setRefresh }) {
   //   })
   // }
   const getReplies = async (commentId) => {
-    await PostService.getReplies(commentId).then((res) => {
+    await PostService.getReplies(user.id,commentId).then((res) => {
       setReplies(res.data)
       // console.log(res.data.reactions)
       
     })
-    await console.log(likedCommentIdArr)
+    // await console.log(likedCommentIdArr)
   }
   const checkIfLiked = (comment) => {
     if (comment.reactions) {
@@ -150,71 +127,17 @@ export default function CommentPostComponent({ post, setRefresh }) {
     }
   }
   const likeComment = async (comment) => {
-    console.log(likedCommentIdArr)
-
-      await PostService.LikeComment(user.id, comment.id,{}).then((res) => {
-        console.log(res.data)
-        if(res.data.reactions&&res.data.reactions.length>0){
-           res.data.reactions.map((rea)=>{
-            if(rea.user.id===user.id){
-              likedCommentIdArr.push(comment.id)
-              setLikedCommentIdArr(likedCommentIdArr)
-              setLikedFlag(true)
-              console.log(likedCommentIdArr,likedFlag,'hiiiii')
-            }else{
-              if(likedCommentIdArr.length>0){
-                if(likedCommentIdArr.indexOf(comment.id)!==-1){
-
-                  likedCommentIdArr.splice(likedCommentIdArr.indexOf(comment.id), 1);
-                }
-                setLikedCommentIdArr(likedCommentIdArr)
-              }
-              
-            }
-          })
-        }else{
-          likedCommentIdArr.splice(likedCommentIdArr.indexOf(comment.id), 1);
-          setLikedCommentIdArr(likedCommentIdArr)
-          setLikedFlag(false)
-          // setLikedCommentIdArr([])
-          console.log(likedCommentIdArr)
-
-        }
-        // getReplies(res.data)
-        // checkIfLiked(comment)
-      })
-      console.log(likedCommentIdArr)
+    props.likeComment(comment)
 
   }
-  const likeReply = async (reply) => {
-    // console.log(checkIfLiked(reply))
-    // if (checkIfLiked(reply)) {
-    //   await setLikedReplyId(null)
 
-      let params = await {}
-
-
-      await PostService.LikeReply(user.id, reply.id, params).then((res) => {
-        console.log(res.data)
-        setReplies(res.data)
-      })
-    // } else {
-    //   //  await handleLikePost(post.id);
-    //   await setLikedreplyId(replyt.id)
-    //   let params = await { is_replyt_liked: true }
-
-
-    //   await PostService.LikeReply(user.id, reply.id, params).then((res) => {
-    //     console.log(res.data)
-    //     setreplies(res.data)
-    //   })
-
-    // }
-  }
   const replyClicked = (commentId) => {
-    setRepliesShowId(commentId)
+    setActiveCommentId(commentId)
+    setReplyListShowFlag(!replyListShowFlag)
+    // setReplyCommentFlag(!replyCommentFlag)
+    // console.log(replyListShowFlag,'replylist')
     // setReplyCommentId(commentId)
-    getReplies(commentId)
+    // getReplies(commentId)
   }
   const editComment = (e,commentId)=>{
     e.preventDefault();
@@ -222,18 +145,18 @@ export default function CommentPostComponent({ post, setRefresh }) {
     setEditCommentId(commentId)
     setEditCommentFlag(true)
   }
-  const editReply = (e,replyId)=>{
-    e.preventDefault();
-    console.log(replyId)
-    setEditReplyId(replyId)
-    setEditReplyFlag(true)
+  const replyInputClicked = (commentId) =>{
+    
+    setActiveCommentId(commentId)
+    
+    setReplyCommentFlag(!replyCommentFlag)
+    console.log('input',replyCommentFlag)
   }
   const commentDisplay = (comment) => {
     let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
-    console.log(likedCommentIdArr.indexOf(comment.id))
     return (
       editCommentId===comment.id&&editCommentFlag?
-      <PostComponentBoxComponent post={post} setRefresh={setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
+      <PostComponentBoxComponent post={props.post} setRefresh={props.setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
       :
       <li key={comment.id}>
         <div className="comet-avatar">
@@ -252,8 +175,8 @@ export default function CommentPostComponent({ post, setRefresh }) {
                 </div>
                 <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={(likedCommentIdArr.indexOf(comment.id)!==-1)&&likedFlag?{color:'red'}:{}}>Like</a>
-                    <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a>
+                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={checkIfLiked(comment)?{color:'red'}:{}}>Like</a>
+                    <a className="we-reply" title="Reply" onClick={() => replyInputClicked(comment.id)}>Reply</a>
                   </div>
                   {(comment.user.id === user.id) ?
 
@@ -263,7 +186,7 @@ export default function CommentPostComponent({ post, setRefresh }) {
                   }
                 </div>
               </div>
-            {comment.numberOfReplies > 0 ? <div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div> : null}
+            {(activeCommentId===comment.id)&&replyListShowFlag===false&&comment.numberOfReplies > 0 ? <div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div> : null}
             </div>
             {(comment.user.id === user.id) &&
               <div className="dropdown more-btn comnt-more-opt">
@@ -280,82 +203,23 @@ export default function CommentPostComponent({ post, setRefresh }) {
             
           </div>
           {
-              replyCommentFlag && replyCommentId === comment.id ?
-
-                <ReplyCommentComponent comment={comment} setRefresh={setRefresh}  setReplyCommentFlag={setReplyCommentFlag}/>
-                : null
-
-            }
-          {
-            replies && replies.length > 0 ? (
-              <>
-                {comment.id === repliesShowId &&
-                  <ul style={{ marginLeft: '0px', marginTop: '10px' }}>
-                    {replies.map(reply => {
-                      return (
-                        editReplyId===reply.id&&editReplyFlag?
-                        <ReplyCommentComponent comment={comment} setRefresh={setRefresh}  setReplyCommentFlag={setReplyCommentFlag} editReply={reply} checkEditReply={checkEditReply}/>
-                        :<li key={reply.id} className="post-comment reply-comment d-flex mb-0" >
-                          <div className="comet-avatar">
-                            <img src={fileStorage.baseUrl + reply.user.profilePicturePath} alt="" />
-                          </div>
-                          <div style={{ paddingTop: '2px', display: 'table-cell' }}>
-                            <div className="we-comment">
-                              <div className="coment-head">
-                                <h5><a href={`/profile/${reply.user.email}`} title={`${reply.user.email}`}>{`${reply.user.firstName} ${reply.user.lastName}`}</a></h5>
-                                <span>{moment(reply.published, "DD MMMM YYYY hh:mm:ss").fromNow()}</span>
-                              </div>
-                              <p>{`${reply.content}`}</p>
-                            </div>
-                            <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
-                              <div>
-                                <a className="we-reply" title="Like" onClick={() => likeReply(reply)} style={checkIfLiked(reply)?{color:'red'}:{}} >Like</a>
-                                {/* <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a> */}
-                              </div>
-                              {(reply.user.id === user.id) ?
-
-                                <a className="deleteComment" href="#!" style={{}} onClick={() => handleDeleteReply(reply.id,comment.id)}><i style={{ color: 'gray', fontSize: '13px', paddingRight: '10px' }} className="fa fa-trash" /></a>
-                                :
-                                <></>
-                              }
-                            </div>
-                            
-                          </div>
-                          {(reply.user.id === user.id) &&
-                              <div className="dropdown more-btn comnt-more-opt">
-                                <button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{ background: "transparent", border: "none" }}>
-                                  <i style={{ float: "right", fontSize: 20, height: '10px' }} className="las la-ellipsis-v" ></i>
-                                  {/* <span className="caret"></span> */}
-                                </button>
-                                <ul className="dropdown-menu">
-                                  <li ><a href={""} onClick={(e)=>editReply(e,reply.id)}>Edit </a></li>
-                                </ul>
-                              </div>
-                            }
-                          
-                        </li>
-                      )
-                    }
-                    )}
-                  </ul>
-                }
-              </>
-            )
-          :null}
+            (activeCommentId===comment.id)?
+              <ReplyCommentComponent  comment={comment} showReplyInput={replyCommentFlag} replyListFlag={replyListShowFlag} activeCommentId={activeCommentId}/>
+            :null
+          }
         </div>
 
       </li>
     )
   }
   return (
-    post &&
-    (showComment &&
+    
       <>
         {comments && comments.length > 0 && comments.map(comment => {
           return commentDisplay(comment)
         })
         }
       </>
-    )
+  
   );
 }

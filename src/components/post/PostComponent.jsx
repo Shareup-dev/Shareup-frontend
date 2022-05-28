@@ -27,6 +27,7 @@ import HangShareService from "../../services/HangShareService";
 import { settings } from "nprogress";
 import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { setRef } from "@mui/material";
 
 const my_url = `${storage.baseUrl}`;
 
@@ -36,6 +37,8 @@ export default function PostComponent({ post, setRefresh }) {
   const [editPostId, setEditPostId] = useState(null);
   const [userR, setUserR] = useState([]);
   const [showComment, setShowComment] = useState(false);
+  const [comments, setComments] = useState();
+
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
   const [showUserReactions, setShowUserReactions] = useState(false);
@@ -359,7 +362,9 @@ export default function PostComponent({ post, setRefresh }) {
         });
     }
   };
-
+  const commentChanged = async(prop)=>{
+    await setComments(prop)
+  }
   const sharepopup = () => {
     return (
       <Popup
@@ -2337,50 +2342,8 @@ export default function PostComponent({ post, setRefresh }) {
         ) : (
           <EditPostComponent post={post} set={handleEditingSave} />
         )}
-        {/* 
-        {showMoreOptions && (
-          <div className='drop-options active' onClick={toggleShowMoreOptions}>
-            <ul>
-              <li className='head-drop'>
-                <h6>Post Options</h6>
-              </li>
-              {post.userdata.id === user.id ? (
-                <li onClick={() => handleEditPost(post.id)}>
-                  <i className='las la-pencil-alt'></i>
-                  <span>Edit Post</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              <li onClick={() => handleSavePost(post.id)}>
-                <i className='lar la-bookmark'></i>
-                <span>Save Post</span>
-              </li>
-              {post.userdata.id === user.id ? (
-                <li onClick={() => handleDeletePost(post.id)}>
-                  <i className='las la-trash'></i>
-                  <span>Delete</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              <li>
-                <i className='las la-link'></i>
-                <span>Copy Link</span>
-              </li>
-            </ul>
-          </div>
-        )} */}
-        {/* Till here */}
-        <div className="coment-area">
-          <ul className="we-comet">
-            <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
-            {/* {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />} */}
-            {showComment && (
-              <CommentPostComponent post={post} setRefresh={setRefresh} />
-            )}
-          </ul>
-        </div>
+      
+          <PostComponentBoxComponent post={post} setRefresh={setRefresh} showComment={showComment}/>
       </div>
     </div>
   );

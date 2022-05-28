@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 
-function ViewersListComponent({ storyID }) {
+function ViewersListComponent({ handleCloseModal,storyID }) {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -30,7 +30,7 @@ function ViewersListComponent({ storyID }) {
 
   const Popup = (props) => {
     return (
-      <div className="popup-box">
+      <div className="popup-box" >
         <div className="box">
           <span className="close-icon" onClick={props.handleClose}>
             x
@@ -53,78 +53,99 @@ function ViewersListComponent({ storyID }) {
 
   return (
     <>
-      <div className="loadMore" style={{paddingBottom: '10px'}}>
+      <div className="viewersList-cont" >
         {Array.isArray(AllViewersList) && AllViewersList.length > 0 ? (
           <>
             {AllViewersList && AllViewersList.length > 0
               ? <>
-                <div className="viewer-head common-title">Viewers List</div>
-                {AllViewersList.map((post) => (
-                  <div style={{ padding: "5px 30px" }}>
-                    <>
-                      <Paper
-                        className="hover-shadow"
-                        sx={{
-                          p: 2,
-                          margin: "auto",
-                          border:"1px solid #e7e7e7",
-                          maxWidth: 500,
-                          flexGrow: 1,
-                          borderRadius: 3,
-                          boxShadow: "none",
-                          backgroundColor: (theme) =>
-                            theme.palette.mode === "dark"
-                              ? "#1A2027"
-                              : "#fff",
-                        }}
-                      >
-                        <Grid
-                          container
-                          spacing={1}
-                          sx={{ cursor: "pointer" }}
+                <div className ="headpop">
+                  <span>
+                    <a
+                      href="#!"
+                     
+                      onClick={()=>handleCloseModal()}
+                    >
+                      <i className="las la-times"></i>
+                    </a>
+                  </span>
+                  <span className="poptitle">
+                   Viewers List
+                  </span>
+
+                  <span style={{ float: "right" }}>
+                    {" "}
+                   
+                    
+                  </span>
+              </div>
+              <div style={{maxHeight:'300px' ,overflowY: "auto"}}>
+                  {AllViewersList.map((post) => (
+                    <div style={{ padding: "5px 30px" }}>
+                      <>
+                        <Paper
+                          className="hover-shadow"
+                          sx={{
+                            p: 2,
+                            margin: "auto",
+                            border:"1px solid #e7e7e7",
+                            maxWidth: 500,
+                            flexGrow: 1,
+                            borderRadius: 3,
+                            boxShadow: "none",
+                            backgroundColor: (theme) =>
+                              theme.palette.mode === "dark"
+                                ? "#1A2027"
+                                : "#fff",
+                          }}
                         >
-                          <Grid item>
-                            <ButtonBase
-                              sx={{
-                                width: 40,
-                                height: 40,
-                              }}
-                            >
-                              <Img
-                                className="rounded-circle"
+                          <Grid
+                            container
+                            spacing={1}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            <Grid item>
+                              <ButtonBase
                                 sx={{
                                   width: 40,
                                   height: 40,
                                 }}
-                                alt=""
-                                src={`${fileStorage.baseUrl}${post.profilePicture}`}
-                              />
-                            </ButtonBase>
-                          </Grid>
-                          <Grid item xs={12} sm container>
-                            <Grid
-                              item
-                              xs
-                              container
-                              direction="column"
-                              spacing={2}
-                            >
-                              <Grid item xs>
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                >
-                                  {post.firstName + " " + post.lastName}
-                                </Typography>
+                              >
+                                <Img
+                                  className="rounded-circle"
+                                  sx={{
+                                    width: 40,
+                                    height: 40,
+                                  }}
+                                  alt=""
+                                  src={`${fileStorage.baseUrl}${post.profilePicture}`}
+                                />
+                              </ButtonBase>
+                            </Grid>
+                            <Grid item xs={12} sm container>
+                              <Grid
+                                item
+                                xs
+                                container
+                                direction="column"
+                                spacing={2}
+                              >
+                                <Grid item xs>
+                                  <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                  >
+                                    {post.firstName + " " + post.lastName}
+                                  </Typography>
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
-                        </Grid>
-                      </Paper>
-                    </>
-                  </div>
+                        </Paper>
+                      </>
+                    </div>
 
-                ))}
+                  ))}
+              </div>
                 </>
               : null}
           </>
@@ -145,8 +166,19 @@ function ViewersListComponent({ storyID }) {
                 <Grid item xs={12} sm container>
                   <Grid item xs container direction="column" spacing={2}>
                     <Grid item xs>
+                    <a
+                      href="#!"
+                      style={{
+                       position:'absolute',
+                       top:'20px',
+                       left: '20px'
+                      }}
+                      onClick={()=>handleCloseModal()}
+                    >
+                      <i className="las la-times"></i>
+                    </a>
                       <Typography variant="body2" sx={{textAlign:'center'}}>
-                        No viewers yet
+                        No views yet
                       </Typography>
                     </Grid>
                   </Grid>
