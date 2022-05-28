@@ -96,16 +96,14 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    if (post.reactions) {
-      const result = post.reactions.filter(
-        (reaction) => reaction.user.id == user.id
-      );
-      if (result.length > 0) {
+    if (post.liked) {
+      if (post.liked === true) {
         return true;
       }
       return false;
     }
   };
+
   const handleFileSwap = (event) => {
     setSwapfiles(event.target.files);
     let filesAmount = event.target.files.length;
@@ -134,16 +132,30 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
 
-  const handleLikePost = async (post_id) => {
-    UserService.likeSwap(user.id, post_id)
-      .then((res) => {
+  const handleLikePost = async (post) => {
+    if (post.allPostsType === "swap") {
+      UserService.likeSwap(user?.id, post.id).then((res) => {
         setRefresh(res.data);
-      })
-      .catch((e) => {
-        UserService.likePost(user.id, post_id).then((res) => {
-          setRefresh(res.data);
-        });
       });
+    }
+
+    if (post.allPostsType === "hangShare") {
+      UserService.likeHangShare(user?.id, post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
+    if (post.allPostsType === "post") {
+      UserService.likePost(user?.id, post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
+    if (post.allPostsType === "share") {
+      UserService.likeShare(user?.id, post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
   };
 
   const handleSwapPost = async (post_id) => {
@@ -246,10 +258,23 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
+  const handlePostReactions = () => {
+    if (likeReaction) {
+      return <i className="fas fa-star" style={{ fontSize: "12px" }}></i>;
+      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
+    }
+    return (
+      <i
+        className="fas fa-star"
+        style={{ fontSize: "12px", color: "#d83535" }}
+      ></i>
+    );
+  };
+
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction);
     if (!checkIfLiked(post)) {
-      handleLikePost(post.id);
+      handleLikePost(post);
     }
   };
 
@@ -363,11 +388,7 @@ export default function PostComponent({ post, setRefresh }) {
   const sharepopup = () => {
     return (
       <Popup
-        trigger={
-          <span style={{ cursor: "pointer" }}>
-            Share
-          </span>
-        }
+        trigger={<span style={{ cursor: "pointer" }}>Share</span>}
         modal
         nested
         closeOnDocumentClick
@@ -572,7 +593,7 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -675,7 +696,7 @@ export default function PostComponent({ post, setRefresh }) {
 
                 <>
                   {post.swapImagePath &&
-                    post.swapImagePath.split(",").length > 1 ? (
+                  post.swapImagePath.split(",").length > 1 ? (
                     <div>
                       <Carousel
                         height="200px"
@@ -736,7 +757,7 @@ export default function PostComponent({ post, setRefresh }) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   paddingBottom: "8px",
-                  paddingLeft: '0px'
+                  paddingLeft: "0px",
                 }}
               >
                 <div style={{ display: "flex" }}>
@@ -885,8 +906,8 @@ export default function PostComponent({ post, setRefresh }) {
 
               <div className="postImage">
                 {post.allPostsType === "post" &&
-                  post.media &&
-                  post.media.length > 1 ? (
+                post.media &&
+                post.media.length > 1 ? (
                   <>
                     <OwlCarousel
                       items={1}
@@ -895,7 +916,7 @@ export default function PostComponent({ post, setRefresh }) {
                       nav
                       navText={
                         ("<i className='fa fa-chevron-left'></i>",
-                          "<i className='fa fa-chevron-right'></i>")
+                        "<i className='fa fa-chevron-right'></i>")
                       }
                       margin={10}
                     >
@@ -925,15 +946,15 @@ export default function PostComponent({ post, setRefresh }) {
                         }
                         prevSrc={
                           post.media[
-                          (photoIndex + post.media.length - 1) %
-                          post.media.length
+                            (photoIndex + post.media.length - 1) %
+                              post.media.length
                           ]
                         }
                         onCloseRequest={() => setIsopen(false)}
                         onMovePrevRequest={() =>
                           setPhotoindex(
                             (photoIndex + post.media.length - 1) %
-                            post.media.length
+                              post.media.length
                           )
                         }
                         onMoveNextRequest={() =>
@@ -1196,9 +1217,7 @@ export default function PostComponent({ post, setRefresh }) {
                               color: "#050505",
                             }}
                           >
-                            {post.hangsharetype
-                              ? post.hangsharetype
-                              : "Other"}
+                            {post.hangsharetype ? post.hangsharetype : "Other"}
                           </div>
                           <div style={{ fontSize: "14px" }}>
                             {post.content ? post.content : ""}
@@ -1249,9 +1268,9 @@ export default function PostComponent({ post, setRefresh }) {
                                       src={
                                         user
                                           ? fileStorage.baseUrl +
-                                          user.profilePicturePath
+                                            user.profilePicturePath
                                           : fileStorage.baseUrl +
-                                          userR.profilePicturePath
+                                            userR.profilePicturePath
                                       }
                                       alt=""
                                     />
@@ -1510,8 +1529,8 @@ export default function PostComponent({ post, setRefresh }) {
                     )}
 
                     {post.allPostsType === "share" &&
-                      post.post.allPostsType === "post" &&
-                      post.post.media.length > 1 ? (
+                    post.post.allPostsType === "post" &&
+                    post.post.media.length > 1 ? (
                       <>
                         <OwlCarousel
                           items={1}
@@ -1520,7 +1539,7 @@ export default function PostComponent({ post, setRefresh }) {
                           nav
                           navText={
                             ("<i className='fa fa-chevron-left'></i>",
-                              "<i className='fa fa-chevron-right'></i>")
+                            "<i className='fa fa-chevron-right'></i>")
                           }
                           margin={10}
                         >
@@ -1548,20 +1567,20 @@ export default function PostComponent({ post, setRefresh }) {
                             }
                             nextSrc={
                               post.post.media[
-                              (photoIndex + 1) % post.post.media.length
+                                (photoIndex + 1) % post.post.media.length
                               ]
                             }
                             prevSrc={
                               post.post.media[
-                              (photoIndex + post.post.media.length - 1) %
-                              post.post.media.length
+                                (photoIndex + post.post.media.length - 1) %
+                                  post.post.media.length
                               ]
                             }
                             onCloseRequest={() => setIsopen(false)}
                             onMovePrevRequest={() =>
                               setPhotoindex(
                                 (photoIndex + post.post.media.length - 1) %
-                                post.post.media.length
+                                  post.post.media.length
                               )
                             }
                             onMoveNextRequest={() =>
@@ -1685,9 +1704,9 @@ export default function PostComponent({ post, setRefresh }) {
                                           src={
                                             user
                                               ? fileStorage.baseUrl +
-                                              user.profilePicturePath
+                                                user.profilePicturePath
                                               : fileStorage.baseUrl +
-                                              userR.profilePicturePath
+                                                userR.profilePicturePath
                                           }
                                           alt=""
                                         />
@@ -1876,7 +1895,9 @@ export default function PostComponent({ post, setRefresh }) {
                                 </div>
                               </div>
                               <Popup
-                                trigger={<button className="button">Accept</button>}
+                                trigger={
+                                  <button className="button">Accept</button>
+                                }
                                 modal
                                 nested
                               >
@@ -1891,7 +1912,9 @@ export default function PostComponent({ post, setRefresh }) {
                                         <div style={{ width: "20%" }}>
                                           <a
                                             href="#!"
-                                            style={{ padding: "10px 80px 10px 0" }}
+                                            style={{
+                                              padding: "10px 80px 10px 0",
+                                            }}
                                             onClick={close}
                                           >
                                             <i className="las la-times"></i>
@@ -1911,15 +1934,17 @@ export default function PostComponent({ post, setRefresh }) {
                                         </div>
                                       </div>
                                     </div>
-                                    <div style={{ padding: "0 11px 11px 11px" }}>
+                                    <div
+                                      style={{ padding: "0 11px 11px 11px" }}
+                                    >
                                       <div className="popupimg">
                                         <img
                                           src={
                                             user
                                               ? fileStorage.baseUrl +
-                                              user.profilePicturePath
+                                                user.profilePicturePath
                                               : fileStorage.baseUrl +
-                                              userR.profilePicturePath
+                                                userR.profilePicturePath
                                           }
                                           alt=""
                                         />
@@ -2035,14 +2060,15 @@ export default function PostComponent({ post, setRefresh }) {
                     <div className="counter" style={{ fontSize: "12px" }}>
                       <ul>
                         <li style={{ float: "left", color: "black" }}>
-                          {checkIfLiked(post.post) ? (
+                          {post.post.numberOfReaction > 0 ? (
                             <div className="userreaction">
                               <span
                                 className="isreaction"
                                 data-toggle="tooltip"
                                 title=""
                               >
-                                {handleReaction()}
+                                {handlePostReactions()}
+                                <span> {post.post.numberOfReaction}</span>
 
                                 {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                               </span>
@@ -2051,7 +2077,7 @@ export default function PostComponent({ post, setRefresh }) {
                             <>
                               <div
                                 className="userreaction"
-                                onClick={() => handleLikePost(post.post.id)}
+                                onClick={() => handleLikePost(post.post)}
                               >
                                 <span
                                   className="noreaction"
@@ -2120,24 +2146,22 @@ export default function PostComponent({ post, setRefresh }) {
               <div className="counter">
                 <ul>
                   <li style={{ float: "left", color: "black" }}>
-                    {checkIfLiked(post) ? (
+                    {post.numberOfReaction > 0 ? (
                       <div className="userreaction">
                         <span
                           className="isreaction"
                           data-toggle="tooltip"
                           title=""
                         >
-                          {handleReaction()}
+                          {handlePostReactions()}
+                          <span> {post.numberOfReaction}</span>
 
                           {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
                       </div>
                     ) : (
                       <>
-                        <div
-                          className="userreaction"
-                          onClick={() => handleLikePost(post.id)}
-                        >
+                        <div className="userreaction">
                           <span
                             className="noreaction"
                             data-toggle="tooltip"
@@ -2147,7 +2171,9 @@ export default function PostComponent({ post, setRefresh }) {
                           >
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i className="far fa-star"></i>
+                            <i className="far fa-star">
+                              {post.numberOfReaction}
+                            </i>
 
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                           </span>
@@ -2238,7 +2264,7 @@ export default function PostComponent({ post, setRefresh }) {
                     {checkIfLiked(post) ? (
                       <div
                         className="btncmn"
-                        onClick={() => handleLikePost(post.id)}
+                        onClick={() => handleLikePost(post)}
                       >
                         <span className="like" data-toggle="tooltip" title="">
                           {handleReaction()}
@@ -2250,7 +2276,7 @@ export default function PostComponent({ post, setRefresh }) {
                       <>
                         <div
                           className="btncmn"
-                          onClick={() => handleLikePost(post.id)}
+                          onClick={() => handleLikePost(post)}
                         >
                           <span
                             className="dislike"

@@ -126,6 +126,16 @@ class UserService {
         return result
     }
 
+    likeHangShare = async (uid,hsid) => {
+        const result = await authAxios.put(`/hangshare/${uid}/like-unlike/${hsid}`,{emoji:"like"})
+        return result
+    }
+
+    likeShare = async (uid,sid) => {
+        const result = await authAxios.put(`/share/${uid}/like-unlike/${sid}`,{emoji:"like"})
+        return result
+    }
+
     savePost = async (uid,pid) => {
         const result = await authAxios.put(`/posts/${uid}/save-unsave/${pid}`)
         return result
