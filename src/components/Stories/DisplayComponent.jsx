@@ -13,7 +13,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Popup from "reactjs-popup";
 import Form from "react-bootstrap/Form";
-
+import ViewersListComponent from "./ViewersListComponent";
+import moment from "moment";
+import $ from "jquery";
+import { Modal } from "react-bootstrap";
 
 function DisplayComponent() {
   let history = useHistory();
@@ -33,14 +36,25 @@ function DisplayComponent() {
   const [showstoriesImage, setShowstoriesImage] = useState(false);
   const [storiesImage, setStoriesImage] = useState([]);
   const [storyContent, setStoryContent] = useState("");
+  const [editStory, setEditStory] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [refresh, setRefresh] = useState(null);
+  const [showViewersModal, setShowViewersModal] = useState(false);
+  const [storyView, setStoryView] = useState();
 
+
+  const handleCloseModal = () => { setShowModal(false) };
+  const handleShowModal = () => { setShowModal(true) };
+
+  const handleCloseViewersModal = () => { setShowViewersModal(false) };
+  const handleShowViewersModal = () => { setShowViewersModal(true) };
 
   const delay = 5000;
 
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
-  const updateStories = (event) => {
+  const updateStories = (event, story) => {
     event.preventDefault();
     setUploadErrorStory("");
     if (
@@ -54,12 +68,13 @@ function DisplayComponent() {
     }
 
     const formData = new FormData();
-    handleFileStry()
-    handleStoryContent()
+    // handleFileStry();
+    // handleStoryContent();
     formData.append("caption", storyContent);
     formData.append(`stryfiles`, filesStry);
-    StoriesService.updateStories(stories.id, formData).then((res) => {
+    StoriesService.updateStories(story.id, formData).then((res) => {
       handleRemoveImageStry();
+      handleCloseModal();
       setStories(res.data);
       setRefresh(res.data);
     });
@@ -89,8 +104,8 @@ function DisplayComponent() {
     setStoryContent(event.target.value);
   };
   const handleEditStoryContent = (StoryCaption) => {
+    // e.preventDefault()
     setStoryContent(StoryCaption);
-    
   };
   const resetTimeout = () => {
     if (timeoutRef.current) {
@@ -112,21 +127,18 @@ function DisplayComponent() {
           return res.data.find((a) => a.id === id);
         }
       );
-
       setStoriesForUser(uniqueStories);
     });
   };
-  const [refresh, setRefresh] = useState(null);
 
-  const handleEditStory = (id) => {};
+  const handleEditStory = (id) => { };
 
   const handleDeleteStory = (storyId) => {
     StoriesService.deleteStories(storyId).then((res) => {
       console.log("Story deleted");
-      setRefresh(res.data);
+      window.location.reload();
     });
   };
-
   const getUser = async () => {
     if (user === null) {
       await UserService.getUserByEmail(
@@ -138,14 +150,17 @@ function DisplayComponent() {
       setUserR(user);
     }
   };
-  useEffect(() => {
-    testScript();
-  }, []);
+
+  function getFileExtension(filename) {
+    const extension = filename.split(".").pop();
+    return extension;
+  }
+
   useEffect(() => {
     getUser();
     getStoriesForUser();
     testScript();
-  }, [stories]);
+  }, []);
 
   useEffect(() => {
     resetTimeout();
@@ -154,11 +169,11 @@ function DisplayComponent() {
         setIndex((prevIndex) =>
           prevIndex === storiesForUser.length - 1
             ? setTimeout(
-                () =>
-                  (document.querySelector(".popup-overlay").style.display =
-                    "none"),
-                200
-              )
+              () =>
+              (document.querySelector(".popup-overlay").style.display =
+                "none"),
+              200
+            )
             : prevIndex + 1
         ),
       delay
@@ -168,8 +183,120 @@ function DisplayComponent() {
       resetTimeout();
     };
   }, [index]);
+  const nextSlide = (a) => {
+    // a.preventDefault();
+    // setIndex(a);
+  };
+
+  const editStoryModal = () => {
+    // console.log(editStory)
+    let background = editStory;
+    return (
+      <Form className="popwidth">
+        <div className="headpop">
+          <span>
+            <a
+              href="#!"
+              style={{
+                padding: "10px 150px 10px 0",
+              }}
+              onClick={handleCloseModal}
+            >
+              <i className="las la-times"></i>
+            </a>
+          </span>
+          <span className="poptitle">Update Story</span>
+
+          <span style={{ float: "right" }}>
+            {" "}
+            <button
+              style={{
+                float: "right",
+                borderRadius: "20px",
+                padding: "5px 20px",
+              }}
+              type="submit"
+              onClick={(e) => updateStories(e, editStory)}
+            >
+              Update
+            </button>
+          </span>
+        </div>
+
+        <div
+          style={{
+            margin: "0 11px 10px 11px",
+          }}
+        >
+          <span className="textPop">
+            {showstoriesImage ? (
+              <div style={{ position: "relative" }}>
+                <img
+                  id="preview"
+                  src={fileStorage.baseUrl + background.storiesImagePath}
+                  style={{ width: "100%", borderRadius: "10px" }}
+                />
 
 
+              </div>
+            ) : (
+              <div
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <label className="fileContainer">
+                  <div
+                    className="storypic"
+                    type="submit"
+                  >
+                    <input
+                      type="file"
+                      name="swap_image"
+                      accept="image/*"
+                      onChange={handleEditeFileStry(
+                        fileStorage.baseUrl +
+                        background.image
+                      )}
+                    ></input>
+                    Add Story
+                  </div>
+                </label>
+              </div>
+            )}
+            <textarea
+              className="textpopup"
+              rows={2}
+              placeholder={
+                "Add text to your Story"
+              }
+              name="story_content"
+              value={storyContent ? storyContent : background.caption}
+              onChange={(e) => handleStoryContent(e, background.caption)}
+            />
+          </span>
+
+          {uploadErrorStory
+            ? <div className="storyErr">`${uploadErrorStory}`</div>
+            : null}
+
+        </div>
+        <button class="popsbmt-btn" type="submit"
+          onClick={(e) => updateStories(e, editStory)}>UPDATE</button>
+      </Form>
+    )
+  }
+  const editClicked = async (e, story) => {
+    e.preventDefault();
+    console.log(story);
+    await setEditStory(story);
+    await setShowModal(true);
+  }
+  const handleViewClick = (story) => {
+    setStoryView(story)
+    window.clearTimeout(timeoutRef.current);
+    handleShowViewersModal()
+  }
   return (
     <>
       <div className="stryDsply">
@@ -185,194 +312,115 @@ function DisplayComponent() {
                     <>
                       {background.image ? (
                         <div className="slide" key={index} id={index}>
-                          <div className="strydisplay-Profimg"
-                          >
-                            <img
-                              src={
-                                fileStorage.baseUrl +
-                                background.user.profilePicturePath
+                          <div className="strydisplay-Profimg">
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                <img
+                                  src={
+                                    fileStorage.baseUrl +
+                                    background.user.profilePicturePath
+                                  }
+                                  alt=""
+                                />
+                                <span style={{ color: "white" }}>
+                                  My story
+                                </span>
+                                <span className="story-date">
+                                  {moment(
+                                    background.date,
+                                    "DD MMMM YYYY hh:mm:ss"
+                                  ).fromNow(true)}
+                                </span>
+                              </div>
+
+                              <div>
+                                <DropdownButton
+                                  // style={{marginLeft: "400px" }}
+                                  className={`bi bi-three-dots-vertical`}
+                                  title={<i className="las la-ellipsis-v"></i>}
+                                  onClick={() =>
+                                    window.clearTimeout(timeoutRef.current)
+                                  }
+                                >
+                                  <Dropdown.Item
+                                    type="button"
+                                    onClick={(e) => editClicked(e, background)}
+                                  >
+                                    <i className="las la-pencil-alt"></i>
+                                    <span>Edit Story</span>
+                                  </Dropdown.Item>
+                                  <Dropdown.Item
+                                    type="button"
+                                    onClick={() => {
+                                      handleDeleteStory(background.id);
+                                    }}
+                                  >
+                                    <i className="las la-trash"></i>
+                                    <span>Delete</span>
+                                  </Dropdown.Item>
+                                </DropdownButton>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="story-caption-cont">
+                            <span style={{ padding: '10px', color: 'white' }}>{background.caption}</span>
+
+                            <a
+                              onClick={() =>
+                                // window.clearTimeout(timeoutRef.current);
+                                handleViewClick(background)
                               }
-                              alt=""
-                            />
-                            <span >{background.user.firstName}
-                             
-                              {/* Edit and delete stories 
-                            <div style={{ marginLeft: "380px"}}>
-                            <DropdownButton
-                            // style={{marginLeft: "400px" }}
-                              className={`bi bi-three-dots-vertical`}
+                              className={"far fa-eye"}
+                              style={{
+                                color: "GrayText",
+                                paddingBottom: "10px",
+                                color: "white",
+                              }}
+                            >
+                              &nbsp;&nbsp;{background.views}
+                            </a>
+                          </div>
+                          {getFileExtension(background.image) !== "mp4" ? (
+                            <img
                               onClick={() =>
                                 window.clearTimeout(timeoutRef.current)
                               }
-                            >
-                              <Dropdown.Item>
-                                <Popup
-                                  trigger={
-                                    <div>
-                                      <i className="las la-pencil-alt"></i>
-                                      <span>Edit Story</span>
-                                    </div>
-                                  }
-                                  modal
-                                >
-                                  {(close) => (
-                                    <Form className="popwidth">
-                                      <div className="headpop">
-                                        <div style={{ padding: "10px" }}>
-                                          <span>
-                                            {console.log(
-                                              "this is the image background" +
-                                                fileStorage.baseUrl +
-                                                background.image
-                                            )}
-                                            <a
-                                              href="#!"
-                                              style={{
-                                                padding: "10px 150px 10px 0",
-                                              }}
-                                              onClick={close}
-                                            >
-                                              <i className="las la-times"></i>
-                                            </a>
-                                          </span>
-                                          <span
-                                            style={{
-                                              color: "#000000",
-                                              fontSize: "14px",
-                                              fontWeight: "bold",
-                                            }}
-                                          >
-                                            Lets Add Stories
-                                          </span>
-
-                                          <span style={{ float: "right" }}>
-                                            {" "}
-                                            <button
-                                              style={{
-                                                float: "right",
-                                                borderRadius: "20px",
-                                                padding: "5px 20px",
-                                              }}
-                                              type="submit"
-                                              onClick={updateStories}
-                                            >
-                                              Update
-                                            </button>
-                                          </span>
-                                        </div>
-                                      </div>
-
-                                      <div
-                                        style={{ margin: "0 11px 10px 11px" }}
-                                      >
-                                        <span className="textPop">
-                                          {showstoriesImage ? (
-                                            <>
-                                              <img
-                                                id="preview"
-                                                src={storiesImage}
-                                                style={{ width: "100%" }}
-                                              />
-
-                                              <button
-                                                onClick={handleRemoveImageStry}
-                                                style={{
-                                                  right: "20px",
-                                                  position: "absolute",
-                                                  borderRadius: "100%",
-                                                  background: "#b7b7b738",
-                                                  padding: "10px 10px",
-                                                }}
-                                              >
-                                                <i className="las la-times"></i>
-                                              </button>
-                                            </>
-                                          ) : (
-                                            <div
-                                              style={{ textAlign: "center" }}
-                                            >
-                                              <label className="fileContainer">
-                                                <div
-                                                  className="storypic"
-                                                  type="submit"
-                                                >
-                                                  <input
-                                                    type="file"
-                                                    name="swap_image"
-                                                    accept="image/*"
-                                                    onChange={handleEditeFileStry(
-                                                      fileStorage.baseUrl + background.image
-                                                    )}
-                                                  ></input>
-                                                  Add Story
-                                                </div>
-                                              </label>
-                                            </div>
-                                          )}
-                                          <textarea
-                                              className="textpopup"
-                                              rows={2}
-                                              placeholder={
-                                              "Add text to your Story"
-                                              }
-                                              name="story_content"
-                                              value={storyContent}
-                                              onChange={handleEditStoryContent(
-                                                      background.caption
-                                                    )}
-                                            />
-                                        </span>
-                                        <div className="storyErr">
-                                          {uploadErrorStory
-                                            ? `${uploadErrorStory}`
-                                            : null}
-                                        </div>
-                                      </div>
-                                    </Form>
-                                  )}
-                                </Popup>
-                              </Dropdown.Item>
-                              <Dropdown.Item
-                                type="button"
-                                onClick={() => {
-                                  handleDeleteStory(background.id);
+                              className="stryDsplyImg"
+                              src={
+                                fileStorage.baseUrl +
+                                background.storiesImagePath
+                              }
+                            />
+                          ) : (
+                            <>
+                              <video
+                                preload="none"
+                                controls
+                                loop
+                                autoPlay
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "fill",
                                 }}
-                              >
-                                <i className="las la-trash"></i>
-                                <span>Delete</span>
-                              </Dropdown.Item>
-                            </DropdownButton>
-                              </div> */}
-                            </span>
-                            
-                            
-                            
-                            <div   style={{marginTop: "500px"}}>
-                          <span
-                              >{background.caption}</span>
-                          </div>
-                          </div>
-                          
-                          <img
-                          onClick={() => window.clearTimeout(timeoutRef.current)}
-                            className="stryDsplyImg"
-                            src={
-                              fileStorage.baseUrl + background.storiesImagePath
-                            }
-                          />
+                                src={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                type="video/mp4"
+                                alt={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                              />
+                            </>
+                          )}
                         </div>
                       ) : null}
                     </>
                   ))}
                 </div>
-                
+
                 <div className="slideshowDots">
                   {storiesForUser.map((_, idx) => (
                     <div
                       key={idx}
-                      className={`slideshowDot${
-                        index === idx ? " active" : ""
-                      }`}
+                      className={`slideshowDot${index === idx ? " active" : ""
+                        }`}
                       onClick={() => {
                         setIndex(idx);
                       }}
@@ -383,16 +431,15 @@ function DisplayComponent() {
                 </div>
               </div>
             </div>
-            <div className="slide-buttons">
+            <div class="slide-buttons">
               {index + 1 < storiesForUser.length ? (
                 <span
                   id="getnext"
                   onClick={() => {
                     setIndex(index + 1);
-                    console.log("looking for -1", index);
                   }}
                 >
-                  <i className="fas fa-arrow-right"></i>
+                  <i class="fas fa-arrow-right"></i>
                 </span>
               ) : (
                 ""
@@ -405,15 +452,42 @@ function DisplayComponent() {
                     setIndex(index - 1);
                   }}
                 >
-                  <i className="fas fa-arrow-left"></i>
+                  <i class="fas fa-arrow-left"></i>
                 </span>
               ) : null}
             </div>
+            {
+              // editStory.id===background.id?
+              showModal === true ?
+                <div className="editStry-cont">
+                  <div className="editStry-popup">
+                    {editStoryModal()}
+                  </div>
+                </div>
+
+                : null
+            }
+            {
+              showViewersModal ?
+                <div className="editStry-cont">
+                  <div className="editStry-popup">
+
+                    <ViewersListComponent
+                      handleCloseModal={handleCloseViewersModal}
+                      // key={background.id}
+                      storyID={
+                        storyView.id}
+                    />
+                  </div>
+                </div>
+                : null
+            }
+
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default DisplayComponent;

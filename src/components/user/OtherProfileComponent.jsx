@@ -390,13 +390,13 @@ function OtherProfileComponent() {
     getAllFriendRequestRecieved();
     getPostForUser();
     getStoriesForUser();
-  }, [show, friendStatus,refresh]);
+  }, [show, friendStatus, refresh]);
 
   useEffect(() => {
     getFriendStatus();
     getFriendCount();
     getPostForUser();
-  }, [userProfile, friendStatus,refresh]);
+  }, [userProfile, friendStatus, refresh]);
 
   const handleShow = () => {
     if (show === "timeline") {
@@ -774,27 +774,27 @@ function OtherProfileComponent() {
             <div className="feature-photo">
               <div className="container pdng1">
                 <div className="row">
-                  <div  className="col-lg-3">
+                  <div className="col-lg-3">
                     <div className="right-edit-profile-image-a">
-                    {user?.id === userProfile?.id ? (
-                      <label className="fileContainer ">
-                        <div className="add-prof mrgnFileCntnrVwProf">+</div>
-                        <input
-                          id="file-input"
-                          type="file"
-                          name="profile_image"
-                          accept="image/*"
-                          onChange={handleProfileImage}
-                        ></input>
-                      </label>
-                    ):null}
+                      {user?.id === userProfile?.id ? (
+                        <label className="fileContainer ">
+                          <div className="add-prof mrgnFileCntnrVwProf">+</div>
+                          <input
+                            id="file-input"
+                            type="file"
+                            name="profile_image"
+                            accept="image/*"
+                            onChange={handleProfileImage}
+                          ></input>
+                        </label>
+                      ) : null}
 
                       {showprofilePicturePath ? (
                         <>
                           <img id="preview profprvw" src={profileRender} />
                           <div>
                             <button
-                            className="button"
+                              className="button"
                               id="submit"
                               name="submit"
                               onClick={uploadprofilePicturePath}
@@ -810,7 +810,7 @@ function OtherProfileComponent() {
                             src={
                               userProfile.profilePicturePath
                                 ? fileStorage.baseUrl +
-                                  userProfile.profilePicturePath
+                                userProfile.profilePicturePath
                                 : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                             }
                           ></img>{" "}
@@ -818,20 +818,20 @@ function OtherProfileComponent() {
                       )}
                     </div>
                     {user?.id !== userProfile?.id ? (
-                        !following.some((el) => el.id === userProfile?.id) ? (
-                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
-                            onClick={() => handleFollow(userProfile?.id)}
-                          >
-                            Follow
-                          </button>
-                        ) : (
-                          <button title="" className="button" style={{width:'35%',marginLeft:'30px'}}
-                            onClick={() => handleUnfollow(userProfile?.id)}
-                          >
-                            Unfollow
-                          </button>
-                        )
-                      ) : null}
+                      !following.some((el) => el.id === userProfile?.id) ? (
+                        <button title="" className="button" style={{ width: '35%', marginLeft: '30px' }}
+                          onClick={() => handleFollow(userProfile?.id)}
+                        >
+                          Follow
+                        </button>
+                      ) : (
+                        <button title="" className="button" style={{ width: '35%', marginLeft: '30px' }}
+                          onClick={() => handleUnfollow(userProfile?.id)}
+                        >
+                          Unfollow
+                        </button>
+                      )
+                    ) : null}
                   </div>
                   <div className="col-lg-9">
                     <div
@@ -841,21 +841,19 @@ function OtherProfileComponent() {
                       }}
                     >
                       <div>
-                        <h5>{`${userProfile?userProfile.firstName:'0'} ${userProfile?userProfile.lastName:'0'}`}</h5>
+                        <h5>{`${userProfile ? userProfile.firstName : '0'} ${userProfile ? userProfile.lastName : '0'}`}</h5>
                       </div>
                       {userProfile?.id === user?.id ? (
-                        <div>
-                          <button
-                            href="/editprofile"
-                            style={{
+                        <a
+                          href="/editprofile"
+                          style={{
 
-                              marginTop: "15px",
-                            }}
-                            className="button rounded-pill"
-                          >
-                            Edit Profile
-                          </button>
-                        </div>
+                            marginTop: "15px",
+                          }}
+                          className="button rounded-pill"
+                        >
+                          Edit Profile
+                        </a>
                       ) : user.id !== userProfile?.id ? (
                         !friendsList.some((el) => el.id === userProfile?.id) ? (
                           friendRequestRecieved.some(
@@ -892,8 +890,8 @@ function OtherProfileComponent() {
                               </button>
                             </>
                           ) : friendRequestSent.some(
-                              (el) => el.id === userProfile?.id
-                            ) ? (
+                            (el) => el.id === userProfile?.id
+                          ) ? (
                             <button
                               title=""
                               className="button"
@@ -951,19 +949,19 @@ function OtherProfileComponent() {
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?ProfileCount.posts_count:'0'}`}</span>
+                          >{`${ProfileCount ? ProfileCount.posts_count : '0'}`}</span>
                           <span>Posts</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?ProfileCount.followers_count:'0'}`}</span>
+                          >{`${ProfileCount ? ProfileCount.followers_count : '0'}`}</span>
                           <span>Followers</span>
                         </li>
                         <li>
                           <span
                             style={{ textAlign: "center" }}
-                          >{`${ProfileCount?ProfileCount.followings_count:'0'}`}</span>
+                          >{`${ProfileCount ? ProfileCount.followings_count : '0'}`}</span>
                           <span>Following</span>
                         </li>
                       </ul>
@@ -1154,7 +1152,7 @@ function OtherProfileComponent() {
                             {(close) => (
                               <Form
                                 className="stryp"
-                                style={{ marginRight: "100px" }}
+
                               >
                                 <div>
                                   <div className="row">

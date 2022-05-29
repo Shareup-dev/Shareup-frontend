@@ -278,7 +278,7 @@ const FollowingComponentFunction = () => {
 										<div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
 									</div>
                                     <div className="item4">
-										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+										<a href="#"  className="button add-butn more-action  common-theme-btn1" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 									</div>
                                     {/* <div className="item6">
                                         {/* <span>Engr</span> 
@@ -330,7 +330,7 @@ const FollowersComponentFunction = () => {
 										
                                     </div>
                                     <div className="item4">
-										<a href="#"  className="add-butn more-action" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+										<a href="#"  className="button add-butn more-action  common-theme-btn1" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
 									</div>
                                      {/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
@@ -386,7 +386,7 @@ const FriendRequestSentComponentFunction = () => {
 										<h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
 										<p><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.email}`}</a></p>
 										{/* <span>Engr</span> */}
-										<a href="#" title="#" className="add-butn more-action" data-ripple onClick={() => console.log("temp")}>unfriend</a>
+										<a href="#" title="#" className="button add-butn more-action  common-theme-btn1" data-ripple onClick={() => console.log("temp")}>unfriend</a>
 
 									</div>
 								</div>
@@ -416,7 +416,7 @@ const FriendRequestRecievedComponentFunction = () => {
 										<h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
 										<p><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.email}`}</a></p>
 										<span>Engr</span>
-										<a href="#" title="#" className="add-butn more-action" data-ripple onClick={() => console.log("temp")}>unfriend</a>
+										<a href="#" title="#" className="button add-butn more-action  common-theme-btn1" data-ripple onClick={() => console.log("temp")}>unfriend</a>
 
 									</div>
 								</div>

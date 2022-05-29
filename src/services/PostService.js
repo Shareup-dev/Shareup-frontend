@@ -46,9 +46,27 @@ class PostService {
         return result;
     }
 
+    getPostById = async (postid) => {
+        authenticate();
+        const result = await authAxios.get(`posts/post-by-id/${postid}`)
+        return result;
+    }
+
     getMediaForProfile = async (userid) => {
         authenticate();
         const result = await authAxios.get(`user/media/${userid}`)
+        return result;
+    }
+    
+    getCommentsForPosts = async (uid,pid) => {
+        authenticate();
+        const result = await authAxios.get(`comment/${uid}/get_comments/${pid}`)
+        return result;
+    }
+
+    editCommentForPosts = async (cid , data) => {
+        // authenticate();
+        const result = await authAxios.put(`comment/Edit_comment/${cid}`,data)
         return result;
     }
 
@@ -78,11 +96,37 @@ class PostService {
         const result = await authAxios.post(`comment/${userid}/${postid}`, comment)
         return result
     }
-
-    deleteComment = async (commentid) => {
-        const result = await authAxios.delete(`comment/${commentid}`)
+    replyComment = async (userId, commentId,comment) => {
+        const result = await authAxios.post(`comment/reply/${userId}/${commentId}`, comment)
         return result
     }
+    getReplies = async (uid,commentId) => {
+        const result = await authAxios.get(`comment/${uid}/get_replies/${commentId}`)
+        return result
+    }
+    LikeReply = async (uid,rid,data) => {
+        const result = await authAxios.put(`reply/${uid}/like-unlike/${rid}`,data)
+        return result;
+    }
+    editReplyForComment = async (rid , data) => {
+        // authenticate();
+        const result = await authAxios.put(`reply/edit/${rid}`,data)
+        return result;
+    }
+    deleteReply = async (rid) => {
+        const result = await authAxios.delete(`reply/delete/${rid}`)
+        return result
+    }
+    deleteComment = async (commentid) => {
+        const result = await authAxios.delete(`comment/delete/${commentid}`)
+        return result
+    }
+    LikeComment = async (uid,cid,data) => {
+        authenticate();
+        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,data)
+        return result;
+    }
+    
     updateuserPassword = async(email,ConPass,password)=>{
         console.log("This is conpass " +ConPass)
         console.log(password)

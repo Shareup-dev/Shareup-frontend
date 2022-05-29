@@ -58,13 +58,18 @@ class StoriesService {
     }
 
     addViewrsToStories = async (storyid, userId) => {
-        const result = await authAxios.post(`stories/get_story_add_views/${storyid}/${userId}`)
+        const result = await authAxios.put(`stories/get_story_add_views/${storyid}/${userId}`)
         return result
     }
 
     getAllStoriesViewers = async (storyid) => {
         authenticate();
         const result = await authAxios.get(`stories/views_count/${storyid}`)
+        return result;
+    }
+
+    getAllViewersList = async (storyid) => {
+        const result = await authAxios.get(`stories/views_list/${storyid}`)
         return result;
     }
 

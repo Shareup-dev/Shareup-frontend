@@ -81,6 +81,10 @@ class GroupService {
         const result = await authAxios.get(`/${gid}/group_invitations`)
         return result;
     }
+    getGroupInvitedOrNot = async (uid,gid) => {
+        const result = await authAxios.get(`/${uid}/invited_or_not/${gid}`)
+        return result;
+    }
     getGroupNewsFeed = async (gid) =>{
         const result = await authAxios.get(`/group_feed/${gid}`)
         return result;
@@ -129,16 +133,20 @@ class GroupService {
         return result;
     }
     acceptMemberRequest = async (rid) =>{
-        const result =await  authAxios.put(`/accept_member_requests/${rid}`)
+        const result = await  authAxios.put(`/accept_member_requests/${rid}`)
         return result;
 
     }
     rejectMemberRequest = async (rid) =>{
-        const result =await  authAxios.put(`/reject_member_requests/${rid}`)
+        const result = await  authAxios.put(`/reject_member_requests/${rid}`)
         return result;
 
     }
-    
+    acceptInvite = async (rid) =>{
+        const result = await  authAxios.put(`/accept_invite/${rid}`)
+        return result;
+
+    }    
 
 }
 

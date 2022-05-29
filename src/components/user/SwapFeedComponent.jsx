@@ -161,7 +161,6 @@ function SwapFeedComponent() {
     console.log(" this is the files" + filesStry)
     formData.append(`stryfiles`, filesStry)
     StoriesService.createStories(user.id, formData).then(res => {
-      console.log(JSON.stringify(res))
       handleRemoveImageStry()
       setStories(res.data)
       setRefresh(res.data)
