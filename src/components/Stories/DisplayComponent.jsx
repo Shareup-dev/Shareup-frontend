@@ -43,12 +43,11 @@ function DisplayComponent() {
   const [storyView, setStoryView] = useState();
 
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
+  const handleCloseModal = () => { setShowModal(false) };
+  const handleShowModal = () => { setShowModal(true) };
+
+  const handleCloseViewersModal = () => { setShowViewersModal(false) };
+  const handleShowViewersModal = () => { setShowViewersModal(true) };
 
   const delay = 5000;
 
@@ -132,7 +131,7 @@ function DisplayComponent() {
     });
   };
 
-  const handleEditStory = (id) => {};
+  const handleEditStory = (id) => { };
 
   const handleDeleteStory = (storyId) => {
     StoriesService.deleteStories(storyId).then((res) => {
@@ -170,11 +169,11 @@ function DisplayComponent() {
         setIndex((prevIndex) =>
           prevIndex === storiesForUser.length - 1
             ? setTimeout(
-                () =>
-                  (document.querySelector(".popup-overlay").style.display =
-                    "none"),
-                200
-              )
+              () =>
+              (document.querySelector(".popup-overlay").style.display =
+                "none"),
+              200
+            )
             : prevIndex + 1
         ),
       delay
@@ -238,62 +237,62 @@ function DisplayComponent() {
                   style={{ width: "100%", borderRadius: "10px" }}
                 />
 
-              
-            </div>
-          ) : (
-            <div
-              style={{
-                textAlign: "center",
-              }}
-            >
-              <label className="fileContainer">
-                <div
-                  className="storypic"
-                  type="submit"
-                >
-                  <input
-                    type="file"
-                    name="swap_image"
-                    accept="image/*"
-                    onChange={handleEditeFileStry(
-                      fileStorage.baseUrl +
-                      background.image
-                    )}
-                  ></input>
-                  Add Story
-                </div>
-              </label>
-            </div>
-          )}
-          <textarea
-            className="textpopup"
-            rows={2}
-            placeholder={
-              "Add text to your Story"
-            }
-            name="story_content"
-            value={storyContent?storyContent:background.caption}
-            onChange={(e)=>handleStoryContent(e,background.caption)}
-          />
-        </span>
-        
+
+              </div>
+            ) : (
+              <div
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <label className="fileContainer">
+                  <div
+                    className="storypic"
+                    type="submit"
+                  >
+                    <input
+                      type="file"
+                      name="swap_image"
+                      accept="image/*"
+                      onChange={handleEditeFileStry(
+                        fileStorage.baseUrl +
+                        background.image
+                      )}
+                    ></input>
+                    Add Story
+                  </div>
+                </label>
+              </div>
+            )}
+            <textarea
+              className="textpopup"
+              rows={2}
+              placeholder={
+                "Add text to your Story"
+              }
+              name="story_content"
+              value={storyContent ? storyContent : background.caption}
+              onChange={(e) => handleStoryContent(e, background.caption)}
+            />
+          </span>
+
           {uploadErrorStory
             ? <div className="storyErr">`${uploadErrorStory}`</div>
             : null}
-        
-      </div>
-      <button  class="popsbmt-btn" type="submit"
-              onClick={(e)=>updateStories(e,editStory)}>UPDATE</button>
-    </Form>
+
+        </div>
+        <button class="popsbmt-btn" type="submit"
+          onClick={(e) => updateStories(e, editStory)}>UPDATE</button>
+      </Form>
     )
   }
-  const editClicked = async (e,story)=>{
+  const editClicked = async (e, story) => {
     e.preventDefault();
     console.log(story);
     await setEditStory(story);
     await setShowModal(true);
   }
-  const handleViewClick = (story) =>{
+  const handleViewClick = (story) => {
     setStoryView(story)
     window.clearTimeout(timeoutRef.current);
     handleShowViewersModal()
@@ -365,21 +364,21 @@ function DisplayComponent() {
                           </div>
                           <div className="story-caption-cont">
                             <span style={{ padding: '10px', color: 'white' }}>{background.caption}</span>
-                                
-                                <a
-                                  onClick={()=>
-                                    // window.clearTimeout(timeoutRef.current);
-                                    handleViewClick(background)
-                                  }
-                                  className={"far fa-eye"}
-                                  style={{
-                                    color: "GrayText",
-                                    paddingBottom: "10px",
-                                    color: "white",
-                                  }}
-                                >
-                                  &nbsp;&nbsp;{background.views}
-                                </a>  
+
+                            <a
+                              onClick={() =>
+                                // window.clearTimeout(timeoutRef.current);
+                                handleViewClick(background)
+                              }
+                              className={"far fa-eye"}
+                              style={{
+                                color: "GrayText",
+                                paddingBottom: "10px",
+                                color: "white",
+                              }}
+                            >
+                              &nbsp;&nbsp;{background.views}
+                            </a>
                           </div>
                           {getFileExtension(background.image) !== "mp4" ? (
                             <img
@@ -420,9 +419,8 @@ function DisplayComponent() {
                   {storiesForUser.map((_, idx) => (
                     <div
                       key={idx}
-                      className={`slideshowDot${
-                        index === idx ? " active" : ""
-                      }`}
+                      className={`slideshowDot${index === idx ? " active" : ""
+                        }`}
                       onClick={() => {
                         setIndex(idx);
                       }}
@@ -460,36 +458,36 @@ function DisplayComponent() {
             </div>
             {
               // editStory.id===background.id?
-              showModal === true ? 
+              showModal === true ?
                 <div className="editStry-cont">
                   <div className="editStry-popup">
                     {editStoryModal()}
                   </div>
                 </div>
 
-              :null
-            }   
+                : null
+            }
             {
-              showViewersModal?
-              <div className="editStry-cont">
+              showViewersModal ?
+                <div className="editStry-cont">
                   <div className="editStry-popup">
-                   
+
                     <ViewersListComponent
-                    handleCloseModal={handleCloseViewersModal}
+                      handleCloseModal={handleCloseViewersModal}
                       // key={background.id}
                       storyID={
                         storyView.id}
                     />
+                  </div>
                 </div>
-              </div>
-              :null
-            }  
-                                    
+                : null
+            }
+
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default DisplayComponent;

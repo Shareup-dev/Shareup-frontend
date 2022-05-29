@@ -14,6 +14,8 @@ export default function CommentPostComponent(props) {
   const [likedFlag, setLikedFlag] = useState(false);
 
   const [comments, setComments] = useState([])
+  const [activeCommentId, setActiveCommentId] = useState()
+
   const [likedCommentId, setLikedCommentId] = useState()
   const [likedCommentIdArr, setLikedCommentIdArr] = useState([])
   const [replyListShowFlag, setReplyListShowFlag] = useState(false)
@@ -29,12 +31,7 @@ export default function CommentPostComponent(props) {
   const [editReplyId,setEditReplyId]  = useState()
   const [editReplyFlag,setEditReplyFlag]  = useState(false)
 
-  const handleDeleteComment = (commentid) => {
-    PostService.deleteComment(commentid).then(res => {
-      console.log(res.status)
-      // props.setRefresh(res.data)
-    })
-  }
+  
  
   // const sortComment = async () => {
   //   // console.log(user.id, post.id)
@@ -60,42 +57,20 @@ export default function CommentPostComponent(props) {
     setEditCommentFlag(e)
     console.log(editCommentFlag,'edit')
   }
+  
   const checkEditReply = (e)=>{
     console.log(e)
     setEditReplyFlag(e)
     console.log(editCommentFlag,'edit')
   }
-  const getLikedComments = async ()=>{
-    console.log(comments)
-    if(comments){
-      await comments.map((comment)=>{
-        if(comment.reactions.length>0){
-          comment.reactions.map((rea)=>{
-            console.log(rea.user.id,user.id,'userrrrrrrrrrrrrrr')
-            if(rea.user.id === user.id){
-              
-                likedCommentIdArr.push(comment.id)
-                setLikedCommentIdArr(likedCommentIdArr);
-                setLikedFlag(true);
-
-               
-              }
-            
-          })
-        }else{
-          // setLikedCommentIdArr([])
-        }
-      })
-    }
-  }
   useEffect( () => {
     // console.log(props.comments)
-    setComments(props.comments)
-    console.log(comments)
+    // setComments(props.comment)
+    // console.log(comments)
     // await sortComment()
     // await getLikedComments()
     // if(comments) {getReplies();}
-  }, [props.comments])
+  }, [props.comment])
  
   // const date1 = (comment) => {
   //   let date = new Date(comment.published);
@@ -133,7 +108,7 @@ export default function CommentPostComponent(props) {
       // console.log(res.data.reactions)
       
     })
-    await console.log(likedCommentIdArr)
+    // await console.log(likedCommentIdArr)
   }
   const checkIfLiked = (comment) => {
     if (comment.reactions) {
@@ -147,12 +122,16 @@ export default function CommentPostComponent(props) {
       return false;
     }
   }
+  const handleDeleteComment = (comment) => {
+    props.handleDeleteComment(comment)
+  }
   const likeComment = async (comment) => {
     props.likeComment(comment)
 
   }
 
   const replyClicked = (commentId) => {
+    setActiveCommentId(commentId)
     setReplyListShowFlag(!replyListShowFlag)
     // setReplyCommentFlag(!replyCommentFlag)
     // console.log(replyListShowFlag,'replylist')
@@ -165,12 +144,16 @@ export default function CommentPostComponent(props) {
     setEditCommentId(commentId)
     setEditCommentFlag(true)
   }
-  const replyInputClicked = () =>{
+  const replyInputClicked = (commentId) =>{
+    
+    setActiveCommentId(commentId)
+    
     setReplyCommentFlag(!replyCommentFlag)
     console.log('input',replyCommentFlag)
   }
   const commentDisplay = (comment) => {
     let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
+    console.log('hhhh')
     return (
       editCommentId===comment.id&&editCommentFlag?
       <PostComponentBoxComponent post={props.post} setRefresh={props.setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
@@ -197,13 +180,19 @@ export default function CommentPostComponent(props) {
                   </div>
                   {(comment.user.id === user.id) ?
 
-                    <a className="deleteComment" href="#!" style={{}} onClick={() => handleDeleteComment(comment.id)}><i style={{ color: 'gray', fontSize: '13px', paddingRight: '10px' }} className="fa fa-trash" /></a>
+                    <a className="deleteComment" href="#!" onClick={() => handleDeleteComment(comment)}><i style={{ color: 'gray', fontSize: '13px', paddingRight: '10px' }} className="fa fa-trash" /></a>
                     :
                     <></>
                   }
                 </div>
               </div>
-            {replyListShowFlag===false&&comment.numberOfReplies > 0 ? <div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div> : null}
+            {comment.numberOfReplies > 0
+              ?(activeCommentId===comment.id)
+                ?replyListShowFlag===false 
+                  ? <div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div> 
+                  : null
+                :<div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div>
+              : null}
             </div>
             {(comment.user.id === user.id) &&
               <div className="dropdown more-btn comnt-more-opt">
@@ -220,8 +209,8 @@ export default function CommentPostComponent(props) {
             
           </div>
           {
-            replyCommentFlag||replyListShowFlag?
-              <ReplyCommentComponent  comment={comment} showReplyInput={replyCommentFlag} replyListFlag={replyListShowFlag}/>
+            (activeCommentId===comment.id)?
+              <ReplyCommentComponent  comment={comment} showReplyInput={replyCommentFlag} replyListFlag={replyListShowFlag} activeCommentId={activeCommentId}/>
             :null
           }
         </div>
@@ -231,12 +220,10 @@ export default function CommentPostComponent(props) {
   }
   return (
     
-      <>
-        {comments && comments.length > 0 && comments.map(comment => {
-          return commentDisplay(comment)
-        })
-        }
-      </>
+     
+        
+        commentDisplay(props.comment) 
+       
   
   );
 }
