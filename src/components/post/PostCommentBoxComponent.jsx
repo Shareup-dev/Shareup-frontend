@@ -24,16 +24,25 @@ export default function PostComponentBoxComponent(props) {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [chosenGif, setChosenGif] = useState(null);
   const [chosenSticker, setSticker] = useState(null);
+  const [post, setPost] = useState(props.post);
+
 
 
   useEffect(() => {
       sortComment()
-  }, [props]);
-  const sortComment = async () => {
-    console.log('sort called')
+      console.log('fff')
+  }, [props.post]);
 
-    // console.log(user.id, post.id)
-    await PostService.getCommentsForPosts(user.id, props.post.id).then((res) => {
+  const sortComment = async (propPost) => {
+    console.log('sort called',propPost)
+    let postId = {}
+    if(propPost) { 
+      postId = propPost
+    }else{
+      postId = post.id
+    }
+    console.log('post', postId)
+    await PostService.getCommentsForPosts(user.id, postId).then((res) => {
 
       setComments(res.data)
       // if (comments && comments.length>0) {
@@ -89,12 +98,14 @@ export default function PostComponentBoxComponent(props) {
       }
     }
   }
-  const handleDeleteComment = async (comment) => {
-    await PostService.deleteComment(comment.id).then(res => {
-      console.log(res.status)
-      sortComment()
+  const handleDeleteComment = async (comment,post) => {
+    await PostService.deleteComment(comment.id).then((res) => {
+      sortComment(post.id)
+   
+
       // props.setRefresh(res.data)
     })
+
   }
   const likeComment = async (comment) => {
 
@@ -177,7 +188,7 @@ export default function PostComponentBoxComponent(props) {
     )
   }
   return (
-    props.post &&
+    post &&
 
     <div className="coment-area">
       <ul className="we-comet">
@@ -185,7 +196,7 @@ export default function PostComponentBoxComponent(props) {
         {/* {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />} */}
         {props.showComment && 
           comments && comments.length > 0 && comments.map(comment => {
-          return <CommentPostComponent post={props.post} comment={comment} setRefresh={props.setRefresh}  likeComment={likeComment} handleDeleteComment={handleDeleteComment} />
+          return <CommentPostComponent post={post} comment={comment} comments={comments} setRefresh={props.setRefresh}  likeComment={likeComment} handleDeleteComment={handleDeleteComment} />
         })}
       </ul>
     </div>

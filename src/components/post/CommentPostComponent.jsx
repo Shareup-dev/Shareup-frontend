@@ -13,7 +13,7 @@ export default function CommentPostComponent(props) {
 
   const [likedFlag, setLikedFlag] = useState(false);
 
-  const [comments, setComments] = useState([])
+  const [comment, setComment] = useState(props.comment)
   const [activeCommentId, setActiveCommentId] = useState()
 
   const [likedCommentId, setLikedCommentId] = useState()
@@ -65,12 +65,12 @@ export default function CommentPostComponent(props) {
   }
   useEffect( () => {
     // console.log(props.comments)
-    // setComments(props.comment)
+    setComment(props.comment)
     // console.log(comments)
     // await sortComment()
     // await getLikedComments()
     // if(comments) {getReplies();}
-  }, [props.comment])
+  }, [props.comments])
  
   // const date1 = (comment) => {
   //   let date = new Date(comment.published);
@@ -123,7 +123,7 @@ export default function CommentPostComponent(props) {
     }
   }
   const handleDeleteComment = (comment) => {
-    props.handleDeleteComment(comment)
+    props.handleDeleteComment(comment,props.post)
   }
   const likeComment = async (comment) => {
     props.likeComment(comment)
@@ -175,7 +175,12 @@ export default function CommentPostComponent(props) {
                 </div>
                 <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={checkIfLiked(comment)?{color:'red'}:{}}>Like</a>
+                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} >
+                      {checkIfLiked(comment)?
+                      <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
+                      :<i class="far fa-star" ></i>
+                    }
+                    </a>
                     <a className="we-reply" title="Reply" onClick={() => replyInputClicked(comment.id)}>Reply</a>
                   </div>
                   {(comment.user.id === user.id) ?
@@ -221,8 +226,8 @@ export default function CommentPostComponent(props) {
   return (
     
      
-        
-        commentDisplay(props.comment) 
+        comment&&
+        commentDisplay(comment) 
        
   
   );

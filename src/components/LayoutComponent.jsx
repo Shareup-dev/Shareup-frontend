@@ -12,7 +12,7 @@ import GroupsWidgetComponent from "./widgets/GroupsWidgetComponent";
 import settings from "../services/Settings";
 import fileStorage from "../config/fileStorage";
 import ReelsServices from "../services/ReelsServices";
-
+import ReelWidgetComponent from "./widgets/ReelWidgetComponent";
 import Popup from "reactjs-popup";
 
 import img1 from "../images/news1.jpg";
@@ -87,11 +87,7 @@ export default function Layout(props) {
     });
   };
 
-  useEffect(() => {
-    // getPreviewReel()
-    // getExploreReels();
-    getReelForUserFriends();
-  }, [refresh]);
+ 
 
   const getReelForUserFriends = async () => {
     await ReelsServices.getReelForUserFriends(user?.id).then((res) => {
@@ -480,208 +476,7 @@ export default function Layout(props) {
                             </div>
                           </div>
 
-                          <div className="sidebar-news sidebar-reel">
-                            <div className="media-date">REELS</div>
-                              <div style={{}}>
-                                  <div>
-                                    {reelPreviewPath &&
-                                    reelPreviewPath.length > 0 ? (
-                                      <ul className="slidestry">
-                                        {reelPreviewPath
-                                          .slice(0, 2)
-                                          .map((reel, index) => (
-                                            <Popup
-                                              trigger={
-                                                <li
-                                                  className="slideitemreelside"
-                                                  key={reel.id}
-                                                  id={index}
-                                                >
-                                                  <ReelsComponentFriends
-                                                    reel={reel}
-                                                    setRefresh={setRefresh}
-                                                  />
-                                                </li>
-                                              }
-                                              modal
-                                            >
-                                              {(close) => (
-                                                <Form>
-                                                  <div style={{ width: "5%" }}>
-                                                    <a
-                                                      href="#!"
-                                                      onClick={close}
-                                                    >
-                                                      <i
-                                                        style={{
-                                                          color: "#fff",
-                                                          padding: "10px",
-                                                          fontSize: "30px",
-                                                        }}
-                                                        className="las la-times"
-                                                      ></i>
-                                                    </a>
-                                                  </div>
-                                                  <DisplayFriendsReelsComponent
-                                                    key={reel.id}
-                                                    id={index}
-                                                    reel={reel}
-                                                    setRefresh={setRefresh}
-                                                    index={index}
-                                                  />
-                                                </Form>
-                                              )}
-                                            </Popup>
-                                          ))}
-                                          {
-                                            reelPreviewPath.length>2?
-                                            <li className="more-reels" >
-                                              <a href="/reelFeed"><i className="fas fa-arrow-right"></i></a>
-                                            </li>
-                                            :null
-                                          }
-                                      </ul>
-                                    ) : (
-                                      <div
-                                        className="center"
-                                        style={{ padding: "20px" }}
-                                      >
-                                        No Reels to show
-                                      </div>
-                                    )}
-                                    <div className="d-flex justify-content-between pl-15 pr-15 pt-10 pb-10">        
-                                      <Popup
-                                        trigger={
-                                          <div className="add-reel"> Add Reel</div>
-                                        }
-                                        modal
-                                      >
-                                        {(close) => (
-                                          <Form className="popwidth">
-                                            <div className="headpop">
-                                              <div style={{ padding: "10px" }}>
-                                                <span>
-                                                  <a
-                                                    href="#!"
-                                                    style={{
-                                                      padding: "10px 150px 10px 0",
-                                                    }}
-                                                    onClick={close}
-                                                  >
-                                                    <i className="las la-times"></i>
-                                                  </a>
-                                                </span>
-                                                <span
-                                                  style={{
-                                                    color: "#000000",
-                                                    fontSize: "14px",
-                                                    fontWeight: "bold",
-                                                  }}
-                                                >
-                                                  Lets Add Reel Video
-                                                </span>
-
-                                                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                                <span style={{ float: "right" }}>
-                                                  {" "}
-                                                  <button
-                                                    style={{
-                                                      float: "right",
-                                                      borderRadius: "20px",
-                                                      padding: "5px 20px",
-                                                    }}
-                                                    type="submit"
-                                                    onClick={uploadReels}
-                                                  >
-                                                    Upload
-                                                  </button>
-                                                </span>
-                                                {/* :null}  */}
-                                              </div>
-                                            </div>
-
-                                            <div
-                                              style={{ margin: "0 11px 10px 11px" }}
-                                            >
-                                              <span className="textPop">
-                                                {ShowReelVideo ? (
-                                                  <>
-                                                    <video
-                                                      id="video"
-                                                      width="100%"
-                                                      height={"350px"}
-                                                      controls="controls"
-                                                    >
-                                                      <source src={ReelVideo} />
-                                                    </video>
-
-                                                    <button
-                                                      onClick={handleRemoveReelVideo}
-                                                      style={{
-                                                        right: "20px",
-                                                        position: "absolute",
-                                                        borderRadius: "100%",
-                                                        background: "#b7b7b738",
-                                                        padding: "10px 10px",
-                                                      }}
-                                                    >
-                                                      <i className="las la-times"></i>
-                                                    </button>
-                                                  </>
-                                                ) : (
-                                                  <div
-                                                    style={{ textAlign: "center" }}
-                                                  >
-                                                    <label className="fileContainer">
-                                                      <div
-                                                        className="reelvideo"
-                                                        type="submit"
-                                                      >
-                                                        <input
-                                                          type="file"
-                                                          name="reel_video"
-                                                          accept="video/*"
-                                                          onChange={handleFileReel}
-                                                        ></input>
-                                                        Add Reel Video
-                                                      </div>
-                                                    </label>
-                                                  </div>
-                                                )}
-                                              </span>
-                                              <textarea
-                                                className="textpopup"
-                                                rows={2}
-                                                placeholder={
-                                                  "Add Caption to your Reel"
-                                                }
-                                                name="reel_content"
-                                                value={reelContent}
-                                                onChange={handleReelContent}
-                                              />
-                                              {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-                                            </div>
-                                            {/* </> 
-                                                        
-                                      )}  */}
-                                          </Form>
-                                        )}
-                                      </Popup>
-
-                                      <div className="add-reel">
-                                        <a
-                                          href="/reelFeed"
-                                          style={{ color: "white" }}
-                                        >
-                                          {" "}
-                                          Explore Reels{" "}
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>    
-                            </div>
-                          </div>
-
+                          <ReelWidgetComponent />            
                           <FriendsWidgetComponent />
                           <FollowingWidgetComponent />
                           <GroupsWidgetComponent />

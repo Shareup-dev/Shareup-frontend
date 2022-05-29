@@ -213,6 +213,7 @@ function ReelFeedComponent() {
     ReelsServices.createReels(user.id, formData).then((res) => {
       handleRemoveReelVideo();
       setReels(res.data);
+      setReelContent("");
       setRefresh(res.data);
       console.log("Reels Uploaded");
 
@@ -1064,13 +1065,13 @@ function ReelFeedComponent() {
               )}
             </span>
             <textarea
-                              className="textpopup"
-                              rows={2}
-                              placeholder={"Add Caption to your Reel"}
-                              name="reel_content"
-                              value={reelContent}
-                              onChange={handleReelContent}
-                            />
+                className="textpopup"
+                rows={2}
+                placeholder={"Add Caption to your Reel"}
+                name="reel_content"
+                value={reelContent}
+                onChange={handleReelContent}
+              />
             {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
           </div>
           {/* </> 
@@ -1194,52 +1195,53 @@ const AllReelscomponentFunction = () => {
     return (
       <div className="loadMore">
          <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <input className="friend-search" type="text" placeholder="Search Reels" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
-            </div>
-        {searchedReel && searchedReel.length > 0
+            <input className="friend-search" type="text" placeholder="Search Reels" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
+          </div>
+          {searchedReel && searchedReel.length > 0
           ? (
-                        <ul className="slidesreel center">
-                          {searchedReel.map((reel, index) => (
-                            <Popup
-                              style={{ padding: "0px" }}
-                              trigger={
-                                <li
-                                  className="slideitemreelcom center"
-                                  key={reel.id}
-                                  id={index}
-                                >
-                                  <ReelsComponentFriends
-                                    reel={reel}
-                                    setRefresh={setRefresh}
-                                  />
-                                </li>
-                              }
-                              modal
-                             >
-                              {(close) => ( 
-                                <Form  >
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          className="las la-times"
-                                        ></i>
-                                      </a>
-                                  </div>
-                                <DisplayFriendsReelsComponent key={reel.id} id={index} 
-                                  reel={ reel}
-                                  setRefresh={setRefresh}
-                                  index={index}
-                                />
-                              </Form> 
-                              )}
-                            </Popup>
-                          ))}
-                        </ul>
+              <ul className="slidesreel center">
+                {searchedReel.map((reel, index) => (
+                  <Popup
+                    style={{ padding: "0px" }}
+                    trigger={
+                      <li
+                        className="slideitemreelcom center"
+                        key={reel.id}
+                        id={index}
+                      >
+                        <ReelsComponentFriends
+                          reel={reel}
+                          setRefresh={setRefresh}
+                        />
+                      </li>
+                    }
+                    modal
+                    className='reel-popup'
+                    >
+                    {(close) => ( 
+                      <Form  >
+                          <div style={{ width: "5%" }}>
+                            <a href="#!" onClick={close}>
+                              <i
+                                style={{
+                                  color: "#fff",
+                                  padding: "10px",
+                                  fontSize: "30px",
+                                }}
+                                className="las la-times"
+                              ></i>
+                            </a>
+                        </div>
+                      <DisplayFriendsReelsComponent key={reel.id} id={index} 
+                        reel={ reel}
+                        setRefresh={setRefresh}
+                        index={index}
+                      />
+                    </Form> 
+                    )}
+                  </Popup>
+                ))}
+              </ul>
 
           )
           : <div className="center" style={{padding: "20px"}}>No Reels to show</div>
