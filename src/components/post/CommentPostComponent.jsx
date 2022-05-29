@@ -57,7 +57,7 @@ export default function CommentPostComponent(props) {
     setEditReplyFlag(e)
   }
   useEffect( () => {
-    // setComments(props.comment)
+    setComment(props.comment)
     // await sortComment()
     // await getLikedComments()
     // if(comments) {getReplies();}
