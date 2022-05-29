@@ -21,7 +21,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.localRaouf;
+  return settings.aws;
 };
 
 export default getCurrentSettings();

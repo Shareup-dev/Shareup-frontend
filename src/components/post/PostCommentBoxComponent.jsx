@@ -30,9 +30,7 @@ export default function PostComponentBoxComponent(props) {
       sortComment()
   }, [props]);
   const sortComment = async () => {
-    console.log('sort called')
 
-    // console.log(user.id, post.id)
     await PostService.getCommentsForPosts(user.id, props.post.id).then((res) => {
 
       setComments(res.data)
@@ -45,7 +43,6 @@ export default function PostComponentBoxComponent(props) {
       //   });
       //   setComments(comments)
       // }
-      console.log(comments)
     })
 
   }
@@ -60,7 +57,6 @@ export default function PostComponentBoxComponent(props) {
     ref.current.focus();
   };
   const handleCommentContent = (event) => {
-    // console.log(event.target.value)
     setCommentContent(event.target.value)
   }
 
@@ -70,18 +66,17 @@ export default function PostComponentBoxComponent(props) {
     } else {
       let comment = {}
       comment.content = commentContent;
-      // console.log(typeof(comment.content),'gggg')
+
+      const formData = new FormData();
+      formData.append("content", commentContent);
       if (props.editComment) {
-        PostService.editCommentForPosts(props.editComment.id, comment).then(res => {
-          console.log(res.data)
+        PostService.editCommentForPosts(props.editComment.id, formData).then(res => {
           props.checkEditComment(false)
-          // props.setRefresh(res.data)
+          props.setRefresh(res.data)
           setCommentContent("")
-          // setComments
         })
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
-          console.log(res.data)
           sortComment()
           // props.setRefresh(res.data)
           setCommentContent("")
@@ -91,7 +86,6 @@ export default function PostComponentBoxComponent(props) {
   }
   const handleDeleteComment = async (comment) => {
     await PostService.deleteComment(comment.id).then(res => {
-      console.log(res.status)
       sortComment()
       // props.setRefresh(res.data)
     })
@@ -106,7 +100,6 @@ export default function PostComponentBoxComponent(props) {
   }
 
   const commentInput = () => {
-    console.log('hiii')
     return (
       <li className="post-comment">
         <div className="comet-avatar">
@@ -194,4 +187,3 @@ export default function PostComponentBoxComponent(props) {
 
 
 
-const handle = () => console.log('Enter pressed');
