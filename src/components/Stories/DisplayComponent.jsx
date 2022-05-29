@@ -238,7 +238,6 @@ function DisplayComponent() {
                   style={{ width: "100%", borderRadius: "10px" }}
                 />
 
-<<<<<<< HEAD
               
             </div>
           ) : (
@@ -289,81 +288,16 @@ function DisplayComponent() {
     )
   }
   const editClicked = async (e,story)=>{
-=======
-                <button
-                  onClick={handleRemoveImageStry}
-                  style={{
-                    right: 0,
-                    position: "absolute",
-                    borderRadius: "100%",
-                    background: "#b7b7b738",
-                    padding: "10px 10px",
-                  }}
-                >
-                  <i className="las la-times"></i>
-                </button>
-              </div>
-            ) : (
-              <div
-                style={{
-                  textAlign: "center",
-                }}
-              >
-                <label className="fileContainer">
-                  <div className="storypic" type="submit">
-                    <input
-                      type="file"
-                      name="swap_image"
-                      accept="image/*"
-                      onChange={handleEditeFileStry(
-                        fileStorage.baseUrl + background.image
-                      )}
-                    ></input>
-                    Add Story
-                  </div>
-                </label>
-              </div>
-            )}
-            <textarea
-              className="textpopup"
-              rows={2}
-              placeholder={"Add text to your Story"}
-              name="story_content"
-              value={storyContent ? storyContent : background.caption}
-              onChange={(e) => handleStoryContent(e, background.caption)}
-            />
-          </span>
-
-          {uploadErrorStory ? (
-            <div className="storyErr">`${uploadErrorStory}`</div>
-          ) : null}
-        </div>
-        <button
-          class="popsbmt-btn"
-          type="submit"
-          onClick={(e) => updateStories(e, editStory)}
-        >
-          UPDATE
-        </button>
-      </Form>
-    );
-  };
-  const editClicked = async (e, story) => {
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
     e.preventDefault();
     console.log(story);
     await setEditStory(story);
     await setShowModal(true);
-<<<<<<< HEAD
   }
   const handleViewClick = (story) =>{
     setStoryView(story)
     window.clearTimeout(timeoutRef.current);
     handleShowViewersModal()
   }
-=======
-  };
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
   return (
     <>
       <div className="stryDsply">
@@ -430,7 +364,6 @@ function DisplayComponent() {
                             </div>
                           </div>
                           <div className="story-caption-cont">
-<<<<<<< HEAD
                             <span style={{ padding: '10px', color: 'white' }}>{background.caption}</span>
                                 
                                 <a
@@ -438,18 +371,6 @@ function DisplayComponent() {
                                     // window.clearTimeout(timeoutRef.current);
                                     handleViewClick(background)
                                   }
-=======
-                            <span style={{ padding: "10px", color: "white" }}>
-                              {background.caption}
-                            </span>
-                            <Popup
-                              style={{ padding: "10px" }}
-                              trigger={
-                                <a
-                                // onClick={window.clearTimeout(
-                                //     timeoutRef.current
-                                //   )}
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
                                   className={"far fa-eye"}
                                   style={{
                                     color: "GrayText",
@@ -458,26 +379,7 @@ function DisplayComponent() {
                                   }}
                                 >
                                   &nbsp;&nbsp;{background.views}
-<<<<<<< HEAD
                                 </a>  
-=======
-                                </a>
-                              }
-                              modal
-                            >
-                              {(close) => (
-                                <>
-                                  <ViewersListComponent
-                                    key={background.id}
-                                    storyID={background.id}
-                                  />
-                                  <a className="close" onClick={close}>
-                                    &times;
-                                  </a>
-                                </>
-                              )}
-                            </Popup>
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
                           </div>
                           {getFileExtension(background.image) !== "mp4" ? (
                             <img
@@ -558,23 +460,12 @@ function DisplayComponent() {
             </div>
             {
               // editStory.id===background.id?
-              showModal === true ? (
+              showModal === true ? 
                 <div className="editStry-cont">
-<<<<<<< HEAD
                   <div className="editStry-popup">
-=======
-                  <div
-                    style={{
-                      width: "38%",
-                      background: "white",
-                      borderRadius: "10px",
-                    }}
-                  >
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
                     {editStoryModal()}
                   </div>
                 </div>
-<<<<<<< HEAD
 
               :null
             }   
@@ -594,10 +485,6 @@ function DisplayComponent() {
               :null
             }  
                                     
-=======
-              ) : null
-            }
->>>>>>> 44f78ce33ab22b9875066f430ef5dc46c8e1fefb
           </div>
         </div>
       </div>
