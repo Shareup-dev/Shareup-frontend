@@ -90,77 +90,78 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                 <>
                   {reel.video_name ? (
                     <div className="slide" key={index} id={index}>
-                      <div
-                        style={{ marginTop: "65px" }}
+                      <div             
                         className="reeldisplay-Profimg"
                       >
-                        <img
-                          src={
-                            fileStorage.baseUrl +
-                            reel.userdata.profilePicturePath
-                          }
-                          alt=""
-                        />
-                        <span style={{ color: "black" }}>
-                          {reel.userdata.firstName}
-                        </span>
-                        <div
-                          className="dropdown"
-                          style={{
-                            marginLeft: "410px",
-                            marginTop: "-55px",
-                            zIndex: "100",
-                          }}
-                        >
-                          <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? "long-menu" : undefined}
-                            aria-expanded={open ? "true" : undefined}
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                          >
-                            <MoreVertIcon />
-                          </IconButton>
-                          <Menu
-                            id="long-menu"
-                            className="btn dropdown-toggle"
-                            MenuListProps={{
-                              "aria-labelledby": "long-button",
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                              style: {
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: "20ch",
-                              },
+                        <div className="d-flex justify-content-between">
+
+                          <div>
+                            <img
+                              src={
+                                fileStorage.baseUrl +
+                                reel.userdata.profilePicturePath
+                              }
+                              alt=""
+                            />
+                            <span >
+                              {reel.userdata.firstName}  {""+reel.userdata.lastName}
+                            </span>
+                          </div>
+                          <div
+                            className="dropdown"
+                            style={{
+                            
+                              zIndex: "100",
                             }}
                           >
-                            <div>
-                              <MenuItem>
-                                <i className="lar la-bookmark"></i>
-                                <span>Save Reel</span>
-                              </MenuItem>
-                              {reel.userdata.id === user.id ? (
-                                <MenuItem onClick={handleDeleteReel(reel.id)}>
-                                  <i className="las la-trash"></i>
-                                  <span>Delete Reel</span>
+                            <IconButton
+                              aria-label="more"
+                              id="long-button"
+                              aria-controls={open ? "long-menu" : undefined}
+                              aria-expanded={open ? "true" : undefined}
+                              aria-haspopup="true"
+                              onClick={handleClick}
+                            >
+                              <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                              id="long-menu"
+                              className="btn dropdown-toggle"
+                              MenuListProps={{
+                                "aria-labelledby": "long-button",
+                              }}
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                              PaperProps={{
+                                style: {
+                                  maxHeight: ITEM_HEIGHT * 4.5,
+                                  width: "20ch",
+                                },
+                              }}
+                            >
+                              <div>
+                                <MenuItem onClick={()=>console.log('hi')}>
+                                  <i className="lar la-bookmark"></i>
+                                  <span>Save Reel</span>
                                 </MenuItem>
-                              ) : (
-                                <></>
-                              )}
-                              <MenuItem>
-                                <i className="las la-link"></i>
-                                <span>Copy Link</span>
-                              </MenuItem>
-                            </div>
-                          </Menu>
+                                {reel.userdata.id === user.id ? (
+                                  <MenuItem onClick={handleDeleteReel(reel.id)}>
+                                    <i className="las la-trash"></i>
+                                    <span>Delete Reel</span>
+                                  </MenuItem>
+                                ) : (
+                                  <></>
+                                )}
+                                <MenuItem>
+                                  <i className="las la-link"></i>
+                                  <span>Copy Link</span>
+                                </MenuItem>
+                              </div>
+                            </Menu>
+                          </div>
                         </div>
-                        <div style={{ marginTop: "600px" }}>
-                          <span style={{ color: "black" }}>{reel.content}</span>
-                        </div>
+                       
                       </div>
                       <>
                         <video
@@ -178,13 +179,16 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                           alt={`${fileStorage.baseUrl}${reel.video_url}`}
                         />
                       </>
+                      <div >
+                          <span style={{ color: "black" }}>{reel.content}</span>
+                        </div>
                     </div>
                   ) : null}
                 </>
               </div>
             </div>
           </div>
-          {/* <div className="slide-buttons">
+          <div className="slide-buttons">
                 <span
                   id="getnext"
                   onClick={() => {
@@ -206,7 +210,7 @@ function DisplayFriendsReelsComponent({ reel, setRefresh, indexs }) {
                   <i className="fas fa-arrow-left"></i>
                 </span>
               ) : null}
-            </div> */}
+            </div>
         </div>
       </div>
     </>

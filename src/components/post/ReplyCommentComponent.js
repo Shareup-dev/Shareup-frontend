@@ -243,7 +243,12 @@ export default function ReplyCommentComponent(props) {
                                     </div>
                                     <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                                     <div>
-                                        <a className="we-reply" title="Like" onClick={() => likeReply(reply)} style={checkIfLiked(reply)?{color:'red'}:{}} >Like</a>
+                                        <a className="we-reply" title="Like" onClick={() => likeReply(reply)} >
+                                        {checkIfLiked(reply)?
+                                            <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
+                                            :<i class="far fa-star" ></i>
+                                        }
+                                        </a>
                                         {/* <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a> */}
                                     </div>
                                     {(reply.user.id === user.id) ?

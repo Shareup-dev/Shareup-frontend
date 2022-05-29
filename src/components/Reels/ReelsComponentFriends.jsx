@@ -79,23 +79,23 @@ const checkPop=()=>{
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
           <a href="#!">
-          <>
-          <video
-                          preload="none"
-                          loop
-                          controls={false}
-                          autoPlay
-                          muted
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "fill",
-                          }}
-                          src={`${fileStorage.baseUrl}${reel.video_url}`}
-                          type="video/mp4"
-                          alt={`${fileStorage.baseUrl}${reel.video_url}`}
-                        />
-                                              </>
+            <>
+              <video
+                preload="none"
+                loop
+                controls={false}
+                autoPlay
+                muted
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "fill",
+                }}
+                src={`${fileStorage.baseUrl}${reel.video_url}`}
+                type="video/mp4"
+                alt={`${fileStorage.baseUrl}${reel.video_url}`}
+              />
+            </>
 
           </a>
           <div className="strysggstion-imgStry-overlay">
