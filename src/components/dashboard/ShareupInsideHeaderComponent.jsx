@@ -10,6 +10,10 @@ import NewNotificationService from '../../services/NewNotificationService';
 import fileStorage from "../../config/fileStorage";
 import {useSelector} from "react-redux"
 import moment from 'moment';
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
+
+
 import {
   Popover,
   Badge,
@@ -29,28 +33,42 @@ import UserContext from "../../contexts/UserContext";
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
 import { grey } from '@mui/material/colors';
- 
+var stompClient =null;
  // toast-configuration method,
  // it is compulsory method.
 toast.configure();
 
-export const handleSendNotification = async (to,action,apply_on,userFirstName,userLastname,email) => {
-  const formData = new FormData();
-  let message =userFirstName + ' ' + userLastname + ' ' +action + ' your ' + apply_on;
-  formData.append(`from`,email);
-  formData.append(`apply_on`,apply_on);
-  formData.append(`action`,action);
-  formData.append(`message`,message);
-  await NewNotificationService.sendNotification(to,formData).then(res => {
-  })	
+export const handleSendNotification =(to,content,userFirstName,userLastname,email) => {
+  console.log("inside handle send notification");
+  if (stompClient) {
+    var notificationVar = {
+      from_email: email,
+      to_email:to,
+      content:content,
+      first_name:userFirstName,
+      Last_name:userLastname
+    };
+    
+    stompClient.send("/app/private-notification", {}, JSON.stringify(notificationVar));
+  }
+  handleDbnotification(to,content,email)
 };
+export const handleDbnotification = async (to_id,action,from_email)=>{
+  const formData = new FormData();
+  formData.append(`from`,from_email);
+  formData.append(`message`,action);
+  await NewNotificationService.sendNotification(to_id,formData).then(res => {
+  })	
+}
+
 function ShareupInsideHeaderComponent() {
  
   let history = useHistory();
 let counter =0;
+let notificaionflag = false;
   const[total,setTotal]=useState(0);
   const [unreadCounter,setUnreadCounter] =useState(0);
-  const [readflag,setReadflag] =useState(false);
+ 
   const[newListinerFlag,setNewListinerFlag]= useState(false);
   const[newNotificationFlag,setNewNotificationFlag]= useState(false);
   const [NewNotifications, setNewNotifications] = useState([]);
@@ -66,13 +84,26 @@ let counter =0;
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
 
- 
+  const connect =()=>{
+    let Sock = new SockJS('http://localhost:8080/ws');
+    stompClient = over(Sock);
+    stompClient.connect({},onConnected, onError);
+}
+
+const onConnected = () => {
+  if (stompClient) {
+    stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', onPrivateNotification);
+  }
+}
+
+const onError = (err) => {
+  console.log(err);
+  
+}
   const KeyPressHandler = (event) => {
     if(event.key === 'Enter' && event.target.value !=='') {
-    history.push("/searchFeed")
-
-
-    }
+      history.push("/searchFeed")
+      }
   } 
 
   const currentUserGet = async () => {
@@ -112,8 +143,9 @@ let counter =0;
   }
   useEffect(() => {
     console.log("total",total);
-    if(total > 0) {
+    if(total > 0 ) {
       updateUnopendCounter(AuthService.getCurrentUser().username,total)
+    
     }
   }, [total]);
 
@@ -124,13 +156,8 @@ let counter =0;
   useEffect(() => {
     currentUserGet()
     setLoggedInUser(AuthService.getCurrentUser().username);
-    if(newListinerFlag === false)
-    {
-      initListener();
-      setNewListinerFlag(true);
-    }
+    connect();
     handleGetUnopendCounter(AuthService.getCurrentUser().username);
-    console.log('I was triggered during use effect init lisner',newListinerFlag)
   }, [])
 
   
@@ -141,39 +168,9 @@ let counter =0;
     }
   }
 
- const initListener = () => {
-    const eventSource = new EventSource("https://cors-everywhere.herokuapp.com/http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com/subscription");
+  const onPrivateNotification = (payload)=>{
 
-    eventSource.onopen = (e) => console.log("open connection ");
-
-    eventSource.onerror = (e) => {
-      if (e.readyState === EventSource.CLOSED) {
-        console.log(" listner close error");
-        
-      } else {
-        console.log("listner",e);
-      }
-      initListener();
-    };
-   // eventSource.onmessage = e => getRealtimeData(JSON.parse(e.data));
-    eventSource.addEventListener(
-      loggedInUser,
-      handleServerEvent,
-      false
-    );
-  }
-
-  const handleServerEvent = (e) => {
-    
-    const json = JSON.parse(e.data);
-    let newNotifications = NewNotifications;
-    newNotifications.unshift({
-      from: json.from,
-      message: json.message,
-     
-      isRead: false,
-    });
-    setNewNotifications(newNotifications);
+    var json = JSON.parse(payload.body);
     notification.config({
       placement: "bottomLeft",
     });
@@ -181,17 +178,18 @@ let counter =0;
     notification.open({
       message: (
         <div>
-          <b>{json.from}</b>  {json.message} 
+          <b>{json.userdata.firstName} {json.userdata.lastName}</b>  {json.content} 
         </div>
-      ),
+      )
     });
 
     setTotal(prevTotal => prevTotal +1)
     setNewNotificationFlag(true);
-  };
+    
+ 
+}
 
-   
-  
+
     const handlegetNotifications = async () => {
       console.log("handlegetNotifications",AuthService.getCurrentUser().username)
 	  	await NewNotificationService.getNotifications(AuthService.getCurrentUser().username).then(res => {	
@@ -242,43 +240,10 @@ let counter =0;
     
         };
 
-    const displayNotification=(actionType,actionOn)=> {
-      let action ;
-      let applyOn ="default";
-
-      if(actionType === 'Like'){
-        action ="Like"
-      }else if(actionType === 'mention'){
-        action ="mention"
-      }else if(actionType=== 'comment'){
-        action ="comment"
-      }else if(actionType=== 'reply'){
-        action ="reply"
-      }else if(actionType=== 'share'){
-        action ="share"
-      }else if(actionType=== 'friend_request'){
-        action ="sent friendrequest"
-      }else if(actionType=== 'invite_to_group'){
-        action ="invited you to group"
-      }
-      
-      if(actionOn === 'post'){
-        applyOn ="post"
-      }else if(actionOn === 'comment'){
-        applyOn ="comment"
-      }else if(actionOn=== 'reply'){
-        applyOn ="reply"
-      }else if(actionOn=== 'share'){
-        applyOn ="share"
-      }else if(actionOn=== 'group'){
-        applyOn =""
-      }else if(actionOn=== 'Empty'){
-        applyOn =""
-      }
-      
-      var result = `${action} your ${applyOn}`; 
+    const displayNotification=(content)=> {
+     
       return (
-        <span >{result}</span>
+        <span >{content}</span>
       )
     }
   return (
@@ -329,15 +294,16 @@ let counter =0;
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
                     {dbNotifications && dbNotifications.map(item => {
-                      return (
-                        
-                      <li key={item.id} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
+                      
+                      return ( 
+                        <>
+                      <li key={item.toString()} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
                       <a >
                       <img src={item.userdata.profilePicturePath} alt="" />
                      
                       <div className="mesg-meta" >
                         <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
-                        {displayNotification(item.notificationType,item.applyOnType)}
+                        {displayNotification(item.content)}
                         <div >
                           <span>{moment(item.notification_date).fromNow()}</span>
                         </div>
@@ -345,7 +311,7 @@ let counter =0;
                     </a>
                     {item.read_flag?(""):(<span className="tag green">unread</span>)}
                     
-                    </li>)
+                    </li></>)
                    
                     }
  ) }

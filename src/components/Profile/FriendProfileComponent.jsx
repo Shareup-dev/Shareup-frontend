@@ -7,7 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import AuthService from "../../services/auth.services";
 import FriendsService from "../../services/FriendService";
 
-import ShareupInsideHeaderComponent, { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
+import ShareupInsideHeaderComponent, { handleDbnotification } from "../dashboard/ShareupInsideHeaderComponent";
 import PostService from "../../services/PostService";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
@@ -40,7 +40,7 @@ function FriendProfileComponent({ email, id }) {
   const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      handleSendNotification(fid,'friend_request','Empty',user?.firstName,user?.lastName,user?.email);
+      handleDbnotification(fid,'sent friend request to you',user?.email);
     });
    
   };

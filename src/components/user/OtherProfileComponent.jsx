@@ -35,7 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
-import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
+import  { handleDbnotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -251,8 +251,9 @@ function OtherProfileComponent() {
   const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      handleSendNotification(fid,'friend_request','Empty',user?.firstName,user?.lastName,user?.email);
-
+      console.log("send notification to "+fid);
+      //handleSendNotification(fid,'friend_request','Empty',user?.firstName,user?.lastName,user?.email);
+      handleDbnotification(fid,'sent friend request to you',user?.email);
     });
   };
   const removeFriend = (uid, fid) => {
