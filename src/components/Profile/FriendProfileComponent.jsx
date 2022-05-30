@@ -7,7 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import AuthService from "../../services/auth.services";
 import FriendsService from "../../services/FriendService";
 
-import ShareupInsideHeaderComponent, { handleDbnotification } from "../dashboard/ShareupInsideHeaderComponent";
+import ShareupInsideHeaderComponent, { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 import PostService from "../../services/PostService";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
@@ -37,12 +37,13 @@ function FriendProfileComponent({ email, id }) {
     });
   };
 
-  const sendFriendRequest = (uid, fid) => {
+  const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      handleDbnotification(fid,'sent friend request to you',user?.email);
-    });
-   
+       });
+       console.log("send notification to "+email);
+       handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
+    
   };
   const unsendFriendRequest = (uid, fid) => {
     FriendsService.unsendRequest(uid, fid).then((res) => {
@@ -177,7 +178,7 @@ function FriendProfileComponent({ email, id }) {
                           margin: "10px",
                           padding: "0 5px",
                         }}
-                        onClick={() => sendFriendRequest(user.id, friend.id)}
+                        onClick={() => sendFriendRequest(user.id, friend.id,friend.email)}
                       >
                         Add Friend
                       </button>

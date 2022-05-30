@@ -12,23 +12,12 @@ import {useSelector} from "react-redux"
 import moment from 'moment';
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
-
-
-import {
-  Popover,
-  Badge,
-  List,
-  notification,
-  Typography,
-  Input,
-  Button,
-} from "antd";
+import {notification} from "antd";
 import "antd/dist/antd.css";
-import Icon from '@ant-design/icons';
 import {store} from "../../app/store";
 import { setSearchTerm } from "../../app/searchSlice";
 import {toast} from 'react-toastify';
-import UserContext from "../../contexts/UserContext";
+
 
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
@@ -51,7 +40,7 @@ export const handleSendNotification =(to,content,userFirstName,userLastname,emai
     
     stompClient.send("/app/private-notification", {}, JSON.stringify(notificationVar));
   }
-  handleDbnotification(to,content,email)
+ // handleDbnotification(to,content,email)
 };
 export const handleDbnotification = async (to_id,action,from_email)=>{
   const formData = new FormData();
@@ -85,7 +74,7 @@ let notificaionflag = false;
   const searchTerm = useSelector((state) => state.search)
 
   const connect =()=>{
-    let Sock = new SockJS('http://localhost:8080/ws');
+    let Sock = new SockJS('http://44.195.204.128/ws');
     stompClient = over(Sock);
     stompClient.connect({},onConnected, onError);
 }
@@ -101,8 +90,11 @@ const onError = (err) => {
   
 }
   const KeyPressHandler = (event) => {
+    console.log("inside press handler");
+    handleSendNotification(AuthService.getCurrentUser().username,'lik your notification','rauff','xxx','basmasaadfathy@hotmail.com')
+   // history.push("/searchFeed")
     if(event.key === 'Enter' && event.target.value !=='') {
-      history.push("/searchFeed")
+     
       }
   } 
 
@@ -169,7 +161,8 @@ const onError = (err) => {
   }
 
   const onPrivateNotification = (payload)=>{
-
+console.log("got message");
+    console.log(payload)
     var json = JSON.parse(payload.body);
     notification.config({
       placement: "bottomLeft",
@@ -284,7 +277,7 @@ const onError = (err) => {
           
             <li>
               <div className="noti" onClick={() =>handlegetNotifications()}>
-              {total?(<div className="counter">
+              {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
                    </div>): ('')}
                 <a href="#" title="Notification" data-ripple>
@@ -325,7 +318,7 @@ const onError = (err) => {
               <div className="mssg">
              
                 <a href="#" title="Messages" data-ripple><i className="ti-comment" /> </a> 
-                <div className="counter"><span style={{color: 'white'}}>12</span></div>
+                <div className="counternotification"><span style={{color: 'white'}}>12</span></div>
                 <div className="dropdownsmsg">
                   <span>5 New Messages</span>
                   <ul className="drops-menu">

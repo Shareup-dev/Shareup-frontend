@@ -35,7 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
-import  { handleDbnotification } from "../dashboard/ShareupInsideHeaderComponent";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -248,13 +248,13 @@ function OtherProfileComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid) => {
+  const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      console.log("send notification to "+fid);
-      //handleSendNotification(fid,'friend_request','Empty',user?.firstName,user?.lastName,user?.email);
-      handleDbnotification(fid,'sent friend request to you',user?.email);
+     
     });
+    console.log("send notification to "+email);
+    handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
   };
   const removeFriend = (uid, fid) => {
     FriendsService.removeFriends(uid, fid).then((res) => {
@@ -519,7 +519,7 @@ function OtherProfileComponent() {
         return (
           <div>
             <a
-              onClick={() => sendFriendRequest(user?.id, userProfile?.id)}
+              onClick={() => sendFriendRequest(user?.id, userProfile?.id, userProfile?.email)}
               style={{
                 color: "#000000",
                 fontWeight: "bold",
@@ -916,7 +916,7 @@ function OtherProfileComponent() {
                                 padding: "0 5px",
                               }}
                               onClick={() =>
-                                sendFriendRequest(user.id, userProfile?.id)
+                                sendFriendRequest(user.id, userProfile?.id,userProfile?.username)
                               }
                             >
                               Add Friend
