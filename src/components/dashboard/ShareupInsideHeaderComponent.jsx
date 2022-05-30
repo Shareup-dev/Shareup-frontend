@@ -90,7 +90,7 @@ const onError = (err) => {
   
 }
   const KeyPressHandler = (event) => {
-    
+    handleSendNotification(AuthService.getCurrentUser().username,'reacted to your post','basma','saad','raouf.zerkouk@gmail.com')
     if(event.key === 'Enter' && event.target.value !=='') {
       history.push("/searchFeed")
       }
