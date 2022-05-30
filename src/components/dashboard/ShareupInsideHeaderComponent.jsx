@@ -74,7 +74,7 @@ let notificaionflag = false;
   const searchTerm = useSelector((state) => state.search)
 
   const connect =()=>{
-    let Sock = new SockJS('http://44.195.204.128/ws');
+    let Sock = new SockJS('wss://44.195.204.128/ws');
     stompClient = over(Sock);
     stompClient.connect({},onConnected, onError);
 }
@@ -90,11 +90,9 @@ const onError = (err) => {
   
 }
   const KeyPressHandler = (event) => {
-    console.log("inside press handler");
-    handleSendNotification(AuthService.getCurrentUser().username,'lik your notification','rauff','xxx','basmasaadfathy@hotmail.com')
-   // history.push("/searchFeed")
+    
     if(event.key === 'Enter' && event.target.value !=='') {
-     
+      history.push("/searchFeed")
       }
   } 
 
@@ -161,7 +159,7 @@ const onError = (err) => {
   }
 
   const onPrivateNotification = (payload)=>{
-console.log("got message");
+    console.log("got message");
     console.log(payload)
     var json = JSON.parse(payload.body);
     notification.config({
@@ -178,8 +176,6 @@ console.log("got message");
 
     setTotal(prevTotal => prevTotal +1)
     setNewNotificationFlag(true);
-    
- 
 }
 
 
