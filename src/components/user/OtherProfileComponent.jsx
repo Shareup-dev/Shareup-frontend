@@ -372,7 +372,8 @@ function OtherProfileComponent() {
       setSearchedUser(temp);
     }
   };
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     currentUserGet();
     getFriendStatus();
     getFriendCount();
@@ -388,7 +389,8 @@ function OtherProfileComponent() {
     getStoriesForUser();
   }, [show, friendStatus, refresh]);
 
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getFriendStatus();
     getFriendCount();
     getPostForUser();

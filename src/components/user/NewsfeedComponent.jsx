@@ -304,7 +304,9 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => { }, [posts]);
+    useEffect(() => {
+  window.scrollTo(0, 0);
+ }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -2529,7 +2531,9 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => { }, [postsForUser]);
+    useEffect(() => {
+  window.scrollTo(0, 0);
+ }, [postsForUser]);
 
   const show = () => {
     return (
@@ -2854,16 +2858,19 @@ function NewsfeedComponent() {
     );
   };
 
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getAllUser();
     getFriendsList();
     testScript();
   }, []);
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getAllGroups();
   }, [showComp, group]);
 
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getUser();
     getPost().then(() => {
       setIsLoading(false);
@@ -2874,7 +2881,8 @@ function NewsfeedComponent() {
     testScript();
   }, [editPostId, refresh]);
 
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getPostForUser();
     getReelForUserFriends();
     getSavedPost();
@@ -2888,7 +2896,8 @@ function NewsfeedComponent() {
     getReelForUserFriends();
   }, [FriendsReels]);
 
-  useEffect(() => {
+    useEffect(() => {
+  window.scrollTo(0, 0);
     getStoriesForUser();
     getReelForUserFriends();
     testScript();
