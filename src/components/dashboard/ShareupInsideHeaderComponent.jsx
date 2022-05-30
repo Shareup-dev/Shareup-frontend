@@ -74,7 +74,7 @@ let notificaionflag = false;
   const searchTerm = useSelector((state) => state.search)
 
   const connect =()=>{
-    let Sock = new SockJS('https://cors-everywhere.herokuapp.com/http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com/ws');
+    let Sock = new SockJS('wss://44.195.204.128/ws');
     stompClient = over(Sock);
     stompClient.connect({},onConnected, onError);
 }
