@@ -1101,18 +1101,7 @@ header.sticky {
   position: relative;
   z-index: 10;
 }
-.counter{
-  top: -5px;
-  right: -5px;
-  justify-content:center;
-  display: flex;
-  padding: 5px;
-  background-color: red;
-  font-size: 12px;
-  align-items: center;
-  border-radius:50%;
-  position: absolute;
-}
+
 .read{
   background-color: rgb(177, 173, 173);
 }
@@ -6544,6 +6533,7 @@ canvas {
 }
 
 .top-area > ul.setting-area a {
+ 
   /* font-size: 19px; */
   background: rgb(228, 86, 149);
   background: radial-gradient(
@@ -6561,6 +6551,7 @@ canvas {
 
 .top-area > ul.setting-area a:hover {
   /* font-size: 19px; */
+  
   background: rgb(214, 42, 119);
   background: radial-gradient(
     circle,
@@ -6580,9 +6571,11 @@ canvas {
 }
 
 .top-area > ul.setting-area div.noti{
+ 
 position: relative;
+
 }
-.top-area > ul.setting-area div.counter{
+.top-area > ul.setting-area div.counternotification{
   background-color:red;
   position: absolute;
   width: 17px;
@@ -6596,6 +6589,7 @@ position: relative;
   right: -9px;
 }
 .top-area > ul.setting-area div.mssg {
+
   position: relative;
 }
 
