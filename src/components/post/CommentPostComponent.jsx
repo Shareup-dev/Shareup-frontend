@@ -13,7 +13,7 @@ export default function CommentPostComponent(props) {
 
   const [likedFlag, setLikedFlag] = useState(false);
 
-  const [comments, setComments] = useState([])
+  const [comment, setComment] = useState(props.comment)
   const [activeCommentId, setActiveCommentId] = useState()
 
   const [likedCommentId, setLikedCommentId] = useState()
@@ -34,13 +34,10 @@ export default function CommentPostComponent(props) {
   
  
   // const sortComment = async () => {
-  //   // console.log(user.id, post.id)
   //   await PostService.getCommentsForPosts(user.id, post.id).then((res) => {
 
   //     setComments(res.data)
-  //     // console.log(showComment , comments)
   //     if (comments && comments.length>0) {
-  //       console.log(showComment , comments)
   
   //       // const comments = [...comments]
   //       comments.sort(function (a, b) {
@@ -53,24 +50,18 @@ export default function CommentPostComponent(props) {
 
   // }
   const checkEditComment = (e)=>{
-    console.log(e)
     setEditCommentFlag(e)
-    console.log(editCommentFlag,'edit')
   }
   
   const checkEditReply = (e)=>{
-    console.log(e)
     setEditReplyFlag(e)
-    console.log(editCommentFlag,'edit')
   }
   useEffect( () => {
-    // console.log(props.comments)
-    // setComments(props.comment)
-    // console.log(comments)
+    setComment(props.comment)
     // await sortComment()
     // await getLikedComments()
     // if(comments) {getReplies();}
-  }, [props.comment])
+  }, [props.comments])
  
   // const date1 = (comment) => {
   //   let date = new Date(comment.published);
@@ -79,7 +70,6 @@ export default function CommentPostComponent(props) {
   //   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
   //   if ((Difference_In_Days % 1) > 0.5) {
   //     let d = (Difference_In_Days % 1) > 0.5
-  //     console.log(Difference_In_Days, d, Math.round(Difference_In_Days - 1))
 
   //   }
   //   // const month = date.toLocaleString('default', { month: 'long' })
@@ -99,16 +89,13 @@ export default function CommentPostComponent(props) {
 
   //   }
   //   await PostService.LikeComment(user.id, cid, params).then((res) => {
-  //     console.log(res.data)
   //   })
   // }
   const getReplies = async (commentId) => {
     await PostService.getReplies(user.id,commentId).then((res) => {
       setReplies(res.data)
-      // console.log(res.data.reactions)
       
     })
-    // await console.log(likedCommentIdArr)
   }
   const checkIfLiked = (comment) => {
     if (comment.reactions) {
@@ -116,14 +103,13 @@ export default function CommentPostComponent(props) {
         (reaction) => reaction.user.id == user.id
       );
       if (result.length > 0) {
-        // setLikedCommentId(comment.id)
         return true;
       }
       return false;
     }
   }
   const handleDeleteComment = (comment) => {
-    props.handleDeleteComment(comment)
+    props.handleDeleteComment(comment,props.post)
   }
   const likeComment = async (comment) => {
     props.likeComment(comment)
@@ -133,14 +119,9 @@ export default function CommentPostComponent(props) {
   const replyClicked = (commentId) => {
     setActiveCommentId(commentId)
     setReplyListShowFlag(!replyListShowFlag)
-    // setReplyCommentFlag(!replyCommentFlag)
-    // console.log(replyListShowFlag,'replylist')
-    // setReplyCommentId(commentId)
-    // getReplies(commentId)
   }
   const editComment = (e,commentId)=>{
     e.preventDefault();
-    console.log(commentId)
     setEditCommentId(commentId)
     setEditCommentFlag(true)
   }
@@ -149,11 +130,9 @@ export default function CommentPostComponent(props) {
     setActiveCommentId(commentId)
     
     setReplyCommentFlag(!replyCommentFlag)
-    console.log('input',replyCommentFlag)
   }
   const commentDisplay = (comment) => {
     let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
-    console.log('hhhh')
     return (
       editCommentId===comment.id&&editCommentFlag?
       <PostComponentBoxComponent post={props.post} setRefresh={props.setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
@@ -175,7 +154,12 @@ export default function CommentPostComponent(props) {
                 </div>
                 <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                   <div>
-                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} style={checkIfLiked(comment)?{color:'red'}:{}}>Like</a>
+                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} >
+                      {checkIfLiked(comment)?
+                      <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
+                      :<i class="far fa-star" ></i>
+                    }
+                    </a>
                     <a className="we-reply" title="Reply" onClick={() => replyInputClicked(comment.id)}>Reply</a>
                   </div>
                   {(comment.user.id === user.id) ?
@@ -201,7 +185,7 @@ export default function CommentPostComponent(props) {
                   {/* <span className="caret"></span> */}
                 </button>
                 <ul className="dropdown-menu">
-                  <li ><a href={""} onClick={(e)=>editComment(e,comment.id)}>Edit </a></li>
+                  <li ><a href={""} onClick={(e)=>editComment(e,comment.id)}>Edit Comment</a></li>
                 </ul>
               </div>
             }
@@ -221,8 +205,8 @@ export default function CommentPostComponent(props) {
   return (
     
      
-        
-        commentDisplay(props.comment) 
+        comment&&
+        commentDisplay(comment) 
        
   
   );

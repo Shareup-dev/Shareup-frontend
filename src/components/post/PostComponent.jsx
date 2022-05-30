@@ -250,13 +250,13 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleReaction = () => {
     if (likeReaction) {
-      return <i className="fas fa-star" style={{ fontSize: "12px" }}></i>;
+      return <i className="fas fa-star" style={{ fontSize: "15px" , paddingRight: "5px"}}></i>;
       // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
     }
     return (
       <i
         className="fas fa-star"
-        style={{ fontSize: "12px", color: "#d83535" }}
+        style={{ fontSize: "15px", color: "#d83535", paddingRight: "5px" }}
       ></i>
     );
   };
@@ -2294,7 +2294,7 @@ export default function PostComponent({ post, setRefresh }) {
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i
                               className="far fa-star"
-                              style={{ paddingRight: "5px" }}
+                              style={{ fontSize: "15px", paddingRight: "5px" }}
                             ></i>
                             Star
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}

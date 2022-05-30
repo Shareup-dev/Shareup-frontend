@@ -46,7 +46,6 @@ export default function ReplyCommentComponent(props) {
   
   
  const handleReplyContent = (event) => {
-    // console.log(event.target.value)
     setReplyContent(event.target.value)
   }
 
@@ -55,16 +54,16 @@ export default function ReplyCommentComponent(props) {
       return null;
     }else{
         const replyCon = { content: replyContent }
+        const formData = new FormData();
+      formData.append("content", replyContent);
         if(editReplyId){
-          PostService.editReplyForComment(editReplyId,replyCon).then(res=>{
+          PostService.editReplyForComment(editReplyId,formData).then(res=>{
               setEditReplyFlag(false)
               getReplies(props.comment.id)
-              console.log(res.status)
               setReplyContent("")
             })
         }else{
             PostService.replyComment(user.id, props.comment.id, replyCon).then(res => {
-                // console.log(res.status)
                 // setReplyCommentFlag(false)
                 getReplies(props.comment.id)
                 setReplyContent("")
@@ -74,7 +73,6 @@ export default function ReplyCommentComponent(props) {
     }
     
     // await PostService.replyComment(user.id, comment.id, reply).then(res => {
-    //   console.log(res.status)
      
     //   setReplyCommentFlag(false)
     //   setreplyContent("")
@@ -83,20 +81,17 @@ export default function ReplyCommentComponent(props) {
   }
 //   const getReplies = (commentId)=>{
 //     PostService.getReplies(commentId).then((res)=>{
-//         console.log(res.data)
 //         setReplies(res.data)
 //     })
 //   }
     const likeReply = async (reply) => {
         let params = await {}
         await PostService.LikeReply(user.id, reply.id, params).then((res) => {
-            console.log(res.data)
             getReplies(props.comment.id)
       })
    }
     const handleDeleteReply = (rid,commentId) => {
         PostService.deleteReply(rid).then(res => {
-        console.log(res.status)
         // props.setRefresh(res.data)
         getReplies(commentId)
         })
@@ -104,17 +99,14 @@ export default function ReplyCommentComponent(props) {
     const getReplies = async (commentId) => {
         await PostService.getReplies(user.id,commentId).then((res) => {
             setReplies(res.data)
-        // console.log(res.data.reactions)
         
         })
    }
    const checkEditReply = (e)=>{
-        console.log(e)
         setEditReplyFlag(e)
    }
     const editReply = async (e,reply)=>{
         await e.preventDefault();
-        console.log(reply.id)
         await setEditReplyId(reply.id)
         // if(editReplyId===reply.id){
             await setEditReplyFlag(true)
@@ -142,12 +134,10 @@ export default function ReplyCommentComponent(props) {
     useEffect (()=>{
         setShowReplyInput(props.showReplyInput)
         setReplyListFlag(props.replyListFlag)
-        console.log(showReplyInput,'input',replyListFlag,'list')
     },[props.replyListFlag,props.showReplyInput])
     useEffect(() => {
         getReplies(props.comment.id)
        
-    //   console.log(comment,'comment')
     //   getReplies(comment.id)
     }, [props]);
 
@@ -253,7 +243,12 @@ export default function ReplyCommentComponent(props) {
                                     </div>
                                     <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
                                     <div>
-                                        <a className="we-reply" title="Like" onClick={() => likeReply(reply)} style={checkIfLiked(reply)?{color:'red'}:{}} >Like</a>
+                                        <a className="we-reply" title="Like" onClick={() => likeReply(reply)} >
+                                        {checkIfLiked(reply)?
+                                            <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
+                                            :<i class="far fa-star" ></i>
+                                        }
+                                        </a>
                                         {/* <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a> */}
                                     </div>
                                     {(reply.user.id === user.id) ?
@@ -271,7 +266,7 @@ export default function ReplyCommentComponent(props) {
                                     {/* <span className="caret"></span> */}
                                     </button>
                                     <ul className="dropdown-menu">
-                                    <li ><a href={""} onClick={(e)=>editReply(e,reply)}>Edit </a></li>
+                                    <li ><a href={""} onClick={(e)=>editReply(e,reply)}>Edit Reply</a></li>
                                     </ul>
                                 </div>
                                 }
@@ -292,4 +287,3 @@ export default function ReplyCommentComponent(props) {
 
 
 
-const handle = () => console.log('Enter pressed');

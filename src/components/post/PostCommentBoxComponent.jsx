@@ -24,16 +24,25 @@ export default function PostComponentBoxComponent(props) {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [chosenGif, setChosenGif] = useState(null);
   const [chosenSticker, setSticker] = useState(null);
+  const [post, setPost] = useState(props.post);
+
 
 
   useEffect(() => {
       sortComment()
-  }, [props]);
-  const sortComment = async () => {
-    console.log('sort called')
+      console.log('fff')
+  }, [props.post]);
 
-    // console.log(user.id, post.id)
-    await PostService.getCommentsForPosts(user.id, props.post.id).then((res) => {
+  const sortComment = async (propPost) => {
+    console.log('sort called',propPost)
+    let postId = {}
+    if(propPost) { 
+      postId = propPost
+    }else{
+      postId = post.id
+    }
+    console.log('post', postId)
+    await PostService.getCommentsForPosts(user.id, postId).then((res) => {
 
       setComments(res.data)
       // if (comments && comments.length>0) {
@@ -45,7 +54,6 @@ export default function PostComponentBoxComponent(props) {
       //   });
       //   setComments(comments)
       // }
-      console.log(comments)
     })
 
   }
@@ -60,7 +68,6 @@ export default function PostComponentBoxComponent(props) {
     ref.current.focus();
   };
   const handleCommentContent = (event) => {
-    // console.log(event.target.value)
     setCommentContent(event.target.value)
   }
 
@@ -70,18 +77,17 @@ export default function PostComponentBoxComponent(props) {
     } else {
       let comment = {}
       comment.content = commentContent;
-      // console.log(typeof(comment.content),'gggg')
+
+      const formData = new FormData();
+      formData.append("content", commentContent);
       if (props.editComment) {
-        PostService.editCommentForPosts(props.editComment.id, comment).then(res => {
-          console.log(res.data)
+        PostService.editCommentForPosts(props.editComment.id, formData).then(res => {
           props.checkEditComment(false)
-          // props.setRefresh(res.data)
+          props.setRefresh(res.data)
           setCommentContent("")
-          // setComments
         })
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
-          console.log(res.data)
           sortComment()
           // props.setRefresh(res.data)
           setCommentContent("")
@@ -89,12 +95,14 @@ export default function PostComponentBoxComponent(props) {
       }
     }
   }
-  const handleDeleteComment = async (comment) => {
-    await PostService.deleteComment(comment.id).then(res => {
-      console.log(res.status)
-      sortComment()
+  const handleDeleteComment = async (comment,post) => {
+    await PostService.deleteComment(comment.id).then((res) => {
+      sortComment(post.id)
+   
+
       // props.setRefresh(res.data)
     })
+
   }
   const likeComment = async (comment) => {
 
@@ -106,7 +114,6 @@ export default function PostComponentBoxComponent(props) {
   }
 
   const commentInput = () => {
-    console.log('hiii')
     return (
       <li className="post-comment">
         <div className="comet-avatar">
@@ -177,7 +184,7 @@ export default function PostComponentBoxComponent(props) {
     )
   }
   return (
-    props.post &&
+    post &&
 
     <div className="coment-area">
       <ul className="we-comet">
@@ -185,7 +192,7 @@ export default function PostComponentBoxComponent(props) {
         {/* {showComment && <PostComponentBoxComponent post={post} setRefresh={setRefresh} />} */}
         {props.showComment && 
           comments && comments.length > 0 && comments.map(comment => {
-          return <CommentPostComponent post={props.post} comment={comment} setRefresh={props.setRefresh}  likeComment={likeComment} handleDeleteComment={handleDeleteComment} />
+          return <CommentPostComponent post={post} comment={comment} comments={comments} setRefresh={props.setRefresh}  likeComment={likeComment} handleDeleteComment={handleDeleteComment} />
         })}
       </ul>
     </div>
@@ -194,4 +201,3 @@ export default function PostComponentBoxComponent(props) {
 
 
 
-const handle = () => console.log('Enter pressed');
