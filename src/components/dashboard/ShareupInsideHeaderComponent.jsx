@@ -75,10 +75,34 @@ let notificaionflag = false;
 
   
   const connect =()=>{
+    var privateKey  = fs.readFileSync('sslcert/key.pem', 'utf8');
+    var certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+ 
+    var credentials = {key: privateKey, cert: certificate};
+    var express = require('express');
+    var app = express();
+ 
+    //... bunch of other express stuff here ...
+ 
+    //pass in your express app and credentials to create an https server
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(8443);
    var endpoint ='/ws'
-   let Sock = new SockJS(endpoint);
-    var stompClient = over(Sock);
-   stompClient.connect({},onConnected, onError);
+   var WebSocketServer = require('ws').Server;
+   var wss = new WebSocketServer({
+       server: httpsServer
+     });
+
+   wss.on('connection', function connection(ws) {
+     ws.on('message', function incoming(message) {
+       console.log('received: %s', message);
+     });
+
+     ws.send('something');
+   });
+  // let Sock = new SockJS(endpoint);
+  //  var stompClient = over(Sock);
+  // stompClient.connect({},onConnected, onError);
 }
 
 const onConnected = () => {
