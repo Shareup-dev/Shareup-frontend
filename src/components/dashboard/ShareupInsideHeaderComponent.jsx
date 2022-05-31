@@ -74,7 +74,7 @@ let notificaionflag = false;
 
   
   const connect =()=>{
-    let endpoint ='http://44.195.204.128/ws'
+    let endpoint ='ws://44.195.204.128/ws'
    let Sock = new SockJS(endpoint);
     var stompClient = over(Sock);
    stompClient.connect({},onConnected, onError);
