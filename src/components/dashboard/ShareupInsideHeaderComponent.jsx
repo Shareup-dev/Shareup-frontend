@@ -17,7 +17,8 @@ import "antd/dist/antd.css";
 import {store} from "../../app/store";
 import { setSearchTerm } from "../../app/searchSlice";
 import {toast} from 'react-toastify';
-
+import fs from 'fs'
+import https from 'https'
 
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,6 +76,7 @@ let notificaionflag = false;
 
   
   const connect =()=>{
+
     var privateKey  = fs.readFileSync('sslcert/key.pem', 'utf8');
     var certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
  
