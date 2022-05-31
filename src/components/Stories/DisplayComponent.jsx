@@ -233,7 +233,7 @@ function DisplayComponent() {
               <div style={{ position: "relative" }}>
                 <img
                   id="preview"
-                  src={fileStorage.baseUrl + background.storiesImagePath}
+                  src={fileStorage.baseUrl + background.storiesMediaPath}
                   style={{ width: "100%", borderRadius: "10px" }}
                 />
 
@@ -310,7 +310,7 @@ function DisplayComponent() {
                 >
                   {storiesForUser.map((background, index) => (
                     <>
-                      {background.image ? (
+                      {background.media_name ? (
                         <div className="slide" key={index} id={index}>
                           <div className="strydisplay-Profimg">
                             <div className="d-flex justify-content-between">
@@ -380,7 +380,7 @@ function DisplayComponent() {
                               &nbsp;&nbsp;{background.views}
                             </a>
                           </div>
-                          {getFileExtension(background.image) !== "mp4" ? (
+                          {(background.storyType) === "image" ? (
                             <img
                               onClick={() =>
                                 window.clearTimeout(timeoutRef.current)
@@ -388,14 +388,13 @@ function DisplayComponent() {
                               className="stryDsplyImg"
                               src={
                                 fileStorage.baseUrl +
-                                background.storiesImagePath
+                                background.storiesMediaPath
                               }
                             />
                           ) : (
                             <>
                               <video
                                 preload="none"
-                                controls
                                 loop
                                 autoPlay
                                 style={{
@@ -403,9 +402,9 @@ function DisplayComponent() {
                                   height: "100%",
                                   objectFit: "fill",
                                 }}
-                                src={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                src={`${fileStorage.baseUrl}${background.storiesMediaPath}`}
                                 type="video/mp4"
-                                alt={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                alt={`${fileStorage.baseUrl}${background.storiesMediaPath}`}
                               />
                             </>
                           )}

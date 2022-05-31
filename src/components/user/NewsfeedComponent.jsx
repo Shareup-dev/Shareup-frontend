@@ -119,6 +119,8 @@ function NewsfeedComponent() {
   const [hangshareContent, setHangshareContent] = useState("");
 
   const [privacy, setprivacy] = useState("privacy");
+  const [storyType, setStoryType] = useState("image");
+
 
   const [closeModal, setCloseModal] = useState(false);
   const [categoryHS, setCategoryHS] = useState("");
@@ -166,6 +168,7 @@ function NewsfeedComponent() {
     } else {
       const formData = new FormData();
       formData.append("caption", storyContent);
+      formData.append("story_type",storyType);
       formData.append(`stryfiles`, filesStry);
       StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
@@ -2956,6 +2959,7 @@ function NewsfeedComponent() {
                                       padding: "5px 20px",
                                     }}
                                     onClick={() => {
+                                      setStoryType("image");
                                       setShowStoryButtonVdo(false);
                                       setShowStoryButton(true);
                                     }}
@@ -2973,6 +2977,7 @@ function NewsfeedComponent() {
                                       padding: "5px 20px",
                                     }}
                                     onClick={() => {
+                                      setStoryType("video");
                                       setShowStoryButtonVdo(true);
                                       setShowStoryButton(false);
                                     }}
@@ -2988,7 +2993,11 @@ function NewsfeedComponent() {
                         <div>
                           <span className="textPop">
                             {showstoriesImage ? (
+                              
                               <>
+                            
+                                { showStoryButton ? (
+                                  <>
                                 <img
                                   id="preview"
                                   src={storiesImage}
@@ -3006,6 +3015,32 @@ function NewsfeedComponent() {
                                 >
                                   <i className="las la-times"></i>
                                 </button>
+                                  </>
+                                ):(
+                                  <>
+
+                                  <video
+                                       id="video"
+                                        width="100%"
+                                        height={"350px"}
+                                        controls="controls"
+                                   >
+                                  <source src={storiesImage} />
+                                  </video>
+                                <button
+                                  onClick={handleRemoveImageStry}
+                                  style={{
+                                    right: "20px",
+                                    position: "absolute",
+                                    borderRadius: "100%",
+                                    background: "#b7b7b738",
+                                    padding: "10px 10px",
+                                  }}
+                                >
+                                  <i className="las la-times"></i>
+                                </button>
+</>
+                                )}
                               </>
                             ) : (
                               <>
@@ -3089,7 +3124,7 @@ function NewsfeedComponent() {
 
               {storiesForUser.map((story, index) => (
                 <>
-                  {story.storiesImagePath && index === 0 ? (
+                  {story.storiesMediaPath && index === 0 ? (
                     <>
                       <Popup
                         style={{ padding: "0px" }}

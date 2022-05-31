@@ -108,7 +108,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                   {story.map((background, index) => {
                     return (
                       <>
-                        {background.image ? (
+                        {background.media_name ? (
                           <div className="slide" key={index} id={index}>
                             <div className="strydisplay-Profimg">
                               <div>
@@ -138,7 +138,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                                 {background.caption}{" "}
                               </span>
                             </div>
-                            {getFileExtension(background.image) !== "mp4" ? (
+                            {background.storyType === "image" ? (
                               <img
                                 onClick={() =>(
                                addViewrsToStories (background.id),
@@ -147,14 +147,13 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                                 className="stryDsplyImg"
                                 src={
                                   fileStorage.baseUrl +
-                                  background.storiesImagePath
+                                  background.storiesMediaPath
                                 }
                               />
                             ) : (
                               <>
                                 <video
                                   preload="none"
-                                  controls
                                   loop
                                   autoPlay
                                   style={{
@@ -162,9 +161,9 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                                     height: "100%",
                                     objectFit: "fill",
                                   }}
-                                  src={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                  src={`${fileStorage.baseUrl}${background.storiesMediaPath}`}
                                   type="video/mp4"
-                                  alt={`${fileStorage.baseUrl}${background.storiesImagePath}`}
+                                  alt={`${fileStorage.baseUrl}${background.storiesMediaPath}`}
                                 />
                               </>
                             )}
