@@ -74,7 +74,7 @@ let notificaionflag = false;
   const searchTerm = useSelector((state) => state.search)
 
   const connect =()=>{
-    let Sock = new SockJS('wss://44.195.204.128/ws');
+    let Sock = new SockJS('https://44.195.204.128/ws');
     stompClient = over(Sock);
     stompClient.connect({},onConnected, onError);
 }
