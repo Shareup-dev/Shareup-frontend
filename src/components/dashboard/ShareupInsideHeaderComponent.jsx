@@ -73,10 +73,20 @@ let notificaionflag = false;
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
 
+  
   const connect =()=>{
-    let Sock = new SockJS('https://44.195.204.128/ws');
-    stompClient = over(Sock);
-    stompClient.connect({},onConnected, onError);
+    let factory = new SslContextFactory.Client();
+    factory.setSslContext('http://44.195.204.128/ws'); // a different loaded java SslContext instead of the default one
+
+//Create the web socket client with jetty client factory
+let client =
+      new JettyWebSocketClient(new WebSocketClient(new HttpClient(factory)));
+client.start();
+let stomp = new WebSocketStompClient(client);
+stomp.connect({},onConnected, onError);
+   // let Sock = new SockJS('https://44.195.204.128/ws');
+   // stompClient = over(Sock);
+   // stompClient.connect({},onConnected, onError);
 }
 
 const onConnected = () => {
