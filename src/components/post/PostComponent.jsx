@@ -1420,7 +1420,11 @@ export default function PostComponent({ post, setRefresh }) {
                                 </div>
                                 <div style={{ minHeight: "150px" }}>
                                   <span className="textPop">
-                                    <div class="input-group mb-3">
+                                    <div class="input-group mb-3"
+                                                                              style={{
+                                        margin: "11px 0px 11px",
+                                        }}
+                                    >
                                       <div class="input-group-prepend">
                                         <span
                                           class="input-group-text"
@@ -1442,18 +1446,23 @@ export default function PostComponent({ post, setRefresh }) {
                                         onClick={getLocation}
                                         style={{
                                           textAlign: "center",
-                                          background: "#033347",
-                                          fontWeight: "bold",
-                                          color: "white",
-                                          padding: "15px",
-                                          borderRadius: "5px",
-                                          fontSize: "14px",
-                                          cursor: "pointer",
+                                        background: "#033347",
+                                        fontWeight: "bold",
+                                        color: "white",
+                                        margin: "11px 0px 11px",
+                                        padding: "15px",
+                                        borderRadius: "5px",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
                                         }}
                                       >
                                         {"Get Location"}
                                       </div>
-                                      <h1>Coordinates</h1>
+                                      <p
+                                      style={{
+                                        margin: "11px 0px 11px",
+                                        }}
+                                      >Coordinates</p>
                                       <p>{status}</p>
                                       {lat && <p>Latitude: {lat}</p>}
                                       {lng && <p>Longitude: {lng}</p>}
@@ -1469,7 +1478,7 @@ export default function PostComponent({ post, setRefresh }) {
                                     background: "#033347",
                                     fontWeight: "bold",
                                     color: "white",
-                                    margin: "11px 11px",
+                                    margin: "11px 0px 11px",
                                     padding: "15px",
                                     borderRadius: "5px",
                                     fontSize: "14px",
@@ -2094,7 +2103,11 @@ export default function PostComponent({ post, setRefresh }) {
                                     </div>
                                     <div style={{ minHeight: "150px" }}>
                                       <span className="textPop">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3"
+                                                                                  style={{
+                                                                                    margin: "11px 0px 11px",
+                                        }}
+                                        >
                                           <div class="input-group-prepend">
                                             <span
                                               class="input-group-text"
@@ -2116,18 +2129,23 @@ export default function PostComponent({ post, setRefresh }) {
                                             onClick={getLocation}
                                             style={{
                                               textAlign: "center",
-                                              background: "#033347",
-                                              fontWeight: "bold",
-                                              color: "white",
-                                              padding: "15px",
-                                              borderRadius: "5px",
-                                              fontSize: "14px",
-                                              cursor: "pointer",
+                                        background: "#033347",
+                                        fontWeight: "bold",
+                                        color: "white",
+                                        margin: "11px 0px 11px",
+                                        padding: "15px",
+                                        borderRadius: "5px",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
                                             }}
                                           >
                                             {"Get Location"}
                                           </div>
-                                          <h1>Coordinates</h1>
+                                          <p
+                                          style={{
+                                            margin: "11px 0px 11px",
+                                        }}
+                                          >Coordinates</p>
                                           <p>{status}</p>
                                           {lat && <p>Latitude: {lat}</p>}
                                           {lng && <p>Longitude: {lng}</p>}
@@ -2141,7 +2159,7 @@ export default function PostComponent({ post, setRefresh }) {
                                         background: "#033347",
                                         fontWeight: "bold",
                                         color: "white",
-                                        margin: "11px 11px",
+                                        margin: "11px 0px 11px",
                                         padding: "15px",
                                         borderRadius: "5px",
                                         fontSize: "14px",
