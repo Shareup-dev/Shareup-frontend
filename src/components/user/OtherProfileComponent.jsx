@@ -963,11 +963,10 @@ function OtherProfileComponent() {
                           <span>Following</span>
                         </li>
                       </ul>
-                      {userProfile.aboutme !== null ? (
-                        <span>{`${userProfile.aboutme}`}</span>
-                      ) : (
-                        <></>
-                      )}
+                      {userProfile?.aboutme !==   null && undefined ? (
+                        <span>{`${userProfile?.aboutme}`}</span>
+                      ) : ""
+                      }
                     </div>
                   </div>
                   <div className="col-lg-3"></div>

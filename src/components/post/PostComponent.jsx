@@ -28,7 +28,6 @@ import { settings } from "nprogress";
 import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
-import Animate from 'animate.css-react'
 
 const my_url = `${storage.baseUrl}`;
 
@@ -246,7 +245,7 @@ export default function PostComponent({ post, setRefresh }) {
       });
     }
   };
-  const [emoji, setEmoji] = useState("Star");
+  const [emoji, setEmoji] = useState("laughing");
   const handleReaction = () => {
     return (
       <>
@@ -366,14 +365,14 @@ export default function PostComponent({ post, setRefresh }) {
         className="fas fa-star"
         style={{ fontSize: "12px", color: "#d83535" }}
       ></i>
-       {/* <i
+                       <i
                   style={{
                     fontSize: "13px",
                     paddingRight: "5px",
                   }}
                 >
-                😝
-                </i> */}
+               😆
+                </i>
       </>
     );
   };
