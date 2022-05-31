@@ -30,18 +30,15 @@ export default function PostComponentBoxComponent(props) {
 
   useEffect(() => {
       sortComment()
-      console.log('fff')
   }, [props.post]);
 
   const sortComment = async (propPost) => {
-    console.log('sort called',propPost)
     let postId = {}
     if(propPost) { 
       postId = propPost
     }else{
       postId = post.id
     }
-    console.log('post', postId)
     await PostService.getCommentsForPosts(user.id, postId).then((res) => {
 
       setComments(res.data)

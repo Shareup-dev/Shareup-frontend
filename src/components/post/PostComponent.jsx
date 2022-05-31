@@ -28,6 +28,7 @@ import { settings } from "nprogress";
 import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
+import Animate from 'animate.css-react'
 
 const my_url = `${storage.baseUrl}`;
 
@@ -99,12 +100,10 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    if (post.liked) {
-      if (post.liked === true) {
-        return true;
-      }
-      return false;
+    if (post.liked === true) {
+      return true;
     }
+    return false;
   };
 
   const handleFileSwap = (event) => {
@@ -135,27 +134,27 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
 
-  const handleLikePost = async (post) => {
+  const handleLikePost = async (post, reaction) => {
     if (post.allPostsType === "swap") {
-      UserService.likeSwap(user?.id, post.id).then((res) => {
+      UserService.likeSwap(user?.id, post.id, reaction).then((res) => {
         setRefresh(res.data);
       });
     }
 
     if (post.allPostsType === "hangShare") {
-      UserService.likeHangShare(user?.id, post.id).then((res) => {
+      UserService.likeHangShare(user?.id, post.id, reaction).then((res) => {
         setRefresh(res.data);
       });
     }
 
     if (post.allPostsType === "post") {
-      UserService.likePost(user?.id, post.id).then((res) => {
+      UserService.likePost(user?.id, post.id, reaction).then((res) => {
         setRefresh(res.data);
       });
     }
 
     if (post.allPostsType === "share") {
-      UserService.likeShare(user?.id, post.id).then((res) => {
+      UserService.likeShare(user?.id, post.id, reaction).then((res) => {
         setRefresh(res.data);
       });
     }
@@ -247,37 +246,142 @@ export default function PostComponent({ post, setRefresh }) {
       });
     }
   };
-
+  const [emoji, setEmoji] = useState("Star");
   const handleReaction = () => {
-    if (likeReaction) {
-      return <i className="fas fa-star" style={{ fontSize: "15px" , paddingRight: "5px"}}></i>;
-      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
-    }
     return (
-      <i
-        className="fas fa-star"
-        style={{ fontSize: "15px", color: "#d83535", paddingRight: "5px" }}
-      ></i>
+      <>
+        {(() => {
+          switch (emoji) {
+            case "Star":
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                    paddingRight: "5px",
+                  }}
+                >
+                </i>
+              );
+            case "smiley":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                😊 
+                </i>
+              );
+            case "cool":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                😎
+                </i>
+              );
+            case "laughing":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+               😆
+                </i>
+              );
+            case "tongue":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                  😝
+                </i>
+              );
+            case "angel":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                 😇
+                </i>
+              );
+            case "devil":
+              return (
+                <i
+                  style={{
+                    fontSize: "20px",
+                    paddingRight: "5px",
+                  }}
+                >
+                  😈
+                </i>
+              );
+            case "angry":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                    paddingRight: "5px",
+                  }}
+                >
+                 😡
+                </i>
+              );
+            default:
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                    paddingRight: "5px",
+                  }}
+                >
+                </i>
+              );
+          }
+        })()}
+      </>
     );
   };
 
   const handlePostReactions = () => {
-    if (likeReaction) {
-      return <i className="fas fa-star" style={{ fontSize: "12px" }}></i>;
-      // return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
-    }
     return (
+      <>
       <i
         className="fas fa-star"
         style={{ fontSize: "12px", color: "#d83535" }}
       ></i>
+       {/* <i
+                  style={{
+                    fontSize: "13px",
+                    paddingRight: "5px",
+                  }}
+                >
+                😝
+                </i> */}
+      </>
     );
   };
 
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction);
     if (!checkIfLiked(post)) {
-      handleLikePost(post);
+      handleLikePost(post, reaction);
     }
   };
 
@@ -387,9 +491,9 @@ export default function PostComponent({ post, setRefresh }) {
         });
     }
   };
-  const commentChanged = async(prop)=>{
-    await setComments(prop)
-  }
+  const commentChanged = async (prop) => {
+    await setComments(prop);
+  };
   const sharepopup = () => {
     return (
       <Popup
@@ -597,8 +701,6 @@ export default function PostComponent({ post, setRefresh }) {
       </Popup>
     );
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div
@@ -2082,7 +2184,9 @@ export default function PostComponent({ post, setRefresh }) {
                             <>
                               <div
                                 className="userreaction"
-                                onClick={() => handleLikePost(post.post)}
+                                onClick={() =>
+                                  handleLikePost(post.post, "like")
+                                }
                               >
                                 <span
                                   className="noreaction"
@@ -2269,11 +2373,11 @@ export default function PostComponent({ post, setRefresh }) {
                     {checkIfLiked(post) ? (
                       <div
                         className="btncmn"
-                        onClick={() => handleLikePost(post)}
+                        onClick={() => handleLikePost(post, "like")}
                       >
                         <span className="like" data-toggle="tooltip" title="">
                           {handleReaction()}
-                          Star
+                          {emoji}
                           {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
                       </div>
@@ -2281,7 +2385,7 @@ export default function PostComponent({ post, setRefresh }) {
                       <>
                         <div
                           className="btncmn"
-                          onClick={() => handleLikePost(post)}
+                          onClick={() => handleLikePost(post, "like")}
                         >
                           <span
                             className="dislike"
@@ -2368,8 +2472,12 @@ export default function PostComponent({ post, setRefresh }) {
         ) : (
           <EditPostComponent post={post} set={handleEditingSave} />
         )}
-      
-          <PostComponentBoxComponent post={post} setRefresh={setRefresh} showComment={showComment}/>
+
+        <PostComponentBoxComponent
+          post={post}
+          setRefresh={setRefresh}
+          showComment={showComment}
+        />
       </div>
     </div>
   );
