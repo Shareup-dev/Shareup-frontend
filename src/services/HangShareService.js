@@ -57,8 +57,8 @@ class HangShareService {
         return result;
     }
 
-    deletePost = async (postid) => {
-        const result = await authAxios.delete(`posts/${postid}`)
+    deleteHangShare = async (uId, hsid) => {
+        const result = await authAxios.delete(`hangshare/${uId}/delete/${hsid}`)
         return result
     }
 

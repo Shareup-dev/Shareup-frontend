@@ -288,7 +288,6 @@ function DisplayComponent() {
   }
   const editClicked = async (e, story) => {
     e.preventDefault();
-    console.log(story);
     await setEditStory(story);
     await setShowModal(true);
   }

@@ -28,17 +28,18 @@ import { settings } from "nprogress";
 import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
+import ReactionsListComponent from "./ReactionsListComponent";
 
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh }) {
   const { user } = useContext(UserContext);
-
+  let psotid = post?.id;
   const [editPostId, setEditPostId] = useState(null);
   const [userR, setUserR] = useState([]);
   const [showComment, setShowComment] = useState(false);
   const [comments, setComments] = useState();
-
+  // const [postID, setPostID] = useState(post.id);
   const [showMoreOptions, setShowMoreOptions] = useState(false);
   const [showReactions, setShowReactions] = useState(false);
   const [showUserReactions, setShowUserReactions] = useState(false);
@@ -99,8 +100,8 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    if (post.liked === true) {
-      return true;
+    if (post?.likedType !== "false") {
+      return true ;
     }
     return false;
   };
@@ -134,29 +135,10 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleLikePost = async (post, reaction) => {
-    if (post.allPostsType === "swap") {
-      UserService.likeSwap(user?.id, post.id, reaction).then((res) => {
+      UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
         setRefresh(res.data);
       });
-    }
-
-    if (post.allPostsType === "hangShare") {
-      UserService.likeHangShare(user?.id, post.id, reaction).then((res) => {
-        setRefresh(res.data);
-      });
-    }
-
-    if (post.allPostsType === "post") {
-      UserService.likePost(user?.id, post.id, reaction).then((res) => {
-        setRefresh(res.data);
-      });
-    }
-
-    if (post.allPostsType === "share") {
-      UserService.likeShare(user?.id, post.id, reaction).then((res) => {
-        setRefresh(res.data);
-      });
-    }
+  
   };
 
   const handleSwapPost = async (post_id) => {
@@ -173,16 +155,34 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleDeletePost = (post) => {
-    PostService.deletePost(post.id).then((res) => {
-      setRefresh(res.data);
-    });
+    
+
+    if (post.allPostsType === "swap") {
+      PostService.deletePost(post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
+    if (post.allPostsType === "post") {
+      PostService.deletePost(post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
+    if (post.allPostsType === "hangShare") {
+      HangShareService.deleteHangShare(user.id,post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
+    if (post.allPostsType === "share") {
+      HangShareService.deleteHangShare(user.id,post.id).then((res) => {
+        setRefresh(res.data);
+      });
+    }
+
   };
 
-  const handleDeleteSwap = (post) => {
-    SwapService.deleteSwap(post.id).then((res) => {
-      setRefresh(res.data);
-    });
-  };
   const getLocation = () => {
     if (!navigator.geolocation) {
       setStatus("Geolocation is not supported by your browser");
@@ -245,13 +245,15 @@ export default function PostComponent({ post, setRefresh }) {
       });
     }
   };
-  const [emoji, setEmoji] = useState("laughing");
+  const [emoji, setEmoji] = useState();
+        //  setEmoji(post?.likedType)
+
   const handleReaction = () => {
     return (
       <>
         {(() => {
-          switch (emoji) {
-            case "Star":
+          switch (post?.likedType) {
+            case "star":
               return (
                 <i
                   className="fas fa-star"
@@ -260,8 +262,7 @@ export default function PostComponent({ post, setRefresh }) {
                     color: "#d83535",
                     paddingRight: "5px",
                   }}
-                >
-                </i>
+                ></i>
               );
             case "smiley":
               return (
@@ -271,10 +272,10 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                😊 
+                  😊
                 </i>
               );
-            case "cool":
+            case "wow":
               return (
                 <i
                   style={{
@@ -282,10 +283,10 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                😎
+                  😮
                 </i>
               );
-            case "laughing":
+            case "laugh":
               return (
                 <i
                   style={{
@@ -293,10 +294,10 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-               😆
+                  😂
                 </i>
               );
-            case "tongue":
+            case "cry":
               return (
                 <i
                   style={{
@@ -304,10 +305,10 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                  😝
+                  😭
                 </i>
               );
-            case "angel":
+            case "love":
               return (
                 <i
                   style={{
@@ -315,10 +316,10 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                 😇
+                  😍
                 </i>
               );
-            case "devil":
+            case "celebrate":
               return (
                 <i
                   style={{
@@ -326,7 +327,7 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                  😈
+                  🥳
                 </i>
               );
             case "angry":
@@ -337,7 +338,7 @@ export default function PostComponent({ post, setRefresh }) {
                     paddingRight: "5px",
                   }}
                 >
-                 😡
+                  😡
                 </i>
               );
             default:
@@ -349,8 +350,7 @@ export default function PostComponent({ post, setRefresh }) {
                     color: "#d83535",
                     paddingRight: "5px",
                   }}
-                >
-                </i>
+                ></i>
               );
           }
         })()}
@@ -358,21 +358,213 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
+
   const handlePostReactions = () => {
     return (
       <>
-      <i
-        className="fas fa-star"
-        style={{ fontSize: "12px", color: "#d83535" }}
-      ></i>
-                       <i
+       
+           {post.countOfEachReaction.star  > 0 ? (
+            <i
+          className="fas fa-star"
+          style={{ fontSize: "12px", color: "#d83535" }}
+        ></i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.smiley  > 0 ? (
+                    <i
                   style={{
-                    fontSize: "13px",
-                    paddingRight: "5px",
+                    fontSize: "12px",
+                    paddingRight: "1px",
                   }}
                 >
-               😆
+                  😊
                 </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.wow  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  😮
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.laugh  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  😂
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                
+                  {post.countOfEachReaction.cry  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  😭
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.love  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  😍
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.celebrate  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  🥳
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.countOfEachReaction.angry  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "1px",
+                  }}
+                >
+                  😡
+                </i>
+                  ) : (
+                    <></>
+                  )}
+
+
+
+
+      </>
+    );
+  };
+
+  const handleSharedPostReactions = () => {
+    return (
+      <>
+       
+           {post.post.countOfEachReaction.star  > 0 ? (
+            <i
+          className="fas fa-star"
+          style={{ fontSize: "12px", color: "#d83535" }}
+        ></i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.smiley  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😊
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.wow  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😮
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.laugh  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😂
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                
+                  {post.post.countOfEachReaction.cry  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😭
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.love  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😍
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.celebrate  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  🥳
+                </i>
+                  ) : (
+                    <></>
+                  )}
+                  {post.post.countOfEachReaction.angry  > 0 ? (
+                    <i
+                  style={{
+                    fontSize: "12px",
+                    paddingRight: "0px",
+                  }}
+                >
+                  😡
+                </i>
+                  ) : (
+                    <></>
+                  )}
+
+
+
+
       </>
     );
   };
@@ -1420,10 +1612,11 @@ export default function PostComponent({ post, setRefresh }) {
                                 </div>
                                 <div style={{ minHeight: "150px" }}>
                                   <span className="textPop">
-                                    <div class="input-group mb-3"
-                                                                              style={{
+                                    <div
+                                      class="input-group mb-3"
+                                      style={{
                                         margin: "11px 0px 11px",
-                                        }}
+                                      }}
                                     >
                                       <div class="input-group-prepend">
                                         <span
@@ -1446,23 +1639,25 @@ export default function PostComponent({ post, setRefresh }) {
                                         onClick={getLocation}
                                         style={{
                                           textAlign: "center",
-                                        background: "#033347",
-                                        fontWeight: "bold",
-                                        color: "white",
-                                        margin: "11px 0px 11px",
-                                        padding: "15px",
-                                        borderRadius: "5px",
-                                        fontSize: "14px",
-                                        cursor: "pointer",
+                                          background: "#033347",
+                                          fontWeight: "bold",
+                                          color: "white",
+                                          margin: "11px 0px 11px",
+                                          padding: "15px",
+                                          borderRadius: "5px",
+                                          fontSize: "14px",
+                                          cursor: "pointer",
                                         }}
                                       >
                                         {"Get Location"}
                                       </div>
                                       <p
-                                      style={{
-                                        margin: "11px 0px 11px",
+                                        style={{
+                                          margin: "11px 0px 11px",
                                         }}
-                                      >Coordinates</p>
+                                      >
+                                        Coordinates
+                                      </p>
                                       <p>{status}</p>
                                       {lat && <p>Latitude: {lat}</p>}
                                       {lng && <p>Longitude: {lng}</p>}
@@ -2103,10 +2298,11 @@ export default function PostComponent({ post, setRefresh }) {
                                     </div>
                                     <div style={{ minHeight: "150px" }}>
                                       <span className="textPop">
-                                        <div class="input-group mb-3"
-                                                                                  style={{
-                                                                                    margin: "11px 0px 11px",
-                                        }}
+                                        <div
+                                          class="input-group mb-3"
+                                          style={{
+                                            margin: "11px 0px 11px",
+                                          }}
                                         >
                                           <div class="input-group-prepend">
                                             <span
@@ -2129,23 +2325,25 @@ export default function PostComponent({ post, setRefresh }) {
                                             onClick={getLocation}
                                             style={{
                                               textAlign: "center",
-                                        background: "#033347",
-                                        fontWeight: "bold",
-                                        color: "white",
-                                        margin: "11px 0px 11px",
-                                        padding: "15px",
-                                        borderRadius: "5px",
-                                        fontSize: "14px",
-                                        cursor: "pointer",
+                                              background: "#033347",
+                                              fontWeight: "bold",
+                                              color: "white",
+                                              margin: "11px 0px 11px",
+                                              padding: "15px",
+                                              borderRadius: "5px",
+                                              fontSize: "14px",
+                                              cursor: "pointer",
                                             }}
                                           >
                                             {"Get Location"}
                                           </div>
                                           <p
-                                          style={{
-                                            margin: "11px 0px 11px",
-                                        }}
-                                          >Coordinates</p>
+                                            style={{
+                                              margin: "11px 0px 11px",
+                                            }}
+                                          >
+                                            Coordinates
+                                          </p>
                                           <p>{status}</p>
                                           {lat && <p>Latitude: {lat}</p>}
                                           {lng && <p>Longitude: {lng}</p>}
@@ -2191,7 +2389,7 @@ export default function PostComponent({ post, setRefresh }) {
                                 data-toggle="tooltip"
                                 title=""
                               >
-                                {handlePostReactions()}
+                                {handleSharedPostReactions()}
                                 <span> {post.post.numberOfReaction}</span>
 
                                 {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
@@ -2202,7 +2400,7 @@ export default function PostComponent({ post, setRefresh }) {
                               <div
                                 className="userreaction"
                                 onClick={() =>
-                                  handleLikePost(post.post, "like")
+                                  handleLikePost(post.post, "star")
                                 }
                               >
                                 <span
@@ -2221,10 +2419,7 @@ export default function PostComponent({ post, setRefresh }) {
                               </div>
                             </>
                           )}
-                          <span style={{ paddingLeft: "5px" }}>
-                            {post.post.reactions &&
-                              post.post.reactions.length + " "}
-                          </span>
+                          
                         </li>
 
                         <li
@@ -2273,18 +2468,53 @@ export default function PostComponent({ post, setRefresh }) {
                 <ul>
                   <li style={{ float: "left", color: "black" }}>
                     {post.numberOfReaction > 0 ? (
-                      <div className="userreaction">
-                        <span
-                          className="isreaction"
-                          data-toggle="tooltip"
-                          title=""
-                        >
-                          {handlePostReactions()}
-                          <span> {post.numberOfReaction}</span>
-
-                          {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
-                        </span>
-                      </div>
+                      <>
+                        <div className="userreaction">
+                          <span
+                            className="isreaction"
+                            data-toggle="tooltip"
+                            title=""
+                          >
+                            <Popup
+                              style={{ padding: "0px" }}
+                              trigger={
+                                <span>
+                                  {handlePostReactions()}{" "}
+                                  {post.numberOfReaction}
+                                </span>
+                              }
+                              modal
+                            >
+                              {(close) => (
+                                <Form
+                                  onSubmit={() => {
+                                    close();
+                                  }}
+                                >
+                                  <div>
+                                    <div className="row">
+                                      <div style={{ width: "5%" }}>
+                                        <a href="#!" onClick={close}>
+                                          <i
+                                            style={{
+                                              color: "#000",
+                                              padding: "10px",
+                                              fontSize: "30px",
+                                            }}
+                                            className="las la-times"
+                                          ></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <ReactionsListComponent postID={post?.id} />
+                                </Form>
+                              )}
+                            </Popup>
+                          </span>
+                        </div>
+                      
+                      </>
                     ) : (
                       <>
                         <div className="userreaction">
@@ -2298,7 +2528,6 @@ export default function PostComponent({ post, setRefresh }) {
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i className="far fa-star">
-                              {post.numberOfReaction}
                             </i>
 
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
@@ -2306,9 +2535,7 @@ export default function PostComponent({ post, setRefresh }) {
                         </div>
                       </>
                     )}
-                    <span style={{ paddingLeft: "5px" }}>
-                      {post.reactions && post.reactions.length + " "}
-                    </span>
+                   
                   </li>
 
                   <li
@@ -2355,28 +2582,28 @@ export default function PostComponent({ post, setRefresh }) {
                     onClick={() => handleSettingReactions("smiley")}
                   />
                   <img
-                    src={"../assets/images/gif/cool.gif"}
-                    onClick={() => handleSettingReactions("cool")}
+                    src={"../assets/images/gif/wow.gif"}
+                    onClick={() => handleSettingReactions("wow")}
                   />
                   <img
                     src={"../assets/images/gif/laughing.gif"}
-                    onClick={() => handleSettingReactions("laughing")}
+                    onClick={() => handleSettingReactions("laugh")}
                   />
                   <img
-                    src={"../assets/images/gif/tongue.gif"}
-                    onClick={() => handleSettingReactions("tongue")}
+                    src={"../assets/images/gif/crying.gif"}
+                    onClick={() => handleSettingReactions("cry")}
                   />
                   <img
-                    src={"../assets/images/gif/angel.gif"}
-                    onClick={() => handleSettingReactions("angel")}
-                  />
-                  <img
-                    src={"../assets/images/gif/devil.gif"}
-                    onClick={() => handleSettingReactions("devil")}
+                    src={"../assets/images/gif/love.gif"}
+                    onClick={() => handleSettingReactions("love")}
                   />
                   <img
                     src={"../assets/images/gif/angry.gif"}
                     onClick={() => handleSettingReactions("angry")}
+                  />
+                  <img
+                    src={"../assets/images/gif/celebrate.gif"}
+                    onClick={() => handleSettingReactions("celebrate")}
                   />
                 </div>
               )}
@@ -2390,11 +2617,11 @@ export default function PostComponent({ post, setRefresh }) {
                     {checkIfLiked(post) ? (
                       <div
                         className="btncmn"
-                        onClick={() => handleLikePost(post, "like")}
+                        onClick={() => handleLikePost(post, "star")}
                       >
                         <span className="like" data-toggle="tooltip" title="">
                           {handleReaction()}
-                          {emoji}
+                          {post.likedType}
                           {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
                       </div>
@@ -2402,7 +2629,7 @@ export default function PostComponent({ post, setRefresh }) {
                       <>
                         <div
                           className="btncmn"
-                          onClick={() => handleLikePost(post, "like")}
+                          onClick={() => handleLikePost(post, "star")}
                         >
                           <span
                             className="dislike"

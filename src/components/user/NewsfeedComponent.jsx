@@ -305,7 +305,6 @@ function NewsfeedComponent() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
   }, [posts]);
 
   const getSavedPost = async () => {
@@ -503,7 +502,6 @@ function NewsfeedComponent() {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log(refresh);
         });
       } else
         PostService.createPost(user.id, formData, userF.id).then((res) => {
@@ -540,7 +538,6 @@ function NewsfeedComponent() {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log(refresh);
         });
       } else
         HangShareService.createHangShare(user.id, formData, userF.id).then(
@@ -767,7 +764,6 @@ function NewsfeedComponent() {
         handleRemoveImageSwap();
         setRefresh(res.data);
         // window.location.reload();
-        console.log(refresh);
       });
     } else
       await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
@@ -2532,7 +2528,6 @@ function NewsfeedComponent() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
   }, [postsForUser]);
 
   const show = () => {
@@ -2859,18 +2854,15 @@ function NewsfeedComponent() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     getAllUser();
     getFriendsList();
     testScript();
   }, []);
   useEffect(() => {
-    window.scrollTo(0, 0);
     getAllGroups();
   }, [showComp, group]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     getUser();
     getPost().then(() => {
       setIsLoading(false);
@@ -2882,7 +2874,6 @@ function NewsfeedComponent() {
   }, [editPostId, refresh]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     getPostForUser();
     getReelForUserFriends();
     getSavedPost();
@@ -2897,7 +2888,6 @@ function NewsfeedComponent() {
   }, [FriendsReels]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     getStoriesForUser();
     getReelForUserFriends();
     testScript();
