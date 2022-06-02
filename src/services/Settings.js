@@ -16,7 +16,7 @@ const settings = {
     apiUrl: "http://192.168.100.244:8080",
   },
   aws: {
-    apiUrl: "https://cors-everywhere.herokuapp.com/http://shareup-env.eba-em9v8zqj.us-east-1.elasticbeanstalk.com/",
+    apiUrl: "https://api.shareup.qa",
   },
 };
 
