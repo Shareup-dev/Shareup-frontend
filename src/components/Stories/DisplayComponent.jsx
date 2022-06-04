@@ -75,8 +75,9 @@ function DisplayComponent() {
     StoriesService.updateStories(story.id, formData).then((res) => {
       handleRemoveImageStry();
       handleCloseModal();
-      setStories(res.data);
-      setRefresh(res.data);
+      // setStories(res.data);
+      getStoriesForUser()
+      // setRefresh(res.data);
     });
   };
   const handleFileStry = (event) => {

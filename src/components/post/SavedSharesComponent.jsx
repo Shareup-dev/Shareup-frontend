@@ -764,7 +764,7 @@ const handleRemoveImageSwap = () => {
           <div className="central-meta swap-pg-cont">
           <div className="frnds">
 					<div style={{paddingBottom:'20px'}}>
-						<p className="Friends-Title">Saved Shares</p>
+						<p className="Friends-Title common-title">Saved Shares</p>
 						<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 					</div>
 						<div className="navContent">

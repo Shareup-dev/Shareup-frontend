@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
+import CommentsService from '../../services/CommentsService';
+
 import ReplyCommentComponent from './ReplyCommentComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
@@ -92,7 +94,7 @@ export default function CommentPostComponent(props) {
   //   })
   // }
   const getReplies = async (commentId) => {
-    await PostService.getReplies(user.id,commentId).then((res) => {
+    await CommentsService.getReplies(user.id,commentId).then((res) => {
       setReplies(res.data)
       
     })

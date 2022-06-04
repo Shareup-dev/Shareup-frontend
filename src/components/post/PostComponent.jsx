@@ -470,9 +470,9 @@ export default function PostComponent({ post, setRefresh }) {
        
            {post.post.countOfEachReaction.star  > 0 ? (
             <i
-          className="fas fa-star"
-          style={{ fontSize: "12px", color: "#d83535" }}
-        ></i>
+              className="fas fa-star"
+              style={{ fontSize: "12px", color: "#d83535" }}
+            ></i>
                   ) : (
                     <></>
                   )}

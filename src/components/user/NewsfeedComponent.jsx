@@ -173,6 +173,7 @@ function NewsfeedComponent() {
       StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
         setStories(res.data);
+        setStoryContent("");
         setRefresh(res.data);
       });
     }
@@ -2526,7 +2527,13 @@ function NewsfeedComponent() {
       </Popup>
     );
   };
+  const likeReel = async(reelId) => {
+    let params = {}
+    await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
+      getReelForUserFriends()
 
+    })
+  }
   useEffect(() => {
   }, [postsForUser]);
 
@@ -2547,14 +2554,14 @@ function NewsfeedComponent() {
                     user={user}
                     userF={userF}
                   />
-                  {index == 4 ? (
+                  {index == 3 ? (
                     <div className="central-meta newsfeed reels-cont">
                       <div className="common-title">REELS</div>
                       <div className="new-postbox">
                         <div className="slide-wrapperstry">
                           <ul className="slidestry">
                             {rellsForUserFriends
-                              .slice(-5)
+                              .slice(-4)
                               .map((reel, index) => (
                                 <Popup
                                   style={{ padding: "0px" }}
@@ -2593,6 +2600,7 @@ function NewsfeedComponent() {
                                       <DisplayFriendsReelsComponent
                                         key={reel.id}
                                         id={index}
+                                        likeReel={likeReel}
                                         reel={reel}
                                         setRefresh={setRefresh}
                                         index={index}
@@ -2611,7 +2619,7 @@ function NewsfeedComponent() {
             ) : (
               <>
                 <PostComponent post={post} setRefresh={setRefresh} />
-                {index == 4 ? (
+                {index == 3 ? (
                   <div className="central-meta newsfeed reels-cont">
                     <div className="common-title">REELS</div>
                     <div className="new-postbox">
@@ -2620,7 +2628,7 @@ function NewsfeedComponent() {
                         rellsForUserFriends.length > 0 ? (
                           <ul className="slidestry">
                             {rellsForUserFriends
-                              .slice(0, 5)
+                              .slice(0, 4)
                               .map((reel, index) => (
                                 <Popup
                                   style={{ padding: "0px" }}
@@ -2656,6 +2664,7 @@ function NewsfeedComponent() {
                                         key={reel.id}
                                         id={index}
                                         reel={reel}
+                                        likeReel={likeReel}
                                         setRefresh={setRefresh}
                                         index={index}
                                       />
@@ -2769,6 +2778,8 @@ function NewsfeedComponent() {
                               {/* </> 
                                                     
                                   )}  */}
+                                  <button  class="popsbmt-btn" type="submit"
+                              onClick={uploadReels}>SHARE REEL</button>
                             </Form>
                           )}
                         </Popup>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import UserContext from '../../contexts/UserContext';
-// import PostService from '../../services/PostService';
+import PostService from '../../services/PostService';
+// import ReelsService from '../../services/ReelsService';
 import CommentsService from '../../services/CommentsService';
-
 import Form from 'react-bootstrap/Form';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
@@ -13,7 +13,7 @@ import Stickers from "../Stickers";
 import $ from 'jquery'
 import moment from 'moment';
 
-export default function ReplyCommentComponent(props) {
+export default function ReelReplyCommentComponent(props) {
     const { user } = useContext(UserContext)
     const ref = useRef(null);
     const [replyContent, setReplyContent] = useState("");
@@ -48,6 +48,7 @@ export default function ReplyCommentComponent(props) {
   
   
  const handleReplyContent = (event) => {
+    // console.log(event.target.value)
     setReplyContent(event.target.value)
   }
 
@@ -56,12 +57,11 @@ export default function ReplyCommentComponent(props) {
       return null;
     }else{
         const replyCon = { content: replyContent }
-        const formData = new FormData();
-      formData.append("content", replyContent);
         if(editReplyId){
           CommentsService.editReplyForComment(editReplyId,replyCon).then(res=>{
               setEditReplyFlag(false)
               getReplies(props.comment.id)
+              console.log(res.status)
               setReplyContent("")
             })
         }else{
@@ -76,6 +76,7 @@ export default function ReplyCommentComponent(props) {
     }
     
     // await PostService.replyComment(user.id, comment.id, reply).then(res => {
+    //   console.log(res.status)
      
     //   setReplyCommentFlag(false)
     //   setreplyContent("")
@@ -84,6 +85,7 @@ export default function ReplyCommentComponent(props) {
   }
 //   const getReplies = (commentId)=>{
 //     PostService.getReplies(commentId).then((res)=>{
+//         console.log(res.data)
 //         setReplies(res.data)
 //     })
 //   }
@@ -104,14 +106,17 @@ export default function ReplyCommentComponent(props) {
     const getReplies = async (commentId) => {
         await CommentsService.getReplies(user.id,commentId).then((res) => {
             setReplies(res.data)
+        // console.log(res.data.reactions)
         
         })
    }
    const checkEditReply = (e)=>{
+        console.log(e)
         setEditReplyFlag(e)
    }
     const editReply = async (e,reply)=>{
         await e.preventDefault();
+        console.log(reply.id)
         await setEditReplyId(reply.id)
         // if(editReplyId===reply.id){
             await setEditReplyFlag(true)
@@ -139,10 +144,12 @@ export default function ReplyCommentComponent(props) {
     useEffect (()=>{
         setShowReplyInput(props.showReplyInput)
         setReplyListFlag(props.replyListFlag)
+        console.log(showReplyInput,'input',replyListFlag,'list')
     },[props.replyListFlag,props.showReplyInput])
     useEffect(() => {
         getReplies(props.comment.id)
        
+    //   console.log(comment,'comment')
     //   getReplies(comment.id)
     }, [props]);
 
@@ -271,7 +278,7 @@ export default function ReplyCommentComponent(props) {
                                     {/* <span className="caret"></span> */}
                                     </button>
                                     <ul className="dropdown-menu">
-                                    <li ><a href={""} onClick={(e)=>editReply(e,reply)}>Edit Reply</a></li>
+                                    <li ><a href={""} onClick={(e)=>editReply(e,reply)}>Edit </a></li>
                                     </ul>
                                 </div>
                                 }
@@ -292,3 +299,4 @@ export default function ReplyCommentComponent(props) {
 
 
 
+const handle = () => console.log('Enter pressed');

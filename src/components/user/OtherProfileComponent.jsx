@@ -372,8 +372,8 @@ function OtherProfileComponent() {
       setSearchedUser(temp);
     }
   };
-    useEffect(() => {
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
     currentUserGet();
     getFriendStatus();
     getFriendCount();
@@ -389,8 +389,8 @@ function OtherProfileComponent() {
     getStoriesForUser();
   }, [show, friendStatus, refresh]);
 
-    useEffect(() => {
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
     getFriendStatus();
     getFriendCount();
     getPostForUser();
@@ -592,6 +592,13 @@ function OtherProfileComponent() {
       setUserProfile(res.data);
     });
   };
+  const likeReel = async (reelId) => {
+    let params = {}
+    await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
+      getReelsForUser()
+
+    })
+  }
   const MyPhotosComponentFunction = () => {
     return (
       <>
@@ -679,6 +686,7 @@ function OtherProfileComponent() {
                       key={reel.id}
                       id={index}
                       reel={reel}
+                      likeReel={likeReel}
                       setRefresh={setRefresh}
                       index={index}
                     />
@@ -963,7 +971,7 @@ function OtherProfileComponent() {
                           <span>Following</span>
                         </li>
                       </ul>
-                      {userProfile?.aboutme !==   null && undefined ? (
+                      {userProfile?.aboutme !== null && undefined ? (
                         <span>{`${userProfile?.aboutme}`}</span>
                       ) : ""
                       }
