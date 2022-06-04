@@ -141,6 +141,7 @@ export default function ReelWidgetComponent(props) {
                             </li>
                           }
                           modal
+                          className='reel-popup'
                         >
                           {(close) => (
                             <Form>
@@ -196,45 +197,35 @@ export default function ReelWidgetComponent(props) {
                     {(close) => (
                       <Form className="popwidth">
                         <div className="headpop">
-                          <div style={{ padding: "10px" }}>
                             <span>
-                              <a
+                            <a
                                 href="#!"
-                                style={{
-                                  padding: "10px 150px 10px 0",
-                                }}
                                 onClick={close}
-                              >
+                            >
                                 <i className="las la-times"></i>
-                              </a>
+                            </a>
                             </span>
                             <span
-                              style={{
-                                color: "#000000",
-                                fontSize: "14px",
-                                fontWeight: "bold",
-                              }}
+                            className="poptitle"
                             >
-                              Lets Add Reel Video
+                            Lets Add Reels
                             </span>
 
                             {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
                             <span style={{ float: "right" }}>
-                              {" "}
-                              <button
+                            {" "}
+                            <button
                                 style={{
-                                  float: "right",
-                                  borderRadius: "20px",
-                                  padding: "5px 20px",
+                                float: "right",
+                                borderRadius: "20px",
+                                padding: "5px 20px",
                                 }}
                                 type="submit"
                                 onClick={uploadReels}
-                              >
+                            >
                                 Upload
-                              </button>
+                            </button>
                             </span>
-                            {/* :null}  */}
-                          </div>
                         </div>
 
                         <div
@@ -301,6 +292,7 @@ export default function ReelWidgetComponent(props) {
                         {/* </> 
                                     
                   )}  */}
+                  <button  class="popsbmt-btn" type="submit" onClick={uploadReels}>SHARE REEL</button>
                       </Form>
                     )}
                   </Popup>

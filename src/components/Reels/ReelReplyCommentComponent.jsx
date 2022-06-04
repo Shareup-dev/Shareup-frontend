@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import UserContext from '../../contexts/UserContext';
-// import PostService from '../../services/PostService';
+import PostService from '../../services/PostService';
+// import ReelsService from '../../services/ReelsService';
 import CommentsService from '../../services/CommentsService';
-
 import Form from 'react-bootstrap/Form';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
@@ -13,7 +13,7 @@ import Stickers from "../Stickers";
 import $ from 'jquery'
 import moment from 'moment';
 
-export default function ReplyCommentComponent(props) {
+export default function ReelReplyCommentComponent(props) {
     const { user } = useContext(UserContext)
     const ref = useRef(null);
     const [replyContent, setReplyContent] = useState("");

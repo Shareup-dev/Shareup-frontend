@@ -88,8 +88,7 @@ function NewsfeedComponent() {
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
-  const [showStoryButton, setShowStoryButton] = useState(true);
-  const [showStoryButtonVdo, setShowStoryButtonVdo] = useState(false);
+
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState([]);
@@ -171,6 +170,7 @@ function NewsfeedComponent() {
       StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
         setStories(res.data);
+        setStoryContent("");
         setRefresh(res.data);
       });
     }
@@ -2548,14 +2548,14 @@ function NewsfeedComponent() {
                     user={user}
                     userF={userF}
                   />
-                  {index == 4 ? (
+                  {index == 3 ? (
                     <div className="central-meta newsfeed reels-cont">
                       <div className="common-title">REELS</div>
                       <div className="new-postbox">
                         <div className="slide-wrapperstry">
                           <ul className="slidestry">
                             {rellsForUserFriends
-                              .slice(-5)
+                              .slice(-4)
                               .map((reel, index) => (
                                 <Popup
                                   style={{ padding: "0px" }}
@@ -2612,7 +2612,7 @@ function NewsfeedComponent() {
             ) : (
               <>
                 <PostComponent post={post} setRefresh={setRefresh} />
-                {index == 4 ? (
+                {index == 3 ? (
                   <div className="central-meta newsfeed reels-cont">
                     <div className="common-title">REELS</div>
                     <div className="new-postbox">
@@ -2621,7 +2621,7 @@ function NewsfeedComponent() {
                           rellsForUserFriends.length > 0 ? (
                           <ul className="slidestry">
                             {rellsForUserFriends
-                              .slice(0, 5)
+                              .slice(0, 4)
                               .map((reel, index) => (
                                 <Popup
                                   style={{ padding: "0px" }}
@@ -2770,6 +2770,8 @@ function NewsfeedComponent() {
                               {/* </> 
                                                     
                                   )}  */}
+                                  <button  class="popsbmt-btn" type="submit"
+                              onClick={uploadReels}>SHARE REEL</button>
                             </Form>
                           )}
                         </Popup>
@@ -2972,50 +2974,20 @@ function NewsfeedComponent() {
                                 </button>
                               </>
                             ) : (
-
-<>
-{
-showStoryButtonVdo ? (
-    <div style={{ textAlign: "center" }}>
-    <button
-    onClick={() =>{setShowStoryButtonVdo(false)
-    setShowStoryButton(true)}}
-    >Add Image</button>
-      <label className="fileContainer">
-        <div className="reelvideo" type="submit">
-          <input
-            type="file"
-            name="reel_video"
-            accept="video/*"
-            onChange={handleFileStry}
-          ></input>
-          Add Video Story
-        </div>
-      </label>
-    </div>
-):null}
-{
-showStoryButton ? (
-  <div style={{ textAlign: "center" }}>
-<button
-    onClick={() =>{setShowStoryButtonVdo(true)
-    setShowStoryButton(false)}}
-    >Add Video</button>
-  <label className="fileContainer">
-    <div className="storypic" type="submit">
-      <input
-        type="file"
-        name="swap_image"
-        accept="image/*"
-        onChange={handleFileStry}
-      ></input>
-      Add Image Story
-    </div>
-  </label>
-</div>
-):null}
-</>
-)}
+                              <div style={{ textAlign: "center" }}>
+                                <label className="fileContainer">
+                                  <div className="storypic" type="submit">
+                                    <input
+                                      type="file"
+                                      name="swap_image"
+                                      accept="image/*"
+                                      onChange={handleFileStry}
+                                    ></input>
+                                    Add Story
+                                  </div>
+                                </label>
+                              </div>
+                            )}
                             <textarea
                               className="textpopup"
                               rows={2}

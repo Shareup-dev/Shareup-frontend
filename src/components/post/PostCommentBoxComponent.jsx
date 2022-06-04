@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
+import CommentsService from '../../services/CommentsService';
+
 import Form from 'react-bootstrap/Form';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
@@ -81,7 +83,7 @@ export default function PostComponentBoxComponent(props) {
       comment.content = commentContent;
       // console.log(typeof(comment.content),'gggg')
       if (props.editComment) {
-        PostService.editCommentForPosts(props.editComment.id, comment).then(res => {
+        CommentsService.editCommentForPosts(props.editComment.id, comment).then(res => {
           console.log(res.data)
           props.checkEditComment(false)
           // props.setRefresh(res.data)
@@ -99,7 +101,7 @@ export default function PostComponentBoxComponent(props) {
     }
   }
   const handleDeleteComment = async (comment,post) => {
-    await PostService.deleteComment(comment.id).then((res) => {
+    await CommentsService.deleteComment(comment.id).then((res) => {
       sortComment(post.id)
    
 
@@ -109,7 +111,7 @@ export default function PostComponentBoxComponent(props) {
   }
   const likeComment = async (comment) => {
 
-    await PostService.LikeComment(user.id, comment.id, {}).then((res) => {
+    await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
       sortComment()
       // getReplies(res.data)
       // checkIfLiked(comment)

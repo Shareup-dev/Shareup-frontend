@@ -200,10 +200,10 @@ function AddFriendsComponent() {
 														friendRequestRecieved.some(el => el.id === userM.id)
 															?
 															<>
-																<a href="#!" title="#" className="add-butn more-action" style={{ color: "white", background: '#EAEAEA', fontSize: '12px' }} data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept Request</a>
+																<a href="#!" title="#" className="button common-trans-btn1" data-ripple onClick={() => acceptFriendRequest(user.id, userM.id)}>Accept</a>
 
+																<a  href="#" className="button add-butn more-action common-theme-btn1" onClick={() => declineFriendRequest(user.id, userM.id)}>Decline</a>
 																{/* <div className="item3">
-                                                            <p><a style={{ display: "block", float: "right", color: "#fff",background:'#033347',fontSize:'12px' }} href="#" onClick={() => declineFriendRequest(user.id, userM.id)}>Decline Friend Request</a></p>
                                                             <br></br>
                                                             <br></br>
                                                         </div>  */}
@@ -538,7 +538,7 @@ function AddFriendsComponent() {
 					<div className="frnds">
 						{/* <ul className="nav nav-tabs"> */}
 						<div>
-							<p className="Friends-Title">Add Friends</p>
+							<p className="Friends-Title common-title">Add Friends</p>
 							<i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
 						</div>
 
