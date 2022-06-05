@@ -82,7 +82,8 @@ sock.onopen = function() {
 }
 stompClient.connect({}, function (frame) {
    console.log('Connected: ' + frame);
-   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', onPrivateNotification);
+   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification',
+ onPrivateNotification);
 });
 //    let endpoint ='https://api.shareup.qa/ws'
  //  let Sock = new SockJS(endpoint);
@@ -294,11 +295,10 @@ const onError = (err) => {
                   <div className="dropdowns" >
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
-                      <li>hjhkjkjk</li>
                     {dbNotifications && dbNotifications.map(item => {
                       
                       return ( 
-                        <>
+                      
                       <li key={item.toString()} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
                       <a >
                       <img src={item.userdata.profilePicturePath} alt="" />
@@ -313,7 +313,7 @@ const onError = (err) => {
                     </a>
                     {item.read_flag?(""):(<span className="tag green">unread</span>)}
                     
-                    </li></>)
+                    </li>)
                    
                     }
  ) }
