@@ -82,10 +82,7 @@ sock.onopen = function() {
 }
 stompClient.connect({}, function (frame) {
    console.log('Connected: ' + frame);
-   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', function (greeting) {
-     console.log(greeting);
-     onPrivateNotification();
-   });
+   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', onPrivateNotification);
 });
 //    let endpoint ='https://api.shareup.qa/ws'
  //  let Sock = new SockJS(endpoint);
