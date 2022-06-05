@@ -11,24 +11,25 @@ import fileStorage from "../../config/fileStorage";
 import {useSelector} from "react-redux"
 import moment from 'moment';
 import {over} from 'stompjs';
-import SockJS from 'sockjs-client';
 import {notification} from "antd";
 import "antd/dist/antd.css";
 import {store} from "../../app/store";
 import { setSearchTerm } from "../../app/searchSlice";
 import {toast} from 'react-toastify';
-
+import { Client } from '@stomp/stompjs';
 // Import toastify css file
 import 'react-toastify/dist/ReactToastify.css';
 import { grey } from '@mui/material/colors';
-var stompClient =null;
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+let stompClient =null;
  // toast-configuration method,
  // it is compulsory method.
 toast.configure();
 
 export const handleSendNotification =(to,content,userFirstName,userLastname,email) => {
-  console.log("inside handle send notification");
-  if (stompClient) {
+  console.log(stompClient);
+  
     var notificationVar = {
       from_email: email,
       to_email:to,
@@ -38,7 +39,7 @@ export const handleSendNotification =(to,content,userFirstName,userLastname,emai
     };
     
     stompClient.send("/app/private-notification", {}, JSON.stringify(notificationVar));
-  }
+  
  // handleDbnotification(to,content,email)
 };
 export const handleDbnotification = async (to_id,action,from_email)=>{
@@ -71,19 +72,32 @@ let notificaionflag = false;
   const [showUserSettings, setShowUserSettings] = useState(false);
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
-
+  
   
   const connect =()=>{
-    let endpoint ='https://api.shareup.qa/ws'
-   let Sock = new SockJS(endpoint);
-    var stompClient = over(Sock);
-   stompClient.connect({},onConnected, onError);
+    var sock = new SockJS('https://api.shareup.qa/ws');
+ stompClient = Stomp.over(sock);
+sock.onopen = function() {
+  console.log('open');
+}
+stompClient.connect({}, function (frame) {
+   console.log('Connected: ' + frame);
+   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', function (greeting) {
+     console.log(greeting);
+     onPrivateNotification();
+   });
+});
+//    let endpoint ='https://api.shareup.qa/ws'
+ //  let Sock = new SockJS(endpoint);
+  //  var stompClient = over(Sock);
+  // stompClient.connect({},onConnected, onError);
+  
 }
 
 const onConnected = () => {
-  if (stompClient) {
+
     stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', onPrivateNotification);
-  }
+  
 }
 
 const onError = (err) => {
