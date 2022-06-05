@@ -12,6 +12,7 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from 'jquery'
 import CommentPostComponent from "./CommentPostComponent";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 export default function PostComponentBoxComponent(props) {
 
@@ -107,6 +108,10 @@ export default function PostComponentBoxComponent(props) {
   const likeComment = async (comment) => {
 
     await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
+      console.log("like comment")
+      console.log(res.data) 
+      handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email)
+
       sortComment()
       // getReplies(res.data)
       // checkIfLiked(comment)

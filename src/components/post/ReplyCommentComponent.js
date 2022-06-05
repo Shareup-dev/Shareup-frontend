@@ -12,7 +12,7 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from 'jquery'
 import moment from 'moment';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function ReplyCommentComponent(props) {
     const { user } = useContext(UserContext)
     const ref = useRef(null);
@@ -90,7 +90,9 @@ export default function ReplyCommentComponent(props) {
     const likeReply = async (reply) => {
         let params = await {}
         await CommentsService.LikeReply(user.id, reply.id, params).then((res) => {
+            console.log("like reply")
             console.log(res.data)
+            handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email)
             getReplies(props.comment.id)
       })
    }
