@@ -64,8 +64,19 @@ class ReelsServices {
         return result;
     }
 
-
-    
+    likeReel = async (uid,rid,data) =>{
+        authenticate();
+        const result = await authAxios.put(`reels/${uid}/like-unlike/${rid}`,data)
+        return result;
+    }
+    getCommentsForReel = async (rid) =>{
+        const result = await authAxios.get(`get_reel_comments/${rid}`)
+        return result;
+    }
+    addCommentsForReel = async (uid,rid,data) =>{
+        const result = await authAxios.post(`comment_on_reel/${uid}/${rid}`,data)
+        return result;
+    }
 }
 
 export default new ReelsServices();

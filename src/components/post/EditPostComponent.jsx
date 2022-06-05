@@ -14,6 +14,7 @@ import Popup from "reactjs-popup";
 import LocSearchComponent from "../AccountSettings/LocSearchComponent";
 import moment from "moment";
 import SwapService from "../../services/SwapService";
+import HangShareService from "../../services/HangShareService";
 
 function EditPostComponent({ post, set }) {
   let history = useHistory();
@@ -23,7 +24,9 @@ function EditPostComponent({ post, set }) {
   const [editImage, setEditImage] = useState([]);
   const [showSwapImage, setShowSwapImage] = useState(true);
   const [swapfiles, setSwapfiles] = useState({});
-  const [swapImage, setSwapImage] = useState(`${fileStorage.baseUrl}${post.media[0].mediaPath}`);
+  const [swapImage, setSwapImage] = useState(
+    `${fileStorage.baseUrl}${post.media[0].mediaPath}`
+  );
   const [userF, setUserF] = useState(null);
   const [searchedUser, setSearchedUser] = useState([]);
   const [allUser, setAllUser] = useState([]);
@@ -47,25 +50,25 @@ function EditPostComponent({ post, set }) {
 
     reader.readAsDataURL(event.target.files[0]);
     setShowSwapImage(true);
-    };
+  };
 
-    // const handleFileSwap = (event) => {
-    //     setSwapfiles(event.target.files);
-    //     let filesAmount = event.target.files.length;
-    //     if (filesAmount < 6) {
-    //       let tempImage = [];
-    //       for (let i = 0; i < filesAmount; i++) {
-    //         //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
-    //         tempImage.push(URL.createObjectURL(event.target.files[i]));
-    //       }
-    
-    //       setSwapImage(tempImage);
-    //       setShowSwapImage(true);
-    //     } else {
-    //       alert('5 files are allowed');
-    //       event.preventDefault();
-    //     }
-    //   };
+  // const handleFileSwap = (event) => {
+  //     setSwapfiles(event.target.files);
+  //     let filesAmount = event.target.files.length;
+  //     if (filesAmount < 6) {
+  //       let tempImage = [];
+  //       for (let i = 0; i < filesAmount; i++) {
+  //         //tempImage=[...tempImage,URL.createObjectURL(event.target.files[i])]
+  //         tempImage.push(URL.createObjectURL(event.target.files[i]));
+  //       }
+
+  //       setSwapImage(tempImage);
+  //       setShowSwapImage(true);
+  //     } else {
+  //       alert('5 files are allowed');
+  //       event.preventDefault();
+  //     }
+  //   };
 
   const handleTag = (userM) => {
     setUserF(userM);
@@ -125,267 +128,273 @@ function EditPostComponent({ post, set }) {
     }
 
     const formData = new FormData();
-    formData.append('content', editContent);
+    formData.append("content", editContent);
     formData.append(`files`, swapfiles);
-    if (post.allPostsType === "swap"){
-        console.log("uploading swap")
-    await SwapService.updateSwap(post.id, formData).then((res) => {
-      set(`${res.data} saved`);
-      setEditContent("");
-      handleRemoveImageSwap();
-      window.location.reload(false);
-    })
-}else{
-    console.log("uploading post")
-    await PostService.updatePost(post.id, formData).then((res) => {
+
+    if (post.allPostsType === "swap") {
+      await SwapService.updateSwap(post.id, formData).then((res) => {
         set(`${res.data} saved`);
         setEditContent("");
         handleRemoveImageSwap();
-        window.location.reload(false);
-      })
-}
+      });
+    }
+
+    if (post.allPostsType === "post") {
+      await PostService.updatePost(post.id, formData).then((res) => {
+        set(`${res.data} saved`);
+        setEditContent("");
+        handleRemoveImageSwap();
+      });
+    }
+
+    if (post.allPostsType === "hangShare") {
+      await HangShareService.editHangShare(user.id ,post.id, formData).then((res) => {
+        set(`${res.data} saved`);
+        setEditContent("");
+        handleRemoveImageSwap();
+      });
+    }
   };
 
-  return ( 
+  return (
     <div className="friend-info">
-                <div
-              style={{
-                margin: "center",
-                padding: "2px",
-                borderRadius: "5px",
-              }}
-            >
-              <div className="font-weight-bold border-bottom" style={{ padding:"15px" ,textAlign:"center" }}>Edit Post
-              <button onClick={handleCancelEdit} className="buttonClosePrvw rtbtn" 
-              style={{ display: "flex", margin: "-32px -10px",fontSize:"12px" }}>
-              
-              <i className="las la-times"></i></button>
-              </div>
-              
-              <span className="border-bottom"></span>
-              </div>
-              <div style={{ display: "flex", marginTop: "10px" }}>
-                  <figure>
-                    <img
-                      src={fileStorage.baseUrl + post.userdata.profilePicturePath}
-                      alt=""
-                      className="post-user-img"
-                    />
-                  </figure>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    <a
-                      href={`/profile/${post.userdata.email}`}
-                      title="#"
-                      style={{
-                        textTransform: "capitalize",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {`${post.userdata.firstName} ${post.userdata.lastName}`}
+      <div
+        style={{
+          margin: "center",
+          padding: "2px",
+          borderRadius: "5px",
+        }}
+      >
+        <div
+          className="font-weight-bold border-bottom"
+          style={{ padding: "15px", textAlign: "center" }}
+        >
+          Edit Post
+          <button
+            onClick={handleCancelEdit}
+            className="buttonClosePrvw rtbtn"
+            style={{ display: "flex", margin: "-32px -10px", fontSize: "12px" }}
+          >
+            <i className="las la-times"></i>
+          </button>
+        </div>
 
-                      {post.allPostsType === "share" ? (
-                        <span
-                          style={{
-                            paddingLeft: "10px",
-                            textTransform: "lowercase",
-                            fontWeight: "100",
-                            fontSize: "14px",
-                          }}
-                        >
-                          shared a post{" "}
-                        </span>
-                      ) : null}
-                      {post.userTag ? (
-                        <>
-                          <span style={{ padding: "0 5px" }}>with</span>{" "}
-                          <span className="tagPost">
-                            {post.userTag.firstName}
-                          </span>
-                          <span className="tagPost">
-                            {post.userTag.lastName}
-                          </span>
-                        </>
-                      ) : null}
-                    </a>
-                    <span
-                      style={{
-                        display: "block",
-                        fontSize: "12px",
-                        paddingTop: "5px",
-                      }}
-                    >
-                      on{" "}
-                      {moment(
-                        post.published,
-                        "DD MMMM YYYY hh:mm:ss"
-                      ).fromNow()}
-                      {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
-                    </span>
-                  </div>
-                  </div>
+        <span className="border-bottom"></span>
+      </div>
+      <div style={{ display: "flex", marginTop: "10px" }}>
+        <figure>
+          <img
+            src={fileStorage.baseUrl + post.userdata.profilePicturePath}
+            alt=""
+            className="post-user-img"
+          />
+        </figure>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            paddingLeft: "10px",
+          }}
+        >
+          <a
+            href={`/profile/${post.userdata.email}`}
+            title="#"
+            style={{
+              textTransform: "capitalize",
+              fontWeight: "bold",
+            }}
+          >
+            {`${post.userdata.firstName} ${post.userdata.lastName}`}
 
-                  
-        <textarea
-          className="md-textarea form-control" 
-          rows={4}
-          placeholder="write something"
-          name="post_content"
-          defaultValue={post.content}
-          onChange={handleEditContent}
-        />
+            {post.allPostsType === "share" ? (
+              <span
+                style={{
+                  paddingLeft: "10px",
+                  textTransform: "lowercase",
+                  fontWeight: "100",
+                  fontSize: "14px",
+                }}
+              >
+                shared a post{" "}
+              </span>
+            ) : null}
+            {post.userTag ? (
+              <>
+                <span style={{ padding: "0 5px" }}>with</span>{" "}
+                <span className="tagPost">{post.userTag.firstName}</span>
+                <span className="tagPost">{post.userTag.lastName}</span>
+              </>
+            ) : null}
+          </a>
+          <span
+            style={{
+              display: "block",
+              fontSize: "12px",
+              paddingTop: "5px",
+            }}
+          >
+            on {moment(post.published, "DD MMMM YYYY hh:mm:ss").fromNow()}
+            {/* {checkIfSaved(post) && <i className='las la-bookmark szbkmrk'></i>} */}
+          </span>
+        </div>
+      </div>
+
+      <textarea
+        className="md-textarea form-control"
+        rows={4}
+        placeholder="write something"
+        name="post_content"
+        defaultValue={post.content}
+        onChange={handleEditContent}
+      />
 
       <figure>
         {/* <img src={`${fileStorage.baseUrl}${post.media[0].media}`
                         }alt={`${fileStorage.baseUrl}${post.media.media}`
                         }/> */}
-                        {showSwapImage ?
-                  <>
-                  <div style={{padding: "5px"}}>
-                    <img id="preview" src={swapImage} />
-                    <button style={{  margin: "20px -10px", fontSize:"5px" }} onClick={handleRemoveImageSwap} className="buttonClosePrvw rtbtn "><i className="las la-times "></i></button>
-                    </div>
-                  </>
-                  :
-                  null
-                }
-            <div
-              style={{
-                margin: "5px 5px",
-                padding: "15px",
-                boxShadow: "0 0 3px rgb(0 0 0 / 16%)",
-                borderRadius: "5px",
-              }}
-            >
-              <div style={{ display: "inline" }}>      <div className="friend-name" 
-                >
-        <span>published: {`${post.published}`}</span>
-      </div></div>
-
-              <div className="add-smilespopup">
-                <label className="fileContainer">
-                  <input
-                    type="file"
-                    name="swap_image"
-                    accept="image/*"
-                    onChange={handleFileSwap}
-                  ></input>
-                  <i className="lar la-file-image"></i>
-                </label>
-              </div>
-              <div
-                className="gifpopup"
-                style={{ fontSize: "28px", paddingBottom: "14px" }}
+        {showSwapImage ? (
+          <>
+            <div style={{ padding: "5px" }}>
+              <img id="preview" src={swapImage} />
+              <button
+                style={{ margin: "20px -10px", fontSize: "5px" }}
+                onClick={handleRemoveImageSwap}
+                className="buttonClosePrvw rtbtn "
               >
-                <Popup
-                  trigger={
-                    <a href="#!">
-                      <i className="las la-user-tag"></i>
-                    </a>
-                  }
-                  modal
-                  nested
-                >
-                  {(close) => (
-                    <Form style={{ margin: "5px" }} className="popwidth">
-                      <div className="search-container">
-                        <i className="las la-search"></i>
-                        <input
-                          className="friend-search"
-                          type="text"
-                          id="header-search"
-                          placeholder="Search Friends"
-                          name="s"
-                          onChange={handleSearchedUser}
-                        />
-                        <span onClick={close}>Done</span>
-                      </div>
-                      {userF ? (
-                        <>
-                          <div className="Tag" >
-                            Tagged:{`${userF.firstName} ${userF.lastName}`}
-                          </div>
-                        </>
-                      ) : null}
-                      <div>
-                        <ul>
-                          {friendsList.length > 0 ? (
-                            <>
-                              {friendsList.map((userM) =>
-                                user.id !== userM.id ? (
-                                  <li key={userM.id} className="friends-card">
-                                    <a
-                                      href="#!"
-                                      onClick={() => handleTag(userM)}
-                                    >
-                                      {" "}
-                                      <div className="grid-container">
-                                        {/* <figure> */}
-                                        <div className="item1">
-                                          <a
-                                            href={`/profile/${userM.email}`}
-                                            title={`${userM.email}`}
-                                          >
-                                            <img
-                                              style={{ objectFit: "cover" }}
-                                              src={userM.profilePicturePath}
-                                              alt=""
-                                            />
-                                          </a>
-                                          {/* </figure> */}
-                                        </div>
-                                        <div className="item2">
-                                          <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
-                                        </div>
-                                        {/* <div className="  "> */}
-                                      </div>
-                                    </a>
-                                  </li>
-                                ) : null
-                              )}
-                            </>
-                          ) : (
-                            <div
-                              style={{ padding: "10% 0", textAlign: "center" }}
-                            >
-                              You have no friends to tag
-                            </div>
-                          )}
-                        </ul>
-                      </div>
-                    </Form>
-                  )}
-                </Popup>
-              </div>
-              <div className="campopup">
-                <Popup
-                  trigger={
-                    <a href="#!">
-                      <i className="las la-map-marker-alt"></i>
-                    </a>
-                  }
-                  nested
-                  modal
-                >
-                  {(close) => (
-                    <Form style={{ margin: "5px" }} className="popwidth">
-                      <LocSearchComponent />
-                    </Form>
-                  )}
-                </Popup>{" "}
-              </div>
+                <i className="las la-times "></i>
+              </button>
+            </div>
+          </>
+        ) : null}
+        <div
+          style={{
+            margin: "5px 5px",
+            padding: "15px",
+            boxShadow: "0 0 3px rgb(0 0 0 / 16%)",
+            borderRadius: "5px",
+          }}
+        >
+          <div style={{ display: "inline" }}>
+            {" "}
+            <div className="friend-name">
+              <span>published: {`${post.published}`}</span>
+            </div>
+          </div>
 
-              {/* <ul style={{marginLeft:'10px'}}>
+          <div className="add-smilespopup">
+            <label className="fileContainer">
+              <input
+                type="file"
+                name="swap_image"
+                accept="image/*"
+                onChange={handleFileSwap}
+              ></input>
+              <i className="lar la-file-image"></i>
+            </label>
+          </div>
+          <div
+            className="gifpopup"
+            style={{ fontSize: "28px", paddingBottom: "14px" }}
+          >
+            <Popup
+              trigger={
+                <a href="#!">
+                  <i className="las la-user-tag"></i>
+                </a>
+              }
+              modal
+              nested
+            >
+              {(close) => (
+                <Form style={{ margin: "5px" }} className="popwidth">
+                  <div className="search-container">
+                    <i className="las la-search"></i>
+                    <input
+                      className="friend-search"
+                      type="text"
+                      id="header-search"
+                      placeholder="Search Friends"
+                      name="s"
+                      onChange={handleSearchedUser}
+                    />
+                    <span onClick={close}>Done</span>
+                  </div>
+                  {userF ? (
+                    <>
+                      <div className="Tag">
+                        Tagged:{`${userF.firstName} ${userF.lastName}`}
+                      </div>
+                    </>
+                  ) : null}
+                  <div>
+                    <ul>
+                      {friendsList.length > 0 ? (
+                        <>
+                          {friendsList.map((userM) =>
+                            user.id !== userM.id ? (
+                              <li key={userM.id} className="friends-card">
+                                <a href="#!" onClick={() => handleTag(userM)}>
+                                  {" "}
+                                  <div className="grid-container">
+                                    {/* <figure> */}
+                                    <div className="item1">
+                                      <a
+                                        href={`/profile/${userM.email}`}
+                                        title={`${userM.email}`}
+                                      >
+                                        <img
+                                          style={{ objectFit: "cover" }}
+                                          src={userM.profilePicturePath}
+                                          alt=""
+                                        />
+                                      </a>
+                                      {/* </figure> */}
+                                    </div>
+                                    <div className="item2">
+                                      <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
+                                    </div>
+                                    {/* <div className="  "> */}
+                                  </div>
+                                </a>
+                              </li>
+                            ) : null
+                          )}
+                        </>
+                      ) : (
+                        <div style={{ padding: "10% 0", textAlign: "center" }}>
+                          You have no friends to tag
+                        </div>
+                      )}
+                    </ul>
+                  </div>
+                </Form>
+              )}
+            </Popup>
+          </div>
+          <div className="campopup">
+            <Popup
+              trigger={
+                <a href="#!">
+                  <i className="las la-map-marker-alt"></i>
+                </a>
+              }
+              nested
+              modal
+            >
+              {(close) => (
+                <Form style={{ margin: "5px" }} className="popwidth">
+                  <LocSearchComponent />
+                </Form>
+              )}
+            </Popup>{" "}
+          </div>
+
+          {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
       <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
        </label></li></ul>*/}
-            </div>
+        </div>
       </figure>
 
       <div className="post-meta">
@@ -399,7 +408,9 @@ function EditPostComponent({ post, set }) {
         <div className="we-video-info">
           <div className="row">
             <div className="col">
-              <button className="popsbmt-btn" onClick={handleUpdatePost}>Save</button>
+              <button className="popsbmt-btn" onClick={handleUpdatePost}>
+                Save
+              </button>
             </div>
           </div>
         </div>
