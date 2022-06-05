@@ -32,7 +32,7 @@ export const handleSendNotification =(to,content,userFirstName,userLastname,emai
   
     var notificationVar = {
       from_email: email,
-      to_email:to,
+      to_id:to,
       content:content,
       first_name:userFirstName,
       Last_name:userLastname
@@ -103,7 +103,7 @@ const onError = (err) => {
   
 }
   const KeyPressHandler = (event) => {
-    handleSendNotification(AuthService.getCurrentUser().username,'reacted to your post','basma','saad','raouf.zerkouk@gmail.com')
+    handleSendNotification('1654074306424','reacted to your post','basma','saad','raouf.zerkouk@gmail.com')
     if(event.key === 'Enter' && event.target.value !=='') {
       history.push("/searchFeed")
       }

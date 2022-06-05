@@ -254,7 +254,7 @@ function OtherProfileComponent() {
      
     });
     console.log("send notification to "+email);
-    handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
+    handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
   };
   const removeFriend = (uid, fid) => {
     FriendsService.removeFriends(uid, fid).then((res) => {

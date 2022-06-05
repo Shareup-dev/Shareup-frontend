@@ -42,6 +42,7 @@ function FriendProfileComponent({ email, id }) {
       setRefresh(res.data);
        });
        console.log("send notification to "+email);
+       console.log("sent friend request to you "+user?.firstName+user?.lastName+user?.email);
        handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
     
   };
