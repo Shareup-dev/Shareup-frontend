@@ -294,6 +294,7 @@ const onError = (err) => {
                   <div className="dropdowns" >
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
+                      <li>hjhkjkjk</li>
                     {dbNotifications && dbNotifications.map(item => {
                       
                       return ( 
