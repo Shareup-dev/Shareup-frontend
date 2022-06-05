@@ -969,7 +969,7 @@ function OtherProfileComponent() {
                           <span>Following</span>
                         </li>
                       </ul>
-                      {userProfile?.aboutme !== null || undefined ? (
+                      {userProfile?.aboutme !== undefined ? (
                         <span>{`${userProfile?.aboutme}`}</span>
                       ) : ""
                       }
