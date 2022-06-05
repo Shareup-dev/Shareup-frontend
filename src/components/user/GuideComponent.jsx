@@ -371,12 +371,8 @@ function GuideComponent() {
                         ) : (
                           <a
                             href="#!"
-                            className="button"
-                            style={{
-                              color: "#fff",
-                              background: "#033347",
-                              fontSize: "12px",
-                            }}
+                            className="button common-trans-btn1"
+                            
                             onClick={() => handleUnfollow(userF.id)}
                           >
                             Unfollow

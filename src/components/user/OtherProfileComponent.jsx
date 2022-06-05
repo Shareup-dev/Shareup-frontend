@@ -768,7 +768,7 @@ function OtherProfileComponent() {
         <div className="row merged">
           <section>
             <div className="feature-photo">
-              <div className="container pdng1">
+              <div className="container " style={{width:'64%'}}>
                 <div className="row">
                   <div className="col-lg-3">
                     <div className="right-edit-profile-image-a">
@@ -846,7 +846,7 @@ function OtherProfileComponent() {
 
                             marginTop: "15px",
                           }}
-                          className="button rounded-pill"
+                          className="button common-theme-btn1"
                         >
                           Edit Profile
                         </a>
@@ -961,11 +961,10 @@ function OtherProfileComponent() {
                           <span>Following</span>
                         </li>
                       </ul>
-                      {userProfile.aboutme !== null ? (
-                        <span>{`${userProfile.aboutme}`}</span>
-                      ) : (
-                        <></>
-                      )}
+                      {userProfile?.aboutme !== null || undefined ? (
+                        <span>{userProfile?.aboutme}</span>
+                      ) : ""
+                      }
                     </div>
                   </div>
                   <div className="col-lg-3"></div>
