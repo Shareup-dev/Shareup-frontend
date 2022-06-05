@@ -166,7 +166,11 @@ function GuideComponent() {
 
     setStep(num);
   };
-
+  const removeFriendFromList = async (friend) =>{
+    const filt = await allUser.filter((frnd) => frnd.id !== friend)
+    await setAllUser(filt);
+    await console.log(allUser,friend)
+  }
   const show = () => {
     if (step === 0) {
       return (
@@ -174,142 +178,129 @@ function GuideComponent() {
           <div className="form-card">
             <ul className="nearby-contct">
               {allUser.slice(0, 8).map((userF) => (
-                <li className="sendrqstli" key={userF.id}>
-                  <div className="grid-container">
-                    <div className="item1">
-                      <img
-                        src={fileStorage.baseUrl + userF.profilePicturePath}
-                        alt=""
-                      />
-                      {/* <span className="status f-online" /> */}
-                    </div>
-                    <div
-                      className="item2"
-                      style={{ paddingTop: "15px", paddingLeft: "0px" }}
-                    >
-                      <p className="nameTag">
-                        <a
-                          href={`/profile/${userF.email}`}
-                        >{`${userF.firstName} ${userF.lastName}`}</a>
-                      </p>
-                      <p2>
-                        <p>Recommended</p>
-                      </p2>
-                    </div>
-                    <div
-                      style={{
-                        display: "inline-flex",
-                        paddingTop: "25px",
-                        paddingRight: "10px",
-                      }}
-                    >
-                      {user.id !== userF.id ? (
-                        !friendsList.some((el) => el.id === userF.id) ? (
-                          friendRequestRecieved.some(
-                            (el) => el.id === userF.id
-                          ) ? (
+                user.id !== userF.id ? 
+                  <li className="sendrqstli" key={userF.id}>
+                    <div className="grid-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                      <div className="item1" style={{ width: '20%' }}>
+                        <img
+                          src={fileStorage.baseUrl + userF.profilePicturePath}
+                          alt=""
+                        />
+                        {/* <span className="status f-online" /> */}
+                      </div>
+                      <div
+                        className="item2"
+                        style={{ paddingTop: "15px", paddingLeft: "0px", width: '40%' }}
+                      >
+                        <p className="nameTag">
+                          <a
+                            href={`/profile/${userF.email}`}
+                          >{`${userF.firstName} ${userF.lastName}`}</a>
+                        </p>
+                        <p2>
+                          <p>Recommended</p>
+                        </p2>
+                      </div>
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          paddingTop: "25px",
+                          paddingRight: "10px",
+                          width: '40%'
+                        }}
+                      >
+                        {user.id !== userF.id ? (
+                          !friendsList.some((el) => el.id === userF.id) ? (
+                            friendRequestRecieved.some(
+                              (el) => el.id === userF.id
+                            ) ? (
+                              <>
+                                <a
+                                  href="#"
+                                  className="button common-theme-btn1"
+
+                                  onClick={() =>
+                                    acceptFriendRequest(user.id, userF.id)
+                                  }
+                                >
+                                  Accept
+                                </a>
+                                <a
+                                  href="#"
+                                  className="button common-trans-btn1"
+                                  style={{
+                                    color: "#000000",
+                                    background: "#EAEAEA",
+                                    fontSize: "12px",
+                                  }}
+                                  onClick={() =>
+                                    declineFriendRequest(user.id, userF.id)
+                                  }
+                                >
+                                  Decline
+                                </a>
+                                {/* <br></br>
+                                                          <br></br> */}
+                              </>
+                            ) : friendRequestSent.some(
+                              (el) => el.id === userF.id
+                            ) ? (
+                              <a
+                                href="#"
+                                className="button common-trans-btn1"
+                                
+                                onClick={() =>
+                                  unsendFriendRequest(user.id, userF.id)
+                                }
+                              >
+                                Unsend Request
+                              </a>
+                            ) : (
+                              <a
+                                href="#"
+                                className="button common-theme-btn1"
+                               
+                                onClick={() =>
+                                  sendFriendRequest(user.id, userF.id)
+                                }
+                              >
+                                Send Request
+                              </a>
+                            )
+                          ) : (
                             <>
                               <a
                                 href="#"
-                                className="button"
-                                style={{
-                                  background: "#033347",
-                                  fontSize: "12px",
-                                  width:'50%'
-                                }}
-                                onClick={() =>
-                                  acceptFriendRequest(user.id, userF.id)
-                                }
+                                className="button common-trans-btn1"
+                                onClick={() => removeFriend(user.id, userF.id)}
                               >
-                                Accept
+                                Unfriend
                               </a>
-                              <a
-                                href="#"
-                                className="button"
-                                style={{
-                                  color: "#000000",
-                                  background: "#EAEAEA",
-                                  fontSize: "12px",
-                                }}
-                                onClick={() =>
-                                  declineFriendRequest(user.id, userF.id)
-                                }
-                              >
-                                Decline
-                              </a>
-                              {/* <br></br>
-                                                        <br></br> */}
+
+                              <p style={{ fontSize: '15px' }}>Already a friend</p>
                             </>
-                          ) : friendRequestSent.some(
-                              (el) => el.id === userF.id
-                            ) ? (
-                            <a
-                              href="#"
-                              className="button common-trans-btn"
-                              style={{
-                                color: "#fff",
-                                background: "#033347",
-                                fontSize: "12px",
-                                
-                              }}
-                              onClick={() =>
-                                unsendFriendRequest(user.id, userF.id)
-                              }
-                            >
-                              Unsend Request
-                            </a>
-                          ) : (
-                            <a
-                              href="#"
-                              className="button  common-trans-btn"
-                              style={{
-                                color: "#000000",
-                                background: "#EAEAEA",
-                                fontSize: "12px",
-                              }}
-                              onClick={() =>
-                                sendFriendRequest(user.id, userF.id)
-                              }
-                            >
-                              Send Request
-                            </a>
                           )
-                        ) : (
-                          <>
-                            <a
-                              href="#"
-                              className="button"
-                              style={{
-                                background: "#033347",
-                                fontSize: "12px",
-                              }}
-                              onClick={() => removeFriend(user.id, userF.id)}
-                            >
-                              Unfriend
-                            </a>
+                        ) : null}
 
-                            <p>Already a friend</p>
-                          </>
-                        )
-                      ) : (
-                        <div className="item5">
-                          <p style={{ float: "right" }}>Your own profile</p>
-                        </div>
-                      )}
+                        
+                      </div>
+                      <div
+                          onClick={()=>removeFriendFromList(userF.id)}
+                          >
+                        <i
+                          className="las la-times"
+                          style={{
+                            fontSize: "13px",
+                            padding: "6px",
+                            color: "black",
+                          }}
+                        ></i>
+                      </div>
 
-                      <i
-                        className="las la-times"
-                        style={{
-                          fontSize: "13px",
-                          padding: "6px",
-                          color: "black",
-                        }}
-                      ></i>
+                      {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
                     </div>
-
-                    {/* <button onClick={() => sendFriendRequest(userF.id)}>Hi</button> */}
-                  </div>
-                </li>
+                  </li>
+                  :null
               ))}
             </ul>
           </div>
@@ -331,8 +322,8 @@ function GuideComponent() {
             <ul className="nearby-contct">
               {allUser.slice(0, 8).map((userF) => (
                 <li className="sendrqstli" key={userF.id}>
-                  <div className="grid-container">
-                    <div className="item1">
+                  <div className="grid-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    <div className="item1" style={{ width: '20%' }}>
                       <img
                         src={fileStorage.baseUrl + userF.profilePicturePath}
                         alt=""
@@ -341,7 +332,7 @@ function GuideComponent() {
                     </div>
                     <div
                       className="item2"
-                      style={{ paddingTop: "15px", paddingLeft: "0px" }}
+                      style={{ paddingTop: "15px", paddingLeft: "0px", width: '40%' }}
                     >
                       <p className="nameTag">
                         <a href={`/profile/${userF.email}`}>
@@ -357,18 +348,15 @@ function GuideComponent() {
                         display: "inline-flex",
                         paddingTop: "25px",
                         paddingRight: "10px",
+                        width: '40%'
                       }}
                     >
                       {user.id !== userF.id ? (
                         !following.some((el) => el.id === userF.id) ? (
                           <a
                             href="#!"
-                            className="button"
-                            style={{
-                              color: "#000000",
-                              background: "#EAEAEA",
-                              fontSize: "12px",
-                            }}
+                            className="button common-theme-btn1"
+
                             onClick={() => handleFollow(userF.id)}
                           >
                             Follow

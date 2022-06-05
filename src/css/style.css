@@ -15077,7 +15077,7 @@ a.Hangin-btn:hover {
 .slidesreel {
   text-align: left;
   display: flex;
-  justify-content:left;
+  justify-content: left;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -17140,7 +17140,7 @@ hr.new1 {
 .reply-count:hover {
   cursor: pointer;
 }
-.comnt-more-opt button{
+.comnt-more-opt button {
   color: black;
   /* position: absolute;
   right: -25px;
@@ -17393,24 +17393,26 @@ code {
 .reel-container .slide video {
   border-radius: 20px;
 }
-.reel-container .strydiv{
+.reel-container .strydiv {
   width: 50%;
 }
 .reel-container .slideshow {
-
 }
-.reel-comment-section{
+.reel-comment-section {
   background: white;
   border-radius: 20px;
   padding: 15px;
 }
-.reel-comment-section .comet-avatar{
+.reel-comment-section .comet-avatar {
   width: 10%;
 }
-.reel-comment-section .coment-area{
+.reel-comment-section .coment-area {
   padding-right: 0;
 }
-.edit-profile-cont{
+.edit-profile-cont {
   width: 64%;
   padding-top: 1rem;
+}
+.las.la-times:hover {
+  cursor: pointer;
 }
