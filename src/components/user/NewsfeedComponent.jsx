@@ -2927,7 +2927,7 @@ function NewsfeedComponent() {
                       alt="img"
                       style={
                         user.profilePicture === "default.png"
-                          ? { padding: "16px" }
+                          ? { padding: "16px",height:'auto' }
                           : {}
                       }
                     />

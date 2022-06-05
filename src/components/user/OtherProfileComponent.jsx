@@ -373,7 +373,7 @@ function OtherProfileComponent() {
     }
   };
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     currentUserGet();
     getFriendStatus();
     getFriendCount();
@@ -390,7 +390,7 @@ function OtherProfileComponent() {
   }, [show, friendStatus, refresh]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getFriendStatus();
     getFriendCount();
     getPostForUser();
@@ -778,8 +778,8 @@ function OtherProfileComponent() {
         <div className="row merged">
           <section>
             <div className="feature-photo">
-              <div className="container pdng1">
-                <div className="row">
+              <div className="container edit-profile-cont">
+                <div className="row" style={{padding:'25px 35px'}}>
                   <div className="col-lg-3">
                     <div className="right-edit-profile-image-a">
                       {user?.id === userProfile?.id ? (
@@ -856,7 +856,7 @@ function OtherProfileComponent() {
 
                             marginTop: "15px",
                           }}
-                          className="button rounded-pill"
+                          className="button common-theme-btn1"
                         >
                           Edit Profile
                         </a>
@@ -1014,10 +1014,10 @@ function OtherProfileComponent() {
                         <li className="slideitemstry">
                           <div className="strysggstion-card">
                             <div className="strysggstion-img">
-                              <img
+                              {/* <img
                                 src="/assets/images/vector-34@2x.png"
                                 alt="img"
-                              />
+                              /> */}
                             </div>
                             <Popup
                               trigger={<div className="add-stry"> +</div>}
