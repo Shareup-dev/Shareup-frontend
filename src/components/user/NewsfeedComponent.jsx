@@ -2875,32 +2875,38 @@ function NewsfeedComponent() {
 
   useEffect(() => {
     getUser();
-    getPost().then(() => {
+    if(user&&user.id){
+      getPost().then(() => {
       setIsLoading(false);
-    });
-    getPostForUser();
-    getReelForUserFriends();
-    getSavedPost();
+      });
+      getPostForUser();
+      getReelForUserFriends();
+      getSavedPost();
+    }
     testScript();
   }, [editPostId, refresh]);
 
   useEffect(() => {
-    getPostForUser();
-    getReelForUserFriends();
-    getSavedPost();
-    testScript();
+    if(user&&user.id){
+      getPostForUser();
+      getReelForUserFriends();
+      getSavedPost();
+      testScript();
+    }
   }, [user]);
 
-  useEffect(async () => {
-    await getStoriesForFriendsUser();
+  useEffect(() => {
+    if(user&&user.id){getStoriesForFriendsUser();}
   }, [FriendsStories]);
   useEffect(async () => {
-    getReelForUserFriends();
+    if(user&&user.id){getReelForUserFriends();}
   }, [FriendsReels]);
 
   useEffect(() => {
-    getStoriesForUser();
-    getReelForUserFriends();
+    if(user&&user.id){
+      getStoriesForUser();
+      getReelForUserFriends();
+    }
     testScript();
   }, [stories]);
   if (isLoading) {

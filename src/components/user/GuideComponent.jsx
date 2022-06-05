@@ -190,7 +190,7 @@ function GuideComponent() {
                       </div>
                       <div
                         className="item2"
-                        style={{ paddingTop: "15px", paddingLeft: "0px", width: '40%' }}
+                        style={{ paddingTop: "15px", paddingLeft: "0px", width: '35%' }}
                       >
                         <p className="nameTag">
                           <a
@@ -206,7 +206,7 @@ function GuideComponent() {
                           display: "inline-flex",
                           paddingTop: "25px",
                           paddingRight: "10px",
-                          width: '40%'
+                          width: '35%'
                         }}
                       >
                         {user.id !== userF.id ? (
@@ -285,6 +285,7 @@ function GuideComponent() {
                         
                       </div>
                       <div
+                        style={{width:'10%',display:'flex',alignItems:'center'}}
                           onClick={()=>removeFriendFromList(userF.id)}
                           >
                         <i
@@ -321,6 +322,7 @@ function GuideComponent() {
           <div className="form-card">
             <ul className="nearby-contct">
               {allUser.slice(0, 8).map((userF) => (
+                user.id !== userF.id ?
                 <li className="sendrqstli" key={userF.id}>
                   <div className="grid-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                     <div className="item1" style={{ width: '20%' }}>
@@ -332,7 +334,7 @@ function GuideComponent() {
                     </div>
                     <div
                       className="item2"
-                      style={{ paddingTop: "15px", paddingLeft: "0px", width: '40%' }}
+                      style={{ paddingTop: "15px", paddingLeft: "0px", width: '35%' }}
                     >
                       <p className="nameTag">
                         <a href={`/profile/${userF.email}`}>
@@ -348,7 +350,7 @@ function GuideComponent() {
                         display: "inline-flex",
                         paddingTop: "25px",
                         paddingRight: "10px",
-                        width: '40%'
+                        width: '35%'
                       }}
                     >
                       {user.id !== userF.id ? (
@@ -376,18 +378,23 @@ function GuideComponent() {
                           </a>
                         )
                       ) : null}
-
-                      <i
-                        className="las la-times"
-                        style={{
-                          fontSize: "13px",
-                          padding: "6px",
-                          color: "black",
-                        }}
-                      ></i>
                     </div>
+                    <div
+                        style={{width:'10%',display:'flex',alignItems:'center'}}
+                          onClick={()=>removeFriendFromList(userF.id)}
+                          >
+                        <i
+                          className="las la-times"
+                          style={{
+                            fontSize: "13px",
+                            padding: "6px",
+                            color: "black",
+                          }}
+                        ></i>
+                      </div>
                   </div>
                 </li>
+                :null
               ))}
             </ul>
           </div>
