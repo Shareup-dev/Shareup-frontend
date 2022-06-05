@@ -139,8 +139,13 @@ function GuideComponent() {
   };
 
   const handleRedirect = () => {
+    // let user = {};
+    // user.newUser = false
+    // UserService.editProfile(user.email,user).then((res)=>{
+
+      setTimeout(() => window.location.reload(), 2000);
+    // })
     //setTimeout(() => history.push('/newsfeed'), 2000)
-    setTimeout(() => window.location.reload(), 2000);
   };
 
   const [step, setStep] = useState(0);
