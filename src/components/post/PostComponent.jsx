@@ -101,7 +101,7 @@ export default function PostComponent({ post, setRefresh }) {
   };
   const checkIfLiked = (post) => {
     if (post?.likedType !== "false") {
-      return true ;
+      return true;
     }
     return false;
   };
@@ -135,10 +135,9 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleLikePost = async (post, reaction) => {
-      UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
-        setRefresh(res.data);
-      });
-  
+    UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
+      setRefresh(res.data);
+    });
   };
 
   const handleSwapPost = async (post_id) => {
@@ -155,36 +154,9 @@ export default function PostComponent({ post, setRefresh }) {
   };
 
   const handleDeletePost = (post) => {
-    
-
     PostService.deleteAllPost(post.id).then((res) => {
       setRefresh(res.data);
     });
-
-    // if (post.allPostsType === "swap") {
-    //   PostService.deletePost(post.id).then((res) => {
-    //     setRefresh(res.data);
-    //   });
-    // }
-
-    // if (post.allPostsType === "post") {
-    //   PostService.deletePost(post.id).then((res) => {
-    //     setRefresh(res.data);
-    //   });
-    // }
-
-    // if (post.allPostsType === "hangShare") {
-    //   HangShareService.deleteHangShare(user.id,post.id).then((res) => {
-    //     setRefresh(res.data);
-    //   });
-    // }
-
-    // if (post.allPostsType === "share") {
-    //   HangShareService.deleteHangShare(user.id,post.id).then((res) => {
-    //     setRefresh(res.data);
-    //   });
-    // }
-
   };
 
   const getLocation = () => {
@@ -250,7 +222,7 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
   const [emoji, setEmoji] = useState();
-        //  setEmoji(post?.likedType)
+  //  setEmoji(post?.likedType)
 
   const handleReaction = () => {
     return (
@@ -362,108 +334,102 @@ export default function PostComponent({ post, setRefresh }) {
     );
   };
 
-
   const handlePostReactions = () => {
     return (
       <>
-       
-           {post.countOfEachReaction.star  > 0 ? (
-            <i
-          className="fas fa-star"
-          style={{ fontSize: "12px", color: "#d83535" }}
-        ></i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.smiley  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😊
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.wow  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😮
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.laugh  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😂
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                
-                  {post.countOfEachReaction.cry  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😭
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.love  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😍
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.celebrate  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  🥳
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.countOfEachReaction.angry  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "1px",
-                  }}
-                >
-                  😡
-                </i>
-                  ) : (
-                    <></>
-                  )}
+        {post.countOfEachReaction.star > 0 ? (
+          <i
+            className="fas fa-star"
+            style={{ fontSize: "12px", color: "#d83535" }}
+          ></i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.smiley > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😊
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.wow > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😮
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.laugh > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😂
+          </i>
+        ) : (
+          <></>
+        )}
 
-
-
-
+        {post.countOfEachReaction.cry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😭
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.love > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😍
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.celebrate > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            🥳
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.countOfEachReaction.angry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😡
+          </i>
+        ) : (
+          <></>
+        )}
       </>
     );
   };
@@ -569,6 +535,54 @@ export default function PostComponent({ post, setRefresh }) {
 
 
 
+        {post.post.countOfEachReaction.cry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😭
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.love > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😍
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.celebrate > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            🥳
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.angry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😡
+          </i>
+        ) : (
+          <></>
+        )}
       </>
     );
   };
@@ -686,6 +700,25 @@ export default function PostComponent({ post, setRefresh }) {
         });
     }
   };
+
+
+
+  const updateSharedPost = async (event) => {
+    await event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("content", shareContent);
+
+    await ShareService.updateSharedPost(  post.id,formData ).then((res) => {
+          setShareContent("");
+          setRefresh(res.data);
+        });
+      
+  };
+
+
+
+
   const commentChanged = async (prop) => {
     await setComments(prop);
   };
@@ -1161,10 +1194,269 @@ export default function PostComponent({ post, setRefresh }) {
                   >
                     <ul>
                       {post.userdata.id === user.id ? (
-                        <li onClick={() => handleEditPost(post.id)}>
-                          <i className="las la-pencil-alt"></i>
-                          <span>Edit Post</span>
-                        </li>
+                        <>
+                          {post.allPostsType !== "share" ? (
+                            <li onClick={() => handleEditPost(post.id)}>
+                              <i className="las la-pencil-alt"></i>
+                              <span>Edit Post</span>
+                            </li>
+                          ) : (
+                            <>
+                              <Popup
+                                trigger={
+                                  <li onClick={() => handleEditPost(post.id)}>
+                                    <i className="las la-pencil-alt"></i>
+                                    <span>Edit share</span>
+                                  </li>
+                                }
+                                modal
+                                nested
+                                closeOnDocumentClick
+                              >
+                                {(close) => (
+                                  <Form
+                                    className="popwidth"
+                                    onSubmit={(e) => {
+                                      updateSharedPost(e);
+                                      close();
+                                    }}
+                                  >
+                                    <div className="headpop">
+                                      <div className="row">
+                                        <div style={{ width: "20%" }}>
+                                          <a
+                                            href="#!"
+                                            style={{
+                                              padding: "10px 80px 10px 0",
+                                            }}
+                                            onClick={close}
+                                          >
+                                            <i className="las la-times"></i>
+                                          </a>
+                                        </div>
+                                        <div
+                                          style={{
+                                            color: "#000000",
+                                            fontSize: "18px",
+                                            fontWeight: "bold",
+                                            width: "60%",
+                                            textAlign: "center",
+                                          }}
+                                        >
+                                          {" "}
+                                          <span>Edit Share</span>
+                                        </div>
+                                        <div
+                                          style={{
+                                            width: "20%",
+                                            textAlign: "right",
+                                          }}
+                                        ></div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      style={{ padding: "0 11px 11px 11px" }}
+                                    >
+                                      <div className="popupimg">
+                                        <img
+                                          src={
+                                            user
+                                              ? fileStorage.baseUrl +
+                                                user.profilePicturePath
+                                              : fileStorage.baseUrl +
+                                                user.profilePicturePath
+                                          }
+                                          alt=""
+                                        />
+                                      </div>
+                                      <div className="popupuser-name">
+                                        <div style={{ display: "inline" }}>
+                                          <span>
+                                            {`${user.firstName} ${user.lastName}`}
+                                            {userF ? (
+                                              <>
+                                                <span
+                                                  style={{
+                                                    fontWeight: "100",
+                                                    fontSize: "14px",
+                                                  }}
+                                                >
+                                                  {" "}
+                                                  with{" "}
+                                                </span>
+                                                {`${userF.firstName} ${userF.lastName}`}
+                                              </>
+                                            ) : null}
+                                          </span>
+                                          <span
+                                            style={{
+                                              marginTop: "4px ",
+                                              display: "block",
+                                              fontSize: "10px",
+                                            }}
+                                          ></span>
+                                        </div>{" "}
+                                      </div>{" "}
+                                    </div>
+                                    <div style={{ minHeight: "150px" }}>
+                                      <span className="textPop">
+                                        <textarea
+                                          className="textpopup"
+                                          rows={2}
+                                          placeholder="Sharing is Caring"
+                                          name="swap_content"
+                                          value={shareContent}
+                                          onChange={handleSwapContent}
+                                        />
+                                        {post.allPostsType === "share" ? (
+                                          <>
+                                            <div className="postShared">
+                                              <div
+                                                style={{
+                                                  padding: "0 11px 11px 11px",
+                                                }}
+                                              >
+                                                {post.post.media &&
+                                                post.post.media.length == 1 ? (
+                                                  <>
+                                                    <img
+                                                      style={{
+                                                        width: "100%",
+                                                        objectFit: "cover",
+                                                      }}
+                                                      src={`${fileStorage.baseUrl}${post.post.media[0].mediaPath}`}
+                                                      alt={`${fileStorage.baseUrl}${post.post.media[0].mediaPath}`}
+                                                      className="lightbox-popup"
+                                                    />
+                                                  </>
+                                                ) : null}
+                                                <div className="p-1 popupuser-name">
+                                                  <div
+                                                    style={{
+                                                      display: "inline",
+                                                    }}
+                                                  >
+                                                    <span>
+                                                      {`${post.post.userdata.firstName} ${post.post.userdata.lastName}`}
+                                                      {userF ? (
+                                                        <>
+                                                          {" "}
+                                                          with{" "}
+                                                          {`${userF.firstName} ${userF.lastName}`}
+                                                        </>
+                                                      ) : null}
+                                                    </span>
+                                                    <span
+                                                      className="text-muted"
+                                                      style={{
+                                                        display: "block",
+                                                        fontSize: "9px",
+                                                        paddingTop: "0px",
+                                                      }}
+                                                    >
+                                                      {moment(
+                                                        post.published,
+                                                        "DD MMMM YYYY hh:mm:ss"
+                                                      ).fromNow()}
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                                {post.post.content && (
+                                                  <p
+                                                    id={`post-content-${post.post.id}`}
+                                                    style={{
+                                                      marginLeft: "4px",
+                                                      fontSize: "14px",
+                                                      color: "black",
+                                                    }}
+                                                  >
+                                                    {`${post.post.content}`}
+                                                  </p>
+                                                )}
+                                              </div>
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <div className="postShared">
+                                            <div
+                                              style={{
+                                                padding: "0 11px 11px 11px",
+                                              }}
+                                            >
+                                              {post.media &&
+                                              post.media.length == 1 ? (
+                                                <>
+                                                  <img
+                                                    style={{
+                                                      width: "100%",
+                                                      objectFit: "cover",
+                                                    }}
+                                                    src={`${fileStorage.baseUrl}${post.media[0].mediaPath}`}
+                                                    alt={`${fileStorage.baseUrl}${post.media[0].mediaPath}`}
+                                                    className="lightbox-popup"
+                                                  />
+                                                </>
+                                              ) : null}
+                                              <div className="p-1 popupuser-name">
+                                                <div
+                                                  style={{ display: "inline" }}
+                                                >
+                                                  <span>
+                                                    {`${post.userdata.firstName} ${post.userdata.lastName}`}
+                                                    {userF ? (
+                                                      <>
+                                                        {" "}
+                                                        with{" "}
+                                                        {`${userF.firstName} ${userF.lastName}`}
+                                                      </>
+                                                    ) : null}
+                                                  </span>
+                                                  <span
+                                                    className="text-muted"
+                                                    style={{
+                                                      display: "block",
+                                                      fontSize: "9px",
+                                                      paddingTop: "0px",
+                                                    }}
+                                                  >
+                                                    {moment(
+                                                      post.published,
+                                                      "DD MMMM YYYY hh:mm:ss"
+                                                    ).fromNow()}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                              {post.content && (
+                                                <p
+                                                  id={`post-content-${post.id}`}
+                                                  style={{
+                                                    marginLeft: "4px",
+                                                    fontSize: "14px",
+                                                    color: "black",
+                                                  }}
+                                                >
+                                                  {`${post.content}`}
+                                                </p>
+                                              )}
+                                            </div>
+                                          </div>
+                                        )}
+                                      </span>
+                                    </div>
+
+                                    <button
+                                      type="submit"
+                                      value="Submit"
+                                      className="popsbmt-btn"
+                                    >
+                                      Save
+                                    </button>
+                                  </Form>
+                                )}
+                              </Popup>
+                            </>
+                          )}
+                        </>
                       ) : (
                         <></>
                       )}
@@ -1197,7 +1489,7 @@ export default function PostComponent({ post, setRefresh }) {
                 <p
                   id={`post-content-${post.id}`}
                   style={{
-                    marginBottom: "5px",
+                    margin: "1%",
                     fontSize: "14px",
                     color: "black",
                   }}
@@ -1832,6 +2124,7 @@ export default function PostComponent({ post, setRefresh }) {
                       <p
                         id={`post-content-${post.id}`}
                         style={{
+                          margin: "1%",
                           marginBottom: "5px",
                           fontSize: "14px",
                           color: "black",
@@ -2423,7 +2716,6 @@ export default function PostComponent({ post, setRefresh }) {
                               </div>
                             </>
                           )}
-                          
                         </li>
 
                         <li
@@ -2517,7 +2809,6 @@ export default function PostComponent({ post, setRefresh }) {
                             </Popup>
                           </span>
                         </div>
-                      
                       </>
                     ) : (
                       <>
@@ -2531,15 +2822,13 @@ export default function PostComponent({ post, setRefresh }) {
                           >
                             {/* <img src='/assets/images/Star.svg' alt='' /> */}
                             {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
-                            <i className="far fa-star">
-                            </i>
+                            <i className="far fa-star"></i>
 
                             {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                           </span>
                         </div>
                       </>
                     )}
-                   
                   </li>
 
                   <li
