@@ -49,8 +49,8 @@ function StoriesComponentFriends({ story, setRefresh }) {
 const checkPop=()=>{
 }
 function getFileExtension(filename){
-  const extension = filename.split('.').pop();
-  return extension;
+  // const extension = filename.split('.').pop();
+  // return extension;
 }
 
   useEffect(() => {
