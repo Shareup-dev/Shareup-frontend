@@ -373,7 +373,6 @@ function OtherProfileComponent() {
     }
   };
   useEffect(() => {
-    // window.scrollTo(0, 0);
     currentUserGet();
     getFriendStatus();
     getFriendCount();
@@ -390,7 +389,6 @@ function OtherProfileComponent() {
   }, [show, friendStatus, refresh]);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
     getFriendStatus();
     getFriendCount();
     getPostForUser();
