@@ -157,29 +157,33 @@ export default function PostComponent({ post, setRefresh }) {
   const handleDeletePost = (post) => {
     
 
-    if (post.allPostsType === "swap") {
-      PostService.deletePost(post.id).then((res) => {
-        setRefresh(res.data);
-      });
-    }
+    PostService.deleteAllPost(post.id).then((res) => {
+      setRefresh(res.data);
+    });
 
-    if (post.allPostsType === "post") {
-      PostService.deletePost(post.id).then((res) => {
-        setRefresh(res.data);
-      });
-    }
+    // if (post.allPostsType === "swap") {
+    //   PostService.deletePost(post.id).then((res) => {
+    //     setRefresh(res.data);
+    //   });
+    // }
 
-    if (post.allPostsType === "hangShare") {
-      HangShareService.deleteHangShare(user.id,post.id).then((res) => {
-        setRefresh(res.data);
-      });
-    }
+    // if (post.allPostsType === "post") {
+    //   PostService.deletePost(post.id).then((res) => {
+    //     setRefresh(res.data);
+    //   });
+    // }
 
-    if (post.allPostsType === "share") {
-      HangShareService.deleteHangShare(user.id,post.id).then((res) => {
-        setRefresh(res.data);
-      });
-    }
+    // if (post.allPostsType === "hangShare") {
+    //   HangShareService.deleteHangShare(user.id,post.id).then((res) => {
+    //     setRefresh(res.data);
+    //   });
+    // }
+
+    // if (post.allPostsType === "share") {
+    //   HangShareService.deleteHangShare(user.id,post.id).then((res) => {
+    //     setRefresh(res.data);
+    //   });
+    // }
 
   };
 

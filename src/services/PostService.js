@@ -92,6 +92,11 @@ class PostService {
         return result
     }
 
+    deleteAllPost = async (postid) => {
+        const result = await authAxios.delete(`allpost/${postid}`)
+        return result
+    }
+
     addComment = async (userid, postid, comment) => {
         const result = await authAxios.post(`comment/${userid}/${postid}`, comment)
         return result
