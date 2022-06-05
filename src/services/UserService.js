@@ -121,8 +121,8 @@ class UserService {
         return result
     }
 
-    likePost = async (uid,pid) => {
-        const result = await authAxios.put(`/posts/${uid}/like-unlike/${pid}`,{emoji:"like"})
+    likePost = async (uid,pid,reaction) => {
+        const result = await authAxios.put(`/posts/${uid}/like-unlike/${pid}`,{emoji:reaction })
         return result
     }
 
@@ -145,6 +145,10 @@ class UserService {
         return result
     }
 
+    likeAllPost = async (uid,pid,reaction) => {
+        const result = await authAxios.put(`/${uid}/like-unlike/${pid}`,{emoji:reaction })
+        return result
+    }
     // saveSwap = async (uid,sid) => {
     //     const result = await authAxios.put(`/swaps/${uid}/save-unsave/${sid}`)
     //     return result

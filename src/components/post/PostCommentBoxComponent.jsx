@@ -32,18 +32,15 @@ export default function PostComponentBoxComponent(props) {
 
   useEffect(() => {
       sortComment()
-      console.log('fff')
   }, [props.post]);
 
   const sortComment = async (propPost) => {
-    console.log('sort called',propPost)
     let postId = {}
     if(propPost) { 
       postId = propPost
     }else{
       postId = post.id
     }
-    console.log('post', postId)
     await PostService.getCommentsForPosts(user.id, postId).then((res) => {
 
       setComments(res.data)
@@ -56,7 +53,6 @@ export default function PostComponentBoxComponent(props) {
       //   });
       //   setComments(comments)
       // }
-      console.log(comments)
     })
 
   }
@@ -71,7 +67,6 @@ export default function PostComponentBoxComponent(props) {
     ref.current.focus();
   };
   const handleCommentContent = (event) => {
-    // console.log(event.target.value)
     setCommentContent(event.target.value)
   }
 
@@ -81,18 +76,18 @@ export default function PostComponentBoxComponent(props) {
     } else {
       let comment = {}
       comment.content = commentContent;
-      // console.log(typeof(comment.content),'gggg')
+
+      const formData = new FormData();
+      formData.append("content", commentContent);
       if (props.editComment) {
         CommentsService.editCommentForPosts(props.editComment.id, comment).then(res => {
           console.log(res.data)
           props.checkEditComment(false)
-          // props.setRefresh(res.data)
+          props.setRefresh(res.data)
           setCommentContent("")
-          // setComments
         })
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
-          console.log(res.data)
           sortComment()
           // props.setRefresh(res.data)
           setCommentContent("")
@@ -119,7 +114,6 @@ export default function PostComponentBoxComponent(props) {
   }
 
   const commentInput = () => {
-    console.log('hiii')
     return (
       <li className="post-comment">
         <div className="comet-avatar">
@@ -207,4 +201,3 @@ export default function PostComponentBoxComponent(props) {
 
 
 
-const handle = () => console.log('Enter pressed');

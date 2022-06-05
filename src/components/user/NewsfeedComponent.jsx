@@ -43,7 +43,7 @@ import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
 import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
-import Loader from '../loader/loader'
+import Loader from "../loader/loader";
 import HangShareService from "../../services/HangShareService";
 
 function NewsfeedComponent() {
@@ -88,7 +88,8 @@ function NewsfeedComponent() {
   const [swapContent, setSwapContent] = useState("");
   const [swapImage, setSwapImage] = useState({});
   const [showSwapImage, setShowSwapImage] = useState(false);
-
+  const [showStoryButton, setShowStoryButton] = useState(true);
+  const [showStoryButtonVdo, setShowStoryButtonVdo] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [files, setFiles] = useState([]);
@@ -118,6 +119,8 @@ function NewsfeedComponent() {
   const [hangshareContent, setHangshareContent] = useState("");
 
   const [privacy, setprivacy] = useState("privacy");
+  const [storyType, setStoryType] = useState("image");
+
 
   const [closeModal, setCloseModal] = useState(false);
   const [categoryHS, setCategoryHS] = useState("");
@@ -157,15 +160,15 @@ function NewsfeedComponent() {
     event.preventDefault();
     setUploadErrorStory("");
     if (
-      
       Object.keys(filesStry).length === 0 &&
       filesStry.constructor === Object
     ) {
       setUploadErrorStory("Please Add Image for Stories");
       return;
-    }else{
+    } else {
       const formData = new FormData();
       formData.append("caption", storyContent);
+      formData.append("story_type",storyType);
       formData.append(`stryfiles`, filesStry);
       StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
@@ -174,8 +177,6 @@ function NewsfeedComponent() {
         setRefresh(res.data);
       });
     }
-
-    
   };
 
   // const checkIfUserAlreadyPostStory = (story) => {
@@ -304,7 +305,8 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => { }, [posts]);
+  useEffect(() => {
+  }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -493,7 +495,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) { }
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
@@ -501,7 +503,6 @@ function NewsfeedComponent() {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log(refresh);
         });
       } else
         PostService.createPost(user.id, formData, userF.id).then((res) => {
@@ -511,7 +512,6 @@ function NewsfeedComponent() {
         });
     }
   };
-
 
   const uploadHangShare = (event) => {
     event.preventDefault();
@@ -530,7 +530,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) { }
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`privacy`, Privacy);
       formData.append(`category`, categoryHS);
 
@@ -539,17 +539,17 @@ function NewsfeedComponent() {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
-          console.log(refresh);
         });
       } else
-        HangShareService.createHangShare(user.id, formData, userF.id).then((res) => {
-          setPostContent("");
-          handleRemoveImage();
-          setRefresh(res.data);
-        });
+        HangShareService.createHangShare(user.id, formData, userF.id).then(
+          (res) => {
+            setPostContent("");
+            handleRemoveImage();
+            setRefresh(res.data);
+          }
+        );
     }
   };
-
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
@@ -753,7 +753,7 @@ function NewsfeedComponent() {
       await formData.append(`files`, swapfiles[i]);
     }
 
-    for (let i = 0; i < `swapfiles`.length; i++) { }
+    for (let i = 0; i < `swapfiles`.length; i++) {}
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
@@ -765,7 +765,6 @@ function NewsfeedComponent() {
         handleRemoveImageSwap();
         setRefresh(res.data);
         // window.location.reload();
-        console.log(refresh);
       });
     } else
       await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
@@ -1517,7 +1516,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-            // onClick={}
+              // onClick={}
             >
               SWAP
             </button>
@@ -1870,7 +1869,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-            // onClick={uploadPost}
+              // onClick={uploadPost}
             >
               POST
             </button>
@@ -2204,7 +2203,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-              // onClick={uploadPost}
+                // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2528,8 +2527,15 @@ function NewsfeedComponent() {
       </Popup>
     );
   };
+  const likeReel = async(reelId) => {
+    let params = {}
+    await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
+      getReelForUserFriends()
 
-  useEffect(() => { }, [postsForUser]);
+    })
+  }
+  useEffect(() => {
+  }, [postsForUser]);
 
   const show = () => {
     return (
@@ -2594,6 +2600,7 @@ function NewsfeedComponent() {
                                       <DisplayFriendsReelsComponent
                                         key={reel.id}
                                         id={index}
+                                        likeReel={likeReel}
                                         reel={reel}
                                         setRefresh={setRefresh}
                                         index={index}
@@ -2618,7 +2625,7 @@ function NewsfeedComponent() {
                     <div className="new-postbox">
                       <div className="slide-wrapperstry">
                         {rellsForUserFriends &&
-                          rellsForUserFriends.length > 0 ? (
+                        rellsForUserFriends.length > 0 ? (
                           <ul className="slidestry">
                             {rellsForUserFriends
                               .slice(0, 4)
@@ -2657,6 +2664,7 @@ function NewsfeedComponent() {
                                         key={reel.id}
                                         id={index}
                                         reel={reel}
+                                        likeReel={likeReel}
                                         setRefresh={setRefresh}
                                         index={index}
                                       />
@@ -2666,15 +2674,12 @@ function NewsfeedComponent() {
                               ))}
                           </ul>
                         ) : (
-                          <div
-                            className="center"
-                            style={{ padding: "50px" }}
-                          >
+                          <div className="center" style={{ padding: "50px" }}>
                             No Reels to show
                           </div>
                         )}
                       </div>
-                      <div className="d-flex justify-content-between pt-10 ">  
+                      <div className="d-flex justify-content-between pt-10 ">
                         <Popup
                           trigger={<div className="add-reel"> Add Reel</div>}
                           modal
@@ -2752,7 +2757,10 @@ function NewsfeedComponent() {
                                   ) : (
                                     <div style={{ textAlign: "center" }}>
                                       <label className="fileContainer">
-                                        <div className="reelvideo" type="submit">
+                                        <div
+                                          className="reelvideo"
+                                          type="submit"
+                                        >
                                           <input
                                             type="file"
                                             name="reel_video"
@@ -2914,47 +2922,83 @@ function NewsfeedComponent() {
               <li className="slideitemstry">
                 <div className="strysggstion-card">
                   <div className="strysggstion-img">
-                    <img src={user.profilePicturePath} alt="img" style={user.profilePicture==="default.png"?{padding:'16px'}:{}}/>
+                    <img
+                      src={user.profilePicturePath}
+                      alt="img"
+                      style={
+                        user.profilePicture === "default.png"
+                          ? { padding: "16px",height:'auto' }
+                          : {}
+                      }
+                    />
                   </div>
-                  <Popup trigger={<div className="add-stry"> +</div>} modal className="addStory-popup">
+                  <Popup
+                    trigger={<div className="add-stry"> +</div>}
+                    modal
+                    className="addStory-popup"
+                  >
                     {(close) => (
                       <Form className="popwidth">
                         <div className="headpop">
-                            <span>
-                              <a
-                                href="#!"
-                                onClick={close}
-                              >
-                                <i className="las la-times"></i>
-                              </a>
-                            </span>
-                            <span
-                              className="poptitle"
-                            >
-                              Lets Add Stories
-                            </span>
+                          <span>
+                            <a href="#!" onClick={close}>
+                              <i className="las la-times"></i>
+                            </a>
+                          </span>
+                          <span className="poptitle">Lets Add Stories</span>
 
-                            {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                            <span style={{ float: "right" }}>
-                              {" "}
-                              <button
-                                style={{
-                                  float: "right",
-                                  borderRadius: "20px",
-                                  padding: "5px 20px",
-                                }}
-                                type="submit"
-                                onClick={uploadStories}
-                              >
-                                Upload
-                              </button>
-                            </span>
+                          {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                          <span style={{ float: "right" }}>
+                            {" "}
+                            <>
+                              {showStoryButtonVdo ? (
+                                <div style={{ textAlign: "center" }}>
+                                  <button
+                                    style={{
+                                      float: "right",
+                                      borderRadius: "20px",
+                                      padding: "5px 20px",
+                                    }}
+                                    onClick={() => {
+                                      setStoryType("image");
+                                      setShowStoryButtonVdo(false);
+                                      setShowStoryButton(true);
+                                    }}
+                                  >
+                                    Add Image
+                                  </button>
+                                </div>
+                              ) : null}
+                              {showStoryButton ? (
+                                <div style={{ textAlign: "center" }}>
+                                  <button
+                                    style={{
+                                      float: "right",
+                                      borderRadius: "20px",
+                                      padding: "5px 20px",
+                                    }}
+                                    onClick={() => {
+                                      setStoryType("video");
+                                      setShowStoryButtonVdo(true);
+                                      setShowStoryButton(false);
+                                    }}
+                                  >
+                                    Add Video
+                                  </button>
+                                </div>
+                              ) : null}
+                            </>
+                          </span>
                         </div>
 
-                        <div >
+                        <div>
                           <span className="textPop">
                             {showstoriesImage ? (
+                              
                               <>
+                            
+                                { showStoryButton ? (
+                                  <>
                                 <img
                                   id="preview"
                                   src={storiesImage}
@@ -2972,39 +3016,89 @@ function NewsfeedComponent() {
                                 >
                                   <i className="las la-times"></i>
                                 </button>
+                                  </>
+                                ):(
+                                  <>
+
+                                  <video
+                                       id="video"
+                                        width="100%"
+                                        height={"350px"}
+                                        controls="controls"
+                                   >
+                                  <source src={storiesImage} />
+                                  </video>
+                                <button
+                                  onClick={handleRemoveImageStry}
+                                  style={{
+                                    right: "20px",
+                                    position: "absolute",
+                                    borderRadius: "100%",
+                                    background: "#b7b7b738",
+                                    padding: "10px 10px",
+                                  }}
+                                >
+                                  <i className="las la-times"></i>
+                                </button>
+</>
+                                )}
                               </>
                             ) : (
-                              <div style={{ textAlign: "center" }}>
-                                <label className="fileContainer">
-                                  <div className="storypic" type="submit">
-                                    <input
-                                      type="file"
-                                      name="swap_image"
-                                      accept="image/*"
-                                      onChange={handleFileStry}
-                                    ></input>
-                                    Add Story
+                              <>
+                                {showStoryButtonVdo ? (
+                                  <div style={{ textAlign: "center" }}>
+                                    <label className="fileContainer">
+                                      <div className="reelvideo" type="submit">
+                                        <input
+                                          type="file"
+                                          name="reel_video"
+                                          accept="video/*"
+                                          onChange={handleFileStry}
+                                        ></input>
+                                        Add Video Story
+                                      </div>
+                                    </label>
                                   </div>
-                                </label>
-                              </div>
+                                ) : null}
+                                {showStoryButton ? (
+                                  <div style={{ textAlign: "center" }}>
+                                    <label className="fileContainer">
+                                      <div className="storypic" type="submit">
+                                        <input
+                                          type="file"
+                                          name="swap_image"
+                                          accept="image/*"
+                                          onChange={handleFileStry}
+                                        ></input>
+                                        Add Image Story
+                                      </div>
+                                    </label>
+                                  </div>
+                                ) : null}
+                              </>
                             )}
                             <textarea
                               className="textpopup"
                               rows={2}
-                              style={{marginTop:'10px'}}
+                              style={{ marginTop: "10px" }}
                               placeholder={"Add text to your Story"}
                               name="story_content"
                               value={storyContent}
                               onChange={handleStoryContent}
                             />
                           </span>
-                          
-                          {uploadErrorStory
-                            ? <div className="storyErr">{uploadErrorStory}</div>
-                            : null}
-                        
-                          <button  class="popsbmt-btn" type="submit"
-                              onClick={uploadStories}>SHARE STORY</button>
+
+                          {uploadErrorStory ? (
+                            <div className="storyErr">{uploadErrorStory}</div>
+                          ) : null}
+
+                          <button
+                            class="popsbmt-btn"
+                            type="submit"
+                            onClick={uploadStories}
+                          >
+                            SHARE STORY
+                          </button>
                         </div>
                         {/* </> 
                                                    
@@ -3031,7 +3125,7 @@ function NewsfeedComponent() {
 
               {storiesForUser.map((story, index) => (
                 <>
-                  {story.storiesImagePath && index === 0 ? (
+                  {story.storiesMediaPath && index === 0 ? (
                     <>
                       <Popup
                         style={{ padding: "0px" }}
@@ -3047,10 +3141,7 @@ function NewsfeedComponent() {
                         modal
                       >
                         {(close) => (
-                          <Form
-                            className="stryp"
-                            
-                          >
+                          <Form className="stryp">
                             <div>
                               <div className="row">
                                 <div style={{ width: "5%" }}>
@@ -3076,7 +3167,7 @@ function NewsfeedComponent() {
                 </>
               ))}
 
-              {storiesForUserFriends.slice(0,3).map((story, index) => (
+              {storiesForUserFriends.slice(0, 3).map((story, index) => (
                 <Popup
                   style={{ padding: "0px" }}
                   className="story-popup"
@@ -3085,7 +3176,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                          storiesForUserFriends[index].stories_List.length - 1
+                            storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -3095,7 +3186,7 @@ function NewsfeedComponent() {
                   modal
                 >
                   {(close) => (
-                    <Form className="stryp" >
+                    <Form className="stryp">
                       <div>
                         <div className="row">
                           <div style={{ width: "5%" }}>
@@ -3122,12 +3213,13 @@ function NewsfeedComponent() {
                   )}
                 </Popup>
               ))}
-              { storiesForUserFriends.length>3?
-                <li className="more-reels" >
-                  <a href="/reelFeed"><i className="fas fa-arrow-right"></i></a>
+              {storiesForUserFriends.length > 3 ? (
+                <li className="more-reels">
+                  <a href="/reelFeed">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
                 </li>
-                :null
-              }
+              ) : null}
             </ul>
             {/* <div className="paddles">
               <button className="left-paddlestry paddle">

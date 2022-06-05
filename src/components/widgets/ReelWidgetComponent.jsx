@@ -112,6 +112,13 @@ export default function ReelWidgetComponent(props) {
   const handleReelContent = (event) => {
     setReelContent(event.target.value);
   };
+  const likeReel = async(reelId)=>{
+    let params = {}
+    await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
+        getReelForUserFriends()
+
+    })
+  }
   const handleRemoveReelVideo = () => {
     setFilesReel({});
     setShowReelVideo(false);
@@ -164,6 +171,7 @@ export default function ReelWidgetComponent(props) {
                                 key={reel.id}
                                 id={index}
                                 reel={reel}
+                                likeReel={likeReel}
                                 setRefresh={setRefresh}
                                 index={index}
                               />

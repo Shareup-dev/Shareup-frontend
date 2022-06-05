@@ -99,9 +99,9 @@ function getFileExtension(filename){
       <a href="#">
         <div className="strysggstion-imgStry" id="stry-number-hover">
         <a href="#!">
-            {getFileExtension(story.image) !== "mp4" ? (
+            {story.storyType === "image" ? (
               <img
-                src={fileStorage.baseUrl + story.storiesImagePath}
+                src={fileStorage.baseUrl + story.storiesMediaPath}
                 alt=""
                 className="zoom-story-img"
               />
@@ -117,9 +117,9 @@ function getFileExtension(filename){
                   height: "100%",
                   objectFit: "fill",
                 }}
-                src={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+                src={`${fileStorage.baseUrl}${story.storiesMediaPath}`}
                 type="video/mp4"
-                alt={`${fileStorage.baseUrl}${story.storiesImagePath}`}
+                alt={`${fileStorage.baseUrl}${story.storiesMediaPath}`}
               />
             )}
           </a>
