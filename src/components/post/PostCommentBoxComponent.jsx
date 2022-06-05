@@ -76,12 +76,10 @@ export default function PostComponentBoxComponent(props) {
     } else {
       let comment = {}
       comment.content = commentContent;
-
       const formData = new FormData();
       formData.append("content", commentContent);
       if (props.editComment) {
-        CommentsService.editCommentForPosts(props.editComment.id, comment).then(res => {
-          console.log(res.data)
+        PostService.editCommentForPosts(props.editComment.id, formData).then(res => {
           props.checkEditComment(false)
           props.setRefresh(res.data)
           setCommentContent("")

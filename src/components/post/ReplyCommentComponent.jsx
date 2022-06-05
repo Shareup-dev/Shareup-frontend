@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import UserContext from '../../contexts/UserContext';
-// import PostService from '../../services/PostService';
+ import PostService from '../../services/PostService';
 import CommentsService from '../../services/CommentsService';
 
 import Form from 'react-bootstrap/Form';
@@ -59,7 +59,7 @@ export default function ReplyCommentComponent(props) {
         const formData = new FormData();
       formData.append("content", replyContent);
         if(editReplyId){
-          CommentsService.editReplyForComment(editReplyId,replyCon).then(res=>{
+          CommentsService.editReplyForComment(editReplyId,formData).then(res=>{
               setEditReplyFlag(false)
               getReplies(props.comment.id)
               setReplyContent("")
