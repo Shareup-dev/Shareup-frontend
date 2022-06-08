@@ -33,8 +33,9 @@ export default function ReplyCommentComponent(props) {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [likeReaction, setLikeReaction] = useState(null);
   const [showCommentReactions, setShowCommentReactions] = useState(false);
+  const [replyID, setreplyID] = useState("");
 
-  const handleShowingCommentReaction = () => {
+  const handleShowingCommentReaction = (reply) => {
     setTimeout(function () {
       setShowCommentReactions(true);
     }, 200);
@@ -108,12 +109,12 @@ export default function ReplyCommentComponent(props) {
       getReplies(props.comment.id);
     });
   };
-//   const handleSettingReactions = (reaction) => {
-//     setLikeReaction(reaction);
-//     if (!checkIfLiked(post)) {
-//       likeReply(post, reaction);
-//     }
-//   };
+  //   const handleSettingReactions = (reaction) => {
+  //     setLikeReaction(reaction);
+  //     if (!checkIfLiked(post)) {
+  //       likeReply(post, reaction);
+  //     }
+  //   };
   //     const handleReaction = () => {
   //     return (
   //       <>
@@ -459,42 +460,46 @@ export default function ReplyCommentComponent(props) {
                           )}
                         </span>
                       </div>
-                      {showCommentReactions && (
-                        <div
-                          onMouseEnter={handleShowingCommentReaction}
-                          onMouseLeave={handleUnshowingCommentReaction}
-                          className="reaction-bunch active"
-                        >
-                          <img
-                            src={"../assets/images/gif/smiley.gif"}
-                            // onClick={() => handleSettingReactions("smiley")}
-                          />
-                          <img
-                            src={"../assets/images/gif/wow.gif"}
-                            // onClick={() => handleSettingReactions("wow")}
-                          />
-                          <img
-                            src={"../assets/images/gif/laughing.gif"}
-                            // onClick={() => handleSettingReactions("laugh")}
-                          />
-                          <img
-                            src={"../assets/images/gif/crying.gif"}
-                            // onClick={() => handleSettingReactions("cry")}
-                          />
-                          <img
-                            src={"../assets/images/gif/love.gif"}
-                            // onClick={() => handleSettingReactions("love")}
-                          />
-                          <img
-                            src={"../assets/images/gif/angry.gif"}
-                            // onClick={() => handleSettingReactions("angry")}
-                          />
-                          <img
-                            src={"../assets/images/gif/celebrate.gif"}
-                            // onClick={() => handleSettingReactions("celebrate")}
-                          />
-                        </div>
-                      )}
+                      {replyID === reply.id ? (
+                        <>
+                          {showCommentReactions && (
+                            <div
+                              onMouseEnter={handleShowingCommentReaction}
+                              onMouseLeave={handleUnshowingCommentReaction}
+                              className="reaction-bunch active"
+                            >
+                              <img
+                                src={"../assets/images/gif/smiley.gif"}
+                                // onClick={() => handleSettingReactions("smiley")}
+                              />
+                              <img
+                                src={"../assets/images/gif/wow.gif"}
+                                // onClick={() => handleSettingReactions("wow")}
+                              />
+                              <img
+                                src={"../assets/images/gif/laughing.gif"}
+                                // onClick={() => handleSettingReactions("laugh")}
+                              />
+                              <img
+                                src={"../assets/images/gif/crying.gif"}
+                                // onClick={() => handleSettingReactions("cry")}
+                              />
+                              <img
+                                src={"../assets/images/gif/love.gif"}
+                                // onClick={() => handleSettingReactions("love")}
+                              />
+                              <img
+                                src={"../assets/images/gif/angry.gif"}
+                                // onClick={() => handleSettingReactions("angry")}
+                              />
+                              <img
+                                src={"../assets/images/gif/celebrate.gif"}
+                                // onClick={() => handleSettingReactions("celebrate")}
+                              />
+                            </div>
+                          )}
+                        </>
+                      ) : null}
                       <div
                         style={{
                           paddingTop: "5px",
@@ -525,7 +530,10 @@ export default function ReplyCommentComponent(props) {
                             ) : (
                               <span
                                 className="dislike"
-                                onMouseEnter={handleShowingCommentReaction}
+                                onMouseEnter={() => {
+                                  setreplyID(reply.id);
+                                  handleShowingCommentReaction();
+                                }}
                                 onMouseLeave={handleUnshowingCommentReaction}
                               >
                                 <i className="far fa-star"></i>
