@@ -3164,7 +3164,10 @@ function NewsfeedComponent() {
                                 </div>
                               </div>
                             </div>
-                            <DisplayComponent />
+                            <DisplayComponent 
+
+                             story={storiesForUser}
+                            />
                           </Form>
                         )}
                       </Popup>
