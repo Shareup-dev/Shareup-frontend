@@ -17397,7 +17397,7 @@ code {
   /* border: 1px solid white; */
   padding: 10px;
   background-color: transparent;
-  z-index: 100;
+  z-index: 101;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -17433,9 +17433,10 @@ code {
   border-radius: 20px;
 }
 .reel-container .strydiv {
-  width: 50%;
+  width: 450px;
 }
 .reel-container .slideshow {
+  /* max-width: 450px; */
 }
 .reel-comment-section {
   background: white;
