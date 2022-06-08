@@ -119,7 +119,7 @@ export default function PostComponentBoxComponent(props) {
         </div>
         <div className="post-comt-box">
           <Form>
-            <textarea rows={2} placeholder={"Write a comment.."} name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(props.post.id)} onChange={handleCommentContent} autoFocus />
+            <textarea rows={2} placeholder={"Write a comment.."} name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(props.post.id)} onChange={handleCommentContent} />
             <div className="add-smiles">
               <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i className="lar la-laugh"></i></span>
             </div>

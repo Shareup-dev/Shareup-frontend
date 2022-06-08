@@ -1836,7 +1836,7 @@ function NewsfeedComponent() {
                                 display: "inline-block",
                                 verticalAlign: "middle",
                                 borderRadius: "10px",
-                                width: "fit-content",
+                                width: "100%",
                                 maxHeight: "450px",
                                 marginBottom: "10px!important",
                               }}

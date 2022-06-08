@@ -428,7 +428,7 @@ function GuideComponent() {
               {allGroups.slice(0, 8).map((group) => (
                 <li key={group.id} className="sendrqstli">
                   <div className="grid-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-                    <div className="item1">
+                    <div className="item1" style={{ width: '20%' }}>
                       <img
                         src={
                           group.groupImagePath
@@ -436,6 +436,7 @@ function GuideComponent() {
                             : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"
                         }
                         alt=""
+                        width="56px"
                       />
                     </div>
 
