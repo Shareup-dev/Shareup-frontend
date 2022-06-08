@@ -3046,7 +3046,7 @@ function NewsfeedComponent() {
                                 >
                                   <i className="las la-times"></i>
                                 </button>
-</>
+                                </>
                                 )}
                               </>
                             ) : (

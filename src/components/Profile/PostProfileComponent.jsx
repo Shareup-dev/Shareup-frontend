@@ -11,16 +11,16 @@ import PostTextBoxComponent from '../post/PostTextBoxComponent';
 import FriendProfWidgtComponent from './FriendProfWidgtComponent';
 import settings from '../../services/Settings';
 
-export default function PostProfileComponent({ posts, setRefresh }) {
+export default function PostProfileComponent(props) {
    
 
     return (
         <div className="row">
                   
-                  <PostTextBoxComponent/>
+                {props.showPostInput?<PostTextBoxComponent/>:null}  
             {
-                posts.map(post =>
-                    <PostComponent post={post} setRefresh={setRefresh}/>
+                props.posts.map(post =>
+                    <PostComponent post={post} setRefresh={props.setRefresh}/>
                     )
             }
         </div>

@@ -113,7 +113,7 @@ function FriendProfileComponent({ email, id }) {
                 {user.id === id ? (
                   <button
                     title=""
-                    className="button"
+                    className="button common-trans-btn1"
                     style={{ width: "25%", margin: "10px", padding: "0 5px" }}
                     onClick={() => removeFriend(user.id, friend.id)}
                   >
@@ -125,7 +125,7 @@ function FriendProfileComponent({ email, id }) {
                       <>
                         <button
                           title=""
-                          className="button"
+                          className="button common-theme-btn1"
                           style={{
                             width: "25%",
                             margin: "10px",
@@ -139,7 +139,7 @@ function FriendProfileComponent({ email, id }) {
                         </button>
                         <button
                           title=""
-                          className="button"
+                          className="button common-trans-btn1"
                           style={{
                             width: "25%",
                             margin: "10px",
@@ -155,7 +155,7 @@ function FriendProfileComponent({ email, id }) {
                     ) : friendRequestSent.some((el) => el.id === friend.id) ? (
                       <button
                         title=""
-                        className="button"
+                        className="button common-trans-btn1"
                         style={{
                           width: "25%",
                           margin: "10px",
@@ -168,7 +168,7 @@ function FriendProfileComponent({ email, id }) {
                     ) : (
                       <button
                         title=""
-                        className="button"
+                        className="button common-theme-btn1"
                         style={{
                           width: "25%",
                           margin: "10px",
@@ -183,7 +183,7 @@ function FriendProfileComponent({ email, id }) {
                     <>
                       <button
                         title=""
-                        className="button"
+                        className="button common-trans-btn1"
                         style={{
                           width: "25%",
                           margin: "10px",

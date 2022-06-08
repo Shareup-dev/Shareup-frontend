@@ -97,52 +97,52 @@ function FriendFollowProfileComponent({email,id}) {
             <div className="loadMore" style={{ textAlign: "center" }}>
               {FollowingList && FollowingList.length > 0 ? (
                 <ul className="nearby-contct">
-         {FollowingList.map(friend =>
-        <li key={friend.id} className="friends-card bckclr grp">
-                                <div className="grid-container">
-                                    <div className="item1">
-                                        <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
-                                    </div>
-                                    <div className="item2">
-                                        <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
-										
-                                    </div>
-                                    {user.id !== friend.id ? (
-                        !following.some((el) => el.id === friend.id) ? (
-                          <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                            onClick={() => handleFollow(friend.id)}
-                          >
-                            Follow
-                          </button>
-                        ) : (
-                          <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                            onClick={() => handleUnfollow(friend.id)}
-                          >
-                            Unfollow
-                          </button>
-                        )
-                      ) : null}
+                      {FollowingList.map(friend =>
+                      <li key={friend.id} className="friends-card bckclr grp">
+                                              <div className="grid-container">
+                                                  <div className="item1">
+                                                      <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
+                                                  </div>
+                                                  <div className="item2">
+                                                      <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
+                                  
+                                                  </div>
+                                                  {user.id !== friend.id ? (
+                                      !following.some((el) => el.id === friend.id) ? (
+                                        <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
+                                          onClick={() => handleFollow(friend.id)}
+                                        >
+                                          Follow
+                                        </button>
+                                      ) : (
+                                        <button title="" className="button common-trans-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
+                                          onClick={() => handleUnfollow(friend.id)}
+                                        >
+                                          Unfollow
+                                        </button>
+                                      )
+                                    ) : null}
 
-                                
-                                </div>
-                            </li>)}</ul>
-              ) : (
-                <div className="center" style={{ padding: "20px" }}>
-                No Following Friends
-                </div>
-              )}
-            </div>
-          </>
-        );
-      };
-      const FollowersFriends = () => {
-        return (
-          <>
-            <div className="loadMore" style={{ textAlign: "center" }}>
-              {followersList && followersList.length > 0 ? (
-                <ul className="nearby-contct">
-         {followersList.map(friend =>
-        <li key={friend.id} className="friends-card bckclr grp">
+                                              
+                                              </div>
+                                          </li>)}</ul>
+                            ) : (
+                              <div className="center" style={{ padding: "20px" }}>
+                              No Following Friends
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      );
+                    };
+                    const FollowersFriends = () => {
+                      return (
+                        <>
+                          <div className="loadMore" style={{ textAlign: "center" }}>
+                            {followersList && followersList.length > 0 ? (
+                              <ul className="nearby-contct">
+                      {followersList.map(friend =>
+                      <li key={friend.id} className="friends-card bckclr grp">
                                 <div className="grid-container">
                                     <div className="item1">
                                         <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={fileStorage.baseUrl+friend.profilePicturePath} alt="" /></a>
@@ -153,13 +153,13 @@ function FriendFollowProfileComponent({email,id}) {
                                     </div>
                                     {user.id !== friend.id ? (
                         !following.some((el) => el.id === friend.id) ? (
-                          <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}
+                          <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
                             onClick={() => handleFollow(friend.id)}
                           >
                             Follow
                           </button>
                         ) : (
-                          <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}
+                          <button title="" className="button common-trans-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
                             onClick={() => handleUnfollow(friend.id)}
                           >
                             Unfollow

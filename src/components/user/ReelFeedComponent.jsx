@@ -199,11 +199,13 @@ function ReelFeedComponent() {
 
 
   };
-  const likeReel = async(reelId)=>{
+  const likeReel = async(reelId,reaction)=>{
     let params = {}
+    params.emoji =  reaction
     await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
-      getReelsForUser()
-      getAllReels()
+      console.log(res)
+      // getReelsForUser()
+      // getAllReels()
 
     })
   }

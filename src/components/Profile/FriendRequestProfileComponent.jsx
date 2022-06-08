@@ -83,7 +83,7 @@ function FriendRequestProfileComponent({email,id}) {
 										
                                     </div>
                                     {user.id === id ?(
-                                        <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => unsendFriendRequest(user.id, friend.id)}>Unsend</button>
+                                        <button title="" className="button common-trans-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => unsendFriendRequest(user.id, friend.id)}>Unsend</button>
                                     ):(<>
 
                                     </>)}
@@ -122,8 +122,8 @@ function FriendRequestProfileComponent({email,id}) {
                                     </div>
                                     {user.id === id ?(
                                         <>
-                                        <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => acceptFriendRequest(user.id, friend.id)}>Accept</button>
-                                        <button title="" className="button" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => declineFriendRequest(user.id, friend.id)}>Reject</button>
+                                        <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => acceptFriendRequest(user.id, friend.id)}>Accept</button>
+                                        <button title="" className="button common-trans-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}onClick={() => declineFriendRequest(user.id, friend.id)}>Reject</button>
                                          </>
                                     ):(<>
 

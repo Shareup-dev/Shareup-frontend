@@ -100,6 +100,7 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
+    console.log(post)
     if (post?.likedType !== "false") {
       return true;
     }
