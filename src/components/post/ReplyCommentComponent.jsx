@@ -1,294 +1,595 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import UserContext from '../../contexts/UserContext';
- import PostService from '../../services/PostService';
-import CommentsService from '../../services/CommentsService';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import UserContext from "../../contexts/UserContext";
+import PostService from "../../services/PostService";
+import CommentsService from "../../services/CommentsService";
 
-import Form from 'react-bootstrap/Form';
-import settings from '../../services/Settings';
-import fileStorage from '../../config/fileStorage';
-import Picker from 'emoji-picker-react';
-import PickerGif from 'react-giphy-picker';
+import Form from "react-bootstrap/Form";
+import settings from "../../services/Settings";
+import fileStorage from "../../config/fileStorage";
+import Picker from "emoji-picker-react";
+import PickerGif from "react-giphy-picker";
 import Giphy from "../Giphy";
 import Stickers from "../Stickers";
-import $ from 'jquery'
-import moment from 'moment';
+import $ from "jquery";
+import moment from "moment";
 
 export default function ReplyCommentComponent(props) {
-    const { user } = useContext(UserContext)
-    const ref = useRef(null);
-    const [replyContent, setReplyContent] = useState("");
-    const [showEmojis, setShowEmojis] = useState(false)
-    const [showGifs, setShowGifs] = useState(false)
-    const [showSticker, setShowSticker] = useState(false)
-    const [chosenEmoji, setChosenEmoji] = useState(null);
-    const [repliesShowFlag,setRepliesShowFlag] = useState()
-    const [chosenGif, setChosenGif] = useState(null);
-    const [chosenSticker, setSticker] = useState(null);
-    const [replyCommentId, setReplyCommentId] = useState(false)
-    const [replies, setReplies] = useState([])
-    const [repliesShowId, setRepliesShowId] = useState(true)
-    const [editReplyId,setEditReplyId]  = useState()
-    const [editReplyFlag,setEditReplyFlag]  = useState(false)
-    const [replyListFlag,setReplyListFlag] = useState(false)
-    const [showReplyInput,setShowReplyInput] = useState(false)
+  const { user } = useContext(UserContext);
+  const ref = useRef(null);
+  const [replyContent, setReplyContent] = useState("");
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [showGifs, setShowGifs] = useState(false);
+  const [showSticker, setShowSticker] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [repliesShowFlag, setRepliesShowFlag] = useState();
+  const [chosenGif, setChosenGif] = useState(null);
+  const [chosenSticker, setSticker] = useState(null);
+  const [replyCommentId, setReplyCommentId] = useState(false);
+  const [replies, setReplies] = useState([]);
+  const [repliesShowId, setRepliesShowId] = useState(true);
+  const [editReplyId, setEditReplyId] = useState();
+  const [editReplyFlag, setEditReplyFlag] = useState(false);
+  const [replyListFlag, setReplyListFlag] = useState(false);
+  const [showReplyInput, setShowReplyInput] = useState(false);
+  const [likeReaction, setLikeReaction] = useState(null);
+  const [showCommentReactions, setShowCommentReactions] = useState(false);
 
-// const[comment,setComment] = useState()
-
-
-    const onEmojiClick = (event, emojiObject) => {
-        const cursor = ref.current.selectionStart;
-        const start = replyContent.substring(0, cursor)
-        const end = replyContent.substring(cursor)
-        const text = start + emojiObject.emoji + end;
-
-        setChosenEmoji(emojiObject);
-        setReplyContent(text);
-        ref.current.focus();
+  const handleShowingCommentReaction = () => {
+    setTimeout(function () {
+      setShowCommentReactions(true);
+    }, 200);
   };
-  
-  
- const handleReplyContent = (event) => {
-    setReplyContent(event.target.value)
-  }
+
+  const handleUnshowingCommentReaction = () => {
+    setTimeout(function () {
+      setShowCommentReactions(false);
+    }, 200);
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    const cursor = ref.current.selectionStart;
+    const start = replyContent.substring(0, cursor);
+    const end = replyContent.substring(cursor);
+    const text = start + emojiObject.emoji + end;
+
+    setChosenEmoji(emojiObject);
+    setReplyContent(text);
+    ref.current.focus();
+  };
+
+  const handleReplyContent = (event) => {
+    setReplyContent(event.target.value);
+  };
 
   const handleReplyComment = () => {
     if (replyContent === "") {
       return null;
-    }else{
-        const replyCon = { content: replyContent }
-        const formData = new FormData();
+    } else {
+      const replyCon = { content: replyContent };
+      const formData = new FormData();
       formData.append("content", replyContent);
-        if(editReplyId){
-          CommentsService.editReplyForComment(editReplyId,formData).then(res=>{
-              setEditReplyFlag(false)
-              getReplies(props.comment.id)
-              setReplyContent("")
-            })
-        }else{
-            CommentsService.replyComment(user.id, props.comment.id, replyCon).then(res => {
-                // console.log(res.status)
-                // setReplyCommentFlag(false)
-                getReplies(props.comment.id)
-                setReplyContent("")
-                setReplyListFlag(true)
-            })
-        }
+      if (editReplyId) {
+        CommentsService.editReplyForComment(editReplyId, formData).then(
+          (res) => {
+            setEditReplyFlag(false);
+            getReplies(props.comment.id);
+            setReplyContent("");
+          }
+        );
+      } else {
+        CommentsService.replyComment(user.id, props.comment.id, replyCon).then(
+          (res) => {
+            // console.log(res.status)
+            // setReplyCommentFlag(false)
+            getReplies(props.comment.id);
+            setReplyContent("");
+            setReplyListFlag(true);
+          }
+        );
+      }
     }
-    
+
     // await PostService.replyComment(user.id, comment.id, reply).then(res => {
-     
+
     //   setReplyCommentFlag(false)
     //   setreplyContent("")
     //   setRefresh(res.data)
     // })
-  }
-//   const getReplies = (commentId)=>{
-//     PostService.getReplies(commentId).then((res)=>{
-//         setReplies(res.data)
-//     })
-//   }
-    const likeReply = async (reply) => {
-        let params = await {}
-        await CommentsService.LikeReply(user.id, reply.id, params).then((res) => {
-            console.log(res.data)
-            getReplies(props.comment.id)
-      })
-   }
-    const handleDeleteReply = (rid,commentId) => {
-        CommentsService.deleteReply(rid).then(res => {
-        console.log(res.status)
-        // props.setRefresh(res.data)
-        getReplies(commentId)
-        })
-    }
-    const getReplies = async (commentId) => {
-        await CommentsService.getReplies(user.id,commentId).then((res) => {
-            setReplies(res.data)
-        
-        })
-   }
-   const checkEditReply = (e)=>{
-        setEditReplyFlag(e)
-   }
-    const editReply = async (e,reply)=>{
-        await e.preventDefault();
-        await setEditReplyId(reply.id)
-        // if(editReplyId===reply.id){
-            await setEditReplyFlag(true)
-            await setReplyContent(reply.content)
-            await setShowReplyInput(false)
-        // }
-    }
-    const checkIfLiked = (reply) => {
-        if (reply.reactions) {
-            const result = reply.reactions.filter(
-            (reaction) => reaction.user.id == user.id
-            );
-            if (result.length > 0) {
-            // setLikedCommentId(comment.id)
-            return true;
-            }
-            return false;
-        }
-    }
-    const cancelEdit = () =>{
-        setEditReplyFlag(false)
-        setReplyContent("")
-        setEditReplyId()
-    }
-    useEffect (()=>{
-        setShowReplyInput(props.showReplyInput)
-        setReplyListFlag(props.replyListFlag)
-    },[props.replyListFlag,props.showReplyInput])
-    useEffect(() => {
-        getReplies(props.comment.id)
-       
-    //   getReplies(comment.id)
-    }, [props]);
+  };
+  //   const getReplies = (commentId)=>{
+  //     PostService.getReplies(commentId).then((res)=>{
+  //         setReplies(res.data)
+  //     })
+  //   }
+  const likeReply = async (reply) => {
+    let params = await {};
+    await CommentsService.LikeReply(user.id, reply.id, params).then((res) => {
+      console.log(res.data);
+      getReplies(props.comment.id);
+    });
+  };
+//   const handleSettingReactions = (reaction) => {
+//     setLikeReaction(reaction);
+//     if (!checkIfLiked(post)) {
+//       likeReply(post, reaction);
+//     }
+//   };
+  //     const handleReaction = () => {
+  //     return (
+  //       <>
+  //         {(() => {
+  //           switch (reply?.likedType) {
+  //             case "star":
+  //               return (
+  //                 <i
+  //                   className="fas fa-star"
+  //                   style={{
+  //                     fontSize: "15px",
+  //                     color: "#d83535",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 ></i>
+  //               );
+  //             case "smiley":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😊
+  //                 </i>
+  //               );
+  //             case "wow":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😮
+  //                 </i>
+  //               );
+  //             case "laugh":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😂
+  //                 </i>
+  //               );
+  //             case "cry":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😭
+  //                 </i>
+  //               );
+  //             case "love":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😍
+  //                 </i>
+  //               );
+  //             case "celebrate":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "20px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   🥳
+  //                 </i>
+  //               );
+  //             case "angry":
+  //               return (
+  //                 <i
+  //                   style={{
+  //                     fontSize: "15px",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 >
+  //                   😡
+  //                 </i>
+  //               );
+  //             default:
+  //               return (
+  //                 <i
+  //                   className="fas fa-star"
+  //                   style={{
+  //                     fontSize: "15px",
+  //                     color: "#d83535",
+  //                     paddingRight: "5px",
+  //                   }}
+  //                 ></i>
+  //               );
+  //           }
+  //         })()}
+  //       </>
+  //     );
+  //   };
 
-    const replyInput = (reply) =>{
-        return(
-            
-        <li className="post-comment reply-comment">
+  const handleDeleteReply = (rid, commentId) => {
+    CommentsService.deleteReply(rid).then((res) => {
+      console.log(res.status);
+      // props.setRefresh(res.data)
+      getReplies(commentId);
+    });
+  };
+  const getReplies = async (commentId) => {
+    await CommentsService.getReplies(user.id, commentId).then((res) => {
+      setReplies(res.data);
+    });
+  };
+  const checkEditReply = (e) => {
+    setEditReplyFlag(e);
+  };
+  const editReply = async (e, reply) => {
+    await e.preventDefault();
+    await setEditReplyId(reply.id);
+    // if(editReplyId===reply.id){
+    await setEditReplyFlag(true);
+    await setReplyContent(reply.content);
+    await setShowReplyInput(false);
+    // }
+  };
+  const checkIfLiked = (reply) => {
+    if (reply.reactions) {
+      const result = reply.reactions.filter(
+        (reaction) => reaction.user.id == user.id
+      );
+      if (result.length > 0) {
+        // setLikedCommentId(comment.id)
+        return true;
+      }
+      return false;
+    }
+  };
+  const cancelEdit = () => {
+    setEditReplyFlag(false);
+    setReplyContent("");
+    setEditReplyId();
+  };
+  useEffect(() => {
+    setShowReplyInput(props.showReplyInput);
+    setReplyListFlag(props.replyListFlag);
+  }, [props.replyListFlag, props.showReplyInput]);
+  useEffect(() => {
+    getReplies(props.comment.id);
+
+    //   getReplies(comment.id)
+  }, [props]);
+
+  const replyInput = (reply) => {
+    return (
+      <li className="post-comment reply-comment">
         <div className="comet-avatar">
-            <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
+          <img src={fileStorage.baseUrl + user.profilePicturePath} alt="" />
         </div>
         <div className="post-comt-box">
-            <Form>
-            <textarea rows={2} placeholder={"Reply to "+props.comment.user.firstName+' '+props.comment.user.lastName} name="comment" ref={ref} value={replyContent} onKeyPress={(e) => e.key === 'Enter' && handleReplyComment()} onChange={handleReplyContent} />
+          <Form>
+            <textarea
+              rows={2}
+              placeholder={
+                "Reply to " +
+                props.comment.user.firstName +
+                " " +
+                props.comment.user.lastName
+              }
+              name="comment"
+              ref={ref}
+              value={replyContent}
+              onKeyPress={(e) => e.key === "Enter" && handleReplyComment()}
+              onChange={handleReplyContent}
+            />
             <div className="add-smiles">
-                <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i className="lar la-laugh"></i></span>
+              <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}>
+                <i className="lar la-laugh"></i>
+              </span>
             </div>
-            {showEmojis &&
-                <div className="smiles-bunch active">
-                <div >
-                    {chosenEmoji ? (
+            {showEmojis && (
+              <div className="smiles-bunch active">
+                <div>
+                  {chosenEmoji ? (
                     <span>You chose: {chosenEmoji.emoji}</span>
-                    ) : (
+                  ) : (
                     <span>No emoji Chosen</span>
-                    )}
+                  )}
 
-                    <Picker onEmojiClick={onEmojiClick} disableSearchBar={'true'} pickerStyle={{ height: "310px" }} />
+                  <Picker
+                    onEmojiClick={onEmojiClick}
+                    disableSearchBar={"true"}
+                    pickerStyle={{ height: "310px" }}
+                  />
                 </div>
-                </div>
-            }
-            <div className="stickers" style={{ zIndex: '1' }}>
-                <img src="/assets/images/sticker-svgrepo-com.svg" style={{ height: '19px' }} alt="" onClick={() => setShowSticker(!showSticker)} /></div>
-            {showSticker &&
-                <div className="stickers-bunch active">
-                <div style={{ height: '326px', overflowX: 'hidden', overflowY: 'scroll' }} >
-                    {chosenSticker ? (
+              </div>
+            )}
+            <div className="stickers" style={{ zIndex: "1" }}>
+              <img
+                src="/assets/images/sticker-svgrepo-com.svg"
+                style={{ height: "19px" }}
+                alt=""
+                onClick={() => setShowSticker(!showSticker)}
+              />
+            </div>
+            {showSticker && (
+              <div className="stickers-bunch active">
+                <div
+                  style={{
+                    height: "326px",
+                    overflowX: "hidden",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {chosenSticker ? (
                     <span>You chose: {chosenSticker.sticker}</span>
-                    ) : (
+                  ) : (
                     <span>No Gif Chosen</span>
-                    )}
-                    <Stickers />
-                    {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
+                  )}
+                  <Stickers />
+                  {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
                 </div>
-                </div>
-            }
+              </div>
+            )}
             <div className="gifs">
-                <img src="/assets/images/gif.svg" alt="" onClick={() => setShowGifs(!showGifs)} /></div>
-            {showGifs &&
-                <div className="gifs-bunch active">
-                <div style={{ height: '326px', overflowX: 'hidden', overflowY: 'scroll' }} >
-                    {chosenGif ? (
+              <img
+                src="/assets/images/gif.svg"
+                alt=""
+                onClick={() => setShowGifs(!showGifs)}
+              />
+            </div>
+            {showGifs && (
+              <div className="gifs-bunch active">
+                <div
+                  style={{
+                    height: "326px",
+                    overflowX: "hidden",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {chosenGif ? (
                     <span>You chose: {chosenGif.gif}</span>
-                    ) : (
+                  ) : (
                     <span>No Gif Chosen</span>
-                    )}
-                    <Giphy />
-                    {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
+                  )}
+                  <Giphy />
+                  {/* <PickerGif onSelected={onGiphySelect}  pickerStyle={{ height: "210px" }} /> */}
                 </div>
-                </div>
-            }
+              </div>
+            )}
             <div className="btncmnt">
-                <button type="button" onClick={() => handleReplyComment()} style={{ color: 'blue', padding: '1px', }}>
-                <img src="/assets/images/ei_camera.svg" alt="" style={{ padding: "3px", marginTop: "6px", borderStyle: "2px solid black" , paddingRight: "0px"}} />
+              <button
+                type="button"
+                onClick={() => handleReplyComment()}
+                style={{ color: "blue", padding: "1px" }}
+              >
+                <img
+                  src="/assets/images/ei_camera.svg"
+                  alt=""
+                  style={{
+                    padding: "3px",
+                    marginTop: "6px",
+                    borderStyle: "2px solid black",
+                    paddingRight: "0px",
+                  }}
+                />
                 {/* </div> */}
                 {/* <svg className="svg-icon" viewBox="0 0 20 20">
                             <path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
                             </svg> */}
-                </button>
+              </button>
             </div>
-            </Form>
-            </div>
-        </li>
-        )
-    }
-    return (
-      <>
+          </Form>
+        </div>
+      </li>
+    );
+  };
+  return (
+    <>
+      {showReplyInput ? replyInput() : null}
+      {replyListFlag ? (
+        replies && replies.length > 0 ? (
+          <ul style={{ marginLeft: "0px", marginTop: "0px" }}>
+            {replies.map((reply) => {
+              return editReplyId === reply.id && editReplyFlag ? (
+                <div>
+                  {replyInput(reply)}
+                  <a onClick={cancelEdit} className="edit-cancel-text">
+                    cancel
+                  </a>
+                </div>
+              ) : (
+                <li
+                  key={reply.id}
+                  className="post-comment reply-comment d-flex mb-0"
+                >
+                  <div className="comet-avatar">
+                    <img
+                      src={fileStorage.baseUrl + reply.user.profilePicturePath}
+                      alt=""
+                    />
+                  </div>
+                  <div style={{ paddingTop: "2px", display: "table-cell" }}>
+                    <div style={{ position: "relative" }}>
+                      <div className="we-comment">
+                        <div className="coment-head">
+                          <h5>
+                            <a
+                              href={`/profile/${reply.user.email}`}
+                              title={`${reply.user.email}`}
+                            >{`${reply.user.firstName} ${reply.user.lastName}`}</a>
+                          </h5>
+                          <span>
+                            {moment(
+                              reply.published,
+                              "DD MMMM YYYY hh:mm:ss"
+                            ).fromNow()}
+                          </span>
+                        </div>
+                        <p>{`${reply.content}`}</p>
+                        <span
+                          className="float-right"
+                          style={{ fontSize: "10px", paddingRight: "5px" }}
+                        >
+                          {checkIfLiked(reply) ? (
+                            <>
+                              <i
+                                class="fas fa-star"
+                                style={{ color: "rgb(216, 53, 53)" }}
+                              ></i>
+                              {/* <span>{comment.numberOfReaction}</span> */}
+                            </>
+                          ) : (
+                            <i className="far fa-star"></i>
+                          )}
+                        </span>
+                      </div>
+                      {showCommentReactions && (
+                        <div
+                          onMouseEnter={handleShowingCommentReaction}
+                          onMouseLeave={handleUnshowingCommentReaction}
+                          className="reaction-bunch active"
+                        >
+                          <img
+                            src={"../assets/images/gif/smiley.gif"}
+                            // onClick={() => handleSettingReactions("smiley")}
+                          />
+                          <img
+                            src={"../assets/images/gif/wow.gif"}
+                            // onClick={() => handleSettingReactions("wow")}
+                          />
+                          <img
+                            src={"../assets/images/gif/laughing.gif"}
+                            // onClick={() => handleSettingReactions("laugh")}
+                          />
+                          <img
+                            src={"../assets/images/gif/crying.gif"}
+                            // onClick={() => handleSettingReactions("cry")}
+                          />
+                          <img
+                            src={"../assets/images/gif/love.gif"}
+                            // onClick={() => handleSettingReactions("love")}
+                          />
+                          <img
+                            src={"../assets/images/gif/angry.gif"}
+                            // onClick={() => handleSettingReactions("angry")}
+                          />
+                          <img
+                            src={"../assets/images/gif/celebrate.gif"}
+                            // onClick={() => handleSettingReactions("celebrate")}
+                          />
+                        </div>
+                      )}
+                      <div
+                        style={{
+                          paddingTop: "5px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <a
+                            className="we-reply"
+                            title="Like"
+                            onClick={() => likeReply(reply)}
+                          >
+                            {checkIfLiked(reply) ? (
+                              <>
+                                <i
+                                  class="fas fa-star"
+                                  style={{ color: "rgb(216, 53, 53)" }}
+                                ></i>
+                                {/* <span
+                                  className="like"
+                                  data-toggle="tooltip"
+                                  title=""
+                                >
+                                  {handleReaction()}
+                                </span> */}
+                              </>
+                            ) : (
+                              <span
+                                className="dislike"
+                                onMouseEnter={handleShowingCommentReaction}
+                                onMouseLeave={handleUnshowingCommentReaction}
+                              >
+                                <i className="far fa-star"></i>
+                              </span>
+                            )}
+                          </a>
+                        </div>
+                        {reply.user.id === user.id ? (
+                          <a
+                            className="deleteComment"
+                            href="#!"
+                            style={{}}
+                            onClick={() =>
+                              handleDeleteReply(reply.id, props.comment.id)
+                            }
+                          >
+                            <i
+                              style={{
+                                color: "gray",
+                                fontSize: "13px",
+                                paddingRight: "10px",
+                              }}
+                              className="fa fa-trash"
+                            />
+                          </a>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </div>
+                  </div>
 
-
-
-            {
-              showReplyInput ?
-                replyInput()
-                : null
-
-            }
-            {replyListFlag?  
-                replies && replies.length > 0 ? 
-                <ul style={{ marginLeft: '0px', marginTop: '0px' }}>
-                    {replies.map(reply => {
-                        return (
-                            editReplyId===reply.id&&editReplyFlag
-                            ? <div>{replyInput(reply)}<a onClick={cancelEdit} className="edit-cancel-text">cancel</a></div>
-                            : <li key={reply.id} className="post-comment reply-comment d-flex mb-0" >
-                                <div className="comet-avatar">
-                                    <img src={fileStorage.baseUrl + reply.user.profilePicturePath} alt="" />
-                                </div>
-                                <div style={{ paddingTop: '2px', display: 'table-cell' }}>
-                                    <div className="we-comment">
-                                    <div className="coment-head">
-                                        <h5><a href={`/profile/${reply.user.email}`} title={`${reply.user.email}`}>{`${reply.user.firstName} ${reply.user.lastName}`}</a></h5>
-                                        <span>{moment(reply.published, "DD MMMM YYYY hh:mm:ss").fromNow()}</span>
-                                    </div>
-                                    <p>{`${reply.content}`}</p>
-                                    </div>
-                                    <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
-                                    <div>
-                                        <a className="we-reply" title="Like" onClick={() => likeReply(reply)} >
-                                        {checkIfLiked(reply)?
-                                            <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
-                                            :<i class="far fa-star" ></i>
-                                        }
-                                        </a>
-                                        {/* <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a> */}
-                                    </div>
-                                    {(reply.user.id === user.id) ?
-
-                                        <a className="deleteComment" href="#!" style={{}} onClick={() => handleDeleteReply(reply.id,props.comment.id)}><i style={{ color: 'gray', fontSize: '13px', paddingRight: '10px' }} className="fa fa-trash" /></a>
-                                        :
-                                        <></>
-                                    }
-                                    </div>
-                                </div>
-                                {(reply.user.id === user.id) &&
-                                <div className="dropdown more-btn comnt-more-opt">
-                                    <button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{ background: "transparent", border: "none" }}>
-                                    <i style={{ float: "right", fontSize: 20, height: '10px' }} className="las la-ellipsis-v" ></i>
-                                    {/* <span className="caret"></span> */}
-                                    </button>
-                                    <ul className="dropdown-menu">
-                                    <li ><a href={""} onClick={(e)=>editReply(e,reply)}>Edit Reply</a></li>
-                                    </ul>
-                                </div>
-                                }
-                            
-                            </li>
-                        )
-                    })}
-                </ul>
-                    
-                
-            :null
-            :null}
-      </>
-      
-    
+                  {reply.user.id === user.id && (
+                    <div className="dropdown more-btn comnt-more-opt">
+                      <button
+                        className="drp-btn dropdown-toggle "
+                        type="button"
+                        data-toggle="dropdown"
+                        style={{ background: "transparent", border: "none" }}
+                      >
+                        <i
+                          style={{
+                            float: "right",
+                            fontSize: 20,
+                            height: "10px",
+                          }}
+                          className="las la-ellipsis-v"
+                        ></i>
+                      </button>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a href={""} onClick={(e) => editReply(e, reply)}>
+                            Edit Reply
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null
+      ) : null}
+    </>
   );
 }
-
-
-

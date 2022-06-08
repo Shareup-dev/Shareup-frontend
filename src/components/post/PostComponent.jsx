@@ -334,7 +334,7 @@ export default function PostComponent({ post, setRefresh }) {
       </>
     );
   };
-
+   
   const handlePostReactions = () => {
     return (
       <>
@@ -2821,11 +2821,7 @@ export default function PostComponent({ post, setRefresh }) {
                             onMouseEnter={handleShowuserReaction}
                             onMouseLeave={handleUnshowuserReaction}
                           >
-                            {/* <img src='/assets/images/Star.svg' alt='' /> */}
-                            {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i className="far fa-star"></i>
-
-                            {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                           </span>
                         </div>
                       </>
@@ -2843,7 +2839,6 @@ export default function PostComponent({ post, setRefresh }) {
                       {" "}
                       {`${post.numberOfshares}` + " "}
                       {sharepopup()}
-                      {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
                     </span>
                   </li>
 
@@ -2916,7 +2911,6 @@ export default function PostComponent({ post, setRefresh }) {
                         <span className="like" data-toggle="tooltip" title="">
                           {handleReaction()}
                           {post.likedType}
-                          {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                         </span>
                       </div>
                     ) : (
@@ -2932,31 +2926,12 @@ export default function PostComponent({ post, setRefresh }) {
                             onMouseEnter={handleShowingReaction}
                             onMouseLeave={handleUnshowingReaction}
                           >
-                            {/* <img src='/assets/images/Star.svg' alt='' /> */}
-                            {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                             <i
                               className="far fa-star"
                               style={{ fontSize: "15px", paddingRight: "5px" }}
                             ></i>
                             Star
-                            {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                           </span>
-                          {/* <div className='smiliehint'>
-                        {(
-                          <div
-                           
-                            className='reaction-bunch active'
-                          >
-                            <img src={'../assets/images/gif/smiley.gif'} onClick={() => handleSettingReactions('smiley')} />
-                            <img src={'../assets/images/gif/cool.gif'} onClick={() => handleSettingReactions('cool')} />
-                            <img src={'../assets/images/gif/laughing.gif'} onClick={() => handleSettingReactions('laughing')} />
-                            <img src={'../assets/images/gif/tongue.gif'} onClick={() => handleSettingReactions('tongue')} />
-                            <img src={'../assets/images/gif/angel.gif'} onClick={() => handleSettingReactions('angel')} />
-                            <img src={'../assets/images/gif/devil.gif'} onClick={() => handleSettingReactions('devil')} />
-                            <img src={'../assets/images/gif/angry.gif'} onClick={() => handleSettingReactions('angry')} />
-                          </div>
-                        )} 
-                        </div> */}
                         </div>
                       </>
                     )}
@@ -2971,12 +2946,9 @@ export default function PostComponent({ post, setRefresh }) {
                         data-toggle="tooltip"
                         title="Comments"
                       >
-                        {/* <img src='/assets/images/comment.svg' /> */}
-                        {/* <span style={{ paddingLeft: '2px' }}>Comment</span> */}
                         <i className="far fa-comment"></i>
                         <span style={{ paddingLeft: "5px" }}>
                           Comments
-                          {/* {getCommentCounter(post.comments)} */}
                         </span>
                       </span>
                     </div>
@@ -2987,7 +2959,6 @@ export default function PostComponent({ post, setRefresh }) {
                         data-toggle="tooltip"
                         title="Share"
                       >
-                        {/* <img src='/assets/images/shareicn.svg' /> */}
                         <i
                           className="fas fa-share"
                           style={{ paddingRight: "5px" }}
@@ -2995,13 +2966,6 @@ export default function PostComponent({ post, setRefresh }) {
                         {sharepopup()}
                       </span>
                     </div>
-                    {/* <div className='btncmn'>
-                      <span className='views' data-toggle='tooltip'>
-                        
-                        {checkIfSaved(post)==true?<i className="fas fa-bookmark" style={{color:'#044f66'}} onClick={()=>handleSavePost(post.id)} title='Save post' ></i>:<i className="far fa-bookmark" onClick={()=>handleSavePost(post.id)}  title='Save post'></i>}
-                        {/* <span style={{ paddingLeft: '12px' }}>Share</span> */}
-                    {/* </span>
-                    </div> */}
                   </div>
                 </div>
               </div>
