@@ -1,104 +1,69 @@
-import React, { useState, useEffect, useContext } from 'react';
-import UserContext from '../../contexts/UserContext';
-import PostService from '../../services/PostService';
-import CommentsService from '../../services/CommentsService';
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import PostService from "../../services/PostService";
+import CommentsService from "../../services/CommentsService";
 
-import ReplyCommentComponent from './ReplyCommentComponent';
-import settings from '../../services/Settings';
-import fileStorage from '../../config/fileStorage';
-import moment from 'moment';
+import ReplyCommentComponent from "./ReplyCommentComponent";
+import settings from "../../services/Settings";
+import fileStorage from "../../config/fileStorage";
+import moment from "moment";
 import PostComponentBoxComponent from "./PostCommentBoxComponent";
-import { TramRounded } from '@mui/icons-material';
+import { TramRounded } from "@mui/icons-material";
+import UserService from "../../services/UserService";
 
 export default function CommentPostComponent(props) {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
   const [likedFlag, setLikedFlag] = useState(false);
 
-  const [comment, setComment] = useState(props.comment)
-  const [activeCommentId, setActiveCommentId] = useState()
+  const [comment, setComment] = useState(props.comment);
+  const [activeCommentId, setActiveCommentId] = useState();
 
-  const [likedCommentId, setLikedCommentId] = useState()
-  const [likedCommentIdArr, setLikedCommentIdArr] = useState([])
-  const [replyListShowFlag, setReplyListShowFlag] = useState(false)
+  const [likedCommentId, setLikedCommentId] = useState();
+  const [likedCommentIdArr, setLikedCommentIdArr] = useState([]);
+  const [replyListShowFlag, setReplyListShowFlag] = useState(false);
 
-  
-  const [replyCommentFlag, setReplyCommentFlag] = useState(false)
-  const [replyCommentId, setReplyCommentId] = useState(false)
-  const [replies, setReplies] = useState([])
-  const [repliesShowId, setRepliesShowId] = useState(true)
-  const [editCommentId,setEditCommentId]  = useState()
-  const [editCommentFlag,setEditCommentFlag]  = useState(false)
-  const [reactions,setReactions] = useState([])
-  const [editReplyId,setEditReplyId]  = useState()
-  const [editReplyFlag,setEditReplyFlag]  = useState(false)
+  const [replyCommentFlag, setReplyCommentFlag] = useState(false);
+  const [replyCommentId, setReplyCommentId] = useState(false);
+  const [replies, setReplies] = useState([]);
+  const [repliesShowId, setRepliesShowId] = useState(true);
+  const [editCommentId, setEditCommentId] = useState();
+  const [editCommentFlag, setEditCommentFlag] = useState(false);
+  const [reactions, setReactions] = useState([]);
+  const [editReplyId, setEditReplyId] = useState();
+  const [editReplyFlag, setEditReplyFlag] = useState(false);
+  const [showUserReactions, setShowUserReactions] = useState(false);
+  const [showCommentReactions, setShowCommentReactions] = useState(false);
+  const [likeReaction, setLikeReaction] = useState(null);
 
-  
- 
-  // const sortComment = async () => {
-  //   await PostService.getCommentsForPosts(user.id, post.id).then((res) => {
+  const handleShowingCommentReaction = () => {
+    setTimeout(function () {
+      setShowCommentReactions(true);
+    }, 200);
+  };
 
-  //     setComments(res.data)
-  //     if (comments && comments.length>0) {
-  
-  //       // const comments = [...comments]
-  //       comments.sort(function (a, b) {
-  //         var dateA = new Date(a.published), dateB = new Date(b.published);
-  //         return dateA - dateB;
-  //       });
-  //       setComments(comments)
-  //     }
-  //   })
+  const handleUnshowingCommentReaction = () => {
+    setTimeout(function () {
+      setShowCommentReactions(false);
+    }, 200);
+  };
 
-  // }
-  const checkEditComment = (e)=>{
-    setEditCommentFlag(e)
-  }
-  
-  const checkEditReply = (e)=>{
-    setEditReplyFlag(e)
-  }
-  useEffect( () => {
-    setComment(props.comment)
-    // await sortComment()
-    // await getLikedComments()
-    // if(comments) {getReplies();}
-  }, [props.comments])
- 
-  // const date1 = (comment) => {
-  //   let date = new Date(comment.published);
-  //   let today = new Date();
-  //   var Difference_In_Time = today.getTime() - date.getTime();
-  //   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  //   if ((Difference_In_Days % 1) > 0.5) {
-  //     let d = (Difference_In_Days % 1) > 0.5
+  const checkEditComment = (e) => {
+    setEditCommentFlag(e);
+  };
 
-  //   }
-  //   // const month = date.toLocaleString('default', { month: 'long' })
-  // }
-  // const likeComment = async (e, cid) => {
-  //   await e.preventDefault();
-  //   await setLikedFlag(!likedFlag)
-  //   let params;
-  //   if(likedCommentId===cid){
-  //     setLikedCommentId(null)
-  //     params = await { is_comment_liked: false }
+  const checkEditReply = (e) => {
+    setEditReplyFlag(e);
+  };
+  useEffect(() => {
+    setComment(props.comment);
+  }, [props.comments]);
 
-  //   }else{
-
-  //   await setLikedCommentId(cid)
-  //     params = await { is_comment_liked: true  }
-
-  //   }
-  //   await PostService.LikeComment(user.id, cid, params).then((res) => {
-  //   })
-  // }
   const getReplies = async (commentId) => {
-    await CommentsService.getReplies(user.id,commentId).then((res) => {
-      setReplies(res.data)
-      
-    })
-  }
+    await CommentsService.getReplies(user.id, commentId).then((res) => {
+      setReplies(res.data);
+    });
+  };
   const checkIfLiked = (comment) => {
     if (comment.reactions) {
       const result = comment.reactions.filter(
@@ -109,107 +74,346 @@ export default function CommentPostComponent(props) {
       }
       return false;
     }
-  }
-  const handleDeleteComment = (comment) => {
-    props.handleDeleteComment(comment,props.post)
-  }
-  const likeComment = async (comment) => {
-    props.likeComment(comment)
+  };
+  // const handleSettingReactions = (reaction) => {
+  //   setLikeReaction(reaction);
+  //   if (!checkIfLiked(comment)) {
+  //     likeComment(comment);
+  //   }
+  // };
+  // const handleReaction = () => {
+  //   return (
+  //     <>
+  //       {(() => {
+  //         switch (comment?.likedType) {
+  //           case "star":
+  //             return (
+  //               <i
+  //                 className="fas fa-star"
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   color: "#d83535",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               ></i>
+  //             );
+  //           case "smiley":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😊
+  //               </i>
+  //             );
+  //           case "wow":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😮
+  //               </i>
+  //             );
+  //           case "laugh":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😂
+  //               </i>
+  //             );
+  //           case "cry":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😭
+  //               </i>
+  //             );
+  //           case "love":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😍
+  //               </i>
+  //             );
+  //           case "celebrate":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 🥳
+  //               </i>
+  //             );
+  //           case "angry":
+  //             return (
+  //               <i
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               >
+  //                 😡
+  //               </i>
+  //             );
+  //           default:
+  //             return (
+  //               <i
+  //                 className="fas fa-star"
+  //                 style={{
+  //                   fontSize: "10px",
+  //                   color: "#d83535",
+  //                   paddingRight: "5px",
+  //                 }}
+  //               ></i>
+  //             );
+  //         }
+  //       })()}
+  //     </>
+  //   );
+  // };
 
-  }
+  const handleDeleteComment = (comment) => {
+    props.handleDeleteComment(comment, props.post);
+  };
+  const likeComment = async (comment) => {
+    props.likeComment(comment);
+  };
 
   const replyClicked = (commentId) => {
-    setActiveCommentId(commentId)
-    setReplyListShowFlag(!replyListShowFlag)
-  }
-  const editComment = (e,commentId)=>{
+    setActiveCommentId(commentId);
+    setReplyListShowFlag(!replyListShowFlag);
+  };
+  const editComment = (e, commentId) => {
     e.preventDefault();
-    setEditCommentId(commentId)
-    setEditCommentFlag(true)
-  }
-  const replyInputClicked = (commentId) =>{
-    
-    setActiveCommentId(commentId)
-    
-    setReplyCommentFlag(!replyCommentFlag)
-  }
+    setEditCommentId(commentId);
+    setEditCommentFlag(true);
+  };
+  const replyInputClicked = (commentId) => {
+    setActiveCommentId(commentId);
+
+    setReplyCommentFlag(!replyCommentFlag);
+  };
   const commentDisplay = (comment) => {
-    let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
-    return (
-      editCommentId===comment.id&&editCommentFlag?
-      <PostComponentBoxComponent post={props.post} setRefresh={props.setRefresh} editComment={comment} checkEditComment={checkEditComment}/>
-      :
+    let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow();
+    return editCommentId === comment.id && editCommentFlag ? (
+      <PostComponentBoxComponent
+        post={props.post}
+        setRefresh={props.setRefresh}
+        editComment={comment}
+        checkEditComment={checkEditComment}
+      />
+    ) : (
       <li key={comment.id}>
         <div className="comet-avatar">
-          <img src={fileStorage.baseUrl + comment.user.profilePicturePath} alt="" />
+          <img
+            src={fileStorage.baseUrl + comment.user.profilePicturePath}
+            alt=""
+          />
         </div>
-        <div style={{ width: '100%' }}>
-          <div className="we-comment-cont" >
-            <div style={{ paddingTop: '2px', display: 'table-cell' }}>
-              <div>
+        <div style={{ width: "100%" }}>
+          <div className="we-comment-cont">
+            <div style={{ paddingTop: "2px", display: "table-cell" }}>
+              <div style={{ position: "relative" }}>
                 <div className="we-comment">
                   <div className="coment-head">
-                    <h5><a href={`/profile/${comment.user.email}`} title={`${comment.user.email}`}>{`${comment.user.firstName} ${comment.user.lastName}`}</a></h5>
-                    <span>{`${comment.published ? time : ''}`}</span>
+                    <h5>
+                      <a
+                        href={`/profile/${comment.user.email}`}
+                        title={`${comment.user.email}`}
+                      >{`${comment.user.firstName} ${comment.user.lastName}`}</a>
+                    </h5>
+                    <span>{`${comment.published ? time : ""}`}</span>
                   </div>
                   <p>{`${comment.content}`}</p>
+                  <span
+                    className="float-right"
+                    style={{ fontSize: "10px", paddingRight: "5px" }}
+                  >
+                    {comment.numberOfReaction > 0 ? (
+                      <>
+                        <i
+                          class="fas fa-star"
+                          style={{ color: "rgb(216, 53, 53)" }}
+                        ></i>
+                        <span>{comment.numberOfReaction}</span>
+                      </>
+                    ) : (
+                      <i className="far fa-star"></i>
+                    )}
+                  </span>
                 </div>
-                <div style={{ paddingTop: '5px', display: 'flex', justifyContent: 'space-between' }}>
-                  <div>
-                    <a className="we-reply" title="Like" onClick={() => likeComment(comment)} >
-                      {checkIfLiked(comment)?
-                      <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
-                      :<i class="far fa-star" ></i>
-                    }
-                    </a>
-                    <a className="we-reply" title="Reply" onClick={() => replyInputClicked(comment.id)}>Reply</a>
-                  </div>
-                  {(comment.user.id === user.id) ?
 
-                    <a className="deleteComment" href="#!" onClick={() => handleDeleteComment(comment)}><i style={{ color: 'gray', fontSize: '13px', paddingRight: '10px' }} className="fa fa-trash" /></a>
-                    :
+                {showCommentReactions && (
+                  <div
+                    onMouseEnter={handleShowingCommentReaction}
+                    onMouseLeave={handleUnshowingCommentReaction}
+                    className="reaction-bunch active"
+                  >
+                    <img
+                      src={"../assets/images/gif/smiley.gif"}
+                      // onClick={() => handleSettingReactions("smiley")}
+                    />
+                    <img
+                      src={"../assets/images/gif/wow.gif"}
+                      // onClick={() => handleSettingReactions("wow")}
+                    />
+                    <img
+                      src={"../assets/images/gif/laughing.gif"}
+                      // onClick={() => handleSettingReactions("laugh")}
+                    />
+                    <img
+                      src={"../assets/images/gif/crying.gif"}
+                      // onClick={() => handleSettingReactions("cry")}
+                    />
+                    <img
+                      src={"../assets/images/gif/love.gif"}
+                      // onClick={() => handleSettingReactions("love")}
+                    />
+                    <img
+                      src={"../assets/images/gif/angry.gif"}
+                      // onClick={() => handleSettingReactions("angry")}
+                    />
+                    <img
+                      src={"../assets/images/gif/celebrate.gif"}
+                      // onClick={() => handleSettingReactions("celebrate")}
+                    />
+                  </div>
+                )}
+                <div
+                  style={{
+                    paddingTop: "5px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <a
+                      className="we-reply"
+                      onClick={() => likeComment(comment)}
+                    >
+                      {checkIfLiked(comment) ? (
+                        <>
+                          <i
+                            class="fas fa-star"
+                            style={{ color: "rgb(216, 53, 53)" }}
+                          ></i>
+                          {/* <span className="like" data-toggle="tooltip" title="">
+                            {handleReaction()}
+                          </span> */}
+                        </>
+                      ) : (
+                        <div className="">
+                          <span
+                            className="dislike"
+                            onMouseEnter={handleShowingCommentReaction}
+                            onMouseLeave={handleUnshowingCommentReaction}
+                          >
+                            <i className="far fa-star"></i>
+                          </span>
+                        </div>
+                      )}
+                    </a>
+                    <a
+                      className="we-reply"
+                      title="Reply"
+                      onClick={() => replyInputClicked(comment.id)}
+                    >
+                      Reply
+                    </a>
+                  </div>
+                  {comment.user.id === user.id ? (
+                    <a
+                      className="deleteComment"
+                      href="#!"
+                      onClick={() => handleDeleteComment(comment)}
+                    >
+                      <i
+                        style={{
+                          color: "gray",
+                          fontSize: "13px",
+                          paddingRight: "10px",
+                        }}
+                        className="fa fa-trash"
+                      />
+                    </a>
+                  ) : (
                     <></>
-                  }
+                  )}
                 </div>
               </div>
-            {comment.numberOfReplies > 0
-              ?(activeCommentId===comment.id)
-                ?replyListShowFlag===false 
-                  ? <div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div> 
-                  : null
-                :<div className='reply-count' onClick={() => replyClicked(comment.id)}>{comment.numberOfReplies + ''} Replies </div>
-              : null}
+              {comment.numberOfReplies > 0 ? (
+                activeCommentId === comment.id ? (
+                  replyListShowFlag === false ? (
+                    <div
+                      className="reply-count"
+                      onClick={() => replyClicked(comment.id)}
+                    >
+                      {comment.numberOfReplies + ""} Replies{" "}
+                    </div>
+                  ) : null
+                ) : (
+                  <div
+                    className="reply-count"
+                    onClick={() => replyClicked(comment.id)}
+                  >
+                    {comment.numberOfReplies + ""} Replies{" "}
+                  </div>
+                )
+              ) : null}
             </div>
-            {(comment.user.id === user.id) &&
+            {comment.user.id === user.id && (
               <div className="dropdown more-btn comnt-more-opt">
-                <button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{ background: "transparent", border: "none" }}>
-                  <i style={{ float: "right", fontSize: 20, height: '10px' }} className="las la-ellipsis-v" ></i>
-                  {/* <span className="caret"></span> */}
+                <button
+                  className="drp-btn dropdown-toggle "
+                  type="button"
+                  data-toggle="dropdown"
+                  style={{ background: "transparent", border: "none" }}
+                >
+                  <i
+                    style={{ float: "right", fontSize: 20, height: "10px" }}
+                    className="las la-ellipsis-v"
+                  ></i>
                 </button>
                 <ul className="dropdown-menu">
-                  <li ><a href={""} onClick={(e)=>editComment(e,comment.id)}>Edit Comment</a></li>
+                  <li>
+                    <a href={""} onClick={(e) => editComment(e, comment.id)}>
+                      Edit Comment
+                    </a>
+                  </li>
                 </ul>
               </div>
-            }
-
-            
+            )}
           </div>
-          {
-            (activeCommentId===comment.id)?
-              <ReplyCommentComponent  comment={comment} showReplyInput={replyCommentFlag} replyListFlag={replyListShowFlag} activeCommentId={activeCommentId}/>
-            :null
-          }
+          {activeCommentId === comment.id ? (
+            <ReplyCommentComponent
+              comment={comment}
+              showReplyInput={replyCommentFlag}
+              replyListFlag={replyListShowFlag}
+              activeCommentId={activeCommentId}
+            />
+          ) : null}
         </div>
-
       </li>
-    )
-  }
-  return (
-    
-     
-        comment&&
-        commentDisplay(comment) 
-       
-  
-  );
+    );
+  };
+  return comment && commentDisplay(comment);
 }

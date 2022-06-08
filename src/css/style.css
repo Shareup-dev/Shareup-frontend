@@ -12687,7 +12687,7 @@ img.hover-shadow {
 .reaction-bunch {
   background: #eaeaea none repeat scroll 0 0;
   border-radius: 20px;
-  bottom: 50px;
+  bottom: 30px;
   left: 0px;
   font-size: 13px;
   padding: 5px;
@@ -12725,6 +12725,9 @@ img.hover-shadow {
 }
 
 .reaction-bunch > img:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(2); 
   cursor: pointer;
 }
 

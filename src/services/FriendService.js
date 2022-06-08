@@ -66,7 +66,7 @@ class FriendService {
     }
 
     unsendRequest = async (uid, fid) => {
-        const result = await authAxios.post(`/${uid}/decline_friend_request/${fid}`)
+        const result = await authAxios.post(`/${uid}/cancel_friend_request/${fid}`)
         return result
     }
 }
