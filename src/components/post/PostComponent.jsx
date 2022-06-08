@@ -2003,6 +2003,7 @@ export default function PostComponent({ post, setRefresh }) {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        paddingTop:"8px",
                         paddingBottom: "8px",
                       }}
                     >
@@ -2483,7 +2484,6 @@ export default function PostComponent({ post, setRefresh }) {
                               onCloseRequest={() => setIsopen(false)}
                             />
                           )}
-                          {post.post.userdata.id !== user.id && (
                             <div className="swappost-cont">
                               <div className="">
                                 <div
@@ -2502,6 +2502,9 @@ export default function PostComponent({ post, setRefresh }) {
                                   {post.post.content ? post.post.content : ""}
                                 </div>
                               </div>
+                              {post.post.userdata?.id === user.id ? (
+                          <button className="button">Close</button>
+                        ) : (
                               <Popup
                                 trigger={
                                   <button className="button">Accept</button>
@@ -2671,8 +2674,9 @@ export default function PostComponent({ post, setRefresh }) {
                                   </Form>
                                 )}
                               </Popup>
+                              )}
+
                             </div>
-                          )}
                         </div>
                       ))
                     ) : null}
