@@ -92,16 +92,11 @@ function DisplayFriendsReelsComponent(props) {
   }
   const checkIfLiked = (reel) => {
     console.log(reel)
-    if (reel.reactions) {
-      const result = reel.reactions.filter(
-        (reaction) => reaction.user.id == user.id
-      );
-      if (result.length > 0) {
-        // setLikedReelId(reel.id)
-        return true;
-      }
-      return false;
+    if (reel.reelLiked) {
+      return true;
     }
+      return false;
+    
   }
   const commentCliked = () => {
     setCommentsShowFlag(!commentsShowFlag)
@@ -129,7 +124,7 @@ function DisplayFriendsReelsComponent(props) {
       <div className="container reel-container">
         <div className="strydivcontnr">
           <div className="strydiv" style={commentsShowFlag ? { width: '100%' } : {}}>
-            <div className="slideshow" style={commentsShowFlag ? { maxWidth: '70%' } : { width: '100%' }}>
+            <div className="slideshow" style={commentsShowFlag ? { maxWidth: '65%' } : { width: '100%' }}>
               <div
                 className="slideshowSlider"
               // style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}

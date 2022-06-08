@@ -117,13 +117,15 @@ function ReelFeedComponent() {
     getReelsForUser().then(() => {
       setIsLoading(false)
     })
-    getAllReels().then(() => {
-      setIsLoading(false)
-    })
-    getSavedPost().then(() => {
-      setIsLoading(false)
-    })
-    testScript()
+    if(user&&user.id){
+        getAllReels().then(() => {
+        setIsLoading(false)
+      })
+      getSavedPost().then(() => {
+        setIsLoading(false)
+      })
+      testScript()
+    }
   }, [user])
   
   useEffect(() => {
