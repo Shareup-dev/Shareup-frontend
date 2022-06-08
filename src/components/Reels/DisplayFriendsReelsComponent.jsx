@@ -92,7 +92,7 @@ function DisplayFriendsReelsComponent(props) {
   }
   const checkIfLiked = (reel) => {
     console.log(reel)
-    if (reel.reelLiked) {
+    if (reel.likedType==='star') {
       return true;
     }
       return false;
