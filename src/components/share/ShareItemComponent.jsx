@@ -19,7 +19,7 @@ import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ShareItemComponent({post}) {
   const [isLoading, setIsLoading] = useState(true);

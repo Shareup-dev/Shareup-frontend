@@ -26,7 +26,7 @@ import PostComponent from '../post/PostComponent';
 import fileStorage from '../../config/fileStorage';
 
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function SwapFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 

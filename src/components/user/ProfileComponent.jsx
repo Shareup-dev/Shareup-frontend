@@ -13,7 +13,7 @@ import PostProfileComponent from "../Profile/PostProfileComponent";
 import FriendProfileComponent from "../Profile/FriendProfileComponent";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function ProfileComponent() {
   let history = useHistory();
 

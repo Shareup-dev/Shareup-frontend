@@ -20,7 +20,7 @@ import Popup from 'reactjs-popup';
 import PhoneInput from 'react-phone-number-input'
 import settings from '../../services/Settings';
 
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function ShippingComponent(props)  {
   
 

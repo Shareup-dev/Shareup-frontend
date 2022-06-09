@@ -24,7 +24,7 @@ import "react-image-lightbox/style.css";
 
 import Form from "react-bootstrap/Form";
 import moment from "moment";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh }) {

@@ -20,7 +20,7 @@ import { testScript } from '../../js/script';
 import Popup from 'reactjs-popup';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 
 function ViewGroupComponent({post}) {

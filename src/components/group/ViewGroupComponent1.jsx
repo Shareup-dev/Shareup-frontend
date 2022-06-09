@@ -30,6 +30,7 @@ import {Modal} from 'react-bootstrap';
 import $ from 'jquery';
 import { getInputAdornmentUtilityClass } from '@mui/material';
 import { fontSize } from '@mui/system';
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ViewGroupComponent1({post}) {
 	const { id: stringId } = useParams();

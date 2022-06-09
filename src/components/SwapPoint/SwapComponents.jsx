@@ -17,7 +17,7 @@ import Layout from '../LayoutComponent';
 import { MiddlewareArray } from '@reduxjs/toolkit';
 import fileStorage from '../../config/fileStorage';
 import SwapService from '../../services/SwapService';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function SwapComponents(props) {
 
   const [isLoading, setIsLoading] = useState(true);

@@ -29,7 +29,7 @@ import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
 import ReactionsListComponent from "./ReactionsListComponent";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh }) {
@@ -136,7 +136,7 @@ export default function PostComponent({ post, setRefresh }) {
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
-      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post.id)
 
       setRefresh(res.data);
     });

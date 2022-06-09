@@ -35,6 +35,7 @@ import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
 import { FourGMobiledataRounded } from "@mui/icons-material";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function CommonComposer(props) {
   const [isLoading, setIsLoading] = useState(true);

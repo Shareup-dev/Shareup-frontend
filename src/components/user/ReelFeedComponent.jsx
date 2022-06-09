@@ -28,7 +28,7 @@ import ReactPlayer from 'react-player';
 import { Player } from 'video-react';
 import ReelsComponentFriends from '../Reels/ReelsComponentFriends';
 import DisplayFriendsReelsComponent from '../Reels/DisplayFriendsReelsComponent';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ReelFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);

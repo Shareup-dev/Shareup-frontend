@@ -37,7 +37,7 @@ import { store } from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
 
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function SearchFeedComponent() {
     const [isLoading, setIsLoading] = useState(true);

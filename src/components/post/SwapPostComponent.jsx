@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function SwapPostComponent({ post, setRefresh }) {
     const { user } = useContext(UserContext)
     const [editPostId, setEditPostId] = useState(null)

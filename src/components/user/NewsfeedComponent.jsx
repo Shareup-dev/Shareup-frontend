@@ -45,7 +45,7 @@ import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 import Loader from "../loader/loader";
 import HangShareService from "../../services/HangShareService";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 
