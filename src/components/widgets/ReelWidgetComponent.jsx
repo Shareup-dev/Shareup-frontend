@@ -240,10 +240,10 @@ export default function ReelWidgetComponent(props) {
                                 <video
                                   id="video"
                                   width="100%"
+                                  src={ReelVideo} 
                                   height={"350px"}
                                   controls="controls"
                                 >
-                                  <source src={ReelVideo} />
                                 </video>
 
                                 <button

@@ -1117,10 +1117,10 @@ function OtherProfileComponent() {
                                           <video
                                                id="video"
                                                 width="100%"
+                                                src={storiesImage}
                                                 height={"350px"}
                                                 controls="controls"
                                            >
-                                          <source src={storiesImage} />
                                           </video>
                                         <button
                                           onClick={handleRemoveImageStry}

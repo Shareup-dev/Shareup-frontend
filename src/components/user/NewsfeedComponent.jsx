@@ -2731,10 +2731,10 @@ function NewsfeedComponent() {
                                       <video
                                         id="video"
                                         width="100%"
+                                        src={ReelVideo}
                                         height={"350px"}
                                         controls="controls"
                                       >
-                                        <source src={ReelVideo} />
                                       </video>
 
                                       <button
@@ -2769,11 +2769,7 @@ function NewsfeedComponent() {
                                     </div>
                                   )}
                                 </span>
-                                {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
                               </div>
-                              {/* </> 
-                                                    
-                                  )}  */}
                               <button
                                 class="popsbmt-btn"
                                 type="submit"
@@ -3031,10 +3027,10 @@ function NewsfeedComponent() {
                                     <video
                                       id="video"
                                       width="100%"
+                                      src={storiesImage}
                                       height={"350px"}
                                       controls="controls"
                                     >
-                                      <source src={storiesImage} />
                                     </video>
                                     <button
                                       onClick={handleRemoveImageStry}
