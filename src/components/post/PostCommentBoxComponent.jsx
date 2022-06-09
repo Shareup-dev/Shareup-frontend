@@ -102,9 +102,9 @@ export default function PostComponentBoxComponent(props) {
     })
 
   }
-  const likeComment = async (comment) => {
+  const likeComment = async (comment,reaction) => {
 
-    await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
+    await CommentsService.LikeComment(user.id, comment.id, reaction).then((res) => {
       sortComment()
       // getReplies(res.data)
       // checkIfLiked(comment)

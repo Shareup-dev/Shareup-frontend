@@ -34,7 +34,6 @@ export default function CommentPostComponent(props) {
   const [editReplyFlag, setEditReplyFlag] = useState(false);
   const [showUserReactions, setShowUserReactions] = useState(false);
   const [showCommentReactions, setShowCommentReactions] = useState(false);
-  const [likeReaction, setLikeReaction] = useState(null);
 
   const handleShowingCommentReaction = () => {
     setTimeout(function () {
@@ -65,137 +64,220 @@ export default function CommentPostComponent(props) {
     });
   };
   const checkIfLiked = (comment) => {
-    if (comment.reactions) {
-      const result = comment.reactions.filter(
-        (reaction) => reaction.user.id == user.id
-      );
-      if (result.length > 0) {
-        return true;
-      }
-      return false;
+    if (comment?.commentLiked !== "false") {
+      return true;
+    }
+    return false;
+  };
+  const handleSettingReactions = (reaction) => {
+    if (!checkIfLiked(comment)) {
+      likeComment(comment,reaction);
     }
   };
-  // const handleSettingReactions = (reaction) => {
-  //   setLikeReaction(reaction);
-  //   if (!checkIfLiked(comment)) {
-  //     likeComment(comment);
-  //   }
-  // };
-  // const handleReaction = () => {
-  //   return (
-  //     <>
-  //       {(() => {
-  //         switch (comment?.likedType) {
-  //           case "star":
-  //             return (
-  //               <i
-  //                 className="fas fa-star"
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   color: "#d83535",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               ></i>
-  //             );
-  //           case "smiley":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😊
-  //               </i>
-  //             );
-  //           case "wow":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😮
-  //               </i>
-  //             );
-  //           case "laugh":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😂
-  //               </i>
-  //             );
-  //           case "cry":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😭
-  //               </i>
-  //             );
-  //           case "love":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😍
-  //               </i>
-  //             );
-  //           case "celebrate":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 🥳
-  //               </i>
-  //             );
-  //           case "angry":
-  //             return (
-  //               <i
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               >
-  //                 😡
-  //               </i>
-  //             );
-  //           default:
-  //             return (
-  //               <i
-  //                 className="fas fa-star"
-  //                 style={{
-  //                   fontSize: "10px",
-  //                   color: "#d83535",
-  //                   paddingRight: "5px",
-  //                 }}
-  //               ></i>
-  //             );
-  //         }
-  //       })()}
-  //     </>
-  //   );
-  // };
+  const handleReaction = () => {
+    return (
+      <>
+        {(() => {
+          switch (comment?.commentLiked) {
+            case "star":
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                  }}
+                ></i>
+              );
+            case "smiley":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😊
+                </i>
+              );
+            case "wow":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😮
+                </i>
+              );
+            case "laugh":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😂
+                </i>
+              );
+            case "cry":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😭
+                </i>
+              );
+            case "love":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😍
+                </i>
+              );
+            case "celebrate":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  🥳
+                </i>
+              );
+            case "angry":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😡
+                </i>
+              );
+            default:
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                  }}
+                ></i>
+              );
+          }
+        })()}
+      </>
+    );
+  };
+  const handleReplyReactions = (comment) => {
+    return (
+      <>
+        {comment.countOfEachReaction.star > 0 ? (
+          <i
+            className="fas fa-star"
+            style={{ fontSize: "12px", color: "#d83535" }}
+          ></i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.smiley > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😊
+          </i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.wow > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😮
+          </i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.laugh > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😂
+          </i>
+        ) : (
+          <></>
+        )}
 
+        {comment.countOfEachReaction.cry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😭
+          </i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.love > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😍
+          </i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.celebrate > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            🥳
+          </i>
+        ) : (
+          <></>
+        )}
+        {comment.countOfEachReaction.angry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😡
+          </i>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  };
   const handleDeleteComment = (comment) => {
     props.handleDeleteComment(comment, props.post);
   };
-  const likeComment = async (comment) => {
-    props.likeComment(comment);
+  const likeComment = async (comment,reaction) => {
+    props.likeComment(comment,reaction);
   };
 
   const replyClicked = (commentId) => {
@@ -248,17 +330,10 @@ export default function CommentPostComponent(props) {
                     className="float-right"
                     style={{ fontSize: "10px", paddingRight: "5px" }}
                   >
-                    {comment.numberOfReaction > 0 ? (
-                      <>
-                        <i
-                          class="fas fa-star"
-                          style={{ color: "rgb(216, 53, 53)" }}
-                        ></i>
-                        <span>{comment.numberOfReaction}</span>
-                      </>
-                    ) : (
-                      <i className="far fa-star"></i>
-                    )}
+                      <span>
+                      {handleReplyReactions(comment)}{" "}
+                      {comment.numberOfReaction}
+                                </span>
                   </span>
                 </div>
 
@@ -270,31 +345,31 @@ export default function CommentPostComponent(props) {
                   >
                     <img
                       src={"../assets/images/gif/smiley.gif"}
-                      // onClick={() => handleSettingReactions("smiley")}
+                       onClick={() => handleSettingReactions("smiley")}
                     />
                     <img
                       src={"../assets/images/gif/wow.gif"}
-                      // onClick={() => handleSettingReactions("wow")}
+                       onClick={() => handleSettingReactions("wow")}
                     />
                     <img
                       src={"../assets/images/gif/laughing.gif"}
-                      // onClick={() => handleSettingReactions("laugh")}
+                       onClick={() => handleSettingReactions("laugh")}
                     />
                     <img
                       src={"../assets/images/gif/crying.gif"}
-                      // onClick={() => handleSettingReactions("cry")}
+                       onClick={() => handleSettingReactions("cry")}
                     />
                     <img
                       src={"../assets/images/gif/love.gif"}
-                      // onClick={() => handleSettingReactions("love")}
+                       onClick={() => handleSettingReactions("love")}
                     />
                     <img
                       src={"../assets/images/gif/angry.gif"}
-                      // onClick={() => handleSettingReactions("angry")}
+                       onClick={() => handleSettingReactions("angry")}
                     />
                     <img
                       src={"../assets/images/gif/celebrate.gif"}
-                      // onClick={() => handleSettingReactions("celebrate")}
+                       onClick={() => handleSettingReactions("celebrate")}
                     />
                   </div>
                 )}
@@ -308,17 +383,13 @@ export default function CommentPostComponent(props) {
                   <div>
                     <a
                       className="we-reply"
-                      onClick={() => likeComment(comment)}
+                      onClick={() => likeComment(comment,"star")}
                     >
                       {checkIfLiked(comment) ? (
                         <>
-                          <i
-                            class="fas fa-star"
-                            style={{ color: "rgb(216, 53, 53)" }}
-                          ></i>
-                          {/* <span className="like" data-toggle="tooltip" title="">
+                          <span className="like" data-toggle="tooltip" title="">
                             {handleReaction()}
-                          </span> */}
+                          </span>
                         </>
                       ) : (
                         <div className="">

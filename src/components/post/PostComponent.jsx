@@ -100,7 +100,6 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    console.log(post)
     if (post?.likedType !== "false") {
       return true;
     }
@@ -532,58 +531,6 @@ export default function PostComponent({ post, setRefresh }) {
                   ) : (
                     <></>
                   )}
-
-
-
-
-        {post.post.countOfEachReaction.cry > 0 ? (
-          <i
-            style={{
-              fontSize: "12px",
-              paddingRight: "0px",
-            }}
-          >
-            😭
-          </i>
-        ) : (
-          <></>
-        )}
-        {post.post.countOfEachReaction.love > 0 ? (
-          <i
-            style={{
-              fontSize: "12px",
-              paddingRight: "0px",
-            }}
-          >
-            😍
-          </i>
-        ) : (
-          <></>
-        )}
-        {post.post.countOfEachReaction.celebrate > 0 ? (
-          <i
-            style={{
-              fontSize: "12px",
-              paddingRight: "0px",
-            }}
-          >
-            🥳
-          </i>
-        ) : (
-          <></>
-        )}
-        {post.post.countOfEachReaction.angry > 0 ? (
-          <i
-            style={{
-              fontSize: "12px",
-              paddingRight: "0px",
-            }}
-          >
-            😡
-          </i>
-        ) : (
-          <></>
-        )}
       </>
     );
   };
@@ -591,7 +538,7 @@ export default function PostComponent({ post, setRefresh }) {
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction);
     if (!checkIfLiked(post)) {
-      handleLikePost(post, reaction);
+      handleLikePost(post,reaction);
     }
   };
 
@@ -2693,8 +2640,6 @@ export default function PostComponent({ post, setRefresh }) {
                               >
                                 {handleSharedPostReactions()}
                                 <span> {post.post.numberOfReaction}</span>
-
-                                {/* <span style={{ paddingLeft: '5px' }}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                               </span>
                             </div>
                           ) : (
