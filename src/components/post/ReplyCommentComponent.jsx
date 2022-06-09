@@ -102,216 +102,216 @@ export default function ReplyCommentComponent(props) {
   //         setReplies(res.data)
   //     })
   //   }
-  const likeReply = async (reply,reaction) => {
+  const likeReply = async (reply, reaction) => {
     await CommentsService.LikeReply(user.id, reply.id, reaction).then((res) => {
       getReplies(props.comment.id);
     });
   };
-    const handleSettingReactions = (reply,reaction) => {
-      if (!checkIfLiked(reply)) {
-        likeReply(reply, reaction);
-      }
-    };
-      const handleReaction = (reply) => {
-      return (
-        <>
-          {(() => {
-            switch (reply?.replyLiked) {
-              case "star":
-                return (
-                  <i
-                    className="fas fa-star"
-                    style={{
-                      fontSize: "15px",
-                      color: "#d83535",
-                    }}
-                  ></i>
-                );
-              case "smiley":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😊
-                  </i>
-                );
-              case "wow":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😮
-                  </i>
-                );
-              case "laugh":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😂
-                  </i>
-                );
-              case "cry":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😭
-                  </i>
-                );
-              case "love":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😍
-                  </i>
-                );
-              case "celebrate":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    🥳
-                  </i>
-                );
-              case "angry":
-                return (
-                  <i
-                    style={{
-                      fontSize: "15px",
-                    }}
-                  >
-                    😡
-                  </i>
-                );
-              default:
-                return (
-                  <i
-                    className="fas fa-star"
-                    style={{
-                      fontSize: "15px",
-                      color: "#d83535",
-                    }}
-                  ></i>
-                );
-            }
-          })()}
-        </>
-      );
-    };
+  const handleSettingReactions = (reply, reaction) => {
+    if (!checkIfLiked(reply)) {
+      likeReply(reply, reaction);
+    }
+  };
+  const handleReaction = (reply) => {
+    return (
+      <>
+        {(() => {
+          switch (reply?.replyLiked) {
+            case "star":
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                  }}
+                ></i>
+              );
+            case "smiley":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😊
+                </i>
+              );
+            case "wow":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😮
+                </i>
+              );
+            case "laugh":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😂
+                </i>
+              );
+            case "cry":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😭
+                </i>
+              );
+            case "love":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😍
+                </i>
+              );
+            case "celebrate":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  🥳
+                </i>
+              );
+            case "angry":
+              return (
+                <i
+                  style={{
+                    fontSize: "15px",
+                  }}
+                >
+                  😡
+                </i>
+              );
+            default:
+              return (
+                <i
+                  className="fas fa-star"
+                  style={{
+                    fontSize: "15px",
+                    color: "#d83535",
+                  }}
+                ></i>
+              );
+          }
+        })()}
+      </>
+    );
+  };
 
-    const handleReplyReactions = (reply) => {
-        return (
-          <>
-            {reply.countOfEachReaction.star > 0 ? (
-              <i
-                className="fas fa-star"
-                style={{ fontSize: "12px", color: "#d83535" }}
-              ></i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.smiley > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😊
-              </i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.wow > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😮
-              </i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.laugh > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😂
-              </i>
-            ) : (
-              <></>
-            )}
-    
-            {reply.countOfEachReaction.cry > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😭
-              </i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.love > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😍
-              </i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.celebrate > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                🥳
-              </i>
-            ) : (
-              <></>
-            )}
-            {reply.countOfEachReaction.angry > 0 ? (
-              <i
-                style={{
-                  fontSize: "12px",
-                  paddingRight: "1px",
-                }}
-              >
-                😡
-              </i>
-            ) : (
-              <></>
-            )}
-          </>
-        );
-      };
+  const handleReplyReactions = (reply) => {
+    return (
+      <>
+        {reply.countOfEachReaction.star > 0 ? (
+          <i
+            className="fas fa-star"
+            style={{ fontSize: "12px", color: "#d83535" }}
+          ></i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.smiley > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😊
+          </i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.wow > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😮
+          </i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.laugh > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😂
+          </i>
+        ) : (
+          <></>
+        )}
+
+        {reply.countOfEachReaction.cry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😭
+          </i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.love > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😍
+          </i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.celebrate > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            🥳
+          </i>
+        ) : (
+          <></>
+        )}
+        {reply.countOfEachReaction.angry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "1px",
+            }}
+          >
+            😡
+          </i>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  };
 
   const handleDeleteReply = (rid, commentId) => {
     CommentsService.deleteReply(rid).then((res) => {
@@ -339,10 +339,10 @@ export default function ReplyCommentComponent(props) {
   };
   const checkIfLiked = (reply) => {
     if (reply?.replyLiked !== "false") {
-        return true;
-      }
-      return false;
-    };
+      return true;
+    }
+    return false;
+  };
   const cancelEdit = () => {
     setEditReplyFlag(false);
     setReplyContent("");
@@ -525,10 +525,14 @@ export default function ReplyCommentComponent(props) {
                           className="float-right"
                           style={{ fontSize: "10px", paddingRight: "5px" }}
                         >
-                          <span>
-                                  {handleReplyReactions(reply)}{" "}
-                                  {reply.numberOfReaction}
-                                </span>
+                          {reply.numberOfReaction > 0 ? (
+                            <span>
+                              {handleReplyReactions(reply)}{" "}
+                              {reply.numberOfReaction}
+                            </span>
+                          ) : (
+                            ""
+                          )}
                         </span>
                       </div>
                       {replyID === reply.id ? (
@@ -541,31 +545,45 @@ export default function ReplyCommentComponent(props) {
                             >
                               <img
                                 src={"../assets/images/gif/smiley.gif"}
-                                onClick={() => handleSettingReactions(reply,"smiley")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "smiley")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/wow.gif"}
-                                onClick={() => handleSettingReactions(reply,"wow")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "wow")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/laughing.gif"}
-                                onClick={() => handleSettingReactions(reply,"laugh")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "laugh")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/crying.gif"}
-                                onClick={() => handleSettingReactions(reply,"cry")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "cry")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/love.gif"}
-                                onClick={() => handleSettingReactions(reply,"love")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "love")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/angry.gif"}
-                                onClick={() => handleSettingReactions(reply,"angry")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "angry")
+                                }
                               />
                               <img
                                 src={"../assets/images/gif/celebrate.gif"}
-                                onClick={() => handleSettingReactions(reply,"celebrate")}
+                                onClick={() =>
+                                  handleSettingReactions(reply, "celebrate")
+                                }
                               />
                             </div>
                           )}
@@ -582,7 +600,7 @@ export default function ReplyCommentComponent(props) {
                           <a
                             className="we-reply"
                             title="Like"
-                            onClick={() => likeReply(reply,"star")}
+                            onClick={() => likeReply(reply, "star")}
                           >
                             {checkIfLiked(reply) ? (
                               <>

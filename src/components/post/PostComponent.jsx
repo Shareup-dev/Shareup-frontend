@@ -333,7 +333,7 @@ export default function PostComponent({ post, setRefresh }) {
       </>
     );
   };
-   
+
   const handlePostReactions = () => {
     return (
       <>
@@ -437,100 +437,99 @@ export default function PostComponent({ post, setRefresh }) {
   const handleSharedPostReactions = () => {
     return (
       <>
-       
-           {post.post.countOfEachReaction.star  > 0 ? (
-            <i
-              className="fas fa-star"
-              style={{ fontSize: "12px", color: "#d83535" }}
-            ></i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.smiley  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😊
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.wow  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😮
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.laugh  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😂
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                
-                  {post.post.countOfEachReaction.cry  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😭
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.love  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😍
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.celebrate  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  🥳
-                </i>
-                  ) : (
-                    <></>
-                  )}
-                  {post.post.countOfEachReaction.angry  > 0 ? (
-                    <i
-                  style={{
-                    fontSize: "12px",
-                    paddingRight: "0px",
-                  }}
-                >
-                  😡
-                </i>
-                  ) : (
-                    <></>
-                  )}
+        {post.post.countOfEachReaction.star > 0 ? (
+          <i
+            className="fas fa-star"
+            style={{ fontSize: "12px", color: "#d83535" }}
+          ></i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.smiley > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😊
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.wow > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😮
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.laugh > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😂
+          </i>
+        ) : (
+          <></>
+        )}
+
+        {post.post.countOfEachReaction.cry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😭
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.love > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😍
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.celebrate > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            🥳
+          </i>
+        ) : (
+          <></>
+        )}
+        {post.post.countOfEachReaction.angry > 0 ? (
+          <i
+            style={{
+              fontSize: "12px",
+              paddingRight: "0px",
+            }}
+          >
+            😡
+          </i>
+        ) : (
+          <></>
+        )}
       </>
     );
   };
@@ -538,7 +537,7 @@ export default function PostComponent({ post, setRefresh }) {
   const handleSettingReactions = (reaction) => {
     setLikeReaction(reaction);
     if (!checkIfLiked(post)) {
-      handleLikePost(post,reaction);
+      handleLikePost(post, reaction);
     }
   };
 
@@ -649,23 +648,17 @@ export default function PostComponent({ post, setRefresh }) {
     }
   };
 
-
-
   const updateSharedPost = async (event) => {
     await event.preventDefault();
 
     const formData = new FormData();
     formData.append("content", shareContent);
 
-    await ShareService.updateSharedPost(  post.id,formData ).then((res) => {
-          setShareContent("");
-          setRefresh(res.data);
-        });
-      
+    await ShareService.updateSharedPost(post.id, formData).then((res) => {
+      setShareContent("");
+      setRefresh(res.data);
+    });
   };
-
-
-
 
   const commentChanged = async (prop) => {
     await setComments(prop);
@@ -1950,7 +1943,7 @@ export default function PostComponent({ post, setRefresh }) {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        paddingTop:"8px",
+                        paddingTop: "8px",
                         paddingBottom: "8px",
                       }}
                     >
@@ -2431,27 +2424,27 @@ export default function PostComponent({ post, setRefresh }) {
                               onCloseRequest={() => setIsopen(false)}
                             />
                           )}
-                            <div className="swappost-cont">
-                              <div className="">
-                                <div
-                                  className="bold "
-                                  style={{
-                                    marginBottom: "5px",
-                                    marginTop: "10px",
-                                    color: "#050505",
-                                  }}
-                                >
-                                  {post.post.hangsharetype
-                                    ? post.post.hangsharetype
-                                    : "Other"}
-                                </div>
-                                <div style={{ fontSize: "14px" }}>
-                                  {post.post.content ? post.post.content : ""}
-                                </div>
+                          <div className="swappost-cont">
+                            <div className="">
+                              <div
+                                className="bold "
+                                style={{
+                                  marginBottom: "5px",
+                                  marginTop: "10px",
+                                  color: "#050505",
+                                }}
+                              >
+                                {post.post.hangsharetype
+                                  ? post.post.hangsharetype
+                                  : "Other"}
                               </div>
-                              {post.post.userdata?.id === user.id ? (
-                          <button className="button">Close</button>
-                        ) : (
+                              <div style={{ fontSize: "14px" }}>
+                                {post.post.content ? post.post.content : ""}
+                              </div>
+                            </div>
+                            {post.post.userdata?.id === user.id ? (
+                              <button className="button">Close</button>
+                            ) : (
                               <Popup
                                 trigger={
                                   <button className="button">Accept</button>
@@ -2621,9 +2614,8 @@ export default function PostComponent({ post, setRefresh }) {
                                   </Form>
                                 )}
                               </Popup>
-                              )}
-
-                            </div>
+                            )}
+                          </div>
                         </div>
                       ))
                     ) : null}
@@ -2896,9 +2888,7 @@ export default function PostComponent({ post, setRefresh }) {
                         title="Comments"
                       >
                         <i className="far fa-comment"></i>
-                        <span style={{ paddingLeft: "5px" }}>
-                          Comments
-                        </span>
+                        <span style={{ paddingLeft: "5px" }}>Comments</span>
                       </span>
                     </div>
 
