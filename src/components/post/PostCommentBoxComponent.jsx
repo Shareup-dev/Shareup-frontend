@@ -106,7 +106,7 @@ export default function PostComponentBoxComponent(props) {
   const likeComment = async (comment,reaction) => {
 
 
-    await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
+    await CommentsService.LikeComment(user.id, comment.id, reaction).then((res) => {
       console.log("like comment")
       console.log(res.data) 
       handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email,"comment",comment.id)

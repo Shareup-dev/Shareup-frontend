@@ -87,9 +87,8 @@ export default function ReplyCommentComponent(props) {
 //         setReplies(res.data)
 //     })
 //   }
-    const likeReply = async (reply) => {
-        let params = await {}
-        await CommentsService.LikeReply(user.id, reply.id, params).then((res) => {
+    const likeReply = async (reply,reaction) => {
+        await CommentsService.LikeReply(user.id, reply.id, reaction).then((res) => {
             console.log("like reply")
             console.log(res.data)
             handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email,"reply",reply.id)
