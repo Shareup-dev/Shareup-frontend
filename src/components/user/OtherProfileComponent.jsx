@@ -251,10 +251,10 @@ function OtherProfileComponent() {
   const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-     
+      console.log(res.data);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+  
     });
-    console.log("send notification to "+email);
-    handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
   };
   const removeFriend = (uid, fid) => {
     FriendsService.removeFriends(uid, fid).then((res) => {

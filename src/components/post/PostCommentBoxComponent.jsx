@@ -110,7 +110,7 @@ export default function PostComponentBoxComponent(props) {
     await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
       console.log("like comment")
       console.log(res.data) 
-      handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email)
+      handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email,"comment",comment.id)
 
       sortComment()
       // getReplies(res.data)

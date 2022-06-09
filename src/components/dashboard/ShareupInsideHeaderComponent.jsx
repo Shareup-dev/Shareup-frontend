@@ -27,7 +27,7 @@ let stompClient =null;
  // it is compulsory method.
 toast.configure();
 
-export const handleSendNotification =(to,content,userFirstName,userLastname,email) => {
+export const handleSendNotification =(to,content,userFirstName,userLastname,email,action,applyOnId) => {
   console.log(stompClient);
   
     var notificationVar = {
@@ -35,7 +35,9 @@ export const handleSendNotification =(to,content,userFirstName,userLastname,emai
       to_id:to,
       content:content,
       first_name:userFirstName,
-      Last_name:userLastname
+      Last_name:userLastname,
+      Action:action,
+      Apply_on_id:applyOnId
     };
     
     stompClient.send("/app/private-notification", {}, JSON.stringify(notificationVar));
@@ -103,7 +105,6 @@ const onError = (err) => {
   
 }
   const KeyPressHandler = (event) => {
-    handleSendNotification('1654074306424','reacted to your post','basma','saad','raouf.zerkouk@gmail.com')
     if(event.key === 'Enter' && event.target.value !=='') {
       history.push("/searchFeed")
       }

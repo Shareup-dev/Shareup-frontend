@@ -95,7 +95,7 @@ export default function ReelReplyCommentComponent(props) {
         await CommentsService.LikeReply(user.id, reply.id, params).then((res) => {
             console.log("like reply")
             console.log(res.data)
-            handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email)
+            handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email,"reply",reply.id)
             getReplies(props.comment.id)
       })
    }

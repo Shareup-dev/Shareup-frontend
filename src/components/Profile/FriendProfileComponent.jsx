@@ -40,10 +40,11 @@ function FriendProfileComponent({ email, id }) {
   const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      console.log("send notification to "+email);
+      console.log("sent friend request to you "+user?.firstName+user?.lastName+user?.email);
+      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+
        });
-       console.log("send notification to "+email);
-       console.log("sent friend request to you "+user?.firstName+user?.lastName+user?.email);
-       handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email);
     
   };
   const unsendFriendRequest = (uid, fid) => {
