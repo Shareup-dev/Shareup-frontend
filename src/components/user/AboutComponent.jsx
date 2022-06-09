@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import Founder from '../../images/mr.firat.jpeg'
+import Linnate from '../../images/linnate.jpg'
+import Lokee from '../../images/lokee.jpeg'
+import Sree from '../../images/sree.jpeg'
+
+
 
 function AboutComponent() {
 
@@ -101,70 +107,115 @@ We provide you most private and secure social media platform. Your data is our c
 
         <div className="product-screenshot" id="screenshot">
           <div className="container">
-            <div style={{ padding: "10px" }}>
-              <h2>Product Screenshots</h2>
+            <div style={{ padding: "10px" ,marginBottom:'20px'}}>
+              <h2 style={{    color: '#415592',fontSize: '30px',fontWeight: '900'}}>TEAM</h2>
             </div>
-            <div className="row">
+            <div className="row" style={{justifyContent:'center'}}>
               <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div
-                  style={{
-                    height: "200px",
-                    textAlign: "center",
-                    marginTop: "25px",
-                  }}
                 >
                   <img
                     width="200px"
-                    src="/assets/images/screen1.PNG"
+                    src={Founder}
                     alt="img"
                   />
+                  <h1>Mr. Firat Yagmur</h1>
+                  <h3>Founder</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="row" style={{marginBottom:'40px'}}>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div>
+                  <img
+                    width="200px"
+                    src={Linnate}
+                    alt="img"
+                  />
+                  <h1>Linnate Muza</h1>
+                  <h3>IT Co-ordinator & Secretary</h3>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div
-                  style={{
-                    height: "200px",
-                    textAlign: "center",
-                    marginTop: "25px",
-                  }}
+                 
                 >
                   <img
                     width="200px"
                     src="/assets/images/screen8.PNG"
                     alt="img"
                   />
+                  <h1>Sabeetha Masinghe</h1>
+                  <h3>UI Designer & Executive Assistant</h3>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div
-                  style={{
-                    height: "200px",
-                    textAlign: "center",
-                    marginTop: "25px",
-                  }}
+                 
                 >
                   <img
                     width="200px"
                     src="/assets/images/screen3.PNG"
                     alt="img"
                   />
+                   <h1>Basma saad shokry</h1>
+                  <h3>Senior Full Stack Leader</h3>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
                 <div
-                  style={{
-                    height: "200px",
-                    textAlign: "center",
-                    marginTop: "25px",
-                  }}
+                 
                 >
                   <img
                     width="200px"
-                    src="/assets/images/Screen6.PNG"
+                    src={Lokee}
                     alt="img"
                   />
+                   <h1>Kaneshamoorthy lokeesan</h1>
+                  <h3>Mobile Application Developer</h3>
                 </div>
               </div>
+            </div>
+            <div className="row" style={{justifyContent:'center'}}>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div>
+                  <img
+                    width="200px"
+                    src={Linnate}
+                    alt="img"
+                  />
+                   <h1>Abderaouf Zerkouk</h1>
+                  <h3>Software Engineer</h3>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                 
+                >
+                  <img
+                    width="200px"
+                    src={Sree}
+                    alt="img"
+                  />
+                    <h1>Sreelakshmi Harikrishnan</h1>
+                    <h3>Software Engineer</h3>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                 
+                >
+                  <img
+                    width="200px"
+                    src="/assets/images/screen3.PNG"
+                    alt="img"
+                  />
+                   <h1>Aseel Karingatti Kandy</h1>
+                  <h3>Software Programmer</h3>
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>

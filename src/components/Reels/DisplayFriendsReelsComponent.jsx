@@ -9,15 +9,16 @@ import ShareupInsideHeaderComponent from "../dashboard/ShareupInsideHeaderCompon
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
 import ReelsServices from "../../services/ReelsServices";
-import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ReelCommentComponent from "./ReelCommentComponent";
+import $ from 'jquery'
 
-function DisplayFriendsReelsComponent(props ) {
+function DisplayFriendsReelsComponent(props) {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -26,8 +27,14 @@ function DisplayFriendsReelsComponent(props ) {
   const [userR, setUserR] = useState([]);
   const [index, setIndex] = useState(props.index);
   const timeoutRef = useRef(null);
-  const [reel,setReel] = useState(props.reel)
-  const [commentsShowFlag,setCommentsShowFlag] = useState(false)
+  const [reel, setReel] = useState(props.reel);
+  const [commentsShowFlag, setCommentsShowFlag] = useState(false);
+  const [showDropdn, setShowDropdn] = useState(false);
+  const [videoPause, setVideoPause] = useState(false);
+  const [muteVideo, setMuteVideo] = useState(false);
+
+
+
 
   const getReelsForFriendsUser = async () => {
     await ReelsServices.getReelForUserFriends(user?.id).then((res) => {
@@ -80,39 +87,52 @@ function DisplayFriendsReelsComponent(props ) {
     // getReelsForFriendsUser();
     testScript();
   }, [props.reel]);
-  const likeReel = async(reelId) => {
-    props.likeReel(reelId)
+  const likeReel = async (reelId,reaction) => {
+    props.likeReel(reelId,reaction)
   }
   const checkIfLiked = (reel) => {
-    if (reel.reactions) {
-      const result = reel.reactions.filter(
-        (reaction) => reaction.user.id == user.id
-      );
-      if (result.length > 0) {
-        // setLikedReelId(reel.id)
-        return true;
-      }
-      return false;
+    console.log(reel)
+    if (reel.likedType==='star') {
+      return true;
     }
+      return false;
+    
   }
   const commentCliked = () => {
     setCommentsShowFlag(!commentsShowFlag)
   }
-  
+  const pauseVideo = () => {
+    $('video').trigger('pause');
+    setVideoPause(true)
+  }
+  const playVideo = () => {
+    $('video').trigger('play');
+    setVideoPause(false)
+  }
+  const muteVideoClick = () => {
+    setMuteVideo(!muteVideo)
+    if(!muteVideo){
+
+      $('video').prop('muted', true);
+    }else{
+      $('video').prop('muted', false);
+
+    }
+  }
   return (
     <>
       <div className="container reel-container">
         <div className="strydivcontnr">
-          <div className="strydiv" style={commentsShowFlag?{width:'100%'}:{}}>
-            <div className="slideshow" style={commentsShowFlag?{maxWidth:'70%'}:{width: '100%'}}>
+          <div className="strydiv" style={commentsShowFlag ? { width: '100%' } : {}}>
+            <div className="slideshow" style={commentsShowFlag ? { maxWidth: '65%' } : { width: '100%' }}>
               <div
                 className="slideshowSlider"
-                // style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+              // style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
               >
                 <>
                   {reel.video_name ? (
-                    <div className="slide"  id={index}>
-                      <div className="slide-reel-cont" style={commentsShowFlag?{width:'50%'}:{}}>
+                    <div className="slide" id={index}>
+                      <div className="slide-reel-cont" style={commentsShowFlag ? { width: '50%',position:'relative' } : {}} >
 
                         <div
                           className="reeldisplay-Profimg"
@@ -130,58 +150,78 @@ function DisplayFriendsReelsComponent(props ) {
                                 {reel.userdata.firstName}  {"" + reel.userdata.lastName}
                               </span>
                             </div>
-                            <div
-                              className="dropdown"
-                              style={{
+                            <div style={{zIndex: "100",display:'flex',justifyContent:'center',alignItems:'center'}}>
+                              {muteVideo
+                                ?<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
+                                    <i class="fas fa-volume-up"></i>
 
-                                zIndex: "100",
-                              }}
-                            >
-                              <IconButton
-                                aria-label="more"
-                                id="long-button"
-                                aria-controls={open ? "long-menu" : undefined}
-                                aria-expanded={open ? "true" : undefined}
-                                aria-haspopup="true"
-                                onClick={handleClick}
-                              >
-                                <MoreVertIcon />
-                              </IconButton>
-                              <Menu
-                                id="long-menu"
-                                className="btn dropdown-toggle"
-                                MenuListProps={{
-                                  "aria-labelledby": "long-button",
-                                }}
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                PaperProps={{
-                                  style: {
-                                    maxHeight: ITEM_HEIGHT * 4.5,
-                                    width: "20ch",
-                                  },
-                                }}
-                              >
-                                <div>
-                                  <MenuItem onClick={() => console.log('hi')}>
-                                    <i className="lar la-bookmark"></i>
+                                  </div>
+                                :<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
+                                  <i class="fas fa-volume-mute"></i> 
+
+                                </div>
+                              }
+                              {videoPause
+                              ?<div onClick={playVideo}>
+                                  <i className="fa fa-play" style={{color:'white'}}></i> 
+
+                                </div>
+                              :<div onClick={pauseVideo}>
+                                <i className="fa fa-pause" style={{color:'white'}}></i> 
+
+                              </div>
+                              }
+                              <DropdownButton
+                                  // style={{marginLeft: "400px" }}
+                                  className={`bi bi-three-dots-vertical`}
+                                  title={<i className="las la-ellipsis-v" style={{fontSize:'20px'}}></i>}
+                                  onClick={() =>
+                                    window.clearTimeout(timeoutRef.current)
+                                  }
+                                >
+                                  <Dropdown.Item
+                                    type="button"
+                                    
+                                  >
+                                    <i className="lar la-bookmark" ></i>
                                     <span>Save Reel</span>
-                                  </MenuItem>
-                                  {reel.userdata.id === user.id ? (
-                                    <MenuItem onClick={handleDeleteReel(reel.id)}>
-                                      <i className="las la-trash"></i>
-                                      <span>Delete Reel</span>
-                                    </MenuItem>
-                                  ) : (
-                                    <></>
-                                  )}
-                                  <MenuItem>
+                                  </Dropdown.Item>
+                                  {
+                                    reel.user&&user.id===reel.user.id?
+                                    <Dropdown.Item
+                                      type="button"
+                                      onClick={() => {
+                                        handleDeleteReel(reel.id)
+                                      }}
+                                    >
+                                    <i className="las la-trash"></i>
+                                    <span>Delete</span>
+                                  </Dropdown.Item>
+                                  : null
+                                  }
+
+                                  <Dropdown.Item
+                                    type="button"
+                                    
+                                  >
                                     <i className="las la-link"></i>
                                     <span>Copy Link</span>
-                                  </MenuItem>
-                                </div>
-                              </Menu>
+                                  </Dropdown.Item>
+                                  <Dropdown.Item
+                                    type="button"
+                                    
+                                  >
+                                    <i className="fas fa-share"></i>
+                                    <span>Share to</span>
+                                  </Dropdown.Item>
+                                  <Dropdown.Item
+                                    type="button"
+                                    
+                                  >
+                                    <i className="fas fa-flag"></i>
+                                    <span>Report</span>
+                                  </Dropdown.Item>
+                                </DropdownButton>
                             </div>
                           </div>
 
@@ -192,39 +232,44 @@ function DisplayFriendsReelsComponent(props ) {
 
                             loop
                             autoPlay
-                            style={{
+                            style={commentsShowFlag?
+                              {
                               width: "100%",
                               height: "100%",
                               objectFit: "fill",
-                            }}
+                              borderBottomRightRadius: 0 , borderTopRightRadius: 0
+                            }:{width: "100%",
+                            height: "100%",
+                            objectFit: "fill",}}
                             src={`${fileStorage.baseUrl}${reel.video_url}`}
                             type="video/mp4"
                             alt={`${fileStorage.baseUrl}${reel.video_url}`}
+                            // style={commentsShowFlag?{ borderBottomRightRadius: 0 , borderTopRightRadius: 0}:{}}
                           />
                         </>
                         <div className="reel-popup-caption">
                           <p>{reel.content}</p>
                         </div>
-                        
-                      </div>
-                      <div className="reel-popup-action-btns">
-                        <button onClick={()=>likeReel(reel.id)} >
-                          {checkIfLiked(reel)?<i class="fas fa-star" style={{color: 'red'}}></i>:
-                          <i class="far fa-star" ></i>
-                          }
-                          {reel.numberOfReaction>0?reel.numberOfReaction:null}
-                        </button>
-                        <button onClick={commentCliked}>
-                          <i class="far fa-comment"></i>
-                          {reel.numberOfComments>0?reel.numberOfComments:null}
-                        </button>
-                        <button><i class="fas fa-share"></i></button>
+                        <div className="reel-popup-action-btns">
+                          <button onClick={() => likeReel(reel.id,'star')} >
+                            {checkIfLiked(reel) ? <i class="fas fa-star" style={{ color: 'red' }}></i> :
+                              <i class="far fa-star" ></i>
+                            }
+                            {reel.numberOfReaction > 0 ? reel.numberOfReaction : null}
+                          </button>
+                          <button onClick={commentCliked}>
+                            <i class="far fa-comment"></i>
+                            {reel.numberOfComments > 0 ? reel.numberOfComments : null}
+                          </button>
+                          <button><i class="fas fa-share"></i></button>
 
+                        </div>
                       </div>
-                      {commentsShowFlag?<div style={commentsShowFlag?{width:'50%'}:{}}
+                      
+                      {commentsShowFlag ? <div style={commentsShowFlag ? { width: '50%', borderBottomLeftRadius: 0,borderTopLeftRadius: 0} : {}}
                         className="reel-comment-section">
-                        <ReelCommentComponent reel={reel}/>
-                      </div>:null}
+                        <ReelCommentComponent reel={reel} />
+                      </div> : null}
                     </div>
                   ) : null}
                 </>

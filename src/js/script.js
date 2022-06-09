@@ -13,7 +13,7 @@ function testScript(){
 		$(this).children('div').addClass('active');
 		return;
 	  });*/
-	  window.scrollTo(0,0);
+	//   window.scrollTo(0,0);
 	 $(".noti").on("click", function(){
 		$(".dropdowns").toggleClass("active");
 		 

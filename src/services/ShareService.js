@@ -53,6 +53,11 @@ class ShareService {
         return result
     }
 
+    updateSharedPost = async (shareId, content) => {
+        const result = await authAxios.put(`share/${shareId}`, content)
+        return result;
+    }
+
     // updateSwap = async (swapId, swap) => {
     //     const result = await authAxios.put(`swaps/${swapId}`, swap)
     //     return result;

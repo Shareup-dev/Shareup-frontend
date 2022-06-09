@@ -77,12 +77,10 @@ export default function PostComponentBoxComponent(props) {
     } else {
       let comment = {}
       comment.content = commentContent;
-
       const formData = new FormData();
       formData.append("content", commentContent);
       if (props.editComment) {
-        CommentsService.editCommentForPosts(props.editComment.id, comment).then(res => {
-          console.log(res.data)
+        PostService.editCommentForPosts(props.editComment.id, formData).then(res => {
           props.checkEditComment(false)
           props.setRefresh(res.data)
           setCommentContent("")
@@ -105,13 +103,13 @@ export default function PostComponentBoxComponent(props) {
     })
 
   }
-  const likeComment = async (comment) => {
+  const likeComment = async (comment,reaction) => {
+
 
     await CommentsService.LikeComment(user.id, comment.id, {}).then((res) => {
       console.log("like comment")
       console.log(res.data) 
       handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email,"comment",comment.id)
-
       sortComment()
       // getReplies(res.data)
       // checkIfLiked(comment)
@@ -126,7 +124,7 @@ export default function PostComponentBoxComponent(props) {
         </div>
         <div className="post-comt-box">
           <Form>
-            <textarea rows={2} placeholder={"Write a comment.."} name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(props.post.id)} onChange={handleCommentContent} autoFocus />
+            <textarea rows={2} placeholder={"Write a comment.."} name="comment" value={commentContent} ref={ref} onKeyPress={(e) => e.key === 'Enter' && handlePostingComment(props.post.id)} onChange={handleCommentContent} />
             <div className="add-smiles">
               <span title="add icon" onClick={() => setShowEmojis(!showEmojis)}><i className="lar la-laugh"></i></span>
             </div>

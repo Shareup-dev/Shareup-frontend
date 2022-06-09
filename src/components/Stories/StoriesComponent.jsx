@@ -19,7 +19,7 @@ import fileStorage from "../../config/fileStorage";
 
 
 
-function StoriesComponent({ story, setRefresh }) {
+function StoriesComponent({ story, hideText }) {
   let history = useHistory();
   const { user } = useContext(UserContext);
   // const []
@@ -126,7 +126,7 @@ function getFileExtension(filename){
           <div className="strysggstion-imgStry-overlay">
           </div>
           <div className="strysggstion-imgStry-number d-flex align-items-end" onClick={checkPop}>
-            <span className=' text-light p-2' style={{fontSize:'0.8rem'}}>Your  story</span>
+            {!hideText?<span className=' text-light p-2' style={{fontSize:'0.8rem'}}>Your  story</span>:null}
 
           </div>
         </div>

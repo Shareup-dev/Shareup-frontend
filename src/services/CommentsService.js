@@ -37,8 +37,8 @@ class CommentsService {
         const result = await authAxios.get(`comment/${uid}/get_replies/${commentId}`)
         return result
     }
-    LikeReply = async (uid,rid,data) => {
-        const result = await authAxios.put(`reply/${uid}/like-unlike/${rid}`,data)
+    LikeReply = async (uid,rid,reaction) => {
+        const result = await authAxios.put(`reply/${uid}/like-unlike/${rid}`,{emoji:reaction })
         return result;
     }
     editReplyForComment = async (rid , data) => {
@@ -54,9 +54,9 @@ class CommentsService {
         const result = await authAxios.delete(`comment/delete/${commentid}`)
         return result
     }
-    LikeComment = async (uid,cid,data) => {
+    LikeComment = async (uid,cid,reaction) => {
         authenticate();
-        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,data)
+        const result = await authAxios.put(`comment/${uid}/like-unlike/${cid}`,{emoji:reaction })
         return result;
     }
 

@@ -37,7 +37,6 @@ export default function ReelWidgetComponent(props) {
     ) {
       console.log("cant be null");
       setUploadErrorReel("Please Add reel video");
-      console.log(uploadErrorReel);
       return;
     }
 
@@ -58,12 +57,9 @@ export default function ReelWidgetComponent(props) {
     formData.append(`thumbnail`, filesReel);
 
     ReelsServices.createReels(user.id, formData).then((res) => {
-      console.log("jsonnn", JSON.stringify(res));
       handleRemoveReelVideo();
       setReels(res.data);
       setRefresh(res.data);
-
-      console.log("response", reels);
     });
   };
 
@@ -103,7 +99,6 @@ export default function ReelWidgetComponent(props) {
         setReelVideo(reader.result);
       }
     };
-    console.log(event.target.files[0]);
     // if(event.target.files[0].type === blob){
     reader.readAsDataURL(event.target.files[0]);
     // }

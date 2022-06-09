@@ -1836,7 +1836,7 @@ function NewsfeedComponent() {
                                 display: "inline-block",
                                 verticalAlign: "middle",
                                 borderRadius: "10px",
-                                width: "fit-content",
+                                width: "100%",
                                 maxHeight: "450px",
                                 marginBottom: "10px!important",
                               }}
@@ -3046,7 +3046,7 @@ function NewsfeedComponent() {
                                 >
                                   <i className="las la-times"></i>
                                 </button>
-</>
+                                </>
                                 )}
                               </>
                             ) : (
@@ -3164,7 +3164,10 @@ function NewsfeedComponent() {
                                 </div>
                               </div>
                             </div>
-                            <DisplayComponent />
+                            <DisplayComponent 
+
+                             story={storiesForUser}
+                            />
                           </Form>
                         )}
                       </Popup>

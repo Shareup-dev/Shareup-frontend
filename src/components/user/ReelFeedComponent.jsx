@@ -117,13 +117,15 @@ function ReelFeedComponent() {
     getReelsForUser().then(() => {
       setIsLoading(false)
     })
-    getAllReels().then(() => {
-      setIsLoading(false)
-    })
-    getSavedPost().then(() => {
-      setIsLoading(false)
-    })
-    testScript()
+    if(user&&user.id){
+        getAllReels().then(() => {
+        setIsLoading(false)
+      })
+      getSavedPost().then(() => {
+        setIsLoading(false)
+      })
+      testScript()
+    }
   }, [user])
   
   useEffect(() => {
@@ -199,9 +201,10 @@ function ReelFeedComponent() {
 
 
   };
-  const likeReel = async(reelId)=>{
-    let params = {}
-    await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
+  const likeReel = async(reelId,reaction)=>{
+    
+    await ReelsServices.likeReel(user.id,reelId,reaction).then((res) => {
+      console.log(res)
       getReelsForUser()
       getAllReels()
 

@@ -139,8 +139,13 @@ function GuideComponent() {
   };
 
   const handleRedirect = () => {
+    // let user = {};
+    // user.newUser = false
+    // UserService.editProfile(user.email,user).then((res)=>{
+
+      setTimeout(() => window.location.reload(), 2000);
+    // })
     //setTimeout(() => history.push('/newsfeed'), 2000)
-    setTimeout(() => window.location.reload(), 2000);
   };
 
   const [step, setStep] = useState(0);
@@ -169,7 +174,12 @@ function GuideComponent() {
   const removeFriendFromList = async (friend) =>{
     const filt = await allUser.filter((frnd) => frnd.id !== friend)
     await setAllUser(filt);
-    await console.log(allUser,friend)
+    // await console.log(allUser,friend)
+  }
+  const removeFromGroup = async (group) => {
+    const filt = await allGroups.filter((grp) => grp.id !== group)
+    await setAllGroups(filt);
+    // await console.log(allUser,friend)
   }
   const show = () => {
     if (step === 0) {
@@ -205,8 +215,8 @@ function GuideComponent() {
                         style={{
                           display: "inline-flex",
                           paddingTop: "25px",
-                          paddingRight: "10px",
-                          width: '35%'
+                          width: '35%',
+                          justifyContent:'right'
                         }}
                       >
                         {user.id !== userF.id ? (
@@ -248,7 +258,6 @@ function GuideComponent() {
                               <a
                                 href="#"
                                 className="button common-trans-btn1"
-                                
                                 onClick={() =>
                                   unsendFriendRequest(user.id, userF.id)
                                 }
@@ -349,8 +358,8 @@ function GuideComponent() {
                       style={{
                         display: "inline-flex",
                         paddingTop: "25px",
-                        paddingRight: "10px",
-                        width: '35%'
+                        width: '35%',
+                        justifyContent:'right'
                       }}
                     >
                       {user.id !== userF.id ? (
@@ -366,12 +375,8 @@ function GuideComponent() {
                         ) : (
                           <a
                             href="#!"
-                            className="button"
-                            style={{
-                              color: "#fff",
-                              background: "#033347",
-                              fontSize: "12px",
-                            }}
+                            className="button common-trans-btn1"
+                            
                             onClick={() => handleUnfollow(userF.id)}
                           >
                             Unfollow
@@ -422,8 +427,8 @@ function GuideComponent() {
             <ul className="nearby-contct">
               {allGroups.slice(0, 8).map((group) => (
                 <li key={group.id} className="sendrqstli">
-                  <div className="grid-container">
-                    <div className="item1">
+                  <div className="grid-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    <div className="item1" style={{ width: '20%' }}>
                       <img
                         src={
                           group.groupImagePath
@@ -431,12 +436,13 @@ function GuideComponent() {
                             : "https://freeiconshop.com/wp-content/uploads/edd/many-people-outline.png"
                         }
                         alt=""
+                        width="56px"
                       />
                     </div>
 
                     <div
                       className="item2"
-                      style={{ paddingTop: "15px", paddingLeft: "0px" }}
+                      style={{ paddingTop: "15px", paddingLeft: "0px",width:'35%' }}
                     >
                       <p className="nameTag">
                         <a href={`/groups/${group.id}`}>{`${group.name}`}</a>
@@ -447,17 +453,13 @@ function GuideComponent() {
                         display: "inline-flex",
                         paddingTop: "25px",
                         paddingRight: "10px",
+                        width: '35%'
                       }}
                     >
                       {group.members.some((el) => el.id === user.id) ? (
                         <a
                           href="#!"
-                          className="button"
-                          style={{
-                            color: "#fff",
-                            background: "#033347",
-                            fontSize: "12px",
-                          }}
+                          className="button common-trans-btn1"
                           onClick={() => handleLeaveGroup(group.id)}
                         >
                           Leave Group
@@ -465,27 +467,29 @@ function GuideComponent() {
                       ) : (
                         <a
                           href="#!"
-                          className="button"
-                          style={{
-                            color: "#000000",
-                            background: "#EAEAEA",
-                            fontSize: "12px",
-                          }}
+                          className="button common-theme-btn1"
+                          
                           onClick={() => handleJoinGroup(group.id)}
                         >
                           Join Group
                         </a>
                       )}
 
-                      <i
-                        className="las la-times"
-                        style={{
-                          fontSize: "13px",
-                          padding: "6px",
-                          color: "black",
-                        }}
-                      ></i>
+                      
                     </div>
+                    <div
+                        style={{width:'10%',display:'flex',alignItems:'center'}}
+                          onClick={()=>removeFromGroup(group.id)}
+                          >
+                        <i
+                          className="las la-times"
+                          style={{
+                            fontSize: "13px",
+                            padding: "6px",
+                            color: "black",
+                          }}
+                        ></i>
+                      </div>
                   </div>
                 </li>
               ))}
