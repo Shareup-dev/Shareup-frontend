@@ -544,6 +544,7 @@ function CommonComposer(props) {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
       setRefresh(res.data);
     });
   };

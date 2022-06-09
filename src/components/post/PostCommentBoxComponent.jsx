@@ -107,15 +107,14 @@ export default function PostComponentBoxComponent(props) {
 
 
     await CommentsService.LikeComment(user.id, comment.id, reaction).then((res) => {
-      console.log("like comment")
-      console.log(res.status) 
+      
      if(res.status ===201){
-      console.log("i am 201")
        handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email,"comment",comment.id)
+       sortComment()
       }else if(res.status ===200){
-        console.log("i am 200")
+       sortComment()
       }
-      sortComment()
+      
       // getReplies(res.data)
       // checkIfLiked(comment)
     })
