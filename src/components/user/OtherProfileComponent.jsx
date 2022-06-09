@@ -35,7 +35,6 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
-import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -254,12 +253,9 @@ function OtherProfileComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid,email) => {
+  const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      console.log(res.data);
-      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
-  
     });
   };
   const removeFriend = (uid, fid) => {
@@ -532,7 +528,7 @@ function OtherProfileComponent() {
         return (
           <div>
             <a
-              onClick={() => sendFriendRequest(user?.id, userProfile?.id, userProfile?.email)}
+              onClick={() => sendFriendRequest(user?.id, userProfile?.id)}
               style={{
                 color: "#000000",
                 fontWeight: "bold",
@@ -764,7 +760,6 @@ function OtherProfileComponent() {
                               </Form> 
                               )}
                             </Popup>
-
                         
                              )
                           
@@ -773,7 +768,6 @@ function OtherProfileComponent() {
                           
                           }
                         </ul>
-
           )
           : */}
           <div class="center" style={{ padding: "20px" }}>
@@ -941,38 +935,6 @@ function OtherProfileComponent() {
                                 Unfriend
                               </button>
                             </>
-                          ) : friendRequestSent.some(
-                            (el) => el.id === userProfile?.id
-                          ) ? (
-                            <button
-                              title=""
-                              className="button"
-                              style={{
-                                width: "25%",
-                                margin: "10px",
-                                padding: "0 5px",
-                              }}
-                              onClick={() =>
-                                unsendFriendRequest(user.id, userProfile?.id)
-                              }
-                            >
-                              Cancel Request
-                            </button>
-                          ) : (
-                            <button
-                              title=""
-                              className="button"
-                              style={{
-                                width: "25%",
-                                margin: "10px",
-                                padding: "0 5px",
-                              }}
-                              onClick={() =>
-                                sendFriendRequest(user.id, userProfile?.id,userProfile?.username)
-                              }
-                            >
-                              Add Friend
-                            </button>
                           )
                         ) : (
                           <></>
@@ -1362,7 +1324,6 @@ function OtherProfileComponent() {
           <ShareupInsideHeaderComponent />
           <div className="container">
             <div style={{ marginLeft: '5%', marginRight: '5%' }}>
-
               <div className="container-fluid eighty">
                 <div className="row merged">
                   
@@ -1415,7 +1376,6 @@ function OtherProfileComponent() {
                       </div>
                     <div className="timeline-info">
                       <ul>
-
                         <li>
                           <a className={(show === "timeline" ? "active" : "")}  title="" data-ripple="" onClick={() => setShow("timeline")}>time line</a>
                           <a className={(show === "photos" ? "active" : "")}  title="" data-ripple="" onClick={() => setShow("photos")}>Photos</a>
@@ -1427,7 +1387,6 @@ function OtherProfileComponent() {
                         </li>
                       </ul>
                     </div>
-
                     {/*  *
                   <div className="changethis" style={{boxShadow: '0 1px 3px rgb(0 0 0 / 20%)', padding:'40px 0px'}}>
                     
@@ -1440,18 +1399,15 @@ function OtherProfileComponent() {
                     
                     
             
-
             
             
             </div>
             
                     
-
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div> */}
     </>
