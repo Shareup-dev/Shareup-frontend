@@ -91,7 +91,9 @@ export default function ReplyCommentComponent(props) {
         await CommentsService.LikeReply(user.id, reply.id, reaction).then((res) => {
             console.log("like reply")
             console.log(res.data)
-            handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email,"reply",reply.id)
+            if(res.status ===201){       
+                     handleSendNotification(res.data.user.id,'Liked your reply',user?.firstName,user?.lastName,user?.email,"reply",reply.id)
+        }
             getReplies(props.comment.id)
       })
    }
