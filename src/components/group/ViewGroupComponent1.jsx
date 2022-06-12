@@ -354,7 +354,7 @@ function ViewGroupComponent1({post}) {
         if(likeReaction) {
             return (<img width={30} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
         }
-        return (<i class="far fa-star"></i>)
+        return (<i className="far fa-star"></i>)
     }
 
     const handleSettingReactions = (reaction) => {
@@ -367,7 +367,7 @@ function ViewGroupComponent1({post}) {
         if(likeReaction) {
             return (<img width={20} style={{marginTop:'-5px'}} src={`../assets/images/gif/${likeReaction}.gif`}/>)
         }
-        return (<i class="las la-star"></i>)
+        return (<i className="las la-star"></i>)
     }
 	const checkIfInGroup = (members) => {
 		const found = members.some(el => el.id === user.id);
@@ -570,7 +570,7 @@ function ViewGroupComponent1({post}) {
 							</div>
                             <div className='d-flex mb-30'><i className="fa fa-map-marker pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Doha ,Qatar</div></div>
                             <div className='d-flex mb-30'><i className="fa fa-history pr-15 " aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created on {moment(group.created_at).format('MM/DD/YYYY')}</div></div>
-                            <div className='d-flex'><i class="fa fa-user pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created by {group&&group.owner&&group.owner.firstName+' '+group.owner.lastName}</div></div>
+                            <div className='d-flex'><i className="fa fa-user pr-15 d-flex" aria-hidden="true"></i> <div className='fw-6 clr-blk'>Created by {group&&group.owner&&group.owner.firstName+' '+group.owner.lastName}</div></div>
 							
                         </div>
                         <div className='ab-2'> 
@@ -635,8 +635,8 @@ function ViewGroupComponent1({post}) {
 								 <div className="central-meta swap-pg-cont grp-pg-invite-cont">
 									<div className="frnds">
 										<div className='fw-6  abt-title no-brdr-btm  clr-blk'>Admins</div>
-										<div class="friends-search-container grp-search">
-											{/* <i class="las la-search"></i> */}
+										<div className="friends-search-container grp-search">
+											{/* <i className="las la-search"></i> */}
 											<input className="friend-search" type="text" id="header-search" placeholder="Search Admins" name="s" onChange={handleSearchedAdmins} />
 										</div>
 										<div className="tab-pane active fade show " id="following">
@@ -647,10 +647,10 @@ function ViewGroupComponent1({post}) {
 													group.admins.map(admin=> 
 														<li key={admin.id} className="friends-card grp">
 															<div className="grid-container">
-																<div class="item1">
+																<div className="item1">
 																	<a href={`/profile/${admin.email}`} title={`${admin.email}`}><img src={admin.profilePicturePath} alt="" /></a>
 																</div>
-																<div class="item2">
+																<div className="item2">
 																	<p className="nameTag"><a href={`/profile/${admin.email}`} title={`${admin.email}`}>{`${admin.firstName} ${admin.lastName}`}</a></p>
 																	<div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual admins</div>
 																</div>
@@ -658,7 +658,7 @@ function ViewGroupComponent1({post}) {
 																<div className="item5">
 																	<div className="dropdown ">
 																		<button className="drp-btn dropdown-toggle admin-more" type="button" data-toggle="dropdown">
-																		<i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
+																		<i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
 																		{/* <span className="caret"></span> */}
 																		</button>
 																		<ul className="dropdown-menu">

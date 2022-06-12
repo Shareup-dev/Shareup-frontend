@@ -104,12 +104,12 @@ function MembersComponent(props) {
             <div className="grid-container">
                 {/* <div className="nearly-pepls"> */}
                 {/* <figure> */}
-                <div class="item1">
+                <div className="item1">
                     <a href={`/profile/${member.email}`} title={`${member.email}`}><img src={member.profilePicturePath} alt="" /></a>
                     {/* </figure> */}
                 </div>
                 {/* <div className="  "> */}
-                <div class="item2">
+                <div className="item2">
                     <p className="nameTag"><a href={`/profile/${member.email}`} title={`${member.email}`}>{`${member.firstName} ${member.lastName}`}</a></p>
                     {group&&group.owner&&member.id === group.owner.id 
                     ?<div  style={{fontSize:'12px',paddingTop:'5px',color:'rgb(3, 51, 71)',display:'inline-block',background:'#f0f0f0'}}>Admin</div>
@@ -131,11 +131,11 @@ function MembersComponent(props) {
                         :null    }
                     {/* <div>  <i style={{ float: "right", fontSize: 35 }} class="las la-ellipsis-v"></i></div> */}
                 </div>
-                <div class="item5">
+                <div className="item5">
                             
                     { group.owner&&member.id!== group.owner.id || group.admins&&group.admins.length>0&&group.admins.some(admin=>member.id !== admin.id)?
                         <div className="pos-rel">
-                        <i style={{ float: "right", fontSize: 25 }} class="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
+                        <i style={{ float: "right", fontSize: 25 }} className="las la-ellipsis-v" onClick={()=>setMoreFlag(!moreFlag)}></i>
                         {moreFlag
                         ?   <ul className="moredrpdwn">
                                 {member.id===user.id?<li onClick={() => leaveGroup(member.id)}>Leave group</li>:null}

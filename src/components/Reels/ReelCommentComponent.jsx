@@ -240,6 +240,12 @@ export default function ReelCommentComponent(props) {
             </li>
         )
     }
+    const dropdwonOpen = () =>{
+        if($('.reel-comment-section .dropdown.more-btn.comnt-more-opt').hasClass('open')){
+            $('.reel-comment-section .dropdown.more-btn.comnt-more-opt').removeClass('open')
+        }else
+        $('.reel-comment-section .dropdown.more-btn.comnt-more-opt').addClass('open')
+    }
     const commentList = (comment) => {
         let time = moment(comment.published, "DD MMMM YYYY hh:mm:ss").fromNow()
 
@@ -263,8 +269,8 @@ export default function ReelCommentComponent(props) {
                                     <div>
                                         <a className="we-reply" title="Like" onClick={() => likeComment(comment)} >
                                             {checkIfLiked(comment) ?
-                                                <i class="fas fa-star" style={{ color: 'rgb(216, 53, 53)' }}></i>
-                                                : <i class="far fa-star" ></i>
+                                                <i className="fas fa-star" style={{ color: 'rgb(216, 53, 53)' }}></i>
+                                                : <i className="far fa-star" ></i>
                                             }
                                         </a>
                                         <a className="we-reply" title="Reply" onClick={() => replyInputClicked(comment.id)}>Reply</a>
@@ -287,7 +293,7 @@ export default function ReelCommentComponent(props) {
                         </div>
                         {(comment.user.id === user.id) &&
                             <div className="dropdown more-btn comnt-more-opt">
-                                <button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{ background: "transparent", border: "none" }}>
+                                <button className="drp-btn dropdown-toggle " type="button" data-toggle="dropdown" style={{ background: "transparent", border: "none" }} onClick={dropdwonOpen}>
                                     <i style={{ float: "right", fontSize: 20, height: '10px' }} className="las la-ellipsis-v" ></i>
                                     {/* <span className="caret"></span> */}
                                 </button>

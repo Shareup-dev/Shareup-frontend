@@ -48,7 +48,6 @@ function ReelsComponentFriends({ reel, setRefresh }) {
   };
 
 const checkPop=()=>{
-  console.log('popup working');
 }
 
   useEffect(() => {

@@ -163,7 +163,7 @@ function CreateGroupComponentMain() {
                             <p style={{ fontSize: 15, color: 'red' }}>{groupDescError}</p>
                         }
                     </div>
-                    <input type="button" name="" className="action-button" defaultValue="Continue" onClick={() => validateStep(1)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Continue" onClick={() => validateStep(1)} />
                 </fieldset>
             )
         }
@@ -176,7 +176,7 @@ function CreateGroupComponentMain() {
                             <h2 className="fs-title">Select Group Settings</h2>
                             <span id="description"></span>
                             <label htmlFor="public">Choose privacy</label>
-                            {/* <select class="form-control privacy-dropdown"  
+                            {/* <select className="form-control privacy-dropdown"  
                                 value={groupPrivacySetting} 
                                 onChange={handlePrivacySetting}>
                                 <option  value="public" data-icon="glyphicon glyphicon-eye-open" data-subtext="petrification"> Publica </option>
@@ -184,15 +184,15 @@ function CreateGroupComponentMain() {
                                 <option value="hidden">Hidden</option>
 
                             </select> */}
-                            <div class="dropdown privacy-drop-cont">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div className="dropdown privacy-drop-cont">
+                                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                    {groupPrivacySetting==='Public'?
                                     <span><i className="fa fa-globe pr-5p" aria-hidden="true"></i>Public</span>
                                     : groupPrivacySetting==='Private'? <span><i className="fa fa-lock pr-5p" aria-hidden="true"></i>Private</span>
                                     :<span><i className="fa fa-eye-slash pr-5p" aria-hidden="true"></i>Hidden</span>}
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Public')}}>
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Public')}}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-globe pr-15" aria-hidden="true"></i>
@@ -205,7 +205,7 @@ function CreateGroupComponentMain() {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Private')}}>
+                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Private')}}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-lock pr-15" aria-hidden="true"></i>
@@ -216,7 +216,7 @@ function CreateGroupComponentMain() {
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Hidden')}}>
+                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Hidden')}}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-eye-slash pr-15" aria-hidden="true"></i>
@@ -256,12 +256,12 @@ function CreateGroupComponentMain() {
                         <div className="">
                             {/* <legend>Group Invitations</legend> */}
                             <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
-                            <select class="form-control privacy-dropdown"  
+                            <select className="form-control privacy-dropdown"  
                                 value={groupPrivacySetting} 
                                 onChange={handleInviteSetting}>
                                 <option  value="members"> All Group Members </option>
                                 <option value="mods">Group admins and mods only</option>
-                                <option value="admins">Group admins only</option>
+                                <option value="admins" selected>Group admins only</option>
 
                             </select>
                             {/* <input type="radio" name="group-invite-status" id="group-invite-status-members" defaultValue="members" defaultChecked="checked" onChange={handleInviteSetting} />
@@ -273,8 +273,8 @@ function CreateGroupComponentMain() {
                         </div>
 
                     </div>
-                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(0)} />
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => setStep(2)} />
+                    <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(0)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => setStep(2)} />
                 </fieldset>
             )
         }
@@ -286,7 +286,7 @@ function CreateGroupComponentMain() {
 
                         <div className="" style={{ textAlign: "center" }}>
                             <label className='mb-10'>Group Image</label>
-                            <div class="image-upload  pos-rel " style={showprofilePicturePath?{border:'none'}:{border: '1px solid #ccc'}}>
+                            <div className="image-upload  pos-rel " style={showprofilePicturePath?{border:'none'}:{border: '1px solid #ccc'}}>
                                 <label for="file-input">
                                     {
                                         showprofilePicturePath ?
@@ -302,7 +302,7 @@ function CreateGroupComponentMain() {
                         <br/>
                         <div className="" style={{ textAlign: "center" }}>
                             <legend className='mb-10'>Group Cover Image</legend>
-                            <div class="image-upload pos-rel" style={showCoverPicture?{border:'none'}:{border: '1px solid #ccc'}}>
+                            <div className="image-upload pos-rel" style={showCoverPicture?{border:'none'}:{border: '1px solid #ccc'}}>
                                 <label for="file-input-cover">
                                 
                                     {
@@ -317,8 +317,8 @@ function CreateGroupComponentMain() {
                         </div>
                     </div>
                     <div style={{position:'relative'}}>
-                        <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
-                        <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
+                        <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(1)} />
+                        <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => {
                             handleCreateGroup()
                         }} />
                         <a  className="skip-crt-grp" onClick={() => {
@@ -336,7 +336,7 @@ function CreateGroupComponentMain() {
 
                         <div className="" style={{ textAlign: "center" }}>
                             <label className='mb-10'>Group Image</label>
-                            <div class="image-upload  pos-rel ">
+                            <div className="image-upload  pos-rel ">
                                 <label for="file-input">
                                     {
                                         showprofilePicturePath ?
@@ -352,7 +352,7 @@ function CreateGroupComponentMain() {
                         <br/>
                         <div className="" style={{ textAlign: "center" }}>
                             <legend className='mb-10'>Group Cover Image</legend>
-                            <div class="image-upload pos-rel">
+                            <div className="image-upload pos-rel">
                                 <label for="file-input-cover">
                                 
                                     {
@@ -366,8 +366,8 @@ function CreateGroupComponentMain() {
                             </div>
                         </div>
                     </div>
-                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
+                    <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(1)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => {
                         // setStep(4)
                         handleCreateGroup()
                     }} />

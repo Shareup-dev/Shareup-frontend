@@ -240,10 +240,10 @@ export default function ReelWidgetComponent(props) {
                                 <video
                                   id="video"
                                   width="100%"
+                                  src={ReelVideo} 
                                   height={"350px"}
                                   controls="controls"
                                 >
-                                  <source src={ReelVideo} />
                                 </video>
 
                                 <button
@@ -295,7 +295,7 @@ export default function ReelWidgetComponent(props) {
                         {/* </> 
                                     
                   )}  */}
-                  <button  class="popsbmt-btn" type="submit" onClick={uploadReels}>SHARE REEL</button>
+                  <button  className="popsbmt-btn" type="submit" onClick={uploadReels}>SHARE REEL</button>
                       </Form>
                     )}
                   </Popup>

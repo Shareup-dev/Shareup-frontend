@@ -71,7 +71,7 @@ export default function CommentPostComponent(props) {
   };
   const handleSettingReactions = (reaction) => {
     if (!checkIfLiked(comment)) {
-      likeComment(comment,reaction);
+      likeComment(comment, reaction);
     }
   };
   const handleReaction = () => {
@@ -81,93 +81,118 @@ export default function CommentPostComponent(props) {
           switch (comment?.commentLiked) {
             case "star":
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                  }}
-                ></i>
+                <div className="emoji-reaction">
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "15px",
+                      color: "#d83535",
+                    }}
+                  ></i>
+                </div>
               );
             case "smiley":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😊
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😊
+                  </i>
+                </div>
               );
             case "wow":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😮
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😮
+                  </i>
+                </div>
               );
             case "laugh":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😂
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😂
+                  </i>
+                </div>
               );
             case "cry":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😭
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😭
+                  </i>
+                </div>
               );
             case "love":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😍
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😍
+                  </i>
+                </div>
               );
             case "celebrate":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  🥳
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    🥳
+                  </i>
+                </div>
               );
             case "angry":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😡
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😡
+                  </i>
+                </div>
               );
             default:
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                  }}
-                ></i>
+                <div>
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "15px",
+                      color: "#d83535",
+                    }}
+                  ></i>
+                </div>
               );
           }
         })()}
@@ -276,8 +301,8 @@ export default function CommentPostComponent(props) {
   const handleDeleteComment = (comment) => {
     props.handleDeleteComment(comment, props.post);
   };
-  const likeComment = async (comment,reaction) => {
-    props.likeComment(comment,reaction);
+  const likeComment = async (comment, reaction) => {
+    props.likeComment(comment, reaction);
   };
 
   const replyClicked = (commentId) => {
@@ -327,13 +352,17 @@ export default function CommentPostComponent(props) {
                   </div>
                   <p>{`${comment.content}`}</p>
                   <span
-                    className="float-right"
+                    className="float-right isreaction"
                     style={{ fontSize: "10px", paddingRight: "5px" }}
                   >
+                    {comment.numberOfReaction > 0 ? (
                       <span>
-                      {handleReplyReactions(comment)}{" "}
-                      {comment.numberOfReaction}
-                                </span>
+                        {handleReplyReactions(comment)}
+                        {comment.numberOfReaction}
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </span>
                 </div>
 
@@ -345,31 +374,31 @@ export default function CommentPostComponent(props) {
                   >
                     <img
                       src={"../assets/images/gif/smiley.gif"}
-                       onClick={() => handleSettingReactions("smiley")}
+                      onClick={() => handleSettingReactions("smiley")}
                     />
                     <img
                       src={"../assets/images/gif/wow.gif"}
-                       onClick={() => handleSettingReactions("wow")}
+                      onClick={() => handleSettingReactions("wow")}
                     />
                     <img
                       src={"../assets/images/gif/laughing.gif"}
-                       onClick={() => handleSettingReactions("laugh")}
+                      onClick={() => handleSettingReactions("laugh")}
                     />
                     <img
                       src={"../assets/images/gif/crying.gif"}
-                       onClick={() => handleSettingReactions("cry")}
+                      onClick={() => handleSettingReactions("cry")}
                     />
                     <img
                       src={"../assets/images/gif/love.gif"}
-                       onClick={() => handleSettingReactions("love")}
+                      onClick={() => handleSettingReactions("love")}
                     />
                     <img
                       src={"../assets/images/gif/angry.gif"}
-                       onClick={() => handleSettingReactions("angry")}
+                      onClick={() => handleSettingReactions("angry")}
                     />
                     <img
                       src={"../assets/images/gif/celebrate.gif"}
-                       onClick={() => handleSettingReactions("celebrate")}
+                      onClick={() => handleSettingReactions("celebrate")}
                     />
                   </div>
                 )}
@@ -383,12 +412,14 @@ export default function CommentPostComponent(props) {
                   <div>
                     <a
                       className="we-reply"
-                      onClick={() => likeComment(comment,"star")}
+                      onClick={() => likeComment(comment, "star")}
                     >
                       {checkIfLiked(comment) ? (
                         <>
                           <span className="like" data-toggle="tooltip" title="">
+                          <div className="emoji-reaction">
                             {handleReaction()}
+                            </div>
                           </span>
                         </>
                       ) : (

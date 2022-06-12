@@ -53,7 +53,7 @@ function GroupViewComponent(props) {
             <a href={`/groups/${group.id}`}>
                 <div className="group-li-item">
                     {/* <figure> */}
-                    <div class="item12" style={{backgroundImage:`url(${group.groupImagePath})`,backgroundSize:'cover'}}>
+                    <div className="item12" style={{backgroundImage:`url(${group.groupImagePath})`,backgroundSize:'cover'}}>
                         <a href={`/groups/${group.id}`} title="#"> </a>
                         {/* </figure> */}
                         {/* <button className="preview-btn" onClick={() => handleJoinGroup(group.id)}>Preview</button>	 */}

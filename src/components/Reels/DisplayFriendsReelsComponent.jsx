@@ -68,10 +68,10 @@ function DisplayFriendsReelsComponent(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleDeleteReel = (post) => {
-    // ReelsServices.deleteReel(post.id).then((res) => {
-    //   props.setRefresh(res.data);
-    // });
+  const handleDeleteReel = (reelId) => {
+    ReelsServices.deleteReel(reelId).then((res) => {
+      props.setRefresh(res.data);
+    });
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -91,7 +91,6 @@ function DisplayFriendsReelsComponent(props) {
     props.likeReel(reelId,reaction)
   }
   const checkIfLiked = (reel) => {
-    console.log(reel)
     if (reel.likedType==='star') {
       return true;
     }
@@ -153,11 +152,11 @@ function DisplayFriendsReelsComponent(props) {
                             <div style={{zIndex: "100",display:'flex',justifyContent:'center',alignItems:'center'}}>
                               {muteVideo
                                 ?<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
-                                    <i class="fas fa-volume-up"></i>
+                                    <i className="fas fa-volume-up"></i>
 
                                   </div>
                                 :<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
-                                  <i class="fas fa-volume-mute"></i> 
+                                  <i className="fas fa-volume-mute"></i> 
 
                                 </div>
                               }
@@ -187,7 +186,7 @@ function DisplayFriendsReelsComponent(props) {
                                     <span>Save Reel</span>
                                   </Dropdown.Item>
                                   {
-                                    reel.user&&user.id===reel.user.id?
+                                    reel.userdata&&user.id===reel.userdata.id?
                                     <Dropdown.Item
                                       type="button"
                                       onClick={() => {
@@ -252,16 +251,16 @@ function DisplayFriendsReelsComponent(props) {
                         </div>
                         <div className="reel-popup-action-btns">
                           <button onClick={() => likeReel(reel.id,'star')} >
-                            {checkIfLiked(reel) ? <i class="fas fa-star" style={{ color: 'red' }}></i> :
-                              <i class="far fa-star" ></i>
+                            {checkIfLiked(reel) ? <i className="fas fa-star" style={{ color: 'red' }}></i> :
+                              <i className="far fa-star" ></i>
                             }
                             {reel.numberOfReaction > 0 ? reel.numberOfReaction : null}
                           </button>
                           <button onClick={commentCliked}>
-                            <i class="far fa-comment"></i>
+                            <i className="far fa-comment"></i>
                             {reel.numberOfComments > 0 ? reel.numberOfComments : null}
                           </button>
-                          <button><i class="fas fa-share"></i></button>
+                          <button><i className="fas fa-share"></i></button>
 
                         </div>
                       </div>

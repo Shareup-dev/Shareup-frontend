@@ -282,7 +282,7 @@ function DisplayComponent({story}) {
             : null}
 
         </div>
-        <button class="popsbmt-btn" type="submit"
+        <button className="popsbmt-btn" type="submit"
           onClick={(e) => updateStories(e, editStory)}>UPDATE</button>
       </Form>
     )
@@ -430,7 +430,7 @@ function DisplayComponent({story}) {
                 </div>
               </div>
             </div>
-            <div class="slide-buttons">
+            <div className="slide-buttons">
               {index + 1 < storiesForUser.length ? (
                 <span
                   id="getnext"
@@ -438,7 +438,7 @@ function DisplayComponent({story}) {
                     setIndex(index + 1);
                   }}
                 >
-                  <i class="fas fa-arrow-right"></i>
+                  <i className="fas fa-arrow-right"></i>
                 </span>
               ) : (
                 ""
@@ -451,7 +451,7 @@ function DisplayComponent({story}) {
                     setIndex(index - 1);
                   }}
                 >
-                  <i class="fas fa-arrow-left"></i>
+                  <i className="fas fa-arrow-left"></i>
                 </span>
               ) : null}
             </div>

@@ -183,7 +183,7 @@ function GroupListComponent({ post }) {
 	const showMyGroupsComponent = () => {
 		return (
 			<div className="tab-content">
-				<div class="friends-search-container grp-search" >
+				<div className="friends-search-container grp-search" >
 					<input className="friend-search" type="text" id="header-search" placeholder="Search Groups" name="s" onChange={handleSearchMyGroup} style={{ width: '100%', marginLeft: '0' }} />
 				</div>
 

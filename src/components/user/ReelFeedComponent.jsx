@@ -202,7 +202,7 @@ function ReelFeedComponent() {
 
   };
   const likeReel = async(reelId,reaction)=>{
-    
+    console.log(reelId,reaction)
     await ReelsServices.likeReel(user.id,reelId,reaction).then((res) => {
       console.log(res)
       getReelsForUser()
@@ -415,7 +415,7 @@ function ReelFeedComponent() {
       <Popup trigger={<div className='my'>
           <span style={{ cursor: 'pointer' }}>
                       <span style={{ marginRight: '0px', padding: '5px' }}>
-                      <i class="fa fa-plus" style={{fontSize: '15px'}}></i>
+                      <i className="fa fa-plus" style={{fontSize: '15px'}}></i>
                         {/* <span>{`${following.length}`}</span> */}
                       </span>
                       Add Reels
@@ -461,8 +461,7 @@ function ReelFeedComponent() {
             <span className='textPop'>
               {ShowReelVideo ? (
                 <>
-                  <video id='video' width="100%" height={"350px"} controls="controls">
-                    <source src={ReelVideo} />
+                  <video id='video' src={ReelVideo} width="100%" height={"350px"} controls="controls">
                   </video>
 
 
@@ -508,7 +507,7 @@ function ReelFeedComponent() {
           {/* </> 
                          
        )}  */}
-        <button  class="popsbmt-btn" type="submit"
+        <button  className="popsbmt-btn" type="submit"
             onClick={uploadReels}>SHARE REEL</button>
         </Form>
       )}
@@ -749,7 +748,7 @@ const reelPopup =(reel,index)=>{
                   <div className="all" onClick={() => setShowComp("AllReels")}>
                     <span style={{ cursor: 'pointer' }}>
                       <span style={{ marginRight: '5px', padding: '5px' }}>
-                      <i class="fa fa-film" style={{fontSize:'20px'}}></i>
+                      <i className="fa fa-film" style={{fontSize:'20px'}}></i>
                         {/* <span>{`${following.length}`}</span> */}
                       </span>
                       All Reels

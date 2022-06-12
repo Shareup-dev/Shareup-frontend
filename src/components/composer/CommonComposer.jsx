@@ -585,7 +585,7 @@ function CommonComposer(props) {
               accept="image/*"
               multiple
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -593,7 +593,7 @@ function CommonComposer(props) {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -603,8 +603,8 @@ function CommonComposer(props) {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -633,7 +633,7 @@ function CommonComposer(props) {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -646,7 +646,7 @@ function CommonComposer(props) {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -672,7 +672,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -691,7 +691,7 @@ function CommonComposer(props) {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
@@ -818,7 +818,7 @@ function CommonComposer(props) {
         <div className="add-smilespopup">
           <label className="fileContainer">
             <input type="file" name="swap_image" accept="image/*"></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div
@@ -828,7 +828,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-user-tag"></i>
+                <i className="las la-user-tag"></i>
               </a>
             }
             modal
@@ -836,8 +836,8 @@ function CommonComposer(props) {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -866,7 +866,7 @@ function CommonComposer(props) {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -879,7 +879,7 @@ function CommonComposer(props) {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -904,7 +904,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -920,7 +920,7 @@ function CommonComposer(props) {
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}
       </div>
     );
@@ -945,7 +945,7 @@ function CommonComposer(props) {
               accept="image/*"
               onChange={handleFileSwap}
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div
@@ -955,7 +955,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-user-tag"></i>
+                <i className="las la-user-tag"></i>
               </a>
             }
             modal
@@ -963,8 +963,8 @@ function CommonComposer(props) {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -993,7 +993,7 @@ function CommonComposer(props) {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1006,7 +1006,7 @@ function CommonComposer(props) {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -1031,7 +1031,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1047,7 +1047,7 @@ function CommonComposer(props) {
 
         {/* <ul style={{marginLeft:'10px'}}>
       <li style={{fontSize:'12px'}}>What's in hang?</li>
-      <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+      <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
     </label></li></ul>*/}
       </div>
     );
@@ -1073,7 +1073,7 @@ function CommonComposer(props) {
               multiple
               onChange={handleFile}
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -1082,7 +1082,7 @@ function CommonComposer(props) {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -1092,8 +1092,8 @@ function CommonComposer(props) {
           >
             {(close) => (
               <Form className="popwidth poptag">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -1122,7 +1122,7 @@ function CommonComposer(props) {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1138,7 +1138,7 @@ function CommonComposer(props) {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTag">
                                       <a
                                         href={`/profile/${userM.email}`}
@@ -1178,7 +1178,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1197,7 +1197,7 @@ function CommonComposer(props) {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
@@ -1208,7 +1208,7 @@ function CommonComposer(props) {
       <Popup
         trigger={
           <a href="#!">
-            <i class="las la-map-marker-alt"></i>
+            <i className="las la-map-marker-alt"></i>
           </a>
         }
         nested
@@ -1251,7 +1251,7 @@ function CommonComposer(props) {
               accept="image/*"
               multiple
             ></input>
-            <i class="lar la-file-image"></i>
+            <i className="lar la-file-image"></i>
           </label>
         </div>
         <div className="gifpopup">
@@ -1259,7 +1259,7 @@ function CommonComposer(props) {
             trigger={
               <a href="#!">
                 <i
-                  class="las la-user-tag"
+                  className="las la-user-tag"
                   style={{ fontSize: "28px", paddingBottom: "14px" }}
                 ></i>
               </a>
@@ -1269,8 +1269,8 @@ function CommonComposer(props) {
           >
             {(close) => (
               <Form style={{ margin: "5px" }} className="popwidth">
-                <div class="search-container">
-                  <i class="las la-search"></i>
+                <div className="search-container">
+                  <i className="las la-search"></i>
                   <input
                     className="friend-search"
                     type="text"
@@ -1299,7 +1299,7 @@ function CommonComposer(props) {
                                 {" "}
                                 <div className="grid-container">
                                   {/* <figure> */}
-                                  <div class="item1">
+                                  <div className="item1">
                                     <a
                                       href={`/profile/${userM.email}`}
                                       title={`${userM.email}`}
@@ -1312,7 +1312,7 @@ function CommonComposer(props) {
                                     </a>
                                     {/* </figure> */}
                                   </div>
-                                  <div class="item2">
+                                  <div className="item2">
                                     <p className="nameTagMsg">{`${userM.firstName} ${userM.lastName}`}</p>
                                   </div>
                                   {/* <div className="  "> */}
@@ -1338,7 +1338,7 @@ function CommonComposer(props) {
           <Popup
             trigger={
               <a href="#!">
-                <i class="las la-map-marker-alt"></i>
+                <i className="las la-map-marker-alt"></i>
               </a>
             }
             nested
@@ -1357,7 +1357,7 @@ function CommonComposer(props) {
 
         {/* <ul style={{marginLeft:'10px'}}>
         <li style={{fontSize:'12px'}}>What's in hang?</li>
-        <li><label className="fileContainer"><i class="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
+        <li><label className="fileContainer"><i className="lar la-image"></i> <input type="file" name="post_image" accept="image/*" onChange={handleFile}></input>
       </label></li></ul>*/}
       </div>
     );
@@ -1398,7 +1398,7 @@ function CommonComposer(props) {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1435,7 +1435,7 @@ function CommonComposer(props) {
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1511,7 +1511,7 @@ function CommonComposer(props) {
                           padding: "10px 10px",
                         }}
                       >
-                        <i class="las la-times"></i>
+                        <i className="las la-times"></i>
                       </button>
                     </div>
                   </>
@@ -1563,7 +1563,7 @@ function CommonComposer(props) {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1597,7 +1597,7 @@ function CommonComposer(props) {
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1721,7 +1721,7 @@ function CommonComposer(props) {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1753,7 +1753,7 @@ function CommonComposer(props) {
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -1862,7 +1862,7 @@ function CommonComposer(props) {
                             zIndex: "99",
                           }}
                         >
-                          <i class="las la-times"></i>
+                          <i className="las la-times"></i>
                         </button>
                       </div>
                     </>
@@ -1914,7 +1914,7 @@ function CommonComposer(props) {
                     style={{ padding: "10px 80px 10px 0" }}
                     onClick={close}
                   >
-                    <i class="las la-times"></i>
+                    <i className="las la-times"></i>
                   </a>
                 </div>
                 <div
@@ -1948,7 +1948,7 @@ function CommonComposer(props) {
                   alt=""
                 />
               </div>
-              <div class="popupuser-name">
+              <div className="popupuser-name">
                 <div style={{ display: "inline" }}>
                   <span>
                     {`${user.firstName} ${user.lastName}`}
@@ -2042,7 +2042,7 @@ function CommonComposer(props) {
                       style={{ padding: "10px 80px 10px 0" }}
                       onClick={close}
                     >
-                      <i class="las la-times"></i>
+                      <i className="las la-times"></i>
                     </a>
                   </div>
                   <div
@@ -2074,7 +2074,7 @@ function CommonComposer(props) {
                     alt=""
                   />
                 </div>
-                <div class="popupuser-name">
+                <div className="popupuser-name">
                   <div style={{ display: "inline" }}>
                     <span>
                       {`${user.firstName} ${user.lastName}`}
@@ -2174,7 +2174,7 @@ function CommonComposer(props) {
                               zIndex: "99",
                             }}
                           >
-                            <i class="las la-times"></i>
+                            <i className="las la-times"></i>
                           </button>
                         </div>
                       </>
@@ -2248,7 +2248,7 @@ function CommonComposer(props) {
                     onClick={close}
                   >
                     <i
-                      class="las la-times"
+                      className="las la-times"
                       style={{
                         fontSize: "20px",
                         background: "#C4C4C4",
@@ -2290,7 +2290,7 @@ function CommonComposer(props) {
                     <ul className="nearby-contct">
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/publicicon.svg"
                               style={{ width: "49%" }}
@@ -2298,7 +2298,7 @@ function CommonComposer(props) {
                             {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2329,7 +2329,7 @@ function CommonComposer(props) {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/friendsicon.svg"
                               style={{ width: "46%" }}
@@ -2337,7 +2337,7 @@ function CommonComposer(props) {
                             {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2374,7 +2374,7 @@ function CommonComposer(props) {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/friendexcepticon.svg"
                               style={{ width: "46%" }}
@@ -2382,7 +2382,7 @@ function CommonComposer(props) {
                             {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2418,7 +2418,7 @@ function CommonComposer(props) {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/groupicon.svg"
                               style={{ width: "46%" }}
@@ -2426,7 +2426,7 @@ function CommonComposer(props) {
                             {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2462,7 +2462,7 @@ function CommonComposer(props) {
 
                       <yi>
                         <div className="grid-containeraudience">
-                          <div class="item11">
+                          <div className="item11">
                             <img
                               src="assets/images/onlymeicon.svg"
                               style={{ width: "39%" }}
@@ -2470,7 +2470,7 @@ function CommonComposer(props) {
                             {/* <img src={profilePicturePath} alt="" /> */}
                             {/* <span className="status f-online" /> */}
                           </div>
-                          <div class="item22">
+                          <div className="item22">
                             <p
                               style={{
                                 fontSize: "17px",
@@ -2652,7 +2652,7 @@ function CommonComposer(props) {
 
   return (
         <div className="" >
-            <div class="slide-wrapperstry">              
+            <div className="slide-wrapperstry">              
                 <div className="central-meta newsfeed">
                     <div className="new-postbox">
                     <figure>
