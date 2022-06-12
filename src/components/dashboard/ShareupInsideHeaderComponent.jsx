@@ -308,11 +308,11 @@ const onError = (err) => {
                         <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
                         {displayNotification(item.content)}
                         <div >
-                          <span>{moment(item.notification_date).fromNow()}</span>
+                          <span>{moment(item.notificationDate).fromNow()}</span>
                         </div>
                       </div>
                     </a>
-                    {item.read_flag?(""):(<span className="tag green">unread</span>)}
+                    {item.readFlag?(""):(<span className="tag green">unread</span>)}
                     
                     </li>)
                    
