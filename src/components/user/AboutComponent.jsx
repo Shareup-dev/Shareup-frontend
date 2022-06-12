@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import Founder from '../../images/mr.firat.jpeg'
+import Founder from '../../images/founder-1.jpeg'
 import Linnate from '../../images/linnate.jpg'
 import Lokee from '../../images/lokee.jpeg'
 import Sree from '../../images/sree.jpeg'
+import Basma from '../../images/basma.jpeg'
+import Sabeetha from '../../images/sabeetha.jpeg'
+import Raouf from '../../images/raouf.jpeg'
 
 
 
 function AboutComponent() {
-
   return (
     <div>
       <div className="theme-layout">
@@ -143,7 +145,7 @@ We provide you most private and secure social media platform. Your data is our c
                 >
                   <img
                     width="200px"
-                    src="/assets/images/screen8.PNG"
+                    src={Sabeetha}
                     alt="img"
                   />
                   <h1>Sabeetha Masinghe</h1>
@@ -156,7 +158,7 @@ We provide you most private and secure social media platform. Your data is our c
                 >
                   <img
                     width="200px"
-                    src="/assets/images/screen3.PNG"
+                    src={Basma}
                     alt="img"
                   />
                    <h1>Basma saad shokry</h1>
@@ -182,7 +184,7 @@ We provide you most private and secure social media platform. Your data is our c
                 <div>
                   <img
                     width="200px"
-                    src="/assets/images/screen3.PNG"
+                    src={Raouf}
                     alt="img"
                   />
                    <h1>Abderaouf Zerkouk</h1>

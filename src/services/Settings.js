@@ -23,7 +23,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.dev;
+  return settings.awsNew;
 };
 
 export default getCurrentSettings();
