@@ -200,7 +200,7 @@ const onError = (err) => {
       setUnreadCounter(0)
       let user_unread_notification =0;
       res.data.map(notification =>{
-        if(notification.read_flag === true)
+        if(notification.readFlag === true)
         {
         
         }else{
