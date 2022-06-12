@@ -220,7 +220,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   useEffect(() => {
     getAllReactionList();
-  }, [setRefresh]);
+  }, []);
   const handleShowingReaction = () => {
     setTimeout(function () {
       setShowReactions(true);
