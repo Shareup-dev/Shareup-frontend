@@ -459,8 +459,7 @@ function ReelFeedComponent() {
             <span className='textPop'>
               {ShowReelVideo ? (
                 <>
-                  <video id='video' width="100%" height={"350px"} controls="controls">
-                    <source src={ReelVideo} />
+                  <video id='video' src={ReelVideo} width="100%" height={"350px"} controls="controls">
                   </video>
 
 

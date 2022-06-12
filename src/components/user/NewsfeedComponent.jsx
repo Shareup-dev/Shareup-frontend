@@ -121,7 +121,6 @@ function NewsfeedComponent() {
   const [privacy, setprivacy] = useState("privacy");
   const [storyType, setStoryType] = useState("image");
 
-
   const [closeModal, setCloseModal] = useState(false);
   const [categoryHS, setCategoryHS] = useState("");
 
@@ -305,8 +304,7 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => {
-  }, [posts]);
+  useEffect(() => {}, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -2744,10 +2742,10 @@ function NewsfeedComponent() {
                                       <video
                                         id="video"
                                         width="100%"
+                                        src={ReelVideo}
                                         height={"350px"}
                                         controls="controls"
                                       >
-                                        <source src={ReelVideo} />
                                       </video>
 
                                       <button
@@ -2782,13 +2780,14 @@ function NewsfeedComponent() {
                                     </div>
                                   )}
                                 </span>
-                                {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
                               </div>
-                              {/* </> 
-                                                    
-                                  )}  */}
-                              <button className="popsbmt-btn" type="submit"
-                                onClick={uploadReels}>SHARE REEL</button>
+                              <button
+                                class="popsbmt-btn"
+                                type="submit"
+                                onClick={uploadReels}
+                              >
+                                SHARE REEL
+                              </button>
                             </Form>
                           )}
                         </Popup>
@@ -2942,7 +2941,7 @@ function NewsfeedComponent() {
                       alt="img"
                       style={
                         user.profilePicture === "default.png"
-                          ? { padding: "16px", height: 'auto' }
+                          ? { padding: "16px", height: "auto" }
                           : {}
                       }
                     />
@@ -3009,9 +3008,7 @@ function NewsfeedComponent() {
                         <div>
                           <span className="textPop">
                             {showstoriesImage ? (
-
                               <>
-
                                 {showStoryButton ? (
                                   <>
                                     <img
@@ -3034,14 +3031,13 @@ function NewsfeedComponent() {
                                   </>
                                 ) : (
                                   <>
-
                                     <video
                                       id="video"
                                       width="100%"
+                                      src={storiesImage}
                                       height={"350px"}
                                       controls="controls"
                                     >
-                                      <source src={storiesImage} />
                                     </video>
                                     <button
                                       onClick={handleRemoveImageStry}
@@ -3173,7 +3169,7 @@ function NewsfeedComponent() {
                                 </div>
                               </div>
                             </div>
-                            <DisplayComponent />
+                            <DisplayComponent story={storiesForUser} />
                           </Form>
                         )}
                       </Popup>

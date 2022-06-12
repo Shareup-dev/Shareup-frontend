@@ -18,7 +18,7 @@ import moment from "moment";
 import $ from "jquery";
 import { Modal } from "react-bootstrap";
 
-function DisplayComponent() {
+function DisplayComponent({story}) {
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -168,7 +168,7 @@ function DisplayComponent() {
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) =>
-          prevIndex === storiesForUser.length - 1
+          prevIndex === story.length - 1
             ? setTimeout(
               () =>
               (document.querySelector(".popup-overlay").style.display =
