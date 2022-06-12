@@ -87,6 +87,7 @@ export default function PostComponentBoxComponent(props) {
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
           sortComment()
+          props.commentChangedFunction(postid)
           // props.setRefresh(res.data)
           setCommentContent("")
         })

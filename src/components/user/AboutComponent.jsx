@@ -182,7 +182,7 @@ We provide you most private and secure social media platform. Your data is our c
                 <div>
                   <img
                     width="200px"
-                    src={Linnate}
+                    src="/assets/images/screen3.PNG"
                     alt="img"
                   />
                    <h1>Abderaouf Zerkouk</h1>

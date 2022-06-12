@@ -202,7 +202,7 @@ function GroupListComponent({post}) {
 								<a href={`/groups/${group.id}`}>
 									<div className="group-li-item">
 										{/* <figure> */}
-										<div class="item12">
+										<div className="item12">
 											<a href={`/groups/${group.id}`} title="#"> <img src={group.groupImagePath} alt="" className={group.groupImagePath ? "img" : "no-img"} /></a>
 
 											{/* </figure> */}
@@ -324,7 +324,7 @@ function GroupListComponent({post}) {
 									<div className="new">
 										<span style={{ cursor: 'pointer' }} onClick={() => history.push('/group/create')}>
 											<span style={{  padding: '5px',marginRight:'5px' }}> 
-											<i class="fa fa-plus" style={{fontSize:'18px'}}></i>
+											<i className="fa fa-plus" style={{fontSize:'18px'}}></i>
 											{/* <span>{`${following.length}`}</span> */}
 											</span>
 											Create group

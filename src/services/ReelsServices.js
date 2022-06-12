@@ -66,7 +66,7 @@ class ReelsServices {
 
     likeReel = async (uid,rid,data) =>{
         authenticate();
-        const result = await authAxios.put(`reels/${uid}/like-unlike/${rid}`,{emoji: data})
+        const result = await authAxios.put(`reels/${uid}/like-unlike/${rid}`,{emoji: 'star'})
         return result;
     }
     getCommentsForReel = async (rid) =>{

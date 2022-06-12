@@ -32,7 +32,7 @@ import ReactionsListComponent from "./ReactionsListComponent";
 
 const my_url = `${storage.baseUrl}`;
 
-export default function PostComponent({ post, setRefresh }) {
+export default function PostComponent({ post, setRefresh , commentChangedFunction}) {
   const { user } = useContext(UserContext);
   let psotid = post?.id;
   const [editPostId, setEditPostId] = useState(null);
@@ -100,7 +100,7 @@ export default function PostComponent({ post, setRefresh }) {
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    console.log(post)
+    // console.log(post)
     if (post?.likedType !== "false") {
       return true;
     }
@@ -701,7 +701,7 @@ export default function PostComponent({ post, setRefresh }) {
         });
     }
   };
-
+ 
 
 
   const updateSharedPost = async (event) => {
@@ -1910,14 +1910,14 @@ export default function PostComponent({ post, setRefresh }) {
                                 <div style={{ minHeight: "150px" }}>
                                   <span className="textPop">
                                     <div
-                                      class="input-group mb-3"
+                                      className="input-group mb-3"
                                       style={{
                                         margin: "11px 0px 11px",
                                       }}
                                     >
-                                      <div class="input-group-prepend">
+                                      <div className="input-group-prepend">
                                         <span
-                                          class="input-group-text"
+                                          className="input-group-text"
                                           id="basic-addon1"
                                         >
                                           Phone Number
@@ -1925,7 +1925,7 @@ export default function PostComponent({ post, setRefresh }) {
                                       </div>
                                       <input
                                         type="text"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder="Enter you Phone"
                                         value={UserPhone}
                                         onChange={handleUserPhone}
@@ -2597,14 +2597,14 @@ export default function PostComponent({ post, setRefresh }) {
                                     <div style={{ minHeight: "150px" }}>
                                       <span className="textPop">
                                         <div
-                                          class="input-group mb-3"
+                                          className="input-group mb-3"
                                           style={{
                                             margin: "11px 0px 11px",
                                           }}
                                         >
-                                          <div class="input-group-prepend">
+                                          <div className="input-group-prepend">
                                             <span
-                                              class="input-group-text"
+                                              className="input-group-text"
                                               id="basic-addon1"
                                             >
                                               Phone Number
@@ -2612,7 +2612,7 @@ export default function PostComponent({ post, setRefresh }) {
                                           </div>
                                           <input
                                             type="text"
-                                            class="form-control"
+                                            className="form-control"
                                             placeholder="Enter you Phone"
                                             value={UserPhone}
                                             onChange={handleUserPhone}
@@ -2979,6 +2979,8 @@ export default function PostComponent({ post, setRefresh }) {
           post={post}
           setRefresh={setRefresh}
           showComment={showComment}
+          commentChangedFunction={commentChangedFunction}
+
         />
       </div>
     </div>

@@ -59,9 +59,9 @@ function CreateGroupComponent() {
         setGroupPicture(event.target.files[0])
         const reader = new FileReader();
         reader.onload = () => {
-          if (reader.readyState === 2) {
-            setProfileRender(reader.result)
-          }
+            if (reader.readyState === 2) {
+                setProfileRender(reader.result)
+            }
         }
         reader.readAsDataURL(event.target.files[0])
         setShowprofilePicturePath(true)
@@ -72,20 +72,20 @@ function CreateGroupComponent() {
         setGroupCover(event.target.files[0])
         const reader = new FileReader();
         reader.onload = () => {
-          if (reader.readyState === 2) {
-            setCoverRender(reader.result)
-          }
+            if (reader.readyState === 2) {
+                setCoverRender(reader.result)
+            }
         }
         reader.readAsDataURL(event.target.files[0])
         setShowCoverPicture(true)
     }
 
-    const handlePrivacySetting = (event) =>{
+    const handlePrivacySetting = (event) => {
         setGroupPrivacySetting(event.target.value)
         console.log(event.target.value)
     }
 
-    const handleInviteSetting = (event) =>{
+    const handleInviteSetting = (event) => {
         setGroupInvitationSetting(event.target.value)
         console.log(event.target.value)
     }
@@ -104,7 +104,7 @@ function CreateGroupComponent() {
         await GroupService.createGroup(user.id, formData).then(res => {
             console.log(res.data)
         })
-        setTimeout(function(){ history.push(`/groups`) }, 2000);
+        setTimeout(function () { history.push(`/groups`) }, 2000);
     }
 
     const show = () => {
@@ -123,7 +123,7 @@ function CreateGroupComponent() {
                         <label htmlFor="group-desc">Group Description (required)</label>
                         <textarea name="group-desc" id="group-desc" aria-required="true" value={groupDesc} onChange={handleGroupDesc} />
                     </div>
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => validateStep(1)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => validateStep(1)} />
                 </fieldset>
             )
         }
@@ -134,21 +134,21 @@ function CreateGroupComponent() {
                     <div className="form-card">
                         <div className="">
                             <h2 className="fs-title">Select Group Settings</h2>
-                            <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting}/>
+                            <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting} />
                             <label htmlFor="public">This is a public group</label>
                             <ul id="public-group-description">
                                 <li>Any site member can join this group.</li>
                                 <li>This group will be listed in the groups directory and in search results.</li>
                                 <li>Group content and activity will be visible to any site member.</li>
                             </ul><br></br>
-                            <input type="radio" id="private" name="privacy" value="private" onChange={handlePrivacySetting}/>
+                            <input type="radio" id="private" name="privacy" value="private" onChange={handlePrivacySetting} />
                             <label htmlFor="female">This is a private group</label>
                             <ul id="private-group-description">
                                 <li>Only people who request membership and are accepted can join the group.</li>
                                 <li>This group will be listed in the groups directory and in search results.</li>
                                 <li>Group content and activity will only be visible to members of the group.</li>
                             </ul><br></br>
-                            <input type="radio" id="hidden" name="privacy" value="hidden" onChange={handlePrivacySetting}/>
+                            <input type="radio" id="hidden" name="privacy" value="hidden" onChange={handlePrivacySetting} />
                             <label htmlFor="other">This is a hidden group</label>
                             <ul id="hidden-group-description">
                                 <li>Only people who are invited can join the group.</li>
@@ -160,17 +160,24 @@ function CreateGroupComponent() {
                         <div className="">
                             <legend>Group Invitations</legend>
                             <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
-                            <input type="radio" name="group-invite-status" id="group-invite-status-members" defaultValue="members" defaultChecked="checked" onChange={handleInviteSetting}/>
+
+                            <input type="radio" name="group-invite-status" id="group-invite-status-members" defaultValue="members" defaultChecked="checked" />
                             <label htmlFor="other">All Group Members</label><br></br>
-                            <input type="radio" name="group-invite-status" id="group-invite-status-mods" defaultValue="mods" onChange={handleInviteSetting}/>
+                            <input type="radio" name="group-invite-status" id="group-invite-status-mods" defaultValue="mods" onChange={handleInviteSetting} />
                             <label htmlFor="other">Group admins and mods only</label><br></br>
-                            <input type="radio" name="group-invite-status" id="group-invite-status-admins" defaultValue="admins" onChange={handleInviteSetting}/>
+                            <input type="radio" name="group-invite-status" id="group-invite-status-admins" defaultValue="admins" onChange={handleInviteSetting} />
                             <label htmlFor="other">Group admins only</label><br></br>
+                            <select name="cars" id="group-invite-status-members" onChange={handleInviteSetting}>
+                                <option value="group-invite-status-members">All Group Members</option>
+                                <option value="group-invite-status-mods">Group admins and mods only</option>
+                                <option value="group-invite-status-admins">Group admins only</option>
+                            </select>
+
                         </div>
 
                     </div>
-                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(0)} />
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => setStep(2)} />
+                    <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(0)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => setStep(2)} />
                 </fieldset>
             )
         }
@@ -186,8 +193,8 @@ function CreateGroupComponent() {
                                 <label for="file-input">
                                     {
                                         showprofilePicturePath ?
-                                        <img id="preview" src={profileRender}/> :
-                                        <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
+                                            <img id="preview" src={profileRender} /> :
+                                            <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
                                     }
                                 </label>
 
@@ -200,8 +207,8 @@ function CreateGroupComponent() {
                                 <label for="file-input-cover">
                                     {
                                         showCoverPicture ?
-                                        <img id="preview" src={coverRender}/> :
-                                        <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
+                                            <img id="preview" src={coverRender} /> :
+                                            <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" />
                                     }
                                 </label>
 
@@ -209,10 +216,10 @@ function CreateGroupComponent() {
                             </div>
                         </div>
                     </div>
-                    <input type="button" name="previous" className="previous action-button-previous" defaultValue="Previous" onClick={() => setStep(1)} />
-                    <input type="button" name="" className="action-button" defaultValue="Next Step" onClick={() => {
+                    <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(1)} />
+                    <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => {
                         setStep(3)
-                        handleCreateGroup()   
+                        handleCreateGroup()
                     }} />
                 </fieldset>
             )
@@ -228,7 +235,7 @@ function CreateGroupComponent() {
                         <div className="row justify-content-center">
                             <div className="col-7 text-center">
                                 <h5>You Have Successfully Created Group</h5>
-                                <p style={{color:"blue"}}>You will be redirected shortly...</p>
+                                <p style={{ color: "blue" }}>You will be redirected shortly...</p>
                             </div>
                         </div>
                     </div>

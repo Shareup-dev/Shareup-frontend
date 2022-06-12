@@ -450,7 +450,7 @@ export default function ReplyCommentComponent(props) {
                           {checkIfLiked(reply) ? (
                             <>
                               <i
-                                class="fas fa-star"
+                                className="fas fa-star"
                                 style={{ color: "rgb(216, 53, 53)" }}
                               ></i>
                               {/* <span>{comment.numberOfReaction}</span> */}
@@ -516,7 +516,7 @@ export default function ReplyCommentComponent(props) {
                             {checkIfLiked(reply) ? (
                               <>
                                 <i
-                                  class="fas fa-star"
+                                  className="fas fa-star"
                                   style={{ color: "rgb(216, 53, 53)" }}
                                 ></i>
                                 {/* <span

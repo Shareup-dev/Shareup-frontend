@@ -168,7 +168,7 @@ function NewsfeedComponent() {
     } else {
       const formData = new FormData();
       formData.append("caption", storyContent);
-      formData.append("story_type",storyType);
+      formData.append("story_type", storyType);
       formData.append(`stryfiles`, filesStry);
       StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
@@ -495,7 +495,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) {}
+      for (let i = 0; i < `files`.length; i++) { }
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
       if (userF === null) {
@@ -530,7 +530,7 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) {}
+      for (let i = 0; i < `files`.length; i++) { }
       formData.append(`privacy`, Privacy);
       formData.append(`category`, categoryHS);
 
@@ -753,7 +753,7 @@ function NewsfeedComponent() {
       await formData.append(`files`, swapfiles[i]);
     }
 
-    for (let i = 0; i < `swapfiles`.length; i++) {}
+    for (let i = 0; i < `swapfiles`.length; i++) { }
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
@@ -1516,7 +1516,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={}
+            // onClick={}
             >
               SWAP
             </button>
@@ -1869,7 +1869,7 @@ function NewsfeedComponent() {
               type="submit"
               value="Submit"
               className="popsbmt-btn"
-              // onClick={uploadPost}
+            // onClick={uploadPost}
             >
               POST
             </button>
@@ -2203,7 +2203,7 @@ function NewsfeedComponent() {
                 type="submit"
                 value="Submit"
                 className="popsbmt-btn"
-                // onClick={uploadPost}
+              // onClick={uploadPost}
               >
                 POST
               </button>
@@ -2527,15 +2527,21 @@ function NewsfeedComponent() {
       </Popup>
     );
   };
-  const likeReel = async(reelId) => {
+  const likeReel = async (reelId) => {
     let params = {}
-    await ReelsServices.likeReel(user.id,reelId,params).then((res) => {
+    await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
       getReelForUserFriends()
 
     })
   }
   useEffect(() => {
   }, [postsForUser]);
+
+  const commentChangedFunction = (props) => {
+    if (props) {
+      getPostForUser()
+    }
+  }
 
   const show = () => {
     return (
@@ -2553,8 +2559,9 @@ function NewsfeedComponent() {
                     setRefresh={setRefresh}
                     user={user}
                     userF={userF}
+                    commentChangedFunction={commentChangedFunction}
                   />
-                  {index == 3 ? (
+                  {index == 3 && rellsForUserFriends && rellsForUserFriends.length>0? (
                     <div className="central-meta newsfeed reels-cont">
                       <div className="common-title">REELS</div>
                       <div className="new-postbox">
@@ -2618,14 +2625,16 @@ function NewsfeedComponent() {
               ) : null
             ) : (
               <>
-                <PostComponent post={post} setRefresh={setRefresh} />
+                <PostComponent post={post} setRefresh={setRefresh}
+                  commentChangedFunction={commentChangedFunction}
+                />
                 {index == 3 ? (
                   <div className="central-meta newsfeed reels-cont">
                     <div className="common-title">REELS</div>
                     <div className="new-postbox">
                       <div className="slide-wrapperstry">
                         {rellsForUserFriends &&
-                        rellsForUserFriends.length > 0 ? (
+                          rellsForUserFriends.length > 0 ? (
                           <ul className="slidestry">
                             {rellsForUserFriends
                               .slice(0, 4)
@@ -2778,8 +2787,8 @@ function NewsfeedComponent() {
                               {/* </> 
                                                     
                                   )}  */}
-                                  <button  class="popsbmt-btn" type="submit"
-                              onClick={uploadReels}>SHARE REEL</button>
+                              <button className="popsbmt-btn" type="submit"
+                                onClick={uploadReels}>SHARE REEL</button>
                             </Form>
                           )}
                         </Popup>
@@ -2875,9 +2884,9 @@ function NewsfeedComponent() {
 
   useEffect(() => {
     getUser();
-    if(user&&user.id){
+    if (user && user.id) {
       getPost().then(() => {
-      setIsLoading(false);
+        setIsLoading(false);
       });
       getPostForUser();
       getReelForUserFriends();
@@ -2887,7 +2896,7 @@ function NewsfeedComponent() {
   }, [editPostId, refresh]);
 
   useEffect(() => {
-    if(user&&user.id){
+    if (user && user.id) {
       getPostForUser();
       getReelForUserFriends();
       getSavedPost();
@@ -2896,14 +2905,14 @@ function NewsfeedComponent() {
   }, [user]);
 
   useEffect(() => {
-    if(user&&user.id){getStoriesForFriendsUser();}
+    if (user && user.id) { getStoriesForFriendsUser(); }
   }, [FriendsStories]);
   useEffect(async () => {
-    if(user&&user.id){getReelForUserFriends();}
+    if (user && user.id) { getReelForUserFriends(); }
   }, [FriendsReels]);
 
   useEffect(() => {
-    if(user&&user.id){
+    if (user && user.id) {
       getStoriesForUser();
       getReelForUserFriends();
     }
@@ -2933,7 +2942,7 @@ function NewsfeedComponent() {
                       alt="img"
                       style={
                         user.profilePicture === "default.png"
-                          ? { padding: "16px",height:'auto' }
+                          ? { padding: "16px", height: 'auto' }
                           : {}
                       }
                     />
@@ -3000,53 +3009,53 @@ function NewsfeedComponent() {
                         <div>
                           <span className="textPop">
                             {showstoriesImage ? (
-                              
+
                               <>
-                            
-                                { showStoryButton ? (
+
+                                {showStoryButton ? (
                                   <>
-                                <img
-                                  id="preview"
-                                  src={storiesImage}
-                                  style={{ width: "100%" }}
-                                />
-                                <button
-                                  onClick={handleRemoveImageStry}
-                                  style={{
-                                    right: "20px",
-                                    position: "absolute",
-                                    borderRadius: "100%",
-                                    background: "#b7b7b738",
-                                    padding: "10px 10px",
-                                  }}
-                                >
-                                  <i className="las la-times"></i>
-                                </button>
+                                    <img
+                                      id="preview"
+                                      src={storiesImage}
+                                      style={{ width: "100%" }}
+                                    />
+                                    <button
+                                      onClick={handleRemoveImageStry}
+                                      style={{
+                                        right: "20px",
+                                        position: "absolute",
+                                        borderRadius: "100%",
+                                        background: "#b7b7b738",
+                                        padding: "10px 10px",
+                                      }}
+                                    >
+                                      <i className="las la-times"></i>
+                                    </button>
                                   </>
-                                ):(
+                                ) : (
                                   <>
 
-                                  <video
-                                       id="video"
-                                        width="100%"
-                                        height={"350px"}
-                                        controls="controls"
-                                   >
-                                  <source src={storiesImage} />
-                                  </video>
-                                <button
-                                  onClick={handleRemoveImageStry}
-                                  style={{
-                                    right: "20px",
-                                    position: "absolute",
-                                    borderRadius: "100%",
-                                    background: "#b7b7b738",
-                                    padding: "10px 10px",
-                                  }}
-                                >
-                                  <i className="las la-times"></i>
-                                </button>
-                                </>
+                                    <video
+                                      id="video"
+                                      width="100%"
+                                      height={"350px"}
+                                      controls="controls"
+                                    >
+                                      <source src={storiesImage} />
+                                    </video>
+                                    <button
+                                      onClick={handleRemoveImageStry}
+                                      style={{
+                                        right: "20px",
+                                        position: "absolute",
+                                        borderRadius: "100%",
+                                        background: "#b7b7b738",
+                                        padding: "10px 10px",
+                                      }}
+                                    >
+                                      <i className="las la-times"></i>
+                                    </button>
+                                  </>
                                 )}
                               </>
                             ) : (
@@ -3099,7 +3108,7 @@ function NewsfeedComponent() {
                           ) : null}
 
                           <button
-                            class="popsbmt-btn"
+                            className="popsbmt-btn"
                             type="submit"
                             onClick={uploadStories}
                           >
@@ -3182,7 +3191,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                            storiesForUserFriends[index].stories_List.length - 1
+                          storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}

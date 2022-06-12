@@ -138,7 +138,7 @@ function InviteMembersComponent(props) {
 			    <div className="central-meta swap-pg-cont grp-pg-invite-cont">
 				    <div className="frnds">
                         <div className='fw-6  abt-title no-brdr-btm  clr-blk'>Invite people</div>
-                        <div class="friends-search-container grp-search">
+                        <div className="friends-search-container grp-search">
                             {/* <i class="las la-search"></i> */}
                             <input className="friend-search" type="text" id="header-search" placeholder="Search Friends" name="s" onChange={handleSearchedFriends} />
                         </div>
@@ -154,12 +154,12 @@ function InviteMembersComponent(props) {
                                                     <div className="grid-container">
                                                         {/* <div className="nearly-pepls"> */}
                                                         {/* <figure> */}
-                                                        <div class="item1">
+                                                        <div className="item1">
                                                             <a href={`/profile/${friend.email}`} title={`${friend.email}`}><img src={friend.profilePicturePath} alt="" /></a>
                                                             {/* </figure> */}
                                                         </div>
                                                         {/* <div className="  "> */}
-                                                        <div class="item2">
+                                                        <div className="item2">
                                                             <p className="nameTag"><a href={`/profile/${friend.email}`} title={`${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a></p>
                                                             <div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual friends</div>
                                                         </div>

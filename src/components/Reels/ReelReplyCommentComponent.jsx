@@ -257,8 +257,8 @@ export default function ReelReplyCommentComponent(props) {
                                     <div>
                                         <a className="we-reply" title="Like" onClick={() => likeReply(reply)} >
                                         {checkIfLiked(reply)?
-                                            <i class="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
-                                            :<i class="far fa-star" ></i>
+                                            <i className="fas fa-star" style={{color:'rgb(216, 53, 53)'}}></i>
+                                            :<i className="far fa-star" ></i>
                                         }
                                         </a>
                                         {/* <a className="we-reply" title="Reply" onClick={() => { setReplyCommentId(comment.id); setReplyCommentFlag(!replyCommentFlag) }}>Reply</a> */}

@@ -425,7 +425,7 @@ const handleCounterReaction = () => {
 					
 						<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
 						<img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
-						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
+						   <div className="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
 						<option value="Friends">Friends</option>
@@ -469,7 +469,7 @@ const handleCounterReaction = () => {
 					
 						<div style={{padding:'0 11px 11px 11px'}}>  <div className="popupimg"> 
 						<img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
-						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
+						   <div className="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
 						<option value="Friends">Friends</option>
@@ -511,7 +511,7 @@ const handleCounterReaction = () => {
 					
 						<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 
 						<img src={user ? user.profilePicture : userR.profilePicture} alt="" /></div>
-						   <div class="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
+						   <div className="popupuser-name"><div style={{float:'left', display: 'inline'}}><span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{`${user.firstName} ${user.lastName}`}</span>
 						   <span style={{display: 'block', fontSize: '12px'}}><div className="dropdownnewsfeed">
 					  <select name="privacy" id="privacy" value={Privacy} onChange={handlePrivacy} >
 						<option value="Friends">Friends</option>

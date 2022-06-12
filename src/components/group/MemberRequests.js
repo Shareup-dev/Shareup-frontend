@@ -135,7 +135,7 @@ function MemberRequests(props) {
             <div className="">
 			    <div className="central-meta swap-pg-cont grp-pg-invite-cont">
 				    <div className="frnds">
-                        <div class="friends-search-container grp-search">
+                        <div className="friends-search-container grp-search">
                             {/* <i class="las la-search"></i> */}
                             <input className="friend-search" type="text" id="header-search" placeholder="Search requests" name="s" onChange={handleSearchedFriends} />
                         </div>
@@ -150,12 +150,12 @@ function MemberRequests(props) {
                                                     <div className="grid-container">
                                                         {/* <div className="nearly-pepls"> */}
                                                         {/* <figure> */}
-                                                        <div class="item1">
+                                                        <div className="item1">
                                                             <a href={`/profile/${memberRequest.user.email}`} title={`${memberRequest.user.email}`}><img src={memberRequest.user.profilePicturePath} alt="" /></a>
                                                             {/* </figure> */}
                                                         </div>
                                                         {/* <div className="  "> */}
-                                                        <div class="item2">
+                                                        <div className="item2">
                                                             <p className="nameTag"><a href={`/profile/${memberRequest.user.email}`} title={`${memberRequest.user.email}`}>{`${memberRequest.user.firstName} ${memberRequest.user.lastName}`}</a></p>
                                                             <div  style={{fontSize:'12px',paddingTop:'5px'}}>10 Mutual Friends</div>
                                                         </div>

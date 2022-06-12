@@ -346,7 +346,7 @@ export default function EditProfileComponent() {
                   <li>
                     <p>
                       <i
-                        class="las la-map-marker"
+                        className="las la-map-marker"
                         style={{ fontSize: "1.8rem" }}
                       ></i>
                       {homeTown
@@ -357,7 +357,7 @@ export default function EditProfileComponent() {
                   <li>
                     <p>
                       <i
-                        class="lab la-gratipay"
+                        className="lab la-gratipay"
                         style={{ fontSize: "1.8rem" }}
                       ></i>
                       {relationshipStatus
@@ -597,7 +597,7 @@ export default function EditProfileComponent() {
                 <li className="d-flex align-items-center border-bottom">
                   <div style={{ flex: 1, textAlign: "left" }}>
                     <p>
-                      <i class="las la-map-marker"></i>
+                      <i className="las la-map-marker"></i>
                       <span className="text-color-2">Home town</span>
                     </p>
                   </div>
@@ -612,7 +612,7 @@ export default function EditProfileComponent() {
                 <li className="d-flex align-items-center border-bottom">
                   <div style={{ flex: 1, textAlign: "left" }}>
                     <p>
-                      <i class="lab la-gratipay"></i>
+                      <i className="lab la-gratipay"></i>
                       <span className="text-color-2">Relationship status</span>
                     </p>
                   </div>

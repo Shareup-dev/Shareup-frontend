@@ -148,7 +148,7 @@ function EditGroupComponent(props) {
                             <h2 className="fs-title">Select Group Settings</h2>
                             <span id="description"></span>
                             <label htmlFor="public">Choose privacy</label>
-                            <select class="form-control privacy-dropdown"  
+                            <select className="form-control privacy-dropdown"  
                                 value={groupPrivacySetting} 
                                 onChange={handlePrivacySetting}>
                                 <option  value="public"> Public </option>
@@ -183,7 +183,7 @@ function EditGroupComponent(props) {
                         <div className="">
                             {/* <legend>Group Invitations</legend> */}
                             <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
-                            <select class="form-control privacy-dropdown"  
+                            <select className="form-control privacy-dropdown"  
                                 value={groupPrivacySetting} 
                                 onChange={handleInviteSetting}>
                                 <option  value="members"> All Group Members </option>

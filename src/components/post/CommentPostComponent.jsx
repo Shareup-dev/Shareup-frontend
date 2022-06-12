@@ -251,7 +251,7 @@ export default function CommentPostComponent(props) {
                     {comment.numberOfReaction > 0 ? (
                       <>
                         <i
-                          class="fas fa-star"
+                          className="fas fa-star"
                           style={{ color: "rgb(216, 53, 53)" }}
                         ></i>
                         <span>{comment.numberOfReaction}</span>
@@ -313,7 +313,7 @@ export default function CommentPostComponent(props) {
                       {checkIfLiked(comment) ? (
                         <>
                           <i
-                            class="fas fa-star"
+                            className="fas fa-star"
                             style={{ color: "rgb(216, 53, 53)" }}
                           ></i>
                           {/* <span className="like" data-toggle="tooltip" title="">
