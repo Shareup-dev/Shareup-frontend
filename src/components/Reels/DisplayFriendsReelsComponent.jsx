@@ -91,8 +91,7 @@ function DisplayFriendsReelsComponent(props) {
     props.likeReel(reelId,reaction)
   }
   const checkIfLiked = (reel) => {
-    console.log(reel)
-    if (reel.likedType === 'star') {
+    if (reel.likedType==='star') {
       return true;
     }
       return false;

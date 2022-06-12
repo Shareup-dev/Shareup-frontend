@@ -119,93 +119,118 @@ export default function ReplyCommentComponent(props) {
           switch (reply?.replyLiked) {
             case "star":
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                  }}
-                ></i>
+                <div className="emoji-reaction">
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "15px",
+                      color: "#d83535",
+                    }}
+                  ></i>
+                </div>
               );
             case "smiley":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😊
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😊
+                  </i>
+                </div>
               );
             case "wow":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😮
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😮
+                  </i>
+                </div>
               );
             case "laugh":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😂
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😂
+                  </i>
+                </div>
               );
             case "cry":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😭
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😭
+                  </i>
+                </div>
               );
             case "love":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😍
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😍
+                  </i>
+                </div>
               );
             case "celebrate":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  🥳
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    🥳
+                  </i>
+                </div>
               );
             case "angry":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                  }}
-                >
-                  😡
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "15px",
+                    }}
+                  >
+                    😡
+                  </i>
+                </div>
               );
             default:
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                  }}
-                ></i>
+                <div>
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "15px",
+                      color: "#d83535",
+                    }}
+                  ></i>
+                </div>
               );
           }
         })()}
@@ -522,7 +547,7 @@ export default function ReplyCommentComponent(props) {
                         </div>
                         <p>{`${reply.content}`}</p>
                         <span
-                          className="float-right"
+                          className="float-right isreaction"
                           style={{ fontSize: "10px", paddingRight: "5px" }}
                         >
                           {reply.numberOfReaction > 0 ? (
@@ -609,7 +634,9 @@ export default function ReplyCommentComponent(props) {
                                   data-toggle="tooltip"
                                   title=""
                                 >
+                                <div className="emoji-reaction">
                                   {handleReaction(reply)}
+                                  </div>
                                 </span>
                               </>
                             ) : (

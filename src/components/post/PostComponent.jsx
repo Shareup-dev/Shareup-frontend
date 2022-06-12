@@ -29,7 +29,8 @@ import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
 import ReactionsListComponent from "./ReactionsListComponent";
-
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh , commentChangedFunction}) {
@@ -194,7 +195,27 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
       setShowUserReactions(false);
     }, 200);
   };
+  const [AllReactionList, setAllReactionList] = useState([]);
+  const [AllReactionListShare, setAllReactionListShare] = useState([]);
 
+  const getAllReactionList = () => {
+    if (post.allPostsType !== "share"){
+    PostService.getAllReactionList(post?.id).then((res) => {
+      setAllReactionList(res.data);
+    })
+  }else {
+    PostService.getAllReactionList(post?.id).then((res) => {
+      setAllReactionList(res.data);
+    })
+    PostService.getAllReactionList(post.post?.id).then((res) => {
+      setAllReactionListShare(res.data);
+    })
+  }
+  };
+
+  useEffect(() => {
+    getAllReactionList();
+  }, []);
   const handleShowingReaction = () => {
     setTimeout(function () {
       setShowReactions(true);
@@ -232,102 +253,127 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
           switch (post?.likedType) {
             case "star":
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                    paddingRight: "5px",
-                  }}
-                ></i>
+                <div className="emoji-reaction">
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "20px",
+                      color: "#d83535",
+                      paddingRight: "5px",
+                    }}
+                  ></i>
+                </div>
               );
             case "smiley":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😊
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😊
+                  </i>
+                </div>
               );
             case "wow":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😮
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😮
+                  </i>
+                </div>
               );
             case "laugh":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😂
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😂
+                  </i>
+                </div>
               );
             case "cry":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😭
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😭
+                  </i>
+                </div>
               );
             case "love":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😍
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😍
+                  </i>
+                </div>
               );
             case "celebrate":
               return (
-                <i
-                  style={{
-                    fontSize: "20px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  🥳
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    🥳
+                  </i>
+                </div>
               );
             case "angry":
               return (
-                <i
-                  style={{
-                    fontSize: "15px",
-                    paddingRight: "5px",
-                  }}
-                >
-                  😡
-                </i>
+                <div>
+                  <i
+                    className="emoji-reaction"
+                    style={{
+                      fontSize: "20px",
+                      paddingRight: "5px",
+                    }}
+                  >
+                    😡
+                  </i>
+                </div>
               );
             default:
               return (
-                <i
-                  className="fas fa-star"
-                  style={{
-                    fontSize: "15px",
-                    color: "#d83535",
-                    paddingRight: "5px",
-                  }}
-                ></i>
+                <div>
+                  <i
+                    className="fas fa-star"
+                    style={{
+                      fontSize: "20px",
+                      color: "#d83535",
+                      paddingRight: "5px",
+                    }}
+                  ></i>
+                </div>
               );
           }
         })()}
@@ -2626,6 +2672,23 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                         <li style={{ float: "left", color: "black" }}>
                           {post.post.numberOfReaction > 0 ? (
                             <div className="userreaction">
+                            <OverlayTrigger
+                            key={post.id}
+                            placement="bottom"
+                            overlay={
+                              <Tooltip id={`tooltip-${post.id}`}>
+                              {Array.isArray(AllReactionListShare.all) && AllReactionListShare.all.length > 0 ? (
+                                <>
+                                {AllReactionListShare.all.slice(0, 10).map((post) => (
+                                  <strong style={{  display: "block"}}>
+                                    {" "}
+                                    {post.firstName + " " + post.lastName}
+                                  </strong>
+                                ))}</> 
+                               ):null}
+                              </Tooltip>
+                           }
+                          >
                               <span
                                 className="isreaction"
                                 data-toggle="tooltip"
@@ -2634,6 +2697,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                 {handleSharedPostReactions()}
                                 <span> {post.post.numberOfReaction}</span>
                               </span>
+                              </OverlayTrigger>
                             </div>
                           ) : (
                             <>
@@ -2709,48 +2773,67 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                     {post.numberOfReaction > 0 ? (
                       <>
                         <div className="userreaction">
-                          <span
-                            className="isreaction"
-                            data-toggle="tooltip"
-                            title=""
+                          {" "}
+                          <OverlayTrigger
+                            key={post.id}
+                            placement="bottom"
+                            overlay={
+                              <Tooltip id={`tooltip-${post.id}`}>
+                              {Array.isArray(AllReactionList.all) && AllReactionList.all.length > 0 ? (
+                                <>
+                                {AllReactionList.all.slice(0, 10).map((post) => (
+                                  <strong style={{  display: "block"}}>
+                                    {" "}
+                                    {post.firstName + " " + post.lastName}
+                                  </strong>
+                                ))}</> 
+                               ):null}
+                              </Tooltip>
+                           }
                           >
-                            <Popup
-                              style={{ padding: "0px" }}
-                              trigger={
-                                <span>
-                                  {handlePostReactions()}{" "}
-                                  {post.numberOfReaction}
-                                </span>
-                              }
-                              modal
+                            <span
+                              className="isreaction"
+                              data-toggle="tooltip"
+                              title=""
                             >
-                              {(close) => (
-                                <Form
-                                  onSubmit={() => {
-                                    close();
-                                  }}
-                                >
-                                  <div>
-                                    <div className="row">
-                                      <div style={{ width: "5%" }}>
-                                        <a href="#!" onClick={close}>
-                                          <i
-                                            style={{
-                                              color: "#000",
-                                              padding: "10px",
-                                              fontSize: "30px",
-                                            }}
-                                            className="las la-times"
-                                          ></i>
-                                        </a>
+                              <Popup
+                                style={{ padding: "0px" }}
+                                trigger={
+                                  <span>
+                                    {handlePostReactions()}{" "}
+                                    {post.numberOfReaction}
+                                  </span>
+                                }
+                                modal
+                              >
+                                {(close) => (
+                                  <Form
+                                    onSubmit={() => {
+                                      close();
+                                    }}
+                                  >
+                                    <div>
+                                      <div className="row">
+                                        <div style={{ width: "5%" }}>
+                                          <a href="#!" onClick={close}>
+                                            <i
+                                              style={{
+                                                color: "#000",
+                                                padding: "0px",
+                                                fontSize: "15px",
+                                              }}
+                                              className="las la-times"
+                                            ></i>
+                                          </a>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <ReactionsListComponent postID={post?.id} />
-                                </Form>
-                              )}
-                            </Popup>
-                          </span>
+                                    <ReactionsListComponent postID={post?.id} />
+                                  </Form>
+                                )}
+                              </Popup>
+                            </span>
+                          </OverlayTrigger>
                         </div>
                       </>
                     ) : (
@@ -2850,9 +2933,18 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                         className="btncmn"
                         onClick={() => handleLikePost(post, "star")}
                       >
-                        <span className="like" data-toggle="tooltip" title="">
-                          {handleReaction()}
-                          {post.likedType}
+                        <span className="like " data-toggle="tooltip" title="">
+                          <div className="emoji-reaction">
+                            {handleReaction()}
+                          </div>
+                          <div
+                            style={{
+                              display: "inline-block",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            {post.likedType}
+                          </div>
                         </span>
                       </div>
                     ) : (

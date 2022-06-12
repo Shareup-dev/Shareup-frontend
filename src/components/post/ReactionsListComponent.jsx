@@ -57,7 +57,7 @@ function ReactionsListComponent({ handleCloseModal,postID }) {
     return (
       <>
               {reaction.map((post) => (
-                    <div style={{ padding: "5px 30px" }}>
+                    <div style={{ padding: "5px 10px" }}>
                       <>
                         <Paper
                           className="hover-shadow"
@@ -139,15 +139,9 @@ function ReactionsListComponent({ handleCloseModal,postID }) {
           <>
             {AllReactionList.all && AllReactionList.all.length > 0
               ? <>
-                <div className ="headpop">
+                <div className ="p-2 headpop">
                   <span className="poptitle">
                    Reactions
-                  </span>
-
-                  <span style={{ float: "right" }}>
-                    {" "}
-                   
-                    
                   </span>
               </div>
               <div style={{maxHeight:'300px' ,overflowY: "auto", overflowY: "auto"}}>

@@ -2335,10 +2335,28 @@ form button {
 }
 
 .isreaction {
+  cursor: pointer;
   font-weight: bold;
   font-size: 14px;
   padding: 0px;
 }
+
+.isreaction 
+:hover {
+  display: inline-block;
+  animation: wiggle 3s linear infinite;
+
+    }
+.is-cooment-reaction {
+
+ }
+    
+.is-cooment-reaction 
+    :hover {
+      display: inline-block;
+      animation: wiggle 3s linear infinite;
+    
+   }
 
 .friend-info {
   display: inline-block;
@@ -17460,6 +17478,45 @@ code {
   color: black;
 
 }
+
+
+.emoji-reaction {
+  display: inline-block;
+    }
+
 .group-desc-textbox{
-  height:23px;
+height:23px;}
+
+.emoji-reaction 
+:hover {
+
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.2);
+    }
+    
+
+    /* Keyframes */
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(10deg);
+  }
+  25% {
+    transform: rotateZ(-10deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
 }
