@@ -22,7 +22,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { grey } from '@mui/material/colors';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { testScript } from "../../js/script";
 let stompClient =null;
+
  // toast-configuration method,
  // it is compulsory method.
 toast.configure();
@@ -75,7 +77,10 @@ let notificaionflag = false;
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
   
-  
+  useEffect(() => {
+    testScript()
+  }, [])
+
   const connect =()=>{
     var sock = new SockJS('https://api.shareup.qa/ws');
  stompClient = Stomp.over(sock);
