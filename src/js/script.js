@@ -90,7 +90,7 @@ function testScript(){
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
 		console.log("script js remove setting-area menu")
-		$(".dropdowns").addClass("active");
+		$(".dropdowns").toggleClass("active");
 	//	$(".top-area > .setting-area > li > div").removeClass('active');
 		return;		
 	 });	
