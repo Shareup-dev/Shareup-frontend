@@ -295,7 +295,7 @@ const onError = (err) => {
             </li>
           
             <li>
-            <div className={isActive ? 'noti': null} onClick={toggleClass} >
+            <div className={isActive ? 'noti': null} onClick={()=>toggleClass()} >
             
               {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
