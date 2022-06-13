@@ -1795,7 +1795,6 @@ img#preview {
 .drops-menu {
   list-style: outside none none;
   padding-left: 0;
-  visibility: visible;
 }
 
 .drops-menu > li > a {

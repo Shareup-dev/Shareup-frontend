@@ -8,11 +8,11 @@ function testScript(){
 		"use strict";
 		
 	//------- Notifications Dropdowns
-	  /*$('.top-area > .setting-area > li').on("click",function(){
+	  /**/$('.top-area > .setting-area > li').on("click",function(){
 		$(this).siblings().children('div').removeClass('active');
 		$(this).children('div').addClass('active');
 		return;
-	  });*/
+	  });
 	//   window.scrollTo(0,0);
 	 $(".noti").on("click", function(){
 		console.log("script js active menu")

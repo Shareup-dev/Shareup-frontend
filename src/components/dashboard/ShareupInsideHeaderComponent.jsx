@@ -213,6 +213,7 @@ const onError = (err) => {
     })
     updateUnopendCounter(AuthService.getCurrentUser().username,0);
     setTotal(0);
+    
 	};
 
 
@@ -296,7 +297,7 @@ const onError = (err) => {
                   <div className="dropdowns" >
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
-                    {true && dbNotifications.map(item => {
+                    {dbNotifications.map(item => {
                       
                       return ( 
                       
