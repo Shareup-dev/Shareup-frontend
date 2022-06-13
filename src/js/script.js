@@ -34,6 +34,7 @@ function testScript(){
 	 });
 
 	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
+		console.log("script js remove active menu")
 		 $(this).removeClass('active');
 		$(".dropdownsmsg").removeClass('active');
 		 
@@ -57,6 +58,7 @@ function testScript(){
 	 });
 
 	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
+		console.log("script js remove 2 active menu")
 		 $(this).removeClass('active');
 		$(".searched, .form-search").removeClass('active');
 		 
@@ -87,6 +89,7 @@ function testScript(){
 	
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
+		console.log("script js remove setting-area menu")
 		$(".top-area > .setting-area > li > div").removeClass('active');
 		return;		
 	 });	
