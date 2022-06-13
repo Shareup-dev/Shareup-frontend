@@ -20,12 +20,12 @@ function testScript(){
 		$(".dropdowns").toggleClass("active");
 		 
 		return;    });
-	 $(".noti").on("click", function(){
+	/* $(".noti").on("click", function(){
 		console.log("script js active menu")
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
-	 });
+	 });*/
 
 	 $(".gap, .mssg, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
@@ -39,7 +39,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
+	 $(".gap, .user-img, span.main-menu, .ti-search").on("click",function(){
 		console.log("script js remove active menu")
 		 $(this).removeClass('active');
 		$(".dropdownsmsg").removeClass('active');
@@ -63,7 +63,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
+	 $(".gap, .user-img, span.main-menu").on("click",function(){
 		console.log("script js remove 2 active menu")
 		 $(this).removeClass('active');
 		$(".searched, .form-search").removeClass('active');
@@ -95,8 +95,6 @@ function testScript(){
 	
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
-		console.log("script js remove setting-area menu")
-		//$(".dropdowns").toggleClass("active");
 		$(".top-area > .setting-area > li > div").removeClass('active');
 		return;		
 	 });	
