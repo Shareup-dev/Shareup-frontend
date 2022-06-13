@@ -152,8 +152,8 @@ const onError = (err) => {
   }
   useEffect(() => {
     console.log("total",total);
+    testScript()
     if(total > 0 ) {
-      testScript()
       updateUnopendCounter(AuthService.getCurrentUser().username,total)
     
     }
