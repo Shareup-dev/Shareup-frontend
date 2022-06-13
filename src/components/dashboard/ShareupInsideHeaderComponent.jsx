@@ -77,6 +77,9 @@ let notificaionflag = false;
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
   
+  useEffect(() => {
+		testScript()
+	}, [])
 
   const connect =()=>{
     var sock = new SockJS('https://api.shareup.qa/ws');
