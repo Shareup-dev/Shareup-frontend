@@ -20,12 +20,12 @@ function testScript(){
 		$(".dropdowns").toggleClass("active");
 		 
 		return;    });
-	/* $(".noti").on("click", function(){
+	$(".noti").on("click", function(){
 		console.log("script js active menu")
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
-	 });*/
+	 });/* */
 
 	 $(".gap, .mssg, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
