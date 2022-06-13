@@ -15,6 +15,7 @@ function testScript(){
 	  });*/
 	//   window.scrollTo(0,0);
 	 $(".noti").on("click", function(){
+		console.log("script js active menu")
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
