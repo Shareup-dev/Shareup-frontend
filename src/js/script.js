@@ -19,6 +19,7 @@ function testScript(){
 		alert("You clicked the element with and ID of 'test-element'");
 	});
 	 $(".noti").on("click", function(){
+		console.log("noti active");
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
@@ -38,6 +39,7 @@ function testScript(){
 
 	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
+		 console.log("remove noti active");
 		$(".dropdownsmsg").removeClass('active');
 		 
 		
@@ -61,6 +63,7 @@ function testScript(){
 
 	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
 		 $(this).removeClass('active');
+		 console.log("remove 2 noti active");
 		$(".searched, .form-search").removeClass('active');
 		 
 		
@@ -90,6 +93,7 @@ function testScript(){
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
 		$(".top-area > .setting-area > li > div").removeClass('active');
+		console.log("not body  active");
 		return;		
 	 });	
 	 
