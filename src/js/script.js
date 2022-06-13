@@ -15,8 +15,8 @@ function testScript(){
 	  });*/
 	//   window.scrollTo(0,0);
 	$(document).on("click","#noti",function(){
+		console.log("doc on ");
 		$(".dropdowns").toggleClass("active");
-		alert("You clicked the element with and ID of 'test-element'");
 	});
 	 $(".noti").on("click", function(){
 		console.log("noti active");
