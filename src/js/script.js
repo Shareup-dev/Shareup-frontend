@@ -8,12 +8,12 @@ function testScript(){
 		"use strict";
 		
 	//------- Notifications Dropdowns
-	  /**/$("body *").not('.top-area > .setting-area > li').on("click",function(){
+	  /*$("body *").not('.top-area > .setting-area > li').on("click",function(){
 		console.log("top-area > .setting-area > li")
 		$(this).siblings().children('div').removeClass('active');
 		$(this).children('div').addClass('active');
 		return;
-	  });
+	  });*/
 	//   window.scrollTo(0,0);
 	 $(".noti").on("click", function(){
 		console.log("script js active menu")
@@ -89,7 +89,12 @@ function testScript(){
 	});	*/
 	
 	//------- remove class active on body
-		
+	$("body *").not('.top-area > .setting-area > li').on("click", function() {
+		console.log("script js remove setting-area menu")
+		//$(".dropdowns").toggleClass("active");
+		$(".top-area > .setting-area > li > div").removeClass('active');
+		return;		
+	 });	
 	 
 	//--- side message box	
 	$('.friendz-list > li, .chat-users > li').on('click', function() {
