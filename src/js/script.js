@@ -1,4 +1,4 @@
- import jQuery from 'jquery' ;
+import jQuery from 'jquery' ;
  
 import NProgress from 'nprogress';
 
@@ -8,24 +8,17 @@ function testScript(){
 		"use strict";
 		
 	//------- Notifications Dropdowns
-	  /*$("body *").not('.top-area > .setting-area > li').on("click",function(){
-		console.log("top-area > .setting-area > li")
+	  /*$('.top-area > .setting-area > li').on("click",function(){
 		$(this).siblings().children('div').removeClass('active');
 		$(this).children('div').addClass('active');
 		return;
 	  });*/
 	//   window.scrollTo(0,0);
-	$(document).on("click",".noti",function() {
-		console.log("new script")
-		$(".dropdowns").toggleClass("active");
-		 
-		return;    });
-	$(".noti").on("click", function(){
-		console.log("script js active menu")
+	 $(".noti").on("click", function(){
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
-	 });/* */
+	 });
 
 	 $(".gap, .mssg, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
@@ -39,8 +32,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .user-img, span.main-menu, .ti-search").on("click",function(){
-		console.log("script js remove active menu")
+	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
 		$(".dropdownsmsg").removeClass('active');
 		 
@@ -63,8 +55,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .user-img, span.main-menu").on("click",function(){
-		console.log("script js remove 2 active menu")
+	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
 		 $(this).removeClass('active');
 		$(".searched, .form-search").removeClass('active');
 		 
@@ -76,7 +67,6 @@ function testScript(){
 		$(".coment-area").addClass("active");
 		 return;
 	 });
-
   $(".central-meta item").on("click",function(){
 		 $(this).removeClass('active');
 		$(".coment-area").removeClass('active');
@@ -95,8 +85,6 @@ function testScript(){
 	
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
-		console.log("script js remove setting-area menu")
-		//$(".dropdowns").toggleClass("active");
 		$(".top-area > .setting-area > li > div").removeClass('active');
 		return;		
 	 });	
