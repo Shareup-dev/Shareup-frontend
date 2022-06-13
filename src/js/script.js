@@ -14,6 +14,10 @@ function testScript(){
 		return;
 	  });*/
 	//   window.scrollTo(0,0);
+	$(document).on('click','#noti',function(){
+		$(".dropdowns").toggleClass("active");
+		alert("You clicked the element with and ID of 'test-element'");
+	});
 	 $(".noti").on("click", function(){
 		$(".dropdowns").toggleClass("active");
 		 
