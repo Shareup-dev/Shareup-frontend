@@ -37,7 +37,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
+	 $(".gap, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
 		 console.log("remove noti active");
 		$(".dropdownsmsg").removeClass('active');
@@ -61,7 +61,7 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
+	 $(".gap, .user-img, span.main-menu").on("click",function(){
 		 $(this).removeClass('active');
 		 console.log("remove 2 noti active");
 		$(".searched, .form-search").removeClass('active');
