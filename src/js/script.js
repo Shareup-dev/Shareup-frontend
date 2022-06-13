@@ -9,6 +9,7 @@ function testScript(){
 		
 	//------- Notifications Dropdowns
 	  /**/$('.top-area > .setting-area > li').on("click",function(){
+		console.log("top-area > .setting-area > li")
 		$(this).siblings().children('div').removeClass('active');
 		$(this).children('div').addClass('active');
 		return;
