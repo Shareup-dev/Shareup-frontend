@@ -55,7 +55,7 @@ export const handleDbnotification = async (to_id,action,from_email)=>{
 }
 
 function ShareupInsideHeaderComponent() {
- 
+  testScript()
   let history = useHistory();
 let counter =0;
 let notificaionflag = false;
@@ -77,9 +77,6 @@ let notificaionflag = false;
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
   
-  useEffect(() => {
-    testScript()
-  }, [])
 
   const connect =()=>{
     var sock = new SockJS('https://api.shareup.qa/ws');
@@ -152,7 +149,7 @@ const onError = (err) => {
   }
   useEffect(() => {
     console.log("total",total);
-    testScript()
+  
     if(total > 0 ) {
       updateUnopendCounter(AuthService.getCurrentUser().username,total)
     
