@@ -14,10 +14,6 @@ function testScript(){
 		return;
 	  });*/
 	//   window.scrollTo(0,0);
-	$(document).on("click","#noti",function(){
-		console.log("doc on ");
-		$(".dropdowns").toggleClass("active");
-	});
 	 $(".noti").on("click", function(){
 		console.log("noti active");
 		$(".dropdowns").toggleClass("active");

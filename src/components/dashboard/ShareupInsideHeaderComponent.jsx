@@ -78,6 +78,7 @@ let notificaionflag = false;
   const searchTerm = useSelector((state) => state.search)
   
   useEffect(() => {
+    console.log('inside use effect');
 		testScript()
 	}, [])
 
