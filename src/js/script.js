@@ -85,14 +85,14 @@ function testScript(){
 	$('.mssg').on('click', function() {
 		$('.dropdownsmsg').toggleClass("active");
 		return;
-	});	*/
+	});	
 	
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
 		console.log("script js remove setting-area menu")
 		$(".top-area > .setting-area > li > div").removeClass('active');
 		return;		
-	 });	
+	 });	*/
 	 
 	//--- side message box	
 	$('.friendz-list > li, .chat-users > li').on('click', function() {
