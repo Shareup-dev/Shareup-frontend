@@ -76,12 +76,13 @@ let notificaionflag = false;
   const [showUserSettings, setShowUserSettings] = useState(false);
   const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
-  
-  useEffect(() => {
-    console.log('inside use effect');
-		testScript()
-	}, [])
+  const [isActive, setActive] = useState(false);
 
+  const toggleClass = () => {
+    console.log('toggle class');
+    setActive(!isActive);
+    handlegetNotifications();
+  };
   const connect =()=>{
     var sock = new SockJS('https://api.shareup.qa/ws');
  stompClient = Stomp.over(sock);
@@ -294,7 +295,8 @@ const onError = (err) => {
             </li>
           
             <li>
-              <div className="noti" onClick={() =>handlegetNotifications()}>
+            <div className={isActive ? 'noti': null} onClick={toggleClass} >
+            
               {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
                    </div>): ('')}
