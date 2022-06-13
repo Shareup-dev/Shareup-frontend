@@ -15,6 +15,11 @@ function testScript(){
 		return;
 	  });*/
 	//   window.scrollTo(0,0);
+	$(document).on("click",".noti",function() {
+		console.log("new script")
+		$(".dropdowns").toggleClass("active");
+		 
+		return;    });
 	 $(".noti").on("click", function(){
 		console.log("script js active menu")
 		$(".dropdowns").toggleClass("active");
