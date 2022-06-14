@@ -251,6 +251,39 @@ const onError = (err) => {
           })
     
         };
+        const displaydbnotification=()=>{
+          return(
+            <div className="dropdowns">
+                   <span>{unreadCounter} Unread Notifications</span>
+                    <ul className="drops-menu">
+                    {dbNotifications && dbNotifications.map(item => {
+                      
+                      return ( 
+                      
+                      <li key={item.toString()} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
+                      <a >
+                      <img src={item.userdata.profilePicturePath} alt="" />
+                     
+                      <div className="mesg-meta" >
+                        <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
+                        {displayNotification(item.content)}
+                        <div >
+                          <span>{moment(item.notificationDate).fromNow()}</span>
+                        </div>
+                      </div>
+                    </a>
+                    {item.readFlag?(""):(<span className="tag green">unread</span>)}
+                    
+                    </li>)
+                   
+                    }
+ ) }
+</ul>
+                  
+                  <a href="/notifications" title="notif" className="more-mesg">view more</a>
+                </div>
+          )
+        }
 
     const displayNotification=(content)=> {
      
@@ -295,7 +328,7 @@ const onError = (err) => {
             </li>
           
             <li>
-            <div className="noti"  >
+            <div className="noti"  onClick={()=>handlegetNotifications()}  >
             
               {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
@@ -303,35 +336,7 @@ const onError = (err) => {
                 <a href="#" title="Notification" data-ripple>
                   <i className="ti-bell" />
                 </a>
-                  <div className="dropdowns" show={true}  onClick={()=>handlegetNotifications()}>
-                   <span>{unreadCounter} Unread Notifications</span>
-                    <ul className="drops-menu">
-                    {dbNotifications.map(item => {
-                      
-                      return ( 
-                      
-                      <li key={item.toString()} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
-                      <a >
-                      <img src={item.userdata.profilePicturePath} alt="" />
-                     
-                      <div className="mesg-meta" >
-                        <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
-                        {displayNotification(item.content)}
-                        <div >
-                          <span>{moment(item.notificationDate).fromNow()}</span>
-                        </div>
-                      </div>
-                    </a>
-                    {item.readFlag?(""):(<span className="tag green">unread</span>)}
-                    
-                    </li>)
-                   
-                    }
- ) }
-</ul>
-                  
-                  <a href="/notifications" title="notif" className="more-mesg">view more</a>
-                </div>
+                  {displaydbnotification()}
               </div>
             </li>
             <li>
