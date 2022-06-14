@@ -35,6 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 

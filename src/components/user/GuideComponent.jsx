@@ -8,7 +8,7 @@ import UserService from "../../services/UserService";
 import FriendsService from "../../services/FriendService";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
-
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function GuideComponent() {
   let history = useHistory();
 

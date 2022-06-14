@@ -8,7 +8,7 @@ import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function AddFriendsComponent() {
 	let history = useHistory();
 
