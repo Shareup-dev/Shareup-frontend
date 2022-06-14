@@ -254,12 +254,12 @@ function OtherProfileComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid,email) => {
+  const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
       console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
     });
   };
@@ -537,7 +537,7 @@ function OtherProfileComponent() {
         return (
           <div>
             <a
-              onClick={() => sendFriendRequest(user?.id, userProfile?.id,userProfile?.email)}
+              onClick={() => sendFriendRequest(user?.id, userProfile?.id)}
               style={{
                 color: "#000000",
                 fontWeight: "bold",
@@ -925,7 +925,7 @@ function OtherProfileComponent() {
                                   padding: "0 5px",
                                 }}
                                 onClick={() =>
-                                  sendFriendRequest(user.id, userProfile?.id,userProfile?.email)
+                                  sendFriendRequest(user.id, userProfile?.id)
                                 }
                               >
                                 Add Friend

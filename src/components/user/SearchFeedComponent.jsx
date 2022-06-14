@@ -801,12 +801,12 @@ function SearchFeedComponent() {
         })
     }
 
-    const sendFriendRequest = (uid, fid,email) => {
+    const sendFriendRequest = (uid, fid) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
             console.log("sent friend request to you search feed component"+user?.firstName+user?.lastName+user?.email);
 
-            handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
         })
     }
@@ -858,7 +858,7 @@ function SearchFeedComponent() {
                                                                     ?
                                                                     <a href="#" className="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} onClick={() => unsendFriendRequest(user.id, userF.id)}>Unsend  Request</a>
                                                                     :
-                                                                    <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => sendFriendRequest(user.id, userF.id,userF.email)}>Send  Request</a>
+                                                                    <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => sendFriendRequest(user.id, userF.id)}>Send  Request</a>
                                                             :
                                                             <>
                                                                 <a href="#" className="button" style={{ background: '#033347', fontSize: '12px' }} onClick={() => removeFriend(user.id, userF.id)}>Unfriend</a>
@@ -974,7 +974,7 @@ function SearchFeedComponent() {
                                                                         ?
                                                                         <a href="#" className="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} onClick={() => unsendFriendRequest(user.id, userF.id)}>Unsend  Request</a>
                                                                         :
-                                                                        <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => sendFriendRequest(user.id, userF.id,userF.email)}>Send  Request</a>
+                                                                        <a href="#" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} onClick={() => sendFriendRequest(user.id, userF.id)}>Send  Request</a>
                                                                 :
                                                                 <>
                                                                     <a href="#" className="button" style={{ background: '#033347', fontSize: '12px' }} onClick={() => removeFriend(user.id, userF.id)}>Unfriend</a>

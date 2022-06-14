@@ -69,12 +69,12 @@ function GuideComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid,email) => {
+  const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
       console.log("sent friend request to you guide component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
     });
   };
@@ -278,7 +278,7 @@ function GuideComponent() {
                                 className="button common-theme-btn1"
                                
                                 onClick={() =>
-                                  sendFriendRequest(user.id, userF.id,userF.email)
+                                  sendFriendRequest(user.id, userF.id)
                                 }
                               >
                                 Send Request
