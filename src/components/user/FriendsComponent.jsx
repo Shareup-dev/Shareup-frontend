@@ -114,6 +114,8 @@ function FriendsComponent() {
 	const sendFriendRequest = (uid, fid,email) => {
 		FriendsService.sendRequest(uid, fid).then(res => {
 			setRefresh(res.data)
+			console.log("sent friend request to you friends component"+user?.firstName+user?.lastName+user?.email);
+
 			handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
 
 		})

@@ -257,6 +257,8 @@ function OtherProfileComponent() {
   const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
+
       handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
 
     });
@@ -266,9 +268,13 @@ function OtherProfileComponent() {
       setRefresh(res.data);
     });
   };
-  const handleFollow = (uid) => {
+  const handleFollow = (uid,email) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+
     });
   };
 
@@ -945,7 +951,7 @@ function OtherProfileComponent() {
                         {user?.id !== userProfile?.id ? (
                         !following.some((el) => el.id === userProfile?.id) ? (
                           <button title="" className="button common-theme-btn1" 
-                            onClick={() => handleFollow(userProfile?.id)}
+                            onClick={() => handleFollow(userProfile?.id,userProfile?.email)}
                           >
                             Follow
                           </button>

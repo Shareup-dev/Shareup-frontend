@@ -12,7 +12,7 @@ import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function FriendsTestComponent() {
     let history = useHistory();
 
@@ -108,6 +108,8 @@ function FriendsTestComponent() {
     const sendFriendRequest = (uid, fid,email) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
+            console.log("sent friend request to you friend test component"+user?.firstName+user?.lastName+user?.email);
+
             handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
 
         })
@@ -115,9 +117,13 @@ function FriendsTestComponent() {
 
 
 
-    const handleFollow = (uid) => {
+    const handleFollow = (uid,email) => {
         UserService.follow(user.email, uid).then(res => {
             setRefresh(res.data)
+            console.log("follows you from friends test component"+user?.firstName+user?.lastName+user?.email);
+
+            handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+
         })
     }
 
@@ -204,7 +210,7 @@ function FriendsTestComponent() {
                                                 {
                                                     (user.id !== userM.id) ?
                                                         (!following.some(el => el.id === userM.id)) ?
-                                                            <p><a style={{ display: "block", float: "right" }} href="#!" onClick={() => handleFollow(userM.id)} >Follow</a></p>
+                                                            <p><a style={{ display: "block", float: "right" }} href="#!" onClick={() => handleFollow(userM.id,userM.email)} >Follow</a></p>
                                                             :
                                                             <p><a style={{ display: "block", float: "right", color: "red" }} href="#!" onClick={() => handleUnfollow(userM.id)}>Unfollow</a></p>
                                                         :

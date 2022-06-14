@@ -17,6 +17,7 @@ import Tab from "@mui/material/Tab";
 import { TabContext } from "@mui/lab";
 import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function FriendFollowProfileComponent({email,id}) {
     let history = useHistory();
 
@@ -62,9 +63,12 @@ function FriendFollowProfileComponent({email,id}) {
       setFollowStatus2(res.data)
     })
   }
-	const handleFollow = (fid) => {
+	const handleFollow = (fid,email) => {
 		UserService.follow(user?.id, fid).then(res => {
 			setRefresh(res.data)
+      console.log("follows you from friend follow profile component"+user?.firstName+user?.lastName+user?.email);
+      handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+
 		})
 	}
 	const handleUnfollow = (fid) => {
@@ -110,7 +114,7 @@ function FriendFollowProfileComponent({email,id}) {
                                                   {user.id !== friend.id ? (
                                       !following.some((el) => el.id === friend.id) ? (
                                         <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                                          onClick={() => handleFollow(friend.id)}
+                                          onClick={() => handleFollow(friend.id,friend.email)}
                                         >
                                           Follow
                                         </button>
@@ -154,7 +158,7 @@ function FriendFollowProfileComponent({email,id}) {
                                     {user.id !== friend.id ? (
                         !following.some((el) => el.id === friend.id) ? (
                           <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                            onClick={() => handleFollow(friend.id)}
+                            onClick={() => handleFollow(friend.id,friend.email)}
                           >
                             Follow
                           </button>
