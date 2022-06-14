@@ -341,6 +341,7 @@ function CommonComposer(props) {
       console.log(res.status);
       setRefresh(res.data);
       setCommentContent("");
+      handleSendNotification(res.data.userdata.id,'comment on your post',user?.firstName,user?.lastName,user?.email,"comment",postid);
     });
   };
   const handleCount = (opertator) => {

@@ -806,7 +806,7 @@ function SearchFeedComponent() {
             setRefresh(res.data)
             console.log("sent friend request to you search feed component"+user?.firstName+user?.lastName+user?.email);
 
-            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
 
         })
     }

@@ -259,7 +259,7 @@ function OtherProfileComponent() {
       setRefresh(res.data);
       console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
 
     });
   };
@@ -273,7 +273,7 @@ function OtherProfileComponent() {
       setRefresh(res.data);
       console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
 
     });
   };

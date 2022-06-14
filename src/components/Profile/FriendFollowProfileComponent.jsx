@@ -67,7 +67,7 @@ function FriendFollowProfileComponent({email,id}) {
 		UserService.follow(user?.id, fid).then(res => {
 			setRefresh(res.data)
       console.log("follows you from friend follow profile component"+user?.firstName+user?.lastName+user?.email);
-      handleSendNotification(fid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
+      handleSendNotification(fid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
 
 		})
 	}

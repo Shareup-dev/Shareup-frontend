@@ -74,7 +74,7 @@ function GuideComponent() {
       setRefresh(res.data);
       console.log("sent friend request to you guide component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
 
     });
   };
@@ -101,7 +101,7 @@ function GuideComponent() {
       setRefresh(res.data);
       console.log("follow you guide component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
 
     });
   };
