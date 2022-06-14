@@ -55,7 +55,7 @@ export const handleDbnotification = async (to_id,action,from_email)=>{
 }
 
 function ShareupInsideHeaderComponent() {
-  testScript()
+//  testScript()
   let history = useHistory();
 let counter =0;
 let notificaionflag = false;
