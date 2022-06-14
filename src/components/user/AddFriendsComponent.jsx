@@ -126,7 +126,7 @@ function AddFriendsComponent() {
 			console.log("sent friend request to you addfriend component"+user?.firstName+user?.lastName+user?.email);
 			console.log("to email "+email);
 
-			handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+			handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 		})
 	}
 
