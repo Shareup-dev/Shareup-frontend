@@ -221,7 +221,7 @@ const onError = (err) => {
     })
     updateUnopendCounter(AuthService.getCurrentUser().username,0);
     setTotal(0);
-    
+  
 	};
 
 
@@ -295,7 +295,7 @@ const onError = (err) => {
             </li>
           
             <li>
-            <div className={isActive ? 'noti': null} onClick={()=>toggleClass()} >
+            <div className="noti" onClick={()=>handlegetNotifications()} >
             
               {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
@@ -303,7 +303,7 @@ const onError = (err) => {
                 <a href="#" title="Notification" data-ripple>
                   <i className="ti-bell" />
                 </a>
-                  <div className="dropdowns" >
+                  <div className="dropdowns" onFocus= {expand}  >
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
                     {dbNotifications.map(item => {
