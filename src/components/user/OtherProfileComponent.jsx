@@ -253,9 +253,11 @@ function OtherProfileComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid) => {
+  const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+
     });
   };
   const removeFriend = (uid, fid) => {
@@ -528,7 +530,7 @@ function OtherProfileComponent() {
         return (
           <div>
             <a
-              onClick={() => sendFriendRequest(user?.id, userProfile?.id)}
+              onClick={() => sendFriendRequest(user?.id, userProfile?.id,userProfile?.email)}
               style={{
                 color: "#000000",
                 fontWeight: "bold",
@@ -916,7 +918,7 @@ function OtherProfileComponent() {
                                   padding: "0 5px",
                                 }}
                                 onClick={() =>
-                                  sendFriendRequest(user.id, userProfile?.id)
+                                  sendFriendRequest(user.id, userProfile?.id,userProfile?.email)
                                 }
                               >
                                 Add Friend

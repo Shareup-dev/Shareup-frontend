@@ -105,9 +105,11 @@ function FriendsTestComponent() {
         })
     }
 
-    const sendFriendRequest = (uid, fid) => {
+    const sendFriendRequest = (uid, fid,email) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
+            handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+
         })
     }
 
@@ -190,7 +192,7 @@ function FriendsTestComponent() {
                                                                     ?
                                                                     <p><a href="#!" title="#" className="info" data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Friend Request</a></p>
                                                                     :
-                                                                    <p><a href="#!" title="#" className="follow"  data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Friend Request</a></p>
+                                                                    <p><a href="#!" title="#" className="follow"  data-ripple onClick={() => sendFriendRequest(user.id, userM.id,userM.email)}>Send Friend Request</a></p>
                                                             :
                                                             <>
                                                                 <a href="#" title="#!" className="info" data-ripple onClick={() => removeFriend(user.id, userM.id)}>unfriend</a>

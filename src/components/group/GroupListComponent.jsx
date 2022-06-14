@@ -280,8 +280,7 @@ function GroupListComponent({post}) {
 	}, [showComp, refresh])
 
 	useEffect(() => {
-		console.log("use effect group comp")
-		testScript()
+		
 
 	}, [])
 

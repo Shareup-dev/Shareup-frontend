@@ -69,9 +69,11 @@ function GuideComponent() {
     });
   };
 
-  const sendFriendRequest = (uid, fid) => {
+  const sendFriendRequest = (uid, fid,email) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+
     });
   };
 
@@ -270,7 +272,7 @@ function GuideComponent() {
                                 className="button common-theme-btn1"
                                
                                 onClick={() =>
-                                  sendFriendRequest(user.id, userF.id)
+                                  sendFriendRequest(user.id, userF.id,userF.email)
                                 }
                               >
                                 Send Request
