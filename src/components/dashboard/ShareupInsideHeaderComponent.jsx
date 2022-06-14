@@ -295,7 +295,7 @@ const onError = (err) => {
             </li>
           
             <li>
-            <div className="noti" onClick={()=>handlegetNotifications()} >
+            <div className="noti"  >
             
               {total?(<div className="counternotification">
                 <span style={{color: 'white'}}>{total}</span>
@@ -303,7 +303,7 @@ const onError = (err) => {
                 <a href="#" title="Notification" data-ripple>
                   <i className="ti-bell" />
                 </a>
-                  <div className="dropdowns" show={true}  >
+                  <div className="dropdowns" show={true}  onClick={()=>handlegetNotifications()}>
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
                     {dbNotifications.map(item => {
