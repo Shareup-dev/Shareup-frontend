@@ -30,7 +30,7 @@ let stompClient =null;
 toast.configure();
 
 export const handleSendNotification =(to,content,userFirstName,userLastname,email,action,applyOnId) => {
-  console.log(stompClient);
+  console.log("inside send notification",stompClient);
   
     var notificationVar = {
       from_email: email,
