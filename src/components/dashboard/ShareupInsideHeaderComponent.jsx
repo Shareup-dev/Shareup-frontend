@@ -303,7 +303,7 @@ const onError = (err) => {
                 <a href="#" title="Notification" data-ripple>
                   <i className="ti-bell" />
                 </a>
-                  <div className="dropdowns" onFocus= {expand}  >
+                  <div className="dropdowns" show={true}  >
                    <span>{unreadCounter} Unread Notifications</span>
                     <ul className="drops-menu">
                     {dbNotifications.map(item => {
