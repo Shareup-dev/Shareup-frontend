@@ -105,24 +105,24 @@ function FriendsTestComponent() {
         })
     }
 
-    const sendFriendRequest = (uid, fid,email) => {
+    const sendFriendRequest = (uid, fid) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
             console.log("sent friend request to you friend test component"+user?.firstName+user?.lastName+user?.email);
 
-            handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
         })
     }
 
 
 
-    const handleFollow = (uid,email) => {
-        UserService.follow(user.email, uid).then(res => {
+    const handleFollow = (uid) => {
+        UserService.follow(user.id, uid).then(res => {
             setRefresh(res.data)
             console.log("follows you from friends test component"+user?.firstName+user?.lastName+user?.email);
 
-            handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+            handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
 
         })
     }
@@ -198,7 +198,7 @@ function FriendsTestComponent() {
                                                                     ?
                                                                     <p><a href="#!" title="#" className="info" data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Friend Request</a></p>
                                                                     :
-                                                                    <p><a href="#!" title="#" className="follow"  data-ripple onClick={() => sendFriendRequest(user.id, userM.id,userM.email)}>Send Friend Request</a></p>
+                                                                    <p><a href="#!" title="#" className="follow"  data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Friend Request</a></p>
                                                             :
                                                             <>
                                                                 <a href="#" title="#!" className="info" data-ripple onClick={() => removeFriend(user.id, userM.id)}>unfriend</a>
@@ -210,7 +210,7 @@ function FriendsTestComponent() {
                                                 {
                                                     (user.id !== userM.id) ?
                                                         (!following.some(el => el.id === userM.id)) ?
-                                                            <p><a style={{ display: "block", float: "right" }} href="#!" onClick={() => handleFollow(userM.id,userM.email)} >Follow</a></p>
+                                                            <p><a style={{ display: "block", float: "right" }} href="#!" onClick={() => handleFollow(userM.id)} >Follow</a></p>
                                                             :
                                                             <p><a style={{ display: "block", float: "right", color: "red" }} href="#!" onClick={() => handleUnfollow(userM.id)}>Unfollow</a></p>
                                                         :

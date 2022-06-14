@@ -74,7 +74,7 @@ function GuideComponent() {
       setRefresh(res.data);
       console.log("sent friend request to you guide component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
     });
   };
@@ -96,12 +96,12 @@ function GuideComponent() {
       }
     );
   };
-  const handleFollow = (uid,email) => {
+  const handleFollow = (uid) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
       console.log("follow you guide component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
 
     });
   };
@@ -376,7 +376,7 @@ function GuideComponent() {
                             href="#!"
                             className="button common-theme-btn1"
 
-                            onClick={() => handleFollow(userF.id,userF.email)}
+                            onClick={() => handleFollow(userF.id)}
                           >
                             Follow
                           </a>

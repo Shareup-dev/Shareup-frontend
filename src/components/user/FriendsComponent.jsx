@@ -111,12 +111,12 @@ function FriendsComponent() {
 		})
 	}
 
-	const sendFriendRequest = (uid, fid,email) => {
+	const sendFriendRequest = (uid, fid) => {
 		FriendsService.sendRequest(uid, fid).then(res => {
 			setRefresh(res.data)
 			console.log("sent friend request to you friends component"+user?.firstName+user?.lastName+user?.email);
 
-			handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+			handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
 		})
 	}
@@ -207,7 +207,7 @@ function FriendsComponent() {
                                                    
                                                     :
                                                    
-                                                         <a href="#!"  className="button common-theme-btn1" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => sendFriendRequest(user.id, userM.id,userM.email)}>Send Request</a> 
+                                                         <a href="#!"  className="button common-theme-btn1" style={{ color: "#000000",background:'#EAEAEA', fontSize:'12px' }} data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Request</a> 
                                                     
                                             :
                                             <>

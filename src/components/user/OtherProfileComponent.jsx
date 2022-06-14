@@ -259,7 +259,7 @@ function OtherProfileComponent() {
       setRefresh(res.data);
       console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
     });
   };
@@ -268,12 +268,12 @@ function OtherProfileComponent() {
       setRefresh(res.data);
     });
   };
-  const handleFollow = (uid,email) => {
+  const handleFollow = (uid) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
       console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
 
-      handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
 
     });
   };
@@ -951,7 +951,7 @@ function OtherProfileComponent() {
                         {user?.id !== userProfile?.id ? (
                         !following.some((el) => el.id === userProfile?.id) ? (
                           <button title="" className="button common-theme-btn1" 
-                            onClick={() => handleFollow(userProfile?.id,userProfile?.email)}
+                            onClick={() => handleFollow(userProfile?.id)}
                           >
                             Follow
                           </button>

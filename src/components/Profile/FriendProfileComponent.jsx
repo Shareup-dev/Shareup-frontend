@@ -37,12 +37,11 @@ function FriendProfileComponent({ email, id }) {
     });
   };
 
-  const sendFriendRequest = (uid, fid,email) => {
+  const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
-      console.log("send notification to "+email);
       console.log("sent friend request to you "+user?.firstName+user?.lastName+user?.email);
-      handleSendNotification(email,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.user.id);
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.id);
 
        });
     
@@ -180,7 +179,7 @@ function FriendProfileComponent({ email, id }) {
                           margin: "10px",
                           padding: "0 5px",
                         }}
-                        onClick={() => sendFriendRequest(user.id, friend.id,friend.email)}
+                        onClick={() => sendFriendRequest(user.id, friend.id)}
                       >
                         Add Friend
                       </button>

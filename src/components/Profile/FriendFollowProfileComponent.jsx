@@ -63,11 +63,11 @@ function FriendFollowProfileComponent({email,id}) {
       setFollowStatus2(res.data)
     })
   }
-	const handleFollow = (fid,email) => {
+	const handleFollow = (fid) => {
 		UserService.follow(user?.id, fid).then(res => {
 			setRefresh(res.data)
       console.log("follows you from friend follow profile component"+user?.firstName+user?.lastName+user?.email);
-      handleSendNotification(email,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.user.id);
+      handleSendNotification(fid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.id);
 
 		})
 	}
@@ -114,7 +114,7 @@ function FriendFollowProfileComponent({email,id}) {
                                                   {user.id !== friend.id ? (
                                       !following.some((el) => el.id === friend.id) ? (
                                         <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                                          onClick={() => handleFollow(friend.id,friend.email)}
+                                          onClick={() => handleFollow(friend.id)}
                                         >
                                           Follow
                                         </button>
@@ -158,7 +158,7 @@ function FriendFollowProfileComponent({email,id}) {
                                     {user.id !== friend.id ? (
                         !following.some((el) => el.id === friend.id) ? (
                           <button title="" className="button common-theme-btn1" style={{width:'25%',margin:'10px',padding:'0 5px'}}
-                            onClick={() => handleFollow(friend.id,friend.email)}
+                            onClick={() => handleFollow(friend.id)}
                           >
                             Follow
                           </button>
