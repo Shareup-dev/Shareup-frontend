@@ -55,7 +55,7 @@ export const handleDbnotification = async (to_id,action,from_email)=>{
 }
 
 function ShareupInsideHeaderComponent() {
-//  testScript()
+  testScript()
   let history = useHistory();
 let counter =0;
 let notificaionflag = false;
@@ -154,7 +154,6 @@ const onError = (err) => {
   }
   useEffect(() => {
     console.log("total",total);
-  
     if(total > 0 ) {
       updateUnopendCounter(AuthService.getCurrentUser().username,total)
     
