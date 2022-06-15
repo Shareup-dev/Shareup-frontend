@@ -215,7 +215,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   useEffect(() => {
     getAllReactionList();
-  }, []);
+  }, [setRefresh]);
   const handleShowingReaction = () => {
     setTimeout(function () {
       setShowReactions(true);
@@ -387,7 +387,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.star > 0 ? (
           <i
             className="fas fa-star"
-            style={{ fontSize: "12px", color: "#d83535" }}
+            style={{ fontSize: "15px", color: "#d83535" }}
           ></i>
         ) : (
           <></>
@@ -395,7 +395,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.smiley > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -407,7 +407,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.wow > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -419,7 +419,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.laugh > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -432,7 +432,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.cry > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -444,7 +444,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.love > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -456,7 +456,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.celebrate > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -468,7 +468,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.countOfEachReaction.angry > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "15px",
               paddingRight: "1px",
             }}
           >
@@ -487,7 +487,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.star > 0 ? (
           <i
             className="fas fa-star"
-            style={{ fontSize: "12px", color: "#d83535" }}
+            style={{ fontSize: "14px", color: "#d83535" }}
           ></i>
         ) : (
           <></>
@@ -495,7 +495,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.smiley > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -507,7 +507,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.wow > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -519,7 +519,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.laugh > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -532,7 +532,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.cry > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -544,7 +544,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.love > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -556,7 +556,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.celebrate > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
@@ -568,7 +568,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
         {post.post.countOfEachReaction.angry > 0 ? (
           <i
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               paddingRight: "0px",
             }}
           >
