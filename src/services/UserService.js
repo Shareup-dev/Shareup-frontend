@@ -96,8 +96,8 @@ class UserService {
         return result
     }
 
-    follow = async (email,followed_id) => {
-        const result = await authAxios.post(`${email}/follows/${followed_id}`)
+    follow = async (user_id,followed_id) => {
+        const result = await authAxios.post(`${user_id}/follows/${followed_id}`)
         return result
     }
 

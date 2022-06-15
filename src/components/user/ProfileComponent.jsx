@@ -13,7 +13,7 @@ import PostProfileComponent from "../Profile/PostProfileComponent";
 import FriendProfileComponent from "../Profile/FriendProfileComponent";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function ProfileComponent() {
   let history = useHistory();
 
@@ -128,6 +128,8 @@ function ProfileComponent() {
 
   const handleLikePost = async (post_id) => {
     await UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data);
     });
   };

@@ -20,7 +20,7 @@ import Popup from 'reactjs-popup';
 import PhoneInput from 'react-phone-number-input'
 import settings from '../../services/Settings';
 
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function CheckoutComponent({ data }) {
 
 
@@ -253,6 +253,8 @@ function CheckoutComponent({ data }) {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }

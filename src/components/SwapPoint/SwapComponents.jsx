@@ -17,7 +17,7 @@ import Layout from '../LayoutComponent';
 import { MiddlewareArray } from '@reduxjs/toolkit';
 import fileStorage from '../../config/fileStorage';
 import SwapService from '../../services/SwapService';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function SwapComponents(props) {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -316,6 +316,8 @@ export default function SwapComponents(props) {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }

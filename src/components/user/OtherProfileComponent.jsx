@@ -35,6 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -256,6 +257,10 @@ function OtherProfileComponent() {
   const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
     });
   };
   const removeFriend = (uid, fid) => {
@@ -266,6 +271,10 @@ function OtherProfileComponent() {
   const handleFollow = (uid) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
     });
   };
 
@@ -760,7 +769,6 @@ function OtherProfileComponent() {
                               </Form> 
                               )}
                             </Popup>
-
                         
                              )
                           
@@ -769,7 +777,6 @@ function OtherProfileComponent() {
                           
                           }
                         </ul>
-
           )
           : */}
           <div className="center" style={{ padding: "20px" }}>
@@ -1326,7 +1333,6 @@ function OtherProfileComponent() {
           <ShareupInsideHeaderComponent />
           <div className="container">
             <div style={{ marginLeft: '5%', marginRight: '5%' }}>
-
               <div className="container-fluid eighty">
                 <div className="row merged">
                   
@@ -1379,7 +1385,6 @@ function OtherProfileComponent() {
                       </div>
                     <div className="timeline-info">
                       <ul>
-
                         <li>
                           <a className={(show === "timeline" ? "active" : "")}  title="" data-ripple="" onClick={() => setShow("timeline")}>time line</a>
                           <a className={(show === "photos" ? "active" : "")}  title="" data-ripple="" onClick={() => setShow("photos")}>Photos</a>
@@ -1391,7 +1396,6 @@ function OtherProfileComponent() {
                         </li>
                       </ul>
                     </div>
-
                     {/*  *
                   <div className="changethis" style={{boxShadow: '0 1px 3px rgb(0 0 0 / 20%)', padding:'40px 0px'}}>
                     
@@ -1404,18 +1408,15 @@ function OtherProfileComponent() {
                     
                     
             
-
             
             
             </div>
             
                     
-
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div> */}
     </>

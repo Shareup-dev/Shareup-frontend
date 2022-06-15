@@ -20,7 +20,7 @@ import { testScript } from '../../js/script';
 import Popup from 'reactjs-popup';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 
 function ViewGroupComponent({post}) {
@@ -225,6 +225,8 @@ function ViewGroupComponent({post}) {
 
 	const handleLikePost = async (post_id) => {
 		UserService.likePost(user.id, post_id).then(res => {
+			handleSendNotification(res.data.user.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
 			setRefresh(res.data)
 		})
 	}

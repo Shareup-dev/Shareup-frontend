@@ -10,8 +10,9 @@ import Picker from "emoji-picker-react";
 import PickerGif from "react-giphy-picker";
 import Giphy from "../Giphy";
 import Stickers from "../Stickers";
-import $ from "jquery";
-import moment from "moment";
+import $ from 'jquery'
+import moment from 'moment';
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 export default function ReelReplyCommentComponent(props) {
   const { user } = useContext(UserContext);

@@ -35,6 +35,7 @@ import fileStorage from "../../config/fileStorage";
 import SwapComponents from "../SwapPoint/SwapComponents";
 import Grpicon from "../../images/grpicon.png";
 import { FourGMobiledataRounded } from "@mui/icons-material";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function CommonComposer(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -340,6 +341,7 @@ function CommonComposer(props) {
       console.log(res.status);
       setRefresh(res.data);
       setCommentContent("");
+      handleSendNotification(res.data.userdata.id,'comment on your post',user?.firstName,user?.lastName,user?.email,"comment",postid);
     });
   };
   const handleCount = (opertator) => {
@@ -544,6 +546,7 @@ function CommonComposer(props) {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
       setRefresh(res.data);
     });
   };

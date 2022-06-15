@@ -22,7 +22,7 @@ import GroupViewComponent from './GroupViewComponent';
 function GroupListComponent({ post }) {
 	const { id: stringId } = useParams();
 	const groupid = 1 * stringId
-	testScript()
+	
 	let history = useHistory();
 
 	const { user } = useContext(UserContext)
@@ -255,6 +255,7 @@ function GroupListComponent({ post }) {
 	}, [showComp, refresh])
 
 	useEffect(() => {
+		
 		testScript()
 	}, [])
 

@@ -1,4 +1,4 @@
- import jQuery from 'jquery' ;
+import jQuery from 'jquery' ;
  
 import NProgress from 'nprogress';
 
@@ -15,6 +15,7 @@ function testScript(){
 	  });*/
 	//   window.scrollTo(0,0);
 	 $(".noti").on("click", function(){
+		console.log("noti active");
 		$(".dropdowns").toggleClass("active");
 		 
 		 return;
@@ -34,6 +35,7 @@ function testScript(){
 
 	 $(".gap, .noti, .user-img, span.main-menu, .ti-search").on("click",function(){
 		 $(this).removeClass('active');
+		 console.log("remove noti active");
 		$(".dropdownsmsg").removeClass('active');
 		 
 		
@@ -55,8 +57,9 @@ function testScript(){
 		 return;
 	 });
 
-	 $(".gap, .noti, .user-img, span.main-menu").on("click",function(){
+	 $(".gap, .noti,.user-img, span.main-menu").on("click",function(){
 		 $(this).removeClass('active');
+		 console.log("remove 2 noti active");
 		$(".searched, .form-search").removeClass('active');
 		 
 		
@@ -67,7 +70,6 @@ function testScript(){
 		$(".coment-area").addClass("active");
 		 return;
 	 });
-
   $(".central-meta item").on("click",function(){
 		 $(this).removeClass('active');
 		$(".coment-area").removeClass('active');
@@ -87,6 +89,7 @@ function testScript(){
 	//------- remove class active on body
 	$("body *").not('.top-area > .setting-area > li').on("click", function() {
 		$(".top-area > .setting-area > li > div").removeClass('active');
+		console.log("not body  active");
 		return;		
 	 });	
 	 
