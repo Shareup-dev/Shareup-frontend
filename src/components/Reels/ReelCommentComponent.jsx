@@ -8,6 +8,7 @@ import Picker from "emoji-picker-react";
 import PickerGif from "react-giphy-picker";
 import Giphy from "../Giphy";
 import Stickers from "../Stickers";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 import $ from "jquery";
 import ReelsService from "../../services/ReelsServices";
 import CommentsService from "../../services/CommentsService";
@@ -118,6 +119,7 @@ export default function ReelCommentComponent(props) {
         ReelsService.addCommentsForReel(user.id, reelid, comment).then(
           (res) => {
             sortComment();
+            handleSendNotification(res.data.userdata.id,'comment on your reel',user?.firstName,user?.lastName,user?.email,"commentReel",reelid);
             // props.setRefresh(res.data)
             setCommentContent("");
           }

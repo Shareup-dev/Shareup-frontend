@@ -19,7 +19,7 @@ import PostComponentBoxComponent from '../post/PostCommentBoxComponent';
 import CommentPostComponent from '../post/CommentPostComponent';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ShareItemComponent({post}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -286,6 +286,8 @@ const handleCounterReaction = () => {
 }
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your shared post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }

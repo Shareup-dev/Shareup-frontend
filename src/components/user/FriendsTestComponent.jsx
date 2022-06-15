@@ -12,7 +12,7 @@ import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function FriendsTestComponent() {
     let history = useHistory();
 
@@ -108,14 +108,22 @@ function FriendsTestComponent() {
     const sendFriendRequest = (uid, fid) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
+            console.log("sent friend request to you friend test component"+user?.firstName+user?.lastName+user?.email);
+
+            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
         })
     }
 
 
 
     const handleFollow = (uid) => {
-        UserService.follow(user.email, uid).then(res => {
+        UserService.follow(user.id, uid).then(res => {
             setRefresh(res.data)
+            console.log("follows you from friends test component"+user?.firstName+user?.lastName+user?.email);
+
+            handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
         })
     }
 

@@ -45,7 +45,7 @@ import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 import Loader from "../loader/loader";
 import HangShareService from "../../services/HangShareService";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -551,6 +551,8 @@ function NewsfeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data);
     });
   };

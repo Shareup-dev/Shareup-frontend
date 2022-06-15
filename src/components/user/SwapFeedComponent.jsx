@@ -26,7 +26,7 @@ import PostComponent from '../post/PostComponent';
 import fileStorage from '../../config/fileStorage';
 
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function SwapFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -439,6 +439,8 @@ function SwapFeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your swap',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }

@@ -6,25 +6,111 @@ import FriendsService from '../../services/FriendService';
 import UserService from '../../services/UserService';
 import { BiUserPlus } from "react-icons/bi";
 import settings from '../../services/Settings';
+import NewNotificationService from '../../services/NewNotificationService';
 import fileStorage from "../../config/fileStorage";
 import {useSelector} from "react-redux"
-
+import moment from 'moment';
+import {over} from 'stompjs';
+import {notification} from "antd";
+import "antd/dist/antd.css";
 import {store} from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
+import {toast} from 'react-toastify';
+import { Client } from '@stomp/stompjs';
+// Import toastify css file
+import 'react-toastify/dist/ReactToastify.css';
+import { grey } from '@mui/material/colors';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+import { testScript } from "../../js/script";
+let stompClient =null;
+
+ // toast-configuration method,
+ // it is compulsory method.
+toast.configure();
+
+export const handleSendNotification =(to,content,userFirstName,userLastname,email,action,applyOnId) => {
+  console.log("inside send notification",stompClient);
+  
+    var notificationVar = {
+      from_email: email,
+      to_id:to,
+      content:content,
+      first_name:userFirstName,
+      Last_name:userLastname,
+      Action:action,
+      Apply_on_id:applyOnId
+    };
+    
+    stompClient.send("/app/private-notification", {}, JSON.stringify(notificationVar));
+  
+ // handleDbnotification(to,content,email)
+};
+export const handleDbnotification = async (to_id,action,from_email)=>{
+  const formData = new FormData();
+  formData.append(`from`,from_email);
+  formData.append(`message`,action);
+  await NewNotificationService.sendNotification(to_id,formData).then(res => {
+  })	
+}
 
 function ShareupInsideHeaderComponent() {
   let history = useHistory();
-
+let counter =0;
+let notificaionflag = false;
+  const[total,setTotal]=useState(0);
+  const [unreadCounter,setUnreadCounter] =useState(0);
+ 
+  const[newListinerFlag,setNewListinerFlag]= useState(false);
+  const[newNotificationFlag,setNewNotificationFlag]= useState(false);
+  const [NewNotifications, setNewNotifications] = useState([]);
+  const [Notifications, setNotifications] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(AuthService.getCurrentUser().username);
+  const [Message, setMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const [to, setTo] = useState("");
   const [user, setUser] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
   const [searchedFriendsList, setSearchedFriendsList] = useState([]);
   const [showUserSettings, setShowUserSettings] = useState(false);
-
+  const [dbNotifications, setDbNotifications] = useState([]);
   const searchTerm = useSelector((state) => state.search)
+  const [isActive, setActive] = useState(false);
 
+  const toggleClass = () => {
+    console.log('toggle class');
+    setActive(!isActive);
+    handlegetNotifications();
+  };
+  const connect =()=>{
+    var sock = new SockJS('https://api.shareup.qa/ws');
+ stompClient = Stomp.over(sock);
+sock.onopen = function() {
+  console.log('open');
+}
+stompClient.connect({}, function (frame) {
+   console.log('Connected: ' + frame);
+   stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification',
+ onPrivateNotification);
+});
+//    let endpoint ='https://api.shareup.qa/ws'
+ //  let Sock = new SockJS(endpoint);
+  //  var stompClient = over(Sock);
+  // stompClient.connect({},onConnected, onError);
   
+}
 
+const onConnected = () => {
+
+    stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification', onPrivateNotification);
+  
+}
+
+const onError = (err) => {
+  console.log(err);
+  
+}
   const KeyPressHandler = (event) => {
     if(event.key === 'Enter' && event.target.value !=='') {
     history.push("/searchFeed")
@@ -70,6 +156,14 @@ function ShareupInsideHeaderComponent() {
     AuthService.logout()
     history.push("/")
   }
+  useEffect(() => {
+    console.log("total",total);
+    
+    if(total > 0 ) {
+      updateUnopendCounter(AuthService.getCurrentUser().username,total)
+    
+    }
+  }, [total]);
 
   useEffect(() => {
     getFriendsList()
@@ -77,6 +171,9 @@ function ShareupInsideHeaderComponent() {
 
   useEffect(() => {
     currentUserGet()
+    setLoggedInUser(AuthService.getCurrentUser().username);
+    connect();
+    handleGetUnopendCounter(AuthService.getCurrentUser().username);
   }, [])
 
   const onUnfocus = () => {
@@ -85,8 +182,84 @@ function ShareupInsideHeaderComponent() {
     }
   }
 
+  const onPrivateNotification = (payload)=>{
+    console.log("got message");
+    console.log(payload)
+    var json = JSON.parse(payload.body);
+    notification.config({
+      placement: "bottomLeft",
+    });
+
+    notification.open({
+      message: (
+        <div>
+          <b>{json.userdata.firstName} {json.userdata.lastName}</b>  {json.content} 
+        </div>
+      )
+    });
+
+    setTotal(prevTotal => prevTotal +1)
+    setNewNotificationFlag(true);
+}
 
 
+    const handlegetNotifications = async () => {
+      console.log("handlegetNotifications",AuthService.getCurrentUser().username)
+	  	await NewNotificationService.getNotifications(AuthService.getCurrentUser().username).then(res => {	
+			setDbNotifications(res.data)
+      setUnreadCounter(0)
+      let user_unread_notification =0;
+      res.data.map(notification =>{
+        if(notification.readFlag === true)
+        {
+        
+        }else{
+         
+          user_unread_notification= user_unread_notification+1;
+        }
+      })
+      setUnreadCounter(prevUnreadCounter => prevUnreadCounter+user_unread_notification)
+			console.log("database notification",res.data)
+    })
+    updateUnopendCounter(AuthService.getCurrentUser().username,0);
+    setTotal(0);
+  
+	};
+
+
+    const handleReadNotifications = async (id) => {
+      console.log("handleReadNotifications",id)
+      await NewNotificationService.readNotification(id).then(res => {	
+      
+      })
+
+    };
+
+    const handleGetUnopendCounter = async (email) => {
+        await NewNotificationService.getUnopenedNotificationsCount(email).then(res => {	
+          setTotal(res.data)
+          console.log("unopend notification counter ",res.data)
+          return res.data;
+        })
+  
+      };
+
+
+    const updateUnopendCounter = async (email,count) => {
+        const formData = new FormData();
+        formData.append(`unopened_notification`,count)
+        await NewNotificationService.updateUnopenedNotificationsCount(email,formData).then(res => {	  
+          
+          })
+    
+        };
+
+    const displayNotification=(content)=> {
+     
+      return (
+        <span >{content}</span>
+      )
+    }
   return (
     <div className="topbar stick">
 
@@ -106,33 +279,13 @@ function ShareupInsideHeaderComponent() {
         </ul></div>
         <div className="logo-inside">
           {/* <a title="notif" href="/newsfeed"><img src="../assets/images/shareup.png" alt="" style={{marginTop: '13px'}}/></a> */}
-          <a title="shareup" href="/newsfeed"><img src="../assets/images/Mainlogo.png" alt="" style={{ marginTop: '5px' }} /></a>
+          <a title="notif" href="/newsfeed"><img src="../assets/images/Mainlogo.png" alt="" style={{ marginTop: '5px' }} /></a>
           {/* <a title="notif" href="/newsfeed"><img src="../assets/images/shareup_logo2.png" width="50" alt="" /></a> */}
         </div>
         <div className="top-area">
           <ul className="setting-area">
-            {/* <li>
-            <a href="#" title="Home" data-ripple><i className="ti-search" /></a>
-            <div className="searched" style={{backgroundColor:"white !important"}}>
-              <Form method="post" className="form-search" >
-                <input type="text" placeholder="Search Friend" onChange={handleShowFriendsList}/>
-                <button data-ripple><i className="ti-search" /></button>
-                <ul id="people-list">
-                {searchedFriendsList.slice(0, 4).map(friend =>
-                    <li key={friend.id}>
-                        <figure>
-                            <img src={friend.profilePicturePath} alt="" onClick={() => history.push(`profile/${friend.email}`)}/>
-                            {/* <span className="status f-online" />
-                        </figure>
-                        <div className="friendz-meta">
-                            <a href={`/profile/${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a>
-                        </div>
-                    </li>
-                )}
-            </ul>
-              </Form>
-            </div>
-          </li> */}
+            {
+            }
             <li>
 
 
@@ -144,91 +297,53 @@ function ShareupInsideHeaderComponent() {
                  onKeyUp={KeyPressHandler}
                  
                 />
-
-              
-
             </li>
-
-
-
-
-
-
-
-
-
-            
+          
             <li>
-              <div className="noti">
+            <div className="noti"  onClick={()=>handlegetNotifications()}  >
+            
+              {total?(<div className="counternotification">
+                <span style={{color: 'white'}}>{total}</span>
+                   </div>): ('')}
                 <a href="#" title="Notification" data-ripple>
-                  <i className="ti-bell" /><span>20</span>
+                  <i className="ti-bell" />
                 </a>
-                <div className="dropdowns">
-                  <span>4 New Notifications</span>
-                  <ul className="drops-menu">
-                    <li>
-                      <a href="/notifications" title="notif">
-                        <img src="../assets/images/resources/thumb-1.jpg" alt="" />
-                        <div className="mesg-meta">
-                          <h6>sarah Loren</h6>
-                          <span>Hi, how r u dear ...?</span>
-                          <i>2 min ago</i>
+                  <div className="dropdowns">
+                   <span>{unreadCounter} Unread Notifications</span>
+                    <ul className="drops-menu">
+                    {dbNotifications && dbNotifications.map(item => {
+                      
+                      return ( 
+                      
+                      <li key={item.toString()} style={{color: "red"}} onClick={() =>handleReadNotifications(item.id)} >
+                      <a >
+                      <img src={item.userdata.profilePicturePath} alt="" />
+                     
+                      <div className="mesg-meta" >
+                        <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
+                        {displayNotification(item.content)}
+                        <div >
+                          <span>{moment(item.notificationDate).fromNow()}</span>
                         </div>
-                      </a>
-                      <span className="tag green">New</span>
-                    </li>
-                    <li>
-                      <a href="/notifications" title="notif">
-                        <img src="../assets/images/resources/thumb-2.jpg" alt="" />
-                        <div className="mesg-meta">
-                          <h6>Jhon doe</h6>
-                          <span>Hi, how r u dear ...?</span>
-                          <i>2 min ago</i>
-                        </div>
-                      </a>
-                      <span className="tag red">Reply</span>
-                    </li>
-                    <li>
-                      <a href="/notifications" title="notif">
-                        <img src="../assets/images/resources/thumb-3.jpg" alt="" />
-                        <div className="mesg-meta">
-                          <h6>Andrew</h6>
-                          <span>Hi, how r u dear ...?</span>
-                          <i>2 min ago</i>
-                        </div>
-                      </a>
-                      <span className="tag blue">Unseen</span>
-                    </li>
-                    <li>
-                      <a href="/notifications" title="notif">
-                        <img src="../assets/images/resources/thumb-4.jpg" alt="" />
-                        <div className="mesg-meta">
-                          <h6>Tom cruse</h6>
-                          <span>Hi, how r u dear ...?</span>
-                          <i>2 min ago</i>
-                        </div>
-                      </a>
-                      <span className="tag">New</span>
-                    </li>
-                    <li>
-                      <a href="/notifications" title="notif">
-                        <img src="../assets/images/resources/thumb-5.jpg" alt="" />
-                        <div className="mesg-meta">
-                          <h6>Amy</h6>
-                          <span>Hi, how r u dear ...?</span>
-                          <i>2 min ago</i>
-                        </div>
-                      </a>
-                      <span className="tag">New</span>
-                    </li>
-                  </ul>
-                  <a href="/notificationsnew" title="notif" className="more-mesg">view All</a>
+                      </div>
+                    </a>
+                    {item.readFlag?(""):(<span className="tag green">unread</span>)}
+                    
+                    </li>)
+                   
+                    }
+ ) }
+</ul>
+                  
+                  <a href="/notifications" title="notif" className="more-mesg">view more</a>
                 </div>
               </div>
             </li>
             <li>
               <div className="mssg">
-                <a href="#" title="Messages" data-ripple><i className="ti-comment" /><span>12</span></a>
+             
+                <a href="#" title="Messages" data-ripple><i className="ti-comment" /> </a> 
+                <div className="counternotification"><span style={{color: 'white'}}>12</span></div>
                 <div className="dropdownsmsg">
                   <span>5 New Messages</span>
                   <ul className="drops-menu">

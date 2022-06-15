@@ -28,7 +28,7 @@ import ReactPlayer from 'react-player';
 import { Player } from 'video-react';
 import ReelsComponentFriends from '../Reels/ReelsComponentFriends';
 import DisplayFriendsReelsComponent from '../Reels/DisplayFriendsReelsComponent';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ReelFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -373,6 +373,8 @@ function ReelFeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your reel',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }
