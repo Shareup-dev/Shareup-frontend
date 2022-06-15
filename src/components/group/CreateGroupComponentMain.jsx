@@ -4,7 +4,7 @@ import UserContext from '../../contexts/UserContext';
 import GroupService from '../../services/GroupService';
 import Layout from '../LayoutComponent';
 import settings from '../../services/Settings';
-import { DropdownButton , Dropdown} from 'react-bootstrap'
+import { DropdownButton, Dropdown } from 'react-bootstrap'
 import $ from 'jquery'
 import Addimage from '../../images/addimage1.jpg'
 
@@ -14,10 +14,10 @@ function CreateGroupComponentMain() {
     const { user } = useContext(UserContext)
 
     const [groupName, setGroupName] = useState("");
-    const handleGroupName = (e) => { setGroupNameError(null);setGroupName(e.target.value) }
+    const handleGroupName = (e) => { setGroupNameError(null); setGroupName(e.target.value) }
 
     const [groupDesc, setGroupDesc] = useState("");
-    const handleGroupDesc = (e) => { setGroupDescError(null) ;setGroupDesc(e.target.value) }
+    const handleGroupDesc = (e) => { setGroupDescError(null); setGroupDesc(e.target.value) }
 
     //For Validation
     const [allFieldFillError, setAllFieldFillError] = useState('');
@@ -75,7 +75,7 @@ function CreateGroupComponentMain() {
     const handleGroupCover = (event) => {
         let validated = false
         setGroupCover(event.target.files[0])
-        console.log(groupCover,'groupcover')
+        console.log(groupCover, 'groupcover')
 
         const reader = new FileReader();
         reader.onload = () => {
@@ -84,7 +84,7 @@ function CreateGroupComponentMain() {
             }
         }
         reader.readAsDataURL(event.target.files[0])
-        console.log(groupCover,'groupcover')
+        console.log(groupCover, 'groupcover')
         setShowCoverPicture(true)
     }
 
@@ -95,13 +95,14 @@ function CreateGroupComponentMain() {
 
     const handleInviteSetting = (event) => {
         setGroupInvitationSetting(event.target.value)
+       
         console.log(event.target.value)
     }
 
     const handleCreateGroup = async () => {
-        console.log(groupCover,'createeeeee')
+        console.log(groupCover, 'createeeeee')
         let groupPrivacySettingValue = 1
-        if ( groupPrivacySetting === 'Private' || groupPrivacySetting === 'Hidden'){
+        if (groupPrivacySetting === 'Private' || groupPrivacySetting === 'Hidden') {
             groupPrivacySettingValue = 0
         }
         let group = {
@@ -116,29 +117,29 @@ function CreateGroupComponentMain() {
         // formData.append('group', JSON.stringify(group))
         formData1.append('group_image', groupPicture)
         formData2.append('group_cover_image', groupCover)
-        let groupId 
+        let groupId
         await GroupService.createGroup(user.id, group).then(async (res) => {
             console.log(res.data)
             groupId = res.data.id
-            if(groupCover){
-                await GroupService.uploadGroupCoverImage(groupId,formData2).then(res => {
+            if (groupCover) {
+                await GroupService.uploadGroupCoverImage(groupId, formData2).then(res => {
                     // console.log(res.data)
                 })
             }
-            if(groupPicture){
-                await GroupService.uploadGroupImage(groupId,formData1).then(res => {
+            if (groupPicture) {
+                await GroupService.uploadGroupImage(groupId, formData1).then(res => {
                     // console.log(res.data)    
                 })
             }
-            
-            
+
+
             await setStep(4)
 
         })
-        
+
         setTimeout(function () { history.push(`/groups`) }, 2000);
     }
-    const BtnValue = (e,value) =>{
+    const BtnValue = (e, value) => {
         e.preventDefault();
         // set
         setBtnValue(value)
@@ -150,16 +151,16 @@ function CreateGroupComponentMain() {
                 <fieldset>
                     <div className="form-card">
                         <h2 className="fs-title">Group Details</h2>
-                       
+
                         <label htmlFor="group-desc">Group Name *</label>
-                        <input type="group_name" name="group_name" value={groupName} onChange={handleGroupName} className="group-name-textbox"/>
-                        {groupNameError && groupName!==''|| groupName!==null &&
+                        <input type="group_name" name="group_name" value={groupName} onChange={handleGroupName} className="group-name-textbox" />
+                        {groupNameError && groupName !== '' || groupName !== null &&
                             <p style={{ fontSize: 15, color: 'red' }}>{groupNameError}</p>
                         }
-                       
+
                         <label htmlFor="group-desc" className="group-desc-label">Group Description *</label>
-                        <textarea name="group-desc" id="group-desc" aria-required="true" value={groupDesc} onChange={handleGroupDesc} className="group-desc-textbox"/>
-                        {groupDescError && groupDesc!==''|| groupDesc!==null&&
+                        <textarea name="group-desc" id="group-desc" aria-required="true" value={groupDesc} onChange={handleGroupDesc} className="group-desc-textbox" />
+                        {groupDescError && groupDesc !== '' || groupDesc !== null &&
                             <p style={{ fontSize: 15, color: 'red' }}>{groupDescError}</p>
                         }
                     </div>
@@ -186,50 +187,50 @@ function CreateGroupComponentMain() {
                             </select> */}
                             <div className="dropdown privacy-drop-cont">
                                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   {groupPrivacySetting==='Public'?
-                                    <span><i className="fa fa-globe pr-5p" aria-hidden="true"></i>Public</span>
-                                    : groupPrivacySetting==='Private'? <span><i className="fa fa-lock pr-5p" aria-hidden="true"></i>Private</span>
-                                    :<span><i className="fa fa-eye-slash pr-5p" aria-hidden="true"></i>Hidden</span>}
+                                    {groupPrivacySetting === 'Public' ?
+                                        <span><i className="fa fa-globe pr-5p" aria-hidden="true"></i>Public</span>
+                                        : groupPrivacySetting === 'Private' ? <span><i className="fa fa-lock pr-5p" aria-hidden="true"></i>Private</span>
+                                            : <span><i className="fa fa-eye-slash pr-5p" aria-hidden="true"></i>Hidden</span>}
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Public')}}>
+                                    <a className="dropdown-item" href="#" onClick={(e) => { e.preventDefault(); setGroupPrivacySetting('Public') }}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-globe pr-15" aria-hidden="true"></i>
-                                                
+
 
                                             </div>
                                             <div>
                                                 <div className='mb-5p'>Public</div>
-                                                <div style={{fontSize:'13px'}}>Anyone can see who's in the group and what they post.</div>
+                                                <div style={{ fontSize: '13px' }}>Anyone can see who's in the group and what they post.</div>
                                             </div>
                                         </div>
                                     </a>
-                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Private')}}>
+                                    <a className="dropdown-item" href="#" onClick={(e) => { e.preventDefault(); setGroupPrivacySetting('Private') }}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-lock pr-15" aria-hidden="true"></i>
                                             </div>
                                             <div>
                                                 <div className='mb-5p'>Private</div>
-                                                <div style={{fontSize:'13px'}}>Only members can see who's in the group and what they post.</div>
+                                                <div style={{ fontSize: '13px' }}>Only members can see who's in the group and what they post.</div>
                                             </div>
                                         </div>
                                     </a>
-                                    <a className="dropdown-item" href="#" onClick={(e)=>{e.preventDefault();setGroupPrivacySetting('Hidden')}}>
+                                    <a className="dropdown-item" href="#" onClick={(e) => { e.preventDefault(); setGroupPrivacySetting('Hidden') }}>
                                         <div className='d-flex'>
                                             <div>
                                                 <i className="fa fa-eye-slash pr-15" aria-hidden="true"></i>
                                             </div>
                                             <div>
                                                 <div className='mb-5p'>Hidden</div>
-                                                <div style={{fontSize:'13px'}}>The group will be hidden for others.</div>
+                                                <div style={{ fontSize: '13px' }}>The group will be hidden for others.</div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                             </div>
-                            
+
                             {/* <input type="radio" id="public" name="privacy" value="public" defaultChecked="checked" onChange={handlePrivacySetting} />
                             <label htmlFor="public">This is a public group</label>
                             <ul id="public-group-description">
@@ -256,10 +257,9 @@ function CreateGroupComponentMain() {
                         <div className="">
                             {/* <legend>Group Invitations</legend> */}
                             <p tabIndex={0}>Which members of this group are allowed to invite others?</p>
-                            <select className="form-control privacy-dropdown"  
-                                value={groupPrivacySetting} 
+                            <select className="form-control privacy-dropdown"
                                 onChange={handleInviteSetting}>
-                                <option  value="members"> All Group Members </option>
+                                <option value="members"> All Group Members </option>
                                 <option value="mods">Group admins and mods only</option>
                                 <option value="admins" selected>Group admins only</option>
 
@@ -286,29 +286,29 @@ function CreateGroupComponentMain() {
 
                         <div className="" style={{ textAlign: "center" }}>
                             <label className='mb-10'>Group Image</label>
-                            <div className="image-upload  pos-rel " style={showprofilePicturePath?{border:'none'}:{border: '1px solid #ccc'}}>
+                            <div className="image-upload  pos-rel " style={showprofilePicturePath ? { border: 'none' } : { border: '1px solid #ccc' }}>
                                 <label for="file-input">
                                     {
                                         showprofilePicturePath ?
                                             <img id="preview" src={profileRender} /> :
-                                            <img src={Addimage} className="no-image-up"/>
+                                            <img src={Addimage} className="no-image-up" />
                                     }
                                 </label>
 
                                 <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleGroupImage}></input>
                             </div>
                         </div>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <div className="" style={{ textAlign: "center" }}>
                             <legend className='mb-10'>Group Cover Image</legend>
-                            <div className="image-upload pos-rel" style={showCoverPicture?{border:'none'}:{border: '1px solid #ccc'}}>
+                            <div className="image-upload pos-rel" style={showCoverPicture ? { border: 'none' } : { border: '1px solid #ccc' }}>
                                 <label for="file-input-cover">
-                                
+
                                     {
                                         showCoverPicture ?
                                             <img id="preview" src={coverRender} /> :
-                                            <img src={Addimage} className="no-image-up"/>
+                                            <img src={Addimage} className="no-image-up" />
                                     }
                                 </label>
 
@@ -316,12 +316,12 @@ function CreateGroupComponentMain() {
                             </div>
                         </div>
                     </div>
-                    <div style={{position:'relative'}}>
+                    <div style={{ position: 'relative' }}>
                         <input type="button" name="previous" className="previous action-button-previous common-trans-btn1" defaultValue="Previous" onClick={() => setStep(1)} />
                         <input type="button" name="" className="action-button common-theme-btn1" defaultValue="Next Step" onClick={() => {
                             handleCreateGroup()
                         }} />
-                        <a  className="skip-crt-grp" onClick={() => {
+                        <a className="skip-crt-grp" onClick={() => {
                             handleCreateGroup()
                         }} > Skip >> </a>
                     </div>
@@ -341,24 +341,24 @@ function CreateGroupComponentMain() {
                                     {
                                         showprofilePicturePath ?
                                             <img id="preview" src={profileRender} /> :
-                                            <img src={Addimage} className="no-image-up"/>
+                                            <img src={Addimage} className="no-image-up" />
                                     }
                                 </label>
 
                                 <input id="file-input" type="file" name="profile_image" accept="image/*" onChange={handleGroupImage}></input>
                             </div>
                         </div>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <div className="" style={{ textAlign: "center" }}>
                             <legend className='mb-10'>Group Cover Image</legend>
                             <div className="image-upload pos-rel">
                                 <label for="file-input-cover">
-                                
+
                                     {
                                         showCoverPicture ?
                                             <img id="preview" src={coverRender} /> :
-                                            <img src={Addimage} className="no-image-up"/>
+                                            <img src={Addimage} className="no-image-up" />
                                     }
                                 </label>
 
@@ -434,9 +434,9 @@ function CreateGroupComponentMain() {
             <div className="col-lg-6">
                 <div className="central-meta create-group">
                     <div className="card px-0 pt-4 pb-0 mb-3">
-                        <div style={{contentAlign: 'center', textAlign: 'center'}}>
-                        <h2  className="media-date">Create Your Group</h2>
-                        {/* <p>Fill all form field to go to next step</p> */}
+                        <div style={{ contentAlign: 'center', textAlign: 'center' }}>
+                            <h2 className="media-date">Create Your Group</h2>
+                            {/* <p>Fill all form field to go to next step</p> */}
                         </div>
                         <div className="row">
                             <div className="col-md-12 mx-0">

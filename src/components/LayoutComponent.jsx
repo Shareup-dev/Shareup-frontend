@@ -296,7 +296,7 @@ export default function Layout(props) {
                                   </div>
 
                                   <a href="/shareFeed" title="#">
-                                    SharePoint
+                                    HangShares
                                   </a>
                                 </li>
                                 <li>

@@ -172,7 +172,7 @@ function FriendFollowProfileComponent({email,id}) {
                             </li>)}</ul>
               ) : (
                 <div className="center" style={{ padding: "20px" }}>
-                No Followers Friends
+                No Followers
                 </div>
               )}
             </div>

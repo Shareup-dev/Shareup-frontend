@@ -147,17 +147,7 @@ function ShareupInsideHeaderComponent() {
 
               
 
-            </li>
-
-
-
-
-
-
-
-
-
-            
+            </li> 
             <li>
               <div className="noti">
                 <a href="#" title="Notification" data-ripple>
@@ -288,7 +278,7 @@ function ShareupInsideHeaderComponent() {
                       <span className="tag">New</span>
                     </li>
                   </ul>
-                  <a href="messages.html" title="notif" className="more-mesg">view more</a>
+                  <a href="/messages" title="notif" className="more-mesg">view more</a>
                 </div>
               </div>
             </li>

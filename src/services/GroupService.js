@@ -27,6 +27,11 @@ class GroupService {
         const result = await authAxios.post(`/${uid}/create`,formdata)
         return result;
     }
+    getGroupFeed = async (uid) => {
+        authenticate();
+        const result = await authAxios.get(`newsfeed_groups/${uid}`)
+        return result;
+    }
     editGroup = async (gid, formdata) => {
         const result = await authAxios.put(`/${gid}/edit_group`,formdata)
         return result;
@@ -52,6 +57,11 @@ class GroupService {
     getMyGroups = async (email) => {
         // authenticate();
         const result = await authAxios.get(`/my_groups/${email}`)
+        return result;
+    }
+    getSuggestedGroups = async (uid) => {
+        // authenticate();
+        const result = await authAxios.get(`suggestion/${uid}`)
         return result;
     }
     getAdmins = async (gid) => {

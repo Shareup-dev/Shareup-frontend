@@ -1551,10 +1551,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   post.media.map((postImage) => (
                     <React.Fragment>
                       <img
-                        style={{ width: "100%", objectFit: "cover" }}
+                        
                         src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        className="lightbox-popup"
+                        className="lightbox-popup post-display-img"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
@@ -1913,9 +1913,11 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                       <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="Enter you Phone"
+                                        placeholder="Enter your Phone"
                                         value={UserPhone}
                                         onChange={handleUserPhone}
+                                        style={{margin:0}}
+
                                       />
                                     </div>
                                     <div>
@@ -2603,9 +2605,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                           <input
                                             type="text"
                                             className="form-control"
-                                            placeholder="Enter you Phone"
+                                            placeholder="Enter your Phone"
                                             value={UserPhone}
                                             onChange={handleUserPhone}
+                                            style={{margin:0}}
                                           />
                                         </div>
                                         <div>

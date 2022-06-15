@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import Founder from '../../images/founder-1.jpeg'
-import Linnate from '../../images/linnate.jpg'
-import Lokee from '../../images/lokee.jpeg'
-import Sree from '../../images/sree.jpeg'
-import Basma from '../../images/basma.jpeg'
-import Sabeetha from '../../images/sabeetha.jpeg'
-import Raouf from '../../images/raouf.jpeg'
+import Founder from '../../images/team/founder.jpeg'
+import Linnate from '../../images/team/linnate-1.jpeg'
+import Lokee from '../../images/team/lokee.jpeg'
+import Sree from '../../images/team/sree.jpeg'
+import Basma from '../../images/team/basma.jpeg'
+import Sabeetha from '../../images/team/sabeetha-1.jpg'
+import Raouf from '../../images/team/raouf.jpeg'
+import Aseel from '../../images/team/aseel.jpeg'
+import Mert from '../../images/team/mert.png'
+
 
 
 
@@ -210,7 +213,20 @@ We provide you most private and secure social media platform. Your data is our c
                 >
                   <img
                     width="200px"
-                    src="/assets/images/screen3.PNG"
+                    src={Mert}
+                    alt="img"
+                  />
+                    <h1>Mert Taştekne</h1>
+                    <h3>Software Engineer</h3>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                <div
+                 
+                >
+                  <img
+                    width="200px"
+                    src={Aseel}
                     alt="img"
                   />
                    <h1>Aseel Karingatti Kandy</h1>

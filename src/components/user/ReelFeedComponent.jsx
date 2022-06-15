@@ -3,6 +3,8 @@ import { Redirect, useHistory } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import UserService from '../../services/UserService';
+import SavedService from '../../services/SavedService';
+
 import UserContext from '../../contexts/UserContext';
 import PostService from '../../services/PostService';
 import SwapService from '../../services/SwapService';
@@ -28,7 +30,16 @@ import ReactPlayer from 'react-player';
 import { Player } from 'video-react';
 import ReelsComponentFriends from '../Reels/ReelsComponentFriends';
 import DisplayFriendsReelsComponent from '../Reels/DisplayFriendsReelsComponent';
-
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import { TabContext } from "@mui/lab";
+import { TabList } from "@mui/lab";
+import { TabPanel } from "@mui/lab";
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import ButtonBase from "@mui/material/ButtonBase";
 
 function ReelFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -91,6 +102,10 @@ function ReelFeedComponent() {
   const [uploadErrorReel, setUploadErrorReel] = useState('');
   const [searchedReelforUser, setSearchedReelforUser] = useState([]);
   const [searchedReel, setSearchedReel] = useState([]);
+  const [savedReels, setSavedReels] = useState([]);
+
+  const [friendsReel, setFriendsReel] = useState([]);
+
   const [filesReel, setFilesReel] = useState({});
   const [ReelVideo, setReelVideo] = useState([]);
   const [ShowReelVideo, setShowReelVideo] = useState(false);
@@ -99,8 +114,9 @@ function ReelFeedComponent() {
   const [searchedUser, setSearchedUser] = useState([]);
 
   const [privacy, setprivacy] = useState('privacy');
+  const [value, setValue] = React.useState("1");
 
-
+  
   useEffect(() => {
     getAllUser()
     getFriendsList()
@@ -114,11 +130,18 @@ function ReelFeedComponent() {
 
 
   useEffect(() => {
-    getReelsForUser().then(() => {
-      setIsLoading(false)
-    })
+    
     if(user&&user.id){
-        getAllReels().then(() => {
+      getReelsForUser().then(() => {
+        setIsLoading(false)
+      })
+      getAllReels().then(() => {
+        setIsLoading(false)
+      })
+      getAllFriendsReels().then(() => {
+        setIsLoading(false)
+      })
+      getSavedReels().then(() => {
         setIsLoading(false)
       })
       getSavedPost().then(() => {
@@ -132,8 +155,11 @@ function ReelFeedComponent() {
     testScript()
   }, [reels])
 
-  const getReelsForUser = async () => {
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
+  const getReelsForUser = async () => {
     await ReelsServices.getReelForUser(user?.id).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
@@ -148,9 +174,23 @@ function ReelFeedComponent() {
     })
   }
 
-  const getAllReels = async () => {
-
+  const getAllFriendsReels = async () => {
     await ReelsServices.getReelForUserFriends(user?.id).then(res => {
+      const sorting = res.data.sort(function (a, b) {
+        let dateA = new Date(a.published), dateB = new Date(b.published);
+        return dateB - dateA;
+      });
+      const uniquePost = Array.from(new Set(sorting.map(a => a.id)))
+        .map(id => {
+          return res.data.find(a => a.id === id)
+        });
+        
+      setFriendsReel(uniquePost)
+
+    });
+  }
+  const getAllReels = async () => {
+    await ReelsServices.getExploreReels(user?.id).then(res => {
       const sorting = res.data.sort(function (a, b) {
         let dateA = new Date(a.published), dateB = new Date(b.published);
         return dateB - dateA;
@@ -196,7 +236,7 @@ function ReelFeedComponent() {
       setReelContent("");
       setRefresh(res.data);
       console.log("Reels Uploaded");
-
+      getReelsForUser()
     });
 
 
@@ -231,21 +271,12 @@ function ReelFeedComponent() {
 
 
   };
-  
-
-
-
-
-  
-
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(AuthService.getCurrentUser().username).then(res => {
       setSavedPost(res.data)
     })
   }
-
-  
 
   const handleCommentContent = (event) => {
     setCommentContent(event.target.value)
@@ -410,106 +441,104 @@ function ReelFeedComponent() {
   const addReel = () => {
     return (
 
-      <Popup trigger={<div className='my'>
-          <span style={{ cursor: 'pointer' }}>
-                      <span style={{ marginRight: '0px', padding: '5px' }}>
-                      <i className="fa fa-plus" style={{fontSize: '15px'}}></i>
-                        {/* <span>{`${following.length}`}</span> */}
-                      </span>
-                      Add Reels
-                    </span>
-         </div>} modal>
-      {(close) => (
-        <Form className='popwidth'>
-
-          <div className="headpop">
-            <span>
-              <a
-                href="#!"
-                onClick={close}
-              >
-                <i className="las la-times"></i>
-              </a>
+      <Popup trigger={
+        <div className='my'>
+            <span className='add-reel-icon' alt="add reel">
+                <i className="fa fa-plus" style={{fontSize: '13px'}} alt="add reel"></i>
+                {/* <span>{`${following.length}`}</span> */}
             </span>
-            <span
-              className="poptitle"
-            >
-              Lets Add Reels
-            </span>
+          </div>} modal>
+          {(close) => (
+            <Form className='popwidth'>
 
-            {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-            <span style={{ float: "right" }}>
-              {" "}
-              <button
-                style={{
-                  float: "right",
-                  borderRadius: "20px",
-                  padding: "5px 20px",
-                }}
-                type="submit"
-                onClick={uploadReels}
-              >
-                Upload
-              </button>
-            </span>
-        </div>
-
-
-          <div style={{ margin: '0 11px 10px 11px' }}>
-            <span className='textPop'>
-              {ShowReelVideo ? (
-                <>
-                  <video id='video' src={ReelVideo} width="100%" height={"350px"} controls="controls">
-                  </video>
-
-
-                  <button
-                    onClick={handleRemoveReelVideo}
-                    style={{
-                      right: '20px',
-                      position: 'absolute',
-                      borderRadius: '100%',
-                      background: '#b7b7b738',
-                      padding: '10px 10px',
-                    }}
+              <div className="headpop">
+                <span>
+                  <a
+                    href="#!"
+                    onClick={close}
                   >
-                    <i className='las la-times'></i>
+                    <i className="las la-times"></i>
+                  </a>
+                </span>
+                <span
+                  className="poptitle"
+                >
+                  Lets Add Reels
+                </span>
+
+                {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                <span style={{ float: "right" }}>
+                  {" "}
+                  <button
+                    style={{
+                      float: "right",
+                      borderRadius: "20px",
+                      padding: "5px 20px",
+                    }}
+                    type="submit"
+                    onClick={uploadReels}
+                  >
+                    Upload
                   </button>
-                </>
-              ) : (
-                <div style={{ textAlign: 'center' }}>
-                  <label className='fileContainer'>
-                    <div className='reelvideo' type='submit'>
-                      <input
-                        type='file'
-                        name='reel_video'
-                        accept='video/*'
-                        onChange={handleFileReel}
-                      ></input>
-                      Add Reel Video
+                </span>
+            </div>
+
+
+              <div style={{ margin: '0 11px 10px 11px' }}>
+                <span className='textPop'>
+                  {ShowReelVideo ? (
+                    <>
+                      <video id='video' src={ReelVideo} width="100%" height={"350px"} controls="controls">
+                      </video>
+
+
+                      <button
+                        onClick={handleRemoveReelVideo}
+                        style={{
+                          right: '20px',
+                          position: 'absolute',
+                          borderRadius: '100%',
+                          background: '#b7b7b738',
+                          padding: '10px 10px',
+                        }}
+                      >
+                        <i className='las la-times'></i>
+                      </button>
+                    </>
+                  ) : (
+                    <div style={{ textAlign: 'center' }}>
+                      <label className='fileContainer'>
+                        <div className='reelvideo' type='submit'>
+                          <input
+                            type='file'
+                            name='reel_video'
+                            accept='video/*'
+                            onChange={handleFileReel}
+                          ></input>
+                          Add Reel Video
+                        </div>
+                      </label>
                     </div>
-                  </label>
-                </div>
-              )}
-            </span>
-            <textarea
-                className="textpopup"
-                rows={2}
-                placeholder={"Add Caption to your Reel"}
-                name="reel_content"
-                value={reelContent}
-                onChange={handleReelContent}
-              />
-            {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
-          </div>
-          {/* </> 
-                         
-       )}  */}
-        <button  className="popsbmt-btn" type="submit"
-            onClick={uploadReels}>SHARE REEL</button>
-        </Form>
-      )}
-    </Popup>
+                  )}
+                </span>
+                <textarea
+                    className="textpopup"
+                    rows={2}
+                    placeholder={"Add Caption to your Reel"}
+                    name="reel_content"
+                    value={reelContent}
+                    onChange={handleReelContent}
+                  />
+                {/* <div className='storyErr'>{uploadErrorStory ? `${uploadErrorStory}` : null}</div> */}
+              </div>
+              {/* </> 
+                            
+          )}  */}
+            <button  className="popsbmt-btn" type="submit"
+                onClick={uploadReels}>SHARE REEL</button>
+            </Form>
+          )}
+      </Popup>
 
     )
   }
@@ -613,6 +642,12 @@ function ReelFeedComponent() {
       setSearchedUser(res.data)
     })
   }
+  const getSavedReels = async () => {
+    await SavedService.getSavedReels(user.id).then(res => {
+      setSavedReels(res.data)
+      getSavedReels()
+    })
+  }
   const getFriendsList = async () => {
     await FriendsService.getFriends(AuthService.getCurrentUser().username).then(res => {
       setFriendsList(res.data)
@@ -666,14 +701,64 @@ const reelPopup =(reel,index)=>{
 
   const AllReelscomponentFunction = () => {
     return (
+      <div className="pb-5">
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab
+                  style={{ textTransform: "capitalize" }}
+                  label="Explore"
+                  value="1"
+                />
+                <Tab
+                  style={{ textTransform: "capitalize" }}
+                  label="Friends"
+                  value="2"
+                />
+              </TabList>
+            </Box>
+            <TabPanel value="1" style={{padding:'0', paddingTop:'1rem' ,}}>{ExploreReels()}</TabPanel>
+            <TabPanel value="2" style={{padding:'0', paddingTop:'1rem' ,}}>{FriendsReels()}</TabPanel>
+          </TabContext>
+        </Box>
+      </div>
+      
+    )
+  }
+  const ExploreReels = () =>{
+    return(
       <div className="loadMore">
-         <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <input className="friend-search" type="text" placeholder="Search Reels" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
+        </div> */}
+        {searchedReel && searchedReel.length > 0
+        ? (
+          <ul className="slidesreel center">
+          {searchedReel.map((reel, index) => 
+              reelPopup(reel,index)
+            )}
+            </ul>
+        )
+        : <div className="center" style={{padding: "20px"}}>No Reels to show</div>
+        }
+
+      </div>
+    )
+  }
+  const FriendsReels = () =>{
+    return(
+      <div className="loadMore">
+         {/* <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <input className="friend-search" type="text" placeholder="Search Reels" name="s" onChange={handleSearchedSwapFriend} style={{ width: "100%" }} />
-          </div>
-          {searchedReel && searchedReel.length > 0
+          </div> */}
+          {friendsReel && friendsReel.length > 0
           ? (
             <ul className="slidesreel center">
-            {searchedReel.map((reel, index) => 
+            {friendsReel.map((reel, index) => 
                 reelPopup(reel,index)
               )}
               </ul>
@@ -685,26 +770,89 @@ const reelPopup =(reel,index)=>{
     )
   }
 
-
   const MyReelsComponentFunction = () => {
     return (
-      <div className="loadMore">
-         <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <input className="friend-search" type="text" placeholder="Search Reel" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
-            </div>
-        {searchedReelforUser && searchedReelforUser.length > 0
-          ? (
-            <ul className="slidesreel">
-              {searchedReelforUser.map((reel, index) => (
-                reelPopup(reel,index)
+      <div className="pb-5">
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value="3">
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab
+                  style={{ textTransform: "capitalize" }}
+                  label="My Reels"
+                  value="3"
+                />
+               
+              </TabList>
+            </Box>
+            <TabPanel value="3" style={{padding:'0', paddingTop:'1rem' ,}}>
+              <div className="loadMore">
+                {/* <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <input className="friend-search" type="text" placeholder="Search Reel" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
+                    </div> */}
+                {searchedReelforUser && searchedReelforUser.length > 0
+                  ? (
+                    <ul className="slidesreel">
+                      {searchedReelforUser.map((reel, index) => (
+                        reelPopup(reel,index)
 
-              ))}
-            </ul>
+                      ))}
+                    </ul>
 
-          )
-          : <div className="center" style={{padding: "20px"}}>No Reels to show</div>
-        }
+                  )
+                  : <div className="center" style={{padding: "20px"}}>No Reels to show</div>
+                }
 
+              </div>
+            </TabPanel>
+          </TabContext>
+        </Box>
+      </div>
+      
+    )
+  }
+  const SavedReelsComponentFunction = () => {
+    return (
+      <div className="pb-5">
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value="4">
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                aria-label="lab API tabs example"
+              >
+                <Tab
+                  style={{ textTransform: "capitalize" }}
+                  label="Saved Reels"
+                  value="4"
+                />
+               
+              </TabList>
+            </Box>
+            <TabPanel value="4" style={{padding:'0', paddingTop:'1rem' ,}}>
+              <div className="loadMore">
+                {/* <div className="friends-search-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <input className="friend-search" type="text" placeholder="Search Reel" name="s" onChange={handleSearchedSwap} style={{ width: "100%" }} />
+                    </div> */}
+                {savedReels && savedReels.length > 0
+                  ? (
+                    <ul className="slidesreel">
+                      {savedReels.map((reel, index) => (
+                        reelPopup(reel,index)
+
+                      ))}
+                    </ul>
+
+                  )
+                  : <div className="center" style={{padding: "20px"}}>No Reels to show</div>
+                }
+
+              </div>
+              </TabPanel>
+          </TabContext>
+        </Box>
       </div>
     )
   }
@@ -714,13 +862,10 @@ const reelPopup =(reel,index)=>{
 			return AllReelscomponentFunction()
 		} else if (showComp === "MyReels") {
 			return MyReelsComponentFunction()
+		}else if (showComp === "SavedReels") {
+			return SavedReelsComponentFunction()
 		}
-		}
-
-
-
-
-
+	}
 
   if (isLoading) {
     return <div>Loading... Please Wait</div>
@@ -735,9 +880,12 @@ const reelPopup =(reel,index)=>{
       <div className="col-lg-6">
         <div className="central-meta swap-pg-cont">
           <div className="frnds">   
-            <div>
+            <div className='d-flex justify-content-between'>
               <p className="Friends-Title common-title">Reels</p>
-              <i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
+              <div className='d-flex'>
+                {addReel()}
+                <i style={{ float: "right", fontSize: 20 }} className="fas fa-ellipsis-v"></i>
+              </div>
             </div>
             <div className="navContent">
 
@@ -765,10 +913,15 @@ const reelPopup =(reel,index)=>{
                   </div>
                 </li>
                 <li className="nav-item" style={{ justifyContent: 'flex-end' }}>
-                 
-                   
-
-                    {addReel()}
+                <div className="my" onClick={() => setShowComp("SavedReels")}>
+                    <span style={{ cursor: 'pointer' }}>
+                      <span style={{ marginRight: '5px', padding: '5px' }}>
+                        <i className="lar la-bookmark" style={{ fontSize: '18px' }}></i>
+                        {/* <span>{`${following.length}`}</span> */}
+                      </span>
+                     Saved Reels
+                    </span>
+                  </div>
                 </li>
                 {/* <li className="nav-item">
                   <span style={{ cursor: 'pointer' }}>

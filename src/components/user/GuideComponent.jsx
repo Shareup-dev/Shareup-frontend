@@ -317,7 +317,7 @@ function GuideComponent() {
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => validateStep(1)}
           />
@@ -406,14 +406,14 @@ function GuideComponent() {
           <input
             type="button"
             name="previous"
-            className="previous action-button-previous"
+            className="previous action-button-previous common-trans-btn1"
             defaultValue="Previous"
             onClick={() => setStep(0)}
           />
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => setStep(2)}
           />
@@ -498,14 +498,14 @@ function GuideComponent() {
           <input
             type="button"
             name="previous"
-            className="previous action-button-previous"
+            className="previous action-button-previous common-trans-btn1"
             defaultValue="Previous"
             onClick={() => setStep(1)}
           />
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => {
               setStep(3);

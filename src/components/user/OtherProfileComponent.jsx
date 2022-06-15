@@ -409,7 +409,10 @@ function OtherProfileComponent() {
 
   const handleShow = () => {
     if (show === "timeline") {
-      return <PostProfileComponent posts={myPost} setRefresh={setRefresh} showPostInput={user&&user.id === userProfile?.id ?true:false}/>;
+      if(myPost&&myPost.length>0)
+        return <PostProfileComponent posts={myPost} setRefresh={setRefresh} showPostInput={user&&user.id === userProfile?.id ?true:false}/>
+      else 
+      return <div className="central-meta" style={{minHeight:'450px',textAlign:'center'}}> <div style={{padding:'20px'}}>No Activities</div></div>
     }
     if (show === "photos") {
       return (
@@ -864,12 +867,8 @@ function OtherProfileComponent() {
                               <>
                                 <button
                                   title=""
-                                  className="button"
-                                  style={{
-                                    width: "15%",
-                                    margin: "10px",
-                                    padding: "0px 5px",
-                                  }}
+                                  className="button common-theme-btn1"
+                                  
                                   onClick={() =>
                                     acceptFriendRequest(user.id, userProfile?.id)
                                   }
@@ -878,12 +877,8 @@ function OtherProfileComponent() {
                                 </button>
                                 <button
                                   title=""
-                                  className="button"
-                                  style={{
-                                    width: "15%",
-                                    margin: "10px",
-                                    padding: "0px 5px",
-                                  }}
+                                  className="button common-trans-btn1"
+                                 
                                   onClick={() =>
                                     declineFriendRequest(user.id, userProfile?.id)
                                   }
@@ -896,12 +891,8 @@ function OtherProfileComponent() {
                             ) ? (
                               <button
                                 title=""
-                                className="button"
-                                style={{
-                                  width: "25%",
-                                  margin: "10px",
-                                  padding: "0 5px",
-                                }}
+                                className="button common-trans-btn1"
+                                
                                 onClick={() =>
                                   unsendFriendRequest(user.id, userProfile?.id)
                                 }
@@ -911,12 +902,8 @@ function OtherProfileComponent() {
                             ) : (
                               <button
                                 title=""
-                                className="button"
-                                style={{
-                                  width: "25%",
-                                  margin: "10px",
-                                  padding: "0 5px",
-                                }}
+                                className="button common-theme-btn1"
+                               
                                 onClick={() =>
                                   sendFriendRequest(user.id, userProfile?.id)
                                 }
@@ -928,7 +915,7 @@ function OtherProfileComponent() {
                             <>
                               <button
                                 title=""
-                                className="button common-theme-btn1"
+                                className="button common-trans-btn1"
                                 
                                 onClick={() =>
                                   removeFriend(user.id, userProfile?.id)

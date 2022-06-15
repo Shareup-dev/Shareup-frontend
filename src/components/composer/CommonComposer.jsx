@@ -2512,7 +2512,11 @@ function CommonComposer(props) {
   };
 
   useEffect(() => {}, [postsForUser]);
-
+  const commentChangedFunction = (props) => {
+    if (props) {
+      getPostForUser()
+    }
+  }
   const show = () => {
     return (
       <div className="loadMore">
@@ -2528,10 +2532,11 @@ function CommonComposer(props) {
                   setRefresh={setRefresh}
                   user={user}
                   userF={userF}
+                  commentChangedFunction={commentChangedFunction}
                 />
               ) : null
             ) : (
-              <PostComponent post={post} setRefresh={setRefresh} />
+              <PostComponent post={post} setRefresh={setRefresh} commentChangedFunction={commentChangedFunction}/>
             )}
           </div>
         ))}
