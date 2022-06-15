@@ -119,6 +119,7 @@ export default function ReelCommentComponent(props) {
         ReelsService.addCommentsForReel(user.id, reelid, comment).then(
           (res) => {
             sortComment();
+            handleSendNotification(res.data.userdata.id,'comment on your reel',user?.firstName,user?.lastName,user?.email,"comment",reelid);
             // props.setRefresh(res.data)
             setCommentContent("");
           }

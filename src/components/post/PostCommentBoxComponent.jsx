@@ -87,6 +87,21 @@ export default function PostComponentBoxComponent(props) {
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
           sortComment()
+          switch (res.data.allPostsType){
+            case 'hangShare':
+              handleSendNotification(res.data.userdata.id,'comment on your hangShare',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'post':
+              handleSendNotification(res.data.userdata.id,'comment on your post',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'share':
+              handleSendNotification(res.data.userdata.id,'comment on your shared post',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'swap':
+              handleSendNotification(res.data.userdata.id,'comment on your swap',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+          }
+
           props.commentChangedFunction(postid)
           // props.setRefresh(res.data)
           setCommentContent("");
