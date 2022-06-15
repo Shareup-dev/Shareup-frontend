@@ -139,7 +139,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
+      console.log("like all post ")
+      console.log(res.data)
       if(res.status ===201){
+        
         switch (res.data.allPostsType){
           case 'hangShare':
             handleSendNotification(res.data.userdata.id,'Liked your hangShare',user.firstName,user.lastName,user.email,"hangShare",post.id)        
@@ -151,7 +154,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
             handleSendNotification(res.data.userdata.id,'Liked your shared post',user.firstName,user.lastName,user.email,"share",post.id)        
           break;
           case 'swap':
-            handleSendNotification(res.data.userdata.id,'Liked your shared swap',user.firstName,user.lastName,user.email,"swap",post.id)        
+            handleSendNotification(res.data.userdata.id,'Liked your swap',user.firstName,user.lastName,user.email,"swap",post.id)        
           break;
         }
 
