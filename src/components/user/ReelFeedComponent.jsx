@@ -40,6 +40,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function ReelFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
@@ -404,6 +405,8 @@ function ReelFeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your reel',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }

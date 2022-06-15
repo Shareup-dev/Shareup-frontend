@@ -35,6 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -256,6 +257,10 @@ function OtherProfileComponent() {
   const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
     });
   };
   const removeFriend = (uid, fid) => {
@@ -266,6 +271,10 @@ function OtherProfileComponent() {
   const handleFollow = (uid) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
     });
   };
 

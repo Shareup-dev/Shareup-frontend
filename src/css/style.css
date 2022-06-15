@@ -6582,10 +6582,27 @@ canvas {
   font-size: 12px;
 }
 
-.top-area > ul.setting-area div.noti,
+.top-area > ul.setting-area div.noti{
+ 
+position: relative;
+
+}
+.top-area > ul.setting-area div.counternotification{
+  background-color:red;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  font-size: 11px;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  top: -9px;
+  right: -9px;
+}
 .top-area > ul.setting-area div.mssg {
-  vertical-align: middle;
-  padding-top: 3px;
+
+  position: relative;
 }
 
 /*--- side chat message box ---*/
