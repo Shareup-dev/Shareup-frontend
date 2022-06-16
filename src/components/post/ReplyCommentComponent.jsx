@@ -12,7 +12,7 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from "jquery";
 import moment from "moment";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function ReplyCommentComponent(props) {
   const { user } = useContext(UserContext);
   const ref = useRef(null);
@@ -82,6 +82,7 @@ export default function ReplyCommentComponent(props) {
           (res) => {
             // console.log(res.status)
             // setReplyCommentFlag(false)
+            handleSendNotification(res.data.userdata.id,'Replied to your comment on post',user.firstName,user.lastName,user.email,"reply",res.data.id)
             getReplies(props.comment.id);
             setReplyContent("");
             setReplyListFlag(true);

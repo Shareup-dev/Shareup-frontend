@@ -12,7 +12,7 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from "jquery";
 import moment from "moment";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 export default function ReelReplyCommentComponent(props) {
   const { user } = useContext(UserContext);
   const ref = useRef(null);
@@ -78,6 +78,7 @@ export default function ReelReplyCommentComponent(props) {
         CommentsService.replyComment(user.id, props.comment.id, replyCon).then(
           (res) => {
             // setReplyCommentFlag(false)
+            handleSendNotification(res.data.userdata.id,'Replied to your comment on reel',user.firstName,user.lastName,user.email,"reply",res.data.id)
             getReplies(props.comment.id);
             setReplyContent("");
             setReplyListFlag(true);
