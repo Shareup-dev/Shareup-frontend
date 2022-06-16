@@ -12,7 +12,7 @@ import {useSelector} from "react-redux"
 import moment from 'moment';
 import {over} from 'stompjs';
 import {notification} from "antd";
-import "antd/dist/antd.css";
+
 import {store} from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
