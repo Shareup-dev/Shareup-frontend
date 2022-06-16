@@ -139,9 +139,9 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
-      if(res.status ===201){
+      // console.log('gelllllllllllllll')
         handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post.id)        
-       }
+       
 
       setRefresh(res.data);
     });

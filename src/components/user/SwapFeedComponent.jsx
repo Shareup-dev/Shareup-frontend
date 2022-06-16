@@ -813,7 +813,7 @@ function SwapFeedComponent() {
         {(close) => (
           <Form style={{ paddingRight: '11px', paddinLeft: '11px', paddingBottom: '0px' }}
             className='popwidth' onSubmit={close}>
-            <div className='headpop' style={{ padding: '0px' }}>
+            <div className='headpop' style={{ padding: "0px" , flexDirection:'column' }}>
               <div className='row' style={{ paddingBottom: '10px', paddingtop: '10px' }}>
                 <div style={{ width: '5%', paddingBottom: '10px' }}>
                   <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>

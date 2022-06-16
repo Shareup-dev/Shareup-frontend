@@ -11,7 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
 import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
-export default function SwapPostComponent({ post, setRefresh }) {
+export default function SwapPostComponent({ post, setRefresh, commentChangedFunction }) {
     const { user } = useContext(UserContext)
     const [editPostId, setEditPostId] = useState(null)
     const [userR, setUserR] = useState([]);
@@ -114,10 +114,10 @@ export default function SwapPostComponent({ post, setRefresh }) {
         }
         return (<img src="/assets/images/Starwhite.svg" alt="" />)
     }
-
+     
     return (
         <div key={post.id}>
-{post.swapImagePath ?
+        {post.swapImagePath ?
         <div className="central-meta item" >
              
             <div className="user-post">
@@ -130,19 +130,19 @@ export default function SwapPostComponent({ post, setRefresh }) {
                            
                             <>
                             <div className="grid-container1">
-<div className="itemS1">
-{post.postImagePath ?
-                                <div className="postImage">
-                                    <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${post.imagePath}`} /> </a></div> : null
-                                }
-</div>                              
-<div className="itemS2"><div className="swapbtnfeed"><i className="las la-sync"></i></div></div>
-<div className="itemS3">
-<>
+                                <div className="itemS1">
+                                    {post.postImagePath ?
+                                    <div className="postImage">
+                                        <a href={`/user-post/${post.id}/${post.imagePath}`} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={`${post.imagePath}`} /> </a></div> : null
+                                    }
+                                    </div>                              
+                                <div className="itemS2"><div className="swapbtnfeed"><i className="las la-sync"></i></div></div>
+                                    <div className="itemS3">
+                                    <>
                                 
                                     <div className="swapImage">
                                     <a href={post.swapImagePath} data-lightbox={`image-user-${post.user.id}`}><img style={{ width: '100%', height: '300px',objectFit:'cover' }} src={fileStorage.baseUrl+post.swapImagePath} /> </a></div> </>
-</div>
+                                </div>
 
                             </div>
                             
@@ -171,7 +171,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
                                 } */}
 
                                 
-<figure>
+                            <figure>
                                 <img src={fileStorage.baseUrl+post.user.profilePicturePath} alt="" />
                             </figure>
                             
@@ -248,7 +248,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
                         :
                         <EditPostComponent post={post} set={handleEditingSave} />
                 }
-<div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
+                            <div className="add-dropdown" onClick={() => setShowMoreOptions(!showMoreOptions)}>
                                         <span title="add icon" ><i className="las la-ellipsis-h"></i></span>
                                     </div>
                                     {
@@ -272,7 +272,7 @@ export default function SwapPostComponent({ post, setRefresh }) {
                 {/* Till here */}
                 <div className="coment-area">
                     <ul className="we-comet">
-                        <PostComponentBoxComponent post={post} setRefresh={setRefresh} />
+                        <PostComponentBoxComponent post={post} setRefresh={setRefresh}  commentChangedFunction={commentChangedFunction}/>
                         {
                             showComment && <CommentPostComponent post={post} setRefresh={setRefresh} />
                         }

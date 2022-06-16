@@ -1269,7 +1269,7 @@ function PostTextBoxComponent() {
             className="popwidth"
             onSubmit={close}
           >
-            <div className="headpop" style={{ padding: "0px" }}>
+            <div className="headpop" style={{ padding: "0px" , flexDirection:'column' }}>
               <div
                 className="row"
                 style={{ paddingBottom: "10px", paddingtop: "10px" }}

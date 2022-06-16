@@ -12,14 +12,14 @@ import { useSelector } from "react-redux"
 import moment from 'moment';
 import { over } from 'stompjs';
 import { notification } from "antd";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 import { store } from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
-import { toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import { Client } from '@stomp/stompjs';
-// Import toastify css file
-import 'react-toastify/dist/ReactToastify.css';
+
 import { grey } from '@mui/material/colors';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
@@ -28,7 +28,7 @@ let stompClient = null;
 
 // toast-configuration method,
 // it is compulsory method.
-toast.configure();
+// toast.configure();
 
 export const handleSendNotification = (to, content, userFirstName, userLastname, email, action, applyOnId) => {
   console.log("inside send notification", stompClient);
@@ -434,6 +434,7 @@ function ShareupInsideHeaderComponent() {
 
         </div>
       </div>
+      
     </div>
   );
 }
