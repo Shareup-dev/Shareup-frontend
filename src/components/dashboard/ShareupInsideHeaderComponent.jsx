@@ -12,7 +12,7 @@ import {useSelector} from "react-redux"
 import moment from 'moment';
 import {over} from 'stompjs';
 import {notification} from "antd";
-
+import "antd/dist/antd.css";
 import {store} from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
@@ -85,10 +85,10 @@ let notificaionflag = false;
   };
   const connect =()=>{
     var sock = new SockJS('https://api.shareup.qa/ws');
- stompClient = Stomp.over(sock);
-sock.onopen = function() {
-  console.log('open');
-}
+    stompClient = Stomp.over(sock);
+    sock.onopen = function() {  
+         console.log('open');
+} 
 stompClient.connect({}, function (frame) {
    console.log('Connected: ' + frame);
    stompClient.subscribe('/user/'+AuthService.getCurrentUser().username+'/notification',
