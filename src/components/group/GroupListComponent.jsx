@@ -161,7 +161,7 @@ function GroupListComponent({ post }) {
 		})
 	}
 	const showGroupFeedComponent = () => {
-		return (<div className="tab-content">
+		return (<div className="tab-content" style={{borderTop:'1px solid rgba(117, 117, 117, 0.19)'}}>
 			<PostProfileComponent posts={groupsPost} setRefresh={setRefresh} />
 		</div>)
 	}
@@ -359,8 +359,6 @@ function GroupListComponent({ post }) {
 								<i style={{ float: "right", fontSize: 18 }} className="fas fa-ellipsis-v"></i>
 							</div>
 						</div>
-
-
 					</div>
 					<div className="navContent">
 						<ul className="nav nav-pills swap-page-nav " role="tablist">

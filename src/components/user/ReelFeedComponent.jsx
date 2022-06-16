@@ -648,7 +648,7 @@ function ReelFeedComponent() {
   const getSavedReels = async () => {
     await SavedService.getSavedReels(user.id).then(res => {
       setSavedReels(res.data)
-      getSavedReels()
+      // getSavedReels()
     })
   }
   const getFriendsList = async () => {
