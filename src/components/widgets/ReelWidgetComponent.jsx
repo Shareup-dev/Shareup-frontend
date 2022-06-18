@@ -213,7 +213,7 @@ export default function ReelWidgetComponent(props) {
                     {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
                     <span style={{ float: "right" }}>
                       {" "}
-                      <button
+                      {/* <button
                         style={{
                           float: "right",
                           borderRadius: "20px",
@@ -223,7 +223,7 @@ export default function ReelWidgetComponent(props) {
                         onClick={uploadReels}
                       >
                         Upload
-                      </button>
+                      </button> */}
                     </span>
                   </div>
 

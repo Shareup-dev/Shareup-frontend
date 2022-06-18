@@ -472,7 +472,7 @@ function ReelFeedComponent() {
                 {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
                 <span style={{ float: "right" }}>
                   {" "}
-                  <button
+                  {/* <button
                     style={{
                       float: "right",
                       borderRadius: "20px",
@@ -482,7 +482,7 @@ function ReelFeedComponent() {
                     onClick={uploadReels}
                   >
                     Upload
-                  </button>
+                  </button> */}
                 </span>
             </div>
 

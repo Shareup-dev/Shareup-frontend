@@ -1029,9 +1029,9 @@ function SwapFeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: '20%', textAlign: 'right', padding: '0' }}>
-                  <a className='popup-btn' href='/HangGift'>
+                  {/* <a className='popup-btn' href='/HangGift'>
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

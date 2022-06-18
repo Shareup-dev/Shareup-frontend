@@ -375,7 +375,9 @@ const handleCounterReaction = () => {
 		  
 		<div className="row"><div style={{width:'5%'}}><a href="#!" style={{padding:'10px 80px 10px 0'}} onClick={close}><i className="las la-times"></i></a></div>
 		<div style={{ color:'#000000',fontSize:'14px',fontWeight:'bold',width:'70%',textAlign: 'center'}}> <span>Today to me, Tomorrow to you</span></div>
-		<div style={{width:'25%',textAlign:'right'}}><a className="popup-btn" href="/HangGift" >Keep Hang</a></div>
+		<div style={{width:'25%',textAlign:'right'}}>
+			{/* <a className="popup-btn" href="/HangGift" >Keep Hang</a> */}
+		</div>
 		</div></div>
 	
 		<div style={{padding:'0 11px 11px 11px'}}><div className="popupimg"> 

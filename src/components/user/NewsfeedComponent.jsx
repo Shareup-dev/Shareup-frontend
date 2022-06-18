@@ -1404,13 +1404,13 @@ function NewsfeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right", padding: "0" }}>
-                  <a
+                  {/* <a
                     className="popup-btn"
                     href="/HangGift"
                     style={{ padding: "4px" }}
                   >
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1569,9 +1569,9 @@ function NewsfeedComponent() {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="/HangGift">
+                  {/* <a className="popup-btn" href="/HangGift">
                     Keep Hang
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1729,7 +1729,7 @@ function NewsfeedComponent() {
                   <span>We share, do you</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn">Keep Post</a>
+                  {/* <a className="popup-btn">Keep Post</a> */}
                 </div>
               </div>
             </div>
@@ -1922,9 +1922,9 @@ function NewsfeedComponent() {
                   <span>What's on your mind</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="">
+                  {/* <a className="popup-btn" href="">
                     Keep share
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -2072,7 +2072,7 @@ function NewsfeedComponent() {
                     <span>We share, do you</span>
                   </div>
                   <div style={{ width: "20%", textAlign: "right" }}>
-                    <a className="popup-btn">Keep Post</a>
+                    {/* <a className="popup-btn">Keep Post</a> */}
                   </div>
                 </div>
               </div>

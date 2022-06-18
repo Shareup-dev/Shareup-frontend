@@ -732,9 +732,9 @@ function PostTextBoxComponent() {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: "25%", textAlign: "right" }}>
-                  <a className="popup-btn" href="/HangGift">
+                  {/* <a className="popup-btn" href="/HangGift">
                     Keep Hang
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1724,13 +1724,13 @@ function PostTextBoxComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right", padding: "0" }}>
-                  <a
+                  {/* <a
                     className="popup-btn"
                     href="/HangGift"
                     style={{ padding: "4px" }}
                   >
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

@@ -2056,7 +2056,7 @@ function CommonComposer(props) {
                     <span>We share, do you</span>
                   </div>
                   <div style={{ width: "20%", textAlign: "right" }}>
-                    <a className="popup-btn">Keep Post</a>
+                    {/* <a className="popup-btn">Keep Post</a> */}
                   </div>
                 </div>
               </div>
