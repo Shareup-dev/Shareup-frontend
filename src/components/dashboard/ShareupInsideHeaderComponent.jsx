@@ -16,7 +16,7 @@ import { notification } from "antd";
 import { store } from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
-// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import { Client } from '@stomp/stompjs';
 
@@ -28,7 +28,7 @@ let stompClient = null;
 
 // toast-configuration method,
 // it is compulsory method.
-// toast.configure();
+ toast.configure();
 
 export const handleSendNotification = (to, content, userFirstName, userLastname, email, action, applyOnId) => {
   console.log("inside send notification", stompClient);
@@ -184,7 +184,7 @@ function ShareupInsideHeaderComponent() {
     console.log("got message");
     console.log(payload)
     var json = JSON.parse(payload.body);
-    notification.config({
+   /* notification.config({
       placement: "bottomLeft",
     });
 
@@ -194,8 +194,8 @@ function ShareupInsideHeaderComponent() {
           <b>{json.userdata.firstName} {json.userdata.lastName}</b>  {json.content}
         </div>
       )
-    });
-
+    });*/
+    toast(displayToastnotification(json),{position: toast.POSITION.BOTTOM_LEFT})   
     setTotal(prevTotal => prevTotal + 1)
     setNewNotificationFlag(true);
   }
@@ -257,6 +257,27 @@ function ShareupInsideHeaderComponent() {
       <span >{content}</span>
     )
   }
+  const displayToastnotification =(item)=>
+  {
+    return ( 
+      <ul className="drops-menu">
+      <li key={item.toString()} style={{ color: "black", fontSize: "16px"}} onClick={() => handleReadNotifications(item.id)} >
+      <a >
+      <img src={item.userdata.profilePicturePath} alt="" />
+     
+      <div className="mesg-meta" style={{ color: "black",fontSize: "18px"}}>
+        <h6>{item.userdata.firstName} {item.userdata.lastName} </h6>
+        {displayNotification(item.content)}
+        <div style={{ color: "black", fontSize: "12px"}} >
+          <span>{moment(item.notificationDate).fromNow()}</span>
+        </div>
+      </div>
+    </a>
+ </li>
+ </ul>
+   )
+  }
+
   return (
     <div className="topbar stick">
 
