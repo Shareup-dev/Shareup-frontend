@@ -61,6 +61,7 @@ export default function ReelWidgetComponent(props) {
    return ReelsServices.createReels(user.id, formData).then((res) => {
       handleRemoveReelVideo();
       setReels(res.data);
+      setReelContent("")
       setRefresh(res.data);
       setDisable(false);
     });
@@ -111,11 +112,12 @@ export default function ReelWidgetComponent(props) {
     setReelContent(event.target.value);
   };
   const likeReel = async (reelId) => {
-    let params = {};
+    let params = {}
     await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
-      getReelForUserFriends();
-    });
-  };
+      getReelForUserFriends()
+
+    })
+  }
   const handleRemoveReelVideo = () => {
     setFilesReel({});
     setShowReelVideo(false);
@@ -273,7 +275,10 @@ export default function ReelWidgetComponent(props) {
             </Popup>
 
             <div className="add-reel">
-              <a href="/reelFeed" style={{ color: "white" }}>
+              <a
+                href="/reelFeed"
+                style={{ color: "white" }}
+              >
                 {" "}
                 Explore Reels{" "}
               </a>
@@ -282,5 +287,6 @@ export default function ReelWidgetComponent(props) {
         </div>
       </div>
     </div>
-  );
+
+  )
 }

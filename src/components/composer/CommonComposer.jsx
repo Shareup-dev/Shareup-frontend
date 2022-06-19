@@ -1412,13 +1412,13 @@ function CommonComposer(props) {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right", padding: "0" }}>
-                  <a
+                  {/* <a
                     className="popup-btn"
                     href="/HangGift"
                     style={{ padding: "4px" }}
                   >
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1577,9 +1577,9 @@ function CommonComposer(props) {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="/HangGift">
+                  {/* <a className="popup-btn" href="/HangGift">
                     Keep Hang
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1928,9 +1928,9 @@ function CommonComposer(props) {
                   <span>What's on your mind</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="">
+                  {/* <a className="popup-btn" href="">
                     Keep share
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -2056,7 +2056,7 @@ function CommonComposer(props) {
                     <span>We share, do you</span>
                   </div>
                   <div style={{ width: "20%", textAlign: "right" }}>
-                    <a className="popup-btn">Keep Post</a>
+                    {/* <a className="popup-btn">Keep Post</a> */}
                   </div>
                 </div>
               </div>
@@ -2234,7 +2234,7 @@ function CommonComposer(props) {
             className="popwidth"
             onSubmit={close}
           >
-            <div className="headpop" style={{ padding: "0px" }}>
+            <div className="headpop" style={{ padding: "0px" , flexDirection:'column' }}>
               <div
                 className="row"
                 style={{ paddingBottom: "10px", paddingtop: "10px" }}
@@ -2512,7 +2512,11 @@ function CommonComposer(props) {
   };
 
   useEffect(() => {}, [postsForUser]);
-
+  const commentChangedFunction = (props) => {
+    if (props) {
+      getPostForUser()
+    }
+  }
   const show = () => {
     return (
       <div className="loadMore">
@@ -2528,10 +2532,11 @@ function CommonComposer(props) {
                   setRefresh={setRefresh}
                   user={user}
                   userF={userF}
+                  commentChangedFunction={commentChangedFunction}
                 />
               ) : null
             ) : (
-              <PostComponent post={post} setRefresh={setRefresh} />
+              <PostComponent post={post} setRefresh={setRefresh} commentChangedFunction={commentChangedFunction}/>
             )}
           </div>
         ))}

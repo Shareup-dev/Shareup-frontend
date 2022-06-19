@@ -37,7 +37,7 @@ import { store } from "../../app/store";
 
 import { setSearchTerm } from "../../app/searchSlice";
 
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 function SearchFeedComponent() {
     const [isLoading, setIsLoading] = useState(true);
@@ -487,6 +487,8 @@ function SearchFeedComponent() {
 
     const handleLikePost = async (post_id) => {
         UserService.likePost(user.id, post_id).then(res => {
+            handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
             setRefresh(res.data)
         })
     }
@@ -802,6 +804,10 @@ function SearchFeedComponent() {
     const sendFriendRequest = (uid, fid) => {
         FriendsService.sendRequest(uid, fid).then(res => {
             setRefresh(res.data)
+            console.log("sent friend request to you search feed component"+user?.firstName+user?.lastName+user?.email);
+
+            handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
         })
     }
 

@@ -27,6 +27,7 @@ import moment from "moment";
 import ReactPlayer from "react-player";
 import { Player } from 'video-react';
 import ReelsServices from "../../services/ReelsServices";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 const my_url = `${storage.baseUrl}`;
 
 export default function ReelPostComponent({ post, setRefresh }) {
@@ -131,6 +132,8 @@ export default function ReelPostComponent({ post, setRefresh }) {
 
   const handleLikePost = async (post_id) => {
     await UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data);
     });
   };

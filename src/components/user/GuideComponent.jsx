@@ -8,7 +8,7 @@ import UserService from "../../services/UserService";
 import FriendsService from "../../services/FriendService";
 import settings from "../../services/Settings";
 import fileStorage from "../../config/fileStorage";
-
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function GuideComponent() {
   let history = useHistory();
 
@@ -72,6 +72,10 @@ function GuideComponent() {
   const sendFriendRequest = (uid, fid) => {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      console.log("sent friend request to you guide component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
     });
   };
 
@@ -95,6 +99,10 @@ function GuideComponent() {
   const handleFollow = (uid) => {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      console.log("follow you guide component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
     });
   };
 
@@ -317,7 +325,7 @@ function GuideComponent() {
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => validateStep(1)}
           />
@@ -406,14 +414,14 @@ function GuideComponent() {
           <input
             type="button"
             name="previous"
-            className="previous action-button-previous"
+            className="previous action-button-previous common-trans-btn1"
             defaultValue="Previous"
             onClick={() => setStep(0)}
           />
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => setStep(2)}
           />
@@ -498,14 +506,14 @@ function GuideComponent() {
           <input
             type="button"
             name="previous"
-            className="previous action-button-previous"
+            className="previous action-button-previous common-trans-btn1"
             defaultValue="Previous"
             onClick={() => setStep(1)}
           />
           <input
             type="button"
             name=""
-            className="action-button"
+            className="action-button common-theme-btn1"
             defaultValue="Next Step"
             onClick={() => {
               setStep(3);

@@ -221,9 +221,9 @@ function ShareFeedComponent() {
                 />
               </TabList>
             </Box>
-            <TabPanel value="1">{AllHangShareShow()}</TabPanel>
-            <TabPanel value="2">{MealsHangShareShow()}</TabPanel>
-            <TabPanel value="3">{GiftsHangShareShow()}</TabPanel>
+            <TabPanel value="1" style={{padding:'0'}}>{AllHangShareShow()}</TabPanel>
+            <TabPanel value="2" style={{padding:'0'}}>{MealsHangShareShow()}</TabPanel>
+            <TabPanel value="3" style={{padding:'0'}}>{GiftsHangShareShow()}</TabPanel>
           </TabContext>
         </Box>
       </div>
@@ -252,8 +252,8 @@ function ShareFeedComponent() {
                 />
               </TabList>
             </Box>
-            <TabPanel value="1">{MyHangShareShow()}</TabPanel>
-            <TabPanel value="2">{MyAcceptedHSShow()}</TabPanel>
+            <TabPanel value="1" style={{padding:'0'}}>{MyHangShareShow()}</TabPanel>
+            <TabPanel value="2" style={{padding:'0'}}>{MyAcceptedHSShow()}</TabPanel>
           </TabContext>
         </Box>
       </div>
@@ -265,7 +265,7 @@ function ShareFeedComponent() {
       <div className="loadMore">
         {myHangShare && myHangShare.length > 0 ? (
           myHangShare.map((post) => (
-            <div style={{ paddingBottom: "10px" }} key={post.id}>
+            <div  key={post.id}>
               {post.group
                 ? post.group.members.some(
                     (member) =>

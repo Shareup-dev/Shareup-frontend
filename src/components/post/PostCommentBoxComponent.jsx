@@ -12,6 +12,7 @@ import Giphy from "../Giphy";
 import Stickers from "../Stickers";
 import $ from "jquery";
 import CommentPostComponent from "./CommentPostComponent";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 
 export default function PostComponentBoxComponent(props) {
   const { user } = useContext(UserContext);
@@ -86,6 +87,21 @@ export default function PostComponentBoxComponent(props) {
       } else {
         PostService.addComment(user.id, postid, comment).then(res => {
           sortComment()
+          switch (res.data.allPostsType){
+            case 'hangShare':
+              handleSendNotification(res.data.userdata.id,'comment on your hangShare',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'post':
+              handleSendNotification(res.data.userdata.id,'comment on your post',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'share':
+              handleSendNotification(res.data.userdata.id,'comment on your shared post',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+            case 'swap':
+              handleSendNotification(res.data.userdata.id,'comment on your swap',user?.firstName,user?.lastName,user?.email,"comment",postid);
+            break;
+          }
+          
           props.commentChangedFunction(postid)
           // props.setRefresh(res.data)
           setCommentContent("");
@@ -99,16 +115,24 @@ export default function PostComponentBoxComponent(props) {
 
       // props.setRefresh(res.data)
     });
+
   };
-  const likeComment = async (comment, reaction) => {
-    await CommentsService.LikeComment(user.id, comment.id, reaction).then(
-      (res) => {
-        sortComment();
-        // getReplies(res.data)
-        // checkIfLiked(comment)
+  const likeComment = async (comment,reaction) => {
+
+
+    await CommentsService.LikeComment(user.id, comment.id, reaction).then((res) => {
+      
+     if(res.status ===201){
+       handleSendNotification(res.data.user.id,'Liked your comment',user.firstName,user.lastName,user.email,"comment",comment.id)
+       sortComment()
+      }else if(res.status ===200){
+       sortComment()
       }
-    );
-  };
+      
+      // getReplies(res.data)
+      // checkIfLiked(comment)
+    })
+  }
 
   const commentInput = () => {
     return (

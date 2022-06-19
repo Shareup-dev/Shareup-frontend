@@ -35,6 +35,7 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import FriendRequestProfileComponent from "../Profile/FriendRequestProfileComponent";
 import FriendFollowProfileComponent from "../Profile/FriendFollowProfileComponent";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function OtherProfileComponent() {
   const { email: user_email } = useParams();
 
@@ -266,6 +267,9 @@ function OtherProfileComponent() {
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
       setDisable(false);
+      console.log("sent friend request to you other profile  component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
 
     });
   };
@@ -281,6 +285,10 @@ function OtherProfileComponent() {
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
       setDisable(false);
+      console.log("follows you other profile component"+user?.firstName+user?.lastName+user?.email);
+
+      handleSendNotification(uid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
     });
   };
 
@@ -426,13 +434,10 @@ function OtherProfileComponent() {
 
   const handleShow = () => {
     if (show === "timeline") {
-      return (
-        <PostProfileComponent
-          posts={myPost}
-          setRefresh={setRefresh}
-          showPostInput={user && user.id === userProfile?.id ? true : false}
-        />
-      );
+      if(myPost&&myPost.length>0)
+        return <PostProfileComponent posts={myPost} setRefresh={setRefresh} showPostInput={user&&user.id === userProfile?.id ?true:false}/>
+      else 
+      return <div className="central-meta" style={{minHeight:'450px',textAlign:'center'}}> <div style={{padding:'20px'}}>No Activities</div></div>
     }
     if (show === "photos") {
       return (
@@ -901,6 +906,7 @@ function OtherProfileComponent() {
                                 <button
                                   title=""
                                   className="button common-theme-btn1"
+                                  
                                   onClick={() =>
                                     acceptFriendRequest(
                                       user.id,
@@ -912,7 +918,8 @@ function OtherProfileComponent() {
                                 </button>
                                 <button
                                   title=""
-                                  className="button common-theme-btn1"
+                                  className="button common-trans-btn1"
+                                 
                                   onClick={() =>
                                     declineFriendRequest(
                                       user.id,
@@ -939,7 +946,8 @@ function OtherProfileComponent() {
                                 ) : (
                               <button
                                 title=""
-                                className="button common-theme-btn1"
+                                className="button common-trans-btn1"
+                                
                                 onClick={() =>
                                   unsendFriendRequest(user.id, userProfile?.id)
                                 }
@@ -985,7 +993,8 @@ function OtherProfileComponent() {
                                 ) : (
                               <button
                                 title=""
-                                className="button common-theme-btn1"
+                                className="button common-trans-btn1"
+                                
                                 onClick={() =>
                                   removeFriend(user.id, userProfile?.id)
                                 }

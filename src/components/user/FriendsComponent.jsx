@@ -8,7 +8,7 @@ import Layout from '../LayoutComponent';
 import { testScript } from '../../js/script';
 import settings from '../../services/Settings';
 import fileStorage from '../../config/fileStorage';
-
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function FriendsComponent() {
 	let history = useHistory();
 
@@ -114,6 +114,10 @@ function FriendsComponent() {
 	const sendFriendRequest = (uid, fid) => {
 		FriendsService.sendRequest(uid, fid).then(res => {
 			setRefresh(res.data)
+			console.log("sent friend request to you friends component"+user?.firstName+user?.lastName+user?.email);
+
+			handleSendNotification(fid,'sent friend request to you',user?.firstName,user?.lastName,user?.email,"friendRequest",res.data.id);
+
 		})
 	}
 

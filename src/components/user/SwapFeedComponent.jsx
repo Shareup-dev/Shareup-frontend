@@ -26,7 +26,7 @@ import PostComponent from '../post/PostComponent';
 import fileStorage from '../../config/fileStorage';
 
 import LocSearchComponent from '../AccountSettings/LocSearchComponent';
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function SwapFeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -439,6 +439,8 @@ function SwapFeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then(res => {
+      handleSendNotification(res.data.userdata.id,'Liked your swap',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data)
     })
   }
@@ -811,7 +813,7 @@ function SwapFeedComponent() {
         {(close) => (
           <Form style={{ paddingRight: '11px', paddinLeft: '11px', paddingBottom: '0px' }}
             className='popwidth' onSubmit={close}>
-            <div className='headpop' style={{ padding: '0px' }}>
+            <div className='headpop' style={{ padding: "0px" , flexDirection:'column' }}>
               <div className='row' style={{ paddingBottom: '10px', paddingtop: '10px' }}>
                 <div style={{ width: '5%', paddingBottom: '10px' }}>
                   <a href='#!' style={{ padding: '10px 80px 10px 0' }} onClick={close}>
@@ -1027,9 +1029,9 @@ function SwapFeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: '20%', textAlign: 'right', padding: '0' }}>
-                  <a className='popup-btn' href='/HangGift'>
+                  {/* <a className='popup-btn' href='/HangGift'>
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

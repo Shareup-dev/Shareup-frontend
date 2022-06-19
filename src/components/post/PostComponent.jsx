@@ -29,6 +29,7 @@ import Settings from "../../services/Settings";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { setRef } from "@mui/material";
 import ReactionsListComponent from "./ReactionsListComponent";
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 const my_url = `${storage.baseUrl}`;
@@ -138,6 +139,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
+      // console.log('gelllllllllllllll')
+        handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post.id)        
+       
+
       setRefresh(res.data);
     });
   };
@@ -1551,10 +1556,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   post.media.map((postImage) => (
                     <React.Fragment>
                       <img
-                        style={{ width: "100%", objectFit: "cover" }}
+                        
                         src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                        className="lightbox-popup"
+                        className="lightbox-popup post-display-img"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
@@ -1913,9 +1918,11 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                       <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="Enter you Phone"
+                                        placeholder="Enter your Phone"
                                         value={UserPhone}
                                         onChange={handleUserPhone}
+                                        style={{margin:0}}
+
                                       />
                                     </div>
                                     <div>
@@ -2603,9 +2610,10 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                           <input
                                             type="text"
                                             className="form-control"
-                                            placeholder="Enter you Phone"
+                                            placeholder="Enter your Phone"
                                             value={UserPhone}
                                             onChange={handleUserPhone}
+                                            style={{margin:0}}
                                           />
                                         </div>
                                         <div>

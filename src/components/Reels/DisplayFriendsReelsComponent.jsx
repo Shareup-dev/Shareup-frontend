@@ -17,8 +17,11 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ReelCommentComponent from "./ReelCommentComponent";
 import $ from 'jquery'
+import SavedService from "../../services/SavedService";
+
 
 function DisplayFriendsReelsComponent(props) {
+  
   let history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -87,15 +90,15 @@ function DisplayFriendsReelsComponent(props) {
     // getReelsForFriendsUser();
     testScript();
   }, [props.reel]);
-  const likeReel = async (reelId,reaction) => {
-    props.likeReel(reelId,reaction)
+  const likeReel = async (reelId, reaction) => {
+    props.likeReel(reelId, reaction)
   }
   const checkIfLiked = (reel) => {
-    if (reel.likedType==='star') {
+    if (reel.likedType === 'star') {
       return true;
     }
-      return false;
-    
+    return false;
+
   }
   const commentCliked = () => {
     setCommentsShowFlag(!commentsShowFlag)
@@ -110,13 +113,18 @@ function DisplayFriendsReelsComponent(props) {
   }
   const muteVideoClick = () => {
     setMuteVideo(!muteVideo)
-    if(!muteVideo){
+    if (!muteVideo) {
 
       $('video').prop('muted', true);
-    }else{
+    } else {
       $('video').prop('muted', false);
 
     }
+  }
+  const saveReel = (reelId) =>{
+    SavedService.saveAllPosts(user.id,reelId).then((res)=>{
+      console.log(res.data)
+    })
   }
   return (
     <>
@@ -131,7 +139,7 @@ function DisplayFriendsReelsComponent(props) {
                 <>
                   {reel.video_name ? (
                     <div className="slide" id={index}>
-                      <div className="slide-reel-cont" style={commentsShowFlag ? { width: '50%',position:'relative' } : {}} >
+                      <div className="slide-reel-cont" style={commentsShowFlag ? { width: '51%', position: 'relative' } : {}} >
 
                         <div
                           className="reeldisplay-Profimg"
@@ -149,78 +157,80 @@ function DisplayFriendsReelsComponent(props) {
                                 {reel.userdata.firstName}  {"" + reel.userdata.lastName}
                               </span>
                             </div>
-                            <div style={{zIndex: "100",display:'flex',justifyContent:'center',alignItems:'center'}}>
+                            <div style={{ zIndex: "100", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                               {muteVideo
-                                ?<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
-                                    <i className="fas fa-volume-up"></i>
+                                ? <div onClick={muteVideoClick} style={{ marginRight: '15px', color: 'white' }}>
+                                  <i className="fas fa-volume-up"></i>
 
-                                  </div>
-                                :<div onClick={muteVideoClick} style={{marginRight:'15px',color:'white'}}>
-                                  <i className="fas fa-volume-mute"></i> 
+                                </div>
+                                : <div onClick={muteVideoClick} style={{ marginRight: '15px', color: 'white' }}>
+                                  <i className="fas fa-volume-mute"></i>
 
                                 </div>
                               }
                               {videoPause
-                              ?<div onClick={playVideo}>
-                                  <i className="fa fa-play" style={{color:'white'}}></i> 
+                                ? <div onClick={playVideo}>
+                                  <i className="fa fa-play" style={{ color: 'white' }}></i>
 
                                 </div>
-                              :<div onClick={pauseVideo}>
-                                <i className="fa fa-pause" style={{color:'white'}}></i> 
+                                : <div onClick={pauseVideo}>
+                                  <i className="fa fa-pause" style={{ color: 'white' }}></i>
 
-                              </div>
+                                </div>
                               }
                               <DropdownButton
-                                  // style={{marginLeft: "400px" }}
-                                  className={`bi bi-three-dots-vertical`}
-                                  title={<i className="las la-ellipsis-v" style={{fontSize:'20px'}}></i>}
+                                // style={{marginLeft: "400px" }}
+                                className={`bi bi-three-dots-vertical`}
+                                title={<i className="las la-ellipsis-v" style={{ fontSize: '20px' }}></i>}
+                                onClick={() =>
+                                  window.clearTimeout(timeoutRef.current)
+                                }
+                              >
+                                <Dropdown.Item
+                                  type="button"
                                   onClick={() =>
-                                    window.clearTimeout(timeoutRef.current)
+                                   saveReel(reel.id)
                                   }
                                 >
-                                  <Dropdown.Item
-                                    type="button"
-                                    
-                                  >
-                                    <i className="lar la-bookmark" ></i>
-                                    <span>Save Reel</span>
-                                  </Dropdown.Item>
-                                  {
-                                    reel.userdata&&user.id===reel.userdata.id?
+                                  <i className="lar la-bookmark" ></i>
+                                  <span>Save Reel</span>
+                                </Dropdown.Item>
+                                {
+                                  reel.userdata && user.id === reel.userdata.id ?
                                     <Dropdown.Item
                                       type="button"
                                       onClick={() => {
                                         handleDeleteReel(reel.id)
                                       }}
                                     >
-                                    <i className="las la-trash"></i>
-                                    <span>Delete</span>
-                                  </Dropdown.Item>
-                                  : null
-                                  }
+                                      <i className="las la-trash"></i>
+                                      <span>Delete</span>
+                                    </Dropdown.Item>
+                                    : null
+                                }
 
-                                  <Dropdown.Item
-                                    type="button"
-                                    
-                                  >
-                                    <i className="las la-link"></i>
-                                    <span>Copy Link</span>
-                                  </Dropdown.Item>
-                                  <Dropdown.Item
-                                    type="button"
-                                    
-                                  >
-                                    <i className="fas fa-share"></i>
-                                    <span>Share to</span>
-                                  </Dropdown.Item>
-                                  <Dropdown.Item
-                                    type="button"
-                                    
-                                  >
-                                    <i className="fas fa-flag"></i>
-                                    <span>Report</span>
-                                  </Dropdown.Item>
-                                </DropdownButton>
+                                <Dropdown.Item
+                                  type="button"
+
+                                >
+                                  <i className="las la-link"></i>
+                                  <span>Copy Link</span>
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  type="button"
+
+                                >
+                                  <i className="fas fa-share"></i>
+                                  <span>Share to</span>
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  type="button"
+
+                                >
+                                  <i className="fas fa-flag"></i>
+                                  <span>Report</span>
+                                </Dropdown.Item>
+                              </DropdownButton>
                             </div>
                           </div>
 
@@ -231,26 +241,28 @@ function DisplayFriendsReelsComponent(props) {
 
                             loop
                             autoPlay
-                            style={commentsShowFlag?
+                            style={commentsShowFlag ?
                               {
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "fill",
-                              borderBottomRightRadius: 0 , borderTopRightRadius: 0
-                            }:{width: "100%",
-                            height: "100%",
-                            objectFit: "fill",}}
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "fill",
+                                borderBottomRightRadius: 0, borderTopRightRadius: 0
+                              } : {
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "fill",
+                              }}
                             src={`${fileStorage.baseUrl}${reel.video_url}`}
                             type="video/mp4"
                             alt={`${fileStorage.baseUrl}${reel.video_url}`}
-                            // style={commentsShowFlag?{ borderBottomRightRadius: 0 , borderTopRightRadius: 0}:{}}
+                          // style={commentsShowFlag?{ borderBottomRightRadius: 0 , borderTopRightRadius: 0}:{}}
                           />
                         </>
                         <div className="reel-popup-caption">
                           <p>{reel.content}</p>
                         </div>
                         <div className="reel-popup-action-btns">
-                          <button onClick={() => likeReel(reel.id,'star')} >
+                          <button onClick={() => likeReel(reel.id, 'star')} >
                             {checkIfLiked(reel) ? <i className="fas fa-star" style={{ color: 'red' }}></i> :
                               <i className="far fa-star" ></i>
                             }
@@ -264,11 +276,28 @@ function DisplayFriendsReelsComponent(props) {
 
                         </div>
                       </div>
-                      
-                      {commentsShowFlag ? <div style={commentsShowFlag ? { width: '50%', borderBottomLeftRadius: 0,borderTopLeftRadius: 0} : {}}
-                        className="reel-comment-section">
-                        <ReelCommentComponent reel={reel} />
-                      </div> : null}
+
+                      {commentsShowFlag
+                        ? <div style={commentsShowFlag ? { width: '50%', borderBottomLeftRadius: 0, borderTopLeftRadius: 0 } : {}}
+                          className="reel-comment-section">
+                          <div className="d-flex" style={{ paddingBottom: '10px' }}>
+                            <img
+                              src={
+                                fileStorage.baseUrl +
+                                reel.userdata.profilePicturePath
+                              }
+                              alt=""
+                              width="50px"
+                              height="50px"
+                            />
+                            <span style={{ paddingLeft: '10px', paddingTop: '10px', fontWeight: 'bold' }}>
+                              {reel.userdata.firstName}  {"" + reel.userdata.lastName}
+                            </span>
+                          </div>
+                          {reel.content ? <div style={{ paddingBottom: '1rem ' }}>{reel.content}</div> : null}
+                          <ReelCommentComponent reel={reel} />
+                        </div>
+                        : null}
                     </div>
                   ) : null}
                 </>

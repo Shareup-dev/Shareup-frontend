@@ -17,6 +17,7 @@ import Tab from "@mui/material/Tab";
 import { TabContext } from "@mui/lab";
 import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
+import { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function FriendFollowProfileComponent({email,id}) {
     let history = useHistory();
 
@@ -65,6 +66,9 @@ function FriendFollowProfileComponent({email,id}) {
 	const handleFollow = (fid) => {
 		UserService.follow(user?.id, fid).then(res => {
 			setRefresh(res.data)
+      console.log("follows you from friend follow profile component"+user?.firstName+user?.lastName+user?.email);
+      handleSendNotification(fid,'follows you',user?.firstName,user?.lastName,user?.email,"follow",res.data.id);
+
 		})
 	}
 	const handleUnfollow = (fid) => {
@@ -172,7 +176,7 @@ function FriendFollowProfileComponent({email,id}) {
                             </li>)}</ul>
               ) : (
                 <div className="center" style={{ padding: "20px" }}>
-                No Followers Friends
+                No Followers
                 </div>
               )}
             </div>

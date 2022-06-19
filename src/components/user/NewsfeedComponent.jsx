@@ -45,7 +45,7 @@ import ReelsServices from "../../services/ReelsServices";
 import DisplayFriendsReelsComponent from "../Reels/DisplayFriendsReelsComponent";
 import Loader from "../loader/loader";
 import HangShareService from "../../services/HangShareService";
-
+import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 function NewsfeedComponent() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -309,7 +309,7 @@ function NewsfeedComponent() {
     });
   };
 
-  useEffect(() => {}, [posts]);
+  useEffect(() => { }, [posts]);
 
   const getSavedPost = async () => {
     await PostService.getSavedPostForUser(
@@ -485,7 +485,7 @@ function NewsfeedComponent() {
     event.preventDefault();
     setUploadError("");
     if (
-      postContent === "" &&
+      postContent === "" ||
       Object.keys(files).length === 0 &&
       files.constructor === Object
     ) {
@@ -567,6 +567,8 @@ function NewsfeedComponent() {
 
   const handleLikePost = async (post_id) => {
     UserService.likePost(user.id, post_id).then((res) => {
+      handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post_id)
+
       setRefresh(res.data);
     });
   };
@@ -1425,13 +1427,13 @@ function NewsfeedComponent() {
                   <span>Create Swap</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right", padding: "0" }}>
-                  <a
+                  {/* <a
                     className="popup-btn"
                     href="/HangGift"
                     style={{ padding: "4px" }}
                   >
                     Keep Swap
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1599,9 +1601,9 @@ function NewsfeedComponent() {
                   <span>Today to me, Tomorrow to you</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="/HangGift">
+                  {/* <a className="popup-btn" href="/HangGift">
                     Keep Hang
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -1783,7 +1785,7 @@ function NewsfeedComponent() {
                   <span>We share, do you</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn">Keep Post</a>
+                  {/* <a className="popup-btn">Keep Post</a> */}
                 </div>
               </div>
             </div>
@@ -1989,9 +1991,9 @@ function NewsfeedComponent() {
                   <span>What's on your mind</span>
                 </div>
                 <div style={{ width: "20%", textAlign: "right" }}>
-                  <a className="popup-btn" href="">
+                  {/* <a className="popup-btn" href="">
                     Keep share
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
@@ -2162,7 +2164,7 @@ function NewsfeedComponent() {
                     <span>We share, do you</span>
                   </div>
                   <div style={{ width: "20%", textAlign: "right" }}>
-                    <a className="popup-btn">Keep Post</a>
+                    {/* <a className="popup-btn">Keep Post</a> */}
                   </div>
                 </div>
               </div>
@@ -2353,7 +2355,7 @@ function NewsfeedComponent() {
             className="popwidth"
             onSubmit={close}
           >
-            <div className="headpop" style={{ padding: "0px" }}>
+            <div className="headpop" style={{ padding: "0px" , flexDirection:'column' }}>
               <div
                 className="row"
                 style={{ paddingBottom: "10px", paddingtop: "10px" }}
@@ -2673,10 +2675,9 @@ function NewsfeedComponent() {
                               .slice(-4)
                               .map((reel, index) => (
                                 <Popup
-                                  style={{ padding: "0px" }}
                                   trigger={
                                     <li
-                                      className="slideitemstry"
+                                      className="slideitemreelside"
                                       key={reel.id}
                                       id={index}
                                     >
@@ -2687,30 +2688,25 @@ function NewsfeedComponent() {
                                     </li>
                                   }
                                   modal
+                                  className='reel-popup'
                                 >
                                   {(close) => (
-                                    <Form className="stryp">
-                                      <div>
-                                        <div className="row">
-                                          <div style={{ width: "5%" }}>
-                                            <a href="#!" onClick={close}>
-                                              <i
-                                                style={{
-                                                  color: "#fff",
-                                                  padding: "10px",
-                                                  fontSize: "30px",
-                                                }}
-                                                className="las la-times"
-                                              ></i>
-                                            </a>
-                                          </div>
-                                        </div>
+                                    <Form  >
+                                      <div style={{ width: "5%" }}>
+                                        <a href="#!" onClick={close}>
+                                          <i
+                                            style={{
+                                              color: "#fff",
+                                              padding: "10px",
+                                              fontSize: "30px",
+                                            }}
+                                            className="las la-times"
+                                          ></i>
+                                        </a>
                                       </div>
-                                      <DisplayFriendsReelsComponent
-                                        key={reel.id}
-                                        id={index}
-                                        likeReel={likeReel}
+                                      <DisplayFriendsReelsComponent key={reel.id} id={index}
                                         reel={reel}
+                                        likeReel={likeReel}
                                         setRefresh={setRefresh}
                                         index={index}
                                       />
@@ -2727,10 +2723,12 @@ function NewsfeedComponent() {
               ) : null
             ) : (
               <>
-                <PostComponent
-                  post={post}
-                  setRefresh={setRefresh}
-                  commentChangedFunction={commentChangedFunction}
+                <PostComponent 
+                    post={post}
+                    setRefresh={setRefresh}
+                    user={user}
+                    userF={userF}
+                    commentChangedFunction={commentChangedFunction}
                 />
                 {index == 3 ? (
                   <div className="central-meta newsfeed reels-cont">
@@ -2758,6 +2756,7 @@ function NewsfeedComponent() {
                                     </li>
                                   }
                                   modal
+                                  className='reel-popup'
                                 >
                                   {(close) => (
                                     <Form>
@@ -3406,119 +3405,6 @@ function NewsfeedComponent() {
             </div>
           </div>
 
-          {/* <div>
-                     {
-                    postImage.map((item,key)=>(<img src={item} key={key} style={{maxWidth:'150px',maxHeight:'150px'}}/>))
-                     }
-                     </div> */}
-          {/* <div className='central-meta newsfeed grp-sugg-cont'>
-            <div style={{ fontSize: '18px', padding:'1rem 20px' , fontWeight: 'bold', marginTop: '10px' }}>Groups Suggestions</div>
-              <div className='slide-wrapper' style={{margin:'0'}}>            
-                <ul className='slide container-fluid'>
-                  <OwlCarousel items={3}  
-                    className="owl-theme grp-carousel"  
-                    nav  
-                    margin ={0}
-                    dots = {false}
-                    >  
-                      <li className='slideitem' style={{margin: 0}}>
-                        <a href='#'>
-                          <div className='groupsggstion-card'>
-                            <div className='groupsggstion-img'>
-                              <a href=''>
-                                <div>
-                                  {' '}
-                                  <img src={Grpicon} className="no-img"/>
-                                </div>
-                              </a>
-                            </div>
-
-                            <div className='groupsggstion-by'>
-                              <a href='/group/create'>
-                                <div className='add-group' aria-describedby='popup-2'>
-                                  {' '}
-
-                                </div>
-                              </a>
-
-                              <a href='/group/create'>
-                                <h5 style={{ fontWeight: 'bold', fontSize: '13px', backgroundColor: 'rgb(3 51 71)', color: '#ffff', borderRadius: '5px' ,lineHeight:'35px' ,fontWeight: '600' }}><i className="fas fa-plus"></i> &nbsp;Create Group</h5>
-                              </a>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                      {searchedGroups.map((group) => (
-                        <li className='slideitem'>
-                          <a href={`/groups/${group.id}`} title={group.name}>
-                            <div className='groupsggstion-card'>
-                              <div className='groupsggstion-img'>
-                                <a href={`/groups/${group.id}`} title={group.name}>
-                                  {' '}
-                                  <img
-                                    src={
-                                      group.groupImagePath
-                                        ? fileStorage.baseUrl+group.groupImagePath
-                                        : Grpicon
-                                    }
-                                    className={group.groupImagePath
-                                      ? "img"
-                                      : "no-img"}
-                                    alt=''
-                                  />
-                                </a>
-                              </div>
-
-                              <div className='groupsggstion-by'>
-                                <div style={{ paddingLeft: '10px' , height:'20px' }}>
-
-                                    <span className='groupname'>
-
-                                      <a href={`/groups/${group.id}`} title='#'>{`${group.name}`}
-
-                                      </a>
-                                    </span>
-                                  </div>
-                                  <div style={{ textAlign: 'right', paddingRight: '20px', fontSize: '13px' }}>
-                                    {group.members.length > 1 ? (
-
-                                      <p className="grp-mem-text"> {group.members.length} Members</p>
-                                    ) : (
-                                      <p className="grp-mem-text">{group.members.length} Member</p>
-                                    )}
-                                  </div>
-                                  {checkIfInGroup(group.members) ? (
-                                    <a
-
-                                      href
-                                      className='buttonGrpFd mrgngrp mt-0'  
-                                      style={{ color: '#fff', background: '#033347', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600'}}
-                                      onClick={(e) => handleLeaveGroup(e,group.id)}
-                                    >
-                                      Leave Group
-                                    </a>
-                                  ) : (
-                                    <a
-                                      href
-                                      className='buttonGrpFd mrgngrp mt-0'
-                                      style={{ color: '#000000', background: '#EAEAEA', fontSize: '12px' ,lineHeight: '35px' , fontWeight: '600' }}
-                                      onClick={(e) => handleJoinGroup(e,group.id)}
-                                    >
-                                      Join Group
-                                    </a>
-
-                                  )}
-                              </div>
-                            </div>
-                          </a>
-                        </li>
-                      ))}
-                  </OwlCarousel>
-                </ul>
-            </div>
-          </div> */}
-          {/* add post new box */}
-          {/* <p className="showCompNewsfeed" style={{ fontWeight: 'bold', color: 'rgb(207, 144, 7)', textAlign: 'center' }}><span onClick={() => setShowComp("newsfeed")}>Newsfeed</span> | <span onClick={() => setShowComp("saved")}>Saved Posts</span>|<span onClick={() => setShowComp("saved")}>SharePosts</span>|<span onClick={() => setShowComp("saved")}>Swap Posts</span></p> */}
           {show()}
         </div>
       )}
