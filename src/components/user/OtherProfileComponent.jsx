@@ -73,7 +73,8 @@ function OtherProfileComponent() {
   const [showStoryButton, setShowStoryButton] = useState(true);
   const [showStoryButtonVdo, setShowStoryButtonVdo] = useState(false);
   const [storyType, setStoryType] = useState("image");
-  
+  const [disable, setDisable] = React.useState(false);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -161,7 +162,7 @@ function OtherProfileComponent() {
 
     const formData = new FormData();
     formData.append("caption", storyContent);
-    formData.append("story_type",storyType);
+    formData.append("story_type", storyType);
     formData.append(`stryfiles`, filesStry);
     StoriesService.createStories(user.id, formData).then((res) => {
       handleRemoveImageStry();
@@ -173,7 +174,7 @@ function OtherProfileComponent() {
   const currentUserGet = async () => {
     await UserService.getUserByEmail(user_email).then((res) => {
       setUserProfile(res.data);
-      console.log(userProfile)
+      console.log(userProfile);
       setFirstName(res.data.firstName);
       setLastName(res.data.lastName);
       setEmail(res.data.email);
@@ -224,8 +225,10 @@ function OtherProfileComponent() {
   };
 
   const acceptFriendRequest = (uid, fid) => {
+    setDisable(true);
     FriendsService.acceptRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
     });
   };
 
@@ -242,36 +245,50 @@ function OtherProfileComponent() {
   };
 
   const declineFriendRequest = (uid, fid) => {
+    setDisable(true);
     FriendsService.declineRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
     });
   };
 
   const unsendFriendRequest = (uid, fid) => {
+    setDisable(true);
     FriendsService.unsendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
+
     });
   };
 
   const sendFriendRequest = (uid, fid) => {
+    setDisable(true);
     FriendsService.sendRequest(uid, fid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
+
     });
   };
   const removeFriend = (uid, fid) => {
+    setDisable(true);
     FriendsService.removeFriends(uid, fid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
     });
   };
   const handleFollow = (uid) => {
+    setDisable(true);
     UserService.follow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
     });
   };
 
   const handleUnfollow = (uid) => {
+    setDisable(true);
     UserService.unfollow(user.id, uid).then((res) => {
       setRefresh(res.data);
+      setDisable(false);
     });
   };
 
@@ -380,8 +397,8 @@ function OtherProfileComponent() {
   };
   useEffect(() => {
     // window.scrollTo(0, 0);
-    console.log(user)
-    if(user&&user.id){
+    console.log(user);
+    if (user && user.id) {
       currentUserGet();
       getFriendStatus();
       getFriendCount();
@@ -400,7 +417,7 @@ function OtherProfileComponent() {
 
   useEffect(() => {
     // window.scrollTo(0, 0);
-    if(user&&user.id){
+    if (user && user.id) {
       getFriendStatus();
       getFriendCount();
       getPostForUser();
@@ -409,7 +426,13 @@ function OtherProfileComponent() {
 
   const handleShow = () => {
     if (show === "timeline") {
-      return <PostProfileComponent posts={myPost} setRefresh={setRefresh} showPostInput={user&&user.id === userProfile?.id ?true:false}/>;
+      return (
+        <PostProfileComponent
+          posts={myPost}
+          setRefresh={setRefresh}
+          showPostInput={user && user.id === userProfile?.id ? true : false}
+        />
+      );
     }
     if (show === "photos") {
       return (
@@ -588,6 +611,7 @@ function OtherProfileComponent() {
         );
     }
   }
+
   const updateProfile = async () => {
     let updateduser = {
       firstName: firstName,
@@ -604,12 +628,11 @@ function OtherProfileComponent() {
     });
   };
   const likeReel = async (reelId) => {
-    let params = {}
+    let params = {};
     await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
-      getReelsForUser()
-
-    })
-  }
+      getReelsForUser();
+    });
+  };
   const MyPhotosComponentFunction = () => {
     return (
       <>
@@ -790,7 +813,7 @@ function OtherProfileComponent() {
           <section>
             <div className="feature-photo">
               <div className="container edit-profile-cont">
-                <div className="row" style={{padding:'25px 35px'}}>
+                <div className="row" style={{ padding: "25px 35px" }}>
                   <div className="col-lg-3">
                     <div className="right-edit-profile-image-a">
                       {user?.id === userProfile?.id ? (
@@ -827,16 +850,18 @@ function OtherProfileComponent() {
                             src={
                               userProfile.profilePicturePath
                                 ? fileStorage.baseUrl +
-                                userProfile.profilePicturePath
+                                  userProfile.profilePicturePath
                                 : "	http://192.168.100.2:3000/data/user/default/profile_picture/default.png"
                             }
                           ></img>{" "}
                         </>
                       )}
                     </div>
-                    
                   </div>
-                  <div className="col-lg-9" style={{display:'flex',flexDirection:'column'}}>
+                  <div
+                    className="col-lg-9"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
                     <div
                       style={{
                         display: "flex",
@@ -844,150 +869,187 @@ function OtherProfileComponent() {
                       }}
                     >
                       <div>
-                        <h5>{`${userProfile ? userProfile.firstName : '0'} ${userProfile ? userProfile.lastName : '0'}`}</h5>
-                       
+                        <h5>{`${userProfile ? userProfile.firstName : "0"} ${
+                          userProfile ? userProfile.lastName : "0"
+                        }`}</h5>
                       </div>
                       <div className="d-flex">
                         {userProfile?.id === user?.id ? (
                           <a
                             href="/editprofile"
-                          
                             className="button common-theme-btn1"
                           >
                             Edit Profile
                           </a>
                         ) : user.id !== userProfile?.id ? (
-                          !friendsList.some((el) => el.id === userProfile?.id) ? (
+                          !friendsList.some(
+                            (el) => el.id === userProfile?.id
+                          ) ? (
                             friendRequestRecieved.some(
                               (el) => el.id === userProfile?.id
                             ) ? (
                               <>
+                              {disable ? (
+                                  <button
+                                    disabled
+                                    class="buttonload button common-theme-btn1"
+                                  >
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                  </button>
+                                ) : (
+                                  <>
                                 <button
                                   title=""
-                                  className="button"
-                                  style={{
-                                    width: "15%",
-                                    margin: "10px",
-                                    padding: "0px 5px",
-                                  }}
+                                  className="button common-theme-btn1"
                                   onClick={() =>
-                                    acceptFriendRequest(user.id, userProfile?.id)
+                                    acceptFriendRequest(
+                                      user.id,
+                                      userProfile?.id
+                                    )
                                   }
                                 >
                                   Accept
                                 </button>
                                 <button
                                   title=""
-                                  className="button"
-                                  style={{
-                                    width: "15%",
-                                    margin: "10px",
-                                    padding: "0px 5px",
-                                  }}
+                                  className="button common-theme-btn1"
                                   onClick={() =>
-                                    declineFriendRequest(user.id, userProfile?.id)
+                                    declineFriendRequest(
+                                      user.id,
+                                      userProfile?.id
+                                    )
                                   }
                                 >
                                   Reject
                                 </button>
+                                </>
+                                )}
                               </>
                             ) : friendRequestSent.some(
-                              (el) => el.id === userProfile?.id
-                            ) ? (
+                                (el) => el.id === userProfile?.id
+                              ) ? (
+                                <>
+                                {disable ? (
+                                  <button
+                                    disabled
+                                    class="buttonload button common-theme-btn1"
+                                  >
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                  </button>
+                                ) : (
                               <button
                                 title=""
-                                className="button"
-                                style={{
-                                  width: "25%",
-                                  margin: "10px",
-                                  padding: "0 5px",
-                                }}
+                                className="button common-theme-btn1"
                                 onClick={() =>
                                   unsendFriendRequest(user.id, userProfile?.id)
                                 }
                               >
                                 Cancel Request
                               </button>
+                              )}</>
                             ) : (
-                              <button
-                                title=""
-                                className="button"
-                                style={{
-                                  width: "25%",
-                                  margin: "10px",
-                                  padding: "0 5px",
-                                }}
-                                onClick={() =>
-                                  sendFriendRequest(user.id, userProfile?.id)
-                                }
-                              >
-                                Add Friend
-                              </button>
+                              <>
+                                {disable ? (
+                                  <button
+                                    disabled
+                                    class="buttonload button common-theme-btn1"
+                                  >
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                  </button>
+                                ) : (
+                                  <button
+                                    title=""
+                                    className="button common-theme-btn1"
+                                  
+                                    onClick={() =>
+                                      sendFriendRequest(
+                                        user.id,
+                                        userProfile?.id
+                                      )
+                                    }
+                                  >
+                                    Add Friend
+                                  </button>
+                                )}
+                              </>
                             )
                           ) : (
                             <>
+                            {disable ? (
+                                  <button
+                                    disabled
+                                    class="buttonload button common-theme-btn1"
+                                  >
+                                    <i class="fa fa-spinner fa-spin"></i>Loading
+                                  </button>
+                                ) : (
                               <button
                                 title=""
                                 className="button common-theme-btn1"
-                                
                                 onClick={() =>
                                   removeFriend(user.id, userProfile?.id)
                                 }
                               >
                                 Unfriend
                               </button>
+                                )}
                             </>
                           )
                         ) : (
                           <></>
                         )}
                         {user?.id !== userProfile?.id ? (
-                        !following.some((el) => el.id === userProfile?.id) ? (
-                          <button title="" className="button common-theme-btn1" 
-                            onClick={() => handleFollow(userProfile?.id)}
-                          >
-                            Follow
-                          </button>
-                        ) : (
-                          <button title="" className="button common-trans-btn1" 
-                            onClick={() => handleUnfollow(userProfile?.id)}
-                          >
-                            Unfollow
-                          </button>
-                        )
-                      ) : null}
+                          !following.some((el) => el.id === userProfile?.id) ? (
+                            <button
+                              title=""
+                              className="button common-theme-btn1"
+                              onClick={() => handleFollow(userProfile?.id)}
+                            >
+                              Follow
+                            </button>
+                          ) : (
+                            <button
+                              title=""
+                              className="button common-trans-btn1"
+                              onClick={() => handleUnfollow(userProfile?.id)}
+                            >
+                              Unfollow
+                            </button>
+                          )
+                        ) : null}
                       </div>
                     </div>
                     <div className="profsts">
                       <ul>
                         <li>
-                          <span
-                            style={{ textAlign: "center" }}
-                          >{`${ProfileCount ? ProfileCount.posts_count : '0'}`}</span>
+                          <span style={{ textAlign: "center" }}>{`${
+                            ProfileCount ? ProfileCount.posts_count : "0"
+                          }`}</span>
                           <span>Posts</span>
                         </li>
                         <li>
-                          <span
-                            style={{ textAlign: "center" }}
-                          >{`${ProfileCount ? ProfileCount.followers_count : '0'}`}</span>
+                          <span style={{ textAlign: "center" }}>{`${
+                            ProfileCount ? ProfileCount.followers_count : "0"
+                          }`}</span>
                           <span>Followers</span>
                         </li>
                         <li>
-                          <span
-                            style={{ textAlign: "center" }}
-                          >{`${ProfileCount ? ProfileCount.followings_count : '0'}`}</span>
+                          <span style={{ textAlign: "center" }}>{`${
+                            ProfileCount ? ProfileCount.followings_count : "0"
+                          }`}</span>
                           <span>Following</span>
                         </li>
                       </ul>
-                     
                     </div>
                     {userProfile?.aboutme !== undefined ? (
-                        <div style={{paddingTop:'30px'}}>{`${userProfile?.aboutme}`}</div>
-                      ) : ""
-                      }
+                      <div
+                        style={{ paddingTop: "30px" }}
+                      >{`${userProfile?.aboutme}`}</div>
+                    ) : (
+                      ""
+                    )}
                   </div>
-                  
-                  
+
                   {/*                      
                         <div className="add-btn">
                           <span>1205 followers</span>
@@ -1018,256 +1080,278 @@ function OtherProfileComponent() {
                         <button type="button" id="submit" name="submit" className="btn btn-primary" onClick={uploadprofilePicturePath}>Upload</button>
                       </div> */}
                 <div>
-                  {
-                    storiesForUser.length > 0?
+                  {storiesForUser.length > 0 ? (
                     <div className="slide-wrapperstry">
-                    <ul className="slidestry">
-                      {userProfile?.id === user?.id ? (
-                        <li className="slideitemstry">
-                        <div className="strysggstion-card">
-                          <div className="strysggstion-img">
-                            <div style={{background:'#f1f1f1',height:'100%'}}></div>
-                          </div>
-                          <Popup
-                            trigger={<div className="add-stry"> +</div>}
-                            modal
-                            className="addStory-popup"
-                          >
-                            {(close) => (
-                              <Form className="popwidth">
-                                <div className="headpop">
-                                  <span>
-                                    <a href="#!" onClick={close}>
-                                      <i className="las la-times"></i>
-                                    </a>
-                                  </span>
-                                  <span className="poptitle">Lets Add Stories</span>
-        
-                                  {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
-                                  <span style={{ float: "right" }}>
-                                    {" "}
-                                    <>
-                                      {showStoryButtonVdo ? (
-                                        <div style={{ textAlign: "center" }}>
-                                          <button
-                                            style={{
-                                              float: "right",
-                                              borderRadius: "20px",
-                                              padding: "5px 20px",
-                                            }}
-                                            onClick={() => {
-                                              setStoryType("image");
-                                              setShowStoryButtonVdo(false);
-                                              setShowStoryButton(true);
-                                            }}
-                                          >
-                                            Add Image
-                                          </button>
-                                        </div>
-                                      ) : null}
-                                      {showStoryButton ? (
-                                        <div style={{ textAlign: "center" }}>
-                                          <button
-                                            style={{
-                                              float: "right",
-                                              borderRadius: "20px",
-                                              padding: "5px 20px",
-                                            }}
-                                            onClick={() => {
-                                              setStoryType("video");
-                                              setShowStoryButtonVdo(true);
-                                              setShowStoryButton(false);
-                                            }}
-                                          >
-                                            Add Video
-                                          </button>
-                                        </div>
-                                      ) : null}
-                                    </>
-                                  </span>
-                                </div>
-        
-                                <div>
-                                  <span className="textPop">
-                                    {showstoriesImage ? (
-                                      <>
-                                        { showStoryButton ? (
-                                          <>
-                                        <img
-                                          id="preview"
-                                          src={storiesImage}
-                                          style={{ width: "100%" }}
-                                        />
-                                        <button
-                                          onClick={handleRemoveImageStry}
-                                          style={{
-                                            right: "20px",
-                                            position: "absolute",
-                                            borderRadius: "100%",
-                                            background: "#b7b7b738",
-                                            padding: "10px 10px",
-                                          }}
-                                        >
+                      <ul className="slidestry">
+                        {userProfile?.id === user?.id ? (
+                          <li className="slideitemstry">
+                            <div className="strysggstion-card">
+                              <div className="strysggstion-img">
+                                <div
+                                  style={{
+                                    background: "#f1f1f1",
+                                    height: "100%",
+                                  }}
+                                ></div>
+                              </div>
+                              <Popup
+                                trigger={<div className="add-stry"> +</div>}
+                                modal
+                                className="addStory-popup"
+                              >
+                                {(close) => (
+                                  <Form className="popwidth">
+                                    <div className="headpop">
+                                      <span>
+                                        <a href="#!" onClick={close}>
                                           <i className="las la-times"></i>
-                                        </button>
-                                          </>
-                                        ):(
-                                          <>
-        
-                                          <video
-                                               id="video"
-                                                width="100%"
-                                                src={storiesImage}
-                                                height={"350px"}
-                                                controls="controls"
-                                           >
-                                          </video>
-                                        <button
-                                          onClick={handleRemoveImageStry}
-                                          style={{
-                                            right: "20px",
-                                            position: "absolute",
-                                            borderRadius: "100%",
-                                            background: "#b7b7b738",
-                                            padding: "10px 10px",
-                                          }}
-                                        >
-                                          <i className="las la-times"></i>
-                                        </button>
+                                        </a>
+                                      </span>
+                                      <span className="poptitle">
+                                        Lets Add Stories
+                                      </span>
+
+                                      {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
+                                      <span style={{ float: "right" }}>
+                                        {" "}
+                                        <>
+                                          {showStoryButtonVdo ? (
+                                            <div
+                                              style={{ textAlign: "center" }}
+                                            >
+                                              <button
+                                                style={{
+                                                  float: "right",
+                                                  borderRadius: "20px",
+                                                  padding: "5px 20px",
+                                                }}
+                                                onClick={() => {
+                                                  setStoryType("image");
+                                                  setShowStoryButtonVdo(false);
+                                                  setShowStoryButton(true);
+                                                }}
+                                              >
+                                                Add Image
+                                              </button>
+                                            </div>
+                                          ) : null}
+                                          {showStoryButton ? (
+                                            <div
+                                              style={{ textAlign: "center" }}
+                                            >
+                                              <button
+                                                style={{
+                                                  float: "right",
+                                                  borderRadius: "20px",
+                                                  padding: "5px 20px",
+                                                }}
+                                                onClick={() => {
+                                                  setStoryType("video");
+                                                  setShowStoryButtonVdo(true);
+                                                  setShowStoryButton(false);
+                                                }}
+                                              >
+                                                Add Video
+                                              </button>
+                                            </div>
+                                          ) : null}
                                         </>
+                                      </span>
+                                    </div>
+
+                                    <div>
+                                      <span className="textPop">
+                                        {showstoriesImage ? (
+                                          <>
+                                            {showStoryButton ? (
+                                              <>
+                                                <img
+                                                  id="preview"
+                                                  src={storiesImage}
+                                                  style={{ width: "100%" }}
+                                                />
+                                                <button
+                                                  onClick={
+                                                    handleRemoveImageStry
+                                                  }
+                                                  style={{
+                                                    right: "20px",
+                                                    position: "absolute",
+                                                    borderRadius: "100%",
+                                                    background: "#b7b7b738",
+                                                    padding: "10px 10px",
+                                                  }}
+                                                >
+                                                  <i className="las la-times"></i>
+                                                </button>
+                                              </>
+                                            ) : (
+                                              <>
+                                                <video
+                                                  id="video"
+                                                  width="100%"
+                                                  src={storiesImage}
+                                                  height={"350px"}
+                                                  controls="controls"
+                                                ></video>
+                                                <button
+                                                  onClick={
+                                                    handleRemoveImageStry
+                                                  }
+                                                  style={{
+                                                    right: "20px",
+                                                    position: "absolute",
+                                                    borderRadius: "100%",
+                                                    background: "#b7b7b738",
+                                                    padding: "10px 10px",
+                                                  }}
+                                                >
+                                                  <i className="las la-times"></i>
+                                                </button>
+                                              </>
+                                            )}
+                                          </>
+                                        ) : (
+                                          <>
+                                            {showStoryButtonVdo ? (
+                                              <div
+                                                style={{ textAlign: "center" }}
+                                              >
+                                                <label className="fileContainer">
+                                                  <div
+                                                    className="reelvideo"
+                                                    type="submit"
+                                                  >
+                                                    <input
+                                                      type="file"
+                                                      name="reel_video"
+                                                      accept="video/*"
+                                                      onChange={handleFileStry}
+                                                    ></input>
+                                                    Add Video Story
+                                                  </div>
+                                                </label>
+                                              </div>
+                                            ) : null}
+                                            {showStoryButton ? (
+                                              <div
+                                                style={{ textAlign: "center" }}
+                                              >
+                                                <label className="fileContainer">
+                                                  <div
+                                                    className="storypic"
+                                                    type="submit"
+                                                  >
+                                                    <input
+                                                      type="file"
+                                                      name="swap_image"
+                                                      accept="image/*"
+                                                      onChange={handleFileStry}
+                                                    ></input>
+                                                    Add Image Story
+                                                  </div>
+                                                </label>
+                                              </div>
+                                            ) : null}
+                                          </>
                                         )}
-                                      </>
-                                    ) : (
-                                      <>
-                                        {showStoryButtonVdo ? (
-                                          <div style={{ textAlign: "center" }}>
-                                            <label className="fileContainer">
-                                              <div className="reelvideo" type="submit">
-                                                <input
-                                                  type="file"
-                                                  name="reel_video"
-                                                  accept="video/*"
-                                                  onChange={handleFileStry}
-                                                ></input>
-                                                Add Video Story
-                                              </div>
-                                            </label>
-                                          </div>
-                                        ) : null}
-                                        {showStoryButton ? (
-                                          <div style={{ textAlign: "center" }}>
-                                            <label className="fileContainer">
-                                              <div className="storypic" type="submit">
-                                                <input
-                                                  type="file"
-                                                  name="swap_image"
-                                                  accept="image/*"
-                                                  onChange={handleFileStry}
-                                                ></input>
-                                                Add Image Story
-                                              </div>
-                                            </label>
-                                          </div>
-                                        ) : null}
-                                      </>
-                                    )}
-                                    <textarea
-                                      className="textpopup"
-                                      rows={2}
-                                      style={{ marginTop: "10px" }}
-                                      placeholder={"Add text to your Story"}
-                                      name="story_content"
-                                      value={storyContent}
-                                      onChange={handleStoryContent}
-                                    />
-                                  </span>
-        
-                                  {uploadErrorStory ? (
-                                    <div className="storyErr">{uploadErrorStory}</div>
-                                  ) : null}
-        
-                                  <button
-                                    className="popsbmt-btn"
-                                    type="submit"
-                                    onClick={uploadStories}
-                                  >
-                                    SHARE STORY
-                                  </button>
-                                </div>
-                                {/* </> 
+                                        <textarea
+                                          className="textpopup"
+                                          rows={2}
+                                          style={{ marginTop: "10px" }}
+                                          placeholder={"Add text to your Story"}
+                                          name="story_content"
+                                          value={storyContent}
+                                          onChange={handleStoryContent}
+                                        />
+                                      </span>
+
+                                      {uploadErrorStory ? (
+                                        <div className="storyErr">
+                                          {uploadErrorStory}
+                                        </div>
+                                      ) : null}
+
+                                      <button
+                                        className="popsbmt-btn"
+                                        type="submit"
+                                        onClick={uploadStories}
+                                      >
+                                        SHARE STORY
+                                      </button>
+                                    </div>
+                                    {/* </> 
                                                            
                                          )}  */}
-                              </Form>
-                            )}
-                          </Popup>
-        
-                          <label className="fileContainer">
-                            <input
-                              id="file-input"
-                              type="file"
-                              name="stories_image"
-                              accept="image/*"
-                              onChange={handleFileStry}
-                            ></input>
-                          </label>
-                          <div className="strysggstion-by">
-                            <h5>Create Story</h5>
-                          </div>
-                          {/* <button  onClick={uploadStories}>Post</button> */}
-                        </div>
-                      </li>
-                      ) : (
-                        <></>
-                      )}
-                      {storiesForUser?storiesForUser.map((story, index) => (
-                        <>
-                          <Popup
-                            style={{ padding: "0px" }}
-                            className="story-popup"
-                            trigger={
-                              <li className="slideitemstry" key={story.id}>
-                                
-                                <StoriesComponent
-                                  story={story}
-                                  hideText={true}
-                                  
-                                />
-                              </li>
-                            }
-                            modal
-                          >
-                            {(close) => (
-                              <Form
-                                className="stryp"
+                                  </Form>
+                                )}
+                              </Popup>
 
-                              >
-                                <div>
-                                  <div className="row">
-                                    <div style={{ width: "5%" }}>
-                                      <a href="#!" onClick={close}>
-                                        <i
-                                          style={{
-                                            color: "#fff",
-                                            padding: "10px",
-                                            fontSize: "30px",
-                                          }}
-                                          className="las la-times"
-                                        ></i>
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <DisplayComponent />
-                              </Form>
-                            )}
-                          </Popup>
-                        </>
-                      )):null}
-                    </ul>
-                  </div>
-                  :null
-                  }
-                  
+                              <label className="fileContainer">
+                                <input
+                                  id="file-input"
+                                  type="file"
+                                  name="stories_image"
+                                  accept="image/*"
+                                  onChange={handleFileStry}
+                                ></input>
+                              </label>
+                              <div className="strysggstion-by">
+                                <h5>Create Story</h5>
+                              </div>
+                              {/* <button  onClick={uploadStories}>Post</button> */}
+                            </div>
+                          </li>
+                        ) : (
+                          <></>
+                        )}
+                        {storiesForUser
+                          ? storiesForUser.map((story, index) => (
+                              <>
+                                <Popup
+                                  style={{ padding: "0px" }}
+                                  className="story-popup"
+                                  trigger={
+                                    <li
+                                      className="slideitemstry"
+                                      key={story.id}
+                                    >
+                                      <StoriesComponent
+                                        story={story}
+                                        hideText={true}
+                                      />
+                                    </li>
+                                  }
+                                  modal
+                                >
+                                  {(close) => (
+                                    <Form className="stryp">
+                                      <div>
+                                        <div className="row">
+                                          <div style={{ width: "5%" }}>
+                                            <a href="#!" onClick={close}>
+                                              <i
+                                                style={{
+                                                  color: "#fff",
+                                                  padding: "10px",
+                                                  fontSize: "30px",
+                                                }}
+                                                className="las la-times"
+                                              ></i>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <DisplayComponent />
+                                    </Form>
+                                  )}
+                                </Popup>
+                              </>
+                            ))
+                          : null}
+                      </ul>
+                    </div>
+                  ) : null}
                 </div>
                 <div className="timeline-info">
                   <div className="row">
@@ -1314,7 +1398,6 @@ function OtherProfileComponent() {
                 <div className="changethis" style={{ overflow: "auto" }}>
                   {handleShow()}
                 </div>
-
               </div>
               <div className="col-lg-3"></div>
             </div>

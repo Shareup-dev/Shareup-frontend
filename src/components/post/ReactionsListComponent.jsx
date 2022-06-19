@@ -150,7 +150,10 @@ function ReactionsListComponent({ handleCloseModal,postID }) {
             <TabContext value={value}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList
+                  indicatorColor="non"
                   onChange={handleChange}
+                  variant="scrollable"
+                  scrollButtons="auto"
                   aria-label="lab API tabs example"
                 >
                 {AllReactionList.all.length > 0 ? (

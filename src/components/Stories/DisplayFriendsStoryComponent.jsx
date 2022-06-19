@@ -41,7 +41,6 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
 
   const addViewrsToStories = async (sid) => {
     await StoriesService.addViewrsToStories(sid, user?.id).then((res) => {
-      console.log("viewing story working");
     });
   };
   function getFileExtension(filename) {
@@ -140,8 +139,8 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                             </div>
                             {background.storyType === "image" ? (
                               <img
+                                onLoad={addViewrsToStories (background.id)}
                                 onClick={() =>(
-                               addViewrsToStories (background.id),
                                 window.clearTimeout(timeoutRef.current)
                               )}
                                 className="stryDsplyImg"
@@ -154,6 +153,7 @@ function DisplayFriendsStoryComponent({ story, setRefresh }) {
                               <>
                                 <video
                                   preload="none"
+                                  onLoad={addViewrsToStories (background.id)}
                                   loop
                                   autoPlay
                                   style={{

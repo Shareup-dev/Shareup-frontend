@@ -2344,7 +2344,9 @@ form button {
 .isreaction 
 :hover {
   display: inline-block;
-  animation: wiggle 3s linear infinite;
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.2);
 
     }
 .is-cooment-reaction {
@@ -16555,6 +16557,20 @@ input.chat-text {
   cursor: pointer;
   width: 96%;
 }
+.popsbmt-btn:disabled {
+  text-align: center;
+  background: #033347;
+  font-weight: bold;
+  color: white;
+  margin: 11px 11px;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: not-allowed;
+  width: 96%;
+}
+
+
 .numberCircle {
   padding-left: 5px;
 }
@@ -17519,4 +17535,27 @@ height:23px;}
   40%, 100% {
     transform: rotateZ(0);
   }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+/* Handle on hover */
+::-webkit-scrollbar:hover {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

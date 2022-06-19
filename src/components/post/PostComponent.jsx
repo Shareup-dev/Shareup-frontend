@@ -2714,11 +2714,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                   onMouseEnter={handleShowuserReaction}
                                   onMouseLeave={handleUnshowuserReaction}
                                 >
-                                  {/* <img src='/assets/images/Star.svg' alt='' /> */}
-                                  {/* <span style={{ paddingLeft: '10px' }}>Star</span> */}
                                   <i className="far fa-star"></i>
-
-                                  {/* <span style={{paddingLeft:'5px'}}>{post.reactions&&post.reactions.length>0?post.reactions.length:''}</span> */}
                                 </span>
                               </div>
                             </>
@@ -2736,7 +2732,6 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                             {`${post.post.numberOfshares}` + " "}
 
                             {sharepopup()}
-                            {/* <img src='/assets/images/shareicnwhite.svg' alt='' /> */}
                           </span>
                         </li>
 

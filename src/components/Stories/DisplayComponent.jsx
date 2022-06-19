@@ -397,6 +397,9 @@ function DisplayComponent({story}) {
                                 preload="none"
                                 loop
                                 autoPlay
+                                onClick={() =>
+                                window.clearTimeout(timeoutRef.current)
+                              }
                                 style={{
                                   width: "100%",
                                   height: "100%",

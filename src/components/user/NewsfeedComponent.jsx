@@ -115,6 +115,7 @@ function NewsfeedComponent() {
   const [photosContent, setPhotosContent] = useState("");
 
   const [shareupContent, setShareupContent] = useState("");
+  const [disable, setDisable] = React.useState(false);
 
   const [hangshareContent, setHangshareContent] = useState("");
 
@@ -123,6 +124,7 @@ function NewsfeedComponent() {
 
   const [closeModal, setCloseModal] = useState(false);
   const [categoryHS, setCategoryHS] = useState("");
+  const [closePopup, setClosePopup] = useState(false);
 
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
@@ -156,6 +158,7 @@ function NewsfeedComponent() {
   };
 
   const uploadStories = (event) => {
+    setDisable(true);
     event.preventDefault();
     setUploadErrorStory("");
     if (
@@ -163,15 +166,17 @@ function NewsfeedComponent() {
       filesStry.constructor === Object
     ) {
       setUploadErrorStory("Please Add Image for Stories");
+      setDisable(false);
       return;
     } else {
       const formData = new FormData();
       formData.append("caption", storyContent);
       formData.append("story_type", storyType);
       formData.append(`stryfiles`, filesStry);
-      StoriesService.createStories(user.id, formData).then((res) => {
+    return  StoriesService.createStories(user.id, formData).then((res) => {
         handleRemoveImageStry();
         setStories(res.data);
+        setDisable(false);
         setStoryContent("");
         setRefresh(res.data);
       });
@@ -476,6 +481,7 @@ function NewsfeedComponent() {
   };
 
   const uploadPost = (event) => {
+    setDisable(true);
     event.preventDefault();
     setUploadError("");
     if (
@@ -484,6 +490,7 @@ function NewsfeedComponent() {
       files.constructor === Object
     ) {
       setUploadError("Please Insert A Text or an Image");
+      setDisable(false);
       return;
     } else {
       const formData = new FormData();
@@ -493,25 +500,31 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) { }
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`swapfiles`, swapfiles);
       formData.append(`privacy`, Privacy);
+
       if (userF === null) {
-        PostService.createPost(user.id, formData, null).then((res) => {
-          setPostContent("");
-          handleRemoveImage();
-          setRefresh(res.data);
-        });
+       return PostService.createPost(user.id, formData, null)
+          .then((res) => {
+            setPostContent("");
+            handleRemoveImage();
+            setRefresh(res.data);
+            setDisable(false);
+          })
       } else
-        PostService.createPost(user.id, formData, userF.id).then((res) => {
-          setPostContent("");
-          handleRemoveImage();
-          setRefresh(res.data);
-        });
+      return   PostService.createPost(user.id, formData, userF.id)
+          .then((res) => {
+            setPostContent("");
+            handleRemoveImage();
+            setRefresh(res.data);
+            setDisable(false);
+          })
     }
   };
 
   const uploadHangShare = (event) => {
+    setDisable(true);
     event.preventDefault();
     setUploadError("");
     if (
@@ -520,6 +533,7 @@ function NewsfeedComponent() {
       files.constructor === Object
     ) {
       setUploadError("Please Insert A Text or an Image");
+      setDisable(false);
       return;
     } else {
       const formData = new FormData();
@@ -528,22 +542,24 @@ function NewsfeedComponent() {
         formData.append(`files`, files[i]);
       }
 
-      for (let i = 0; i < `files`.length; i++) { }
+      for (let i = 0; i < `files`.length; i++) {}
       formData.append(`privacy`, Privacy);
       formData.append(`category`, categoryHS);
 
       if (userF === null) {
-        HangShareService.createHangShare(user.id, formData).then((res) => {
+       return HangShareService.createHangShare(user.id, formData).then((res) => {
           setPostContent("");
           handleRemoveImage();
           setRefresh(res.data);
+          setDisable(false);
         });
       } else
-        HangShareService.createHangShare(user.id, formData, userF.id).then(
+      return HangShareService.createHangShare(user.id, formData, userF.id).then(
           (res) => {
             setPostContent("");
             handleRemoveImage();
             setRefresh(res.data);
+            setDisable(false);
           }
         );
     }
@@ -732,6 +748,7 @@ function NewsfeedComponent() {
 
   //swap upload function
   const uploadSwap = async (event) => {
+    setDisable(true);
     await event.preventDefault();
     setUploadError("");
     console.log("uploading swap working");
@@ -741,6 +758,7 @@ function NewsfeedComponent() {
       swapfiles.constructor === Object
     ) {
       setUploadError("Please Insert A Text or an Image");
+      setDisable(false);
       return;
     }
 
@@ -751,21 +769,24 @@ function NewsfeedComponent() {
       await formData.append(`files`, swapfiles[i]);
     }
 
-    for (let i = 0; i < `swapfiles`.length; i++) { }
+    for (let i = 0; i < `swapfiles`.length; i++) {}
     formData.append(`swapfiles`, swapfiles);
     formData.append(`privacy`, Privacy);
     if (userF === null) {
-      await SwapService.createSwap(user.id, formData, null).then((res) => {
+    return  await SwapService.createSwap(user.id, formData, null).then((res) => {
         // setCloseModal(false)
         // window.location.reload();
 
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
+        setDisable(false);
+
         // window.location.reload();
       });
     } else
-      await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+    return  await SwapService.createSwap(user.id, formData, userF.id).then((res) => {
+        setDisable(false);
         setSwapContent("");
         handleRemoveImageSwap();
         setRefresh(res.data);
@@ -1374,10 +1395,11 @@ function NewsfeedComponent() {
         {(close) => (
           <Form
             className="popwidth"
-            onSubmit={(e) => {
-              uploadSwap(e);
-              close();
-            }}
+            onSubmit={ (e) =>{                 
+              uploadSwap(e).finally(_=> {
+                  close()
+                })
+              }}  
           >
             <div className="headpop">
               <div className="row">
@@ -1510,14 +1532,23 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowSwap()}
-            <button
-              type="submit"
-              value="Submit"
-              className="popsbmt-btn"
-            // onClick={}
-            >
-              SWAP
-            </button>
+            {disable ? (
+              <button disabled class="buttonload popsbmt-btn">
+                <i class="fa fa-spinner fa-spin"></i>Loading
+              </button>
+            ) : (
+              <>
+                {showSwapImage ? (
+                  <button type="submit" value="Submit" className="popsbmt-btn">
+                    SWAP
+                  </button>
+                ) : (
+                  <button type="button" disabled className="popsbmt-btn ">
+                    SHARE REEL
+                  </button>
+                )}
+              </>
+            )}
           </Form>
         )}
       </Popup>
@@ -1674,9 +1705,31 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
-            <button className="popsbmt-btn" onClick={uploadHangShare}>
-              POST
-            </button>
+            {disable ? (
+              <button disabled class="buttonload popsbmt-btn">
+                <i class="fa fa-spinner fa-spin"></i>   Loading
+              </button>
+            ) : (
+              <>
+                {showPostImage ? (
+                  <button className="popsbmt-btn"
+                   onClick={(e) =>{                 
+                  uploadHangShare(e).finally(_=> {
+                  close()
+                })
+
+              }}
+                   
+                   >
+                    Post Hang Share
+                  </button>
+                ) : (
+                  <button type="button" disabled className="popsbmt-btn ">
+                    Post Hang Share
+                  </button>
+                )}
+              </>
+            )}
           </Form>
         )}
       </Popup>
@@ -1699,10 +1752,12 @@ function NewsfeedComponent() {
         {(close) => (
           <Form
             className="popform popwidth"
-            onSubmit={(e) => {
-              uploadPost(e);
-              close();
-            }}
+            onSubmit={ (e) =>{                 
+                uploadPost(e).finally(_=> {
+                  close()
+                })
+
+              }}  
           >
             <div className="headpop">
               <div className="row">
@@ -1863,14 +1918,27 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
-            <button
-              type="submit"
-              value="Submit"
-              className="popsbmt-btn"
-            // onClick={uploadPost}
-            >
-              POST
-            </button>
+            {disable ? (
+              <button disabled class="buttonload popsbmt-btn">
+                <i class="fa fa-spinner fa-spin"></i>Loading
+              </button>
+            ) : (
+              <>
+                {showPostImage || postContent ? (
+                  <button
+                    type="submit"
+                    value="Submit"
+                    className="popsbmt-btn"
+                  >
+                    Share POST
+                  </button>
+                ) : (
+                  <button type="button" disabled className="popsbmt-btn ">
+                    Share Post
+                  </button>
+                )}
+              </>
+            )}
           </Form>
         )}
       </Popup>
@@ -2013,9 +2081,30 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
-            <button className="popsbmt-btn" onClick={uploadPost}>
-              POST
-            </button>
+            {disable ? (
+              <button disabled class="buttonload popsbmt-btn">
+                <i class="fa fa-spinner fa-spin"></i>Loading
+              </button>
+            ) : (
+              <>
+                {showPostImage || postContent ? (
+                  <button className="popsbmt-btn" 
+                 onClick={ (e) =>{                 
+                uploadPost(e).finally(_=> {
+                  close()
+                })
+
+              }}
+                  >
+                    Share Up
+                  </button>
+                ) : (
+                  <button type="button" disabled className="popsbmt-btn ">
+                    Share Up
+                  </button>
+                )}
+              </>
+            )}
           </Form>
         )}
       </Popup>
@@ -2042,9 +2131,11 @@ function NewsfeedComponent() {
           {(close) => (
             <Form
               className="popform popwidth"
-              onSubmit={(e) => {
-                uploadPost(e);
-                close();
+              onSubmit={ (e) =>{                 
+                uploadPost(e).finally(_=> {
+                  close()
+                })
+
               }}
             >
               <div className="headpop">
@@ -2197,14 +2288,27 @@ function NewsfeedComponent() {
               </div>
 
               {imageshowPost()}
-              <button
-                type="submit"
-                value="Submit"
-                className="popsbmt-btn"
-              // onClick={uploadPost}
-              >
-                POST
-              </button>
+              {disable ? (
+                <button disabled class="buttonload popsbmt-btn">
+                  <i class="fa fa-spinner fa-spin"></i>Loading
+                </button>
+              ) : (
+                <>
+                  {showPostImage || postContent ? (
+                    <button
+                      type="submit"
+                      value="Submit"
+                      className="popsbmt-btn"
+                    >
+                      POST
+                    </button>
+                  ) : (
+                    <button type="button" disabled className="popsbmt-btn ">
+                      POST
+                    </button>
+                  )}
+                </>
+              )}
             </Form>
           )}
         </Popup>
@@ -2526,20 +2630,18 @@ function NewsfeedComponent() {
     );
   };
   const likeReel = async (reelId) => {
-    let params = {}
+    let params = {};
     await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
-      getReelForUserFriends()
-
-    })
-  }
-  useEffect(() => {
-  }, [postsForUser]);
+      getReelForUserFriends();
+    });
+  };
+  useEffect(() => {}, [postsForUser]);
 
   const commentChangedFunction = (props) => {
     if (props) {
-      getPostForUser()
+      getPostForUser();
     }
-  }
+  };
 
   const show = () => {
     return (
@@ -2559,7 +2661,9 @@ function NewsfeedComponent() {
                     userF={userF}
                     commentChangedFunction={commentChangedFunction}
                   />
-                  {index == 3 && rellsForUserFriends && rellsForUserFriends.length>0? (
+                  {index == 3 &&
+                  rellsForUserFriends &&
+                  rellsForUserFriends.length > 0 ? (
                     <div className="central-meta newsfeed reels-cont">
                       <div className="common-title">REELS</div>
                       <div className="new-postbox">
@@ -2623,7 +2727,9 @@ function NewsfeedComponent() {
               ) : null
             ) : (
               <>
-                <PostComponent post={post} setRefresh={setRefresh}
+                <PostComponent
+                  post={post}
+                  setRefresh={setRefresh}
                   commentChangedFunction={commentChangedFunction}
                 />
                 {index == 3 ? (
@@ -2632,7 +2738,7 @@ function NewsfeedComponent() {
                     <div className="new-postbox">
                       <div className="slide-wrapperstry">
                         {rellsForUserFriends &&
-                          rellsForUserFriends.length > 0 ? (
+                        rellsForUserFriends.length > 0 ? (
                           <ul className="slidestry">
                             {rellsForUserFriends
                               .slice(0, 4)
@@ -2719,17 +2825,7 @@ function NewsfeedComponent() {
                                   {/* { checkIfUserAlreadyPostStory(storyauth.user) ?  */}
                                   <span style={{ float: "right" }}>
                                     {" "}
-                                    <button
-                                      style={{
-                                        float: "right",
-                                        borderRadius: "20px",
-                                        padding: "5px 20px",
-                                      }}
-                                      type="submit"
-                                      onClick={uploadReels}
-                                    >
-                                      Upload
-                                    </button>
+
                                   </span>
                                   {/* :null}  */}
                                 </div>
@@ -2745,8 +2841,7 @@ function NewsfeedComponent() {
                                         src={ReelVideo}
                                         height={"350px"}
                                         controls="controls"
-                                      >
-                                      </video>
+                                      ></video>
 
                                       <button
                                         onClick={handleRemoveReelVideo}
@@ -2784,7 +2879,11 @@ function NewsfeedComponent() {
                               <button
                                 class="popsbmt-btn"
                                 type="submit"
-                                onClick={uploadReels}
+                                onClick={ (e) =>{                 
+                                  uploadReels(e).finally(_=> {
+                                 close()
+                                  })
+                                 }}  
                               >
                                 SHARE REEL
                               </button>
@@ -2904,10 +3003,14 @@ function NewsfeedComponent() {
   }, [user]);
 
   useEffect(() => {
-    if (user && user.id) { getStoriesForFriendsUser(); }
+    if (user && user.id) {
+      getStoriesForFriendsUser();
+    }
   }, [FriendsStories]);
   useEffect(async () => {
-    if (user && user.id) { getReelForUserFriends(); }
+    if (user && user.id) {
+      getReelForUserFriends();
+    }
   }, [FriendsReels]);
 
   useEffect(() => {
@@ -3037,8 +3140,7 @@ function NewsfeedComponent() {
                                       src={storiesImage}
                                       height={"350px"}
                                       controls="controls"
-                                    >
-                                    </video>
+                                    ></video>
                                     <button
                                       onClick={handleRemoveImageStry}
                                       style={{
@@ -3103,17 +3205,36 @@ function NewsfeedComponent() {
                             <div className="storyErr">{uploadErrorStory}</div>
                           ) : null}
 
-                          <button
-                            className="popsbmt-btn"
-                            type="submit"
-                            onClick={uploadStories}
-                          >
-                            SHARE STORY
-                          </button>
+                          {disable ? (
+                            <button disabled class="buttonload popsbmt-btn">
+                              <i class="fa fa-spinner fa-spin"></i>Loading
+                            </button>
+                          ) : (
+                            <>
+                              {showstoriesImage ? (
+                                <button
+                                  className="popsbmt-btn"
+                                  type="submit"
+                                  onClick={ (e) =>{                 
+                                    uploadStories(e).finally(_=> {
+                                   close()
+                                      })
+                                  }}  
+                                >
+                                  SHARE STORY
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  disabled
+                                  className="popsbmt-btn "
+                                >
+                                  SHARE STORY
+                                </button>
+                              )}
+                            </>
+                          )}
                         </div>
-                        {/* </> 
-                                                   
-                                 )}  */}
                       </Form>
                     )}
                   </Popup>
@@ -3187,7 +3308,7 @@ function NewsfeedComponent() {
                       <StoriesComponentFriends
                         story={
                           storiesForUserFriends[index].stories_List[
-                          storiesForUserFriends[index].stories_List.length - 1
+                            storiesForUserFriends[index].stories_List.length - 1
                           ]
                         }
                         setRefresh={setRefresh}
@@ -3226,7 +3347,7 @@ function NewsfeedComponent() {
               ))}
               {storiesForUserFriends.length > 3 ? (
                 <li className="more-reels">
-                  <a href="/reelFeed">
+                  <a href="/storiesFeed">
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </li>

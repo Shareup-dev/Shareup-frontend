@@ -78,12 +78,9 @@ export default function Layout(props) {
     formData.append(`thumbnail`, filesReel);
 
     ReelsServices.createReels(user.id, formData).then((res) => {
-      console.log("jsonnn", JSON.stringify(res));
       handleRemoveReelVideo();
       setReels(res.data);
       setRefresh(res.data);
-
-      console.log("response", reels);
     });
   };
 
