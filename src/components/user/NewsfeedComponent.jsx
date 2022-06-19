@@ -485,7 +485,7 @@ function NewsfeedComponent() {
     event.preventDefault();
     setUploadError("");
     if (
-      postContent === "" ||
+      postContent === "" &&
       Object.keys(files).length === 0 &&
       files.constructor === Object
     ) {
@@ -1536,7 +1536,7 @@ function NewsfeedComponent() {
             {imageshowSwap()}
             {disable ? (
               <button disabled class="buttonload popsbmt-btn">
-                <i class="fa fa-spinner fa-spin"></i>Loading
+                <i class="fa fa-spinner fa-spin"></i>  Loading
               </button>
             ) : (
               <>
@@ -1754,12 +1754,11 @@ function NewsfeedComponent() {
         {(close) => (
           <Form
             className="popform popwidth"
-            onSubmit={ (e) =>{                 
+              onSubmit={ (e) =>{                 
                 uploadPost(e).finally(_=> {
                   close()
                 })
-
-              }}  
+              }} 
           >
             <div className="headpop">
               <div className="row">
@@ -1920,9 +1919,10 @@ function NewsfeedComponent() {
             </div>
 
             {imageshowPost()}
+            
             {disable ? (
               <button disabled class="buttonload popsbmt-btn">
-                <i class="fa fa-spinner fa-spin"></i>Loading
+                <i class="fa fa-spinner fa-spin"></i>  Loading
               </button>
             ) : (
               <>
@@ -1932,7 +1932,7 @@ function NewsfeedComponent() {
                     value="Submit"
                     className="popsbmt-btn"
                   >
-                    Share POST
+                    Share Post
                   </button>
                 ) : (
                   <button type="button" disabled className="popsbmt-btn ">
@@ -2085,7 +2085,7 @@ function NewsfeedComponent() {
             {imageshowPost()}
             {disable ? (
               <button disabled class="buttonload popsbmt-btn">
-                <i class="fa fa-spinner fa-spin"></i>Loading
+                <i class="fa fa-spinner fa-spin"></i>  Loading
               </button>
             ) : (
               <>
@@ -2137,7 +2137,6 @@ function NewsfeedComponent() {
                 uploadPost(e).finally(_=> {
                   close()
                 })
-
               }}
             >
               <div className="headpop">
@@ -2292,7 +2291,7 @@ function NewsfeedComponent() {
               {imageshowPost()}
               {disable ? (
                 <button disabled class="buttonload popsbmt-btn">
-                  <i class="fa fa-spinner fa-spin"></i>Loading
+                  <i class="fa fa-spinner fa-spin"></i>  Loading
                 </button>
               ) : (
                 <>
@@ -3206,7 +3205,7 @@ function NewsfeedComponent() {
 
                           {disable ? (
                             <button disabled class="buttonload popsbmt-btn">
-                              <i class="fa fa-spinner fa-spin"></i>Loading
+                              <i class="fa fa-spinner fa-spin"></i>  Loading
                             </button>
                           ) : (
                             <>

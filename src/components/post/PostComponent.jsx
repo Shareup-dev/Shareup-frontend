@@ -139,11 +139,8 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
-      // console.log('gelllllllllllllll')
-        handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post.id)        
-       
-
-      setRefresh(res.data);
+     handleSendNotification(res.data.userdata.id,'Liked your post',user.firstName,user.lastName,user.email,"post",post.id)        
+     setRefresh(res.data);
     });
   };
 
@@ -204,6 +201,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
   const [AllReactionListShare, setAllReactionListShare] = useState([]);
 
   const getAllReactionList = () => {
+    
     if (post.allPostsType !== "share"){
     PostService.getAllReactionList(post?.id).then((res) => {
       setAllReactionList(res.data);
@@ -221,6 +219,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
   useEffect(() => {
     getAllReactionList();
   }, [setRefresh]);
+  
   const handleShowingReaction = () => {
     setTimeout(function () {
       setShowReactions(true);
