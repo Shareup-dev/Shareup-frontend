@@ -23,7 +23,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-  return settings.localRaouf;
+  return settings.awsNew;
 };
 
 export default getCurrentSettings();
