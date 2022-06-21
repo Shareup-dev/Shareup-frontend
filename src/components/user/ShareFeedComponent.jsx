@@ -68,12 +68,11 @@ function ShareFeedComponent() {
     maxHeight: "100%",
   });
   const getAllHangShare = async () => {
-    await HangShareService.getAllHangShare(
-      AuthService.getCurrentUser().username
-    ).then((res) => {
+    if(user){
+    await HangShareService.getAllHangShare(user?.id).then((res) => {
       setAllHangShare(res.data);
       SetMyHangShare(res.data);
-    });
+    });}
   };
 
   const getHangShareMeals = async () => {
@@ -111,7 +110,7 @@ function ShareFeedComponent() {
   }, []);
 
   useEffect(() => {
-    testScript();
+    getAllHangShare();
   }, [editPostId, refresh]);
 
   const AllHangShareShow = () => {

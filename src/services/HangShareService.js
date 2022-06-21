@@ -23,9 +23,9 @@ authenticate();
 
 class HangShareService {
 
-    getAllHangShare = async () => {
+    getAllHangShare = async (uid) => {
         authenticate();
-        const result = await authAxios.get('hangshare')
+        const result = await authAxios.get(`hangshare/feed/${uid}`)
         return result;
     }
 

@@ -105,7 +105,6 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
     setUserPhone(event.target.value);
   };
   const checkIfLiked = (post) => {
-    // console.log(post)
     if (post?.likedType !== "false") {
       return true;
     }
@@ -142,8 +141,6 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
   const handleLikePost = async (post, reaction) => {
     UserService.likeAllPost(user?.id, post.id, reaction).then((res) => {
-      console.log("like all post ")
-      console.log(res.data)
      if(res.status ===201){
       
       switch (res.data.allPostsType){
@@ -239,7 +236,9 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
     })
   }
   };
-
+  useEffect(() => {
+    getAllReactionList();
+  }, []);
   useEffect(() => {
     getAllReactionList();
   }, [setRefresh]);
