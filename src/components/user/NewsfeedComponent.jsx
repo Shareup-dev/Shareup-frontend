@@ -295,7 +295,7 @@ function NewsfeedComponent() {
       setPosts(res.data);
     });
 
-    await SwapService.getSwap().then((res) => {
+    await SwapService.getSwap(user.id).then((res) => {
       setPosts((val) => [...val, ...res.data]);
     });
   };

@@ -24,9 +24,9 @@ const authenticate = () => {
 authenticate();
 
 class SwapService {
-    getSwap = async () => {
+    getSwap = async (uid) => {
         authenticate();
-        const result = await authAxios.get('swaps/')
+        const result = await authAxios.get(`swaps/feed/${uid}`)
         return result;
     }
 
