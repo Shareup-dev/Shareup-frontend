@@ -74,6 +74,7 @@ import URLPostComponent from './components/post/URLPostComponent';
 
 // import StoriesComponentMain from './components/Stories/StoriesComponent';
 function App() {
+
   testScript()
   let history = useHistory();
 
@@ -82,14 +83,19 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   const userAuthenticator = async () => {
-    await AuthService.setCurrentUser(jwtUser)
-    let user = null
-    if (jwtUser) {  
-      setLoading(true);
-      UserService.getUserByEmail(jwtUser.username).then(res => {
-        setUser(res.data);
-     }).finally(_=> setLoading(false));
-    }
+    // if(localStorage.getItem('user')===undefined||localStorage.getItem('user')===null){
+      await AuthService.setCurrentUser(jwtUser)
+      let user = null
+      if (jwtUser) {  
+        setLoading(true);
+        UserService.getUserByEmail(jwtUser.username).then(res => {
+          setUser(res.data);
+          console.log(res.data)
+       }).finally(_=> setLoading(false));
+      }
+    // }else{
+      // setUser(localStorage.getItem('user'))
+    // }
     
   }
 
@@ -110,65 +116,70 @@ Giphy();
 
 
   return (
-    <UserContext.Provider value={{ user }}>
+    <>
     {
-      loading ? <Loader />:(      
-      <Router>
-        <HeaderComponent />
-          <Switch>
-          <Route path="/" exact><Index set={setJwtUser} setUser={setUser}/></Route>
-          <Route path="/about">
-            <AboutComponent/>
-          </Route>
-          <Route path="/privacyPolicy">
-            <PrivacyPolicyComponent/>
-          </Route>
-          <ProtectedRoute path="/newsfeed" component={NewsfeedComponent}></ProtectedRoute>
-          <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
-          <ProtectedRoute path="/notifications" component={NotificationChatComponent}></ProtectedRoute>
-          <ProtectedRoute path="/new-user" component={GuideComponent}></ProtectedRoute>
-          <ProtectedRoute path="/group/create" component={CreateGroupComponentMain}></ProtectedRoute>
-          <ProtectedRoute path="/groups/:id/edit" component={EditGroupComponent}></ProtectedRoute>
-          <ProtectedRoute path="/groups/:id" component={ViewGroupComponent1}></ProtectedRoute>
-          <ProtectedRoute path="/groups/" component={GroupListComponent}></ProtectedRoute>
-          <ProtectedRoute path="/profile/:email" component={OtherProfileComponent}></ProtectedRoute>
-          <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
-          <ProtectedRoute path="/Addfriends" component={AddFriendsComponent}></ProtectedRoute>
-          <ProtectedRoute path="/friends" component={FriendsComponent}></ProtectedRoute>
-          <ProtectedRoute path="/chat" component={ChatComponent}></ProtectedRoute>
-          <ProtectedRoute path="/messages" component={MessagesComponent}></ProtectedRoute>
-          {/* <ProtectedRoute path="/swappoint" component={SwappointComponent}></ProtectedRoute> */}
-		  <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/share" component={ShareItemComponent}></ProtectedRoute>
-      <ProtectedRoute path="/Activity" component={ActivityComponent}></ProtectedRoute>
-      <ProtectedRoute path="/Security" component={SecuritySettingsComponent}></ProtectedRoute>
-      <ProtectedRoute path="/HangGift" component={HangGiftComponent}></ProtectedRoute>
-      <ProtectedRoute path="/shipping" component={ShippingComponent}></ProtectedRoute>
-      <ProtectedRoute path="/checkout" component={CheckoutComponent}></ProtectedRoute>
-      <ProtectedRoute path="/editprofile" component={EditProfileComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swap" component={SwapComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swapFeed" component={SwapFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/savedShares" component={SavedSharesComponent}></ProtectedRoute>
-      <ProtectedRoute path="/swappost" component={SwapFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/PaymentConfirmation" component={PayConfirmComponent}></ProtectedRoute>
-      <ProtectedRoute path="/chatTest" component={ChatTestComponent}></ProtectedRoute>
-      <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
-      <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
-      <ProtectedRoute path="/searchFeed" component={SearchFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/reelFeed" component={ReelFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/storiesFeed" component={StoriesFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/notificationsNew" component={NotificationFeedComponent}></ProtectedRoute>
-      <ProtectedRoute path="/post/:postID" component={URLPostComponent}></ProtectedRoute>
+      loading 
+      ? <Loader />
+      :( 
+        <UserContext.Provider value={{ user }}>     
+        <Router>
+          <HeaderComponent />
+            <Switch>
+            <Route path="/" exact><Index set={setJwtUser} setUser={setUser}/></Route>
+            <Route path="/about">
+              <AboutComponent/>
+            </Route>
+            <Route path="/privacyPolicy">
+              <PrivacyPolicyComponent/>
+            </Route>
+            <ProtectedRoute path="/newsfeed" component={NewsfeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/notifications" component={NotificationChatComponent}></ProtectedRoute>
+            <ProtectedRoute path="/new-user" component={GuideComponent}></ProtectedRoute>
+            <ProtectedRoute path="/group/create" component={CreateGroupComponentMain}></ProtectedRoute>
+            <ProtectedRoute path="/groups/:id/edit" component={EditGroupComponent}></ProtectedRoute>
+            <ProtectedRoute path="/groups/:id" component={ViewGroupComponent1}></ProtectedRoute>
+            <ProtectedRoute path="/groups/" component={GroupListComponent}></ProtectedRoute>
+            <ProtectedRoute path="/profile/:email" component={OtherProfileComponent}></ProtectedRoute>
+            <ProtectedRoute path="/profile" component={ProfileComponent}></ProtectedRoute>
+            <ProtectedRoute path="/Addfriends" component={AddFriendsComponent}></ProtectedRoute>
+            <ProtectedRoute path="/friends" component={FriendsComponent}></ProtectedRoute>
+            <ProtectedRoute path="/chat" component={ChatComponent}></ProtectedRoute>
+            <ProtectedRoute path="/messages" component={MessagesComponent}></ProtectedRoute>
+            {/* <ProtectedRoute path="/swappoint" component={SwappointComponent}></ProtectedRoute> */}
+            <ProtectedRoute path="/shareFeed" component={ShareFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/share" component={ShareItemComponent}></ProtectedRoute>
+            <ProtectedRoute path="/Activity" component={ActivityComponent}></ProtectedRoute>
+            <ProtectedRoute path="/Security" component={SecuritySettingsComponent}></ProtectedRoute>
+            <ProtectedRoute path="/HangGift" component={HangGiftComponent}></ProtectedRoute>
+            <ProtectedRoute path="/shipping" component={ShippingComponent}></ProtectedRoute>
+            <ProtectedRoute path="/checkout" component={CheckoutComponent}></ProtectedRoute>
+            <ProtectedRoute path="/editprofile" component={EditProfileComponent}></ProtectedRoute>
+            <ProtectedRoute path="/swap" component={SwapComponent}></ProtectedRoute>
+            <ProtectedRoute path="/swapFeed" component={SwapFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/savedShares" component={SavedSharesComponent}></ProtectedRoute>
+            <ProtectedRoute path="/swappost" component={SwapFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/PaymentConfirmation" component={PayConfirmComponent}></ProtectedRoute>
+            <ProtectedRoute path="/chatTest" component={ChatTestComponent}></ProtectedRoute>
+            <ProtectedRoute path="/stry" component={DisplayComponent}></ProtectedRoute>
+            <ProtectedRoute path="/loc" component={LocationComponent}></ProtectedRoute>
+            <ProtectedRoute path="/searchFeed" component={SearchFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/reelFeed" component={ReelFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/storiesFeed" component={StoriesFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/notificationsNew" component={NotificationFeedComponent}></ProtectedRoute>
+            <ProtectedRoute path="/post/:postID" component={URLPostComponent}></ProtectedRoute>
 
 
-    
       
-      {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
-        </Switch>
-      </Router>
-      )
-    }
-    </UserContext.Provider>
+        
+        {/* <ProtectedRoute path="/stories" component={StoriesComponent}></ProtectedRoute> */}
+          </Switch>
+        </Router>
+      </UserContext.Provider>
+    )
+  }
+    </>
+
   );
 }
 

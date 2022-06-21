@@ -34,9 +34,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 const my_url = `${storage.baseUrl}`;
 
-export default function PostComponent({ post, setRefresh , commentChangedFunction}) {
+export default function PostComponent(props ) {
   const { user } = useContext(UserContext);
-  let psotid = post?.id;
   const [editPostId, setEditPostId] = useState(null);
   const [userR, setUserR] = useState([]);
   const [showComment, setShowComment] = useState(false);
@@ -52,6 +51,11 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
   const [isOpen, setIsopen] = useState(false);
   const [likeReaction, setLikeReaction] = useState(null);
   const [imgString, setimgString] = useState("");
+  const [commentCounter, setCommentCounter] = useState();
+  const [post,setPost] = useState(props.post)
+  const [refresh,setRefresh] = useState(props.setRefresh)
+  let psotid = post?.id;
+  
   const images = [
     {
       original: `/user-post/${post.id}/${imgString[0]}`,
@@ -73,14 +77,19 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
     setRefresh(id);
   };
 
-  // const getCommentCounter = (comments) => {
-  //   let counter = 0;
-  //   comments.map((comment) => {
-  //     counter += comment.replies.length + 1;
-  //   });
-  //   if (counter > 0) return counter + " Comments";
-  //   else return "";
-  // };
+  const getCommentCounter = () => {
+    PostService.getCommentsForPosts(user.id,post.id).then((res)=>{
+      setCommentCounter(res.data.length)
+    })
+    // let counter = 0;
+    // comments.map((comment) => {
+    //   counter += comment.replies.length + 1;
+    // });
+    // if (counter > 0) return counter + " Comments";
+    // else return "";
+
+
+  };
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [status, setStatus] = useState(null);
@@ -165,7 +174,11 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
       setRefresh(res.data);
     });
   };
-
+  const commentChangedFunction = (props) => {
+    if (props) {
+      getCommentCounter()
+    }
+  }
   const getLocation = () => {
     if (!navigator.geolocation) {
       setStatus("Geolocation is not supported by your browser");
@@ -217,6 +230,19 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
     })
   }
   };
+  const getPost = async () => {
+    await PostService.getPostById(post.id).then((res) => {
+      setPost(res.data);
+    });
+
+    // await SwapService.getSwap().then((res) => {
+    //   setPost((val) => [...val, ...res.data]);
+    // });
+  };
+  useEffect(() => {
+    getCommentCounter();
+    // getPost()
+  }, []);
 
   useEffect(() => {
     getAllReactionList();
@@ -924,6 +950,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
   };
 
   return (
+    post&&
     <div
       className="central-meta item"
       style={{ paddingBottom: "0px" }}
@@ -1077,6 +1104,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   )}
                 </>
               )}
+               {post&&post.userdata&&
               <div
                 className="friend-name"
                 style={{
@@ -1088,6 +1116,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   paddingLeft: "0px",
                 }}
               >
+               
                 <div style={{ display: "flex" }}>
                   <figure>
                     <img
@@ -1159,6 +1188,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
                   {/* {post.group ? <span className="groupName">Group: {`${post.group.name}`}</span> : null} */}
                 </div>
+                
                 {/* <div
                   style={{ float: 'right', display: 'inline', fontSize: '28px', fontWeight: '900', cursor: 'pointer' }}
                 ></div> */}
@@ -1477,6 +1507,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   </div>
                 </div>
               </div>
+               }
 
               {post.content && (
                 <p
@@ -2887,7 +2918,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                       style={{ marginRight: "5px" }}
                       onClick={() => setShowComment(!showComment)}
                     >
-                      {post.numberOfComments} Comments
+                      {commentCounter} Comments
                     </span>{" "}
                   </li>
                 </ul>

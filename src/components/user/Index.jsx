@@ -367,6 +367,8 @@ function Index({ set, setUser }) {
   const getUser = async (email) => {
     await UserService.getUserByEmail(email).then((res) => {
       setUser(res.data);
+      localStorage.setItem('userId',res.data.id)
+      console.log(res.data)
     });
   };
 
@@ -439,7 +441,9 @@ function Index({ set, setUser }) {
       .then((res) => {
         if (res.status === 200) {
           set(res.data);
+          console.log(res.data,'user first')
           getUser(res.data.username);
+         
           history.push("/newsfeed");
         }
       })

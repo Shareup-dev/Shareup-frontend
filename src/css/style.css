@@ -16418,7 +16418,7 @@ input.chat-text {
 }
 .swap-pg-cont {
   padding: 1rem;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
 }
 .frnds .nav-item i:before {
   background: linear-gradient(

@@ -15,16 +15,13 @@ class AuthService {
         password,
       })
       .then((response) => {
-        console.log(JSON.stringify(response.data) + "This response");
+       
         if (response.data.jwt) {
           localStorage.setItem("user", JSON.stringify(response.data));
-          console.log(
-            localStorage.getItem("user") + " THIS IS THE LOCAL STORAGE"
-          );
+
+          localStorage.setItem("username", JSON.stringify(response.data.username));
+          localStorage.setItem("token", JSON.stringify(response.data.jwt));
         }
-        console.log(
-          JSON.stringify(response.data) + " THIS BE RESPONSE DATA AUTHSERVICE"
-        );
         return response;
       });
   };
@@ -68,23 +65,11 @@ class AuthService {
       },
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user')
+    localStorage.removeItem('username')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('token')
   }
 
   // register(username, email, password){

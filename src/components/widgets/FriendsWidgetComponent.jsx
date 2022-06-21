@@ -32,7 +32,13 @@ function FriendsWidgetComponent() {
         return () => abortCtrl.abort()
     }, [])
 
-
+    const removeFriend = (uid, fid) => {
+		console.log("uid: " + uid + " fid: " + fid)
+		FriendsService.removeFriends(uid, fid).then(res => {
+			// setRefresh(res.data)
+            getFriendsList()
+		})
+	}
     return (
         friendsList.length>0?
             <div className="widget friend-widget stick-widget">
@@ -52,7 +58,7 @@ function FriendsWidgetComponent() {
                                 <a href={`/profile/${friend.email}`}>{`${friend.firstName} ${friend.lastName}`}</a>
                                 <p style={{fontSize:'12px',paddingTop:'5px'}}>{friend.numberOfFriends} Friends</p>
                             </div>
-                            <button title="" className="button common-theme-btn1" style={{margin:'10px'}}>Unfriend</button>
+                            <button title="" className="button common-theme-btn1" style={{margin:'10px'}} onClick={()=>removeFriend(user.id,friend.id)}>Unfriend</button>
                             </div>
                         </li>
                     )}

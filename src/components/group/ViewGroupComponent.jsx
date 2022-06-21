@@ -12,7 +12,7 @@ import Layout from '../LayoutComponent';
 import EditPostComponent from '../user/EditPostComponent'
 import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderComponent';
 import GroupsWidgetComponent from '../widgets/GroupsWidgetComponent';
-import FollowingWidgetComponent from '../widgets/FollowingWidgetComponent';
+import FollowersWidgetComponent from '../widgets/FollowersWidgetComponent';
 import FriendsWidgetComponent from '../widgets/FriendsWidgetComponent';
 import PostComponent from '../post/PostComponent';
 import MenuWidgetComponent from '../widgets/MenuWidgetComponent';

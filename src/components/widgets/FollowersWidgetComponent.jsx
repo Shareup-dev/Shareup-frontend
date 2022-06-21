@@ -10,7 +10,7 @@ import ShareupInsideHeaderComponent from '../dashboard/ShareupInsideHeaderCompon
 import PostService from '../../services/PostService';
 import fileStorage from '../../config/fileStorage';
 
-function FollowingWidgetComponent() {
+function FollowersWidgetComponent() {
     let history = useHistory();
 
     const { user } = useContext(UserContext)
@@ -21,6 +21,11 @@ function FollowingWidgetComponent() {
     const getAllFollowers = async () => {
 		await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
 			setFollowers(res.data)
+		})
+	}
+    const handleRemoveFollower = (fid) => {
+		UserService.removeFollower(user?.id, fid).then(res => {
+			getAllFollowers()
 		})
 	}
 
@@ -47,7 +52,7 @@ function FollowingWidgetComponent() {
                                     </h4>
                                     <p style={{fontSize:'12px',paddingTop:'5px'}}>{follower_user.numberOfFollowers} Followers</p>
                                 </div>
-                                <button title="" className="button common-theme-btn1" style={{margin:'10px',padding:'0 5px'}}>Unfollow</button>
+                                <button title="" className="button common-theme-btn1" style={{margin:'10px',padding:'0 5px'}} onClick={()=>handleRemoveFollower(follower_user.id)}>Remove</button>
 
                             </li>
                         )
@@ -57,4 +62,4 @@ function FollowingWidgetComponent() {
             :<></>
     );
 }
-export default FollowingWidgetComponent;
+export default FollowersWidgetComponent;

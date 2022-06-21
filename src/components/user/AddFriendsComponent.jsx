@@ -105,13 +105,13 @@ function AddFriendsComponent() {
 
 	const acceptFriendRequest = (uid, fid) => {
 		FriendsService.acceptRequest(uid, fid).then(res => {
-			setRefresh(res.data)
+			getFriendsList()
 		})
 	}
 
 	const declineFriendRequest = (uid, fid) => {
 		FriendsService.declineRequest(uid, fid).then(res => {
-			setRefresh(res.data)
+			getFriendsList()
 		})
 	}
 
@@ -135,16 +135,20 @@ function AddFriendsComponent() {
 
 	const handleFollow = (uid) => {
 		UserService.follow(user.id, uid).then(res => {
-			setRefresh(res.data)
+			getAllFollowing()
 		})
 	}
 
 	const handleUnfollow = (uid) => {
 		UserService.unfollow(user.id, uid).then(res => {
-			setRefresh(res.data)
+			getAllFollowing()
 		})
 	}
-
+	const handleRemoveFollower = (fid) => {
+		UserService.removeFollower(user?.id, fid).then(res => {
+			getAllFollowers()
+		})
+	}
 	const handleShowComp = () => {
 		if (showComp === "members") {
 			return FcomponentFunction()
@@ -170,15 +174,16 @@ function AddFriendsComponent() {
 					type="text" id="header-search" placeholder="Search Users" name="s" onChange={handleSearchedUser} />
 			</div>
 			<div className="tab-pane active fade show " id="frends">
-				<div style={{ contentAlign: 'center', textAlign: 'center', paddingTop: '15px' }}>
+				{/* <div style={{ contentAlign: 'center', textAlign: 'center', paddingTop: '15px' }}>
 					{(friendsList.length > 0) ?
 						<p style={{ marginBottom: '5px', fontWeight: 'medium', fontSize: '24px', color: '#646464' }}>Add New Friends!</p> :
 						<p style={{ fontWeight: 'medium', fontSize: '18px', color: '#646464' }}>There are no Friends!</p>}
-				</div>
+				</div> */}
 				<ul className="nearby-contct">
 					{searchedUser.map(
 						userM =>
-							(friendsList.some(el => el.id === userM.id)) ? null : <>
+						user.id!== userM.id&&
+							(friendsList.some(el => el.id === userM.id )) ? null : <>
 								<li key={userM.id} className="friends-card grp">
 									<div className="grid-container">
 										{/* <figure> */}
@@ -217,11 +222,11 @@ function AddFriendsComponent() {
 															friendRequestSent.some(el => el.id === userM.id)
 																?
 
-																<a href="#!" className="button" style={{ color: "#fff", background: '#033347', fontSize: '12px' }} data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Request</a>
+																<a href="#!" className="button common-trans-btn1"  data-ripple onClick={() => unsendFriendRequest(user.id, userM.id)}>Unsend Request</a>
 
 																:
 
-																<a href="#!" className="button" style={{ color: "#000000", background: '#EAEAEA', fontSize: '12px' }} data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Request</a>
+																<a href="#!" className="button common-theme-btn1"  data-ripple onClick={() => sendFriendRequest(user.id, userM.id)}>Send Request</a>
 
 														:
 														<>
@@ -280,6 +285,7 @@ function AddFriendsComponent() {
 					<ul className="nearby-contct">
 						{searchedFollowing.map(
 							userM =>
+								userM.id !== user.id  &&
 								<li key={userM.id} className="friends-card grp">
 									<div className="grid-container">
 										{/* <div className="nearly-pepls"> */}
@@ -335,6 +341,7 @@ function AddFriendsComponent() {
 					<ul className="nearby-contct">
 						{searchedFollowers.map(
 							userM =>
+							userM.id !== user.id  &&
 								<li key={userM.id} className="friends-card grp">
 									<div className="grid-container">
 										{/* <div className="nearly-pepls"> */}
@@ -355,7 +362,7 @@ function AddFriendsComponent() {
 
 										<div className="item4">
 											{/* <span>Engr</span> */}
-											<a href="#" className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => handleUnfollow(userM.id)}>unfollow</a>
+											<a href="#" className="button add-butn more-action common-theme-btn1" data-ripple onClick={() => handleRemoveFollower(userM.id)}>Remove</a>
 										</div>
 										{/* <div className="pepl-info">
                                             <h4><a href={`/profile/${userM.email}`} title={`${userM.email}`}>{`${userM.firstName} ${userM.lastName}`}</a></h4>
@@ -402,6 +409,7 @@ function AddFriendsComponent() {
 					<ul className="nearby-contct">
 						{friendRequestSent.map(
 							userM =>
+							userM.id !== user.id  &&
 								<li key={userM.id}>
 									<div className="nearly-pepls">
 										<figure>
@@ -432,6 +440,7 @@ function AddFriendsComponent() {
 					<ul className="nearby-contct">
 						{friendRequestRecieved.map(
 							userM =>
+							userM.id !== user.id  &&
 								<li key={userM.id}>
 									<div className="nearly-pepls" key={userM.id}>
 										<figure>
@@ -470,22 +479,22 @@ function AddFriendsComponent() {
 		})
 	}
 
-	// const getAllFollowing = async () => {
-	// 	await UserService.getFollowing(AuthService.getCurrentUser().username).then(res => {
-	// 		setFollowing(res.data)
+	const getAllFollowing = async () => {
+		await UserService.getFollowing(AuthService.getCurrentUser().username).then(res => {
+			setFollowing(res.data)
 
-	// 		setSearchedFollowing(res.data)
-	// 	})
-	// }
+			setSearchedFollowing(res.data)
+		})
+	}
 
-	// const getAllFollowers = async () => {
-	// 	await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
-	// 		setFollowers(res.data)
-	// 		setAllUser(res.data)
+	const getAllFollowers = async () => {
+		await UserService.getFollowers(AuthService.getCurrentUser().username).then(res => {
+			setFollowers(res.data)
+			setAllUser(res.data)
 
-	// 		setSearchedFollowers(res.data)
-	// 	})
-	// }
+			setSearchedFollowers(res.data)
+		})
+	}
 
 	const getAllFriendRequestSent = async () => {
 		await UserService.getFriendRequestSent(AuthService.getCurrentUser().username).then(res => {
@@ -522,18 +531,18 @@ function AddFriendsComponent() {
 	useEffect(() => {
 		getAllUser()
 		getFriendsList()
-		// getAllFollowing()
-		// getAllFollowers()
+		getAllFollowing()
+		getAllFollowers()
 		getAllFriendRequestSent()
 		getAllFriendRequestRecieved()
 
-		console.log("Users = " + allUser)
-		console.log("Friends = " + friendsList)
-	}, [showComp, refresh])
+		// console.log("Users = " + allUser)
+		// console.log("Friends = " + friendsList)
+	},[])
 
-	useEffect(() => {
-		testScript()
-	}, [])
+	// useEffect(() => {
+	// 	testScript()
+	// }, [])
 
 
 	return (

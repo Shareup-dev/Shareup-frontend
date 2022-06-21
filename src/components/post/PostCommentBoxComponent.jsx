@@ -112,7 +112,7 @@ export default function PostComponentBoxComponent(props) {
   const handleDeleteComment = async (comment, post) => {
     await CommentsService.deleteComment(comment.id).then((res) => {
       sortComment(post.id);
-
+      props.commentChangedFunction(post.id)
       // props.setRefresh(res.data)
     });
 

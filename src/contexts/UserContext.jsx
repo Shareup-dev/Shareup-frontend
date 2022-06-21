@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 
 export default createContext({
-    user:null
+    user:null,
+    setUser: user => user
 })

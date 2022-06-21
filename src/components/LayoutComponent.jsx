@@ -6,7 +6,7 @@ import AuthService from "../services/auth.services";
 import PostService from "../services/PostService";
 import ShareupInsideHeaderComponent from "./dashboard/ShareupInsideHeaderComponent";
 import EditPostComponent from "./user/EditPostComponent";
-import FollowingWidgetComponent from "./widgets/FollowingWidgetComponent";
+import FollowersWidgetComponent from "./widgets/FollowersWidgetComponent";
 import FriendsWidgetComponent from "./widgets/FriendsWidgetComponent";
 import GroupsWidgetComponent from "./widgets/GroupsWidgetComponent";
 import settings from "../services/Settings";
@@ -87,7 +87,7 @@ export default function Layout(props) {
     });
   };
 
- 
+
 
   const getReelForUserFriends = async () => {
     await ReelsServices.getReelForUserFriends(user?.id).then((res) => {
@@ -176,9 +176,8 @@ export default function Layout(props) {
                                 }
                               />
                               <a
-                                href={`/profile/${
-                                  AuthService.getCurrentUser().username
-                                }`}
+                                href={`/profile/${AuthService.getCurrentUser().username
+                                  }`}
                               >
                                 <p
                                   style={{ fontWeight: "bold" }}
@@ -476,9 +475,9 @@ export default function Layout(props) {
                             </div>
                           </div>
 
-                          <ReelWidgetComponent />            
+                          <ReelWidgetComponent />
                           <FriendsWidgetComponent />
-                          <FollowingWidgetComponent />
+                          <FollowersWidgetComponent />
                           <GroupsWidgetComponent />
                         </aside>
                       </div>

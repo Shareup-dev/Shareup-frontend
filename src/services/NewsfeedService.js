@@ -26,7 +26,12 @@ class NewsFeedService {
             authenticate();
             const result = await authAxios.get(`new_newsFeed/${email}`)
             return result;
-        }
+    }
+    getFeedWithPagination = async (email,pageNo,pageSize) => {
+        authenticate();
+        const result = await authAxios.get(`newsFeed_pagination/${email}/${pageNo}/${pageSize}`)
+        return result;
+    }
     // getPost = async () => {
     //     authenticate();
     //     const result = await authAxios.get('posts/')

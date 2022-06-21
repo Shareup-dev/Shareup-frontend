@@ -105,7 +105,11 @@ class UserService {
         const result = await authAxios.delete(`${email}/unfollow/${followed_id}`)
         return result
     }
-
+    
+    removeFollower = async (email,follower_id) => {
+        const result = await authAxios.delete(`${email}/remove_follow/${follower_id}`)
+        return result
+    }
     getFollowStatus = async (uid, fid) => {
         const result = await authAxios.get(`/${uid}/follow_with/${fid}`)
         return result
@@ -147,6 +151,10 @@ class UserService {
 
     likeAllPost = async (uid,pid,reaction) => {
         const result = await authAxios.put(`/${uid}/like-unlike/${pid}`,{emoji:reaction })
+        return result
+    }
+    checkFollower = async (uid , fid) =>{
+        const result = await authAxios.put(`/${uid}/follow_with/${fid}`)
         return result
     }
     // saveSwap = async (uid,sid) => {

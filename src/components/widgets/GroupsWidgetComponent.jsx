@@ -34,7 +34,36 @@ function GroupsWidgetComponent() {
     const handleSearchGroup = () => {
         console.log("Waaa")
     }
+    const handleJoinGroup = (e, groupId) => {
+		e.preventDefault();
+		// console.log(group.id)
+		// if (group.privacySetting === true) {
+			GroupService.joinGroup(user.id, groupId).then(res => {
+				getAllGroups()
 
+			})
+		// } else {
+		// 	GroupService.joinRequestGroup(user.id, group.id).then(res => {
+		// 		getAllGroups()
+		// 	})
+		// }
+
+	}
+    const handleLeaveGroup = (e, groupId) => {
+		e.preventDefault();
+		// console.log(group.id)
+		// if (group.privacySetting === true) {
+			GroupService.leaveGroup(user.id, groupId).then(res => {
+				getAllGroups()
+
+			})
+		// } else {
+		// 	GroupService.joinRequestGroup(user.id, group.id).then(res => {
+		// 		getAllGroups()
+		// 	})
+		// }
+
+	}
     useEffect(() => {
         const abortCtrl = new AbortController();
         const opts = { signal: abortCtrl.signal };
@@ -63,7 +92,11 @@ function GroupsWidgetComponent() {
                                     <span>{`${group.members && group.members.length}`} Members</span>
 
                                 </div>
-                                <button style={{  margin: '10px'}} className="button common-theme-btn1" >Join</button>
+                                {group.members &&
+                                group.members.some(member=>member.id===user.id)?
+                                <button style={{  margin: '10px'}} className="button common-theme-btn1" onClick={(e)=>handleLeaveGroup(e,group.id)}>Leave</button>
+                                :        
+                                <button style={{  margin: '10px'}} className="button common-theme-btn1" onClick={(e)=>handleJoinGroup(e,group.id)}>Join</button>}
                             </div>
                         </li>
                 )}

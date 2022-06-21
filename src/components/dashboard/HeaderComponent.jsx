@@ -5,8 +5,11 @@ import AuthService from '../../services/auth.services';
 function HeaderComponent() {
   let history = useHistory();
 
-  const handleLogout = () => {
-    AuthService.logout()
+  const handleLogout = async () => {
+    await AuthService.logout()
+    
+    // localStorage.removeItem('ph')
+
     history.push("/")
   }
 
