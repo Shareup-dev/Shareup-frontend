@@ -17,7 +17,6 @@ import ShareService from "../../services/ShareService";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import Form from "react-bootstrap/Form";
 import moment from "moment";
@@ -32,6 +31,10 @@ import ReactionsListComponent from "./ReactionsListComponent";
 import  { handleSendNotification } from "../dashboard/ShareupInsideHeaderComponent";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+
+import Lightbox from "react-awesome-lightbox";
+// You need to import the CSS only once
+import "react-awesome-lightbox/build/style.css";
 const my_url = `${storage.baseUrl}`;
 
 export default function PostComponent({ post, setRefresh , commentChangedFunction}) {
@@ -1555,7 +1558,6 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   post.media.map((postImage) => (
                     <React.Fragment>
                       <img
-                        
                         src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         className="lightbox-popup post-display-img"
@@ -1563,17 +1565,16 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
-                          onCloseRequest={() => setIsopen(false)}
+                          image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                         />
                       )}
                     </React.Fragment>
                   ))
                 ) : post.allPostsType === "swap" && post.media ? (
                   post.media.map((postImage) => (
-                    <div className="swappost-main-div">
-                      {/* <Popup */}
-                      {/* trigger={ */}
+                    <div >
                       <img
                         style={
                           post.userdata.id == user.id
@@ -1582,12 +1583,14 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                         }
                         src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        className="lightbox-popup Lightbox-display-img"
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
-                          onCloseRequest={() => setIsopen(false)}
+                           image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                         />
                       )}
                       {/* {post.userdata.id !== user.id && (
@@ -1776,7 +1779,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                   ))
                 ) : post.allPostsType === "hangShare" && post.media ? (
                   post.media.map((postImage) => (
-                    <div className="swappost-main-div">
+                    <div >
                       <img
                         style={
                           post.userdata.id == user.id
@@ -1785,12 +1788,15 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                         }
                         src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                         alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                        className="lightbox-popup Lightbox-display-img"
+
                         onClick={() => setIsopen(true)}
                       />
                       {isOpen && (
                         <Lightbox
-                          mainSrc={fileStorage.baseUrl + postImage.mediaPath}
-                          onCloseRequest={() => setIsopen(false)}
+                          image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                         />
                       )}
                       <div className="swappost-cont">
@@ -1988,7 +1994,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
 
               {post.allPostsType === "share" ? (
                 post.post.id !== null ? (
-                  <div className="postShared">
+                  <div className="postSharedCopm">
                     <div
                       className="friend-name"
                       style={{
@@ -2155,7 +2161,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                                 }}
                                 src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                                 alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                                className="lightbox-popup"
+                                className="lightbox-popup Lightbox-display-img"
                                 onClick={() => openLightbox(index)}
                               />
                             </React.Fragment>
@@ -2199,27 +2205,23 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                       post.post.media.map((postImage) => (
                         <React.Fragment>
                           <img
-                            style={{ width: "100%", objectFit: "cover" }}
                             src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                             alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
-                            className="lightbox-popup"
+                            className="lightbox-popup post-display-img"
                             onClick={() => setIsopen(true)}
                           />
                           {isOpen && (
                             <Lightbox
-                              mainSrc={
-                                fileStorage.baseUrl + postImage.mediaPath
-                              }
-                              onCloseRequest={() => setIsopen(false)}
+                          image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                             />
                           )}
                         </React.Fragment>
                       ))
                     ) : post.post.allPostsType === "swap" && post.post.media ? (
                       post.post.media.map((postImage) => (
-                        <div className="swappost-main-div">
-                          {/* <Popup */}
-                          {/* trigger={ */}
+                        <div >
                           <img
                             style={
                               post.userdata.id == user.id
@@ -2228,14 +2230,14 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                             }
                             src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                             alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            className="lightbox-popup Lightbox-display-img"
                             onClick={() => setIsopen(true)}
                           />
                           {isOpen && (
                             <Lightbox
-                              mainSrc={
-                                fileStorage.baseUrl + postImage.mediaPath
-                              }
-                              onCloseRequest={() => setIsopen(false)}
+                              image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                             />
                           )}
                           {post.post.userdata.id !== user.id && (
@@ -2456,7 +2458,7 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                     ) : post.post.allPostsType === "hangShare" &&
                       post.post.media ? (
                       post.post.media.map((postImage) => (
-                        <div className="swappost-main-div">
+                        <div>
                           {/* <Popup */}
                           {/* trigger={ */}
                           <img
@@ -2467,14 +2469,14 @@ export default function PostComponent({ post, setRefresh , commentChangedFunctio
                             }
                             src={`${fileStorage.baseUrl}${postImage.mediaPath}`}
                             alt={`${fileStorage.baseUrl}${postImage.mediaPath}`}
+                            className="lightbox-popup Lightbox-display-img"
                             onClick={() => setIsopen(true)}
                           />
                           {isOpen && (
                             <Lightbox
-                              mainSrc={
-                                fileStorage.baseUrl + postImage.mediaPath
-                              }
-                              onCloseRequest={() => setIsopen(false)}
+                              image={fileStorage.baseUrl + postImage.mediaPath}
+                          buttonAlign="center"
+                          onClose={() => setIsopen(false)}
                             />
                           )}
                           <div className="swappost-cont">

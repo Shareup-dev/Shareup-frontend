@@ -58,10 +58,10 @@ export default function ReelWidgetComponent(props) {
     formData.append(`reelfiles`, filesReel);
     formData.append(`thumbnail`, filesReel);
 
-   return ReelsServices.createReels(user.id, formData).then((res) => {
+    return ReelsServices.createReels(user.id, formData).then((res) => {
       handleRemoveReelVideo();
       setReels(res.data);
-      setReelContent("")
+      setReelContent("");
       setRefresh(res.data);
       setDisable(false);
     });
@@ -112,12 +112,11 @@ export default function ReelWidgetComponent(props) {
     setReelContent(event.target.value);
   };
   const likeReel = async (reelId) => {
-    let params = {}
+    let params = {};
     await ReelsServices.likeReel(user.id, reelId, params).then((res) => {
-      getReelForUserFriends()
-
-    })
-  }
+      getReelForUserFriends();
+    });
+  };
   const handleRemoveReelVideo = () => {
     setFilesReel({});
     setShowReelVideo(false);
@@ -182,7 +181,7 @@ export default function ReelWidgetComponent(props) {
             </div>
           )}
           <div className="d-flex justify-content-between pl-15 pr-15 pt-10 pb-10">
-            <Popup trigger={<div className="add-reel"> Add Reel</div>} modal>
+            <Popup trigger={<div className="add-reel"> <div onClick={handleRemoveReelVideo}> Add Reel</div></div>} modal>
               {(close) => (
                 <Form className="popwidth">
                   <div className="headpop">
@@ -253,32 +252,30 @@ export default function ReelWidgetComponent(props) {
                     </button>
                   ) : (
                     <>
-                     {ShowReelVideo ? (
-                    <button className="popsbmt-btn" 
-                    onClick={ (e) =>{                 
-                      uploadReels(e).finally(_=> {
-                  close()
-                })
-              }} 
-                    >
-                      SHARE REEL
-                    </button>
-                    ) : (
-                      <button type="button" disabled className="popsbmt-btn " >
-                      SHARE REEL
-                    </button>
+                      {ShowReelVideo ? (
+                        <button
+                          className="popsbmt-btn"
+                          onClick={(e) => {
+                            uploadReels(e).finally((_) => {
+                              close();
+                            });
+                          }}
+                        >
+                          SHARE REEL
+                        </button>
+                      ) : (
+                        <button type="button" disabled className="popsbmt-btn ">
+                          SHARE REEL
+                        </button>
                       )}
-                      </>
+                    </>
                   )}
                 </Form>
               )}
             </Popup>
 
             <div className="add-reel">
-              <a
-                href="/reelFeed"
-                style={{ color: "white" }}
-              >
+              <a href="/reelFeed" style={{ color: "white" }}>
                 {" "}
                 Explore Reels{" "}
               </a>
@@ -287,6 +284,5 @@ export default function ReelWidgetComponent(props) {
         </div>
       </div>
     </div>
-
-  )
+  );
 }

@@ -31,6 +31,7 @@
     "multiselect-react-dropdown": "^2.0.17",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
+    "react-awesome-lightbox": "^1.8.1",
     "react-bootstrap": "^1.5.2",
     "react-copy-to-clipboard": "^5.1.0",
     "react-country-region-selector": "^3.4.0",

@@ -241,17 +241,8 @@ function NewsfeedComponent() {
   const getPostForUser = async () => {
     await NewsFeedService.getFeed(AuthService.getCurrentUser().username).then(
       (res) => {
-        const sorting = res.data.sort(function (a, b) {
-          let dateA = new Date(a.published),
-            dateB = new Date(b.published);
-          return dateB - dateA;
-        });
-        const uniquePost = Array.from(new Set(sorting.map((a) => a.id))).map(
-          (id) => {
-            return res.data.find((a) => a.id === id);
-          }
-        );
-        setPostsForUser(uniquePost);
+
+        setPostsForUser(res.data);
       }
     );
   };
@@ -1380,6 +1371,8 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: "pointer" }}>
+                    <div onClick={handleRemoveImageSwap} >
+
             <span style={{ marginRight: "5px", padding: "5px" }}>
               <img
                 style={{ verticalAlign: "middle", width: "30px" }}
@@ -1388,6 +1381,7 @@ function NewsfeedComponent() {
               />
             </span>
             Swap
+            </div>
           </span>
         }
         modal
@@ -1502,12 +1496,14 @@ function NewsfeedComponent() {
                     <div style={{ position: "relative" }}>
                       {swapImage.map((item, key) => (
                         <img
+                          className="post-display-img"
                           src={item}
                           key={key}
                           style={{
                             padding: "10px",
                             display: "inline-block",
                             verticalAlign: "middle",
+                            borderRadius: "20px 20px 20px 20px"
                           }}
                         />
                       ))}
@@ -1562,6 +1558,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: "pointer" }}>
+          <div onClick={handleRemoveImage} >
             <span style={{ marginRight: "5px", padding: "5px" }}>
               <img
                 style={{ verticalAlign: "middle", width: "20 px" }}
@@ -1569,7 +1566,7 @@ function NewsfeedComponent() {
                 alt="img"
               />
             </span>
-            Hang Share
+            Hang Share</div>
           </span>
         }
         modal
@@ -1685,9 +1682,10 @@ function NewsfeedComponent() {
                 {showPostImage ? (
                   <>
                     <img
+                      className="post-display-img"
                       id="preview"
                       src={postImage}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%",padding:"10px 10px 10px 10px",borderRadius: "20px 20px 15px 15px" }}
                     />
                     <button
                       onClick={handleRemoveImage}
@@ -1743,9 +1741,11 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <div className="textbox">
+          <div onClick={handleRemoveImage} >
             <span style={{ cursor: "pointer", padding: "5px" }}>
               We share,do you?
             </span>
+            </div>
           </div>
         }
         modal
@@ -1871,13 +1871,14 @@ function NewsfeedComponent() {
                           >
                             {postImage.map((item, key) => (
                               <img
+                                className="post-display-img"                        
                                 src={item}
                                 key={key}
                                 style={{
                                   display: "inline-block",
                                   verticalAlign: "middle",
-                                  borderRadius: "10px",
-                                  paddingBottom: "10px !important",
+                                  borderRadius: "20px 20px 20px 20px",
+                                  padding:"5px",
                                 }}
                               />
                             ))}
@@ -1885,14 +1886,13 @@ function NewsfeedComponent() {
                         ) : (
                           postImage.length == 1 && (
                             <img
+                            className="post-display-img"
                               src={postImage[0]}
                               style={{
                                 display: "inline-block",
-                                verticalAlign: "middle",
-                                borderRadius: "10px",
-                                width: "100%",
-                                maxHeight: "450px",
-                                marginBottom: "10px!important",
+                                  verticalAlign: "middle",
+                                  borderRadius: "20px 20px 20px 20px",
+                                  padding:"5px",
                               }}
                             />
                           )
@@ -1952,6 +1952,7 @@ function NewsfeedComponent() {
       <Popup
         trigger={
           <span style={{ cursor: "pointer" }}>
+          <div onClick={handleRemoveImage}>
             <span style={{ marginRight: "5px", padding: "5px" }}>
               <img
                 style={{ verticalAlign: "middle", width: "30px" }}
@@ -1960,6 +1961,7 @@ function NewsfeedComponent() {
               />
             </span>
             Share Up
+          </div>
           </span>
         }
         modal
@@ -2061,9 +2063,16 @@ function NewsfeedComponent() {
                 {showPostImage ? (
                   <>
                     <img
+                    className="post-display-img"
                       id="preview"
                       src={postImage}
-                      style={{ width: "100%" }}
+                      style={{ 
+                        display: "inline-block",
+                                  verticalAlign: "middle",
+                                  borderRadius: "20px 20px 20px 20px",
+                                  padding:"10px 10px 10px 10px",
+
+                      }}
                     />
                     <button
                       onClick={handleRemoveImage}
@@ -2124,7 +2133,7 @@ function NewsfeedComponent() {
                   src="assets/images/photo-icon3.png"
                 />
               </span>
-              <span>Photos</span>
+              <span onClick={handleRemoveImage}>Photos</span>
             </span>
           }
           modal
@@ -2243,13 +2252,15 @@ function NewsfeedComponent() {
                             >
                               {postImage.map((item, key) => (
                                 <img
+                                className="post-display-img"
                                   src={item}
                                   key={key}
                                   style={{
                                     display: "inline-block",
-                                    verticalAlign: "middle",
-                                    borderRadius: "10px",
-                                    paddingBottom: "10px !important",
+                                  verticalAlign: "middle",
+                                  borderRadius: "15px",
+                                  padding:"5px",
+                                  marginBottom: "5px!important",
                                   }}
                                 />
                               ))}
@@ -2257,12 +2268,14 @@ function NewsfeedComponent() {
                           ) : (
                             postImage.length == 1 && (
                               <img
+                              className="post-display-img"
                                 src={postImage[0]}
                                 style={{
                                   display: "inline-block",
                                   verticalAlign: "middle",
-                                  borderRadius: "10px",
-                                  marginBottom: "10px!important",
+                                  borderRadius: "15px",
+                                  padding:"5px",
+                                  marginBottom: "5px!important",
                                 }}
                               />
                             )
@@ -2647,6 +2660,8 @@ function NewsfeedComponent() {
   const show = () => {
     return (
       <div className="">
+      {Array.isArray(postsForUser) && postsForUser.length > 0 ? (
+        <>
         {postsForUser.map((post, index) => (
           <div key={post.id}>
             {post.group ? (
@@ -2792,7 +2807,7 @@ function NewsfeedComponent() {
                       </div>
                       <div className="d-flex justify-content-between pt-10 ">
                         <Popup
-                          trigger={<div className="add-reel"> Add Reel</div>}
+                          trigger={<div className="add-reel"><div onClick={handleRemoveReelVideo}> Add Reel </div></div>}
                           modal
                         >
                           {(close) => (
@@ -2903,6 +2918,8 @@ function NewsfeedComponent() {
             )}
           </div>
         ))}
+        </> 
+         ):null}
       </div>
     );
   };
@@ -3048,12 +3065,14 @@ function NewsfeedComponent() {
                     />
                   </div>
                   <Popup
-                    trigger={<div className="add-stry"> +</div>}
+                    trigger={<div className="add-stry"
+                    ><div onClick={handleRemoveImageStry}>+</div></div>}
                     modal
                     className="addStory-popup"
                   >
                     {(close) => (
-                      <Form className="popwidth">
+                      <Form 
+                      className="popwidth">
                         <div className="headpop">
                           <span>
                             <a href="#!" onClick={close}>
@@ -3113,9 +3132,14 @@ function NewsfeedComponent() {
                                 {showStoryButton ? (
                                   <>
                                     <img
+                                      className="post-display-img"
                                       id="preview"
                                       src={storiesImage}
-                                      style={{ width: "100%" }}
+                                      style={{ display: "inline-block",
+                                  verticalAlign: "middle",
+                                  borderRadius: "15px",
+                                  padding:"5px",
+                                  marginBottom: "5px!important", }}
                                     />
                                     <button
                                       onClick={handleRemoveImageStry}
