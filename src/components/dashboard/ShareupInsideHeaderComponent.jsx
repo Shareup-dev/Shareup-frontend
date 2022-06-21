@@ -350,7 +350,7 @@ function ShareupInsideHeaderComponent() {
                     )}
                   </ul>
 
-                  <a href="/notifications" title="notif" className="more-mesg">view more</a>
+                  <a href="/notificationsFeed" title="notif" className="more-mesg">view more77</a>
                 </div>
               </div>
             </li>

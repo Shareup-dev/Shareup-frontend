@@ -32,25 +32,18 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 import NewsfeedComponent, { hangsharePopUp } from "../user/NewsfeedComponent";
 import PostService from "../../services/PostService";
+import NewNotificationService from "../../services/NewNotificationService";
 
 function NotificationFeedComponent() {
-  const [isLoading, setIsLoading] = useState(true);
 
   let history = useHistory();
   const my_url = `${storage.baseUrl}`;
 
   const { user } = useContext(UserContext);
-  const [showComp, setShowComp] = useState("Notification");
   const [refresh, setRefresh] = useState(null);
-  const [stories, setStories] = useState([]);
-  const [group, setGroup] = useState([]);
-  const [editPostId, setEditPostId] = useState(null);
-  const [allUser, setAllUser] = useState([]);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
   const [Notification, setNotification] = useState([]);
   const [notification, Setnotification] = useState([]);
-  const [hangMeals, SetHangMeals] = useState([]);
-  const [hangGifts, SetHangGifts] = useState([]);
+  const [dbNotifications, setDbNotifications] = useState([]);
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -67,6 +60,26 @@ function NotificationFeedComponent() {
     maxHeight: "100%",
   });
 
+  const handlegetNotifications = async () => {
+    await NewNotificationService.getNotifications(AuthService.getCurrentUser().username).then(res => {
+      setDbNotifications(res.data)
+      // setUnreadCounter(0)
+      // let user_unread_notification = 0;
+      // res.data.map(notification => {
+      //   if (notification.readFlag === true) {
+
+      //   } else {
+
+      //     user_unread_notification = user_unread_notification + 1;
+      //   }
+      // })
+      // setUnreadCounter(prevUnreadCounter => prevUnreadCounter + user_unread_notification)
+    })
+    // updateUnopendCounter(AuthService.getCurrentUser().username, 0);
+    // setTotal(0);
+
+  };
+  
   
   const getNotification = async () => {
     await PostService.getPost(
@@ -77,21 +90,16 @@ function NotificationFeedComponent() {
     });
   };
 
-  const getAllUser = async () => {
-    await UserService.getUsers().then((res) => {
-      setAllUser(res.data);
-    });
-  };
 
   useEffect(() => {
-    getAllUser();
     getNotification();
+    handlegetNotifications();
     testScript();
   }, []);
 
   useEffect(() => {
     testScript();
-  }, [editPostId, refresh]);
+  }, [refresh]);
 
   if (user?.newUser) {
     return <GuideComponent />;
@@ -111,8 +119,8 @@ function NotificationFeedComponent() {
             </div>
             <div className="navContent"></div>
             <div className="loadMore p-5">
-              {notification && notification.length > 0 ? (
-                notification.map((post) => (
+              {dbNotifications && dbNotifications.length > 0 ? (
+                dbNotifications.map((post) => (
                   <div style={{ paddingBottom: "10px" }} key={post.id}>
                       <>
                         <Paper
@@ -152,14 +160,14 @@ function NotificationFeedComponent() {
                                     variant="body2"
                                     color="text.secondary"
                                   >
-                                    {post.userdata.firstName +" " +post.userdata.lastName +" "+ "comment on your post"}
+                                    {post.userdata.firstName +" " +post.userdata.lastName +" "+ post.content}
                                   </Typography>
                                   <Typography
                                     variant="body2"
                                     color="navy"
                                   >
                                     {moment(
-                              post.published,
+                              post.notificationDate,
                               "DD MMMM YYYY hh:mm:ss"
                             ).fromNow()}
                                   </Typography>
