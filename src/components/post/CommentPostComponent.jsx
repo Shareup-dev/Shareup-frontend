@@ -507,6 +507,7 @@ export default function CommentPostComponent(props) {
           </div>
           {activeCommentId === comment.id ? (
             <ReplyCommentComponent
+              post={props.post}
               comment={comment}
               showReplyInput={replyCommentFlag}
               replyListFlag={replyListShowFlag}
