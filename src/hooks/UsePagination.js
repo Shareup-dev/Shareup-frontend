@@ -6,7 +6,7 @@ const usePagination = (
   paginationService
 ) => {
   const [loading, setLoading] = useState(false);
-  const [pageNo, setPageNo] = useState(initPageNumber);
+  const [pageNo, setPageNo] = useState(initPageNumber?initPageNumber:0);
   const [endReached, setEndReached] = useState(false);
   const [data, setData] = useState([]);
 
@@ -34,6 +34,10 @@ const usePagination = (
     };
     fetchData();
   },[pageNo,endReached]);
+
+  useEffect (()=>{
+
+  });
 
   const onBeforeReachEnd = () => {
     // console.log(pageNo,endReached,'before')

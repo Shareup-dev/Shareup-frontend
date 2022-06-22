@@ -172,6 +172,7 @@ export default function PostComponent(props ) {
   const handleDeletePost = (post) => {
     PostService.deleteAllPost(post.id).then((res) => {
       setRefresh(res.data);
+      props.handleDeletePost(post.id)
     });
   };
   const commentChangedFunction = (props) => {

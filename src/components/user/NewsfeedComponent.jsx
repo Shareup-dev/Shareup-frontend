@@ -142,6 +142,8 @@ function NewsfeedComponent() {
       }
     }
   },[refreshing,data])
+ 
+
   // const [cursorPosition, setCursorPosition] = useState();
   // const pickEmoji = (e, {emoji}) => {
   //   const ref = inputRef.current;
@@ -407,10 +409,13 @@ function NewsfeedComponent() {
     setHangshareContent(event.target.value);
   };
   const handleDeletePost = (postid) => {
-    PostService.deletePost(postid).then((res) => {
-      setRefresh(res.data);
-      // window.location.reload();
-    });
+    // PostService.deletePost(postid).then((res) => {
+    //   setRefresh(res.data);
+    //   // window.location.reload();
+    // });
+    const index = postsForUser.indexOf(postid);
+    const posts = postsForUser.splice(index,1);
+    setPostsForUser(posts)
   };
 
   const handleCommentContent = (event) => {
@@ -2642,6 +2647,7 @@ function NewsfeedComponent() {
                       setRefresh={setRefresh}
                       user={user}
                       userF={userF}
+                      handleDeletePost = {handleDeletePost}
                     />
                     {index === 3 && rellsForUserFriends && rellsForUserFriends.length > 0 ? (
                       <div className="central-meta newsfeed reels-cont">
@@ -2706,6 +2712,7 @@ function NewsfeedComponent() {
                       setRefresh={setRefresh}
                       user={user}
                       userF={userF}
+                      handleDeletePost={handleDeletePost}
                   />
                   {index === 3 ? (
                     <div className="central-meta newsfeed reels-cont">
