@@ -41,8 +41,6 @@ function NotificationFeedComponent() {
 
   const { user } = useContext(UserContext);
   const [refresh, setRefresh] = useState(null);
-  const [Notification, setNotification] = useState([]);
-  const [notification, Setnotification] = useState([]);
   const [dbNotifications, setDbNotifications] = useState([]);
   const [value, setValue] = React.useState("1");
 
@@ -80,19 +78,7 @@ function NotificationFeedComponent() {
 
   };
   
-  
-  const getNotification = async () => {
-    await PostService.getPost(
-      AuthService.getCurrentUser().username
-    ).then((res) => {
-      setNotification(res.data);
-      Setnotification(res.data);
-    });
-  };
-
-
   useEffect(() => {
-    getNotification();
     handlegetNotifications();
     testScript();
   }, []);
@@ -158,17 +144,22 @@ function NotificationFeedComponent() {
                                 <Grid item xs>
                                   <Typography
                                     variant="body2"
+                                    color="blue"
+                                  >
+                                    {post.userdata.firstName +" " +post.userdata.lastName}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
                                     color="text.secondary"
                                   >
-                                    {post.userdata.firstName +" " +post.userdata.lastName +" "+ post.content}
+                                    {post.content}
                                   </Typography>
                                   <Typography
                                     variant="body2"
                                     color="navy"
                                   >
                                     {moment(
-                              post.notificationDate,
-                              "DD MMMM YYYY hh:mm:ss"
+                              post.notificationDate
                             ).fromNow()}
                                   </Typography>
                                 </Grid>

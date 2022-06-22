@@ -732,9 +732,9 @@ const AllswapscomponentFunction = () => {
 		}
 		}
 
-  if (user.newUser) {
-    return <GuideComponent />
-  }
+  // if (user.newUser) {
+  //   return <GuideComponent />
+  // }
 
   return (
     <Layout user={user}>

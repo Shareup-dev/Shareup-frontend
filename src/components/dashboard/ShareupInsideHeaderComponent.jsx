@@ -320,7 +320,7 @@ function ShareupInsideHeaderComponent() {
                 {total ? (<div className="counternotification">
                   <span style={{ color: 'white' }}>{total}</span>
                 </div>) : ('')}
-                <a href="#" title="Notification" data-ripple>
+                <a  title="Notification" data-ripple>
                   <i className="ti-bell" />
                 </a>
                 <div className="dropdowns">
@@ -357,7 +357,7 @@ function ShareupInsideHeaderComponent() {
             <li>
               <div className="mssg">
 
-                <a href="#" title="Messages" data-ripple><i className="ti-comment" /> </a>
+                <a  title="Messages" data-ripple><i className="ti-comment" /> </a>
                 <div className="counternotification"><span style={{ color: 'white' }}>12</span></div>
                 <div className="dropdownsmsg">
                   <span>5 New Messages</span>
